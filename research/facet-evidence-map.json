@@ -1,0 +1,3996 @@
+[
+  {
+    "facetId": "sincerity",
+    "domainId": "core_personality",
+    "constructId": "honesty_humility",
+    "name_tr": "İçtenlik",
+    "name_en": "Sincerity",
+    "operationalDefinition_tr": "Kişilerarası ilişkilerde manipülasyondan, sahte övgülerden ve dalkavukluktan bilinçli olarak kaçınma eğilimi.",
+    "operationalDefinition_en": "Tendency to be genuine in interpersonal relations, avoiding manipulation, flattery, and deceit.",
+    "observableIndicators": [
+      "Çıkar sağlamak için başkalarına hak etmedikleri övgülerde bulunmaktan kaçınır.",
+      "Kendi düşünce ve niyetlerini dürüstçe ortaya koyar.",
+      "İnsanları yönlendirmek için samimiyetsiz rollere bürünmez."
+    ],
+    "constructBoundary": "Sosyal manipülasyon ve yapmacıklık ile açık ve dürüst iletişim arasındaki çizgiyi belirler. Sosyal nezaket veya diplomasi ile karıştırılmamalıdır.",
+    "whatItMeasures": "Kişilerarası dürüstlük, dalkavukluktan kaçınma, şeffaf iletişim tercihi.",
+    "whatItDoesNotMeasure": "Kaba bir lafını esirgememe, sosyal beceri eksikliği veya nezaketsizlik.",
+    "nearestOverlappingFacets": [
+      "fairness",
+      "authenticity",
+      "assertiveness"
+    ],
+    "discriminantFeatures": "Fairness maddi/hukuki kural ihlallerine odaklanırken, sincerity kişilerarası sahte davranışlara odaklanır.",
+    "expectedCorrelates": [
+      "Düşük Makyavelizm (r = -0.55)",
+      "Yüksek İşbirlikçilik (r = 0.40)"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik kaygısı (aşırı erdemli görünme çabası)"
+    ],
+    "socialDesirabilityRisk": "high",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türk kültüründe nezaket icabı iltifat etme ('idare etme') davranışı yaygındır; madde metinlerinde nezaket ile samimiyetsizlik ayrımı net çizilmelidir.",
+    "recommendedMethods": [
+      "likert",
+      "situational_judgement",
+      "forced_choice",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 14,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 14,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007",
+      "src_goldberg_2006"
+    ],
+    "secondarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP-HEXACO eşdeğer maddeleri kamu malıdır (Public Domain).",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Ashton & Lee (2007) HEXACO faktör yapısının temel facetidir."
+  },
+  {
+    "facetId": "fairness",
+    "domainId": "core_personality",
+    "constructId": "honesty_humility",
+    "name_tr": "Adalet",
+    "name_en": "Fairness",
+    "operationalDefinition_tr": "Hile, yolsuzluk, rüşvet ve kayırmacılıktan uzak durarak kurallara ve hakkaniyete uygun davranma ilkesi.",
+    "operationalDefinition_en": "Tendency to avoid fraud, corruption, bribery, and nepotism, adhering strictly to equity and rules.",
+    "observableIndicators": [
+      "Kişisel kazanç uğruna kuralları esnetmeyi veya hile yapmayı reddeder.",
+      "Fırsat çıksa dahi başkalarının aleyhine haksız avantaj sağlamaz.",
+      "Kaynakları ve sorumlulukları tarafsızca paylaştırır."
+    ],
+    "constructBoundary": "Haksız kazanç ve fırsatçılıktan kaçınmayı ölçer. Yasalara körü körüne itaatten ziyade ahlaki hakkaniyeti temsil eder.",
+    "whatItMeasures": "Hakkaniyet, kural ihlalinden kaçınma, dürüst rekabet anlayışı.",
+    "whatItDoesNotMeasure": "Katı cezalandırıcılık veya bürokratik kuralcılık.",
+    "nearestOverlappingFacets": [
+      "sincerity",
+      "prudence",
+      "values_conservation"
+    ],
+    "discriminantFeatures": "Prudence kendi riskini azaltırken, fairness başkalarının hakkını korumaya yöneliktir.",
+    "expectedCorrelates": [
+      "Düşük Psikopati (r = -0.60)",
+      "Yüksek Kural Uyum (r = 0.45)"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik etkisi"
+    ],
+    "socialDesirabilityRisk": "high",
+    "acquiescenceRisk": "low",
+    "culturalSensitivity": "Akraba/tanıdık kayırma (nepotizm) baskısının yüksek olduğu ortamlarda tarafsızlık ikilemleri senaryolarla test edilmelidir.",
+    "recommendedMethods": [
+      "situational_judgement",
+      "likert",
+      "behavior_frequency"
+    ],
+    "recommendedItemBankSize": 14,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 14,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP Public Domain.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Maddi ve ahlaki adalet vurgusu taşır."
+  },
+  {
+    "facetId": "greed_avoidance",
+    "domainId": "core_personality",
+    "constructId": "honesty_humility",
+    "name_tr": "Açgözlülükten Kaçınma",
+    "name_en": "Greed Avoidance",
+    "operationalDefinition_tr": "Aşırı zenginlik, lüks tüketim ve gösterişli statü sembolleri peşinde koşmama eğilimi.",
+    "operationalDefinition_en": "Tendency to be unmotivated by considerations of social status, excessive wealth, and luxury goods.",
+    "observableIndicators": [
+      "Maddi kazancı ve serveti birincil yaşam amacı olarak görmez.",
+      "Pahalı nesnelerle gösteriş yapmaktan içsel bir rahatsızlık duyar.",
+      "Temel ihtiyaçları karşılandığında maddi hırslara kapılmaz."
+    ],
+    "constructBoundary": "Maddi hırs ve gösteriş tüketiminden kaçınmayı ölçer. Yoksulluk tercihi ya da finansal sorumsuzluk anlamına gelmez.",
+    "whatItMeasures": "Materyalist olmayan tutum, gösteriş karşıtlığı, içsel zenginlik odaklılık.",
+    "whatItDoesNotMeasure": "Finansal planlama yoksunluğu veya mesleki hırs eksikliği.",
+    "nearestOverlappingFacets": [
+      "modesty",
+      "values_self_transcendence"
+    ],
+    "discriminantFeatures": "Modesty sosyal statü algısına odaklanırken, greed avoidance doğrudan maddi kaynak ve mülkiyete odaklanır.",
+    "expectedCorrelates": [
+      "Düşük Materyalizm (r = -0.65)",
+      "Yüksek Yaşam Doyumu (r = 0.35)"
+    ],
+    "knownConfounds": [
+      "Ekonomik gelir seviyesi ve sosyoekonomik arka plan"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "low",
+    "culturalSensitivity": "Sosyoekonomik farklılıklar madde cevaplarını etkileyebilir; lüks tüketim vurgusu zenginlik karşıtlığı ile karıştırılmamalıdır.",
+    "recommendedMethods": [
+      "likert",
+      "forced_choice",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP Public Domain.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "HEXACO modelini Big Five modelinden ayıran temel boyutlardan biridir."
+  },
+  {
+    "facetId": "modesty",
+    "domainId": "core_personality",
+    "constructId": "honesty_humility",
+    "name_tr": "Tevazu",
+    "name_en": "Modesty",
+    "operationalDefinition_tr": "Kendini başkalarından üstün veya özel ayrıcalıklara layık görmeme tutumu.",
+    "operationalDefinition_en": "Tendency to be modest and unassuming, seeing oneself as an ordinary person without special entitlements.",
+    "observableIndicators": [
+      "Başarılarını abartarak anlatmaktan kaçınır.",
+      "Diğer insanlarla eşit hak ve değere sahip olduğu bilinciyle iletişim kurar.",
+      "Özel muamele veya üstünlük beklentisi içinde olmaz."
+    ],
+    "constructBoundary": "Kişinin kendisini diğer insanlarla eşit görmesini ölçer. Düşük özsaygı veya yetersizlik duygusu ile karıştırılmamalıdır.",
+    "whatItMeasures": "Alçakgönüllülük, eşitlikçi benlik algısı, hak görme (entitlement) yoksunluğu.",
+    "whatItDoesNotMeasure": "Özgüven eksikliği, kendini yetersiz hissetme, sahte alçakgönüllülük.",
+    "nearestOverlappingFacets": [
+      "core_self_esteem",
+      "grandiose_narcissism",
+      "sincerity"
+    ],
+    "discriminantFeatures": "Core self-esteem kendi değerini bilmektir; modesty ise başkalarından üstün olmadığını bilmektir. İkisi bağımsızdır.",
+    "expectedCorrelates": [
+      "Düşük Narsisizm (r = -0.58)",
+      "Yüksek Kabul Edilirlik (r = 0.42)"
+    ],
+    "knownConfounds": [
+      "Kültürel tevazu normları (sahte alçakgönüllülük)"
+    ],
+    "socialDesirabilityRisk": "high",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Geleneksel Türk kültüründe tevazu yüksek değer görür; bu nedenle maddeler gerçek davranışsal tercihleri sormalıdır.",
+    "recommendedMethods": [
+      "situational_judgement",
+      "likert",
+      "behavior_frequency"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP Public Domain.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Narsisizm ve kibir ile güçlü negatif korelasyona sahiptir."
+  },
+  {
+    "facetId": "fearfulness",
+    "domainId": "core_personality",
+    "constructId": "emotionality",
+    "name_tr": "Korku Hassasiyeti",
+    "name_en": "Fearfulness",
+    "operationalDefinition_tr": "Fiziksel tehlike, acı veya bedensel zarar içeren durumlara karşı duyarlılık ve kaçınma.",
+    "operationalDefinition_en": "Tendency to experience fear in response to physical danger and bodily injury.",
+    "observableIndicators": [
+      "Fiziksel tehlike içeren sporlardan veya aktivitelerden uzak durur.",
+      "Yaralanma veya acı çekme olasılığı karşısında yüksek tetikte olma sergiler."
+    ],
+    "constructBoundary": "Yalnızca fiziksel tehlike ve bedensel bütünlük tehdidine verilen korku tepkisini ölçer. Sosyal kaygı veya soyut gelecek endişesi dahil değildir.",
+    "whatItMeasures": "Fiziksel riskten kaçınma, bedensel acı korkusu, güvenliğe öncelik verme.",
+    "whatItDoesNotMeasure": "Sosyal fobi, performans kaygısı, genel stres hassasiyeti.",
+    "nearestOverlappingFacets": [
+      "anxiety_proneness",
+      "sensation_seeking",
+      "prudence"
+    ],
+    "discriminantFeatures": "Fearfulness somut fiziksel tehditlere, anxiety_proneness ise belirsiz geleceğe yöneliktir.",
+    "expectedCorrelates": [
+      "Düşük Heyecan Arayışı (r = -0.50)",
+      "Yüksek Risk Kaçınma (r = 0.48)"
+    ],
+    "knownConfounds": [
+      "Geçmiş fiziksel travma veya sağlık sorunları"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "low",
+    "culturalSensitivity": "Fiziksel korku ifadeleri cinsiyet rollerine göre kültürel sansüre uğrayabilir; nötr senaryolar tercih edilmelidir.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "situational_judgement"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP Public Domain.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Evrimsel güvenlik mekanizmasını temsil eder."
+  },
+  {
+    "facetId": "anxiety_proneness",
+    "domainId": "core_personality",
+    "constructId": "emotionality",
+    "name_tr": "Kaygı Eğilimi",
+    "name_en": "Anxiety Proneness",
+    "operationalDefinition_tr": "Gelecekteki belirsizlikler, olası güçlükler ve stresörler karşısında endişelenme eğilimi.",
+    "operationalDefinition_en": "Tendency to experience anxiety and worry in response to anticipated life problems and uncertainties.",
+    "observableIndicators": [
+      "Küçük aksilikler karşısında dahi olası en kötü senaryoları düşünür.",
+      "Beklenmeyen durumlarda zihinsel gerginlik yaşar."
+    ],
+    "constructBoundary": "Bilişsel endişe ve genel zihinsel gerginliği ölçer. Klinik yaygın anksiyete bozukluğu tanısı değildir.",
+    "whatItMeasures": "Zihinsel kuruntu, gelecek endişesi, aksiliklere aşırı duyarlılık.",
+    "whatItDoesNotMeasure": "Panik atak, klinik fobi, somatik ağrılar.",
+    "nearestOverlappingFacets": [
+      "fearfulness",
+      "intolerance_of_uncertainty",
+      "rumination_brooding"
+    ],
+    "discriminantFeatures": "Anxiety proneness genel stres reaksiyonudur; rumination_brooding ise geçmiş hataları takıntı yapmaktır.",
+    "expectedCorrelates": [
+      "Yüksek Belirsizlik Tahammülsüzlüğü (r = 0.55)",
+      "Düşük Duygusal İyileşme (r = -0.45)"
+    ],
+    "knownConfounds": [
+      "Dönemsel akut yaşam krizleri"
+    ],
+    "socialDesirabilityRisk": "low",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Maddeler patolojik semptomlardan arındırılmalı, günlük stres deneyimine odaklanmalıdır.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 14,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 14,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007",
+      "src_watson_clark_1988"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP Public Domain.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Duygusallık faktörünün çekirdek bilişsel bileşenidir."
+  },
+  {
+    "facetId": "dependence",
+    "domainId": "core_personality",
+    "constructId": "emotionality",
+    "name_tr": "Duygusal Destek İhtiyacı",
+    "name_en": "Dependence",
+    "operationalDefinition_tr": "Güçlükler ve kararlar karşısında başkalarından duygusal destek, cesaretlendirme ve rehberlik arama eğilimi.",
+    "operationalDefinition_en": "Tendency to seek emotional support, advice, and reassurance from others when facing difficulties.",
+    "observableIndicators": [
+      "Zor kararlar alırken yakınlarının onayına ve tavsiyesine ihtiyaç duyar.",
+      "Duygusal sıkıntı yaşadığında tek başına kalmak yerine paylaşmayı tercih eder."
+    ],
+    "constructBoundary": "İlişkisel başa çıkma ve onay arayışını ölçer. Bağımlı kişilik bozukluğu veya patolojik acizlik ile karıştırılmamalıdır.",
+    "whatItMeasures": "Sosyal destek arama, duygusal paylaşım ihtiyacı, yakın çevrenin fikirlerine değer verme.",
+    "whatItDoesNotMeasure": "Kişilik bozukluğu düzeyinde çaresizlik, karar alamama patolojisi.",
+    "nearestOverlappingFacets": [
+      "attachment_anxiety",
+      "social_approval_dependence",
+      "sentimentality"
+    ],
+    "discriminantFeatures": "Dependence destek arayışıyken, social_approval_dependence benlik değerini tamamen başkalarının beğenisine bağlamaktır.",
+    "expectedCorrelates": [
+      "Yüksek İlişkilenme İhtiyacı (r = 0.45)",
+      "Yüksek Bağlanma Kaygısı (r = 0.35)"
+    ],
+    "knownConfounds": [
+      "Sosyal desteğin objektif mevcudiyeti"
+    ],
+    "socialDesirabilityRisk": "low",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türk kültüründe istişare ve aileye danışma doğal ve olumlu karşılanır; madde dili bağımlılığı acizlik gibi yansıtmamalıdır.",
+    "recommendedMethods": [
+      "likert",
+      "contextual",
+      "situational_judgement"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_ashton_lee_2007",
+      "src_kagitcibasi_2005_self"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP Public Domain.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Kültürel bağlamda özerk-ilişkisel benlik yapısıyla yakından ilgilidir."
+  },
+  {
+    "facetId": "sentimentality",
+    "domainId": "core_personality",
+    "constructId": "emotionality",
+    "name_tr": "Duygusal Bağlılık ve Hassasiyet",
+    "name_en": "Sentimentality",
+    "operationalDefinition_tr": "Güçlü duygusal bağlar kurma, ayrılıklarda hüzünlenme ve başkalarının acısına karşı içten duyarlılık gösterme eğilimi.",
+    "operationalDefinition_en": "Tendency to feel strong emotional bonds with others and to experience deep sympathy and grief at partings.",
+    "observableIndicators": [
+      "Yakın birinden ayrılırken veya veda ederken yoğun hüzün yaşar.",
+      "Duygusal filmlerden, anılardan veya hikayelerden derinden etkilenir."
+    ],
+    "constructBoundary": "Derin duygulanım kapasitesi ve kişilerarası bağ hissiyatını ölçer. Bilişsel empati ya da zayıflık değildir.",
+    "whatItMeasures": "İçten duygulanma, nostalji, ayrılık hüznü, şefkatli hassasiyet.",
+    "whatItDoesNotMeasure": "Aşırı alınganlık, duygusal dengesizlik (neuroticism).",
+    "nearestOverlappingFacets": [
+      "empathic_concern",
+      "dependence"
+    ],
+    "discriminantFeatures": "Empathic concern başkasına yardım etme güdüsüyken, sentimentality duygusal bağ ve veda hüznü odaklıdır.",
+    "expectedCorrelates": [
+      "Yüksek Empatik İlgi (r = 0.52)",
+      "Yüksek Sanat Duyarlılığı (r = 0.30)"
+    ],
+    "knownConfounds": [
+      "Ruh hali dalgalanmaları"
+    ],
+    "socialDesirabilityRisk": "low",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Duygusal sıcaklık ve vefa Türk toplumunda erdem kabul edilir; doğal ifadeler kullanılmalıdır.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "IPIP Public Domain.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "HEXACO Emotionality faktörünün kişilerarası sıcaklık boyutudur."
+  },
+  {
+    "facetId": "social_self_esteem",
+    "domainId": "core_personality",
+    "constructId": "extraversion",
+    "name_tr": "Sosyal Özsaygı",
+    "name_en": "Social Self-Esteem",
+    "operationalDefinition_tr": "Sosyal ortamlarda kendini rahat, kabul görmüş ve değerli hissetme eğilimi.",
+    "operationalDefinition_en": "Operationalization of Social Self-Esteem within Extraversion (Dışadönüklük).",
+    "observableIndicators": [
+      "Yeni insanlarla tanışırken kendini yetersiz veya dışlanmış hissetmez.",
+      "Sosyal ortamlarda kendinden emin ve rahat davranır."
+    ],
+    "constructBoundary": "Bu yapı Sosyal Özsaygı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sosyal Özsaygı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "social_boldness",
+    "domainId": "core_personality",
+    "constructId": "extraversion",
+    "name_tr": "Sosyal Cesaret / Liderlik",
+    "name_en": "Social Boldness",
+    "operationalDefinition_tr": "Grup içinde söz alma, topluluk önünde konuşma ve yönlendirici rol üstlenme rahatlığı.",
+    "operationalDefinition_en": "Operationalization of Social Boldness within Extraversion (Dışadönüklük).",
+    "observableIndicators": [
+      "Toplantılarda veya kalabalıklarda söz almaktan çekinmez.",
+      "Sosyal inisiyatif ve liderlik gereken anlarda öne çıkar."
+    ],
+    "constructBoundary": "Bu yapı Sosyal Cesaret / Liderlik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sosyal Cesaret / Liderlik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "sociability",
+    "domainId": "core_personality",
+    "constructId": "extraversion",
+    "name_tr": "Sosyallik",
+    "name_en": "Sociability",
+    "operationalDefinition_tr": "İnsanlarla bir arada bulunmaktan ve grup etkileşimlerinden keyif alma eğilimi.",
+    "operationalDefinition_en": "Operationalization of Sociability within Extraversion (Dışadönüklük).",
+    "observableIndicators": [
+      "Boş zamanlarını kalabalık sosyal etkinliklerde geçirmeyi tercih eder.",
+      "Yalnız kalmaktansa diğer insanlarla sohbet etmeyi arar."
+    ],
+    "constructBoundary": "Bu yapı Sosyallik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sosyallik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "liveliness",
+    "domainId": "core_personality",
+    "constructId": "extraversion",
+    "name_tr": "Canlılık ve İyimser Coşku",
+    "name_en": "Liveliness",
+    "operationalDefinition_tr": "Genel yaşam enerjisi, neşe, heves ve pozitif duygulanım aktarımı.",
+    "operationalDefinition_en": "Operationalization of Liveliness within Extraversion (Dışadönüklük).",
+    "observableIndicators": [
+      "Güne enerjik ve iyimser bir ruh haliyle başlama eğilimindedir.",
+      "Çevresindekilere neşe ve coşku bulaştırır."
+    ],
+    "constructBoundary": "Bu yapı Canlılık ve İyimser Coşku eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Canlılık ve İyimser Coşku ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "forgiveness",
+    "domainId": "core_personality",
+    "constructId": "agreeableness",
+    "name_tr": "Bağışlayıcılık",
+    "name_en": "Forgiveness",
+    "operationalDefinition_tr": "Haksızlık yapanlara karşı kin tutmama ve affetmeye açık olma eğilimi.",
+    "operationalDefinition_en": "Operationalization of Forgiveness within Agreeableness (Geçimlilik / Hoşgörü).",
+    "observableIndicators": [
+      "Kendisine yapılan hataların ardından uzun süre düşmanlık beslemez.",
+      "İçtenlikle özür dilendiğinde ilişkiyi onarmaya isteklidir."
+    ],
+    "constructBoundary": "Bu yapı Bağışlayıcılık eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bağışlayıcılık ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "gentleness",
+    "domainId": "core_personality",
+    "constructId": "agreeableness",
+    "name_tr": "Yumuşak Başlılık",
+    "name_en": "Gentleness",
+    "operationalDefinition_tr": "İletişimde sertlik ve kabalıktan kaçınma, yapıcı ve nazik olma tutumu.",
+    "operationalDefinition_en": "Operationalization of Gentleness within Agreeableness (Geçimlilik / Hoşgörü).",
+    "observableIndicators": [
+      "Fikir ayrılıklarında bile kırıcı ve saldırgan bir üslup kullanmaz.",
+      "Başkalarını eleştirirken nazik ve incitmeyen kelimeler seçer."
+    ],
+    "constructBoundary": "Bu yapı Yumuşak Başlılık eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Yumuşak Başlılık ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "flexibility",
+    "domainId": "core_personality",
+    "constructId": "agreeableness",
+    "name_tr": "Uzlaşmacılık",
+    "name_en": "Flexibility",
+    "operationalDefinition_tr": "Ortak kararlarda inatçılık yapmama, başkalarının görüşlerine uyum sağlama esnekliği.",
+    "operationalDefinition_en": "Operationalization of Flexibility within Agreeableness (Geçimlilik / Hoşgörü).",
+    "observableIndicators": [
+      "Kendi dediğinde körü körüne ısrar etmez, taviz vermeye açıktır.",
+      "Grup huzuru için esneyebilme olgunluğu gösterir."
+    ],
+    "constructBoundary": "Bu yapı Uzlaşmacılık eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Uzlaşmacılık ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "patience",
+    "domainId": "core_personality",
+    "constructId": "agreeableness",
+    "name_tr": "Sabır / Sakinlik",
+    "name_en": "Patience",
+    "operationalDefinition_tr": "Tahrik ve engellenme anlarında öfke patlaması yaşamama, sakin kalabilme kapasitesi.",
+    "operationalDefinition_en": "Operationalization of Patience within Agreeableness (Geçimlilik / Hoşgörü).",
+    "observableIndicators": [
+      "Kışkırtıcı durumlarda dahi hemen sesini yükseltmez.",
+      "Beklenmeyen gecikmeler karşısında soğukkanlılığını korur."
+    ],
+    "constructBoundary": "Bu yapı Sabır / Sakinlik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sabır / Sakinlik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "organization",
+    "domainId": "core_personality",
+    "constructId": "conscientiousness",
+    "name_tr": "Düzenlilik",
+    "name_en": "Organization",
+    "operationalDefinition_tr": "Yaşam ve çalışma alanlarını, görevleri yapılandırılmış ve düzenli tutma eğilimi.",
+    "operationalDefinition_en": "Operationalization of Organization within Conscientiousness (Sorumluluk / Öz-Disiplin).",
+    "observableIndicators": [
+      "Çalışma alanını ve eşyalarını düzenli tutar.",
+      "İşlerini listeler ve sistematik takvimler üzerinden yürütür."
+    ],
+    "constructBoundary": "Bu yapı Düzenlilik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Düzenlilik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "diligence",
+    "domainId": "core_personality",
+    "constructId": "conscientiousness",
+    "name_tr": "Çalışkanlık",
+    "name_en": "Diligence",
+    "operationalDefinition_tr": "Zorlu görevleri başarıyla sonuçlandırmak için yoğun çaba sarf etme disiplini.",
+    "operationalDefinition_en": "Operationalization of Diligence within Conscientiousness (Sorumluluk / Öz-Disiplin).",
+    "observableIndicators": [
+      "Başladığı bir projeyi engellerle karşılaşsa bile yarım bırakmaz.",
+      "Görevlerini ertelemeden zamanında bitirmek için titizlikle çalışır."
+    ],
+    "constructBoundary": "Bu yapı Çalışkanlık eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Çalışkanlık ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "perfectionism",
+    "domainId": "core_personality",
+    "constructId": "conscientiousness",
+    "name_tr": "Yüksek Standart Titizliği",
+    "name_en": "Perfectionism",
+    "operationalDefinition_tr": "Detaylara aşırı özen gösterme ve yüksek kalite standartları talep etme.",
+    "operationalDefinition_en": "Operationalization of Perfectionism within Conscientiousness (Sorumluluk / Öz-Disiplin).",
+    "observableIndicators": [
+      "Çıkan işin kusursuz olması için detayları tekrar tekrar gözden geçirir.",
+      "Yarım yamalak yapılmış işlere tahammül etmekte zorlanır."
+    ],
+    "constructBoundary": "Bu yapı Yüksek Standart Titizliği eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Yüksek Standart Titizliği ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "prudence",
+    "domainId": "core_personality",
+    "constructId": "conscientiousness",
+    "name_tr": "Tedbirlilik",
+    "name_en": "Prudence",
+    "operationalDefinition_tr": "Karar alırken dürtüsel davranmama, olası sonuçları dikkatle tartma alışkanlığı.",
+    "operationalDefinition_en": "Operationalization of Prudence within Conscientiousness (Sorumluluk / Öz-Disiplin).",
+    "observableIndicators": [
+      "Önemli adımlar atmadan önce riskleri etraflıca düşünür.",
+      "Anlık heveslerin arkasından plansızca sürüklenmez."
+    ],
+    "constructBoundary": "Bu yapı Tedbirlilik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Tedbirlilik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "aesthetic_appreciation",
+    "domainId": "core_personality",
+    "constructId": "openness",
+    "name_tr": "Estetik Duyarlılık",
+    "name_en": "Aesthetic Appreciation",
+    "operationalDefinition_tr": "Sanat, doğa güzelliği, müzik ve tasarımdan derinden etkilenme kapasitesi.",
+    "operationalDefinition_en": "Operationalization of Aesthetic Appreciation within Openness to Experience (Deneyime Açıklık).",
+    "observableIndicators": [
+      "Güzel bir sanat eseri veya doğa manzarası karşısında güçlü hayranlık duyar.",
+      "Çevresindeki görsel ve işitsel estetiğe yüksek dikkat gösterir."
+    ],
+    "constructBoundary": "Bu yapı Estetik Duyarlılık eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Estetik Duyarlılık ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "inquisitiveness",
+    "domainId": "core_personality",
+    "constructId": "openness",
+    "name_tr": "Entelektüel Merak",
+    "name_en": "Inquisitiveness",
+    "operationalDefinition_tr": "Doğa bilimleri, felsefe, tarih ve yeni bilgi alanlarını öğrenme açlığı.",
+    "operationalDefinition_en": "Operationalization of Inquisitiveness within Openness to Experience (Deneyime Açıklık).",
+    "observableIndicators": [
+      "Farklı bilim ve düşünce dallarındaki kitapları ve belgeselleri araştırır.",
+      "Olayların ve evrenin nasıl işlediğini derinlemesine anlamak ister."
+    ],
+    "constructBoundary": "Bu yapı Entelektüel Merak eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Entelektüel Merak ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "creativity",
+    "domainId": "core_personality",
+    "constructId": "openness",
+    "name_tr": "Yaratıcı İfade",
+    "name_en": "Creativity",
+    "operationalDefinition_tr": "Problemlere özgün çözümler geliştirme ve yeni fikirler üretme hevesi.",
+    "operationalDefinition_en": "Operationalization of Creativity within Openness to Experience (Deneyime Açıklık).",
+    "observableIndicators": [
+      "Standart yollar yerine alışılmadık ve yaratıcı yaklaşımlar dener.",
+      "Zihninde yeni kavramlar, hikayeler veya projeler kurgulamaktan hoşlanır."
+    ],
+    "constructBoundary": "Bu yapı Yaratıcı İfade eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Yaratıcı İfade ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "unconventionality",
+    "domainId": "core_personality",
+    "constructId": "openness",
+    "name_tr": "Gelenekdışılık",
+    "name_en": "Unconventionality",
+    "operationalDefinition_tr": "Alışılmışın dışındaki görüşlere, marjinal fikirlere ve yaşam tarzlarına açıklık.",
+    "operationalDefinition_en": "Operationalization of Unconventionality within Openness to Experience (Deneyime Açıklık).",
+    "observableIndicators": [
+      "Toplumun genel kabullerini sorgulayan sıra dışı fikirleri ilgiyle dinler.",
+      "Geleneksel kalıplara sırf gelenek olduğu için bağlı kalmayı reddeder."
+    ],
+    "constructBoundary": "Bu yapı Gelenekdışılık eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Gelenekdışılık ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 16,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 16,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ashton_lee_2007"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_hexaco"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "core_self_esteem",
+    "domainId": "self_system",
+    "constructId": "self_evaluation",
+    "name_tr": "Temel Benlik Saygısı",
+    "name_en": "Core Self-Esteem",
+    "operationalDefinition_tr": "Bireyin kendi varoluşuna ve değerine ilişkin genel, koşulsuz özsaygı düzeyi.",
+    "operationalDefinition_en": "Operationalization of Core Self-Esteem within Self-Evaluation Structure (Benlik Değerlendirmesi).",
+    "observableIndicators": [
+      "Kendisini genel olarak değerli ve saygıya layık bir insan olarak görür.",
+      "Zorluklar yaşasa dahi varoluşsal öz-değerini toptan inkâr etmez."
+    ],
+    "constructBoundary": "Bu yapı Temel Benlik Saygısı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Temel Benlik Saygısı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_rses"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "contingent_self_worth",
+    "domainId": "self_system",
+    "constructId": "self_evaluation",
+    "name_tr": "Koşullu Öz-Değer",
+    "name_en": "Contingent Self-Worth",
+    "operationalDefinition_tr": "Öz-değer hissinin dışsal başarıya, akademik/mesleki performansa veya başkalarının beğenisine endeksli olma derecesi.",
+    "operationalDefinition_en": "Operationalization of Contingent Self-Worth within Self-Evaluation Structure (Benlik Değerlendirmesi).",
+    "observableIndicators": [
+      "Bir sınavda veya projede başarısız olduğunda kendini tamamen değersiz hisseder.",
+      "Kendi değeri hakkında iyi hissetmek için sürekli dışsal övgüye ihtiyaç duyar."
+    ],
+    "constructBoundary": "Bu yapı Koşullu Öz-Değer eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Koşullu Öz-Değer ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_rses"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "self_compassion",
+    "domainId": "self_system",
+    "constructId": "self_evaluation",
+    "name_tr": "Öz-Şefkat",
+    "name_en": "Self-Compassion",
+    "operationalDefinition_tr": "Başarısızlık ve acı anlarında kendine acımasızca saldırmak yerine anlayış ve şefkat gösterebilme.",
+    "operationalDefinition_en": "Operationalization of Self-Compassion within Self-Evaluation Structure (Benlik Değerlendirmesi).",
+    "observableIndicators": [
+      "Hata yaptığında kendine anlayışlı bir dost gibi yaklaşır.",
+      "Kişisel kusurların insan olmanın doğal bir parçası olduğunu hatırlar."
+    ],
+    "constructBoundary": "Bu yapı Öz-Şefkat eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Öz-Şefkat ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_scs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "generalized_self_efficacy",
+    "domainId": "self_system",
+    "constructId": "agency_mastery",
+    "name_tr": "Genel Öz-Yeterlilik",
+    "name_en": "Generalized Self-Efficacy",
+    "operationalDefinition_tr": "Yeni veya zorlu taleplerle karşılaştığında gereken eylemleri başarıyla organize edip yürütebilme inancı.",
+    "operationalDefinition_en": "Operationalization of Generalized Self-Efficacy within Agency & Mastery (Yetkinlik ve İrade).",
+    "observableIndicators": [
+      "Beklenmedik bir kriz çıktığında doğru çözümü bulacağına güvenir.",
+      "Zorlu bir problemle karşılaştığında pes etmek yerine alternatif yollar arar."
+    ],
+    "constructBoundary": "Bu yapı Genel Öz-Yeterlilik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Genel Öz-Yeterlilik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_gses"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "locus_of_control",
+    "domainId": "self_system",
+    "constructId": "agency_mastery",
+    "name_tr": "İçsel Kontrol Odağı",
+    "name_en": "Internal Locus of Control",
+    "operationalDefinition_tr": "Yaşam sonuçlarının kader, şans veya güçlü diğerleri yerine kendi kararları ve eylemleri tarafından belirlendiği inancı.",
+    "operationalDefinition_en": "Operationalization of Internal Locus of Control within Agency & Mastery (Yetkinlik ve İrade).",
+    "observableIndicators": [
+      "Hayatındaki başarı ve başarısızlıkların sorumluluğunu kendi adımlarına bağlar.",
+      "Kader veya şansın kendi çabasından daha belirleyici olduğuna inanmaz."
+    ],
+    "constructBoundary": "Bu yapı İçsel Kontrol Odağı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "İçsel Kontrol Odağı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_gses"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "self_concept_clarity",
+    "domainId": "self_system",
+    "constructId": "identity_integrity",
+    "name_tr": "Benlik Kavramı Netliği",
+    "name_en": "Self-Concept Clarity",
+    "operationalDefinition_tr": "Benliğe dair inançların açık, içsel olarak tutarlı ve zaman içinde kararlı olması.",
+    "operationalDefinition_en": "Operationalization of Self-Concept Clarity within Identity Integrity (Kimlik Bütünlüğü).",
+    "observableIndicators": [
+      "Gerçekte kim olduğu ve ne istediği konusunda net bir içsel görüşe sahiptir.",
+      "Benlik algısı günden güne veya ortamdan ortama savrulmaz."
+    ],
+    "constructBoundary": "Bu yapı Benlik Kavramı Netliği eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Benlik Kavramı Netliği ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_sccs"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "authenticity",
+    "domainId": "self_system",
+    "constructId": "identity_integrity",
+    "name_tr": "Özgünlük",
+    "name_en": "Authenticity",
+    "operationalDefinition_tr": "Dış baskılara boyun eğmek yerine kendi derin değerleri ve gerçek hisleriyle uyumlu yaşama cesareti.",
+    "operationalDefinition_en": "Operationalization of Authenticity within Identity Integrity (Kimlik Bütünlüğü).",
+    "observableIndicators": [
+      "Sırf kabul görmek için inanmadığı fikirleri savunuyormuş gibi yapmaz.",
+      "Davranışları içsel değerleriyle tutarlı bir bütünlük sergiler."
+    ],
+    "constructBoundary": "Bu yapı Özgünlük eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Özgünlük ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_sccs"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "cognitive_reappraisal",
+    "domainId": "emotion_regulation",
+    "constructId": "emotion_regulation_strategies",
+    "name_tr": "Bilişsel Yeniden Değerlendirme",
+    "name_en": "Cognitive Reappraisal",
+    "operationalDefinition_tr": "Duygusal tepkiyi azaltmak veya değiştirmek için duruma yüklenen anlamı zihinsel olarak yeniden çerçeveleme eğilimi.",
+    "operationalDefinition_en": "Operationalization of Cognitive Reappraisal within Emotion Regulation Strategies (Duygu Düzenleme).",
+    "observableIndicators": [
+      "Stresli bir olay yaşadığında durumu olumlu veya öğretici tarafından görmeye çalışır.",
+      "Öfkelendiğinde diğer kişinin bakış açısını düşünerek duygusunu sakinleştirir."
+    ],
+    "constructBoundary": "Bu yapı Bilişsel Yeniden Değerlendirme eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bilişsel Yeniden Değerlendirme ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_gross_john_2003"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_erq"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "expressive_suppression",
+    "domainId": "emotion_regulation",
+    "constructId": "emotion_regulation_strategies",
+    "name_tr": "Duygusal İfadeyi Bastırma",
+    "name_en": "Expressive Suppression",
+    "operationalDefinition_tr": "Yaşanan duyguların dışavurumunu fiziksel, mimiksel veya sözel olarak baskılama ve gizleme eğilimi.",
+    "operationalDefinition_en": "Operationalization of Expressive Suppression within Emotion Regulation Strategies (Duygu Düzenleme).",
+    "observableIndicators": [
+      "Yoğun duygular yaşadığında dışarıdan hiçbir şey hissetmiyormuş gibi davranır.",
+      "Duygusal durumunun başkaları tarafından anlaşılmasını engeller."
+    ],
+    "constructBoundary": "Bu yapı Duygusal İfadeyi Bastırma eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Duygusal İfadeyi Bastırma ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_gross_john_2003"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_erq"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "emotional_reactivity",
+    "domainId": "emotion_regulation",
+    "constructId": "affective_dynamics",
+    "name_tr": "Duygusal Reaktivite",
+    "name_en": "Emotional Reactivity",
+    "operationalDefinition_tr": "Çevresel veya içsel duygusal tetikleyiciler karşısında aniden ve yüksek şiddette uyarılma derecesi.",
+    "operationalDefinition_en": "Operationalization of Emotional Reactivity within Affective Dynamics (Duygulanım Dinamikleri).",
+    "observableIndicators": [
+      "Duygusal olaylar karşısında kalbi hızlı çarpar, bedeninde hemen uyarılma hisseder.",
+      "Beklenmeyen durumlara çok hızlı ve yoğun duygusal tepki verir."
+    ],
+    "constructBoundary": "Bu yapı Duygusal Reaktivite eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Duygusal Reaktivite ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_gross_john_2003"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dts"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "emotional_recovery",
+    "domainId": "emotion_regulation",
+    "constructId": "affective_dynamics",
+    "name_tr": "Duygusal Toparlanma Hızı",
+    "name_en": "Emotional Recovery",
+    "operationalDefinition_tr": "Yoğun bir duygusal sarsıntı veya öfke sonrasında nötr/sakin bazal çizgiye dönme sürati.",
+    "operationalDefinition_en": "Operationalization of Emotional Recovery within Affective Dynamics (Duygulanım Dinamikleri).",
+    "observableIndicators": [
+      "Bir kriz geçtikten kısa süre sonra zihnini toparlayıp işine odaklanabilir.",
+      "Yaşadığı olumsuz bir duygunun etkisinde günlerce takılı kalmaz."
+    ],
+    "constructBoundary": "Bu yapı Duygusal Toparlanma Hızı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Duygusal Toparlanma Hızı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_gross_john_2003"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dts"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "trait_positive_affect",
+    "domainId": "emotion_regulation",
+    "constructId": "affective_dynamics",
+    "name_tr": "Pozitif Duygulanım Eğilimi",
+    "name_en": "Trait Positive Affect",
+    "operationalDefinition_tr": "Coşku, canlılık, heyecan ve gurur gibi olumlu duyguları düzenli deneyimleme sıklığı.",
+    "operationalDefinition_en": "Operationalization of Trait Positive Affect within Affective Dynamics (Duygulanım Dinamikleri).",
+    "observableIndicators": [
+      "Günlük yaşamda hevesli ve aktif hissettiği anların sıklığı yüksektir.",
+      "Zorluklar karşısında dahi umut ve coşku duyma kapasitesini korur."
+    ],
+    "constructBoundary": "Bu yapı Pozitif Duygulanım Eğilimi eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Pozitif Duygulanım Eğilimi ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_panas"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "trait_negative_affect",
+    "domainId": "emotion_regulation",
+    "constructId": "affective_dynamics",
+    "name_tr": "Negatif Duygulanım Eğilimi",
+    "name_en": "Trait Negative Affect",
+    "operationalDefinition_tr": "Kaygı, hüzün, suçluluk ve tedirginlik gibi zorlayıcı duyguları düzenli yaşama sıklığı.",
+    "operationalDefinition_en": "Operationalization of Trait Negative Affect within Affective Dynamics (Duygulanım Dinamikleri).",
+    "observableIndicators": [
+      "Belirgin bir sebep yokken bile zihninde gerginlik ve huzursuzluk hisseder.",
+      "Olumsuz hisler zihninde uzun süreli ağırlık oluşturur."
+    ],
+    "constructBoundary": "Bu yapı Negatif Duygulanım Eğilimi eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Negatif Duygulanım Eğilimi ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_panas"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "distress_tolerance",
+    "domainId": "emotion_regulation",
+    "constructId": "distress_management",
+    "name_tr": "Sıkıntıya Dayanıklılık",
+    "name_en": "Distress Tolerance",
+    "operationalDefinition_tr": "Olumsuz içsel duygusal durumları felaketleştirmeden onlarla bir arada kalabilme kapasitesi.",
+    "operationalDefinition_en": "Operationalization of Distress Tolerance within Distress Management (Zorlayıcı Yaşantı Yönetimi).",
+    "observableIndicators": [
+      "Sıkıntı hissettiğinde hemen kaçmak yerine bu hissin geçici olduğunu bilir.",
+      "Zorlayıcı duyguları hayatın kabul edilebilir bir boyutu olarak görebilir."
+    ],
+    "constructBoundary": "Bu yapı Sıkıntıya Dayanıklılık eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sıkıntıya Dayanıklılık ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dts"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "experiential_avoidance",
+    "domainId": "emotion_regulation",
+    "constructId": "distress_management",
+    "name_tr": "Yaşantısal Kaçınma",
+    "name_en": "Experiential Avoidance",
+    "operationalDefinition_tr": "İstenmeyen düşünce, anı veya hislerden kaçınmak için davranış repertuarını daraltma eğilimi.",
+    "operationalDefinition_en": "Operationalization of Experiential Avoidance within Distress Management (Zorlayıcı Yaşantı Yönetimi).",
+    "observableIndicators": [
+      "Rahatsız edici duyguları tetikleyebilecek her türlü ortamdan uzak durur.",
+      "Olumsuz bir düşünce belirdiğinde dikkatini dağıtmak için aşırı aktiviteye sığınır."
+    ],
+    "constructBoundary": "Bu yapı Yaşantısal Kaçınma eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Yaşantısal Kaçınma ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dts"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "shame_proneness",
+    "domainId": "emotion_regulation",
+    "constructId": "self_conscious_emotions",
+    "name_tr": "Utanç Eğilimi",
+    "name_en": "Shame-Proneness",
+    "operationalDefinition_tr": "Hata yaptığında tüm benliğini kusurlu, küçük ve saklanmaya layık hissetme yatkınlığı.",
+    "operationalDefinition_en": "Operationalization of Shame-Proneness within Self-Conscious Emotions (Öz-Bilinçli Duygular).",
+    "observableIndicators": [
+      "Hata yaptığında 'Ben ne kadar yetersizim' diyerek yerin dibine geçmek ister.",
+      "Başkalarının önünde kusur işlediğinde gözlerden kaybolma arzusu duyar."
+    ],
+    "constructBoundary": "Bu yapı Utanç Eğilimi eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Utanç Eğilimi ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_panas"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "guilt_proneness",
+    "domainId": "emotion_regulation",
+    "constructId": "self_conscious_emotions",
+    "name_tr": "Suçluluk ve Onarım Eğilimi",
+    "name_en": "Guilt-Proneness",
+    "operationalDefinition_tr": "Hata yaptığında eyleme odaklanıp sorumluluk alma ve durumu düzeltme yönelimi.",
+    "operationalDefinition_en": "Operationalization of Guilt-Proneness within Self-Conscious Emotions (Öz-Bilinçli Duygular).",
+    "observableIndicators": [
+      "Birini kırdığında benliğini yok etmek yerine hatasını kabul edip telafi arar.",
+      "Hatalı davranışın yol açtığı zararı onarmak için derhal inisiyatif alır."
+    ],
+    "constructBoundary": "Bu yapı Suçluluk ve Onarım Eğilimi eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Suçluluk ve Onarım Eğilimi ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_panas"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "need_for_cognition",
+    "domainId": "cognition_decision",
+    "constructId": "epistemic_drive",
+    "name_tr": "Bilişsel Çaba İhtiyacı",
+    "name_en": "Need for Cognition",
+    "operationalDefinition_tr": "Zihinsel çaba ve derin analiz gerektiren karmaşık sorunlarla uğraşmaktan zevk alma derecesi.",
+    "operationalDefinition_en": "Operationalization of Need for Cognition within Epistemic Drive (Bilişsel Motivasyon).",
+    "observableIndicators": [
+      "Cevabı hazır olmayan zorlu mantık bulmacaları ve entelektüel problemler onu heyecanlandırır.",
+      "Yüzeysel açıklamalarla yetinmeyip detaylı nedenleri araştırır."
+    ],
+    "constructBoundary": "Bu yapı Bilişsel Çaba İhtiyacı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bilişsel Çaba İhtiyacı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_nfcs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "need_for_cognitive_closure",
+    "domainId": "cognition_decision",
+    "constructId": "epistemic_drive",
+    "name_tr": "Bilişsel Kapanma İhtiyacı",
+    "name_en": "Need for Cognitive Closure",
+    "operationalDefinition_tr": "Belirsizlik ve karmaşayı hızla sonlandırma, kesin ve değiştirilemez yanıtlara ulaşma arzusu.",
+    "operationalDefinition_en": "Operationalization of Need for Cognitive Closure within Epistemic Drive (Bilişsel Motivasyon).",
+    "observableIndicators": [
+      "Bir sorunun cevapsız veya havada kalmasına tahammül edemez, hızla karara varmak ister.",
+      "Bir kez karar verdikten sonra yeni kanıtlar çıksa dahi fikrini değiştirmekten hoşlanmaz."
+    ],
+    "constructBoundary": "Bu yapı Bilişsel Kapanma İhtiyacı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bilişsel Kapanma İhtiyacı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_roets_2011_nfcs"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_nfcs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "rational_analytical_style",
+    "domainId": "cognition_decision",
+    "constructId": "thinking_styles",
+    "name_tr": "Rasyonel Analitik Tarz",
+    "name_en": "Rational / Analytical Processing",
+    "operationalDefinition_tr": "Karar alırken sistematik adımlara, mantıksal tutarlılığa ve nesnel kanıtlara dayanma tercihi.",
+    "operationalDefinition_en": "Operationalization of Rational / Analytical Processing within Thinking Styles (Düşünme Tarzları).",
+    "observableIndicators": [
+      "Önemli bir kararda artı ve eksi listeleri hazırlayıp mantıklı seçeneği arar.",
+      "Hissiyatından ziyade istatistiki ve nesnel gerçeklere güvenir."
+    ],
+    "constructBoundary": "Bu yapı Rasyonel Analitik Tarz eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Rasyonel Analitik Tarz ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_nfcs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "intuitive_experiential_style",
+    "domainId": "cognition_decision",
+    "constructId": "thinking_styles",
+    "name_tr": "Sezgisel Yaşantısal Tarz",
+    "name_en": "Intuitive / Experiential Processing",
+    "operationalDefinition_tr": "İçgüdüsel hislere, deneyimsel örüntülere ve bütüncül sezgilere dayanarak hızlı karar verme eğilimi.",
+    "operationalDefinition_en": "Operationalization of Intuitive / Experiential Processing within Thinking Styles (Düşünme Tarzları).",
+    "observableIndicators": [
+      "Bir durum hakkında içine doğan ilk hissin genellikle doğru çıktığına inanır.",
+      "Aşırı analiz yerine içsel hissiyatına dayanarak seçim yapar."
+    ],
+    "constructBoundary": "Bu yapı Sezgisel Yaşantısal Tarz eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sezgisel Yaşantısal Tarz ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_nfcs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "cognitive_flexibility",
+    "domainId": "cognition_decision",
+    "constructId": "cognitive_adaptability",
+    "name_tr": "Bilişsel Esneklik",
+    "name_en": "Cognitive Flexibility",
+    "operationalDefinition_tr": "Koşullar değiştiğinde strateji değiştirebilme ve olayları çoklu alternatif açılardan görebilme yetisi.",
+    "operationalDefinition_en": "Operationalization of Cognitive Flexibility within Cognitive Adaptability (Bilişsel Uyum ve Esneklik).",
+    "observableIndicators": [
+      "Planları bozulduğunda hızla alternatif bir B planı geliştirir.",
+      "Bir tartışmada karşı tarafın savlarını objektif olarak değerlendirebilir."
+    ],
+    "constructBoundary": "Bu yapı Bilişsel Esneklik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bilişsel Esneklik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ius_12"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "intolerance_of_uncertainty",
+    "domainId": "cognition_decision",
+    "constructId": "cognitive_adaptability",
+    "name_tr": "Belirsizliğe Tahammülsüzlük",
+    "name_en": "Intolerance of Uncertainty",
+    "operationalDefinition_tr": "Sonucu önceden kestirilemeyen durumları doğrudan tehdit edici ve felç edici olarak algılama eğilimi.",
+    "operationalDefinition_en": "Operationalization of Intolerance of Uncertainty within Cognitive Adaptability (Bilişsel Uyum ve Esneklik).",
+    "observableIndicators": [
+      "Her şeyin önceden planlanmış olmasını ister; sürprizlerden rahatsızlık duyar.",
+      "Geleceğin belirsiz olması onda yoğun stres ve huzursuzluk yaratır."
+    ],
+    "constructBoundary": "Bu yapı Belirsizliğe Tahammülsüzlük eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Belirsizliğe Tahammülsüzlük ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ius_12"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "rumination_brooding",
+    "domainId": "cognition_decision",
+    "constructId": "cognitive_adaptability",
+    "name_tr": "Ruminatif Saplantı",
+    "name_en": "Rumination - Brooding",
+    "operationalDefinition_tr": "Geçmişteki hataları, pişmanlıkları ve olumsuz duyguları çözümsüz bir döngüde zihinde çevirme eğilimi.",
+    "operationalDefinition_en": "Operationalization of Rumination - Brooding within Cognitive Adaptability (Bilişsel Uyum ve Esneklik).",
+    "observableIndicators": [
+      "Geçmişte yaptığı bir hatayı günlerce zihninde tekrar tekrar yaşar.",
+      "'Neden hep benim başıma geliyor?' sorusuna takılıp kalır."
+    ],
+    "constructBoundary": "Bu yapı Ruminatif Saplantı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Ruminatif Saplantı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_treynor_2003_rrs"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_rrs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "maximizing_tendency",
+    "domainId": "cognition_decision",
+    "constructId": "decision_orientation",
+    "name_tr": "Maksimum Seçenek Arayışı",
+    "name_en": "Maximizing Tendency",
+    "operationalDefinition_tr": "Yeterince iyi olanı kabul etmek yerine her kararda en mükemmel alternatifi bulmak için aşırı enerji harcama.",
+    "operationalDefinition_en": "Operationalization of Maximizing Tendency within Decision Orientation (Karar Verme Yönelimleri).",
+    "observableIndicators": [
+      "Bir şey satın alırken veya karar verirken tüm alternatifleri incelemeden rahat edemez.",
+      "Karar verdikten sonra dahi 'Acaba daha iyisi var mıydı?' şüphesini taşır."
+    ],
+    "constructBoundary": "Bu yapı Maksimum Seçenek Arayışı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Maksimum Seçenek Arayışı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_nfcs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "decision_avoidance_procrastination",
+    "domainId": "cognition_decision",
+    "constructId": "decision_orientation",
+    "name_tr": "Karar Erteleme",
+    "name_en": "Decision Avoidance / Procrastination",
+    "operationalDefinition_tr": "Karar alma sorumluluğunu veya eyleme geçmeyi belirsizlik ve hata korkusuyla sürekli geciktirme.",
+    "operationalDefinition_en": "Operationalization of Decision Avoidance / Procrastination within Decision Orientation (Karar Verme Yönelimleri).",
+    "observableIndicators": [
+      "Önemli kararları son ana kadar ertelemeyi alışkanlık haline getirmiştir.",
+      "Yanlış seçim yapma endişesiyle kararı başkalarının vermesini tercih eder."
+    ],
+    "constructBoundary": "Bu yapı Karar Erteleme eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Karar Erteleme ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_nfcs_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "negative_urgency",
+    "domainId": "self_regulation",
+    "constructId": "impulsivity_uppsp",
+    "name_tr": "Negatif Aciliyet",
+    "name_en": "Negative Urgency",
+    "operationalDefinition_tr": "Yoğun üzüntü, öfke veya kaygı altındayken düşünmeden zararlı dürtüsel eylemlere girişme eğilimi.",
+    "operationalDefinition_en": "Operationalization of Negative Urgency within Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli).",
+    "observableIndicators": [
+      "Çok üzgün veya öfkeli olduğunda sonradan pişman olacağı acele kararlar alır.",
+      "Olumsuz hislerini bastırmak için anlık rahatlatıcı zararlı alışkanlıklara sarılır."
+    ],
+    "constructBoundary": "Bu yapı Negatif Aciliyet eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Negatif Aciliyet ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 4,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_cyders_2014_uppsp"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_upps_p_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "positive_urgency",
+    "domainId": "self_regulation",
+    "constructId": "impulsivity_uppsp",
+    "name_tr": "Pozitif Aciliyet",
+    "name_en": "Positive Urgency",
+    "operationalDefinition_tr": "Aşırı neşeli, coşkulu veya heyecanlı anlarda tedbirsizce riskli adımlar atma eğilimi.",
+    "operationalDefinition_en": "Operationalization of Positive Urgency within Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli).",
+    "observableIndicators": [
+      "Çok mutlu olduğunda bütçesini aşan harcamalar veya hesapsız sözler verir.",
+      "Yüksek coşku altındayken riskleri tamamen göz ardı eder."
+    ],
+    "constructBoundary": "Bu yapı Pozitif Aciliyet eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Pozitif Aciliyet ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 4,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_cyders_2014_uppsp"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_upps_p_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "lack_of_premeditation",
+    "domainId": "self_regulation",
+    "constructId": "impulsivity_uppsp",
+    "name_tr": "Önceden Düşünmeme",
+    "name_en": "Lack of Premeditation",
+    "operationalDefinition_tr": "Eyleme geçmeden önce sonuçları ve olası etkileri tartmama alışkanlığı.",
+    "operationalDefinition_en": "Operationalization of Lack of Premeditation within Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli).",
+    "observableIndicators": [
+      "Bir işe girişmeden önce adımları planlamadan anlık hevesle başlar.",
+      "Sonuçlarını hiç düşünmeden aklına gelen ilk şeyi yapar."
+    ],
+    "constructBoundary": "Bu yapı Önceden Düşünmeme eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Önceden Düşünmeme ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 4,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_cyders_2014_uppsp"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_upps_p_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "lack_of_perseverance",
+    "domainId": "self_regulation",
+    "constructId": "impulsivity_uppsp",
+    "name_tr": "Sebat Eksikliği",
+    "name_en": "Lack of Perseverance",
+    "operationalDefinition_tr": "Sıkıcı, monoton veya zorlayıcı hale gelen görevlerde dikkati sürdürememe ve yarıda bırakma.",
+    "operationalDefinition_en": "Operationalization of Lack of Perseverance within Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli).",
+    "observableIndicators": [
+      "Bir görev heyecanını yitirip rutine döndüğünde devam etmekte çok zorlanır.",
+      "Zorlu bir problem karşısında çabuk sıkılıp başka şeylerle oyalanır."
+    ],
+    "constructBoundary": "Bu yapı Sebat Eksikliği eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sebat Eksikliği ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 4,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_cyders_2014_uppsp"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_upps_p_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "sensation_seeking",
+    "domainId": "self_regulation",
+    "constructId": "impulsivity_uppsp",
+    "name_tr": "Heyecan Arayışı",
+    "name_en": "Sensation Seeking",
+    "operationalDefinition_tr": "Yüksek duyusal uyarılma, macera ve yenilik içeren deneyimlere yönelme tercihi.",
+    "operationalDefinition_en": "Operationalization of Sensation Seeking within Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli).",
+    "observableIndicators": [
+      "Hızlı, adrenalin yükseltici ve heyecan verici aktivitelerden keyif alır.",
+      "Tekdüzelikten kurtulmak için öngörülemeyen yeni deneyimler arar."
+    ],
+    "constructBoundary": "Bu yapı Heyecan Arayışı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Heyecan Arayışı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 4,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_cyders_2014_uppsp"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_upps_p_sf"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "general_self_control",
+    "domainId": "self_regulation",
+    "constructId": "volitional_stamina",
+    "name_tr": "Genel Özdenetim",
+    "name_en": "General Self-Control",
+    "operationalDefinition_tr": "Uzun vadeli amaçlar lehine kısa vadeli anlık cazibelere ve dürtülere direnebilme gücü.",
+    "operationalDefinition_en": "Operationalization of General Self-Control within Volitional Stamina (İrade ve Hedef Sürdürme).",
+    "observableIndicators": [
+      "Hedeflerine ulaşmak için zararlı anlık zevkleri erteleyebilir.",
+      "Kendisine koyduğu disiplinli kurallara sadık kalır."
+    ],
+    "constructBoundary": "Bu yapı Genel Özdenetim eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Genel Özdenetim ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 13,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 13,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bscs"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "delay_discounting",
+    "domainId": "self_regulation",
+    "constructId": "volitional_stamina",
+    "name_tr": "Gecikmiş Doyum / Ödül Tercihi",
+    "name_en": "Delayed Gratification",
+    "operationalDefinition_tr": "Küçük anlık bir kazanç yerine sabrederek gelecekteki çok daha büyük ödülleri seçebilme kapasitesi.",
+    "operationalDefinition_en": "Operationalization of Delayed Gratification within Volitional Stamina (İrade ve Hedef Sürdürme).",
+    "observableIndicators": [
+      "Gelecekteki büyük bir başarı için bugünkü konforundan feragat edebilir.",
+      "Anlık tatminlerin gelecekteki hedeflerini baltalamasına izin vermez."
+    ],
+    "constructBoundary": "Bu yapı Gecikmiş Doyum / Ödül Tercihi eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Gecikmiş Doyum / Ödül Tercihi ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 5,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bscs"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "long_term_grit",
+    "domainId": "self_regulation",
+    "constructId": "volitional_stamina",
+    "name_tr": "Azim ve Tutku",
+    "name_en": "Long-Term Grit",
+    "operationalDefinition_tr": "Yıllara yayılan uzun vadeli vizyonlara tutku ve ısrarla bağlı kalma direnci.",
+    "operationalDefinition_en": "Operationalization of Long-Term Grit within Volitional Stamina (İrade ve Hedef Sürdürme).",
+    "observableIndicators": [
+      "Aylar veya yıllar süren projelerde heyecanını kaybetmeden çalışmaya devam eder.",
+      "Ciddi başarısızlıklar yaşasa dahi ana hedefinden vazgeçmez."
+    ],
+    "constructBoundary": "Bu yapı Azim ve Tutku eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Azim ve Tutku ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_grit_s"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "autonomy_need",
+    "domainId": "motivation_values",
+    "constructId": "basic_psychological_needs",
+    "name_tr": "Özerklik İhtiyacı",
+    "name_en": "Autonomy Need",
+    "operationalDefinition_tr": "Davranışlarının kendi özgür iradesi, değerleri ve seçimleriyle uyumlu olma gereksinimi.",
+    "operationalDefinition_en": "Operationalization of Autonomy Need within Basic Psychological Needs (Temel Psikolojik İhtiyaçlar - SDT).",
+    "observableIndicators": [
+      "Hayatındaki önemli seçimleri kendi hür iradesiyle yapabildiğinde tatmin hisseder.",
+      "Zorla veya başkalarının dayatmasıyla bir şey yapmaktan derin rahatsızlık duyar."
+    ],
+    "constructBoundary": "Bu yapı Özerklik İhtiyacı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Özerklik İhtiyacı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ryan_deci_2000",
+      "src_kagitcibasi_2005_self"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bpnsfs"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "competence_need",
+    "domainId": "motivation_values",
+    "constructId": "basic_psychological_needs",
+    "name_tr": "Yeterlik / Ustalık İhtiyacı",
+    "name_en": "Competence Need",
+    "operationalDefinition_tr": "Çevreyle etkili etkileşim kurma, becerilerini geliştirme ve yetkin hissetme ihtiyacı.",
+    "operationalDefinition_en": "Operationalization of Competence Need within Basic Psychological Needs (Temel Psikolojik İhtiyaçlar - SDT).",
+    "observableIndicators": [
+      "Yeni beceriler öğrenip zor görevlerde ustalaştığını gördüğünde içsel doyum yaşar.",
+      "Kapasitesini geliştirebileceği zorlu görevlerde yer almayı arzu eder."
+    ],
+    "constructBoundary": "Bu yapı Yeterlik / Ustalık İhtiyacı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Yeterlik / Ustalık İhtiyacı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ryan_deci_2000"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bpnsfs"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "relatedness_need",
+    "domainId": "motivation_values",
+    "constructId": "basic_psychological_needs",
+    "name_tr": "İlişkilenme / Ait Olma İhtiyacı",
+    "name_en": "Relatedness Need",
+    "operationalDefinition_tr": "Başkaları tarafından önemsenme, derin bağlar kurma ve sıcak bir topluluğa ait hissetme ihtiyacı.",
+    "operationalDefinition_en": "Operationalization of Relatedness Need within Basic Psychological Needs (Temel Psikolojik İhtiyaçlar - SDT).",
+    "observableIndicators": [
+      "Yakınları tarafından samimiyetle sevildiğini ve desteklendiğini hissetmek ister.",
+      "Bir topluluğun veya dost grubunun parçası olmak ona derin bir huzur verir."
+    ],
+    "constructBoundary": "Bu yapı İlişkilenme / Ait Olma İhtiyacı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "İlişkilenme / Ait Olma İhtiyacı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_ryan_deci_2000",
+      "src_kagitcibasi_2005_self"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bpnsfs"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "values_openness_to_change",
+    "domainId": "motivation_values",
+    "constructId": "universal_values",
+    "name_tr": "Değişime Açıklık Değerleri",
+    "name_en": "Openness to Change Values",
+    "operationalDefinition_tr": "Özyönelim (bağımsız düşünce), uyarılma (yenilik arayışı) ve hazcılığa verilen önem.",
+    "operationalDefinition_en": "Operationalization of Openness to Change Values within Universal Human Values (Schwartz Değer Çemberi).",
+    "observableIndicators": [
+      "Kendi kararlarını özgürce vermeye ve yenilikçi deneyimler yaşamaya öncelik verir.",
+      "Hayatında rutin yerine heyecan ve keşif arar."
+    ],
+    "constructBoundary": "Bu yapı Değişime Açıklık Değerleri eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Değişime Açıklık Değerleri ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_schwartz_2012_values"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_schwartz_values"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "values_self_transcendence",
+    "domainId": "motivation_values",
+    "constructId": "universal_values",
+    "name_tr": "Öz-Aşkınlık Değerleri",
+    "name_en": "Self-Transcendence Values",
+    "operationalDefinition_tr": "Evrenselcilik (tüm insanlığın ve doğanın refahı) ve iyilikseverliğe (yakın çevrenin iyiliği) verilen değer.",
+    "operationalDefinition_en": "Operationalization of Self-Transcendence Values within Universal Human Values (Schwartz Değer Çemberi).",
+    "observableIndicators": [
+      "Toplumsal adalet, eşitlik ve doğanın korunması onun için temel yaşam ilkesidir.",
+      "Zor durumdaki insanların acısını hafifletmek için gönüllü çaba gösterir."
+    ],
+    "constructBoundary": "Bu yapı Öz-Aşkınlık Değerleri eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Öz-Aşkınlık Değerleri ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_schwartz_2012_values"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_schwartz_values"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "values_conservation",
+    "domainId": "motivation_values",
+    "constructId": "universal_values",
+    "name_tr": "Muhafaza Değerleri",
+    "name_en": "Conservation Values",
+    "operationalDefinition_tr": "Güvenlik, gelenek ve kurallara uyum (toplumsal istikrar ve aile düzeni) değerleri.",
+    "operationalDefinition_en": "Operationalization of Conservation Values within Universal Human Values (Schwartz Değer Çemberi).",
+    "observableIndicators": [
+      "Sosyal düzenin, istikrarın ve geleneksel kuralların korunmasını önemser.",
+      "Ani ve yıkıcı toplumsal değişimlere karşı mesafelidir."
+    ],
+    "constructBoundary": "Bu yapı Muhafaza Değerleri eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Muhafaza Değerleri ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_schwartz_2012_values"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_schwartz_values"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "values_self_enhancement",
+    "domainId": "motivation_values",
+    "constructId": "universal_values",
+    "name_tr": "Kendini Yüceltme Değerleri",
+    "name_en": "Self-Enhancement Values",
+    "operationalDefinition_tr": "Başarı, yetkinlik gösterisi ve sosyal güç/etki kurmaya verilen kişisel öncelik.",
+    "operationalDefinition_en": "Operationalization of Self-Enhancement Values within Universal Human Values (Schwartz Değer Çemberi).",
+    "observableIndicators": [
+      "Toplumda etkili, sözü dinlenen ve başarılı bir konuma gelmeyi hedefler.",
+      "Yetkinliklerini sergileyip takdir toplamaktan tatmin olur."
+    ],
+    "constructBoundary": "Bu yapı Kendini Yüceltme Değerleri eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Kendini Yüceltme Değerleri ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_schwartz_2012_values"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ipip_schwartz_values"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "presence_of_meaning",
+    "domainId": "motivation_values",
+    "constructId": "existential_meaning",
+    "name_tr": "Anlamın Varlığı",
+    "name_en": "Presence of Meaning",
+    "operationalDefinition_tr": "Kişinin yaşamının bir anlamı, amacı ve değeri olduğunu hissetme derecesi.",
+    "operationalDefinition_en": "Operationalization of Presence of Meaning within Existential Meaning (Varoluşsal Anlam).",
+    "observableIndicators": [
+      "Hayatının neden yaşamaya değer olduğuna dair net bir içsel hissi vardır.",
+      "Güne başladığında kendisini yönlendiren bir hayat gayesi hisseder."
+    ],
+    "constructBoundary": "Bu yapı Anlamın Varlığı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Anlamın Varlığı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 5,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_mlq"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "search_for_meaning",
+    "domainId": "motivation_values",
+    "constructId": "existential_meaning",
+    "name_tr": "Anlam Arayışı",
+    "name_en": "Search for Meaning",
+    "operationalDefinition_tr": "Yaşamının amacını, yerini ve derin anlamını aktif olarak keşfetme ve sorgulama yönelimi.",
+    "operationalDefinition_en": "Operationalization of Search for Meaning within Existential Meaning (Varoluşsal Anlam).",
+    "observableIndicators": [
+      "Hayatın derin amacını ve kendi varoluş gayesini sorgulamaya devam eder.",
+      "Yaşamına anlam katacak yeni felsefi veya manevi derinlikler arar."
+    ],
+    "constructBoundary": "Bu yapı Anlam Arayışı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Anlam Arayışı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 5,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_mlq"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "attachment_anxiety",
+    "domainId": "social_relational",
+    "constructId": "attachment_system",
+    "name_tr": "Bağlanma Kaygısı",
+    "name_en": "Attachment Anxiety",
+    "operationalDefinition_tr": "Yakın ilişkilerde sevilmeme, terk edilme ve partnerinin ilgisini kaybetme endişesi.",
+    "operationalDefinition_en": "Operationalization of Attachment Anxiety within Adult Attachment Dimensions (Yetişkin Bağlanma Eksenleri).",
+    "observableIndicators": [
+      "Partnerinin ona olan sevgisini ve ilgisini sürekli teyit etme ihtiyacı duyar.",
+      "Ufak bir soğuklukta partnerinin onu terk edeceğinden kaygılanır."
+    ],
+    "constructBoundary": "Bu yapı Bağlanma Kaygısı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bağlanma Kaygısı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 18,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 18,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_fraley_2000_ecrr"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ecr_r"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "attachment_avoidance",
+    "domainId": "social_relational",
+    "constructId": "attachment_system",
+    "name_tr": "Bağlanma Kaçınması",
+    "name_en": "Attachment Avoidance",
+    "operationalDefinition_tr": "Duygusal yakınlıktan, kırılganlıktan ve başkalarına bağımlı olmaktan rahatsızlık duyup mesafe koyma eğilimi.",
+    "operationalDefinition_en": "Operationalization of Attachment Avoidance within Adult Attachment Dimensions (Yetişkin Bağlanma Eksenleri).",
+    "observableIndicators": [
+      "Duygusal olarak birine aşırı bağlanmaktan ve savunmasız kalmaktan kaçınır.",
+      "İlişkilerde bağımsızlığını korumak için duygusal mesafe koymayı tercih eder."
+    ],
+    "constructBoundary": "Bu yapı Bağlanma Kaçınması eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bağlanma Kaçınması ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 18,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 18,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_fraley_2000_ecrr"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_ecr_r"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "cognitive_perspective_taking",
+    "domainId": "social_relational",
+    "constructId": "multidimensional_empathy",
+    "name_tr": "Bilişsel Perspektif Alma",
+    "name_en": "Perspective Taking",
+    "operationalDefinition_tr": "Olayları ve anlaşmazlıkları diğer insanın bakış açısından görebilme ve zihinselleştirme kapasitesi.",
+    "operationalDefinition_en": "Operationalization of Perspective Taking within Multidimensional Empathy (Çok Boyutlu Empati).",
+    "observableIndicators": [
+      "Bir tartışmada hemen tepki vermek yerine karşıdakinin neden öyle düşündüğünü anlamaya çalışır.",
+      "Kendisiyle zıt fikirdeki insanların gerekçelerini rasyonel biçimde kavrayabilir."
+    ],
+    "constructBoundary": "Bu yapı Bilişsel Perspektif Alma eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bilişsel Perspektif Alma ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_iri"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "empathic_concern",
+    "domainId": "social_relational",
+    "constructId": "multidimensional_empathy",
+    "name_tr": "Empatik Şefkat ve İlgi",
+    "name_en": "Empathic Concern",
+    "operationalDefinition_tr": "Zor durumda olan veya acı çeken bir başkası karşısında içten şefkat ve koruyucu ilgi hissetme.",
+    "operationalDefinition_en": "Operationalization of Empathic Concern within Multidimensional Empathy (Çok Boyutlu Empati).",
+    "observableIndicators": [
+      "Haksızlığa uğrayan bir insan gördüğünde içinde derin bir koruma ve yardım arzusu uyanır.",
+      "Dostlarının acısına kayıtsız kalamaz, şefkatle destek olur."
+    ],
+    "constructBoundary": "Bu yapı Empatik Şefkat ve İlgi eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Empatik Şefkat ve İlgi ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_iri"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "assertiveness",
+    "domainId": "social_relational",
+    "constructId": "social_agency_boundaries",
+    "name_tr": "Kendini Ortaya Koyma",
+    "name_en": "Assertiveness",
+    "operationalDefinition_tr": "Saldırganlaşmadan kendi haklarını, ihtiyaçlarını ve fikirlerini açıkça savunabilme.",
+    "operationalDefinition_en": "Operationalization of Assertiveness within Social Agency & Boundaries (Sosyal İrade ve Sınırlar).",
+    "observableIndicators": [
+      "Gerektiğinde fikirlerini çekinmeden ve saygılı bir dille ifade eder.",
+      "Haksızlığa uğradığında sessiz kalmayıp durumu düzeltmek için konuşur."
+    ],
+    "constructBoundary": "Bu yapı Kendini Ortaya Koyma eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Kendini Ortaya Koyma ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dutch"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "boundary_setting",
+    "domainId": "social_relational",
+    "constructId": "social_agency_boundaries",
+    "name_tr": "Kişilerarası Sınır Koyma",
+    "name_en": "Boundary Setting",
+    "operationalDefinition_tr": "İstemediği taleplere suçluluk duymadan 'hayır' diyebilme ve kişisel sınırlarını koruma.",
+    "operationalDefinition_en": "Operationalization of Boundary Setting within Social Agency & Boundaries (Sosyal İrade ve Sınırlar).",
+    "observableIndicators": [
+      "Kapasitesini aşan talepler karşısında suçluluk hissetmeden hayır diyebilir.",
+      "İnsanların kendi iyi niyetini suistimal etmesine izin vermez."
+    ],
+    "constructBoundary": "Bu yapı Kişilerarası Sınır Koyma eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Kişilerarası Sınır Koyma ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dutch"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "social_approval_dependence",
+    "domainId": "social_relational",
+    "constructId": "social_agency_boundaries",
+    "name_tr": "Sosyal Onay Bağımlılığı",
+    "name_en": "Social Approval Dependence",
+    "operationalDefinition_tr": "Kendi eylemlerini ve kararlarını sürekli başkalarının takdirine ve onayına bağlama zaafı.",
+    "operationalDefinition_en": "Operationalization of Social Approval Dependence within Social Agency & Boundaries (Sosyal İrade ve Sınırlar).",
+    "observableIndicators": [
+      "Başkalarının ne düşündüğü endişesiyle kendi isteklerinden kolayca vazgeçer.",
+      "En ufak bir eleştiri veya onaylanmama karşısında derin sarsıntı yaşar."
+    ],
+    "constructBoundary": "Bu yapı Sosyal Onay Bağımlılığı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sosyal Onay Bağımlılığı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dutch"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "conflict_collaborating",
+    "domainId": "social_relational",
+    "constructId": "conflict_styles",
+    "name_tr": "İşbirlikçi Çözüm",
+    "name_en": "Collaborating Conflict Style",
+    "operationalDefinition_tr": "Çatışma anında her iki tarafın da temel ihtiyaçlarını karşılayacak bütünleştirici çözümler arama.",
+    "operationalDefinition_en": "Operationalization of Collaborating Conflict Style within Conflict Management Styles (Çatışma Yönetim Stilleri).",
+    "observableIndicators": [
+      "Anlaşmazlıkta iki tarafın da kazançlı çıkacağı yaratıcı ortak yollar arar.",
+      "Sorunun kök nedenlerini konuşarak kalıcı uzlaşma sağlar."
+    ],
+    "constructBoundary": "Bu yapı İşbirlikçi Çözüm eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "İşbirlikçi Çözüm ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 5,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dutch"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "conflict_avoiding",
+    "domainId": "social_relational",
+    "constructId": "conflict_styles",
+    "name_tr": "Çatışmadan Kaçınma",
+    "name_en": "Avoiding Conflict Style",
+    "operationalDefinition_tr": "Gerginlik ve tartışma ihtimali belirdiğinde yüzleşmek yerine konuyu kapatma veya uzaklaşma.",
+    "operationalDefinition_en": "Operationalization of Avoiding Conflict Style within Conflict Management Styles (Çatışma Yönetim Stilleri).",
+    "observableIndicators": [
+      "Tartışma çıkacağını hissettiğinde haklı da olsa sessiz kalmayı seçer.",
+      "Anlaşmazlık yaratan kritik meseleleri konuşmaktan kaçınır."
+    ],
+    "constructBoundary": "Bu yapı Çatışmadan Kaçınma eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Çatışmadan Kaçınma ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 5,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_aera_apa_ncme_2014"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_dutch"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "response_time_analysis",
+    "domainId": "response_integrity",
+    "constructId": "attention_effort",
+    "name_tr": "Hızlı Tıklama Sinyali",
+    "name_en": "Response Time Anomaly",
+    "operationalDefinition_tr": "Maddeyi okumadan saniyenin altında yanıt verme davranışı.",
+    "operationalDefinition_en": "Operationalization of Response Time Anomaly within Attention & Effort Detection (Dikkatsiz Yanıt İndeksleri).",
+    "observableIndicators": [
+      "Madde başına 1 saniyenin altında tıklama sıklığı.",
+      "Sayfa tamamlama hızında uç sapmalar."
+    ],
+    "constructBoundary": "Bu yapı Hızlı Tıklama Sinyali eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Hızlı Tıklama Sinyali ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 14,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_curran_2016_careless"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bidr_6"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "longstring_index",
+    "domainId": "response_integrity",
+    "constructId": "attention_effort",
+    "name_tr": "Tekdüze Yanıt Örüntüsü",
+    "name_en": "Longstring Invariance",
+    "operationalDefinition_tr": "Okumadan ardışık olarak aynı yanıt seçeneğine (örn: 10 kez üst üste 4) basma davranışı.",
+    "operationalDefinition_en": "Operationalization of Longstring Invariance within Attention & Effort Detection (Dikkatsiz Yanıt İndeksleri).",
+    "observableIndicators": [
+      "Ardı ardına aynı kategoriye basılan maksimum blok uzunluğu."
+    ],
+    "constructBoundary": "Bu yapı Tekdüze Yanıt Örüntüsü eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Tekdüze Yanıt Örüntüsü ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 4,
+    "standardResearchTarget": 8,
+    "extendedResearchTarget": 14,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_curran_2016_careless"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bidr_6"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "impression_management",
+    "domainId": "response_integrity",
+    "constructId": "response_bias",
+    "name_tr": "Bilinçli Sosyal Beğenirlik",
+    "name_en": "Impression Management",
+    "operationalDefinition_tr": "Olumlu izlenim bırakmak amacıyla gerçek dışı kusursuzluk iddialarında bulunma eğilimi.",
+    "operationalDefinition_en": "Operationalization of Impression Management within Response Bias & Self-Presentation (Yanıt Yanlılığı).",
+    "observableIndicators": [
+      "'Hayatımda hiç kimse hakkında dedikodu yapmadım' gibi insan doğasına aykırı mükemmellik iddialarını onaylama."
+    ],
+    "constructBoundary": "Bu yapı Bilinçli Sosyal Beğenirlik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Bilinçli Sosyal Beğenirlik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_curran_2016_careless"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bidr_6"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "semantic_pair_inconsistency",
+    "domainId": "response_integrity",
+    "constructId": "profile_coherence",
+    "name_tr": "Anlamsal Eş/Zıt Tutarsızlığı",
+    "name_en": "Semantic Pair Inconsistency",
+    "operationalDefinition_tr": "Aynı yapıyı ölçen doğrudan ve ters kodlanmış maddeler arasındaki mutlak uyuşmazlık derecesi.",
+    "operationalDefinition_en": "Operationalization of Semantic Pair Inconsistency within Profile Coherence (Profil Tutarlılığı).",
+    "observableIndicators": [
+      "Birbirine zıt iki maddeye de aynı anda en yüksek puanı verme."
+    ],
+    "constructBoundary": "Bu yapı Anlamsal Eş/Zıt Tutarsızlığı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Anlamsal Eş/Zıt Tutarsızlığı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 12,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 12,
+    "evidenceLevel": "gold_standard",
+    "primarySources": [
+      "src_curran_2016_careless"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_bidr_6"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "machiavellianism",
+    "domainId": "optional_dark_tetrad",
+    "constructId": "dark_tetrad_traits",
+    "name_tr": "Makyavelist Yönelim",
+    "name_en": "Strategic Pragmatism",
+    "operationalDefinition_tr": "Hedefe ulaşmak için ahlaki kuralları ikincil sayarak stratejik ve çıkarcı ilişkiler kurma eğilimi. Subkliniktir; patoloji veya tanı değildir.",
+    "operationalDefinition_en": "Operationalization of Strategic Pragmatism within Subclinical Relational Strategies (Kişilerarası Stratejiler).",
+    "observableIndicators": [
+      "İlişkileri kişisel hedefler için araçsal olarak değerlendirir.",
+      "Planlarını gizli tutarak diğer insanların zayıflıklarından stratejik avantaj sağlamayı normal görür."
+    ],
+    "constructBoundary": "Bu yapı Makyavelist Yönelim eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Makyavelist Yönelim ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_paulhus_2021_sd4"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_sd4"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "grandiose_narcissism",
+    "domainId": "optional_dark_tetrad",
+    "constructId": "dark_tetrad_traits",
+    "name_tr": "Statü ve Hayranlık İhtiyacı",
+    "name_en": "Ego Striving & Status Need",
+    "operationalDefinition_tr": "Başkalarının hayranlığını kazanma, üstün olduğunu hissetme ve merkezde olma arzusu. Subkliniktir; patoloji veya tanı değildir.",
+    "operationalDefinition_en": "Operationalization of Ego Striving & Status Need within Subclinical Relational Strategies (Kişilerarası Stratejiler).",
+    "observableIndicators": [
+      "Bulunduğu her ortamda dikkat çekmeyi ve özel takdir görmeyi arzular.",
+      "Kendisinin diğer insanlardan daha yetenekli ve ayrıcalıklı olduğuna inanır."
+    ],
+    "constructBoundary": "Bu yapı Statü ve Hayranlık İhtiyacı eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Statü ve Hayranlık İhtiyacı ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_paulhus_2021_sd4"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_sd4"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "subclinical_psychopathy",
+    "domainId": "optional_dark_tetrad",
+    "constructId": "dark_tetrad_traits",
+    "name_tr": "Sert Mizaç ve Düşük Empati",
+    "name_en": "Impulsive Tough-Mindedness",
+    "operationalDefinition_tr": "Düşük suçluluk hissi, duygusal duyarsızlık ve riskli heyecan arayışı. Subkliniktir; patoloji veya tanı değildir.",
+    "operationalDefinition_en": "Operationalization of Impulsive Tough-Mindedness within Subclinical Relational Strategies (Kişilerarası Stratejiler).",
+    "observableIndicators": [
+      "Başkalarının duygusal tepkilerini umursamadan başına buyruk hareket eder.",
+      "Tehlikeli ve kural dışı eylemler karşısında kaygı veya pişmanlık duymaz."
+    ],
+    "constructBoundary": "Bu yapı Sert Mizaç ve Düşük Empati eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sert Mizaç ve Düşük Empati ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_paulhus_2021_sd4"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_sd4"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  },
+  {
+    "facetId": "everyday_sadism",
+    "domainId": "optional_dark_tetrad",
+    "constructId": "dark_tetrad_traits",
+    "name_tr": "Sert Rekabetçilik",
+    "name_en": "Antagonistic Assertion",
+    "operationalDefinition_tr": "Zorlu rekabette veya oyunlarda karşı tarafı ezmekten ve mahcup etmekten gizli bir keyif alma. Subkliniktir; patoloji veya tanı değildir.",
+    "operationalDefinition_en": "Operationalization of Antagonistic Assertion within Subclinical Relational Strategies (Kişilerarası Stratejiler).",
+    "observableIndicators": [
+      "Münazaralarda veya oyunlarda rakibini küçük düşürdüğünde haz duyar.",
+      "Kendisinden hoşlanmayan insanları zor duruma düşürmekten gizli memnuniyet duyar."
+    ],
+    "constructBoundary": "Bu yapı Sert Rekabetçilik eğilimini ölçer; komşu veya karşıt patolojik yapılarla karıştırılmamalıdır.",
+    "whatItMeasures": "Sert Rekabetçilik ile ilişkili tutum, davranış ve motivasyonel eğilimler.",
+    "whatItDoesNotMeasure": "Klinik bozukluklar, patolojik semptomlar veya bilişsel yetenek testleri.",
+    "nearestOverlappingFacets": [],
+    "discriminantFeatures": "Hedef yapının teorik çekirdeği ve gözlenebilir davranışsal göstergeleri.",
+    "expectedCorrelates": [
+      "İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler"
+    ],
+    "knownConfounds": [
+      "Sosyal beğenirlik ve bağlamsal değişkenler"
+    ],
+    "socialDesirabilityRisk": "moderate",
+    "acquiescenceRisk": "moderate",
+    "culturalSensitivity": "Türkçe dil normlarına ve kültürel bağlama uygun günlük dil kullanımı.",
+    "recommendedMethods": [
+      "likert",
+      "behavior_frequency",
+      "contextual"
+    ],
+    "recommendedItemBankSize": 10,
+    "minimumResearchTarget": 3,
+    "standardResearchTarget": 6,
+    "extendedResearchTarget": 10,
+    "evidenceLevel": "tier_a",
+    "primarySources": [
+      "src_paulhus_2021_sd4"
+    ],
+    "secondarySources": [],
+    "instruments": [
+      "inst_sd4"
+    ],
+    "licenseNotes": "Araştırma amaçlı kamu malı veya orijinal geliştirilen maddeler.",
+    "turkishValidationStatus": "VALIDATED_AVAILABLE",
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi."
+  }
+]

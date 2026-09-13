@@ -14,7 +14,8 @@ import {
   Layers,
   Settings,
   GitFork,
-  CheckCircle2
+  CheckCircle2,
+  Database
 } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
@@ -99,6 +100,18 @@ export const Sidebar: React.FC = () => {
             <Link href="/theory-council" className={navItemClass(isActive('/theory-council'))}>
               <BookOpen className="w-4 h-4 mr-3 opacity-80" />
               Kuramlar Konseyi
+            </Link>
+          </nav>
+        </div>
+
+        <div>
+          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
+            BİLİMSEL ARAŞTIRMA
+          </div>
+          <nav className="space-y-1">
+            <Link href="/research/item-bank" className={navItemClass(isActive('/research/item-bank'))}>
+              <Database className="w-4 h-4 mr-3 opacity-80" />
+              Madde Bankası & Matris
             </Link>
           </nav>
         </div>

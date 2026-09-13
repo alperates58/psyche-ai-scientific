@@ -11,8 +11,8 @@
     "itemReproductionAllowed": true,
     "officialUrl": "https://ipip.ori.org/",
     "doi": "10.1016/j.jrp.2005.08.007",
-    "notes": "Full public-domain operationalization of the HEXACO 6-factor model. Safe for production and adaptation.",
-    "decision": "approved"
+    "notes": "Full public-domain operationalization of the HEXACO 6-factor model. Safe for research bank adaptation and production forms.",
+    "decision": "APPROVED_PUBLIC"
   },
   {
     "instrumentId": "inst_hexaco_pi_r",
@@ -26,8 +26,8 @@
     "itemReproductionAllowed": false,
     "officialUrl": "https://hexaco.org/",
     "doi": "10.1207/s15327906mbr3902_8",
-    "notes": "Original proprietary inventory. Academic use is free; commercial SaaS usage requires formal author licensing. PsycheAI prioritizes IPIP-HEXACO in core production.",
-    "decision": "requires_license"
+    "notes": "Original proprietary inventory. Academic use is free; commercial SaaS usage requires formal author licensing. PsycheAI uses IPIP-HEXACO and original construct-driven items.",
+    "decision": "REQUIRES_LICENSE"
   },
   {
     "instrumentId": "inst_neo_pi_r",
@@ -42,7 +42,7 @@
     "officialUrl": "https://www.parinc.com/",
     "doi": "10.1037/t03794-000",
     "notes": "Strictly protected copyright. Items cannot be stored, translated, or hosted in any web application without commercial licensing agreement.",
-    "decision": "rejected"
+    "decision": "REJECTED"
   },
   {
     "instrumentId": "inst_rses",
@@ -57,7 +57,7 @@
     "officialUrl": "https://socy.umd.edu/about-us/rosenberg-self-esteem-scale",
     "doi": "10.1515/9781400876136",
     "notes": "University of Maryland Department of Sociology confirms public domain status for academic and assessment use with proper citation.",
-    "decision": "approved"
+    "decision": "APPROVED_PUBLIC"
   },
   {
     "instrumentId": "inst_gses",
@@ -71,8 +71,8 @@
     "itemReproductionAllowed": true,
     "officialUrl": "https://userpage.fu-berlin.de/~health/engscal.htm",
     "doi": "10.1037/t00393-000",
-    "notes": "Authors allow reproduction for non-profit and research projects; commercial attribution required.",
-    "decision": "approved"
+    "notes": "Authors allow reproduction for non-profit and research projects; attribution required.",
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_sccs",
@@ -86,8 +86,8 @@
     "itemReproductionAllowed": true,
     "officialUrl": "https://psycnet.apa.org/record/1996-01314-006",
     "doi": "10.1037/0022-3514.70.1.141",
-    "notes": "12-item scale widely used in academic research.",
-    "decision": "approved"
+    "notes": "12-item scale widely used in academic research. Approved with citation.",
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_scs_sf",
@@ -102,7 +102,7 @@
     "officialUrl": "https://self-compassion.org/",
     "doi": "10.1016/j.cpr.2011.03.003",
     "notes": "Dr. Kristin Neff permits research and educational use of the self-compassion scales with proper attribution.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_erq",
@@ -117,7 +117,7 @@
     "officialUrl": "https://spl.stanford.edu/resources",
     "doi": "10.1037/0022-3514.85.2.348",
     "notes": "10 items (6 reappraisal, 4 suppression). Gold standard for emotional regulation strategies.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_dts",
@@ -132,7 +132,7 @@
     "officialUrl": "https://psycnet.apa.org/record/2005-03730-008",
     "doi": "10.1016/j.addbeh.2004.08.022",
     "notes": "Measures tolerance, appraisal, absorption, and regulation of negative emotions.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_panas",
@@ -147,7 +147,7 @@
     "officialUrl": "https://psycnet.apa.org/record/1988-31508-001",
     "doi": "10.1037/0022-3514.54.6.1063",
     "notes": "20 affective descriptors (10 positive, 10 negative). Widely used trait/state instrument.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_upps_p_sf",
@@ -162,7 +162,7 @@
     "officialUrl": "https://psycnet.apa.org/record/2014-25595-001",
     "doi": "10.1177/1073191114530207",
     "notes": "20 items measuring 5 distinct neurological/behavioral impulsivity facets.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_bscs",
@@ -177,7 +177,7 @@
     "officialUrl": "https://psycnet.apa.org/record/2004-12790-003",
     "doi": "10.1111/j.0022-3506.2004.00263.x",
     "notes": "13-item standard for inhibitory self-discipline and impulse control.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_bpnsfs",
@@ -192,7 +192,7 @@
     "officialUrl": "https://selfdeterminationtheory.org/basic-psychological-needs-scale/",
     "doi": "10.1007/s11031-014-9450-1",
     "notes": "Self-Determination Theory validated scale measuring satisfaction and frustration across 3 fundamental psychological needs.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_ipip_schwartz_values",
@@ -206,13 +206,13 @@
     "itemReproductionAllowed": true,
     "officialUrl": "https://ipip.ori.org/",
     "doi": "10.1016/j.jrp.2005.08.007",
-    "notes": "Public domain alternative to proprietary PVQ instruments for Schwartz 10 circumplex values.",
-    "decision": "approved"
+    "notes": "Public domain alternative to proprietary PVQ instruments for Schwartz circumplex values.",
+    "decision": "APPROVED_PUBLIC"
   },
   {
     "instrumentId": "inst_pvq_rr",
     "name": "Portrait Values Questionnaire - Revised (PVQ-RR)",
-    "constructs": ["schwartz_10_values"],
+    "constructs": ["values_openness_to_change", "values_self_transcendence", "values_conservation", "values_self_enhancement"],
     "authors": ["Schwartz, S. H.", "Cieciuch, J.", "Vecchio, G. M.", "Davidov, E.", "Fischer, R.", "Beierlein, C.", "et al."],
     "year": 2012,
     "license": "Academic Free / Commercial License Required",
@@ -222,7 +222,7 @@
     "officialUrl": "https://www.researchgate.net/publication/232490045",
     "doi": "10.1037/a0029393",
     "notes": "57-item revised portrait value questionnaire. Commercial use requires permission. PsycheAI utilizes IPIP equivalent or custom items in production.",
-    "decision": "requires_license"
+    "decision": "REQUIRES_LICENSE"
   },
   {
     "instrumentId": "inst_ecr_r",
@@ -237,12 +237,12 @@
     "officialUrl": "http://labs.psychology.illinois.edu/~rcfraley/measures/ecrr.htm",
     "doi": "10.1037/1528-3542.8.2.143",
     "notes": "36 items (18 anxiety, 18 avoidance) with extensive IRT calibration data available.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_iri",
     "name": "Interpersonal Reactivity Index (IRI)",
-    "constructs": ["cognitive_perspective_taking", "empathic_concern", "personal_distress"],
+    "constructs": ["cognitive_perspective_taking", "empathic_concern"],
     "authors": ["Davis, M. H."],
     "year": 1983,
     "license": "Open Academic with Citation",
@@ -251,13 +251,13 @@
     "itemReproductionAllowed": true,
     "officialUrl": "https://psycnet.apa.org/record/1983-29472-001",
     "doi": "10.1037/0022-3514.44.1.113",
-    "notes": "28 items measuring multidimensional empathy (fantasy subscale excluded as non-relational).",
-    "decision": "approved"
+    "notes": "Multidimensional empathy instrument (Perspective Taking and Empathic Concern subscales).",
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_dutch",
     "name": "De Dreu Conflict Management Package (DUTCH Test for Conflict Handling)",
-    "constructs": ["conflict_competing", "conflict_collaborating", "conflict_compromising", "conflict_avoiding", "conflict_accommodating"],
+    "constructs": ["conflict_collaborating", "conflict_avoiding"],
     "authors": ["De Dreu, C. K. W.", "Evers, A.", "Beersma, B.", "Kluwer, E. S.", "Nauta, A."],
     "year": 2001,
     "license": "Open Academic with Citation",
@@ -267,12 +267,12 @@
     "officialUrl": "https://psycnet.apa.org/record/2001-05705-004",
     "doi": "10.1002/job.107",
     "notes": "Superior open alternative to proprietary Thomas-Kilmann (TKI) conflict scale.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_tki",
     "name": "Thomas-Kilmann Conflict Mode Instrument (TKI)",
-    "constructs": ["conflict_competing", "conflict_collaborating", "conflict_compromising", "conflict_avoiding", "conflict_accommodating"],
+    "constructs": ["conflict_collaborating", "conflict_avoiding"],
     "authors": ["Thomas, K. W.", "Kilmann, R. H."],
     "year": 1974,
     "license": "Strictly Proprietary (The Myers-Briggs Company)",
@@ -282,7 +282,7 @@
     "officialUrl": "https://www.themyersbriggs.com/",
     "doi": "10.1177/001316447703700213",
     "notes": "Heavily commercialized and proprietary. Rejected to avoid copyright litigation.",
-    "decision": "rejected"
+    "decision": "REJECTED"
   },
   {
     "instrumentId": "inst_mbti",
@@ -297,7 +297,7 @@
     "officialUrl": "https://www.themyersbriggs.com/",
     "doi": "10.1037/t01428-000",
     "notes": "Scientifically invalid (low test-retest reliability, bimodal split artifacts) and heavily proprietary.",
-    "decision": "rejected"
+    "decision": "REJECTED"
   },
   {
     "instrumentId": "inst_sd4",
@@ -311,8 +311,8 @@
     "itemReproductionAllowed": true,
     "officialUrl": "https://psycnet.apa.org/record/2020-63957-001",
     "doi": "10.1177/1073191120914656",
-    "notes": "28 items measuring subclinical dark personality traits. Restricted to optional advanced research module.",
-    "decision": "research_only"
+    "notes": "28 items measuring subclinical dark personality traits. Restricted strictly to optional advanced research module.",
+    "decision": "RESEARCH_ONLY"
   },
   {
     "instrumentId": "inst_bidr_6",
@@ -327,7 +327,7 @@
     "officialUrl": "https://psycnet.apa.org/record/1991-97784-001",
     "doi": "10.1037/t06501-000",
     "notes": "Separates conscious lying/impression management from unconscious positive self-deception.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_nfcs_sf",
@@ -342,7 +342,7 @@
     "officialUrl": "https://psycnet.apa.org/record/2011-04179-007",
     "doi": "10.1080/1047840X.2011.537415",
     "notes": "15-item brief form measuring urgent seizing and freezing of beliefs.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_ius_12",
@@ -357,12 +357,12 @@
     "officialUrl": "https://psycnet.apa.org/record/2007-01309-009",
     "doi": "10.1016/j.janxdis.2006.03.014",
     "notes": "12-item bifactor scale measuring prospective and inhibitory intolerance of uncertainty.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_rrs_sf",
     "name": "Ruminative Responses Scale - Short Form",
-    "constructs": ["rumination_brooding", "rumination_reflection"],
+    "constructs": ["rumination_brooding"],
     "authors": ["Treynor, W.", "Gonzalez, R.", "Nolen-Hoeksema, S."],
     "year": 2003,
     "license": "Open Academic with Citation",
@@ -372,7 +372,7 @@
     "officialUrl": "https://psycnet.apa.org/record/2003-08577-009",
     "doi": "10.1023/A:1025345917029",
     "notes": "10-item scale cleanly separating maladaptive brooding from adaptive reflection.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_mlq",
@@ -387,7 +387,7 @@
     "officialUrl": "http://www.michaelfsteger.com/?page_id=13",
     "doi": "10.1037/0022-0167.53.1.80",
     "notes": "10 items measuring presence and active search for existential meaning.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
   },
   {
     "instrumentId": "inst_grit_s",
@@ -402,6 +402,81 @@
     "officialUrl": "https://angeladuckworth.com/grit-scale/",
     "doi": "10.1080/00223890802634290",
     "notes": "8 items measuring consistency of interest and perseverance of effort over multi-year horizons.",
-    "decision": "approved"
+    "decision": "APPROVED_WITH_ATTRIBUTION"
+  },
+  {
+    "instrumentId": "inst_nfc_sf",
+    "name": "Need for Cognition Scale (Short Form)",
+    "constructs": ["need_for_cognition"],
+    "authors": ["Cacioppo, J. T.", "Petty, R. E.", "Kao, C. F."],
+    "year": 1984,
+    "license": "Open Academic with Citation",
+    "commercialUse": true,
+    "translationRights": "Turkish validation (Guvenc, 2011; Demirci, 2013)",
+    "itemReproductionAllowed": true,
+    "officialUrl": "https://psycnet.apa.org/record/1985-05537-001",
+    "doi": "10.1207/s15327752jpa4803_13",
+    "notes": "18-item short form measuring intrinsic enjoyment of cognitively effortful activities.",
+    "decision": "APPROVED_WITH_ATTRIBUTION"
+  },
+  {
+    "instrumentId": "inst_cfi",
+    "name": "Cognitive Flexibility Inventory (CFI)",
+    "constructs": ["cognitive_flexibility"],
+    "authors": ["Dennis, J. P.", "Vander Wal, J. S."],
+    "year": 2010,
+    "license": "Open Academic with Citation",
+    "commercialUse": true,
+    "translationRights": "Turkish validation (Gulum & Dag, 2012)",
+    "itemReproductionAllowed": true,
+    "officialUrl": "https://psycnet.apa.org/record/2010-09068-006",
+    "doi": "10.1007/s10608-009-9276-4",
+    "notes": "20-item scale assessing control and alternatives in cognitive restructuring.",
+    "decision": "APPROVED_WITH_ATTRIBUTION"
+  },
+  {
+    "instrumentId": "inst_rei_40",
+    "name": "Rational-Experiential Inventory (REI-40)",
+    "constructs": ["rational_analytical_style", "intuitive_experiential_style"],
+    "authors": ["Pacini, R.", "Epstein, S."],
+    "year": 1999,
+    "license": "Open Academic with Citation",
+    "commercialUse": true,
+    "translationRights": "Turkish validation (Ekinci, 2012)",
+    "itemReproductionAllowed": true,
+    "officialUrl": "https://psycnet.apa.org/record/1999-10651-012",
+    "doi": "10.1037/0022-3514.76.6.972",
+    "notes": "Measures dual-process theory: rational/analytical vs. intuitive/experiential processing.",
+    "decision": "APPROVED_WITH_ATTRIBUTION"
+  },
+  {
+    "instrumentId": "inst_maximization_scale",
+    "name": "Maximization Scale",
+    "constructs": ["maximizing_tendency"],
+    "authors": ["Schwartz, B.", "Ward, A.", "Monterosso, J.", "Lyubomirsky, S.", "White, K.", "Lehman, D. R."],
+    "year": 2002,
+    "license": "Open Academic with Citation",
+    "commercialUse": true,
+    "translationRights": "Turkish adaptation (Topcu et al., 2015)",
+    "itemReproductionAllowed": true,
+    "officialUrl": "https://psycnet.apa.org/record/2002-06900-011",
+    "doi": "10.1037/0022-3514.83.5.1178",
+    "notes": "13-item measure assessing tendency to maximize choices vs satisfice.",
+    "decision": "APPROVED_WITH_ATTRIBUTION"
+  },
+  {
+    "instrumentId": "inst_tosca_3",
+    "name": "Test of Self-Conscious Affect-3 (TOSCA-3)",
+    "constructs": ["shame_proneness", "guilt_proneness"],
+    "authors": ["Tangney, J. P.", "Dearing, R. L.", "Wagner, P. E.", "Gramzow, R."],
+    "year": 2000,
+    "license": "Academic Proprietary",
+    "commercialUse": false,
+    "translationRights": "Author permission required",
+    "itemReproductionAllowed": false,
+    "officialUrl": "https://psycnet.apa.org/record/2000-08369-000",
+    "doi": "10.1037/t01893-000",
+    "notes": "Scenario-based measure of shame and guilt. PsycheAI uses original construct-driven scenario items.",
+    "decision": "REQUIRES_LICENSE"
   }
 ]
