@@ -1688,7 +1688,7 @@
       "inst_erq"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -1739,7 +1739,7 @@
       "inst_erq"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -1996,7 +1996,7 @@
       "inst_dts"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -2200,7 +2200,7 @@
       "inst_nfc_sf"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -2397,14 +2397,16 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "THEORETICAL_SUPPORT",
     "primarySources": [
-      "src_aera_apa_ncme_2014"
+      "src_aera_apa_ncme_2014",
+      "src_gulum_dag_2012_cfi",
+      "src_dennis_vanderwal_2010"
     ],
     "secondarySources": [],
     "instruments": [
       "inst_ius_12"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
+    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -2448,7 +2450,8 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
     "primarySources": [
-      "src_carleton_2007"
+      "src_carleton_2007",
+      "src_sari_dag_2009_ius"
     ],
     "secondarySources": [],
     "instruments": [
@@ -2499,14 +2502,15 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "THEORETICAL_SUPPORT",
     "primarySources": [
-      "src_treynor_2003_rrs"
+      "src_treynor_2003_rrs",
+      "src_erdur_baker_bugay_2010_rrs"
     ],
     "secondarySources": [],
     "instruments": [
       "inst_rrs_sf"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
+    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -2907,14 +2911,16 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "THEORETICAL_SUPPORT",
     "primarySources": [
-      "src_aera_apa_ncme_2014"
+      "src_aera_apa_ncme_2014",
+      "src_duyan_2012_bscs",
+      "src_tangney_baumeister_2004"
     ],
     "secondarySources": [],
     "instruments": [
       "inst_bscs"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
+    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -3009,14 +3015,16 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "THEORETICAL_SUPPORT",
     "primarySources": [
-      "src_aera_apa_ncme_2014"
+      "src_aera_apa_ncme_2014",
+      "src_saricam_2016_grit",
+      "src_duckworth_quinn_2009"
     ],
     "secondarySources": [],
     "instruments": [
       "inst_grit_s"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
+    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -3419,14 +3427,16 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "THEORETICAL_SUPPORT",
     "primarySources": [
-      "src_aera_apa_ncme_2014"
+      "src_aera_apa_ncme_2014",
+      "src_akin_tas_2015_mlq",
+      "src_steger_2006"
     ],
     "secondarySources": [],
     "instruments": [
       "inst_mlq"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
+    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -3470,14 +3480,16 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "THEORETICAL_SUPPORT",
     "primarySources": [
-      "src_aera_apa_ncme_2014"
+      "src_aera_apa_ncme_2014",
+      "src_akin_tas_2015_mlq",
+      "src_steger_2006"
     ],
     "secondarySources": [],
     "instruments": [
       "inst_mlq"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
+    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -3521,7 +3533,8 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
     "primarySources": [
-      "src_fraley_2000_ecrr"
+      "src_fraley_2000_ecrr",
+      "src_sumer_2006_ecrr"
     ],
     "secondarySources": [],
     "instruments": [
@@ -3572,7 +3585,8 @@
     "extendedResearchTarget": 12,
     "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
     "primarySources": [
-      "src_fraley_2000_ecrr"
+      "src_fraley_2000_ecrr",
+      "src_sumer_2006_ecrr"
     ],
     "secondarySources": [],
     "instruments": [
@@ -3681,7 +3695,7 @@
       "inst_iri"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -3885,7 +3899,7 @@
       "inst_dutch"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "RELATED_MEASURE_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -3936,7 +3950,7 @@
       "inst_dutch"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "RELATED_MEASURE_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },
@@ -4085,7 +4099,7 @@
       "inst_bidr_6"
     ],
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
-    "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
+    "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
     "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
   },

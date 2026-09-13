@@ -133,6 +133,54 @@ export function ItemBankClientView({
   const directTrCount = trMatrix.filter(t => t.status === 'DIRECT_FACET_VALIDATION').length;
   const lexicalTrCount = trMatrix.filter(t => t.status === 'LEXICAL_SUPPORT_ONLY').length;
 
+  // FAZ 2.2 Evidence Closure Statistics (derived dynamically)
+  const evidenceClosureStats = useMemo(() => {
+    const totalSources = sources.length;
+    const verifiedPrimary = sources.filter((s: any) => s.bibliographicVerificationStatus === 'VERIFIED_PRIMARY').length;
+    const verifiedSecondary = sources.filter((s: any) => s.bibliographicVerificationStatus === 'VERIFIED_SECONDARY').length;
+    const turkishAdaptationSources = sources.filter((s: any) => s.isTurkishAdaptation === true || s.language === 'tr').length;
+
+    const directCount = trMatrix.filter((t: any) => t.status === 'DIRECT_FACET_VALIDATION').length;
+    const lexicalCount = trMatrix.filter((t: any) => t.status === 'LEXICAL_SUPPORT_ONLY').length;
+    const relatedCount = trMatrix.filter((t: any) => t.status === 'RELATED_MEASURE_VALIDATION').length;
+    const noDirectCount = trMatrix.filter((t: any) => t.status === 'NO_DIRECT_TURKISH_VALIDATION').length;
+    const empiricalValidationRequired = relatedCount + noDirectCount;
+
+    let verifiedExactClaims = 0;
+    let notVerifiedClaims = 0;
+    let notAssessedClaims = 0;
+
+    trMatrix.forEach((f: any) => {
+      const rel = f.reliabilityEvidence;
+      if (rel) {
+        ['internalConsistency', 'testRetest', 'sampleN'].forEach(k => {
+          const claim = rel[k];
+          if (claim) {
+            if (claim.claimVerificationStatus === 'VERIFIED_EXACT') verifiedExactClaims++;
+            else if (claim.claimVerificationStatus === 'NOT_VERIFIED') notVerifiedClaims++;
+            else if (claim.claimVerificationStatus === 'NOT_ASSESSED') notAssessedClaims++;
+          }
+        });
+      }
+    });
+
+    return {
+      totalSources,
+      verifiedPrimary,
+      verifiedSecondary,
+      turkishAdaptationSources,
+      directCount,
+      lexicalCount,
+      relatedCount,
+      noDirectCount,
+      empiricalValidationRequired,
+      verifiedExactClaims,
+      notVerifiedClaims,
+      notAssessedClaims,
+      totalClaims: verifiedExactClaims + notVerifiedClaims + notAssessedClaims
+    };
+  }, [sources, trMatrix]);
+
   return (
     <div className="space-y-6">
       {/* 1. FORENSIC AUDIT KEY METRIC CARDS */}
@@ -168,11 +216,79 @@ export function ItemBankClientView({
         </div>
       </div>
 
+      {/* EVIDENCE CLOSURE STATUS CARD (FAZ 2.2 DYNAMIC AUDIT) */}
+      <div className="bg-surface-1 rounded-xl border border-border-subtle shadow-xs p-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border-subtle pb-3 mb-4">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <h2 className="text-sm font-bold text-text-primary uppercase tracking-wider">
+              Evidence Closure Status (FAZ 2.2 Forensic Audit)
+            </h2>
+          </div>
+          <span className="text-[11px] font-mono text-text-tertiary">
+            Runtime Derived from Source-of-Truth JSONs
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Toplam Kaynak</div>
+            <div className="text-lg font-bold text-text-primary mt-0.5">{evidenceClosureStats.totalSources}</div>
+            <div className="text-[10px] text-text-tertiary">Sicilde kayıtlı</div>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Primary Kaynak</div>
+            <div className="text-lg font-bold text-blue-700 mt-0.5">{evidenceClosureStats.verifiedPrimary}</div>
+            <div className="text-[10px] text-blue-600/80">Hakemli dergi</div>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Secondary Kaynak</div>
+            <div className="text-lg font-bold text-amber-700 mt-0.5">{evidenceClosureStats.verifiedSecondary}</div>
+            <div className="text-[10px] text-amber-600/80">Tez / derleme</div>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">TR Adaptasyon</div>
+            <div className="text-lg font-bold text-emerald-700 mt-0.5">{evidenceClosureStats.turkishAdaptationSources}</div>
+            <div className="text-[10px] text-emerald-600/80">Yerel çalışma</div>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Doğrudan TR Facet</div>
+            <div className="text-lg font-bold text-brand-700 mt-0.5">{evidenceClosureStats.directCount}</div>
+            <div className="text-[10px] text-brand-600/80">Geçerlik kanıtlı</div>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Leksikal Destek</div>
+            <div className="text-lg font-bold text-purple-700 mt-0.5">{evidenceClosureStats.lexicalCount}</div>
+            <div className="text-[10px] text-purple-600/80">Wasti (2008)</div>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Validasyon Bekleyen</div>
+            <div className="text-lg font-bold text-rose-700 mt-0.5">{evidenceClosureStats.empiricalValidationRequired}</div>
+            <div className="text-[10px] text-rose-600/80">Ampirik pilot şart</div>
+          </div>
+
+          <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Psikometrik İddia</div>
+            <div className="text-lg font-bold text-text-primary mt-0.5">
+              <span className="text-emerald-700">{evidenceClosureStats.verifiedExactClaims}</span>
+              <span className="text-xs text-text-tertiary font-normal"> / {evidenceClosureStats.notVerifiedClaims}</span>
+            </div>
+            <div className="text-[10px] text-text-tertiary">Exact vs Not-Verified</div>
+          </div>
+        </div>
+      </div>
+
       {/* EPISTEMIC ADVISORY ALERT */}
       <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3.5 flex items-start gap-3 text-xs text-amber-800">
         <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
         <div>
-          <span className="font-semibold">Bilimsel Epistemik Uyarı (FAZ 2.1):</span> Tüm aday maddeler{' '}
+          <span className="font-semibold">Bilimsel Epistemik Uyarı (FAZ 2.2):</span> Tüm aday maddeler{' '}
           <span className="font-mono font-semibold text-amber-900">RESEARCH_DRAFT</span> statüsündedir ve yazar tipi{' '}
           <span className="font-mono font-semibold text-amber-900">GENERATIVE_AI</span> olarak tescillenmiştir.
           Bağımsız insan psikometrist incelemesi, bilişsel görüşmeler ve ampirik pilot kalibrasyon (EFA/CFA/IRT) tamamlanmadan hiçbir madde kalibre edilmiş kabul edilemez.
@@ -486,47 +602,85 @@ export function ItemBankClientView({
                   <th className="py-2.5 px-3">Facet ID</th>
                   <th className="py-2.5 px-3">Yapı Adı</th>
                   <th className="py-2.5 px-3">Validasyon Statüsü</th>
-                  <th className="py-2.5 px-3">Enstrüman</th>
-                  <th className="py-2.5 px-3">Örneklem Açıklaması</th>
-                  <th className="py-2.5 px-3 text-center">Cronbach Alpha</th>
+                  <th className="py-2.5 px-3">Örneklem (N)</th>
+                  <th className="py-2.5 px-3 text-center">İç Tutarlık</th>
                   <th className="py-2.5 px-3 text-center">Test-Tekrar</th>
+                  <th className="py-2.5 px-3">Kanıt Konumu (Sayfa/Tablo)</th>
                   <th className="py-2.5 px-3">Bilimsel Kaynak</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-subtle">
-                {trMatrix.map((m: any) => (
-                  <tr key={m.facetId} className="hover:bg-bg-subtle/50">
-                    <td className="py-2 px-3 font-mono font-medium text-text-primary">{m.facetId}</td>
-                    <td className="py-2 px-3 text-text-primary font-medium">{m.facetName}</td>
-                    <td className="py-2 px-3">
-                      {m.status === 'DIRECT_FACET_VALIDATION' && (
-                        <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold text-[10px]">
-                          DIRECT_FACET_VALIDATION
-                        </span>
-                      )}
-                      {m.status === 'LEXICAL_SUPPORT_ONLY' && (
-                        <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-medium text-[10px]">
-                          LEXICAL_SUPPORT_ONLY
-                        </span>
-                      )}
-                      {m.status === 'RELATED_MEASURE_VALIDATION' && (
-                        <span className="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 font-medium text-[10px]">
-                          RELATED_MEASURE
-                        </span>
-                      )}
-                      {m.status === 'NO_DIRECT_TURKISH_VALIDATION' && (
-                        <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px]">
-                          NO_DIRECT_TURKISH_VALIDATION
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-2 px-3 font-mono text-[11px] text-text-secondary">{m.instrumentId || '—'}</td>
-                    <td className="py-2 px-3 text-text-secondary max-w-xs truncate">{m.sampleDescription || 'Doğrulanmış Türk örneklemi yok'}</td>
-                    <td className="py-2 px-3 text-center font-mono">{m.reliabilityEvidence?.alpha != null ? m.reliabilityEvidence.alpha : '—'}</td>
-                    <td className="py-2 px-3 text-center font-mono">{m.reliabilityEvidence?.testRetestCoefficient != null ? m.reliabilityEvidence.testRetestCoefficient : '—'}</td>
-                    <td className="py-2 px-3 text-text-tertiary text-[11px]">{(m.sourceIds || []).join(', ')}</td>
-                  </tr>
-                ))}
+                {trMatrix.map((m: any) => {
+                  const ic = m.reliabilityEvidence?.internalConsistency;
+                  const tr = m.reliabilityEvidence?.testRetest;
+                  const sn = m.reliabilityEvidence?.sampleN;
+                  return (
+                    <tr key={m.facetId} className="hover:bg-bg-subtle/50">
+                      <td className="py-2 px-3 font-mono font-medium text-text-primary">{m.facetId}</td>
+                      <td className="py-2 px-3 text-text-primary font-medium">{m.facetName}</td>
+                      <td className="py-2 px-3">
+                        {m.status === 'DIRECT_FACET_VALIDATION' && (
+                          <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold text-[10px]">
+                            DIRECT_FACET_VALIDATION
+                          </span>
+                        )}
+                        {m.status === 'LEXICAL_SUPPORT_ONLY' && (
+                          <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-medium text-[10px]">
+                            LEXICAL_SUPPORT_ONLY
+                          </span>
+                        )}
+                        {m.status === 'RELATED_MEASURE_VALIDATION' && (
+                          <span className="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 font-medium text-[10px]">
+                            RELATED_MEASURE
+                          </span>
+                        )}
+                        {m.status === 'NO_DIRECT_TURKISH_VALIDATION' && (
+                          <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px]">
+                            NO_DIRECT_TURKISH_VALIDATION
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-2 px-3">
+                        {sn?.value != null ? (
+                          <div className="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-text-primary">
+                            <span>N={sn.value}</span>
+                            <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">EXACT</span>
+                          </div>
+                        ) : (
+                          <span className="text-text-tertiary font-mono text-[11px]">—</span>
+                        )}
+                      </td>
+                      <td className="py-2 px-3 text-center">
+                        {ic?.value != null ? (
+                          <div className="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-brand-700 bg-brand-50/50 px-1.5 py-0.5 rounded">
+                            <span>{ic.value}</span>
+                            <span className="text-[9px] text-text-tertiary">({ic.metric || 'alpha'})</span>
+                          </div>
+                        ) : ic?.claimVerificationStatus === 'NOT_ASSESSED' ? (
+                          <span className="text-[10px] text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">Leksikal (Ölçülmedi)</span>
+                        ) : (
+                          <span className="text-text-tertiary font-mono text-[11px]">—</span>
+                        )}
+                      </td>
+                      <td className="py-2 px-3 text-center">
+                        {tr?.value != null ? (
+                          <div className="inline-flex items-center gap-1 font-mono text-[11px] font-medium text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                            <span>r={tr.value}</span>
+                            <span className="text-[9px] text-emerald-600/80">({tr.interval || 'retest'})</span>
+                          </div>
+                        ) : (
+                          <span className="text-text-tertiary font-mono text-[11px]">—</span>
+                        )}
+                      </td>
+                      <td className="py-2 px-3 text-text-secondary text-[11px] font-mono">
+                        {ic?.location || sn?.location || '—'}
+                      </td>
+                      <td className="py-2 px-3 text-text-tertiary text-[11px]">
+                        {(m.sourceIds || []).join(', ')}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -23,7 +23,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "METHODOLOGICAL"
   },
   {
     "sourceId": "src_apa_assessment_2020",
@@ -47,7 +50,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "METHODOLOGICAL"
   },
   {
     "sourceId": "src_ashton_lee_2007",
@@ -75,7 +81,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_goldberg_1999",
@@ -104,7 +113,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_goldberg_2006",
@@ -128,7 +140,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_rosenberg_1965",
@@ -152,7 +167,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_bandura_1997",
@@ -176,7 +194,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_schwarzer_1995",
@@ -200,7 +221,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_campbell_1996",
@@ -224,7 +248,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_neff_2003",
@@ -248,7 +275,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_gross_john_2003",
@@ -273,7 +303,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_watson_clark_1988",
@@ -298,7 +331,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_simons_gaher_2005",
@@ -322,7 +358,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_tangney_2000_tosca",
@@ -347,7 +386,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_cacioppo_petty_1982",
@@ -371,7 +413,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_roets_2011_nfcs",
@@ -395,7 +440,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_pacini_epstein_1999",
@@ -420,7 +468,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_carleton_2007",
@@ -444,7 +495,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_dennis_vanderwal_2010",
@@ -468,7 +522,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_treynor_2003_rrs",
@@ -492,7 +549,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_schwartz_2002_max",
@@ -516,7 +576,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_cyders_2014_uppsp",
@@ -544,7 +607,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_tangney_baumeister_2004",
@@ -568,7 +634,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_duckworth_quinn_2009",
@@ -592,7 +661,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_ryan_deci_2000",
@@ -618,7 +690,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_schwartz_2012_values",
@@ -645,7 +720,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_steger_2006",
@@ -670,7 +748,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_fraley_2000_ecrr",
@@ -695,7 +776,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_davis_1983",
@@ -720,7 +804,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_dedreu_2001",
@@ -745,7 +832,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_paulhus_1991",
@@ -769,7 +859,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_curran_2016_careless",
@@ -795,7 +888,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "METHODOLOGICAL"
   },
   {
     "sourceId": "src_meade_craig_2012",
@@ -821,7 +917,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "METHODOLOGICAL"
   },
   {
     "sourceId": "src_kagitcibasi_2005_self",
@@ -847,7 +946,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_paulhus_2021_sd4",
@@ -875,7 +977,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": false,
+    "evidenceScope": "DIRECT_CONSTRUCT"
   },
   {
     "sourceId": "src_wasti_2008",
@@ -904,7 +1009,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "LEXICAL"
   },
   {
     "sourceId": "src_ruganci_gencoz_2010",
@@ -929,7 +1037,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": true,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "en",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "RELATED_CONSTRUCT"
   },
   {
     "sourceId": "src_celikkaleli_capri_2008_gse",
@@ -953,7 +1064,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
   },
   {
     "sourceId": "src_yildirim_ilhan_2010_gse_sherer",
@@ -977,7 +1091,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
   },
   {
     "sourceId": "src_cuhadaroglu_1986",
@@ -1001,7 +1118,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
   },
   {
     "sourceId": "src_akin_2007_scs",
@@ -1025,7 +1145,10 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
   },
   {
     "sourceId": "src_gencoz_2000_panas",
@@ -1050,6 +1173,191 @@
     "verifiedAt": "2026-09-13T22:00:00Z",
     "doiVerified": null,
     "authorListVerified": true,
-    "publicationVerified": true
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
+  },
+  {
+    "sourceId": "src_sumer_2006_ecrr",
+    "citation": "Sümer, N. (2006). Yetişkin bağlanma boyutlarının kategorik bağlanma stilleriyle karşılaştırılması: İlişkisel Değerlendirme Ölçeği ve Yakın İlişkilerde Yaşantılar Envanteri-II'nin Türkçe uyarlamaları. Türk Psikoloji Dergisi, 21(57), 1-22.",
+    "doi": null,
+    "url": "https://www.psikolog.org.tr/tr/yayinlar/turk-psikoloji-dergisi-1/yetiskin-baglanma-boyutlarinin-kategorik-baglanma-stilleriyle-karsilastirilmasi-iliskisel-degerlendirme-olcegi-ve-yakin-iliskilerde-yasantilar-envanteri-iinin-turkce-uyarlamalari-277/",
+    "publicationType": "Journal Article",
+    "peerReviewed": true,
+    "year": 2006,
+    "constructIds": [
+      "attachment_system"
+    ],
+    "claimIds": [
+      "ecrr_turkish_two_dimension_validation"
+    ],
+    "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
+    "notes": "Turkish psychometric adaptation of Experiences in Close Relationships-Revised (ECR-R), validating anxiety and avoidance attachment dimensions in Turkish adults.",
+    "bibliographicVerificationStatus": "VERIFIED_PRIMARY",
+    "verificationEvidenceUrl": "https://www.psikolog.org.tr/tr/yayinlar/turk-psikoloji-dergisi-1/yetiskin-baglanma-boyutlarinin-kategorik-baglanma-stilleriyle-karsilastirilmasi-iliskisel-degerlendirme-olcegi-ve-yakin-iliskilerde-yasantilar-envanteri-iinin-turkce-uyarlamalari-277/",
+    "verifiedAt": "2026-09-13T22:30:00Z",
+    "doiVerified": null,
+    "authorListVerified": true,
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
+  },
+  {
+    "sourceId": "src_sari_dag_2009_ius",
+    "citation": "Sarı, S., & Dağ, İ. (2009). Belirsizliğe Tahammülsüzlük Ölçeği, Endişe ile İlgili Olumlu İnançlar Ölçeği ve Endişenin Sonuçları Ölçeği'nin Türkçeye Uyarlanması, Geçerliği ve Güvenilirliği. Türk Psikiyatri Dergisi, 20(3), 233-243.",
+    "doi": null,
+    "url": "https://pubmed.ncbi.nlm.nih.gov/19746272/",
+    "publicationType": "Journal Article",
+    "peerReviewed": true,
+    "year": 2009,
+    "constructIds": [
+      "cognitive_adaptability"
+    ],
+    "claimIds": [
+      "ius_turkish_adaptation_validation"
+    ],
+    "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
+    "notes": "Turkish psychometric adaptation and validation of Intolerance of Uncertainty Scale (IUS-12) (PMID: 19746272).",
+    "bibliographicVerificationStatus": "VERIFIED_PRIMARY",
+    "verificationEvidenceUrl": "https://pubmed.ncbi.nlm.nih.gov/19746272/",
+    "verifiedAt": "2026-09-13T22:30:00Z",
+    "doiVerified": null,
+    "authorListVerified": true,
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
+  },
+  {
+    "sourceId": "src_gulum_dag_2012_cfi",
+    "citation": "Gülüm, İ. V., & Dağ, İ. (2012). Bilişsel Esneklik Envanteri'nin Türkçeye Uyarlanması, Geçerliği ve Güvenilirliği. Anadolu Psikiyatri Dergisi, 13(4), 216-224.",
+    "doi": null,
+    "url": "https://www.anadolupsikiyatri.com/jvi.aspx?un=APD-78716",
+    "publicationType": "Journal Article",
+    "peerReviewed": true,
+    "year": 2012,
+    "constructIds": [
+      "cognitive_adaptability"
+    ],
+    "claimIds": [
+      "cfi_turkish_adaptation_validation"
+    ],
+    "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
+    "notes": "Turkish adaptation of Cognitive Flexibility Inventory (Dennis & Vander Wal, 2010), evaluating alternative thinking and control subscales.",
+    "bibliographicVerificationStatus": "VERIFIED_PRIMARY",
+    "verificationEvidenceUrl": "https://www.anadolupsikiyatri.com/jvi.aspx?un=APD-78716",
+    "verifiedAt": "2026-09-13T22:30:00Z",
+    "doiVerified": null,
+    "authorListVerified": true,
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
+  },
+  {
+    "sourceId": "src_erdur_baker_bugay_2010_rrs",
+    "citation": "Erdur-Baker, Ö., & Bugay, A. (2010). Ruminasyon Ölçeği Kısa Formunun Türkçe Uyarlaması: Geçerlik ve Güvenirlik Çalışması. Uludağ Üniversitesi Eğitim Fakültesi Dergisi, 23(1), 119-128.",
+    "doi": null,
+    "url": "https://dergipark.org.tr/tr/pub/uefad/issue/16664/173167",
+    "publicationType": "Journal Article",
+    "peerReviewed": true,
+    "year": 2010,
+    "constructIds": [
+      "cognitive_adaptability"
+    ],
+    "claimIds": [
+      "rrs_turkish_short_form_validation"
+    ],
+    "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
+    "notes": "Turkish psychometric adaptation of Ruminative Response Scale (RRS) short form (Treynor et al., 2003) in Turkish sample.",
+    "bibliographicVerificationStatus": "VERIFIED_PRIMARY",
+    "verificationEvidenceUrl": "https://dergipark.org.tr/tr/pub/uefad/issue/16664/173167",
+    "verifiedAt": "2026-09-13T22:30:00Z",
+    "doiVerified": null,
+    "authorListVerified": true,
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
+  },
+  {
+    "sourceId": "src_duyan_2012_bscs",
+    "citation": "Duyan, V., Gülden, Ç., & Gelbal, S. (2012). Brief Self-Control Scale: A study of Turkish adaptation, validity and reliability. Dusunen Adam: Journal of Psychiatry and Neurological Sciences, 25(3), 228-238.",
+    "doi": "10.5350/DAJPN2012250304",
+    "url": "https://doi.org/10.5350/DAJPN2012250304",
+    "publicationType": "Journal Article",
+    "peerReviewed": true,
+    "year": 2012,
+    "constructIds": [
+      "volitional_stamina"
+    ],
+    "claimIds": [
+      "bscs_turkish_adaptation_validation"
+    ],
+    "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
+    "notes": "Turkish psychometric adaptation of Brief Self-Control Scale (Tangney et al., 2004) in 350 adults.",
+    "bibliographicVerificationStatus": "VERIFIED_PRIMARY",
+    "verificationEvidenceUrl": "https://doi.org/10.5350/DAJPN2012250304",
+    "verifiedAt": "2026-09-13T22:30:00Z",
+    "doiVerified": true,
+    "authorListVerified": true,
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
+  },
+  {
+    "sourceId": "src_saricam_2016_grit",
+    "citation": "Sarıçam, H., Çetinkaya, C., & Gücel, A. (2016). Kısa Azim Ölçeği'nin Türkçe Uyarlaması: Geçerlik ve Güvenirlik Çalışması. Uluslararası Eğitim Bilimleri Dergisi, 3(8), 101-110.",
+    "doi": null,
+    "url": "https://dergipark.org.tr/tr/pub/ueb/issue/32579/362095",
+    "publicationType": "Journal Article",
+    "peerReviewed": true,
+    "year": 2016,
+    "constructIds": [
+      "volitional_stamina"
+    ],
+    "claimIds": [
+      "grit_s_turkish_adaptation_validation"
+    ],
+    "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
+    "notes": "Turkish psychometric adaptation of Short Grit Scale (Duckworth & Quinn, 2009) in university students.",
+    "bibliographicVerificationStatus": "VERIFIED_PRIMARY",
+    "verificationEvidenceUrl": "https://dergipark.org.tr/tr/pub/ueb/issue/32579/362095",
+    "verifiedAt": "2026-09-13T22:30:00Z",
+    "doiVerified": null,
+    "authorListVerified": true,
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
+  },
+  {
+    "sourceId": "src_akin_tas_2015_mlq",
+    "citation": "Akın, A., & Taş, İ. (2015). Yaşamın Anlamı Ölçeği Türkçe Formunun Geçerlik ve Güvenirlik Çalışması. Elektronik Sosyal Bilimler Dergisi, 14(55), 183-193.",
+    "doi": "10.17755/esosder.98822",
+    "url": "https://doi.org/10.17755/esosder.98822",
+    "publicationType": "Journal Article",
+    "peerReviewed": true,
+    "year": 2015,
+    "constructIds": [
+      "existential_meaning"
+    ],
+    "claimIds": [
+      "mlq_turkish_adaptation_validation"
+    ],
+    "evidenceLevel": "STRONG_DIRECT_EVIDENCE",
+    "notes": "Turkish psychometric adaptation of Meaning in Life Questionnaire (Steger et al., 2006) validating presence and search dimensions.",
+    "bibliographicVerificationStatus": "VERIFIED_PRIMARY",
+    "verificationEvidenceUrl": "https://doi.org/10.17755/esosder.98822",
+    "verifiedAt": "2026-09-13T22:30:00Z",
+    "doiVerified": true,
+    "authorListVerified": true,
+    "publicationVerified": true,
+    "language": "tr",
+    "isTurkishAdaptation": true,
+    "evidenceScope": "DIRECT_FACET"
   }
 ]

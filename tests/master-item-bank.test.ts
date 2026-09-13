@@ -287,4 +287,151 @@ describe('FAZ 2 & 2.1: Forensic Scientific Master Item Bank Integrity & Epistemi
     const validCount = items.filter((it: any) => it.validationStatus === 'VALIDATED').length;
     expect(validCount).toBe(0);
   });
+
+  // =========================================================================
+  // FAZ 2.2 EVIDENCE CLOSURE AUDIT TESTS (Strict Claim-Level & Provenance Rules)
+  // =========================================================================
+
+  it('26. CLOSURE: DIRECT_FACET_VALIDATION strictly requires verified Turkish source', () => {
+    const sourceMap = new Map<string, any>();
+    sources.forEach((s: any) => sourceMap.set(s.sourceId, s));
+
+    const directFacets = trMatrix.filter((f: any) => f.status === 'DIRECT_FACET_VALIDATION');
+    expect(directFacets.length).toBe(14);
+
+    for (const facet of directFacets) {
+      expect(facet.sourceIds.length).toBeGreaterThanOrEqual(1);
+      const hasVerifiedTurkishSource = facet.sourceIds.some((sid: string) => {
+        const src = sourceMap.get(sid);
+        return (
+          src &&
+          (src.language === 'tr' || src.isTurkishAdaptation === true) &&
+          (src.bibliographicVerificationStatus === 'VERIFIED_PRIMARY' || src.bibliographicVerificationStatus === 'VERIFIED_SECONDARY') &&
+          src.evidenceScope === 'DIRECT_FACET'
+        );
+      });
+      expect(hasVerifiedTurkishSource).toBe(true);
+    }
+  });
+
+  it('27. CLOSURE: English original instrument source alone cannot satisfy Turkish direct validation', () => {
+    // Facets that only have English instrument papers MUST be NO_DIRECT_TURKISH_VALIDATION
+    const unadaptedEnglishFacets = [
+      'cognitive_reappraisal',
+      'expressive_suppression',
+      'distress_tolerance',
+      'need_for_cognition',
+      'empathic_concern',
+      'impression_management'
+    ];
+
+    for (const fid of unadaptedEnglishFacets) {
+      const facet = trMatrix.find((f: any) => f.facetId === fid);
+      expect(facet).toBeDefined();
+      expect(facet.status).toBe('NO_DIRECT_TURKISH_VALIDATION');
+      expect(facet.status).not.toBe('DIRECT_FACET_VALIDATION');
+    }
+  });
+
+  it('28. CLOSURE: sampleDescription cannot act as provenance (zero unverified citations)', () => {
+    // Unverified citations that were previously in sampleDescription without registered sources
+    const forbiddenCitationPhrases = [
+      'Yurtsever, 2008',
+      'Yılmaz, 2005',
+      'Demirtaş, 2013',
+      'Yıldırım et al.',
+      'Sarı & Dağ, 2009 on DTS'
+    ];
+
+    for (const facet of trMatrix) {
+      for (const phrase of forbiddenCitationPhrases) {
+        expect(facet.sampleDescription).not.toContain(phrase);
+      }
+      if (facet.status === 'NO_DIRECT_TURKISH_VALIDATION') {
+        expect(facet.sampleDescription).toBe('Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.');
+      }
+    }
+  });
+
+  it('29. CLOSURE: all non-null reliability numbers require registered sourceId and claimVerificationStatus', () => {
+    const validClaimStatuses = new Set(['VERIFIED_EXACT', 'VERIFIED_GENERAL', 'NOT_VERIFIED', 'CONFLICTING_EVIDENCE', 'NOT_ASSESSED']);
+    const sourceIds = new Set(sources.map((s: any) => s.sourceId));
+
+    for (const facet of trMatrix) {
+      const rel = facet.reliabilityEvidence;
+      expect(rel).toBeDefined();
+
+      ['internalConsistency', 'testRetest', 'sampleN'].forEach((key: string) => {
+        const claim = rel[key];
+        expect(claim).toBeDefined();
+        expect(validClaimStatuses.has(claim.claimVerificationStatus)).toBe(true);
+
+        if (claim.value !== null) {
+          expect(claim.sourceId).toBeTruthy();
+          expect(sourceIds.has(claim.sourceId)).toBe(true);
+          expect(claim.claimVerificationStatus).toBe('VERIFIED_EXACT');
+        } else {
+          expect(['NOT_VERIFIED', 'NOT_ASSESSED']).toContain(claim.claimVerificationStatus);
+        }
+      });
+    }
+  });
+
+  it('30. CLOSURE: VERIFIED_EXACT claims strictly require location field (page/table reference)', () => {
+    for (const facet of trMatrix) {
+      const rel = facet.reliabilityEvidence;
+      ['internalConsistency', 'testRetest', 'sampleN'].forEach((key: string) => {
+        const claim = rel[key];
+        if (claim.claimVerificationStatus === 'VERIFIED_EXACT') {
+          expect(claim.location).toBeTruthy();
+          expect(typeof claim.location).toBe('string');
+          expect(claim.location.length).toBeGreaterThan(2);
+        }
+      });
+    }
+  });
+
+  it('31. CLOSURE: every source in source-registry has bibliographicVerificationStatus, language, and evidenceScope', () => {
+    const validBibStatuses = new Set(['VERIFIED_PRIMARY', 'VERIFIED_SECONDARY', 'UNVERIFIED']);
+    const validScopes = new Set(['DIRECT_FACET', 'DIRECT_CONSTRUCT', 'RELATED_CONSTRUCT', 'LEXICAL', 'TRANSLATION_ONLY', 'METHODOLOGICAL']);
+
+    for (const src of sources) {
+      expect(validBibStatuses.has(src.bibliographicVerificationStatus)).toBe(true);
+      expect(['tr', 'en']).toContain(src.language);
+      expect(typeof src.isTurkishAdaptation).toBe('boolean');
+      expect(validScopes.has(src.evidenceScope)).toBe(true);
+    }
+  });
+
+  it('32. CLOSURE: runtime report generator dynamically computes statistics matching JSON files exactly', async () => {
+    const { generateScientificAuditReport } = await import('../scripts/generate-scientific-audit-report');
+    const reportText = generateScientificAuditReport();
+
+    expect(reportText).toContain(`Toplam Kaynak: ${sources.length}`);
+    expect(reportText).toContain(`Toplam: 14 / 84 facet`);
+    expect(reportText).toContain(`Toplam: 24 / 84 facet`);
+    expect(reportText).toContain(`Toplam: 44 / 84 facet`);
+    expect(reportText).toContain(`Toplam: 2 / 84 facet`);
+    expect(reportText).toContain(`Toplam: 252 iddia`);
+    expect(reportText).toContain(`Toplam Doğrulanmış İddia: 56`);
+    expect(reportText).toContain(`Toplam: 148`);
+    expect(reportText).toContain(`Toplam: 48`);
+  });
+
+  it('33. CLOSURE: related measure validation requires registered related Turkish instrument', () => {
+    const relatedFacets = trMatrix.filter((f: any) => f.status === 'RELATED_MEASURE_VALIDATION');
+    expect(relatedFacets.length).toBe(2);
+
+    for (const rf of relatedFacets) {
+      expect(['emotional_reactivity', 'emotional_recovery']).toContain(rf.facetId);
+      expect(rf.sourceIds).toContain('src_ruganci_gencoz_2010');
+    }
+
+    // conflict_collaborating and conflict_avoiding must NOT be RELATED_MEASURE_VALIDATION
+    const conflictFacets = trMatrix.filter((f: any) => f.facetId === 'conflict_collaborating' || f.facetId === 'conflict_avoiding');
+    for (const cf of conflictFacets) {
+      expect(cf.status).toBe('NO_DIRECT_TURKISH_VALIDATION');
+    }
+  });
 });
+

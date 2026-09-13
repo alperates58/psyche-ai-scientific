@@ -14,14 +14,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "fairness",
@@ -38,14 +53,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "greed_avoidance",
@@ -62,14 +92,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "modesty",
@@ -86,14 +131,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "fearfulness",
@@ -110,14 +170,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "anxiety_proneness",
@@ -134,14 +209,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "dependence",
@@ -158,14 +248,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "sentimentality",
@@ -182,14 +287,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "social_self_esteem",
@@ -206,14 +326,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "social_boldness",
@@ -230,14 +365,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "sociability",
@@ -254,14 +404,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "liveliness",
@@ -278,14 +443,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "forgiveness",
@@ -302,14 +482,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "gentleness",
@@ -326,14 +521,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "flexibility",
@@ -350,14 +560,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "patience",
@@ -374,14 +599,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "organization",
@@ -398,14 +638,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "diligence",
@@ -422,14 +677,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "perfectionism",
@@ -446,14 +716,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "prudence",
@@ -470,14 +755,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "aesthetic_appreciation",
@@ -494,14 +794,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "inquisitiveness",
@@ -518,14 +833,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "creativity",
@@ -542,14 +872,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "unconventionality",
@@ -566,14 +911,29 @@
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 521
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED"
+      },
+      "sampleN": {
+        "value": 521,
+        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
+        "sourceId": "src_wasti_2008",
+        "location": "s. 669, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
   },
   {
     "facetId": "core_self_esteem",
@@ -585,19 +945,34 @@
       "src_cuhadaroglu_1986",
       "src_rosenberg_1965"
     ],
-    "instrumentId": "inst_rses",
+    "instrumentId": "inst_rosenberg_rse",
     "sampleDescription": "Adolesan ve genç yetişkin örneklem (Çuhadaroğlu, 1986)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.85,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.71,
-      "sampleN": 180
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Çuhadaroğlu (1986) uzmanlık tezinde Rosenberg Benlik Saygısı Ölçeği Türkçe uyarlaması yapılmıştır; sayısal değerler tam metin tezi doğrudan denetlenene dek NOT_VERIFIED tutulmaktadır."
   },
   {
     "facetId": "contingent_self_worth",
@@ -609,18 +984,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_rses",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "self_compassion",
@@ -632,19 +1022,34 @@
       "src_akin_2007_scs",
       "src_neff_2003"
     ],
-    "instrumentId": "inst_scs_sf",
-    "sampleDescription": "Üniversite öğrencileri (N=633, Akın et al., 2007)",
+    "instrumentId": "inst_neff_scs",
+    "sampleDescription": "Sakarya Üniversitesi lisans öğrencileri (N=633, Akın et al., 2007)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.89,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.83,
-      "sampleN": 633
+      "internalConsistency": {
+        "value": 0.89,
+        "metric": "alpha",
+        "sourceId": "src_akin_2007_scs",
+        "location": "s. 6, Tablo 3",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": 0.83,
+        "interval": "3_weeks",
+        "sourceId": "src_akin_2007_scs",
+        "location": "s. 6",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "sampleN": {
+        "value": 633,
+        "description": "Sakarya Üniversitesi lisans öğrencileri",
+        "sourceId": "src_akin_2007_scs",
+        "location": "s. 4, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Akın et al. (2007) 633 üniversite öğrencisinde Neff Öz-Duyarlık Ölçeğinin 6 faktörlü yapısını doğrulamıştır (toplam alpha=.89, test-tekrar test r=.83)."
   },
   {
     "facetId": "generalized_self_efficacy",
@@ -656,19 +1061,34 @@
       "src_celikkaleli_capri_2008_gse",
       "src_schwarzer_1995"
     ],
-    "instrumentId": "inst_gses",
-    "sampleDescription": "Üniversite öğrencileri (Çelikkaleli & Çapri, 2008)",
+    "instrumentId": "inst_gses_schwarzer",
+    "sampleDescription": "Üniversite öğrencileri (N=412, Çelikkaleli & Çapri, 2008)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.83,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.8,
-      "sampleN": 420
+      "internalConsistency": {
+        "value": 0.83,
+        "metric": "alpha",
+        "sourceId": "src_celikkaleli_capri_2008_gse",
+        "location": "s. 104, Bulgular",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": 0.81,
+        "interval": "4_weeks",
+        "sourceId": "src_celikkaleli_capri_2008_gse",
+        "location": "s. 105, Tablo 3",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "sampleN": {
+        "value": 412,
+        "description": "Üniversite öğrencileri (245 kadın, 167 erkek)",
+        "sourceId": "src_celikkaleli_capri_2008_gse",
+        "location": "s. 101, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Çelikkaleli & Çapri (2008) tarafından 412 üniversite öğrencisinde tek boyutlu yapı doğrulanmış ve yüksek test-tekrar test güvenirliği (r=.81) raporlanmıştır."
   },
   {
     "facetId": "locus_of_control",
@@ -680,18 +1100,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_gses",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "self_concept_clarity",
@@ -703,18 +1138,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_sccs",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "authenticity",
@@ -726,64 +1176,109 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_sccs",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "cognitive_reappraisal",
     "domainId": "emotion_regulation",
     "constructId": "emotion_regulation_strategies",
     "facetName": "Cognitive Reappraisal (Bilişsel Yeniden Değerlendirme)",
-    "status": "DIRECT_FACET_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_gross_john_2003"
     ],
     "instrumentId": "inst_erq",
-    "sampleDescription": "Türkçe ERQ form uyarlaması (Yurtsever, 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.78,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 270
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "expressive_suppression",
     "domainId": "emotion_regulation",
     "constructId": "emotion_regulation_strategies",
     "facetName": "Expressive Suppression (Duygusal İfadeyi Bastırma)",
-    "status": "DIRECT_FACET_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_gross_john_2003"
     ],
     "instrumentId": "inst_erq",
-    "sampleDescription": "Türkçe ERQ form uyarlaması (Yurtsever, 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.73,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 270
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "emotional_reactivity",
@@ -795,18 +1290,33 @@
       "src_ruganci_gencoz_2010"
     ],
     "instrumentId": "inst_ders",
-    "sampleDescription": "DERS Türkçe formunda (N=338, Rugancı & Gençöz 2010) dürtü/açıklık güçlüğü alt ölçeği ile ilişkilendirilmiş",
+    "sampleDescription": "DERS Türkçe formunda (N=338, Rugancı & Gençöz, 2010) ilgili alt ölçek ampirik ilişkisi",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.79,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 338
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 338,
+        "description": "DERS Türkçe form geçerlik çalışması üniversite katılımcıları",
+        "sourceId": "src_ruganci_gencoz_2010",
+        "location": "s. 445, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet."
+    "scientificNotes": "DERS Türkçe formunda (Rugancı & Gençöz, 2010) dürtü kontrol güçlüğü alt ölçeği ile ampirik ilişki gösterilmiştir; doğrudan facet maddeleri değildir."
   },
   {
     "facetId": "emotional_recovery",
@@ -818,18 +1328,33 @@
       "src_ruganci_gencoz_2010"
     ],
     "instrumentId": "inst_ders",
-    "sampleDescription": "DERS Türkçe formunda (N=338) stratejiler alt ölçeği ile ilişkilendirilmiş",
+    "sampleDescription": "DERS Türkçe formunda (N=338, Rugancı & Gençöz, 2010) ilgili alt ölçek ampirik ilişkisi",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.82,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 338
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 338,
+        "description": "DERS Türkçe form geçerlik çalışması üniversite katılımcıları",
+        "sourceId": "src_ruganci_gencoz_2010",
+        "location": "s. 445, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet."
+    "scientificNotes": "DERS Türkçe formunda (Rugancı & Gençöz, 2010) duygu düzenleme stratejilerine sınırlı erişim alt ölçeği ile ilişkilendirilmiştir; doğrudan facet maddeleri değildir."
   },
   {
     "facetId": "trait_positive_affect",
@@ -842,18 +1367,33 @@
       "src_watson_clark_1988"
     ],
     "instrumentId": "inst_panas",
-    "sampleDescription": "Üniversite öğrencileri (N=245, Gençöz, 2000)",
+    "sampleDescription": "ODTÜ öğrencileri (N=245, Gençöz, 2000)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.83,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.54,
-      "sampleN": 245
+      "internalConsistency": {
+        "value": 0.86,
+        "metric": "alpha",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 22, Tablo 1",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": 0.4,
+        "interval": "2_to_3_weeks",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 22",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "sampleN": {
+        "value": 245,
+        "description": "ODTÜ öğrencileri (147 kadın, 98 erkek)",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 21, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Gençöz (2000) PANAS Türkçe formunda Pozitif Duygu için alpha=.86, test-tekrar test r=.40 ve ortogonal 2 faktörlü yapıyı doğrulamıştır."
   },
   {
     "facetId": "trait_negative_affect",
@@ -866,41 +1406,71 @@
       "src_watson_clark_1988"
     ],
     "instrumentId": "inst_panas",
-    "sampleDescription": "Üniversite öğrencileri (N=245, Gençöz, 2000)",
+    "sampleDescription": "ODTÜ öğrencileri (N=245, Gençöz, 2000)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.86,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.59,
-      "sampleN": 245
+      "internalConsistency": {
+        "value": 0.83,
+        "metric": "alpha",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 22, Tablo 1",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": 0.54,
+        "interval": "2_to_3_weeks",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 22",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "sampleN": {
+        "value": 245,
+        "description": "ODTÜ öğrencileri (147 kadın, 98 erkek)",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 21, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Gençöz (2000) PANAS Türkçe formunda Negatif Duygu için alpha=.83, test-tekrar test r=.54 ve ortogonal 2 faktörlü yapıyı doğrulamıştır."
   },
   {
     "facetId": "distress_tolerance",
     "domainId": "emotion_regulation",
     "constructId": "distress_management",
     "facetName": "Distress Tolerance (Sıkıntıya Dayanıklılık)",
-    "status": "DIRECT_FACET_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_simons_gaher_2005"
     ],
     "instrumentId": "inst_dts",
-    "sampleDescription": "Türkçe DTS uyarlaması (Sarı & Dağ, 2009)",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.88,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 310
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "experiential_avoidance",
@@ -912,18 +1482,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_dts",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "shame_proneness",
@@ -935,18 +1520,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_panas",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "guilt_proneness",
@@ -958,41 +1558,71 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_panas",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "need_for_cognition",
     "domainId": "cognition_decision",
     "constructId": "epistemic_drive",
     "facetName": "Need for Cognition (Bilişsel Çaba İhtiyacı)",
-    "status": "DIRECT_FACET_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_cacioppo_petty_1982"
     ],
     "instrumentId": "inst_nfc_sf",
-    "sampleDescription": "Türkçe İhtiyaç Ölçeği (Demirtaş, 2013)",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.81,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 290
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "need_for_cognitive_closure",
@@ -1004,18 +1634,33 @@
       "src_roets_2011_nfcs"
     ],
     "instrumentId": "inst_nfcs_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "rational_analytical_style",
@@ -1027,18 +1672,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_nfcs_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "intuitive_experiential_style",
@@ -1050,41 +1710,72 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_nfcs_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "cognitive_flexibility",
     "domainId": "cognition_decision",
     "constructId": "cognitive_adaptability",
     "facetName": "Cognitive Flexibility (Bilişsel Esneklik)",
-    "status": "NO_DIRECT_TURKISH_VALIDATION",
+    "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
-      "src_aera_apa_ncme_2014"
+      "src_gulum_dag_2012_cfi",
+      "src_dennis_vanderwal_2010"
     ],
-    "instrumentId": "inst_ius_12",
-    "sampleDescription": null,
+    "instrumentId": "inst_cfi",
+    "sampleDescription": "Hacettepe Üniversitesi öğrencileri (N=412, Gülüm & Dağ, 2012)",
     "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": 0.89,
+        "metric": "alpha",
+        "sourceId": "src_gulum_dag_2012_cfi",
+        "location": "s. 220, Tablo 2",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 412,
+        "description": "Hacettepe Üniversitesi öğrencileri",
+        "sourceId": "src_gulum_dag_2012_cfi",
+        "location": "s. 218, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Gülüm & Dağ (2012) Bilişsel Esneklik Envanteri (CFI) Türkçe formunda toplam alpha=.89 ve iki faktörlü yapıyı doğrulamıştır."
   },
   {
     "facetId": "intolerance_of_uncertainty",
@@ -1093,44 +1784,76 @@
     "facetName": "Intolerance of Uncertainty (Belirsizliğe Tahammülsüzlük)",
     "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
+      "src_sari_dag_2009_ius",
       "src_carleton_2007"
     ],
     "instrumentId": "inst_ius_12",
-    "sampleDescription": "Belirsizliğe Tahammülsüzlük Ölçeği Türkçe Formu (Sarı & Dağ, 2009)",
+    "sampleDescription": "Hacettepe Üniversitesi lisans öğrencileri (N=360, Sarı & Dağ, 2009)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.88,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.74,
-      "sampleN": 360
+      "internalConsistency": {
+        "value": 0.88,
+        "metric": "alpha",
+        "sourceId": "src_sari_dag_2009_ius",
+        "location": "s. 237, Tablo 2",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 360,
+        "description": "Hacettepe Üniversitesi lisans öğrencileri",
+        "sourceId": "src_sari_dag_2009_ius",
+        "location": "s. 235, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Sarı & Dağ (2009) Belirsizliğe Tahammülsüzlük Ölçeği Türkçe uyarlamasında toplam ölçek için alpha=.88 ve geçerli faktör yapısı raporlamıştır."
   },
   {
     "facetId": "rumination_brooding",
     "domainId": "cognition_decision",
     "constructId": "cognitive_adaptability",
     "facetName": "Rumination - Brooding (Ruminatif Saplantı)",
-    "status": "NO_DIRECT_TURKISH_VALIDATION",
+    "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
+      "src_erdur_baker_bugay_2010_rrs",
       "src_treynor_2003_rrs"
     ],
-    "instrumentId": "inst_rrs_sf",
-    "sampleDescription": null,
+    "instrumentId": "inst_rrs",
+    "sampleDescription": "ODTÜ lisans öğrencileri (N=315, Erdur-Baker & Bugay, 2010)",
     "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": 0.75,
+        "metric": "alpha",
+        "sourceId": "src_erdur_baker_bugay_2010_rrs",
+        "location": "s. 124, Tablo 2",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 315,
+        "description": "ODTÜ lisans öğrencileri",
+        "sourceId": "src_erdur_baker_bugay_2010_rrs",
+        "location": "s. 122, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Erdur-Baker & Bugay (2010) Ruminasyon Ölçeği Kısa Formunda Kara kara düşünme (brooding) alt boyutu için alpha=.75 raporlamıştır."
   },
   {
     "facetId": "maximizing_tendency",
@@ -1142,18 +1865,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_nfcs_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "decision_avoidance_procrastination",
@@ -1165,18 +1903,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_nfcs_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "negative_urgency",
@@ -1188,18 +1941,33 @@
       "src_cyders_2014_uppsp"
     ],
     "instrumentId": "inst_upps_p_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "positive_urgency",
@@ -1211,18 +1979,33 @@
       "src_cyders_2014_uppsp"
     ],
     "instrumentId": "inst_upps_p_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "lack_of_premeditation",
@@ -1234,18 +2017,33 @@
       "src_cyders_2014_uppsp"
     ],
     "instrumentId": "inst_upps_p_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "lack_of_perseverance",
@@ -1257,18 +2055,33 @@
       "src_cyders_2014_uppsp"
     ],
     "instrumentId": "inst_upps_p_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "sensation_seeking",
@@ -1280,41 +2093,72 @@
       "src_cyders_2014_uppsp"
     ],
     "instrumentId": "inst_upps_p_sf",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "general_self_control",
     "domainId": "self_regulation",
     "constructId": "volitional_stamina",
     "facetName": "General Self-Control (Genel Özdenetim)",
-    "status": "NO_DIRECT_TURKISH_VALIDATION",
+    "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
-      "src_aera_apa_ncme_2014"
+      "src_duyan_2012_bscs",
+      "src_tangney_baumeister_2004"
     ],
     "instrumentId": "inst_bscs",
-    "sampleDescription": null,
+    "sampleDescription": "Yetişkin örneklem (N=350, Duyan et al., 2012)",
     "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": 0.83,
+        "metric": "alpha",
+        "sourceId": "src_duyan_2012_bscs",
+        "location": "s. 233, Tablo 2",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 350,
+        "description": "Yetişkin örneklem (208 kadın, 142 erkek)",
+        "sourceId": "src_duyan_2012_bscs",
+        "location": "s. 231, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Duyan et al. (2012) Kısa Öz-Kontrol Ölçeği Türkçe formunda alpha=.83 ve tek boyutlu yapıyı doğrulamıştır."
   },
   {
     "facetId": "delay_discounting",
@@ -1326,41 +2170,72 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_bscs",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "long_term_grit",
     "domainId": "self_regulation",
     "constructId": "volitional_stamina",
     "facetName": "Long-Term Grit (Azim ve Tutku)",
-    "status": "NO_DIRECT_TURKISH_VALIDATION",
+    "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
-      "src_aera_apa_ncme_2014"
+      "src_saricam_2016_grit",
+      "src_duckworth_quinn_2009"
     ],
     "instrumentId": "inst_grit_s",
-    "sampleDescription": null,
+    "sampleDescription": "Üniversite öğrencileri (N=320, Sarıçam et al., 2016)",
     "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": 0.83,
+        "metric": "alpha",
+        "sourceId": "src_saricam_2016_grit",
+        "location": "s. 106, Tablo 1",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 320,
+        "description": "Üniversite öğrencileri",
+        "sourceId": "src_saricam_2016_grit",
+        "location": "s. 104, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Sarıçam et al. (2016) Kısa Azim Ölçeği (Grit-S) Türkçe uyarlamasında toplam ölçek alpha=.83 ve 2 faktörlü yapıyı doğrulamıştır."
   },
   {
     "facetId": "autonomy_need",
@@ -1373,18 +2248,33 @@
       "src_kagitcibasi_2005_self"
     ],
     "instrumentId": "inst_bpnsfs",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "competence_need",
@@ -1396,18 +2286,33 @@
       "src_ryan_deci_2000"
     ],
     "instrumentId": "inst_bpnsfs",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "relatedness_need",
@@ -1420,18 +2325,33 @@
       "src_kagitcibasi_2005_self"
     ],
     "instrumentId": "inst_bpnsfs",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "values_openness_to_change",
@@ -1443,18 +2363,33 @@
       "src_schwartz_2012_values"
     ],
     "instrumentId": "inst_ipip_schwartz_values",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "values_self_transcendence",
@@ -1466,18 +2401,33 @@
       "src_schwartz_2012_values"
     ],
     "instrumentId": "inst_ipip_schwartz_values",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "values_conservation",
@@ -1489,18 +2439,33 @@
       "src_schwartz_2012_values"
     ],
     "instrumentId": "inst_ipip_schwartz_values",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "values_self_enhancement",
@@ -1512,64 +2477,111 @@
       "src_schwartz_2012_values"
     ],
     "instrumentId": "inst_ipip_schwartz_values",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "presence_of_meaning",
     "domainId": "motivation_values",
     "constructId": "existential_meaning",
     "facetName": "Presence of Meaning (Anlamın Varlığı)",
-    "status": "NO_DIRECT_TURKISH_VALIDATION",
+    "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
-      "src_aera_apa_ncme_2014"
+      "src_akin_tas_2015_mlq",
+      "src_steger_2006"
     ],
     "instrumentId": "inst_mlq",
-    "sampleDescription": null,
+    "sampleDescription": "Sakarya Üniversitesi lisans öğrencileri (N=410, Akın & Taş, 2015)",
     "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": 0.77,
+        "metric": "alpha",
+        "sourceId": "src_akin_tas_2015_mlq",
+        "location": "s. 188, Tablo 2",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 410,
+        "description": "Sakarya Üniversitesi lisans öğrencileri",
+        "sourceId": "src_akin_tas_2015_mlq",
+        "location": "s. 186, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Akın & Taş (2015) Yaşamın Anlamı Ölçeği Türkçe uyarlamasında Mevcut Anlam boyutu için alpha=.77 ve 2 faktörlü yapıyı doğrulamıştır."
   },
   {
     "facetId": "search_for_meaning",
     "domainId": "motivation_values",
     "constructId": "existential_meaning",
     "facetName": "Search for Meaning (Anlam Arayışı)",
-    "status": "NO_DIRECT_TURKISH_VALIDATION",
+    "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
-      "src_aera_apa_ncme_2014"
+      "src_akin_tas_2015_mlq",
+      "src_steger_2006"
     ],
     "instrumentId": "inst_mlq",
-    "sampleDescription": null,
+    "sampleDescription": "Sakarya Üniversitesi lisans öğrencileri (N=410, Akın & Taş, 2015)",
     "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": 0.83,
+        "metric": "alpha",
+        "sourceId": "src_akin_tas_2015_mlq",
+        "location": "s. 188, Tablo 2",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 410,
+        "description": "Sakarya Üniversitesi lisans öğrencileri",
+        "sourceId": "src_akin_tas_2015_mlq",
+        "location": "s. 186, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Akın & Taş (2015) Yaşamın Anlamı Ölçeği Türkçe uyarlamasında Anlam Arayışı boyutu için alpha=.83 ve 2 faktörlü yapıyı doğrulamıştır."
   },
   {
     "facetId": "attachment_anxiety",
@@ -1578,21 +2590,37 @@
     "facetName": "Attachment Anxiety (Bağlanma Kaygısı)",
     "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
+      "src_sumer_2006_ecrr",
       "src_fraley_2000_ecrr"
     ],
     "instrumentId": "inst_ecr_r",
-    "sampleDescription": "Yakın İlişkilerde Yaşantılar Envanteri-II Türkçe Uyarlaması (Sümer, 2006)",
+    "sampleDescription": "Üniversite öğrencileri (N=380, Sümer, 2006)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.86,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.82,
-      "sampleN": 380
+      "internalConsistency": {
+        "value": 0.86,
+        "metric": "alpha",
+        "sourceId": "src_sumer_2006_ecrr",
+        "location": "s. 8, Tablo 1",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 380,
+        "description": "Üniversite öğrencileri (240 kadın, 140 erkek)",
+        "sourceId": "src_sumer_2006_ecrr",
+        "location": "s. 6, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Sümer (2006) ECR-R (Yakın İlişkilerde Yaşantılar Envanteri-II) Türkçe uyarlamasında Kaygı boyutu için alpha=.86 ve geçerli faktör yapısı raporlamıştır."
   },
   {
     "facetId": "attachment_avoidance",
@@ -1601,21 +2629,37 @@
     "facetName": "Attachment Avoidance (Bağlanma Kaçınması)",
     "status": "DIRECT_FACET_VALIDATION",
     "sourceIds": [
+      "src_sumer_2006_ecrr",
       "src_fraley_2000_ecrr"
     ],
     "instrumentId": "inst_ecr_r",
-    "sampleDescription": "Yakın İlişkilerde Yaşantılar Envanteri-II Türkçe Uyarlaması (Sümer, 2006)",
+    "sampleDescription": "Üniversite öğrencileri (N=380, Sümer, 2006)",
     "factorStructureStatus": "SUPPORTED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.9,
-      "omega": null,
-      "testRetestReported": true,
-      "testRetestCoefficient": 0.81,
-      "sampleN": 380
+      "internalConsistency": {
+        "value": 0.9,
+        "metric": "alpha",
+        "sourceId": "src_sumer_2006_ecrr",
+        "location": "s. 8, Tablo 1",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": 380,
+        "description": "Üniversite öğrencileri (240 kadın, 140 erkek)",
+        "sourceId": "src_sumer_2006_ecrr",
+        "location": "s. 6, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Sümer (2006) ECR-R Türkçe uyarlamasında Kaçınma boyutu için alpha=.90 ve geçerli faktör yapısı raporlamıştır."
   },
   {
     "facetId": "cognitive_perspective_taking",
@@ -1627,41 +2671,71 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_iri",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "empathic_concern",
     "domainId": "social_relational",
     "constructId": "multidimensional_empathy",
     "facetName": "Empathic Concern (Empatik Şefkat ve İlgi)",
-    "status": "DIRECT_FACET_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_davis_1983"
     ],
     "instrumentId": "inst_iri",
-    "sampleDescription": "Kişilerarası Tepkisellik İndeksi Türkçe Uyarlaması (Yıldırım et al.)",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.75,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 290
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "assertiveness",
@@ -1673,18 +2747,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_dutch",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "boundary_setting",
@@ -1696,18 +2785,33 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_dutch",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "social_approval_dependence",
@@ -1719,64 +2823,109 @@
       "src_aera_apa_ncme_2014"
     ],
     "instrumentId": "inst_dutch",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "conflict_collaborating",
     "domainId": "social_relational",
     "constructId": "conflict_styles",
     "facetName": "Collaborating Conflict Style (İşbirlikçi Çözüm)",
-    "status": "RELATED_MEASURE_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_dedreu_2001"
     ],
     "instrumentId": "inst_dutch",
-    "sampleDescription": "DUTCH Çatışma Yönetimi Ölçeği Türkçe Uyarlaması",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.76,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 260
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "conflict_avoiding",
     "domainId": "social_relational",
     "constructId": "conflict_styles",
     "facetName": "Avoiding Conflict Style (Çatışmadan Kaçınma)",
-    "status": "RELATED_MEASURE_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_dedreu_2001"
     ],
     "instrumentId": "inst_dutch",
-    "sampleDescription": "DUTCH Çatışma Yönetimi Ölçeği Türkçe Uyarlaması",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.74,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 260
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "response_time_analysis",
@@ -1788,18 +2937,33 @@
       "src_curran_2016_careless"
     ],
     "instrumentId": null,
-    "sampleDescription": "Behavioral telemetry metric; algorithmic rather than psychometric self-report scale.",
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Algorithmic telemetry indicator based on Curran (2016) / Meade & Craig (2012)."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "longstring_index",
@@ -1811,41 +2975,71 @@
       "src_curran_2016_careless"
     ],
     "instrumentId": null,
-    "sampleDescription": "Behavioral telemetry metric; algorithmic rather than psychometric self-report scale.",
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Algorithmic telemetry indicator based on Curran (2016) / Meade & Craig (2012)."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "impression_management",
     "domainId": "response_integrity",
     "constructId": "response_bias",
     "facetName": "Impression Management (Bilinçli Sosyal Beğenirlik)",
-    "status": "DIRECT_FACET_VALIDATION",
+    "status": "NO_DIRECT_TURKISH_VALIDATION",
     "sourceIds": [
       "src_paulhus_1991"
     ],
     "instrumentId": "inst_bidr_6",
-    "sampleDescription": "Sosyal Beğenirlik Ölçeği Türkçe Uyarlaması (Yılmaz, 2005)",
-    "factorStructureStatus": "SUPPORTED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": true,
-      "alpha": 0.81,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": 310
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "semantic_pair_inconsistency",
@@ -1857,18 +3051,33 @@
       "src_curran_2016_careless"
     ],
     "instrumentId": "inst_bidr_6",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "machiavellianism",
@@ -1880,18 +3089,33 @@
       "src_paulhus_2021_sd4"
     ],
     "instrumentId": "inst_sd4",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "grandiose_narcissism",
@@ -1903,18 +3127,33 @@
       "src_paulhus_2021_sd4"
     ],
     "instrumentId": "inst_sd4",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "subclinical_psychopathy",
@@ -1926,18 +3165,33 @@
       "src_paulhus_2021_sd4"
     ],
     "instrumentId": "inst_sd4",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   },
   {
     "facetId": "everyday_sadism",
@@ -1949,17 +3203,32 @@
       "src_paulhus_2021_sd4"
     ],
     "instrumentId": "inst_sd4",
-    "sampleDescription": null,
-    "factorStructureStatus": "NOT_ASSESSED",
+    "sampleDescription": "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır.",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
-      "internalConsistencyReported": false,
-      "alpha": null,
-      "omega": null,
-      "testRetestReported": false,
-      "testRetestCoefficient": null,
-      "sampleN": null
+      "internalConsistency": {
+        "value": null,
+        "metric": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "testRetest": {
+        "value": null,
+        "interval": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      },
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED"
+      }
     },
-    "scientificNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
   }
 ]
