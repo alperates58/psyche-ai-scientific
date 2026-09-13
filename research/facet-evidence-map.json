@@ -62,7 +62,23 @@
     "licenseNotes": "Madde metinleri Türkçe özgün taslak olarak üretilmiştir (ORIGINAL_WORDING). IPIP-HEXACO kuramsal referanstır.",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "fairness",
@@ -125,7 +141,23 @@
     "licenseNotes": "Madde metinleri Türkçe özgün taslaktır (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "greed_avoidance",
@@ -177,7 +209,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "modesty",
@@ -229,7 +277,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "fearfulness",
@@ -281,7 +345,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "anxiety_proneness",
@@ -333,7 +413,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "dependence",
@@ -385,7 +481,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "sentimentality",
@@ -437,7 +549,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "social_self_esteem",
@@ -489,7 +617,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "social_boldness",
@@ -541,7 +685,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "sociability",
@@ -593,7 +753,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "liveliness",
@@ -645,7 +821,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "forgiveness",
@@ -697,7 +889,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "gentleness",
@@ -749,7 +957,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "flexibility",
@@ -801,7 +1025,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "patience",
@@ -853,7 +1093,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "organization",
@@ -905,7 +1161,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "diligence",
@@ -957,7 +1229,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "perfectionism",
@@ -1009,7 +1297,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "prudence",
@@ -1061,7 +1365,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "aesthetic_appreciation",
@@ -1113,7 +1433,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "inquisitiveness",
@@ -1165,7 +1501,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "creativity",
@@ -1217,7 +1569,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "unconventionality",
@@ -1269,7 +1637,23 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "LEXICAL_SUPPORT_ONLY",
     "turkishValidationNotes": "Wasti et al. (2008) provides indigenous lexical support for broad 6 factors. The 24 individual facet scales have NOT been independently validated in Turkish.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "core_self_esteem",
@@ -1331,7 +1715,9 @@
     "licenseNotes": "Rosenberg ölçeği kamu malıdır (inst_rses). Özgün Türkçe maddeler geliştirilmiştir.",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "contingent_self_worth",
@@ -1382,7 +1768,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "self_compassion",
@@ -1434,7 +1822,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "generalized_self_efficacy",
@@ -1486,7 +1876,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "locus_of_control",
@@ -1537,7 +1929,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "self_concept_clarity",
@@ -1588,7 +1982,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "authenticity",
@@ -1639,7 +2035,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "cognitive_reappraisal",
@@ -1690,7 +2088,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "expressive_suppression",
@@ -1741,7 +2141,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "emotional_reactivity",
@@ -1792,7 +2194,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "RELATED_MEASURE_VALIDATION",
     "turkishValidationNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "RELATED_CONSTRUCT_ONLY",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "emotional_recovery",
@@ -1843,7 +2247,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "RELATED_MEASURE_VALIDATION",
     "turkishValidationNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "RELATED_CONSTRUCT_ONLY",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "trait_positive_affect",
@@ -1895,7 +2301,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "trait_negative_affect",
@@ -1947,7 +2355,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "distress_tolerance",
@@ -1998,7 +2408,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "experiential_avoidance",
@@ -2049,7 +2461,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "shame_proneness",
@@ -2100,7 +2514,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "guilt_proneness",
@@ -2151,7 +2567,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "need_for_cognition",
@@ -2202,7 +2620,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "need_for_cognitive_closure",
@@ -2253,7 +2673,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "rational_analytical_style",
@@ -2304,7 +2726,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "intuitive_experiential_style",
@@ -2355,7 +2779,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "cognitive_flexibility",
@@ -2408,7 +2834,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED"
   },
   {
     "facetId": "intolerance_of_uncertainty",
@@ -2460,7 +2888,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "rumination_brooding",
@@ -2512,7 +2942,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED"
   },
   {
     "facetId": "maximizing_tendency",
@@ -2563,7 +2995,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "decision_avoidance_procrastination",
@@ -2614,7 +3048,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "negative_urgency",
@@ -2665,7 +3101,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "positive_urgency",
@@ -2716,7 +3154,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "lack_of_premeditation",
@@ -2767,7 +3207,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "lack_of_perseverance",
@@ -2818,7 +3260,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "sensation_seeking",
@@ -2869,7 +3313,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "general_self_control",
@@ -2922,7 +3368,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED"
   },
   {
     "facetId": "delay_discounting",
@@ -2973,7 +3421,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "long_term_grit",
@@ -3026,7 +3476,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED"
   },
   {
     "facetId": "autonomy_need",
@@ -3078,7 +3530,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "competence_need",
@@ -3129,7 +3583,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "relatedness_need",
@@ -3181,7 +3637,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "values_openness_to_change",
@@ -3232,7 +3690,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "values_self_transcendence",
@@ -3283,7 +3743,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "values_conservation",
@@ -3334,7 +3796,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "values_self_enhancement",
@@ -3385,7 +3849,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "presence_of_meaning",
@@ -3438,7 +3904,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED"
   },
   {
     "facetId": "search_for_meaning",
@@ -3491,7 +3959,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED"
   },
   {
     "facetId": "attachment_anxiety",
@@ -3543,7 +4013,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "attachment_avoidance",
@@ -3595,7 +4067,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "DIRECT_FACET_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "factorStructureStatus": "SUPPORTED"
   },
   {
     "facetId": "cognitive_perspective_taking",
@@ -3646,7 +4120,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "empathic_concern",
@@ -3697,7 +4173,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "assertiveness",
@@ -3748,7 +4226,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "boundary_setting",
@@ -3799,7 +4279,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "social_approval_dependence",
@@ -3850,7 +4332,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "conflict_collaborating",
@@ -3901,7 +4385,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "conflict_avoiding",
@@ -3952,7 +4438,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Related Turkish empirical scale exists (e.g. DERS subscale, DUTCH); not a direct 1-to-1 operationalization of this standalone facet.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "response_time_analysis",
@@ -4001,7 +4489,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Algorithmic telemetry indicator based on Curran (2016) / Meade & Craig (2012).",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "longstring_index",
@@ -4050,7 +4540,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Algorithmic telemetry indicator based on Curran (2016) / Meade & Craig (2012).",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "impression_management",
@@ -4101,7 +4593,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Direct peer-reviewed / thesis Turkish empirical adaptation with reported psychometric properties.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "semantic_pair_inconsistency",
@@ -4152,7 +4646,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "No peer-reviewed Turkish empirical adaptation or facet-level psychometric data identified for this specific construct.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "machiavellianism",
@@ -4203,7 +4699,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "grandiose_narcissism",
@@ -4254,7 +4752,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "subclinical_psychopathy",
@@ -4305,7 +4805,9 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   },
   {
     "facetId": "everyday_sadism",
@@ -4356,6 +4858,8 @@
     "licenseNotes": "Araştırma amaçlı özgün Türkçe taslak maddeler (ORIGINAL_WORDING).",
     "turkishValidationStatus": "NO_DIRECT_TURKISH_VALIDATION",
     "turkishValidationNotes": "Subclinical research-only construct. No independent Turkish normative validation verified in this audit.",
-    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT."
+    "researchNotes": "Literatür temelli araştırma havuzu maddesi. Epistemik statü: RESEARCH_DRAFT.",
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "factorStructureStatus": "UNVERIFIED_IN_TURKISH"
   }
 ]

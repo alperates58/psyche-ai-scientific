@@ -26,7 +26,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "METHODOLOGICAL"
+    "evidenceScope": "METHODOLOGICAL",
+    "studyType": "METHODOLOGICAL_STANDARD",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_apa_assessment_2020",
@@ -53,7 +57,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "METHODOLOGICAL"
+    "evidenceScope": "METHODOLOGICAL",
+    "studyType": "METHODOLOGICAL_STANDARD",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_ashton_lee_2007",
@@ -84,7 +92,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_goldberg_1999",
@@ -116,7 +128,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_goldberg_2006",
@@ -143,7 +159,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_rosenberg_1965",
@@ -170,7 +190,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_bandura_1997",
@@ -197,7 +221,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_schwarzer_1995",
@@ -224,7 +252,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_campbell_1996",
@@ -251,7 +283,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_neff_2003",
@@ -278,7 +314,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_gross_john_2003",
@@ -306,7 +346,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_watson_clark_1988",
@@ -334,7 +378,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_simons_gaher_2005",
@@ -361,7 +409,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_tangney_2000_tosca",
@@ -389,7 +441,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_cacioppo_petty_1982",
@@ -416,7 +472,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_roets_2011_nfcs",
@@ -443,7 +503,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_pacini_epstein_1999",
@@ -471,7 +535,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_carleton_2007",
@@ -498,7 +566,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_dennis_vanderwal_2010",
@@ -525,7 +597,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_treynor_2003_rrs",
@@ -552,7 +628,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_schwartz_2002_max",
@@ -579,7 +659,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_cyders_2014_uppsp",
@@ -610,7 +694,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_tangney_baumeister_2004",
@@ -637,7 +725,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_duckworth_quinn_2009",
@@ -664,7 +756,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_ryan_deci_2000",
@@ -693,7 +789,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_schwartz_2012_values",
@@ -723,7 +823,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_steger_2006",
@@ -751,7 +855,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_fraley_2000_ecrr",
@@ -779,7 +887,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_davis_1983",
@@ -807,7 +919,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_dedreu_2001",
@@ -835,7 +951,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_paulhus_1991",
@@ -862,7 +982,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_curran_2016_careless",
@@ -891,7 +1015,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "METHODOLOGICAL"
+    "evidenceScope": "METHODOLOGICAL",
+    "studyType": "METHODOLOGICAL_STANDARD",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_meade_craig_2012",
@@ -920,7 +1048,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "METHODOLOGICAL"
+    "evidenceScope": "METHODOLOGICAL",
+    "studyType": "METHODOLOGICAL_STANDARD",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_kagitcibasi_2005_self",
@@ -949,7 +1081,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "TURKISH_THEORETICAL_MODEL",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_paulhus_2021_sd4",
@@ -980,7 +1116,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": false,
-    "evidenceScope": "DIRECT_CONSTRUCT"
+    "evidenceScope": "DIRECT_CONSTRUCT",
+    "studyType": "INTERNATIONAL_ORIGINAL_INSTRUMENT",
+    "studyPopulationCountry": "INT",
+    "studyLanguageContext": "en",
+    "addedInPhase": "FAZ 2.0"
   },
   {
     "sourceId": "src_wasti_2008",
@@ -1011,8 +1151,12 @@
     "authorListVerified": true,
     "publicationVerified": true,
     "language": "en",
-    "isTurkishAdaptation": true,
-    "evidenceScope": "LEXICAL"
+    "isTurkishAdaptation": false,
+    "evidenceScope": "LEXICAL",
+    "studyType": "TURKISH_LEXICAL_STUDY",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_ruganci_gencoz_2010",
@@ -1040,7 +1184,11 @@
     "publicationVerified": true,
     "language": "en",
     "isTurkishAdaptation": true,
-    "evidenceScope": "RELATED_CONSTRUCT"
+    "evidenceScope": "RELATED_CONSTRUCT",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_celikkaleli_capri_2008_gse",
@@ -1067,7 +1215,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_yildirim_ilhan_2010_gse_sherer",
@@ -1094,7 +1246,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_cuhadaroglu_1986",
@@ -1121,7 +1277,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_akin_2007_scs",
@@ -1148,7 +1308,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_gencoz_2000_panas",
@@ -1176,7 +1340,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.1"
   },
   {
     "sourceId": "src_sumer_2006_ecrr",
@@ -1202,7 +1370,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.2"
   },
   {
     "sourceId": "src_sari_dag_2009_ius",
@@ -1228,7 +1400,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.2"
   },
   {
     "sourceId": "src_gulum_dag_2012_cfi",
@@ -1254,7 +1430,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.2"
   },
   {
     "sourceId": "src_erdur_baker_bugay_2010_rrs",
@@ -1280,7 +1460,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.2"
   },
   {
     "sourceId": "src_duyan_2012_bscs",
@@ -1306,7 +1490,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.2"
   },
   {
     "sourceId": "src_saricam_2016_grit",
@@ -1332,7 +1520,11 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.2"
   },
   {
     "sourceId": "src_akin_tas_2015_mlq",
@@ -1358,6 +1550,10 @@
     "publicationVerified": true,
     "language": "tr",
     "isTurkishAdaptation": true,
-    "evidenceScope": "DIRECT_FACET"
+    "evidenceScope": "DIRECT_FACET",
+    "studyType": "TURKISH_SCALE_ADAPTATION",
+    "studyPopulationCountry": "TR",
+    "studyLanguageContext": "tr",
+    "addedInPhase": "FAZ 2.2"
   }
 ]

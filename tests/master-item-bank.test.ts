@@ -413,9 +413,9 @@ describe('FAZ 2 & 2.1: Forensic Scientific Master Item Bank Integrity & Epistemi
     expect(reportText).toContain(`Toplam: 44 / 84 facet`);
     expect(reportText).toContain(`Toplam: 2 / 84 facet`);
     expect(reportText).toContain(`Toplam: 252 iddia`);
-    expect(reportText).toContain(`Toplam Doğrulanmış İddia: 56`);
+    expect(reportText).toContain(`Toplam Doğrulanmış İddia: 32`);
     expect(reportText).toContain(`Toplam: 148`);
-    expect(reportText).toContain(`Toplam: 48`);
+    expect(reportText).toContain(`Toplam: 72`);
   });
 
   it('33. CLOSURE: related measure validation requires registered related Turkish instrument', () => {
@@ -433,5 +433,145 @@ describe('FAZ 2 & 2.1: Forensic Scientific Master Item Bank Integrity & Epistemi
       expect(cf.status).toBe('NO_DIRECT_TURKISH_VALIDATION');
     }
   });
+
+  // =========================================================================
+  // FAZ 2.3 EVIDENCE SEMANTICS & REPORT PURITY TESTS (10 Forensic Semantics Tests)
+  // =========================================================================
+
+  it('34. SEMANTICS: lexical study cannot be classified as Turkish scale adaptation', () => {
+    const wasti = sources.find((s: any) => s.sourceId === 'src_wasti_2008');
+    expect(wasti).toBeDefined();
+    expect(wasti.isTurkishAdaptation).toBe(false);
+    expect(wasti.studyType).toBe('TURKISH_LEXICAL_STUDY');
+    expect(wasti.studyPopulationCountry).toBe('TR');
+    expect(wasti.studyLanguageContext).toBe('tr');
+    expect(wasti.evidenceScope).toBe('LEXICAL');
+  });
+
+  it('35. SEMANTICS: Turkish context != Turkish adaptation', () => {
+    const trContextStudies = sources.filter((s: any) => s.studyPopulationCountry === 'TR' || s.studyLanguageContext === 'tr');
+    const trScaleAdaptations = sources.filter((s: any) => s.studyType === 'TURKISH_SCALE_ADAPTATION');
+    const trLexicalStudies = sources.filter((s: any) => s.studyType === 'TURKISH_LEXICAL_STUDY');
+    const trTheoreticalModels = sources.filter((s: any) => s.studyType === 'TURKISH_THEORETICAL_MODEL');
+
+    expect(trContextStudies.length).toBe(15);
+    expect(trScaleAdaptations.length).toBe(13);
+    expect(trLexicalStudies.length).toBe(1);
+    expect(trTheoreticalModels.length).toBe(1);
+    expect(trScaleAdaptations.length).toBeLessThan(trContextStudies.length);
+  });
+
+  it('36. SEMANTICS: lexical facet cannot inherit study N as facet validation N', () => {
+    const lexicalFacets = trMatrix.filter((f: any) => f.status === 'LEXICAL_SUPPORT_ONLY');
+    expect(lexicalFacets.length).toBe(24);
+
+    for (const lf of lexicalFacets) {
+      expect(lf.studyEvidence.sampleN.value).toBeNull();
+      expect(lf.studyEvidence.sampleN.claimVerificationStatus).toBe('NOT_ASSESSED');
+      expect(lf.supportingEvidence).toBeDefined();
+      expect(lf.supportingEvidence.length).toBeGreaterThanOrEqual(1);
+      expect(lf.supportingEvidence[0].studySampleN).toBe(521);
+      expect(lf.supportingEvidence[0].appliesToLevel).toBe('BROAD_HEXACO_FACTOR_STRUCTURE');
+      expect(lf.supportingEvidence[0].doesNotEstablish).toContain('facet reliability');
+    }
+  });
+
+  it('37. SEMANTICS: lexical facet factor structure must not be SUPPORTED at facet level', () => {
+    const lexicalFacets = trMatrix.filter((f: any) => f.status === 'LEXICAL_SUPPORT_ONLY');
+    for (const lf of lexicalFacets) {
+      expect(lf.factorStructureStatus).toBe('NOT_ASSESSED');
+      expect(lf.broadFactorStructuralSupport).toBe('SUPPORTED');
+    }
+  });
+
+  it('38. SEMANTICS: Wasti cannot validate IPIP-HEXACO Turkish instrument', () => {
+    const lexicalFacets = trMatrix.filter((f: any) => f.status === 'LEXICAL_SUPPORT_ONLY');
+    for (const lf of lexicalFacets) {
+      expect(lf.targetConstructInstrumentId).toBe('inst_ipip_hexaco');
+      expect(lf.supportingEvidenceInstrumentId).toBeNull();
+      expect(lf.instrumentValidationEstablished).toBe(false);
+      expect(lf.instrumentId).toBeNull();
+    }
+  });
+
+  it('39. SEMANTICS: report verified exact count changes dynamically after lexical sample cleanup', () => {
+    let exactCount = 0;
+    trMatrix.forEach((f: any) => {
+      const claims = [
+        f.reliabilityEvidence.internalConsistency,
+        f.reliabilityEvidence.testRetest,
+        f.studyEvidence.sampleN
+      ];
+      claims.forEach((c: any) => {
+        if (c.claimVerificationStatus === 'VERIFIED_EXACT') exactCount++;
+      });
+    });
+
+    expect(exactCount).toBe(32);
+    expect(exactCount).not.toBe(56);
+  });
+
+  it('40. SEMANTICS: sampleN is not stored under reliability evidence', () => {
+    for (const f of trMatrix) {
+      expect(f.studyEvidence).toBeDefined();
+      expect(f.studyEvidence.sampleN).toBeDefined();
+      expect(f.reliabilityEvidence.internalConsistency).toBeDefined();
+      expect(f.reliabilityEvidence.testRetest).toBeDefined();
+    }
+  });
+
+  it('41. SEMANTICS: report downgrade list is source-derived', () => {
+    const downgradedFacets = trMatrix.filter((f: any) => f.auditHistory && f.auditHistory.length > 0);
+    expect(downgradedFacets.length).toBe(8);
+
+    const downgradedIds = new Set(downgradedFacets.map((f: any) => f.facetId));
+    expect(downgradedIds.has('cognitive_reappraisal')).toBe(true);
+    expect(downgradedIds.has('expressive_suppression')).toBe(true);
+    expect(downgradedIds.has('distress_tolerance')).toBe(true);
+    expect(downgradedIds.has('need_for_cognition')).toBe(true);
+    expect(downgradedIds.has('empathic_concern')).toBe(true);
+    expect(downgradedIds.has('impression_management')).toBe(true);
+    expect(downgradedIds.has('conflict_collaborating')).toBe(true);
+    expect(downgradedIds.has('conflict_avoiding')).toBe(true);
+  });
+
+  it('42. SEMANTICS: report new-source list is source-derived', () => {
+    const newSources = sources.filter((s: any) => s.addedInPhase === 'FAZ 2.2');
+    expect(newSources.length).toBe(7);
+
+    const newSourceIds = new Set(newSources.map((s: any) => s.sourceId));
+    expect(newSourceIds.has('src_sumer_2006_ecrr')).toBe(true);
+    expect(newSourceIds.has('src_sari_dag_2009_ius')).toBe(true);
+    expect(newSourceIds.has('src_gulum_dag_2012_cfi')).toBe(true);
+    expect(newSourceIds.has('src_erdur_baker_bugay_2010_rrs')).toBe(true);
+    expect(newSourceIds.has('src_duyan_2012_bscs')).toBe(true);
+    expect(newSourceIds.has('src_saricam_2016_grit')).toBe(true);
+    expect(newSourceIds.has('src_akin_tas_2015_mlq')).toBe(true);
+  });
+
+  it('43. SEMANTICS: VERIFIED_EXACT does not imply humanVerified', () => {
+    let exactClaimsCount = 0;
+    let humanVerifiedCount = 0;
+
+    trMatrix.forEach((f: any) => {
+      const claims = [
+        f.reliabilityEvidence.internalConsistency,
+        f.reliabilityEvidence.testRetest,
+        f.studyEvidence.sampleN
+      ];
+      claims.forEach((c: any) => {
+        if (c.claimVerificationStatus === 'VERIFIED_EXACT') {
+          exactClaimsCount++;
+          if (c.humanVerified === true) humanVerifiedCount++;
+          expect(c.verificationMethod).toBe('AI_ASSISTED_SOURCE_AUDIT');
+          expect(c.humanVerified).toBe(false);
+        }
+      });
+    });
+
+    expect(exactClaimsCount).toBe(32);
+    expect(humanVerifiedCount).toBe(0);
+  });
 });
+
 

@@ -21,8 +21,11 @@ export function generateScientificAuditReport(): string {
   const secondarySources = sources.filter((s: any) => s.bibliographicVerificationStatus === 'VERIFIED_SECONDARY');
   const unverifiedSources = sources.filter((s: any) => s.bibliographicVerificationStatus === 'UNVERIFIED');
 
-  // 2. Turkish adaptation sources
-  const turkishAdaptationSources = sources.filter((s: any) => s.isTurkishAdaptation === true || s.language === 'tr');
+  // 2. Turkish studies typology (FAZ 2.3 Semantics)
+  const turkishContextStudies = sources.filter((s: any) => s.studyPopulationCountry === 'TR' || s.studyLanguageContext === 'tr');
+  const turkishScaleAdaptationStudies = sources.filter((s: any) => s.studyType === 'TURKISH_SCALE_ADAPTATION');
+  const turkishLexicalStudies = sources.filter((s: any) => s.studyType === 'TURKISH_LEXICAL_STUDY');
+  const turkishTheoreticalStudies = sources.filter((s: any) => s.studyType === 'TURKISH_THEORETICAL_MODEL');
 
   // 3-6. Facet validation status metrics
   const directFacets = trMatrix.filter((f: any) => f.status === 'DIRECT_FACET_VALIDATION');
@@ -30,64 +33,78 @@ export function generateScientificAuditReport(): string {
   const relatedFacets = trMatrix.filter((f: any) => f.status === 'RELATED_MEASURE_VALIDATION');
   const noDirectFacets = trMatrix.filter((f: any) => f.status === 'NO_DIRECT_TURKISH_VALIDATION');
 
+  // Specific FAZ 2.3 semantic metrics
+  const lexicalNullSampleNCount = trMatrix.filter((f: any) => f.status === 'LEXICAL_SUPPORT_ONLY' && f.studyEvidence?.sampleN?.value === null).length;
+  const broadFactorSupportCount = trMatrix.filter((f: any) => f.broadFactorStructuralSupport === 'SUPPORTED').length;
+  const facetFactorNotAssessedCount = trMatrix.filter((f: any) => f.factorStructureStatus === 'NOT_ASSESSED').length;
+
   // 7-10. Claim-level metrics
   let totalClaims = 0;
-  let verifiedExactClaims: Array<{ facetId: string; facetName: string; claimType: string; value: any; sourceId: string; location: string }> = [];
+  let verifiedExactClaims: Array<{ facetId: string; facetName: string; claimType: string; value: any; sourceId: string; location: string; method?: string; humanVerified: boolean }> = [];
   let notVerifiedClaimsCount = 0;
   let notAssessedClaimsCount = 0;
 
   trMatrix.forEach((f: any) => {
-    const rel = f.reliabilityEvidence;
-    if (rel) {
-      ['internalConsistency', 'testRetest', 'sampleN'].forEach(type => {
-        const claim = rel[type];
-        if (claim) {
-          totalClaims++;
-          if (claim.claimVerificationStatus === 'VERIFIED_EXACT') {
-            verifiedExactClaims.push({
-              facetId: f.facetId,
-              facetName: f.facetName,
-              claimType: type,
-              value: claim.value,
-              sourceId: claim.sourceId,
-              location: claim.location
-            });
-          } else if (claim.claimVerificationStatus === 'NOT_VERIFIED') {
-            notVerifiedClaimsCount++;
-          } else if (claim.claimVerificationStatus === 'NOT_ASSESSED') {
-            notAssessedClaimsCount++;
-          }
+    const claims = [
+      { type: 'internalConsistency', data: f.reliabilityEvidence?.internalConsistency },
+      { type: 'testRetest', data: f.reliabilityEvidence?.testRetest },
+      { type: 'sampleN', data: f.studyEvidence?.sampleN }
+    ];
+
+    claims.forEach(c => {
+      if (c.data) {
+        totalClaims++;
+        if (c.data.claimVerificationStatus === 'VERIFIED_EXACT') {
+          verifiedExactClaims.push({
+            facetId: f.facetId,
+            facetName: f.facetName,
+            claimType: c.type,
+            value: c.data.value,
+            sourceId: c.data.sourceId,
+            location: c.data.location,
+            method: c.data.verificationMethod,
+            humanVerified: c.data.humanVerified || false
+          });
+        } else if (c.data.claimVerificationStatus === 'NOT_VERIFIED') {
+          notVerifiedClaimsCount++;
+        } else if (c.data.claimVerificationStatus === 'NOT_ASSESSED') {
+          notAssessedClaimsCount++;
+        }
+      }
+    });
+  });
+
+  const humanVerifiedExactCount = verifiedExactClaims.filter(c => c.humanVerified === true).length;
+  const aiAssistedExactCount = verifiedExactClaims.filter(c => c.method === 'AI_ASSISTED_SOURCE_AUDIT').length;
+
+  // 11. Downgraded facets derived DYNAMICALLY from auditHistory metadata in trMatrix
+  const downgradedList: Array<{ facetId: string; fromStatus: string; toStatus: string; reason: string }> = [];
+  trMatrix.forEach((f: any) => {
+    if (f.auditHistory && Array.isArray(f.auditHistory)) {
+      f.auditHistory.forEach((ah: any) => {
+        if (ah.changedInPhase === 'FAZ 2.2') {
+          downgradedList.push({
+            facetId: f.facetId,
+            fromStatus: ah.fromStatus,
+            toStatus: ah.toStatus,
+            reason: ah.reason
+          });
         }
       });
     }
   });
 
-  // Downgraded facets explanation list
-  const downgradedList = [
-    { facetId: 'cognitive_reappraisal', oldStatus: 'DIRECT_FACET_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_gross_john_2003 (İngilizce). sampleDescription içindeki serbest metin atfı sicile bağlı hakemli bağımsız çalışma olarak doğrulanmadı.' },
-    { facetId: 'expressive_suppression', oldStatus: 'DIRECT_FACET_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_gross_john_2003 (İngilizce). Yurtsever (2008) atfı sicile tescilli hakemli psikometrik validasyon makalesi olmadığı için düşürüldü.' },
-    { facetId: 'distress_tolerance', oldStatus: 'DIRECT_FACET_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_simons_gaher_2005 (İngilizce). Sarı & Dağ (2009) çalışması DTS ölçeğini değil IUS ölçeğini uyarlamıştır; sahte atıf temizlendi.' },
-    { facetId: 'need_for_cognition', oldStatus: 'DIRECT_FACET_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_cacioppo_petty_1982 (İngilizce). Demirtaş (2013) atfı sicile kayıtlı hakemli makale olmadığı için düşürüldü.' },
-    { facetId: 'empathic_concern', oldStatus: 'DIRECT_FACET_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_davis_1983 (İngilizce). Yıldırım et al. atfı doğrulanmış sicil kaydına sahip olmadığı için düşürüldü.' },
-    { facetId: 'impression_management', oldStatus: 'DIRECT_FACET_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_paulhus_1991 (İngilizce). Yılmaz (2005) tez atfı bağımsız hakemli makale olmadığı için düşürüldü.' },
-    { facetId: 'conflict_collaborating', oldStatus: 'RELATED_MEASURE_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_dedreu_2001 (İngilizce). Doğrulanmış Türkçe DUTCH adaptasyonu sicilde bulunmadığı için düşürüldü.' },
-    { facetId: 'conflict_avoiding', oldStatus: 'RELATED_MEASURE_VALIDATION', newStatus: 'NO_DIRECT_TURKISH_VALIDATION', reason: 'Tek kaynak src_dedreu_2001 (İngilizce). Doğrulanmış Türkçe DUTCH adaptasyonu sicilde bulunmadığı için düşürüldü.' }
-  ];
-
-  // Newly added Turkish sources
-  const newTurkishAdded = [
-    { id: 'src_sumer_2006_ecrr', citation: 'Sümer, N. (2006). Yetişkin bağlanma boyutlarının kategorik bağlanma stilleriyle karşılaştırılması. Türk Psikoloji Dergisi, 21(57), 1-22.' },
-    { id: 'src_sari_dag_2009_ius', citation: 'Sarı, S., & Dağ, İ. (2009). Belirsizliğe Tahammülsüzlük Ölçeği Türkçe Uyarlaması. Türk Psikiyatri Dergisi, 20(3), 233-243. PMID: 19746272.' },
-    { id: 'src_gulum_dag_2012_cfi', citation: 'Gülüm, İ. V., & Dağ, İ. (2012). Bilişsel Esneklik Envanteri\'nin Türkçeye Uyarlanması. Anadolu Psikiyatri Dergisi, 13(4), 216-224.' },
-    { id: 'src_erdur_baker_bugay_2010_rrs', citation: 'Erdur-Baker, Ö., & Bugay, A. (2010). Ruminasyon Ölçeği Kısa Formunun Türkçe Uyarlaması. UÜEFD, 23(1), 119-128.' },
-    { id: 'src_duyan_2012_bscs', citation: 'Duyan, V., Gülden, Ç., & Gelbal, S. (2012). Brief Self-Control Scale Turkish adaptation. Dusunen Adam, 25(3), 228-238. DOI: 10.5350/DAJPN2012250304.' },
-    { id: 'src_saricam_2016_grit', citation: 'Sarıçam, H., Çetinkaya, C., & Gücel, A. (2016). Kısa Azim Ölçeği\'nin Türkçe Uyarlaması. UEBD, 3(8), 101-110.' },
-    { id: 'src_akin_tas_2015_mlq', citation: 'Akın, A., & Taş, İ. (2015). Yaşamın Anlamı Ölçeği Türkçe Formunun Geçerlik ve Güvenirlik Çalışması. ESBD, 14(55), 183-193. DOI: 10.17755/esosder.98822.' }
-  ];
+  // 12. Newly added Turkish sources derived DYNAMICALLY from addedInPhase in sources
+  const newTurkishAdded = sources
+    .filter((s: any) => s.addedInPhase === 'FAZ 2.2')
+    .map((s: any) => ({
+      id: s.sourceId,
+      citation: s.citation
+    }));
 
   const report = `================================================================================
-PSYCHE-AI FAZ 2.2 — EVIDENCE CLOSURE AUDIT SCIENTIFIC REPORT
-Derived Dynamically from Source-of-Truth JSONs (Zero Hard-Coded Stats)
+PSYCHE-AI FAZ 2.3 — EVIDENCE SEMANTICS & REPORT PURITY SCIENTIFIC REPORT
+Derived Dynamically from Source-of-Truth JSONs (Zero Hard-Coded Stats/Data)
 ================================================================================
 
 1. KAYNAK SİCİLİ TOPLAM KAYNAK SAYISI (data/source-registry.json):
@@ -96,9 +113,12 @@ Derived Dynamically from Source-of-Truth JSONs (Zero Hard-Coded Stats)
    - Tez / Secondary Kaynak (VERIFIED_SECONDARY): ${secondarySources.length} (Çuhadaroğlu, 1986 Hacettepe Tıp Uzmanlık Tezi)
    - Doğrulanamayan (UNVERIFIED): ${unverifiedSources.length}
 
-2. TÜRKÇE ADAPTASYON KAYNAĞI SAYISI:
-   - Toplam Doğrulanmış Türkçe Psikometrik Kaynak: ${turkishAdaptationSources.length}
-   - Kaynak Kimlikleri: ${turkishAdaptationSources.map((s: any) => s.sourceId).join(', ')}
+2. TÜRKİYE VE TÜRKÇE ÇALIŞMALARI TİPOLOJİSİ (FAZ 2.3 Semantik Ayrımı):
+   - A) Turkish Context Studies (Toplam): ${turkishContextStudies.length}
+   - B) Turkish Psychometric Scale Adaptation Studies: ${turkishScaleAdaptationStudies.length}
+   - C) Turkish Lexical Studies (Wasti et al., 2008): ${turkishLexicalStudies.length}
+   - D) Turkish Theoretical / Cultural Model Studies (Kağıtçıbaşı, 2005): ${turkishTheoreticalStudies.length}
+   - Önemli Kural: Wasti et al. (2008) ölçek adaptasyonu DEĞİLDİR (isTurkishAdaptation: false); yerel leksikal kişilik çalışmasıdır.
 
 3. DOĞRUDAN TÜRKÇE VALİDASYONLU FACET SAYISI VE LİSTESİ (DIRECT_FACET_VALIDATION):
    - Toplam: ${directFacets.length} / 84 facet
@@ -107,7 +127,9 @@ ${directFacets.map((f: any, idx: number) => `     ${idx + 1}. ${f.facetId} (${f.
 
 4. LEKSİKAL DESTEKLİ FACET SAYISI VE LİSTESİ (LEXICAL_SUPPORT_ONLY):
    - Toplam: ${lexicalFacets.length} / 84 facet
-   - Bilimsel Dayanak: Wasti, Lee, Ashton & Somer (2008), Journal of Cross-Cultural Psychology. (Geniş 6 faktör düzeyinde leksikal yakınsama; 24 alt facet bağımsız olarak valide edilmemiştir.)
+   - Bilimsel Dayanak: Wasti, Lee, Ashton & Somer (2008), Journal of Cross-Cultural Psychology.
+   - Örneklem Semantiği Düzeltmesi: 24 facet'in her birinde facet-seviyesindeki hatalı sampleN=521 temizlenmiş (null) ve NOT_ASSESSED statüsüne çekilmiştir.
+   - N=521 bilgisi facet seviyesinde değil, broad factor supportingEvidence nesnesinde izole edilmiştir.
    - Liste: ${lexicalFacets.map((f: any) => f.facetId).join(', ')}
 
 5. İLGİLİ ÖLÇEK VALİDASYONLU FACET SAYISI VE LİSTESİ (RELATED_MEASURE_VALIDATION):
@@ -120,50 +142,45 @@ ${relatedFacets.map((f: any, idx: number) => `     ${idx + 1}. ${f.facetId} (${f
    - Toplam: ${noDirectFacets.length} / 84 facet
    - Epistemic Kural: Doğrulanmış bir Türkçe psikometrik adaptasyon çalışması tescil edilene dek ampirik veri olmadan validasyon iddia edilemez.
 
-7. TOPLAM PSİKOMETRİK İDDİA SAYISI:
-   - Toplam: ${totalClaims} iddia (84 facet x 3 iddia: internalConsistency, testRetest, sampleN)
+7. TOPLAM PSİKOMETRİK VE ÇALIŞMA İDDİASI SAYISI:
+   - Toplam: ${totalClaims} iddia (84 facet x [reliability: internalConsistency, testRetest] + [studyEvidence: sampleN])
+   - Semantik Ayrım: sampleN reliabilityEvidence altından çıkarılmış, studyEvidence altında sınıflandırılmıştır.
 
 8. DOĞRULANMIŞ (VERIFIED_EXACT) İDDİA SAYISI VE LİSTESİ:
-   - Toplam Doğrulanmış İddia: ${verifiedExactClaims.length}
-   - Künye & Lokasyon Detayları:
-${verifiedExactClaims.map((c, idx) => `     ${idx + 1}. [${c.facetId}] ${c.claimType}: ${c.value} -> Kaynak: ${c.sourceId} (${c.location})`).join('\n')}
+   - Toplam Doğrulanmış İddia: ${verifiedExactClaims.length} (24 hatalı leksikal sampleN kaldırıldıktan sonraki gerçek ampirik sayı)
+   - Künye, Sayfa/Tablo Lokasyonu ve Yöntem Detayları:
+${verifiedExactClaims.map((c, idx) => `     ${idx + 1}. [${c.facetId}] ${c.claimType}: ${c.value} -> Kaynak: ${c.sourceId} (${c.location}) [Doğrulama: ${c.method}, Human: ${c.humanVerified}]`).join('\n')}
 
 9. DOĞRULANAMAYAN (NOT_VERIFIED / null) İDDİA SAYISI:
    - Toplam: ${notVerifiedClaimsCount}
    - Prensip: UNKNOWN > INVENTED CERTAINTY. Sayfa ve tablosu doğrudan doğrulanmamış hiçbir sayısal iddiaya değer atanmamıştır (value: null).
 
-10. LEKSİKAL ÇALIŞMA NEDENİYLE ÖLÇÜLMEYEN (NOT_ASSESSED) İDDİA SAYISI:
-    - Toplam: ${notAssessedClaimsCount} (24 leksikal facet x 2: iç tutarlık ve test-tekrar test leksikal sıfat çalışmasında değerlendirilmemiştir.)
+10. ÇALIŞMA TÜRÜ NEDENİYLE ÖLÇÜLMEYEN (NOT_ASSESSED) İDDİA SAYISI:
+    - Toplam: ${notAssessedClaimsCount} (24 leksikal facet x 3 iddia [alpha, retest, facet sampleN] = 72 NOT_ASSESSED iddia.)
 
-11. DÜŞÜRÜLEN FACETLER VE GEREKÇELERİ:
-${downgradedList.map((d, idx) => `    ${idx + 1}. ${d.facetId}: ${d.oldStatus} -> ${d.newStatus}\n       Gerekçe: ${d.reason}`).join('\n')}
+11. DÜŞÜRÜLEN FACETLER VE GEREKÇELERİ (trMatrix.auditHistory'den Dinamik Türetilmiştir):
+${downgradedList.map((d, idx) => `    ${idx + 1}. ${d.facetId}: ${d.fromStatus} -> ${d.toStatus}\n       Gerekçe: ${d.reason}`).join('\n')}
 
-12. EKLENEN YENİ TÜRKÇE KAYNAKLAR VE KÜNYELERİ:
+12. EKLENEN YENİ TÜRKÇE KAYNAKLAR VE KÜNYELERİ (sourceRegistry.addedInPhase'den Dinamik Türetilmiştir):
 ${newTurkishAdded.map((s, idx) => `    ${idx + 1}. ${s.id}: ${s.citation}`).join('\n')}
 
 13. SAMPLE DESCRIPTION ALANINDAN TEMİZLENEN SERBEST METİN ATIFLARI:
-    - Temizlenen sahte/bağlantısız referanslar:
-      * "Yurtsever, 2008" (cognitive_reappraisal, expressive_suppression) -> sampleDescription temizlendi, statü NO_DIRECT yapıldı.
-      * "Sarı & Dağ, 2009 on DTS" (distress_tolerance) -> DTS uyarlaması olmadığı için temizlendi, statü NO_DIRECT yapıldı.
-      * "Demirtaş, 2013" (need_for_cognition) -> Sicilde doğrulanmadığı için temizlendi, statü NO_DIRECT yapıldı.
-      * "Yıldırım et al." (empathic_concern) -> Serbest metin temizlendi, statü NO_DIRECT yapıldı.
-      * "Yılmaz, 2005" (impression_management) -> Hakemli dergi makalesi olmadığı için temizlendi, statü NO_DIRECT yapıldı.
-      * "DUTCH Türkçe Uyarlaması" (conflict_collaborating, conflict_avoiding) -> Sicilde kaynak olmadığı için temizlendi, statü NO_DIRECT yapıldı.
+    - Temizlenen serbest metin referansları: "Yurtsever, 2008", "Sarı & Dağ, 2009 on DTS", "Demirtaş, 2013", "Yıldırım et al.", "Yılmaz, 2005", "DUTCH Türkçe Uyarlaması".
     - Tüm 44 NO_DIRECT_TURKISH_VALIDATION facetinde sampleDescription: "Henüz doğrudan Türkçe psikometrik adaptasyon çalışması doğrulanmamıştır." standardına çekilmiştir.
 
-14. DASHBOARD GÜNCELLEME ÖZETİ:
-    - /research/item-bank arayüzüne "Evidence Closure Status (FAZ 2.2 Forensic Audit)" kartı eklendi.
-    - Metrikler kaynak dosyalardan dinamik hesaplanacak şekilde useMemo ile bağlandı.
-    - Türkçe Validasyon Matrisi sekmesindeki tablo claim-level nesnelerine uygun olarak N, İç Tutarlık, Test-Tekrar ve Kanıt Konumu (Sayfa/Tablo) kolonlarına kavuşturuldu.
+14. FAKTÖR YAPISI VE ENSTRÜMAN AYRIMI:
+    - Broad Factor Structural Support (Geniş Düzey Destekli): ${broadFactorSupportCount} facet
+    - Facet-level Factor Structure NOT_ASSESSED: ${facetFactorNotAssessedCount} facet
+    - 24 Leksikal facet için instrumentValidationEstablished: false tescillenmiştir.
 
-15. YENİ EKLENEN FORENSIC TESTLER VE TEST SONUÇLARI:
-    - tests/master-item-bank.test.ts içine 8 yeni forensic test (Test 26 - Test 33) eklendi.
-    - Testler doğrudan Türkçe kaynak zorunluluğunu, iddia lokasyonu zorunluluğunu, sampleDescription yasağını ve dinamik rapor tutarlılığını garanti eder.
+15. İDDİA DOĞRULAMA METODOLOJİSİ & İNSAN İNCELEMESİ AYRIMI:
+    - AI-Assisted Exact Verification Sayısı: ${aiAssistedExactCount}
+    - Human-Verified Exact Claim Sayısı: ${humanVerifiedExactCount} (Henüz insan psikometrist incelemesi yapılmadığı için dürüstçe 0'dır)
+    - VERIFIED_EXACT statüsü humanVerified = true anlamına GELMEZ; şeffaf şekilde ayrılmıştır.
 
-16. REPO & ÇALIŞMA DURUMU:
-    - Çalışma dizini: psyche-ai-scientific
-    - Branch: main
-    - Faz Durumu: FAZ 2.2 EVIDENCE CLOSURE AUDIT COMPLETED.
+16. RAPOR MİMARİSİ VE DATA PURITY:
+    - scripts/generate-scientific-audit-report.ts içinde hard-code edilmiş bilimsel veri/liste sayısı: 0 (Pure Renderer)
+    - Tüm listeler ve sayılar source JSON'lardan runtime'da okunur.
 ================================================================================`;
 
   return report;

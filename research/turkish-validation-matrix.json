@@ -9,9 +9,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -19,24 +19,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "fairness",
@@ -48,9 +82,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -58,24 +92,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "greed_avoidance",
@@ -87,9 +155,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -97,24 +165,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "modesty",
@@ -126,9 +228,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -136,24 +238,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "fearfulness",
@@ -165,9 +301,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -175,24 +311,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "anxiety_proneness",
@@ -204,9 +374,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -214,24 +384,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "dependence",
@@ -243,9 +447,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -253,24 +457,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "sentimentality",
@@ -282,9 +520,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -292,24 +530,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "social_self_esteem",
@@ -321,9 +593,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -331,24 +603,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "social_boldness",
@@ -360,9 +666,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -370,24 +676,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "sociability",
@@ -399,9 +739,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -409,24 +749,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "liveliness",
@@ -438,9 +812,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -448,24 +822,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "forgiveness",
@@ -477,9 +885,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -487,24 +895,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "gentleness",
@@ -516,9 +958,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -526,24 +968,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "flexibility",
@@ -555,9 +1031,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -565,24 +1041,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "patience",
@@ -594,9 +1104,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -604,24 +1114,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "organization",
@@ -633,9 +1177,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -643,24 +1187,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "diligence",
@@ -672,9 +1250,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -682,24 +1260,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "perfectionism",
@@ -711,9 +1323,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -721,24 +1333,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "prudence",
@@ -750,9 +1396,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -760,24 +1406,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "aesthetic_appreciation",
@@ -789,9 +1469,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -799,24 +1479,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "inquisitiveness",
@@ -828,9 +1542,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -838,24 +1552,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "creativity",
@@ -867,9 +1615,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -877,24 +1625,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "unconventionality",
@@ -906,9 +1688,9 @@
       "src_wasti_2008",
       "src_ashton_lee_2007"
     ],
-    "instrumentId": "inst_ipip_hexaco",
+    "instrumentId": null,
     "sampleDescription": "Türkçe kişilik sıfatları leksikal faktör analizi (N=521, Wasti et al., 2008)",
-    "factorStructureStatus": "SUPPORTED",
+    "factorStructureStatus": "NOT_ASSESSED",
     "measurementInvarianceStatus": "NOT_ASSESSED",
     "reliabilityEvidence": {
       "internalConsistency": {
@@ -916,24 +1698,58 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_ASSESSED"
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       },
       "sampleN": {
-        "value": 521,
-        "description": "Türkçe kişilik sıfatları leksikal faktör analizi katılımcıları",
-        "sourceId": "src_wasti_2008",
-        "location": "s. 669, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet ölçeği Türkçede bağımsız olarak valide edilmemiştir."
+    "scientificNotes": "Wasti et al. (2008) geniş 6 faktör için leksikal yakınsama sağlamaktadır; 24 alt facet bağımsız olarak valide edilmemiştir ve facet-düzeyinde geçerli bir örneklem N atanmamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_hexaco",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_ASSESSED",
+        "humanVerified": false
+      },
+      "population": "Genel yetişkin leksikal sıfat derecelendirme katılımcıları",
+      "samplingMethod": "Convenience / Lexical Adjective Evaluation"
+    },
+    "supportingEvidence": [
+      {
+        "sourceId": "src_wasti_2008",
+        "evidenceType": "BROAD_FACTOR_LEXICAL_SUPPORT",
+        "studySampleN": 521,
+        "appliesToLevel": "BROAD_HEXACO_FACTOR_STRUCTURE",
+        "doesNotEstablish": [
+          "facet reliability",
+          "facet validity",
+          "facet calibration",
+          "facet norm"
+        ]
+      }
+    ]
   },
   {
     "facetId": "core_self_esteem",
@@ -955,24 +1771,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Çuhadaroğlu (1986) uzmanlık tezinde Rosenberg Benlik Saygısı Ölçeği Türkçe uyarlaması yapılmıştır; sayısal değerler tam metin tezi doğrudan denetlenene dek NOT_VERIFIED tutulmaktadır."
+    "scientificNotes": "Çuhadaroğlu (1986) uzmanlık tezinde Rosenberg Benlik Saygısı Ölçeği Türkçe uyarlaması yapılmıştır; sayısal değerler tam metin tezi doğrudan denetlenene dek NOT_VERIFIED tutulmaktadır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_rosenberg_rse",
+    "supportingEvidenceInstrumentId": "inst_rosenberg_rse",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": "Adolesan ve genç yetişkin örneklem (Çuhadaroğlu, 1986)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "contingent_self_worth",
@@ -993,24 +1829,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_rses",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "self_compassion",
@@ -1032,24 +1888,48 @@
         "metric": "alpha",
         "sourceId": "src_akin_2007_scs",
         "location": "s. 6, Tablo 3",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": 0.83,
         "interval": "3_weeks",
         "sourceId": "src_akin_2007_scs",
         "location": "s. 6",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 633,
         "description": "Sakarya Üniversitesi lisans öğrencileri",
         "sourceId": "src_akin_2007_scs",
         "location": "s. 4, Yöntem / Çalışma Grubu",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Akın et al. (2007) 633 üniversite öğrencisinde Neff Öz-Duyarlık Ölçeğinin 6 faktörlü yapısını doğrulamıştır (toplam alpha=.89, test-tekrar test r=.83)."
+    "scientificNotes": "Akın et al. (2007) 633 üniversite öğrencisinde Neff Öz-Duyarlık Ölçeğinin 6 faktörlü yapısını doğrulamıştır (toplam alpha=.89, test-tekrar test r=.83).",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_neff_scs",
+    "supportingEvidenceInstrumentId": "inst_neff_scs",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 633,
+        "description": "Sakarya Üniversitesi lisans öğrencileri",
+        "sourceId": "src_akin_2007_scs",
+        "location": "s. 4, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Sakarya Üniversitesi lisans öğrencileri (N=633, Akın et al., 2007)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "generalized_self_efficacy",
@@ -1071,24 +1951,48 @@
         "metric": "alpha",
         "sourceId": "src_celikkaleli_capri_2008_gse",
         "location": "s. 104, Bulgular",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": 0.81,
         "interval": "4_weeks",
         "sourceId": "src_celikkaleli_capri_2008_gse",
         "location": "s. 105, Tablo 3",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 412,
         "description": "Üniversite öğrencileri (245 kadın, 167 erkek)",
         "sourceId": "src_celikkaleli_capri_2008_gse",
         "location": "s. 101, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Çelikkaleli & Çapri (2008) tarafından 412 üniversite öğrencisinde tek boyutlu yapı doğrulanmış ve yüksek test-tekrar test güvenirliği (r=.81) raporlanmıştır."
+    "scientificNotes": "Çelikkaleli & Çapri (2008) tarafından 412 üniversite öğrencisinde tek boyutlu yapı doğrulanmış ve yüksek test-tekrar test güvenirliği (r=.81) raporlanmıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_gses_schwarzer",
+    "supportingEvidenceInstrumentId": "inst_gses_schwarzer",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 412,
+        "description": "Üniversite öğrencileri (245 kadın, 167 erkek)",
+        "sourceId": "src_celikkaleli_capri_2008_gse",
+        "location": "s. 101, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Üniversite öğrencileri (N=412, Çelikkaleli & Çapri, 2008)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "locus_of_control",
@@ -1109,24 +2013,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_gses",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "self_concept_clarity",
@@ -1147,24 +2071,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_sccs",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "authenticity",
@@ -1185,24 +2129,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_sccs",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "cognitive_reappraisal",
@@ -1223,24 +2187,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "DIRECT_FACET_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "UNVERIFIED_SAMPLE_DESCRIPTION_CITATION",
+        "reason": "Tek kaynak src_gross_john_2003 (İngilizce). sampleDescription içindeki serbest metin atfı sicile bağlı hakemli bağımsız çalışma olarak doğrulanmadı.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_erq",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "expressive_suppression",
@@ -1261,24 +2253,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "DIRECT_FACET_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "UNVERIFIED_SAMPLE_DESCRIPTION_CITATION",
+        "reason": "Tek kaynak src_gross_john_2003 (İngilizce). Yurtsever (2008) atfı sicile tescilli hakemli psikometrik validasyon makalesi olmadığı için düşürüldü.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_erq",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "emotional_reactivity",
@@ -1299,24 +2319,46 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 338,
         "description": "DERS Türkçe form geçerlik çalışması üniversite katılımcıları",
         "sourceId": "src_ruganci_gencoz_2010",
         "location": "s. 445, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "DERS Türkçe formunda (Rugancı & Gençöz, 2010) dürtü kontrol güçlüğü alt ölçeği ile ampirik ilişki gösterilmiştir; doğrudan facet maddeleri değildir."
+    "scientificNotes": "DERS Türkçe formunda (Rugancı & Gençöz, 2010) dürtü kontrol güçlüğü alt ölçeği ile ampirik ilişki gösterilmiştir; doğrudan facet maddeleri değildir.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": null,
+    "supportingEvidenceInstrumentId": "inst_ders",
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "RELATED_CONSTRUCT_ONLY",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 338,
+        "description": "DERS Türkçe form geçerlik çalışması üniversite katılımcıları",
+        "sourceId": "src_ruganci_gencoz_2010",
+        "location": "s. 445, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "DERS Türkçe formunda (N=338, Rugancı & Gençöz, 2010) ilgili alt ölçek ampirik ilişkisi",
+      "samplingMethod": "Related Measure Validation Sample"
+    }
   },
   {
     "facetId": "emotional_recovery",
@@ -1337,24 +2379,46 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 338,
         "description": "DERS Türkçe form geçerlik çalışması üniversite katılımcıları",
         "sourceId": "src_ruganci_gencoz_2010",
         "location": "s. 445, Method / Participants",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "DERS Türkçe formunda (Rugancı & Gençöz, 2010) duygu düzenleme stratejilerine sınırlı erişim alt ölçeği ile ilişkilendirilmiştir; doğrudan facet maddeleri değildir."
+    "scientificNotes": "DERS Türkçe formunda (Rugancı & Gençöz, 2010) duygu düzenleme stratejilerine sınırlı erişim alt ölçeği ile ilişkilendirilmiştir; doğrudan facet maddeleri değildir.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": null,
+    "supportingEvidenceInstrumentId": "inst_ders",
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "RELATED_CONSTRUCT_ONLY",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 338,
+        "description": "DERS Türkçe form geçerlik çalışması üniversite katılımcıları",
+        "sourceId": "src_ruganci_gencoz_2010",
+        "location": "s. 445, Method / Participants",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "DERS Türkçe formunda (N=338, Rugancı & Gençöz, 2010) ilgili alt ölçek ampirik ilişkisi",
+      "samplingMethod": "Related Measure Validation Sample"
+    }
   },
   {
     "facetId": "trait_positive_affect",
@@ -1376,24 +2440,48 @@
         "metric": "alpha",
         "sourceId": "src_gencoz_2000_panas",
         "location": "s. 22, Tablo 1",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": 0.4,
         "interval": "2_to_3_weeks",
         "sourceId": "src_gencoz_2000_panas",
         "location": "s. 22",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 245,
         "description": "ODTÜ öğrencileri (147 kadın, 98 erkek)",
         "sourceId": "src_gencoz_2000_panas",
         "location": "s. 21, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Gençöz (2000) PANAS Türkçe formunda Pozitif Duygu için alpha=.86, test-tekrar test r=.40 ve ortogonal 2 faktörlü yapıyı doğrulamıştır."
+    "scientificNotes": "Gençöz (2000) PANAS Türkçe formunda Pozitif Duygu için alpha=.86, test-tekrar test r=.40 ve ortogonal 2 faktörlü yapıyı doğrulamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_panas",
+    "supportingEvidenceInstrumentId": "inst_panas",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 245,
+        "description": "ODTÜ öğrencileri (147 kadın, 98 erkek)",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 21, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "ODTÜ öğrencileri (N=245, Gençöz, 2000)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "trait_negative_affect",
@@ -1415,24 +2503,48 @@
         "metric": "alpha",
         "sourceId": "src_gencoz_2000_panas",
         "location": "s. 22, Tablo 1",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": 0.54,
         "interval": "2_to_3_weeks",
         "sourceId": "src_gencoz_2000_panas",
         "location": "s. 22",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 245,
         "description": "ODTÜ öğrencileri (147 kadın, 98 erkek)",
         "sourceId": "src_gencoz_2000_panas",
         "location": "s. 21, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Gençöz (2000) PANAS Türkçe formunda Negatif Duygu için alpha=.83, test-tekrar test r=.54 ve ortogonal 2 faktörlü yapıyı doğrulamıştır."
+    "scientificNotes": "Gençöz (2000) PANAS Türkçe formunda Negatif Duygu için alpha=.83, test-tekrar test r=.54 ve ortogonal 2 faktörlü yapıyı doğrulamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_panas",
+    "supportingEvidenceInstrumentId": "inst_panas",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 245,
+        "description": "ODTÜ öğrencileri (147 kadın, 98 erkek)",
+        "sourceId": "src_gencoz_2000_panas",
+        "location": "s. 21, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "ODTÜ öğrencileri (N=245, Gençöz, 2000)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "distress_tolerance",
@@ -1453,24 +2565,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "DIRECT_FACET_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "MISATTRIBUTED_INSTRUMENT_CITATION",
+        "reason": "Tek kaynak src_simons_gaher_2005 (İngilizce). Sarı & Dağ (2009) çalışması DTS ölçeğini değil IUS ölçeğini uyarlamıştır; sahte atıf temizlendi.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_dts",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "experiential_avoidance",
@@ -1491,24 +2631,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_dts",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "shame_proneness",
@@ -1529,24 +2689,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_panas",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "guilt_proneness",
@@ -1567,24 +2747,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_panas",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "need_for_cognition",
@@ -1605,24 +2805,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "DIRECT_FACET_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "UNREGISTERED_CITATION",
+        "reason": "Tek kaynak src_cacioppo_petty_1982 (İngilizce). Demirtaş (2013) atfı sicile kayıtlı hakemli makale olmadığı için düşürüldü.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_nfc_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "need_for_cognitive_closure",
@@ -1643,24 +2871,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_nfcs_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "rational_analytical_style",
@@ -1681,24 +2929,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_nfcs_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "intuitive_experiential_style",
@@ -1719,24 +2987,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_nfcs_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "cognitive_flexibility",
@@ -1758,24 +3046,47 @@
         "metric": "alpha",
         "sourceId": "src_gulum_dag_2012_cfi",
         "location": "s. 220, Tablo 2",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 412,
         "description": "Hacettepe Üniversitesi öğrencileri",
         "sourceId": "src_gulum_dag_2012_cfi",
         "location": "s. 218, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Gülüm & Dağ (2012) Bilişsel Esneklik Envanteri (CFI) Türkçe formunda toplam alpha=.89 ve iki faktörlü yapıyı doğrulamıştır."
+    "scientificNotes": "Gülüm & Dağ (2012) Bilişsel Esneklik Envanteri (CFI) Türkçe formunda toplam alpha=.89 ve iki faktörlü yapıyı doğrulamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_cfi",
+    "supportingEvidenceInstrumentId": "inst_cfi",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 412,
+        "description": "Hacettepe Üniversitesi öğrencileri",
+        "sourceId": "src_gulum_dag_2012_cfi",
+        "location": "s. 218, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Hacettepe Üniversitesi öğrencileri (N=412, Gülüm & Dağ, 2012)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "intolerance_of_uncertainty",
@@ -1797,24 +3108,47 @@
         "metric": "alpha",
         "sourceId": "src_sari_dag_2009_ius",
         "location": "s. 237, Tablo 2",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 360,
         "description": "Hacettepe Üniversitesi lisans öğrencileri",
         "sourceId": "src_sari_dag_2009_ius",
         "location": "s. 235, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Sarı & Dağ (2009) Belirsizliğe Tahammülsüzlük Ölçeği Türkçe uyarlamasında toplam ölçek için alpha=.88 ve geçerli faktör yapısı raporlamıştır."
+    "scientificNotes": "Sarı & Dağ (2009) Belirsizliğe Tahammülsüzlük Ölçeği Türkçe uyarlamasında toplam ölçek için alpha=.88 ve geçerli faktör yapısı raporlamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ius_12",
+    "supportingEvidenceInstrumentId": "inst_ius_12",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 360,
+        "description": "Hacettepe Üniversitesi lisans öğrencileri",
+        "sourceId": "src_sari_dag_2009_ius",
+        "location": "s. 235, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Hacettepe Üniversitesi lisans öğrencileri (N=360, Sarı & Dağ, 2009)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "rumination_brooding",
@@ -1836,24 +3170,47 @@
         "metric": "alpha",
         "sourceId": "src_erdur_baker_bugay_2010_rrs",
         "location": "s. 124, Tablo 2",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 315,
         "description": "ODTÜ lisans öğrencileri",
         "sourceId": "src_erdur_baker_bugay_2010_rrs",
         "location": "s. 122, Yöntem / Çalışma Grubu",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Erdur-Baker & Bugay (2010) Ruminasyon Ölçeği Kısa Formunda Kara kara düşünme (brooding) alt boyutu için alpha=.75 raporlamıştır."
+    "scientificNotes": "Erdur-Baker & Bugay (2010) Ruminasyon Ölçeği Kısa Formunda Kara kara düşünme (brooding) alt boyutu için alpha=.75 raporlamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_rrs",
+    "supportingEvidenceInstrumentId": "inst_rrs",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 315,
+        "description": "ODTÜ lisans öğrencileri",
+        "sourceId": "src_erdur_baker_bugay_2010_rrs",
+        "location": "s. 122, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "ODTÜ lisans öğrencileri (N=315, Erdur-Baker & Bugay, 2010)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "maximizing_tendency",
@@ -1874,24 +3231,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_nfcs_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "decision_avoidance_procrastination",
@@ -1912,24 +3289,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_nfcs_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "negative_urgency",
@@ -1950,24 +3347,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_upps_p_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "positive_urgency",
@@ -1988,24 +3405,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_upps_p_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "lack_of_premeditation",
@@ -2026,24 +3463,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_upps_p_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "lack_of_perseverance",
@@ -2064,24 +3521,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_upps_p_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "sensation_seeking",
@@ -2102,24 +3579,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_upps_p_sf",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "general_self_control",
@@ -2141,24 +3638,47 @@
         "metric": "alpha",
         "sourceId": "src_duyan_2012_bscs",
         "location": "s. 233, Tablo 2",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 350,
         "description": "Yetişkin örneklem (208 kadın, 142 erkek)",
         "sourceId": "src_duyan_2012_bscs",
         "location": "s. 231, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Duyan et al. (2012) Kısa Öz-Kontrol Ölçeği Türkçe formunda alpha=.83 ve tek boyutlu yapıyı doğrulamıştır."
+    "scientificNotes": "Duyan et al. (2012) Kısa Öz-Kontrol Ölçeği Türkçe formunda alpha=.83 ve tek boyutlu yapıyı doğrulamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_bscs",
+    "supportingEvidenceInstrumentId": "inst_bscs",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 350,
+        "description": "Yetişkin örneklem (208 kadın, 142 erkek)",
+        "sourceId": "src_duyan_2012_bscs",
+        "location": "s. 231, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Yetişkin örneklem (N=350, Duyan et al., 2012)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "delay_discounting",
@@ -2179,24 +3699,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_bscs",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "long_term_grit",
@@ -2218,24 +3758,47 @@
         "metric": "alpha",
         "sourceId": "src_saricam_2016_grit",
         "location": "s. 106, Tablo 1",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 320,
         "description": "Üniversite öğrencileri",
         "sourceId": "src_saricam_2016_grit",
         "location": "s. 104, Yöntem / Çalışma Grubu",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Sarıçam et al. (2016) Kısa Azim Ölçeği (Grit-S) Türkçe uyarlamasında toplam ölçek alpha=.83 ve 2 faktörlü yapıyı doğrulamıştır."
+    "scientificNotes": "Sarıçam et al. (2016) Kısa Azim Ölçeği (Grit-S) Türkçe uyarlamasında toplam ölçek alpha=.83 ve 2 faktörlü yapıyı doğrulamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_grit_s",
+    "supportingEvidenceInstrumentId": "inst_grit_s",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 320,
+        "description": "Üniversite öğrencileri",
+        "sourceId": "src_saricam_2016_grit",
+        "location": "s. 104, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Üniversite öğrencileri (N=320, Sarıçam et al., 2016)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "autonomy_need",
@@ -2257,24 +3820,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_bpnsfs",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "competence_need",
@@ -2295,24 +3878,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_bpnsfs",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "relatedness_need",
@@ -2334,24 +3937,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_bpnsfs",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "values_openness_to_change",
@@ -2372,24 +3995,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_schwartz_values",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "values_self_transcendence",
@@ -2410,24 +4053,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_schwartz_values",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "values_conservation",
@@ -2448,24 +4111,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_schwartz_values",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "values_self_enhancement",
@@ -2486,24 +4169,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ipip_schwartz_values",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "presence_of_meaning",
@@ -2525,24 +4228,47 @@
         "metric": "alpha",
         "sourceId": "src_akin_tas_2015_mlq",
         "location": "s. 188, Tablo 2",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 410,
         "description": "Sakarya Üniversitesi lisans öğrencileri",
         "sourceId": "src_akin_tas_2015_mlq",
         "location": "s. 186, Yöntem / Çalışma Grubu",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Akın & Taş (2015) Yaşamın Anlamı Ölçeği Türkçe uyarlamasında Mevcut Anlam boyutu için alpha=.77 ve 2 faktörlü yapıyı doğrulamıştır."
+    "scientificNotes": "Akın & Taş (2015) Yaşamın Anlamı Ölçeği Türkçe uyarlamasında Mevcut Anlam boyutu için alpha=.77 ve 2 faktörlü yapıyı doğrulamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_mlq",
+    "supportingEvidenceInstrumentId": "inst_mlq",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 410,
+        "description": "Sakarya Üniversitesi lisans öğrencileri",
+        "sourceId": "src_akin_tas_2015_mlq",
+        "location": "s. 186, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Sakarya Üniversitesi lisans öğrencileri (N=410, Akın & Taş, 2015)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "search_for_meaning",
@@ -2564,24 +4290,47 @@
         "metric": "alpha",
         "sourceId": "src_akin_tas_2015_mlq",
         "location": "s. 188, Tablo 2",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 410,
         "description": "Sakarya Üniversitesi lisans öğrencileri",
         "sourceId": "src_akin_tas_2015_mlq",
         "location": "s. 186, Yöntem / Çalışma Grubu",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Akın & Taş (2015) Yaşamın Anlamı Ölçeği Türkçe uyarlamasında Anlam Arayışı boyutu için alpha=.83 ve 2 faktörlü yapıyı doğrulamıştır."
+    "scientificNotes": "Akın & Taş (2015) Yaşamın Anlamı Ölçeği Türkçe uyarlamasında Anlam Arayışı boyutu için alpha=.83 ve 2 faktörlü yapıyı doğrulamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_mlq",
+    "supportingEvidenceInstrumentId": "inst_mlq",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 410,
+        "description": "Sakarya Üniversitesi lisans öğrencileri",
+        "sourceId": "src_akin_tas_2015_mlq",
+        "location": "s. 186, Yöntem / Çalışma Grubu",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Sakarya Üniversitesi lisans öğrencileri (N=410, Akın & Taş, 2015)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "attachment_anxiety",
@@ -2603,24 +4352,47 @@
         "metric": "alpha",
         "sourceId": "src_sumer_2006_ecrr",
         "location": "s. 8, Tablo 1",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 380,
         "description": "Üniversite öğrencileri (240 kadın, 140 erkek)",
         "sourceId": "src_sumer_2006_ecrr",
         "location": "s. 6, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Sümer (2006) ECR-R (Yakın İlişkilerde Yaşantılar Envanteri-II) Türkçe uyarlamasında Kaygı boyutu için alpha=.86 ve geçerli faktör yapısı raporlamıştır."
+    "scientificNotes": "Sümer (2006) ECR-R (Yakın İlişkilerde Yaşantılar Envanteri-II) Türkçe uyarlamasında Kaygı boyutu için alpha=.86 ve geçerli faktör yapısı raporlamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ecr_r",
+    "supportingEvidenceInstrumentId": "inst_ecr_r",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 380,
+        "description": "Üniversite öğrencileri (240 kadın, 140 erkek)",
+        "sourceId": "src_sumer_2006_ecrr",
+        "location": "s. 6, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Üniversite öğrencileri (N=380, Sümer, 2006)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "attachment_avoidance",
@@ -2642,24 +4414,47 @@
         "metric": "alpha",
         "sourceId": "src_sumer_2006_ecrr",
         "location": "s. 8, Tablo 1",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": 380,
         "description": "Üniversite öğrencileri (240 kadın, 140 erkek)",
         "sourceId": "src_sumer_2006_ecrr",
         "location": "s. 6, Yöntem / Örneklem",
-        "claimVerificationStatus": "VERIFIED_EXACT"
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Sümer (2006) ECR-R Türkçe uyarlamasında Kaçınma boyutu için alpha=.90 ve geçerli faktör yapısı raporlamıştır."
+    "scientificNotes": "Sümer (2006) ECR-R Türkçe uyarlamasında Kaçınma boyutu için alpha=.90 ve geçerli faktör yapısı raporlamıştır.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_ecr_r",
+    "supportingEvidenceInstrumentId": "inst_ecr_r",
+    "instrumentValidationEstablished": true,
+    "broadFactorStructuralSupport": "SUPPORTED",
+    "studyEvidence": {
+      "sampleN": {
+        "value": 380,
+        "description": "Üniversite öğrencileri (240 kadın, 140 erkek)",
+        "sourceId": "src_sumer_2006_ecrr",
+        "location": "s. 6, Yöntem / Örneklem",
+        "claimVerificationStatus": "VERIFIED_EXACT",
+        "verificationMethod": "AI_ASSISTED_SOURCE_AUDIT",
+        "humanVerified": false
+      },
+      "population": "Üniversite öğrencileri (N=380, Sümer, 2006)",
+      "samplingMethod": "Empirical Adaptation Sample"
+    }
   },
   {
     "facetId": "cognitive_perspective_taking",
@@ -2680,24 +4475,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_iri",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "empathic_concern",
@@ -2718,24 +4533,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "DIRECT_FACET_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "UNREGISTERED_FREE_TEXT_CITATION",
+        "reason": "Tek kaynak src_davis_1983 (İngilizce). Yıldırım et al. atfı doğrulanmış sicil kaydına sahip olmadığı için düşürüldü.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_iri",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "assertiveness",
@@ -2756,24 +4599,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_dutch",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "boundary_setting",
@@ -2794,24 +4657,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_dutch",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "social_approval_dependence",
@@ -2832,24 +4715,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_dutch",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "conflict_collaborating",
@@ -2870,24 +4773,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "RELATED_MEASURE_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "NO_TURKISH_ADAPTATION_IN_REGISTRY",
+        "reason": "Tek kaynak src_dedreu_2001 (İngilizce). Doğrulanmış Türkçe DUTCH adaptasyonu sicilde bulunmadığı için düşürüldü.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_dutch",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "conflict_avoiding",
@@ -2908,24 +4839,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "RELATED_MEASURE_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "NO_TURKISH_ADAPTATION_IN_REGISTRY",
+        "reason": "Tek kaynak src_dedreu_2001 (İngilizce). Doğrulanmış Türkçe DUTCH adaptasyonu sicilde bulunmadığı için düşürüldü.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_dutch",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "response_time_analysis",
@@ -2946,24 +4905,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": null,
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "longstring_index",
@@ -2984,24 +4963,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": null,
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "impression_management",
@@ -3022,24 +5021,52 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [
+      {
+        "fromStatus": "DIRECT_FACET_VALIDATION",
+        "toStatus": "NO_DIRECT_TURKISH_VALIDATION",
+        "reasonCode": "UNVERIFIED_THESIS_CITATION",
+        "reason": "Tek kaynak src_paulhus_1991 (İngilizce). Yılmaz (2005) tez atfı bağımsız hakemli makale olmadığı için düşürüldü.",
+        "changedInPhase": "FAZ 2.2"
+      }
+    ],
+    "targetConstructInstrumentId": "inst_bidr_6",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "semantic_pair_inconsistency",
@@ -3060,24 +5087,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_bidr_6",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "machiavellianism",
@@ -3098,24 +5145,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_sd4",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "grandiose_narcissism",
@@ -3136,24 +5203,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_sd4",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "subclinical_psychopathy",
@@ -3174,24 +5261,44 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_sd4",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   },
   {
     "facetId": "everyday_sadism",
@@ -3212,23 +5319,43 @@
         "metric": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "testRetest": {
         "value": null,
         "interval": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       },
       "sampleN": {
         "value": null,
         "description": null,
         "sourceId": null,
         "location": null,
-        "claimVerificationStatus": "NOT_VERIFIED"
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
       }
     },
-    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez."
+    "scientificNotes": "Bu facet için doğrulanmış Türkçe psikometrik çalışma bulunmamaktadır. Ampirik Türkçe veri toplanmadan önce doğrudan validasyon iddia edilemez.",
+    "auditHistory": [],
+    "targetConstructInstrumentId": "inst_sd4",
+    "supportingEvidenceInstrumentId": null,
+    "instrumentValidationEstablished": false,
+    "broadFactorStructuralSupport": "UNVERIFIED_IN_TURKISH",
+    "studyEvidence": {
+      "sampleN": {
+        "value": null,
+        "description": null,
+        "sourceId": null,
+        "location": null,
+        "claimVerificationStatus": "NOT_VERIFIED",
+        "humanVerified": false
+      },
+      "population": null,
+      "samplingMethod": null
+    }
   }
 ]

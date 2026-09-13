@@ -50,6 +50,18 @@ export type ClaimVerificationStatus =
   | 'CONFLICTING_EVIDENCE'
   | 'NOT_ASSESSED';
 
+export type StudyType =
+  | 'TURKISH_SCALE_ADAPTATION'
+  | 'TURKISH_LEXICAL_STUDY'
+  | 'TURKISH_THEORETICAL_MODEL'
+  | 'INTERNATIONAL_ORIGINAL_INSTRUMENT'
+  | 'METHODOLOGICAL_STANDARD';
+
+export type ClaimVerificationMethod =
+  | 'AI_ASSISTED_SOURCE_AUDIT'
+  | 'HUMAN_RESEARCHER'
+  | 'SOURCE_TEXT_AUDIT';
+
 export interface SourceRegistryEntry {
   sourceId: string;
   citation: string;
@@ -71,6 +83,10 @@ export interface SourceRegistryEntry {
   language?: 'tr' | 'en';
   isTurkishAdaptation?: boolean;
   evidenceScope?: EvidenceScope;
+  studyType?: StudyType;
+  studyPopulationCountry?: string;
+  studyLanguageContext?: 'tr' | 'en';
+  addedInPhase?: string;
 }
 
 export interface InternalConsistencyClaim {
@@ -79,6 +95,8 @@ export interface InternalConsistencyClaim {
   sourceId: string | null;
   location: string | null;
   claimVerificationStatus: ClaimVerificationStatus;
+  verificationMethod?: ClaimVerificationMethod;
+  humanVerified: boolean;
 }
 
 export interface TestRetestClaim {
@@ -87,6 +105,8 @@ export interface TestRetestClaim {
   sourceId: string | null;
   location: string | null;
   claimVerificationStatus: ClaimVerificationStatus;
+  verificationMethod?: ClaimVerificationMethod;
+  humanVerified: boolean;
 }
 
 export interface SampleNClaim {
@@ -95,12 +115,36 @@ export interface SampleNClaim {
   sourceId: string | null;
   location: string | null;
   claimVerificationStatus: ClaimVerificationStatus;
+  verificationMethod?: ClaimVerificationMethod;
+  humanVerified: boolean;
 }
 
 export interface PsychometricReliabilityEvidence {
   internalConsistency: InternalConsistencyClaim;
   testRetest: TestRetestClaim;
+  sampleN?: SampleNClaim; // Kept as optional for backwards compatibility
+}
+
+export interface StudyEvidence {
   sampleN: SampleNClaim;
+  population?: string | null;
+  samplingMethod?: string | null;
+}
+
+export interface SupportingEvidenceRelation {
+  sourceId: string;
+  evidenceType: string;
+  studySampleN?: number;
+  appliesToLevel: string;
+  doesNotEstablish: string[];
+}
+
+export interface AuditHistoryEntry {
+  fromStatus: string;
+  toStatus: string;
+  reasonCode: string;
+  reason: string;
+  changedInPhase: string;
 }
 
 export type TurkishValidationStatus =
@@ -117,10 +161,17 @@ export interface TurkishValidationMatrixEntry {
   status: TurkishValidationStatus;
   sourceIds: string[];
   instrumentId?: string | null;
+  targetConstructInstrumentId?: string | null;
+  supportingEvidenceInstrumentId?: string | null;
+  instrumentValidationEstablished?: boolean;
   sampleDescription: string;
   factorStructureStatus: string;
+  broadFactorStructuralSupport?: string | null;
   measurementInvarianceStatus: string;
   reliabilityEvidence: PsychometricReliabilityEvidence;
+  studyEvidence: StudyEvidence;
+  supportingEvidence?: SupportingEvidenceRelation[];
+  auditHistory?: AuditHistoryEntry[];
   scientificNotes: string;
 }
 

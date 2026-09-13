@@ -133,12 +133,17 @@ export function ItemBankClientView({
   const directTrCount = trMatrix.filter(t => t.status === 'DIRECT_FACET_VALIDATION').length;
   const lexicalTrCount = trMatrix.filter(t => t.status === 'LEXICAL_SUPPORT_ONLY').length;
 
-  // FAZ 2.2 Evidence Closure Statistics (derived dynamically)
+  // FAZ 2.3 Evidence Semantics & Closure Statistics (derived dynamically)
   const evidenceClosureStats = useMemo(() => {
     const totalSources = sources.length;
     const verifiedPrimary = sources.filter((s: any) => s.bibliographicVerificationStatus === 'VERIFIED_PRIMARY').length;
     const verifiedSecondary = sources.filter((s: any) => s.bibliographicVerificationStatus === 'VERIFIED_SECONDARY').length;
-    const turkishAdaptationSources = sources.filter((s: any) => s.isTurkishAdaptation === true || s.language === 'tr').length;
+
+    // FAZ 2.3 Typology
+    const turkishScaleAdaptations = sources.filter((s: any) => s.studyType === 'TURKISH_SCALE_ADAPTATION').length;
+    const turkishLexicalStudies = sources.filter((s: any) => s.studyType === 'TURKISH_LEXICAL_STUDY').length;
+    const turkishTheoreticalStudies = sources.filter((s: any) => s.studyType === 'TURKISH_THEORETICAL_MODEL').length;
+    const turkishContextTotal = sources.filter((s: any) => s.studyPopulationCountry === 'TR' || s.studyLanguageContext === 'tr').length;
 
     const directCount = trMatrix.filter((t: any) => t.status === 'DIRECT_FACET_VALIDATION').length;
     const lexicalCount = trMatrix.filter((t: any) => t.status === 'LEXICAL_SUPPORT_ONLY').length;
@@ -151,24 +156,29 @@ export function ItemBankClientView({
     let notAssessedClaims = 0;
 
     trMatrix.forEach((f: any) => {
-      const rel = f.reliabilityEvidence;
-      if (rel) {
-        ['internalConsistency', 'testRetest', 'sampleN'].forEach(k => {
-          const claim = rel[k];
-          if (claim) {
-            if (claim.claimVerificationStatus === 'VERIFIED_EXACT') verifiedExactClaims++;
-            else if (claim.claimVerificationStatus === 'NOT_VERIFIED') notVerifiedClaims++;
-            else if (claim.claimVerificationStatus === 'NOT_ASSESSED') notAssessedClaims++;
-          }
-        });
-      }
+      const claims = [
+        f.reliabilityEvidence?.internalConsistency,
+        f.reliabilityEvidence?.testRetest,
+        f.studyEvidence?.sampleN || f.reliabilityEvidence?.sampleN
+      ];
+
+      claims.forEach((claim: any) => {
+        if (claim) {
+          if (claim.claimVerificationStatus === 'VERIFIED_EXACT') verifiedExactClaims++;
+          else if (claim.claimVerificationStatus === 'NOT_VERIFIED') notVerifiedClaims++;
+          else if (claim.claimVerificationStatus === 'NOT_ASSESSED') notAssessedClaims++;
+        }
+      });
     });
 
     return {
       totalSources,
       verifiedPrimary,
       verifiedSecondary,
-      turkishAdaptationSources,
+      turkishScaleAdaptations,
+      turkishLexicalStudies,
+      turkishTheoreticalStudies,
+      turkishContextTotal,
       directCount,
       lexicalCount,
       relatedCount,
@@ -216,17 +226,17 @@ export function ItemBankClientView({
         </div>
       </div>
 
-      {/* EVIDENCE CLOSURE STATUS CARD (FAZ 2.2 DYNAMIC AUDIT) */}
+      {/* EVIDENCE CLOSURE STATUS CARD (FAZ 2.3 SEMANTIC PURITY AUDIT) */}
       <div className="bg-surface-1 rounded-xl border border-border-subtle shadow-xs p-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border-subtle pb-3 mb-4">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <h2 className="text-sm font-bold text-text-primary uppercase tracking-wider">
-              Evidence Closure Status (FAZ 2.2 Forensic Audit)
+              Evidence Semantics & Closure Status (FAZ 2.3 Forensic Audit)
             </h2>
           </div>
           <span className="text-[11px] font-mono text-text-tertiary">
-            Runtime Derived from Source-of-Truth JSONs
+            Pure Renderer &bull; Zero Hard-Coded Data &bull; AI-Assisted Text Audit
           </span>
         </div>
 
@@ -238,21 +248,21 @@ export function ItemBankClientView({
           </div>
 
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
-            <div className="text-[10px] text-text-tertiary uppercase font-medium">Primary Kaynak</div>
-            <div className="text-lg font-bold text-blue-700 mt-0.5">{evidenceClosureStats.verifiedPrimary}</div>
-            <div className="text-[10px] text-blue-600/80">Hakemli dergi</div>
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">TR Ölçek Adapt.</div>
+            <div className="text-lg font-bold text-emerald-700 mt-0.5">{evidenceClosureStats.turkishScaleAdaptations}</div>
+            <div className="text-[10px] text-emerald-600/80">Psikometrik ölçek</div>
           </div>
 
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
-            <div className="text-[10px] text-text-tertiary uppercase font-medium">Secondary Kaynak</div>
-            <div className="text-lg font-bold text-amber-700 mt-0.5">{evidenceClosureStats.verifiedSecondary}</div>
-            <div className="text-[10px] text-amber-600/80">Tez / derleme</div>
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">TR Leksikal Çalışma</div>
+            <div className="text-lg font-bold text-purple-700 mt-0.5">{evidenceClosureStats.turkishLexicalStudies}</div>
+            <div className="text-[10px] text-purple-600/80">Wasti et al. (2008)</div>
           </div>
 
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
-            <div className="text-[10px] text-text-tertiary uppercase font-medium">TR Adaptasyon</div>
-            <div className="text-lg font-bold text-emerald-700 mt-0.5">{evidenceClosureStats.turkishAdaptationSources}</div>
-            <div className="text-[10px] text-emerald-600/80">Yerel çalışma</div>
+            <div className="text-[10px] text-text-tertiary uppercase font-medium">Toplam TR Context</div>
+            <div className="text-lg font-bold text-blue-700 mt-0.5">{evidenceClosureStats.turkishContextTotal}</div>
+            <div className="text-[10px] text-blue-600/80">Türkiye örneklemi</div>
           </div>
 
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
@@ -264,7 +274,7 @@ export function ItemBankClientView({
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
             <div className="text-[10px] text-text-tertiary uppercase font-medium">Leksikal Destek</div>
             <div className="text-lg font-bold text-purple-700 mt-0.5">{evidenceClosureStats.lexicalCount}</div>
-            <div className="text-[10px] text-purple-600/80">Wasti (2008)</div>
+            <div className="text-[10px] text-purple-600/80">Geniş 6 faktör</div>
           </div>
 
           <div className="p-2.5 rounded-lg bg-surface-2 border border-border-subtle">
@@ -288,10 +298,10 @@ export function ItemBankClientView({
       <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3.5 flex items-start gap-3 text-xs text-amber-800">
         <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
         <div>
-          <span className="font-semibold">Bilimsel Epistemik Uyarı (FAZ 2.2):</span> Tüm aday maddeler{' '}
+          <span className="font-semibold">Bilimsel Epistemik Uyarı (FAZ 2.3):</span> Tüm aday maddeler{' '}
           <span className="font-mono font-semibold text-amber-900">RESEARCH_DRAFT</span> statüsündedir ve yazar tipi{' '}
           <span className="font-mono font-semibold text-amber-900">GENERATIVE_AI</span> olarak tescillenmiştir.
-          Bağımsız insan psikometrist incelemesi, bilişsel görüşmeler ve ampirik pilot kalibrasyon (EFA/CFA/IRT) tamamlanmadan hiçbir madde kalibre edilmiş kabul edilemez.
+          Sayısal iddialar AI destekli kaynak taramasıyla (<span className="font-mono font-semibold">AI_ASSISTED_SOURCE_AUDIT</span>) doğrulanmıştır; insan uzman incelemesi henüz yapılmamıştır (<span className="font-mono font-semibold">humanVerified: false</span>).
         </div>
       </div>
 
@@ -613,7 +623,8 @@ export function ItemBankClientView({
                 {trMatrix.map((m: any) => {
                   const ic = m.reliabilityEvidence?.internalConsistency;
                   const tr = m.reliabilityEvidence?.testRetest;
-                  const sn = m.reliabilityEvidence?.sampleN;
+                  const sn = m.studyEvidence?.sampleN || m.reliabilityEvidence?.sampleN;
+                  const hasLexicalSupport = m.supportingEvidence?.some((se: any) => se.sourceId === 'src_wasti_2008');
                   return (
                     <tr key={m.facetId} className="hover:bg-bg-subtle/50">
                       <td className="py-2 px-3 font-mono font-medium text-text-primary">{m.facetId}</td>
@@ -646,6 +657,10 @@ export function ItemBankClientView({
                             <span>N={sn.value}</span>
                             <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">EXACT</span>
                           </div>
+                        ) : hasLexicalSupport ? (
+                          <span className="text-[10px] text-purple-700 bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded">
+                            Wasti (N=521 Broad)
+                          </span>
                         ) : (
                           <span className="text-text-tertiary font-mono text-[11px]">—</span>
                         )}
