@@ -1,12 +1,24 @@
-import { SemanticCluster } from './types';
+import { SemanticCluster, LexicalAnalysisReport, LexicalPair } from './types';
 
 const TURKISH_STOP_WORDS = new Set([
   've', 'veya', 'ile', 'bir', 'bu', 'şu', 'o', 'için', 'de', 'da', 'ki',
   'gibi', 'kadar', 'daha', 'en', 'ise', 'mi', 'mı', 'mu', 'mü', 'ben', 'bana', 'beni', 'benim', 'kendimi', 'genellikle'
 ]);
 
-function tokenize(text: string): Set<string> {
-  const clean = text
+// Closely related facet pairs with high cross-loading or semantic overlap risk
+export const CLOSE_CONSTRUCT_PAIRS: Array<[string, string]> = [
+  ['sincerity', 'authenticity'],
+  ['fairness', 'honesty_humility'],
+  ['anxiety', 'intolerance_of_uncertainty'],
+  ['prudence', 'lack_of_premeditation'],
+  ['diligence', 'grit_perseverance'],
+  ['empathic_concern', 'sentimentality'],
+  ['assertiveness', 'social_boldness'],
+  ['trait_self_control', 'lack_of_premeditation']
+];
+
+export function tokenize(text: string): Set<string> {
+  const clean = (text || '')
     .toLowerCase()
     .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'’]/g, ' ')
     .split(/\s+/)
@@ -14,7 +26,7 @@ function tokenize(text: string): Set<string> {
   return new Set(clean);
 }
 
-function calculateJaccardSimilarity(setA: Set<string>, setB: Set<string>): number {
+export function calculateJaccardSimilarity(setA: Set<string>, setB: Set<string>): number {
   if (setA.size === 0 || setB.size === 0) return 0;
   let intersection = 0;
   for (const item of setA) {
@@ -30,86 +42,92 @@ export interface CandidateItemWithFacet {
   text_tr: string;
 }
 
-export interface SemanticAnalysisReport {
-  duplicatePairs: Array<{
-    itemAId: string;
-    itemBId: string;
-    itemAText: string;
-    itemBText: string;
-    facetId: string;
-    similarityScore: number;
-  }>;
-  facetClusters: Record<string, SemanticCluster[]>;
-  totalDuplicatesDetected: number;
-}
-
 /**
- * Analyzes candidate items within each facet to find duplicate or near-duplicate clusters.
+ * Performs rigorous Lexical Similarity Analysis (token-set Jaccard index)
+ * both within facets and across closely related / cross-loading construct facets.
+ *
+ * NOTE: This is strictly a LEXICAL analysis. It does not measure latent semantic embeddings
+ * or psychometric construct equivalence.
  */
-export function analyzeSemanticClusters(
+export function analyzeLexicalClusters(
   items: CandidateItemWithFacet[],
-  threshold = 0.65
-): SemanticAnalysisReport {
-  // Group items by facet
-  const byFacet: Record<string, CandidateItemWithFacet[]> = {};
-  for (const it of items) {
-    if (!byFacet[it.facetId]) byFacet[it.facetId] = [];
-    byFacet[it.facetId].push(it);
-  }
+  threshold = 0.70
+): LexicalAnalysisReport {
+  const tokenizedItems = items.map(it => ({
+    item: it,
+    tokens: tokenize(it.text_tr)
+  }));
 
-  const duplicatePairs: SemanticAnalysisReport['duplicatePairs'] = [];
-  const facetClusters: Record<string, SemanticCluster[]> = {};
+  const withinFacetDuplicates: LexicalPair[] = [];
+  const crossFacetOverlaps: LexicalPair[] = [];
 
-  for (const [facetId, facetItems] of Object.entries(byFacet)) {
-    const itemTokens = facetItems.map(it => ({
-      item: it,
-      tokens: tokenize(it.text_tr)
-    }));
+  for (let i = 0; i < tokenizedItems.length; i++) {
+    for (let j = i + 1; j < tokenizedItems.length; j++) {
+      const itemA = tokenizedItems[i];
+      const itemB = tokenizedItems[j];
 
-    const clusters: SemanticCluster[] = [];
-    const visited = new Set<string>();
+      const sim = calculateJaccardSimilarity(itemA.tokens, itemB.tokens);
 
-    for (let i = 0; i < itemTokens.length; i++) {
-      for (let j = i + 1; j < itemTokens.length; j++) {
-        const itemA = itemTokens[i];
-        const itemB = itemTokens[j];
-        const sim = calculateJaccardSimilarity(itemA.tokens, itemB.tokens);
+      if (sim >= threshold) {
+        const isCross = itemA.item.facetId !== itemB.item.facetId;
+        const pair: LexicalPair = {
+          itemAId: itemA.item.id,
+          itemBId: itemB.item.id,
+          itemAText: itemA.item.text_tr,
+          itemBText: itemB.item.text_tr,
+          facetA: itemA.item.facetId,
+          facetB: itemB.item.facetId,
+          isCrossFacet: isCross,
+          similarityScore: Math.round(sim * 100) / 100
+        };
 
-        if (sim >= threshold) {
-          duplicatePairs.push({
-            itemAId: itemA.item.id,
-            itemBId: itemB.item.id,
-            itemAText: itemA.item.text_tr,
-            itemBText: itemB.item.text_tr,
-            facetId,
-            similarityScore: Math.round(sim * 100) / 100
-          });
-
-          // Form or add to cluster
-          const clusterId = `cluster_${facetId}_${clusters.length + 1}`;
-          clusters.push({
-            clusterId,
-            facetId,
-            itemIds: [itemA.item.id, itemB.item.id],
-            themeDescription: `Anlamsal Yakınlık Kümesi (Benzerlik: %${Math.round(sim * 100)})`,
-            pairSimilarities: [
-              {
-                itemA: itemA.item.id,
-                itemB: itemB.item.id,
-                similarityScore: sim
-              }
-            ]
-          });
+        if (isCross) {
+          crossFacetOverlaps.push(pair);
+        } else {
+          withinFacetDuplicates.push(pair);
         }
       }
     }
-
-    facetClusters[facetId] = clusters;
   }
 
+  const total = withinFacetDuplicates.length + crossFacetOverlaps.length;
+  const summaryTr = total === 0
+    ? `Jaccard leksikal benzerlik eşiği (>= ${threshold}) üzerinde kopya veya çakışan çift bulunmadı.`
+    : `Jaccard leksikal benzerlik eşiği üzerinde ${withinFacetDuplicates.length} facet-içi, ${crossFacetOverlaps.length} çapraz-facet çift tespit edildi.`;
+
   return {
-    duplicatePairs,
-    facetClusters,
-    totalDuplicatesDetected: duplicatePairs.length
+    method: 'LEXICAL_SIMILARITY_ANALYSIS',
+    threshold,
+    withinFacetDuplicates,
+    crossFacetOverlaps,
+    totalDuplicatesDetected: total,
+    semanticDuplicateStatus: 'NOT_ASSESSED',
+    summaryTr
+  };
+}
+
+/**
+ * Backward compatible alias for analyzeLexicalClusters.
+ */
+export function analyzeSemanticClusters(
+  items: CandidateItemWithFacet[],
+  threshold = 0.70
+) {
+  const rep = analyzeLexicalClusters(items, threshold);
+  return {
+    method: rep.method,
+    duplicatePairs: rep.withinFacetDuplicates.map(d => ({
+      itemAId: d.itemAId,
+      itemBId: d.itemBId,
+      itemAText: d.itemAText,
+      itemBText: d.itemBText,
+      facetId: d.facetA,
+      similarityScore: d.similarityScore
+    })),
+    facetClusters: {} as Record<string, SemanticCluster[]>,
+    totalDuplicatesDetected: rep.totalDuplicatesDetected,
+    crossFacetOverlaps: rep.crossFacetOverlaps,
+    semanticDuplicateStatus: 'NOT_ASSESSED' as const,
+    summaryTr: rep.summaryTr
   };
 }

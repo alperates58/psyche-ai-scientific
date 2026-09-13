@@ -5,6 +5,7 @@ export interface ExpertReviewExportRow {
   facetId: string;
   facetNameTr: string;
   facetNameEn: string;
+  turkishValidationStatus: string;
   operationalDefinitionTr: string;
   itemId: string;
   itemType: string;
@@ -14,13 +15,16 @@ export interface ExpertReviewExportRow {
   measurementIntent: string;
   sourceReference: string;
   licenseStatus: string;
+  authorType: string;
+  wordingLintStatus: string;
+  triageStatus: string;
   potentialCrossLoadings: string;
-  reviewerDecision: string; // Blank template for expert: e.g. "APPROVED" | "REVISE" | "REJECT"
-  reviewerComments: string;  // Blank template for expert notes
+  reviewerDecision: string; // Template for expert
+  reviewerComments: string;  // Template for expert
 }
 
 /**
- * Generates the expert review export dataset from the master item bank and evidence map.
+ * Generates the forensic expert review export dataset.
  */
 export function getExpertReviewRows(): ExpertReviewExportRow[] {
   const masterBankPath = path.resolve(process.cwd(), 'data/master-item-bank.json');
@@ -44,6 +48,7 @@ export function getExpertReviewRows(): ExpertReviewExportRow[] {
       facetId: it.facetId,
       facetNameTr: ev.name_tr || it.facetId,
       facetNameEn: ev.name_en || it.facetId,
+      turkishValidationStatus: it.turkishValidationStatus || ev.turkishValidationStatus || 'NO_DIRECT_TURKISH_VALIDATION',
       operationalDefinitionTr: ev.operationalDefinition_tr || '',
       itemId: it.id,
       itemType: it.itemType,
@@ -51,11 +56,14 @@ export function getExpertReviewRows(): ExpertReviewExportRow[] {
       promptEn: it.text_en || '',
       keying: it.keying,
       measurementIntent: it.measurementPurpose || 'trait_level',
-      sourceReference: (it.sourceIds || []).join(', ') || it.sourceType,
+      sourceReference: (it.constructEvidenceSources || it.sourceIds || []).join(', ') || it.sourceType,
       licenseStatus: it.licenseStatus,
+      authorType: it.translationProvenance?.authorType || 'GENERATIVE_AI',
+      wordingLintStatus: it.wordingLintStatus || 'PASS',
+      triageStatus: it.triageStatus || 'READY_FOR_EXPERT_REVIEW',
       potentialCrossLoadings: (it.possibleCrossLoadings || []).join(', ') || 'None',
-      reviewerDecision: '', // For expert filling
-      reviewerComments: ''   // For expert filling
+      reviewerDecision: '',
+      reviewerComments: ''
     };
   });
 }
@@ -68,6 +76,7 @@ export function generateExpertReviewCsv(rows: ExpertReviewExportRow[]): string {
     'Facet ID',
     'Facet (TR)',
     'Facet (EN)',
+    'Turkce Validasyon Durumu',
     'Operasyonel Tanim (TR)',
     'Madde ID',
     'Madde Turu',
@@ -77,7 +86,10 @@ export function generateExpertReviewCsv(rows: ExpertReviewExportRow[]): string {
     'Olcum Amaci',
     'Bilimsel Kaynak',
     'Lisans Durumu',
-    'Olası Capraz Yuklenmeler',
+    'Yazar Turu',
+    'Linter Durumu',
+    'Triage (Inceleme Hazirligi)',
+    'Olasi Capraz Yuklenmeler',
     'Uzman Karari (ONAY / REVIZYON / RET)',
     'Uzman Notu ve Onerisi'
   ];
@@ -93,6 +105,7 @@ export function generateExpertReviewCsv(rows: ExpertReviewExportRow[]): string {
       escapeCsv(r.facetId),
       escapeCsv(r.facetNameTr),
       escapeCsv(r.facetNameEn),
+      escapeCsv(r.turkishValidationStatus),
       escapeCsv(r.operationalDefinitionTr),
       escapeCsv(r.itemId),
       escapeCsv(r.itemType),
@@ -102,12 +115,15 @@ export function generateExpertReviewCsv(rows: ExpertReviewExportRow[]): string {
       escapeCsv(r.measurementIntent),
       escapeCsv(r.sourceReference),
       escapeCsv(r.licenseStatus),
+      escapeCsv(r.authorType),
+      escapeCsv(r.wordingLintStatus),
+      escapeCsv(r.triageStatus),
       escapeCsv(r.potentialCrossLoadings),
       escapeCsv(r.reviewerDecision),
       escapeCsv(r.reviewerComments)
     ].join(','));
   }
 
-  // Prepend UTF-8 BOM so Excel opens Turkish characters correctly
+  // Prepend UTF-8 Byte Order Mark (BOM)
   return '\uFEFF' + lines.join('\r\n');
 }

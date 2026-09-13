@@ -93,8 +93,26 @@ addFacetItems({
     { text_tr: "Birini ikna etmek gerekiyorsa biraz rol yapmakta sakınca görmem.", text_en: "I see no harm in play-acting if needed to persuade.", keying: "NEGATIVE" },
     { text_tr: "İletişim kurduğum kişilere karşı olduğum gibi görünmeye özen gösteririm.", text_en: "I strive to appear as I truly am.", keying: "POSITIVE" },
     { text_tr: "Nüfuzlu kişilerin gözüne girmek için yapay bir yakınlık kurarım.", text_en: "I build artificial rapport to please influential people.", keying: "NEGATIVE" },
-    { text_tr: "İş yerinde yöneticilerime sırf terfi almak için yapay nezaket göstermem.", text_en: "At work, I avoid artificial pleasantries just for promotion.", keying: "POSITIVE", itemType: "contextual", context: "work" },
-    { text_tr: "Önemli bir teklif sunarken inanmadığım iddiaları doğru gibi yansıtırım.", text_en: "While pitching, I present claims I do not believe in as true.", keying: "NEGATIVE", itemType: "contextual", context: "work" }
+    {
+      itemType: "forced_choice",
+      text_tr: "A: İnsanlarla iletişimimde tam bir şeffaflık ve dürüstlük ararım. | B: Ortamın huzuru için bazen içten olmasam da uyum sağlarım.",
+      text_en: "A: I seek complete genuineness in communication. | B: For peace, I adapt even if I feel insincere.",
+      forcedChoiceBlock: {
+        blockId: "fc_sin_001",
+        pairedFacetIds: ["sincerity", "flexibility"],
+        scoringApproach: "SCORING_NOT_CALIBRATED"
+      }
+    },
+    {
+      itemType: "situational_judgement",
+      estimatedCompletionSeconds: 15,
+      text_tr: "Önemli bir iş fırsatını kaçırmamak için görüşmecinin hoşuna gidecek ama inanmadığınız bir fikri savunmanız önerildiğinde nasıl davranırsınız?",
+      text_en: "When advised to endorse an opinion you do not believe in during an interview to secure a job, how would you respond?",
+      situationalScenarios: [
+        { optionId: "opt_1", text_tr: "Görüşmeyi kazanmak için önerilen fikri benimser gibi yaparım.", weight: 1 },
+        { optionId: "opt_2", text_tr: "Kendi görüşümü nazikçe ama dürüstçe ifade ederim.", weight: 5 }
+      ]
+    }
   ]
 });
 
@@ -112,8 +130,26 @@ addFacetItems({
     { text_tr: "Kişisel bir kazanç için başkalarının sırasını almayı normal bulurum.", text_en: "I find taking others' turn for personal gain acceptable.", keying: "NEGATIVE" },
     { text_tr: "Bana fazla verilen para üstünü fark ettiğimde hemen iade ederim.", text_en: "I return extra change as soon as I notice it.", keying: "POSITIVE" },
     { text_tr: "Rekabet ortamında avantaj sağlamak için küçük hileler yapılabilir.", text_en: "Minor deceptions can be tolerated in competitive settings.", keying: "NEGATIVE" },
-    { text_tr: "İş yerinde kaynakları paylaştırırken yakın arkadaşlarıma ayrımcılık yapmam.", text_en: "At work, I do not favor close friends when sharing resources.", keying: "POSITIVE", itemType: "contextual", context: "work" },
-    { text_tr: "Ortak harcamalarda kendi payımı diğerlerinin üzerine bırakmaya çalışırım.", text_en: "In shared bills, I try to pass my share onto others.", keying: "NEGATIVE", itemType: "contextual", context: "relationship" }
+    {
+      itemType: "forced_choice",
+      text_tr: "A: Kurallara herkes gibi harfiyen uymayı ahlaki görev bilirim. | B: Sonuç faydalı olacaksa küçük kural esnetmelerini normal görürüm.",
+      text_en: "A: I see following rules as moral duty. | B: I compromise rules if the outcome is beneficial.",
+      forcedChoiceBlock: {
+        blockId: "fc_fai_001",
+        pairedFacetIds: ["fairness", "greed_avoidance"],
+        scoringApproach: "SCORING_NOT_CALIBRATED"
+      }
+    },
+    {
+      itemType: "situational_judgement",
+      estimatedCompletionSeconds: 15,
+      text_tr: "Yöneticinizin fark etmeyeceği bir finansal kural açığı keşfettiniz ve şirket bütçesinden kendi ekibinize aktarabileceğinizi gördünüz. Nasıl yaklaşırsınız?",
+      text_en: "You discover a policy loophole that could fund your team without audit. What do you do?",
+      situationalScenarios: [
+        { optionId: "opt_1", text_tr: "Ekibimin başarısı için bütçe açığını kullanırım.", weight: 1 },
+        { optionId: "opt_2", text_tr: "Durumu raporlar ve kural açığını düzelttiririm.", weight: 5 }
+      ]
+    }
   ]
 });
 
@@ -131,8 +167,26 @@ addFacetItems({
     { text_tr: "Başkalarını etkileyecek lüks otomobillere veya evlere sahip olmak isterim.", text_en: "I desire luxury cars or houses that impress others.", keying: "NEGATIVE" },
     { text_tr: "Sade ve mütevazı bir yaşam tarzı beni fazlasıyla tatmin eder.", text_en: "A simple, modest lifestyle satisfies me well.", keying: "POSITIVE" },
     { text_tr: "Daha fazla para kazanmak için sevmediğim bir işte yıllarca çalışırım.", text_en: "I would work for years in a hated job solely for high pay.", keying: "NEGATIVE" },
-    { text_tr: "Sosyal ortamlarda harcamalarımla veya maddi imkanlarımla övünmem.", text_en: "I do not boast about my spendings in social circles.", keying: "POSITIVE", itemType: "contextual", context: "social" },
-    { text_tr: "Gelirim arttıkça insanlara daha pahalı hediyelerle gösteriş yaparım.", text_en: "As income grows, I flaunt expensive gifts to show off.", keying: "NEGATIVE", itemType: "contextual", context: "relationship" }
+    {
+      itemType: "forced_choice",
+      text_tr: "A: Hayatımda huzur ve sade ilişkiler maddi zenginlikten daha değerlidir. | B: Maddi güç ve refah hayat kalitemin en temel göstergesidir.",
+      text_en: "A: Simple relationships matter more. | B: Material wealth is key.",
+      forcedChoiceBlock: {
+        blockId: "fc_gre_001",
+        pairedFacetIds: ["greed_avoidance", "values_self_enhancement"],
+        scoringApproach: "SCORING_NOT_CALIBRATED"
+      }
+    },
+    {
+      itemType: "situational_judgement",
+      estimatedCompletionSeconds: 15,
+      text_tr: "Beklenmedik bir miras aldığınızda ilk tepkiniz ne olurdu?",
+      text_en: "If you received an unexpected large inheritance, what would be your initial reaction?",
+      situationalScenarios: [
+        { optionId: "opt_1", text_tr: "Lüks seyahatler ve pahalı mülkler edinerek hayat standardımı yükseltirim.", weight: 1 },
+        { optionId: "opt_2", text_tr: "Mevcut sade hayatımı korur, geleceği güvenceye alıp anlamlı projelere ayırırım.", weight: 5 }
+      ]
+    }
   ]
 });
 
@@ -150,8 +204,26 @@ addFacetItems({
     { text_tr: "Önemli ortamlarda bana diğerlerinden daha fazla hürmet gösterilmelidir.", text_en: "I expect greater deference in notable settings.", keying: "NEGATIVE" },
     { text_tr: "Övülmekten ziyade işimi iyi yapmaya odaklanırım.", text_en: "I focus on doing good work rather than receiving praise.", keying: "POSITIVE" },
     { text_tr: "Diğer insanların çoğundan daha zeki olduğumu düşünürüm.", text_en: "I consider myself smarter than the vast majority.", keying: "NEGATIVE" },
-    { text_tr: "Ekip projelerinde başarının tüm gruba ait olduğunu belirtirim.", text_en: "In team projects, I state that success belongs to the entire group.", keying: "POSITIVE", itemType: "contextual", context: "work" },
-    { text_tr: "Bir toplulukta en bilgili kişinin ben olduğumun bilinmesini isterim.", text_en: "In a gathering, I want everyone to know I am the most knowledgeable.", keying: "NEGATIVE", itemType: "contextual", context: "social" }
+    {
+      itemType: "forced_choice",
+      text_tr: "A: Başkalarından farklı muamele görmeyi beklemem. | B: Özel yeteneklerim nedeniyle ayrıcalıklı davranılmasını doğal karşılarım.",
+      text_en: "A: No special treatment. | B: Expect privilege.",
+      forcedChoiceBlock: {
+        blockId: "fc_mod_001",
+        pairedFacetIds: ["modesty", "grandiose_narcissism"],
+        scoringApproach: "SCORING_NOT_CALIBRATED"
+      }
+    },
+    {
+      itemType: "situational_judgement",
+      estimatedCompletionSeconds: 15,
+      text_tr: "Büyük bir şirket başarısında en kritik rolü oynadınız ve toplantıda sadece genel ekibe teşekkür edildi. Tavrınız ne olurdu?",
+      text_en: "You played the key role in a major success, but the meeting only thanked the team generally. What would you do?",
+      situationalScenarios: [
+        { optionId: "opt_1", text_tr: "Bireysel katkımın vurgulanması için yöneticimle ayrıca görüşürüm.", weight: 1 },
+        { optionId: "opt_2", text_tr: "Ekip başarısının takdir edilmesini yeterli bulur, sessizce işime devam ederim.", weight: 5 }
+      ]
+    }
   ]
 });
 

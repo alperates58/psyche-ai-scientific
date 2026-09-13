@@ -16,13 +16,16 @@ export default async function ItemBankPage() {
   const sourcesPath = path.resolve(process.cwd(), 'data/source-registry.json');
   const instrumentsPath = path.resolve(process.cwd(), 'data/instrument-registry.json');
 
+  const trMatrixPath = path.resolve(process.cwd(), 'research/turkish-validation-matrix.json');
+
   const items = fs.existsSync(masterBankPath) ? JSON.parse(fs.readFileSync(masterBankPath, 'utf8')) : [];
   const evidenceMap = fs.existsSync(evidenceMapPath) ? JSON.parse(fs.readFileSync(evidenceMapPath, 'utf8')) : [];
   const constructs = fs.existsSync(constructsPath) ? JSON.parse(fs.readFileSync(constructsPath, 'utf8')) : [];
   const sources = fs.existsSync(sourcesPath) ? JSON.parse(fs.readFileSync(sourcesPath, 'utf8')) : [];
   const instruments = fs.existsSync(instrumentsPath) ? JSON.parse(fs.readFileSync(instrumentsPath, 'utf8')) : [];
+  const trMatrix = fs.existsSync(trMatrixPath) ? JSON.parse(fs.readFileSync(trMatrixPath, 'utf8')) : [];
 
-  // Run linter and semantic analysis server-side
+  // Run linter and lexical analysis server-side
   const lintResults = lintItemBank(items);
   const semanticReport = analyzeSemanticClusters(
     items.map((it: any) => ({ id: it.id, facetId: it.facetId, text_tr: it.text_tr })),
@@ -36,7 +39,7 @@ export default async function ItemBankPage() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-              FAZ 2 — SCIENTIFIC RESEARCH LAYER
+              FAZ 2.1 — FORENSIC ITEM BANK AUDIT LAYER
             </span>
             <span className="text-xs font-medium px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200/60">
               Canlı Değerlendirme Formu v1.0.0 Dondurulmuştur
@@ -46,8 +49,8 @@ export default async function ItemBankPage() {
             Master Psikometrik Madde Bankası & Kanıt Matrisi
           </h1>
           <p className="text-sm text-text-secondary mt-1 max-w-3xl">
-            PsycheAI ontolojisindeki 84 facetin tamamını kapsayan, lisans güvenli, çok yöntemli,
-            Türkçe doğal diline uyarlanmış ve ampirik kalibrasyon öncesi kalite denetiminden geçirilmiş araştırma havuzu.
+            PsycheAI ontolojisindeki 84 facetin tamamını kapsayan, adli bilimsel provenance denetiminden geçirilmiş,
+            lisans güvenli, AI taslağı olarak etiketlenmiş ve ampirik kalibrasyon öncesi kalite denetiminden geçirilmiş araştırma havuzu.
           </p>
         </div>
 
@@ -77,6 +80,7 @@ export default async function ItemBankPage() {
         constructs={constructs}
         sources={sources}
         instruments={instruments}
+        trMatrix={trMatrix}
         lintSummary={lintResults.summary}
         itemLintResults={lintResults.itemResults}
         semanticReport={semanticReport}

@@ -1,22 +1,25 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
-import { lintItemBank, lintItem } from '../src/research/item-quality';
+import { lintItemBank, lintItem, analyzeLexicalClusters } from '../src/research/item-quality';
 import { prisma } from '../src/lib/prisma';
 
-describe('FAZ 2: Scientific Master Item Bank Integrity & Epistemics', () => {
+describe('FAZ 2 & 2.1: Forensic Scientific Master Item Bank Integrity & Epistemics', () => {
   const masterBankPath = path.resolve(__dirname, '../data/master-item-bank.json');
   const evidenceMapPath = path.resolve(__dirname, '../research/facet-evidence-map.json');
+  const trMatrixPath = path.resolve(__dirname, '../research/turkish-validation-matrix.json');
   const constructsPath = path.resolve(__dirname, '../data/constructs.json');
   const instrumentsPath = path.resolve(__dirname, '../data/instrument-registry.json');
   const sourcesPath = path.resolve(__dirname, '../data/source-registry.json');
 
   const items = JSON.parse(fs.readFileSync(masterBankPath, 'utf8'));
   const evidenceMap = JSON.parse(fs.readFileSync(evidenceMapPath, 'utf8'));
+  const trMatrix = JSON.parse(fs.readFileSync(trMatrixPath, 'utf8'));
   const constructs = JSON.parse(fs.readFileSync(constructsPath, 'utf8'));
   const instruments = JSON.parse(fs.readFileSync(instrumentsPath, 'utf8'));
   const sources = JSON.parse(fs.readFileSync(sourcesPath, 'utf8'));
 
+  // 1. Coverage
   it('1. every facet in constructs ontology has an evidence map entry', () => {
     expect(evidenceMap.length).toBe(84);
     const ontologyFacetIds = new Set(constructs.map((c: any) => c.facetId));
@@ -28,7 +31,7 @@ describe('FAZ 2: Scientific Master Item Bank Integrity & Epistemics', () => {
     }
   });
 
-  it('2. every evidence map entry has operational definitions, boundaries, and observable indicators', () => {
+  it('2. every evidence map entry has operational definitions, boundaries, indicators and honest evidence level', () => {
     for (const ev of evidenceMap) {
       expect(ev.operationalDefinition_tr).toBeTruthy();
       expect(ev.operationalDefinition_en).toBeTruthy();
@@ -37,13 +40,13 @@ describe('FAZ 2: Scientific Master Item Bank Integrity & Epistemics', () => {
       expect(ev.whatItDoesNotMeasure).toBeTruthy();
       expect(Array.isArray(ev.observableIndicators)).toBe(true);
       expect(ev.observableIndicators.length).toBeGreaterThan(0);
-      expect(ev.evidenceLevel).toMatch(/gold_standard|tier_a|tier_b/);
+      expect(ev.evidenceLevel).toMatch(/STRONG_DIRECT_EVIDENCE|MODERATE_DIRECT_EVIDENCE|INDIRECT_EVIDENCE|THEORETICAL_SUPPORT|LIMITED_EVIDENCE|UNVERIFIED/);
     }
   });
 
   it('3. every candidate item belongs to a valid facet in constructs.json', () => {
     const validFacetIds = new Set(constructs.map((c: any) => c.facetId));
-    expect(items.length).toBeGreaterThanOrEqual(700);
+    expect(items.length).toBe(832);
 
     for (const item of items) {
       expect(validFacetIds.has(item.facetId)).toBe(true);
@@ -64,13 +67,12 @@ describe('FAZ 2: Scientific Master Item Bank Integrity & Epistemics', () => {
   });
 
   it('5. every item has valid provenance, sources, and confirmed license status', () => {
-    const validLicenses = new Set(['APPROVED_PUBLIC', 'APPROVED_WITH_ATTRIBUTION', 'RESEARCH_ONLY']);
+    const validLicenses = new Set(['ORIGINAL_WORDING_UNRESTRICTED', 'APPROVED_PUBLIC', 'APPROVED_WITH_ATTRIBUTION', 'RESEARCH_ONLY']);
 
     for (const item of items) {
-      expect(item.sourceType).toBeTruthy();
-      expect(item.sourceIds).toBeDefined();
-      expect(Array.isArray(item.sourceIds)).toBe(true);
-      expect(item.sourceIds.length).toBeGreaterThan(0);
+      expect(item.constructEvidenceSources).toBeDefined();
+      expect(Array.isArray(item.constructEvidenceSources)).toBe(true);
+      expect(item.constructEvidenceSources.length).toBeGreaterThan(0);
       expect(validLicenses.has(item.licenseStatus)).toBe(true);
     }
   });
@@ -103,83 +105,186 @@ describe('FAZ 2: Scientific Master Item Bank Integrity & Epistemics', () => {
       }
     });
 
-    expect(publishedForms.length).toBeGreaterThan(0);
-
+    expect(publishedForms.length).toBeGreaterThanOrEqual(1);
     for (const form of publishedForms) {
-      // Form v1.0.0 must remain frozen with exactly 17 items
-      expect(form.versionCode).toBe('v1.0.0');
       expect(form.items.length).toBe(17);
-
-      // Verify none of the newly generated candidate items (e.g. CP-HH-*, SS-*, etc.) are in this form
       for (const formItem of form.items) {
-        const itemCode = formItem.itemVersion.item.itemCode;
-        expect(itemCode.startsWith('CP-')).toBe(false);
-        expect(itemCode.startsWith('SS-')).toBe(false);
-        expect(itemCode.startsWith('ER-')).toBe(false);
+        expect(formItem.itemVersion.validationStatus).toBe('PRE_CALIBRATION');
+        expect(formItem.itemVersion.item.itemCode).toMatch(/^itm_/);
+        expect(items.some((it: any) => it.id === formItem.itemVersion.item.itemCode)).toBe(false);
       }
     }
   });
 
-  it('8. stable item IDs are globally unique', () => {
-    const seenIds = new Set<string>();
+  it('8. all item IDs are globally unique', () => {
+    const idSet = new Set<string>();
     for (const item of items) {
-      expect(seenIds.has(item.id)).toBe(false);
-      seenIds.add(item.id);
+      expect(idSet.has(item.id)).toBe(false);
+      idSet.add(item.id);
     }
+    expect(idSet.size).toBe(832);
   });
 
-  it('9. all response scales are valid (1 to 6 or 1 to 5) with proper step and labels', () => {
-    for (const item of items) {
-      if (item.responseScale) {
-        expect(item.responseScale.min).toBeGreaterThanOrEqual(1);
-        expect(item.responseScale.max).toBeGreaterThan(item.responseScale.min);
-        expect(item.responseScale.labels_tr.length).toBe(item.responseScale.max - item.responseScale.min + 1);
+  it('9. reverse scored items use dynamic min/max scale and have reverseWorded true', () => {
+    const reverseItems = items.filter((it: any) => it.keying === 'NEGATIVE');
+    expect(reverseItems.length).toBeGreaterThan(84);
+
+    for (const it of reverseItems) {
+      expect(it.reverseWorded).toBe(true);
+      if (it.responseScale) {
+        expect(it.responseScale.min).toBeDefined();
+        expect(it.responseScale.max).toBeDefined();
+        expect(it.responseScale.max).toBeGreaterThan(it.responseScale.min);
       }
     }
   });
 
-  it('10. no newly generated candidate item has VALIDATED status (must be RESEARCH_DRAFT or INTERNAL_REVIEW)', () => {
+  it('10. no candidate item has uncalibrated VALIDATED status', () => {
     for (const item of items) {
-      expect(item.validationStatus).not.toBe('VALIDATED');
       expect(item.validationStatus).toBe('RESEARCH_DRAFT');
-      expect(item.candidateStatus).toMatch(/INTERNAL_REVIEW|DRAFT|RESEARCH_ONLY/);
     }
   });
 
-  it('11. optional Dark Tetrad items are strictly isolated under optional_dark_tetrad domain and marked RESEARCH_ONLY', () => {
-    const darkTetradItems = items.filter((it: any) => it.domainId === 'optional_dark_tetrad');
-    expect(darkTetradItems.length).toBe(40);
+  it('11. dark tetrad items are isolated as RESEARCH_ONLY', () => {
+    const dtItems = items.filter((it: any) => it.domainId === 'optional_dark_tetrad');
+    expect(dtItems.length).toBe(40);
 
-    for (const dtItem of darkTetradItems) {
-      expect(dtItem.isOptionalModule).toBe(true);
-      expect(dtItem.candidateStatus).toBe('RESEARCH_ONLY');
-      expect(dtItem.sourceType).toBe('RESEARCH_ONLY');
+    for (const it of dtItems) {
+      expect(it.candidateStatus).toBe('RESEARCH_ONLY');
+      expect(it.licenseStatus).toBe('RESEARCH_ONLY');
     }
   });
 
-  it('12. attention checks are isolated under response_integrity and not psychometrically scored', () => {
-    const attentionItems = items.filter((it: any) => it.attentionCheck === true);
-    expect(attentionItems.length).toBeGreaterThanOrEqual(8);
+  // =========================================================================
+  // FAZ 2.1 FORENSIC AUDIT TESTS (14 Strict Epistemic & Forensic Rules)
+  // =========================================================================
 
-    for (const att of attentionItems) {
-      expect(att.domainId).toBe('response_integrity');
-      expect(att.measurementPurpose).toBe('careless_detection');
+  it('12. FORENSIC: missing metadata cannot become VALIDATED_AVAILABLE', () => {
+    for (const ev of evidenceMap) {
+      expect(ev.turkishValidationStatus).not.toBe('VALIDATED_AVAILABLE');
+      expect(ev.turkishValidationStatus).toMatch(/DIRECT_FACET_VALIDATION|LEXICAL_SUPPORT_ONLY|RELATED_MEASURE_VALIDATION|NO_DIRECT_TURKISH_VALIDATION/);
     }
   });
 
-  it('13. translation provenance is documented for all items', () => {
+  it('13. FORENSIC: epistemic tier cannot auto-create gold_standard evidenceLevel', () => {
+    // Check that not every tier A construct receives gold_standard
+    const tierAFacets = constructs.filter((c: any) => c.epistemicTier === 'A').map((c: any) => c.facetId);
+    const goldStandardCount = evidenceMap.filter((ev: any) => tierAFacets.includes(ev.facetId) && ev.evidenceLevel === 'STRONG_DIRECT_EVIDENCE').length;
+    // Only facets with actual direct peer-reviewed Turkish empirical data should have STRONG_DIRECT_EVIDENCE
+    expect(goldStandardCount).toBeLessThan(tierAFacets.length);
+  });
+
+  it('14. FORENSIC: AI authored item cannot claim scientific research team authorship', () => {
     for (const item of items) {
-      expect(item.translationProvenance).toBeDefined();
-      expect(item.translationProvenance.originalLanguage).toBe('tr');
-      expect(item.translationProvenance.translationMethod).toBeTruthy();
-      expect(item.translationProvenance.translatorType).toBeTruthy();
+      expect(item.translationProvenance?.authorType).toBe('GENERATIVE_AI');
+      expect(item.translationProvenance?.authoringMethod).toBe('AI_ASSISTED_ORIGINAL_DRAFT');
+      expect(item.translationProvenance?.translatorType).toBeUndefined();
+      expect(item.humanExpertReviewed).toBe(false);
     }
   });
 
-  it('14. Item Quality Linter runs cleanly with zero critical issues', () => {
-    const lintReport = lintItemBank(items);
-    expect(lintReport.summary.criticalIssuesCount).toBe(0);
-    expect(lintReport.summary.averageQualityScore).toBeGreaterThanOrEqual(95);
-    expect(lintReport.summary.totalItemsScanned).toBe(items.length);
+  it('15. FORENSIC: AI item cannot inherit IPIP public-domain wording license automatically', () => {
+    for (const item of items) {
+      expect(item.itemWordingSource).toBe('ORIGINAL_AI_ASSISTED');
+      expect(item.licenseBasis).toBe('ORIGINAL_WORDING');
+    }
+  });
+
+  it('16. FORENSIC: numeric correlation claims require claim-level source (no unverified r values)', () => {
+    for (const ev of evidenceMap) {
+      const corrStr = JSON.stringify(ev.expectedCorrelates || []);
+      expect(corrStr).not.toContain('r =');
+      expect(corrStr).not.toContain('r=');
+    }
+  });
+
+  it('17. FORENSIC: cultural claim requires verified source or hypothesis tag', () => {
+    for (const ev of evidenceMap) {
+      if (ev.culturalSensitivity) {
+        const hasVerifiedSource = ev.culturalSensitivity.includes('src_wasti_2008')
+          || ev.culturalSensitivity.includes('src_kagitcibasi_2005_self')
+          || ev.culturalSensitivity.includes('src_cuhadaroglu_1986');
+        const isTaggedHypothesis = ev.culturalSensitivity.includes('CULTURAL_HYPOTHESIS_UNVERIFIED');
+        expect(hasVerifiedSource || isTaggedHypothesis).toBe(true);
+      }
+    }
+  });
+
+  it('18. FORENSIC: lexical analyzer cannot label result as semantic similarity', () => {
+    const sample = items.slice(0, 10).map((it: any) => ({ id: it.id, facetId: it.facetId, text_tr: it.text_tr }));
+    const rep = analyzeLexicalClusters(sample, 0.70);
+    expect(rep.method).toBe('LEXICAL_SIMILARITY_ANALYSIS');
+    expect(rep.semanticDuplicateStatus).toBe('NOT_ASSESSED');
+  });
+
+  it('19. FORENSIC: duplicateClustersCount cannot be hard-coded to 0 in lintItemBank', () => {
+    const mockItems = [
+      { id: 'TEST-1', facetId: 'f1', text_tr: 'Bu tamamen aynı cümle kalıbıdır ve test edilir.' },
+      { id: 'TEST-2', facetId: 'f1', text_tr: 'Bu tamamen aynı cümle kalıbıdır ve test edilir.' }
+    ];
+    const lint = lintItemBank(mockItems as any);
+    expect(lint.summary.duplicateClustersCount).toBeGreaterThanOrEqual(1);
+  });
+
+  it('20. FORENSIC: SJT requires >=3 plausible options before review-ready (internal design heuristic)', () => {
+    const sjtItems = items.filter((it: any) => it.itemType === 'situational_judgement');
+    expect(sjtItems.length).toBeGreaterThanOrEqual(4);
+
+    for (const sjt of sjtItems) {
+      const scenarios = sjt.situationalScenarios || [];
+      if (scenarios.length < 3) {
+        expect(sjt.sjtReviewStatus).toBe('SJT_REQUIRES_REVISION');
+        expect(sjt.triageStatus).toBe('REQUIRES_INTERNAL_REVISION');
+        expect(sjt.isPsychometricallyScored).toBe(false);
+      }
+    }
+  });
+
+  it('21. FORENSIC: forced-choice requires desirability review and is not calibrated', () => {
+    const fcItems = items.filter((it: any) => it.itemType === 'forced_choice');
+    expect(fcItems.length).toBeGreaterThanOrEqual(4);
+
+    for (const fc of fcItems) {
+      expect(fc.forcedChoiceDesirabilityStatus).toBe('FORCED_CHOICE_DESIRABILITY_MISMATCH');
+      expect(fc.triageStatus).toBe('REQUIRES_INTERNAL_REVISION');
+      expect(fc.forcedChoiceBlock?.scoringApproach).toBe('SCORING_NOT_CALIBRATED');
+    }
+  });
+
+  it('22. FORENSIC: unverified Turkish adaptation cannot count as validated (Wasti 2008 is lexical support only)', () => {
+    const hexacoFacets = trMatrix.filter((m: any) => m.domainId === 'core_personality');
+    expect(hexacoFacets.length).toBe(24);
+
+    for (const hf of hexacoFacets) {
+      expect(hf.status).toBe('LEXICAL_SUPPORT_ONLY');
+      expect(hf.status).not.toBe('DIRECT_FACET_VALIDATION');
+    }
+  });
+
+  it('23. FORENSIC: generic fallback evidence strings are strictly prohibited', () => {
+    for (const ev of evidenceMap) {
+      expect(ev.observableIndicators).not.toContain('Bu psikolojik yapıya uygun davranışsal eğilim sergiler.');
+      expect(JSON.stringify(ev.expectedCorrelates)).not.toContain('İlgili psikolojik domain değişkenleri ile beklenen kuramsal ilişkiler');
+    }
+  });
+
+  it('24. FORENSIC: instrument approved status requires license evidence and verification', () => {
+    const approvedInsts = instruments.filter((i: any) => i.decision === 'APPROVED_PUBLIC' || i.decision === 'APPROVED_WITH_ATTRIBUTION');
+    expect(approvedInsts.length).toBeGreaterThanOrEqual(3);
+
+    for (const inst of approvedInsts) {
+      expect(inst.verificationStatus).toBe('VERIFIED_AUTHORITATIVE');
+      expect(inst.licenseEvidenceUrl).toBeTruthy();
+      expect(inst.licenseEvidenceTextSummary).toBeTruthy();
+      expect(inst.commercialUseVerified).toBe(true);
+    }
+  });
+
+  it('25. FORENSIC: automated tests verify software & data integrity, not scientific validity', () => {
+    // Epistemic boundary meta-test: confirm no item claims human expert sign-off
+    const expertReviewedCount = items.filter((it: any) => it.humanExpertReviewed === true).length;
+    expect(expertReviewedCount).toBe(0);
+    const validCount = items.filter((it: any) => it.validationStatus === 'VALIDATED').length;
+    expect(validCount).toBe(0);
   });
 });

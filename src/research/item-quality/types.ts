@@ -13,7 +13,9 @@ export type QualityRuleCode =
   | 'MORALIZED_WORDING'
   | 'OBVIOUS_DESIRABILITY'
   | 'AMBIGUOUS_TIMEFRAME'
-  | 'CONSTRUCT_LEAKAGE';
+  | 'CONSTRUCT_LEAKAGE'
+  | 'SJT_REQUIRES_REVISION'
+  | 'FORCED_CHOICE_DESIRABILITY_MISMATCH';
 
 export interface QualityWarning {
   ruleCode: QualityRuleCode;
@@ -24,12 +26,22 @@ export interface QualityWarning {
   suggestionTr?: string;
 }
 
+export type ItemTriageStatus =
+  | 'READY_FOR_EXPERT_REVIEW'
+  | 'REQUIRES_INTERNAL_REVISION'
+  | 'BLOCKED_PROVENANCE_OR_LICENSE';
+
 export interface ItemQualityResult {
   itemId: string;
   facetId: string;
   warnings: QualityWarning[];
-  qualityScore: number; // 0 to 100
-  passed: boolean; // true if no CRITICAL or too many WARNINGS
+  wordingLintScore: number; // 0 to 100 (Renamed from qualityScore)
+  formattingHeuristicScore: number; // Alias
+  qualityScore: number; // Deprecated backward-compatible alias
+  passed: boolean;
+  automatedHeuristicOnly: boolean;
+  triageStatus: ItemTriageStatus;
+  disclaimerTr: string;
 }
 
 export interface SemanticCluster {
@@ -44,6 +56,27 @@ export interface SemanticCluster {
   }>;
 }
 
+export interface LexicalPair {
+  itemAId: string;
+  itemBId: string;
+  itemAText: string;
+  itemBText: string;
+  facetA: string;
+  facetB: string;
+  isCrossFacet: boolean;
+  similarityScore: number;
+}
+
+export interface LexicalAnalysisReport {
+  method: 'LEXICAL_SIMILARITY_ANALYSIS';
+  threshold: number;
+  withinFacetDuplicates: LexicalPair[];
+  crossFacetOverlaps: LexicalPair[];
+  totalDuplicatesDetected: number;
+  semanticDuplicateStatus: 'NOT_ASSESSED';
+  summaryTr: string;
+}
+
 export interface BankQualitySummary {
   totalItemsScanned: number;
   cleanItemsCount: number;
@@ -51,5 +84,12 @@ export interface BankQualitySummary {
   criticalIssuesCount: number;
   warningsByRule: Record<QualityRuleCode, number>;
   duplicateClustersCount: number;
-  averageQualityScore: number;
+  averageQualityScore: number; // Deprecated alias
+  averageWordingLintScore: number;
+  triageSummary: {
+    readyForExpertReview: number;
+    requiresInternalRevision: number;
+    blockedProvenanceOrLicense: number;
+  };
+  disclaimerTr: string;
 }

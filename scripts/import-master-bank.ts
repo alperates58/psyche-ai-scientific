@@ -60,7 +60,7 @@ async function importMasterBank() {
           promptTr: it.text_tr,
           promptEn: it.text_en || it.text_tr,
           validationStatus: 'RESEARCH_DRAFT',
-          licenseStatus: it.licenseStatus || 'APPROVED_PUBLIC',
+          licenseStatus: it.licenseStatus || 'ORIGINAL_WORDING_UNRESTRICTED',
           isActive: true
         }
       });
@@ -84,6 +84,30 @@ async function importMasterBank() {
 
       importedCount++;
     } else {
+      // Only update candidate items, NOT live form items
+      const isLiveFormItem = await prisma.assessmentFormItem.findFirst({
+        where: { itemVersion: { itemId: existingItem.id } }
+      });
+
+      if (!isLiveFormItem) {
+        await prisma.item.update({
+          where: { id: existingItem.id },
+          data: {
+            itemType: it.itemType.toUpperCase(),
+            isKeyed: it.keying === 'POSITIVE',
+            isAttentionCheck: isAttention
+          }
+        });
+        await prisma.itemVersion.updateMany({
+          where: { itemId: existingItem.id },
+          data: {
+            promptTr: it.text_tr,
+            promptEn: it.text_en || it.text_tr,
+            licenseStatus: it.licenseStatus || 'ORIGINAL_WORDING_UNRESTRICTED',
+            validationStatus: 'RESEARCH_DRAFT'
+          }
+        });
+      }
       updatedCount++;
     }
   }
