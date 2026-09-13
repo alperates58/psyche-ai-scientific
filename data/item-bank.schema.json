@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PsycheAI Multi-Method Item Bank Schema",
+  "type": "object",
+  "required": [
+    "id",
+    "domainId",
+    "constructId",
+    "facetId",
+    "itemType",
+    "text_tr",
+    "text_en",
+    "direction",
+    "reverse_worded",
+    "context",
+    "epistemicTier",
+    "sourceType",
+    "licenseStatus",
+    "validationStatus",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the item (e.g. itm_hex_sinc_001)"
+    },
+    "domainId": {
+      "type": "string",
+      "description": "High-level domain ID (e.g. core_personality)"
+    },
+    "constructId": {
+      "type": "string",
+      "description": "Broad construct ID (e.g. honesty_humility)"
+    },
+    "facetId": {
+      "type": "string",
+      "description": "Specific facet ID (e.g. sincerity)"
+    },
+    "itemType": {
+      "type": "string",
+      "enum": [
+        "likert",
+        "forced_choice",
+        "situational_judgement",
+        "bipolar",
+        "behavior_frequency",
+        "self_discrepancy",
+        "contextual",
+        "attention_check",
+        "open_text"
+      ]
+    },
+    "text_tr": {
+      "type": "string",
+      "description": "Culturally adapted Turkish item stimulus"
+    },
+    "text_en": {
+      "type": "string",
+      "description": "Original or reference English item stimulus"
+    },
+    "responseScale": {
+      "type": "object",
+      "properties": {
+        "min": { "type": "number", "default": 1 },
+        "max": { "type": "number", "default": 6 },
+        "step": { "type": "number", "default": 1 },
+        "labels_tr": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "labels_en": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["positive", "negative"],
+      "description": "Theoretical direction of the item scoring with respect to the latent trait"
+    },
+    "reverse_worded": {
+      "type": "boolean",
+      "description": "Whether the text uses negative phrasing, negation, or antonyms (requires method effect monitoring)"
+    },
+    "context": {
+      "type": "string",
+      "enum": [
+        "general",
+        "work",
+        "relationship",
+        "family",
+        "social",
+        "stress",
+        "decision",
+        "other"
+      ],
+      "description": "Life context framed by the item for contextual shift modeling"
+    },
+    "measurementPurpose": {
+      "type": "string",
+      "description": "Operational objective of this item (e.g. trait_level, state_check, careless_detection)"
+    },
+    "epistemicTier": {
+      "type": "string",
+      "enum": ["A", "B", "C"]
+    },
+    "sourceType": {
+      "type": "string",
+      "enum": ["public_domain", "licensed", "original", "research_only"]
+    },
+    "sourceReference": {
+      "type": ["string", "null"],
+      "description": "Key referencing source-registry.json or instrument-registry.json"
+    },
+    "licenseStatus": {
+      "type": "string",
+      "description": "Confirmed copyright / licensing status"
+    },
+    "pairedItemId": {
+      "type": ["string", "null"],
+      "description": "ID of matching semantic direct/reverse item for response inconsistency detection"
+    },
+    "attentionCheck": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this is an instructed-response attention check item"
+    },
+    "socialDesirabilitySensitivity": {
+      "type": "string",
+      "enum": ["low", "moderate", "high"],
+      "default": "low"
+    },
+    "readingDifficulty": {
+      "type": "string",
+      "enum": ["easy", "moderate", "advanced"],
+      "default": "easy"
+    },
+    "estimatedCompletionSeconds": {
+      "type": "number",
+      "default": 8
+    },
+    "pilotStatus": {
+      "type": "string",
+      "enum": ["untested", "piloting", "retained", "flagged", "dropped"],
+      "default": "untested"
+    },
+    "validationStatus": {
+      "type": "string",
+      "enum": ["provisional", "pilot", "validated", "normed"],
+      "default": "provisional"
+    },
+    "factorLoading": {
+      "type": ["number", "null"],
+      "description": "Standardized CFA factor loading (lambda) from empirical calibration"
+    },
+    "discrimination": {
+      "type": ["number", "null"],
+      "description": "IRT item discrimination parameter (a)"
+    },
+    "thresholds": {
+      "type": ["array", "null"],
+      "items": { "type": "number" },
+      "description": "IRT category boundary thresholds (b_k)"
+    },
+    "itemInformation": {
+      "type": ["number", "null"],
+      "description": "Peak item information value I(theta)"
+    },
+    "difFlags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "forcedChoiceBlock": {
+      "type": ["object", "null"],
+      "properties": {
+        "blockId": { "type": "string" },
+        "pairedFacetIds": { "type": "array", "items": { "type": "string" } },
+        "scoringApproach": { "type": "string", "enum": ["thurstonian_irt", "multi_unfolding", "normative_paired"] }
+      }
+    },
+    "situationalScenarios": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "optionId": { "type": "string" },
+          "text_tr": { "type": "string" },
+          "text_en": { "type": "string" },
+          "mappedFacetId": { "type": "string" },
+          "weight": { "type": "number" }
+        }
+      }
+    },
+    "selfDiscrepancyMetadata": {
+      "type": ["object", "null"],
+      "properties": {
+        "attributeKey": { "type": "string" },
+        "attributeLabel_tr": { "type": "string" },
+        "ratingTarget": { "type": "string", "enum": ["actual_self", "ideal_self", "ought_self"] }
+      }
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0.0"
+    }
+  }
+}

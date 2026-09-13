@@ -1,0 +1,127 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+  Compass,
+  FileCheck2,
+  User,
+  Sparkles,
+  BookOpen,
+  LayoutGrid,
+  Clock,
+  Layers,
+  Settings,
+  GitFork,
+  CheckCircle2
+} from 'lucide-react';
+
+export const Sidebar: React.FC = () => {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    if (path === '/overview' && (pathname === '/' || pathname === '/overview')) return true;
+    return pathname.startsWith(path);
+  };
+
+  const navItemClass = (active: boolean) =>
+    `flex items-center px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 ${
+      active
+        ? 'bg-brand-50 text-brand-700 font-semibold shadow-xs'
+        : 'text-text-secondary hover:text-text-primary hover:bg-bg-subtle'
+    }`;
+
+  return (
+    <aside className="w-64 bg-surface-1 border-r border-border-subtle flex flex-col h-screen sticky top-0 select-none z-30">
+      {/* Brand logo */}
+      <div className="h-16 flex items-center px-6 border-b border-border-subtle">
+        <Link href="/overview" className="flex items-center space-x-2.5">
+          <div className="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-sm shadow-xs">
+            Ψ
+          </div>
+          <div>
+            <span className="font-bold text-base text-text-primary tracking-tight">PsycheAI</span>
+            <span className="ml-1.5 text-[10px] font-semibold text-brand-600 uppercase tracking-widest bg-brand-50 px-1.5 py-0.5 rounded-md border border-brand-200/50">
+              BİLİMSEL
+            </span>
+          </div>
+        </Link>
+      </div>
+
+      {/* Main Navigation */}
+      <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
+        <div>
+          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
+            ANALİTİK
+          </div>
+          <nav className="space-y-1">
+            <Link href="/overview" className={navItemClass(isActive('/overview'))}>
+              <Compass className="w-4 h-4 mr-3 opacity-80" />
+              Genel Bakış
+            </Link>
+            <Link href="/assessment" className={navItemClass(isActive('/assessment'))}>
+              <FileCheck2 className="w-4 h-4 mr-3 opacity-80" />
+              Değerlendirme
+            </Link>
+          </nav>
+        </div>
+
+        <div>
+          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
+            PROFİL BOYUTLARI
+          </div>
+          <nav className="space-y-1">
+            <Link href="/profile/personality" className={navItemClass(isActive('/profile/personality'))}>
+              <User className="w-4 h-4 mr-3 opacity-80" />
+              Temel Kişilik
+            </Link>
+            <Link href="/profile/heatmap" className={navItemClass(isActive('/profile/heatmap'))}>
+              <LayoutGrid className="w-4 h-4 mr-3 opacity-80" />
+              Psikolojik Profil Haritası
+            </Link>
+          </nav>
+        </div>
+
+        <div>
+          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
+            İÇGÖRÜLER & KURAMLAR
+          </div>
+          <nav className="space-y-1">
+            <Link href="/insights/context" className={navItemClass(isActive('/insights/context'))}>
+              <GitFork className="w-4 h-4 mr-3 opacity-80" />
+              Bağlamsal Değişimler
+            </Link>
+            <Link href="/insights/patterns" className={navItemClass(isActive('/insights/patterns'))}>
+              <Layers className="w-4 h-4 mr-3 opacity-80" />
+              Gerilimler & Sinerjiler
+            </Link>
+            <Link href="/theory-council" className={navItemClass(isActive('/theory-council'))}>
+              <BookOpen className="w-4 h-4 mr-3 opacity-80" />
+              Kuramlar Konseyi
+            </Link>
+          </nav>
+        </div>
+      </div>
+
+      {/* Progress Footer Card */}
+      <div className="p-4 border-t border-border-subtle bg-surface-2/60">
+        <div className="bg-surface-1 p-3.5 rounded-xl border border-border-subtle shadow-xs">
+          <div className="flex items-center justify-between text-xs font-semibold text-text-primary mb-1.5">
+            <span>Keşif Kapsamı</span>
+            <span className="text-brand-600 font-bold">50%</span>
+          </div>
+          <div className="w-full bg-bg-subtle h-2 rounded-full overflow-hidden mb-2 border border-border-subtle">
+            <div className="bg-brand-500 h-full rounded-full transition-all duration-500" style={{ width: '50%' }} />
+          </div>
+          <div className="flex items-center text-[11px] text-text-tertiary justify-between">
+            <span>42 / 84 Alt Boyut</span>
+            <span className="inline-flex items-center text-amber-700 font-medium">
+              <Clock className="w-3 h-3 mr-0.5" /> Ön Kalibrasyon
+            </span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+};

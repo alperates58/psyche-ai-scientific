@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PsycheAI Psychological Digital Profile Output Schema",
+  "type": "object",
+  "required": [
+    "profileId",
+    "userId",
+    "timestamp",
+    "systemVersions",
+    "normStatus",
+    "profileCoverage",
+    "facetScores",
+    "derivedMetrics",
+    "relationalDynamics",
+    "responseIntegrity",
+    "theoryCouncil"
+  ],
+  "properties": {
+    "profileId": { "type": "string" },
+    "userId": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "systemVersions": {
+      "type": "object",
+      "required": [
+        "ontologyVersion",
+        "itemBankVersion",
+        "scoringModelVersion",
+        "theoryEngineVersion",
+        "aiPromptVersion"
+      ],
+      "properties": {
+        "ontologyVersion": { "type": "string" },
+        "itemBankVersion": { "type": "string" },
+        "scoringModelVersion": { "type": "string" },
+        "normVersion": { "type": ["string", "null"] },
+        "theoryEngineVersion": { "type": "string" },
+        "aiPromptVersion": { "type": "string" }
+      }
+    },
+    "normStatus": {
+      "type": "string",
+      "enum": ["unavailable", "provisional", "validated"],
+      "description": "If 'unavailable', percentiles and T-scores are suppressed to prevent pseudo-precision"
+    },
+    "profileCoverage": {
+      "type": "object",
+      "required": ["overallPercentage", "measuredFacetCount", "totalFacetCount"],
+      "properties": {
+        "overallPercentage": { "type": "number", "minimum": 0, "maximum": 100 },
+        "measuredFacetCount": { "type": "integer" },
+        "totalFacetCount": { "type": "integer" },
+        "domainCoverage": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        }
+      }
+    },
+    "facetScores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "domainId",
+          "constructId",
+          "facetId",
+          "rawScore",
+          "provisionalCompositeScore",
+          "observedItemCount",
+          "epistemicTier",
+          "validationStatus",
+          "confidenceMetrics"
+        ],
+        "properties": {
+          "domainId": { "type": "string" },
+          "constructId": { "type": "string" },
+          "facetId": { "type": "string" },
+          "rawScore": { "type": "number" },
+          "provisionalCompositeScore": { "type": "number", "description": "Normalized item average in pre-calibration mode" },
+          "latentTheta": { "type": ["number", "null"], "description": "IRT EAP theta estimate; null before IRT calibration" },
+          "zScore": { "type": ["number", "null"], "description": "Null if normStatus is unavailable" },
+          "tScore": { "type": ["number", "null"], "description": "Null if normStatus is unavailable" },
+          "percentile": { "type": ["number", "null"], "description": "Strictly null unless normStatus is 'validated'" },
+          "standardError": { "type": "number" },
+          "confidenceInterval95": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "observedItemCount": { "type": "integer" },
+          "epistemicTier": { "type": "string", "enum": ["A", "B", "C"] },
+          "validationStatus": { "type": "string", "enum": ["provisional", "pilot", "validated", "normed"] },
+          "confidenceMetrics": {
+            "type": "object",
+            "required": [
+              "measurementPrecision",
+              "responseQualityFactor",
+              "itemCoverageRatio",
+              "methodDiversityFactor",
+              "calibrationStatus"
+            ],
+            "properties": {
+              "measurementPrecision": { "type": "string", "enum": ["low", "moderate", "high"] },
+              "numericConfidenceIndicator": { "type": "number", "minimum": 0, "maximum": 1 },
+              "standardError": { "type": "number" },
+              "responseQualityFactor": { "type": "number", "minimum": 0, "maximum": 1 },
+              "itemCoverageRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+              "temporalStability": { "type": ["number", "null"] },
+              "methodDiversityFactor": { "type": "number", "minimum": 0, "maximum": 1 },
+              "normAvailability": { "type": "boolean" },
+              "calibrationStatus": { "type": "string", "enum": ["uncalibrated", "pilot_weights", "cfa_standardized", "irt_calibrated"] }
+            }
+          }
+        }
+      }
+    },
+    "derivedMetrics": {
+      "type": "object",
+      "required": ["selfDiscrepancy", "attachmentSpace", "emotionRegulationQuadrants"],
+      "properties": {
+        "selfDiscrepancy": {
+          "type": "object",
+          "properties": {
+            "actualIdealDistance": { "type": "number" },
+            "actualOughtDistance": { "type": "number" },
+            "interpretation_tr": { "type": "string" },
+            "epistemicStatus": { "type": "string", "default": "EVIDENCE_SUPPORTED_INTERPRETATION" }
+          }
+        },
+        "attachmentSpace": {
+          "type": "object",
+          "properties": {
+            "anxietyDimension": { "type": "number" },
+            "avoidanceDimension": { "type": "number" },
+            "explanatoryQuadrant": { "type": "string", "enum": ["secure_region", "anxious_preoccupied_region", "dismissive_avoidant_region", "fearful_avoidant_region"] },
+            "epistemicStatus": { "type": "string", "default": "VALIDATED_MEASUREMENT" }
+          }
+        },
+        "emotionRegulationQuadrants": {
+          "type": "object",
+          "properties": {
+            "reappraisalLevel": { "type": "number" },
+            "suppressionLevel": { "type": "number" },
+            "quadrantDescription_tr": { "type": "string" }
+          }
+        },
+        "schwartzValueDistribution": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "valueKey": { "type": "string" },
+              "relativePriorityRank": { "type": "integer" },
+              "standardizedScore": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "relationalDynamics": {
+      "type": "object",
+      "required": ["intrapersonalTensions", "synergies", "contextModulations"],
+      "properties": {
+        "intrapersonalTensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "facetA": { "type": "string" },
+              "facetB": { "type": "string" },
+              "tensionIntensity": { "type": "number" },
+              "evidenceCount": { "type": "integer" },
+              "description_tr": { "type": "string" }
+            }
+          }
+        },
+        "synergies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "facetA": { "type": "string" },
+              "facetB": { "type": "string" },
+              "synergyStrength": { "type": "number" },
+              "description_tr": { "type": "string" }
+            }
+          }
+        },
+        "contextModulations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "facetId": { "type": "string" },
+              "contextScores": {
+                "type": "object",
+                "additionalProperties": { "type": "number" }
+              },
+              "contextVariabilityIndex": { "type": "number" },
+              "summary_tr": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "responseIntegrity": {
+      "type": "object",
+      "required": [
+        "overallQualityGrade",
+        "attentionChecksPassed",
+        "carelessResponseRisk",
+        "semanticInconsistencyScore"
+      ],
+      "properties": {
+        "overallQualityGrade": { "type": "string", "enum": ["strong", "acceptable", "review_suggested", "invalid"] },
+        "attentionChecksPassed": { "type": "boolean" },
+        "carelessResponseRisk": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "longstringCount": { "type": "integer" },
+        "rapidResponseItemCount": { "type": "integer" },
+        "semanticInconsistencyScore": { "type": "number" },
+        "impressionManagementIndex": { "type": "number" },
+        "selfDeceptiveEnhancementIndex": { "type": "number" },
+        "extremeResponseBias": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "acquiescenceBias": { "type": "string", "enum": ["low", "moderate", "high"] }
+      }
+    },
+    "theoryCouncil": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "lensId",
+          "lensName",
+          "epistemicStatus",
+          "inputFacetIds",
+          "interpretation_tr",
+          "limitationsDisclaimer_tr"
+        ],
+        "properties": {
+          "lensId": { "type": "string" },
+          "lensName": { "type": "string" },
+          "epistemicStatus": {
+            "type": "string",
+            "enum": [
+              "VALIDATED_MEASUREMENT",
+              "EVIDENCE_SUPPORTED_INTERPRETATION",
+              "THEORETICAL_INTERPRETATION",
+              "HISTORICAL_FRAMEWORK"
+            ]
+          },
+          "inputFacetIds": { "type": "array", "items": { "type": "string" } },
+          "interpretation_tr": { "type": "string" },
+          "counterExplanation_tr": { "type": "string" },
+          "limitationsDisclaimer_tr": { "type": "string" }
+        }
+      }
+    },
+    "aiNarrative": {
+      "type": ["object", "null"],
+      "properties": {
+        "executiveSummary_tr": { "type": "string" },
+        "growthEdges_tr": { "type": "array", "items": { "type": "string" } },
+        "suggestedMicroAssessments": { "type": "array", "items": { "type": "string" } },
+        "verifiedClaimConstructIds": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

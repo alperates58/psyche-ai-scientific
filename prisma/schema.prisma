@@ -1,0 +1,487 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+// ---------------------------------------------------------
+// USER & IDENTITY
+// ---------------------------------------------------------
+
+model User {
+  id          String              @id @default(cuid())
+  email       String?             @unique
+  name        String
+  isDemoUser  Boolean             @default(false)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  sessions    AssessmentSession[]
+  snapshots   ProfileSnapshot[]
+
+  @@map("users")
+}
+
+// ---------------------------------------------------------
+// PSYCHOLOGICAL ONTOLOGY (Source-of-truth from data/constructs.json)
+// ---------------------------------------------------------
+
+model Domain {
+  id            String          @id
+  code          String          @unique
+  nameTr        String
+  nameEn        String
+  descriptionTr String          @db.Text
+  descriptionEn String          @db.Text
+  color         String?
+  sortOrder     Int             @default(0)
+
+  constructs    Construct[]
+  domainScores  DomainScore[]
+
+  @@map("domains")
+}
+
+model Construct {
+  id              String           @id
+  code            String           @unique
+  domainId        String
+  domain          Domain           @relation(fields: [domainId], references: [id], onDelete: Restrict)
+  nameTr          String
+  nameEn          String
+  descriptionTr   String           @db.Text
+  descriptionEn   String           @db.Text
+  sortOrder       Int              @default(0)
+
+  facets          Facet[]
+  constructScores ConstructScore[]
+
+  @@map("constructs")
+}
+
+model Facet {
+  id                String                 @id
+  code              String                 @unique
+  constructId       String
+  construct         Construct              @relation(fields: [constructId], references: [id], onDelete: Restrict)
+  nameTr            String
+  nameEn            String
+  descriptionTr     String                 @db.Text
+  descriptionEn     String                 @db.Text
+  sortOrder         Int                    @default(0)
+
+  items             Item[]
+  facetScores       FacetScore[]
+  scientificSources FacetScientificSource[]
+  instruments       FacetInstrument[]
+  theoryLenses      FacetTheoryLens[]
+
+  @@map("facets")
+}
+
+// ---------------------------------------------------------
+// SCIENTIFIC REGISTRY, INSTRUMENTS & THEORY LENSES
+// ---------------------------------------------------------
+
+model ScientificSource {
+  id            String                      @id
+  shortKey      String                      @unique
+  citation      String                      @db.Text
+  year          Int?
+  doi           String?
+  url           String?
+
+  facets        FacetScientificSource[]
+  theoryLenses  TheoryLensScientificSource[]
+
+  @@map("scientific_sources")
+}
+
+model FacetScientificSource {
+  facetId       String
+  sourceId      String
+  facet         Facet            @relation(fields: [facetId], references: [id], onDelete: Cascade)
+  source        ScientificSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([facetId, sourceId])
+  @@map("facet_scientific_sources")
+}
+
+model Instrument {
+  id                String            @id
+  code              String            @unique
+  name              String
+  fullName          String?
+  licenseType       String
+  licensingDecision String            // "approved", "rejected", "restricted"
+  citation          String?           @db.Text
+
+  facets            FacetInstrument[]
+  items             Item[]
+
+  @@map("instruments")
+}
+
+model FacetInstrument {
+  facetId       String
+  instrumentId  String
+  facet         Facet      @relation(fields: [facetId], references: [id], onDelete: Cascade)
+  instrument    Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+
+  @@id([facetId, instrumentId])
+  @@map("facet_instruments")
+}
+
+model TheoryLens {
+  id                String                       @id
+  lensId            String                       @unique // e.g. "jungian", "attachment"
+  school            String
+  theorist          String
+  description       String                       @db.Text
+  primaryFocus      String?
+
+  facets            FacetTheoryLens[]
+  scientificSources TheoryLensScientificSource[]
+
+  @@map("theory_lenses")
+}
+
+model FacetTheoryLens {
+  facetId       String
+  theoryLensId  String
+  facet         Facet      @relation(fields: [facetId], references: [id], onDelete: Cascade)
+  theoryLens    TheoryLens @relation(fields: [theoryLensId], references: [id], onDelete: Cascade)
+
+  @@id([facetId, theoryLensId])
+  @@map("facet_theory_lenses")
+}
+
+model TheoryLensScientificSource {
+  theoryLensId  String
+  sourceId      String
+  theoryLens    TheoryLens       @relation(fields: [theoryLensId], references: [id], onDelete: Cascade)
+  source        ScientificSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([theoryLensId, sourceId])
+  @@map("theory_lens_scientific_sources")
+}
+
+// ---------------------------------------------------------
+// ITEM BANK WITH DEEP VERSIONING
+// ---------------------------------------------------------
+
+model Item {
+  id                String           @id @default(cuid())
+  itemCode          String           @unique
+  facetId           String
+  facet             Facet            @relation(fields: [facetId], references: [id], onDelete: Restrict)
+  instrumentId      String?
+  instrument        Instrument?      @relation(fields: [instrumentId], references: [id], onDelete: SetNull)
+  isKeyed           Boolean          @default(true) // true = regular (+), false = reverse (-)
+  itemType          String           @default("LIKERT_5")
+  isAttentionCheck  Boolean          @default(false)
+  createdAt         DateTime         @default(now())
+
+  versions          ItemVersion[]
+  responses         ResponseRecord[]
+
+  @@map("items")
+}
+
+model ItemVersion {
+  id                String               @id @default(cuid())
+  itemId            String
+  item              Item                 @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  versionNumber     Int                  @default(1)
+  promptTr          String               @db.Text
+  promptEn          String               @db.Text
+  validationStatus  String               @default("RESEARCH_DRAFT") // "RESEARCH_DRAFT", "VALIDATED", "DEPRECATED"
+  licenseStatus     String               @default("approved")
+  isActive          Boolean              @default(true)
+  createdAt         DateTime             @default(now())
+
+  options           ItemVersionOption[]
+  formItems         AssessmentFormItem[]
+  responses         ResponseRecord[]
+
+  @@unique([itemId, versionNumber])
+  @@map("item_versions")
+}
+
+model ItemVersionOption {
+  id            String             @id @default(cuid())
+  itemVersionId String
+  itemVersion   ItemVersion        @relation(fields: [itemVersionId], references: [id], onDelete: Cascade)
+  value         Int                // 1, 2, 3, 4, 5
+  labelTr       String
+  labelEn       String
+  sortOrder     Int                @default(0)
+
+  responses     ResponseRecord[]
+  revisions     ResponseRevision[]
+
+  @@unique([itemVersionId, value])
+  @@map("item_version_options")
+}
+
+// ---------------------------------------------------------
+// ASSESSMENT FORM FREEZE & MODULES
+// ---------------------------------------------------------
+
+model AssessmentModule {
+  id               String                  @id @default(cuid())
+  code             String                  @unique // e.g. "MODULE_1_CORE_PERSONALITY"
+  titleTr          String
+  titleEn          String
+  descriptionTr    String                  @db.Text
+  descriptionEn    String                  @db.Text
+  estimatedMinutes Int                     @default(15)
+
+  formVersions     AssessmentFormVersion[]
+
+  @@map("assessment_modules")
+}
+
+model AssessmentFormVersion {
+  id          String               @id @default(cuid())
+  moduleId    String
+  module      AssessmentModule     @relation(fields: [moduleId], references: [id], onDelete: Restrict)
+  versionCode String               // e.g. "v1.0.0"
+  isPublished Boolean              @default(true)
+  itemCount   Int                  @default(0)
+  createdAt   DateTime             @default(now())
+
+  items       AssessmentFormItem[]
+  sessions    AssessmentSession[]
+
+  @@unique([moduleId, versionCode])
+  @@map("assessment_form_versions")
+}
+
+model AssessmentFormItem {
+  id            String                @id @default(cuid())
+  formVersionId String
+  formVersion   AssessmentFormVersion @relation(fields: [formVersionId], references: [id], onDelete: Cascade)
+  itemVersionId String
+  itemVersion   ItemVersion           @relation(fields: [itemVersionId], references: [id], onDelete: Restrict)
+  sortOrder     Int
+
+  responses     ResponseRecord[]
+
+  @@unique([formVersionId, sortOrder])
+  @@unique([formVersionId, itemVersionId])
+  @@map("assessment_form_items")
+}
+
+// ---------------------------------------------------------
+// RUNTIME SESSION, RESPONSES & REVISION AUDIT
+// ---------------------------------------------------------
+
+model AssessmentSession {
+  id               String                   @id @default(cuid())
+  userId           String
+  user             User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  formVersionId    String
+  formVersion      AssessmentFormVersion    @relation(fields: [formVersionId], references: [id], onDelete: Restrict)
+  status           String                   @default("IN_PROGRESS") // "IN_PROGRESS", "PAUSED", "COMPLETED", "ABANDONED"
+  startedAt        DateTime                 @default(now())
+  lastActiveAt     DateTime                 @default(now())
+  completedAt      DateTime?
+  totalDurationMs  Int                      @default(0)
+  currentStep      Int                      @default(1)
+
+  responses        ResponseRecord[]
+  telemetries      ResponseTelemetry[]
+  integrityResults ResponseIntegrityResult[]
+  snapshotSessions ProfileSnapshotSession[]
+
+  @@map("assessment_sessions")
+}
+
+model ResponseRecord {
+  id                      String             @id @default(cuid())
+  sessionId               String
+  session                 AssessmentSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  itemId                  String
+  item                    Item               @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  itemVersionId           String
+  itemVersion             ItemVersion        @relation(fields: [itemVersionId], references: [id], onDelete: Restrict)
+  formItemId              String
+  formItem                AssessmentFormItem @relation(fields: [formItemId], references: [id], onDelete: Restrict)
+  selectedOptionVersionId String
+  selectedOption          ItemVersionOption  @relation(fields: [selectedOptionVersionId], references: [id], onDelete: Restrict)
+  rawValue                Int
+  scoredValue             Float
+  revisionCount           Int                @default(0)
+  createdAt               DateTime           @default(now())
+  updatedAt               DateTime           @updatedAt
+
+  revisions               ResponseRevision[]
+  telemetries             ResponseTelemetry[]
+
+  @@unique([sessionId, formItemId])
+  @@map("response_records")
+}
+
+model ResponseRevision {
+  id                      String            @id @default(cuid())
+  responseRecordId        String
+  responseRecord          ResponseRecord    @relation(fields: [responseRecordId], references: [id], onDelete: Cascade)
+  sequence                Int
+  rawValue                Int
+  selectedOptionVersionId String
+  selectedOption          ItemVersionOption @relation(fields: [selectedOptionVersionId], references: [id], onDelete: Restrict)
+  durationMs              Int?
+  changedAt               DateTime          @default(now())
+
+  @@unique([responseRecordId, sequence])
+  @@map("response_revisions")
+}
+
+model ResponseTelemetry {
+  id                       String          @id @default(cuid())
+  sessionId                String
+  session                  AssessmentSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  responseRecordId         String?
+  responseRecord           ResponseRecord?   @relation(fields: [responseRecordId], references: [id], onDelete: Cascade)
+  clientObservedDurationMs Int
+  focusLostCount           Int             @default(0)
+  firstInteractionAt       DateTime?
+  serverReceivedAt         DateTime        @default(now())
+  telemetryTrust           String          @default("client_observed")
+
+  @@map("response_telemetry")
+}
+
+model ResponseIntegrityResult {
+  id                      String            @id @default(cuid())
+  sessionId               String
+  session                 AssessmentSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  overallFlag             String            @default("ACCEPTABLE") // "EXCELLENT", "ACCEPTABLE", "QUESTIONABLE", "COMPROMISED"
+  speedViolations         Int               @default(0)
+  medianDurationMs        Float             @default(0)
+  longestStreak           Int               @default(0)
+  straightliningDetected  Boolean           @default(false)
+  inconsistencyPairsCount Int               @default(0)
+  inconsistencyViolations Int               @default(0)
+  attentionCheckPassed    Boolean           @default(true)
+  computedAt              DateTime          @default(now())
+
+  @@map("response_integrity_results")
+}
+
+// ---------------------------------------------------------
+// PRE-CALIBRATION SCORING & PROFILE SNAPSHOTS
+// ---------------------------------------------------------
+
+model NormVersion {
+  id           String   @id @default(cuid())
+  code         String   @unique
+  name         String
+  status       String   @default("UNAVAILABLE")
+  isCalibrated Boolean  @default(false)
+  sampleSize   Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  @@map("norm_versions")
+}
+
+model ScoringModelVersion {
+  id               String            @id @default(cuid())
+  code             String            @unique // e.g. "PRE_CALIBRATION_MEAN_V1"
+  description      String            @db.Text
+  algorithm        String            @default("UNWEIGHTED_COMPOSITE_MEAN")
+  isPreCalibration Boolean           @default(true)
+  createdAt        DateTime          @default(now())
+
+  snapshots        ProfileSnapshot[]
+
+  @@map("scoring_model_versions")
+}
+
+model ProfileSnapshot {
+  id                    String                 @id @default(cuid())
+  userId                String
+  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scoringModelVersionId String
+  scoringModelVersion   ScoringModelVersion    @relation(fields: [scoringModelVersionId], references: [id], onDelete: Restrict)
+  overallIntegrity      String                 @default("ACCEPTABLE")
+  provisionalComposite  Float                  // unweighted mean across domains
+  normStatus            String                 @default("UNAVAILABLE") // strictly UNAVAILABLE in pre-calibration
+  standardError         Float?                 // strictly NULL in pre-calibration
+  ci95Lower             Float?                 // strictly NULL in pre-calibration
+  ci95Upper             Float?                 // strictly NULL in pre-calibration
+  createdAt             DateTime               @default(now())
+
+  sessions              ProfileSnapshotSession[]
+  facetScores           FacetScore[]
+  constructScores       ConstructScore[]
+  domainScores          DomainScore[]
+
+  @@map("profile_snapshots")
+}
+
+model ProfileSnapshotSession {
+  profileSnapshotId   String
+  assessmentSessionId String
+  profileSnapshot     ProfileSnapshot   @relation(fields: [profileSnapshotId], references: [id], onDelete: Cascade)
+  assessmentSession   AssessmentSession @relation(fields: [assessmentSessionId], references: [id], onDelete: Cascade)
+
+  @@id([profileSnapshotId, assessmentSessionId])
+  @@map("profile_snapshot_sessions")
+}
+
+model FacetScore {
+  id                String          @id @default(cuid())
+  profileSnapshotId String
+  profileSnapshot   ProfileSnapshot @relation(fields: [profileSnapshotId], references: [id], onDelete: Cascade)
+  facetId           String
+  facet             Facet           @relation(fields: [facetId], references: [id], onDelete: Restrict)
+  rawMean           Float
+  itemCount         Int
+  standardError     Float?          // strictly NULL in pre-calibration
+  ci95Lower         Float?          // strictly NULL in pre-calibration
+  ci95Upper         Float?          // strictly NULL in pre-calibration
+  normVersionId     String?         // strictly NULL in pre-calibration
+
+  @@unique([profileSnapshotId, facetId])
+  @@map("facet_scores")
+}
+
+model ConstructScore {
+  id                String          @id @default(cuid())
+  profileSnapshotId String
+  profileSnapshot   ProfileSnapshot @relation(fields: [profileSnapshotId], references: [id], onDelete: Cascade)
+  constructId       String
+  construct         Construct       @relation(fields: [constructId], references: [id], onDelete: Restrict)
+  compositeScore    Float
+  facetCount        Int
+  standardError     Float?          // strictly NULL in pre-calibration
+  ci95Lower         Float?          // strictly NULL in pre-calibration
+  ci95Upper         Float?          // strictly NULL in pre-calibration
+  normVersionId     String?         // strictly NULL in pre-calibration
+
+  @@unique([profileSnapshotId, constructId])
+  @@map("construct_scores")
+}
+
+model DomainScore {
+  id                String          @id @default(cuid())
+  profileSnapshotId String
+  profileSnapshot   ProfileSnapshot @relation(fields: [profileSnapshotId], references: [id], onDelete: Cascade)
+  domainId          String
+  domain            Domain          @relation(fields: [domainId], references: [id], onDelete: Restrict)
+  compositeScore    Float
+  constructCount    Int
+  standardError     Float?          // strictly NULL in pre-calibration
+  ci95Lower         Float?          // strictly NULL in pre-calibration
+  ci95Upper         Float?          // strictly NULL in pre-calibration
+  normVersionId     String?         // strictly NULL in pre-calibration
+
+  @@unique([profileSnapshotId, domainId])
+  @@map("domain_scores")
+}

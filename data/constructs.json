@@ -1,0 +1,1935 @@
+[
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "honesty_humility",
+    "constructName": "Honesty-Humility (Dürüstlük-Alçakgönüllülük)",
+    "facetId": "sincerity",
+    "facetName": "Sincerity (İçtenlik)",
+    "definition": "Kişilerarası ilişkilerde yapmacıklıktan, manipülasyondan ve dalkavukluktan kaçınma eğilimi.",
+    "observableIndicators": [
+      "Çıkar sağlamak için başkalarına hak etmedikleri övgülerde bulunmaktan kaçınır.",
+      "Kendi düşünce ve niyetlerini dürüstçe ortaya koyar.",
+      "İnsanları yönlendirmek için samimiyetsiz rollere bürünmez."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "honesty_humility",
+    "constructName": "Honesty-Humility (Dürüstlük-Alçakgönüllülük)",
+    "facetId": "fairness",
+    "facetName": "Fairness (Adalet)",
+    "definition": "Hile, yolsuzluk, rüşvet ve kayırmacılıktan uzak durarak adil davranma ilkesi.",
+    "observableIndicators": [
+      "Kişisel kazanç uğruna kuralları esnetmeyi veya hile yapmayı reddeder.",
+      "Fırsat çıksa dahi başkalarının aleyhine haksız avantaj sağlamaz.",
+      "Kaynakları ve sorumlulukları tarafsızca paylaştırır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "honesty_humility",
+    "constructName": "Honesty-Humility (Dürüstlük-Alçakgönüllülük)",
+    "facetId": "greed_avoidance",
+    "facetName": "Greed Avoidance (Açgözlülükten Kaçınma)",
+    "definition": "Aşırı zenginlik, lüks tüketim ve gösterişli statü sembolleri peşinde koşmama eğilimi.",
+    "observableIndicators": [
+      "Maddi kazancı ve serveti birincil yaşam amacı olarak görmez.",
+      "Pahalı nesnelerle gösteriş yapmaktan içsel bir rahatsızlık duyar.",
+      "Temel ihtiyaçları karşılandığında maddi hırslara kapılmaz."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_maslow"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "honesty_humility",
+    "constructName": "Honesty-Humility (Dürüstlük-Alçakgönüllülük)",
+    "facetId": "modesty",
+    "facetName": "Modesty (Tevazu)",
+    "definition": "Kendini başkalarından üstün veya özel ayrıcalıklara layık görmeme tutumu.",
+    "observableIndicators": [
+      "Başarılarını abartarak anlatmaktan kaçınır.",
+      "Diğer insanlarla eşit hak ve değere sahip olduğu bilinciyle iletişim kurar.",
+      "Özel muamele veya üstünlük beklentisi içinde olmaz."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "emotionality",
+    "constructName": "Emotionality (Duygusallık / Hassasiyet)",
+    "facetId": "fearfulness",
+    "facetName": "Fearfulness (Korku Hassasiyeti)",
+    "definition": "Fiziksel tehlike, acı veya bedensel zarar içeren durumlara karşı duyarlılık ve kaçınma.",
+    "observableIndicators": [
+      "Fiziksel tehlike içeren sporlardan veya aktivitelerden uzak durur.",
+      "Yaralanma veya acı çekme olasılığı karşısında yüksek tetikte olma sergiler."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_freud"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "emotionality",
+    "constructName": "Emotionality (Duygusallık / Hassasiyet)",
+    "facetId": "anxiety_proneness",
+    "facetName": "Anxiety Proneness (Kaygı Eğilimi)",
+    "definition": "Gelecekteki belirsizlikler, olası güçlükler ve stresörler karşısında endişelenme eğilimi.",
+    "observableIndicators": [
+      "Küçük aksilikler karşısında dahi olası en kötü senaryoları düşünür.",
+      "Beklenmeyen durumlarda zihinsel gerginlik yaşar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_james"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "emotionality",
+    "constructName": "Emotionality (Duygusallık / Hassasiyet)",
+    "facetId": "dependence",
+    "facetName": "Dependence (Duygusal Destek İhtiyacı)",
+    "definition": "Zor zamanlarda duygusal teselli, onay ve yakınlarına yaslanma ihtiyacı.",
+    "observableIndicators": [
+      "Sıkıntılı anlarda duygularını bir yakınıyla paylaşmadan rahatlayamaz.",
+      "Karar alırken yakın çevresinin onay ve desteğine ihtiyaç duyar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "emotionality",
+    "constructName": "Emotionality (Duygusallık / Hassasiyet)",
+    "facetId": "sentimentality",
+    "facetName": "Sentimentality (Duygusal Bağlılık ve Hüzün)",
+    "definition": "Derin duygusal bağlar kurma, vedalarda veya hüzünlü sanatsal uyaranlarda çabuk duygulanma.",
+    "observableIndicators": [
+      "Duygusal filmlerde veya veda anlarında kolayca gözleri dolar.",
+      "Yakın ilişkilerde güçlü bir duygusal yoğunluk ve bağlılık yaşar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_rogers"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "extraversion",
+    "constructName": "Extraversion (Dışadönüklük)",
+    "facetId": "social_self_esteem",
+    "facetName": "Social Self-Esteem (Sosyal Özsaygı)",
+    "definition": "Sosyal ortamlarda kendini rahat, kabul görmüş ve değerli hissetme eğilimi.",
+    "observableIndicators": [
+      "Yeni insanlarla tanışırken kendini yetersiz veya dışlanmış hissetmez.",
+      "Sosyal ortamlarda kendinden emin ve rahat davranır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "extraversion",
+    "constructName": "Extraversion (Dışadönüklük)",
+    "facetId": "social_boldness",
+    "facetName": "Social Boldness (Sosyal Cesaret / Liderlik)",
+    "definition": "Grup içinde söz alma, topluluk önünde konuşma ve yönlendirici rol üstlenme rahatlığı.",
+    "observableIndicators": [
+      "Toplantılarda veya kalabalıklarda söz almaktan çekinmez.",
+      "Sosyal inisiyatif ve liderlik gereken anlarda öne çıkar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_jung"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "extraversion",
+    "constructName": "Extraversion (Dışadönüklük)",
+    "facetId": "sociability",
+    "facetName": "Sociability (Sosyallik)",
+    "definition": "İnsanlarla bir arada bulunmaktan ve grup etkileşimlerinden keyif alma eğilimi.",
+    "observableIndicators": [
+      "Boş zamanlarını kalabalık sosyal etkinliklerde geçirmeyi tercih eder.",
+      "Yalnız kalmaktansa diğer insanlarla sohbet etmeyi arar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_jung"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "extraversion",
+    "constructName": "Extraversion (Dışadönüklük)",
+    "facetId": "liveliness",
+    "facetName": "Liveliness (Canlılık ve İyimser Coşku)",
+    "definition": "Genel yaşam enerjisi, neşe, heves ve pozitif duygulanım aktarımı.",
+    "observableIndicators": [
+      "Güne enerjik ve iyimser bir ruh haliyle başlama eğilimindedir.",
+      "Çevresindekilere neşe ve coşku bulaştırır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_jung"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "agreeableness",
+    "constructName": "Agreeableness (Geçimlilik / Hoşgörü)",
+    "facetId": "forgiveness",
+    "facetName": "Forgiveness (Bağışlayıcılık)",
+    "definition": "Haksızlık yapanlara karşı kin tutmama ve affetmeye açık olma eğilimi.",
+    "observableIndicators": [
+      "Kendisine yapılan hataların ardından uzun süre düşmanlık beslemez.",
+      "İçtenlikle özür dilendiğinde ilişkiyi onarmaya isteklidir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "agreeableness",
+    "constructName": "Agreeableness (Geçimlilik / Hoşgörü)",
+    "facetId": "gentleness",
+    "facetName": "Gentleness (Yumuşak Başlılık)",
+    "definition": "İletişimde sertlik ve kabalıktan kaçınma, yapıcı ve nazik olma tutumu.",
+    "observableIndicators": [
+      "Fikir ayrılıklarında bile kırıcı ve saldırgan bir üslup kullanmaz.",
+      "Başkalarını eleştirirken nazik ve incitmeyen kelimeler seçer."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_rogers"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "agreeableness",
+    "constructName": "Agreeableness (Geçimlilik / Hoşgörü)",
+    "facetId": "flexibility",
+    "facetName": "Flexibility (Uzlaşmacılık)",
+    "definition": "Ortak kararlarda inatçılık yapmama, başkalarının görüşlerine uyum sağlama esnekliği.",
+    "observableIndicators": [
+      "Kendi dediğinde körü körüne ısrar etmez, taviz vermeye açıktır.",
+      "Grup huzuru için esneyebilme olgunluğu gösterir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "agreeableness",
+    "constructName": "Agreeableness (Geçimlilik / Hoşgörü)",
+    "facetId": "patience",
+    "facetName": "Patience (Sabır / Sakinlik)",
+    "definition": "Tahrik ve engellenme anlarında öfke patlaması yaşamama, sakin kalabilme kapasitesi.",
+    "observableIndicators": [
+      "Kışkırtıcı durumlarda dahi hemen sesini yükseltmez.",
+      "Beklenmeyen gecikmeler karşısında soğukkanlılığını korur."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_skinner"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "conscientiousness",
+    "constructName": "Conscientiousness (Sorumluluk / Öz-Disiplin)",
+    "facetId": "organization",
+    "facetName": "Organization (Düzenlilik)",
+    "definition": "Yaşam ve çalışma alanlarını, görevleri yapılandırılmış ve düzenli tutma eğilimi.",
+    "observableIndicators": [
+      "Çalışma alanını ve eşyalarını düzenli tutar.",
+      "İşlerini listeler ve sistematik takvimler üzerinden yürütür."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_skinner"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "conscientiousness",
+    "constructName": "Conscientiousness (Sorumluluk / Öz-Disiplin)",
+    "facetId": "diligence",
+    "facetName": "Diligence (Çalışkanlık)",
+    "definition": "Zorlu görevleri başarıyla sonuçlandırmak için yoğun çaba sarf etme disiplini.",
+    "observableIndicators": [
+      "Başladığı bir projeyi engellerle karşılaşsa bile yarım bırakmaz.",
+      "Görevlerini ertelemeden zamanında bitirmek için titizlikle çalışır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_skinner"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "conscientiousness",
+    "constructName": "Conscientiousness (Sorumluluk / Öz-Disiplin)",
+    "facetId": "perfectionism",
+    "facetName": "Perfectionism (Yüksek Standart Titizliği)",
+    "definition": "Detaylara aşırı özen gösterme ve yüksek kalite standartları talep etme.",
+    "observableIndicators": [
+      "Çıkan işin kusursuz olması için detayları tekrar tekrar gözden geçirir.",
+      "Yarım yamalak yapılmış işlere tahammül etmekte zorlanır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_adler"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "conscientiousness",
+    "constructName": "Conscientiousness (Sorumluluk / Öz-Disiplin)",
+    "facetId": "prudence",
+    "facetName": "Prudence (Tedbirlilik)",
+    "definition": "Karar alırken dürtüsel davranmama, olası sonuçları dikkatle tartma alışkanlığı.",
+    "observableIndicators": [
+      "Önemli adımlar atmadan önce riskleri etraflıca düşünür.",
+      "Anlık heveslerin arkasından plansızca sürüklenmez."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_skinner"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "openness",
+    "constructName": "Openness to Experience (Deneyime Açıklık)",
+    "facetId": "aesthetic_appreciation",
+    "facetName": "Aesthetic Appreciation (Estetik Duyarlılık)",
+    "definition": "Sanat, doğa güzelliği, müzik ve tasarımdan derinden etkilenme kapasitesi.",
+    "observableIndicators": [
+      "Güzel bir sanat eseri veya doğa manzarası karşısında güçlü hayranlık duyar.",
+      "Çevresindeki görsel ve işitsel estetiğe yüksek dikkat gösterir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_maslow"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "openness",
+    "constructName": "Openness to Experience (Deneyime Açıklık)",
+    "facetId": "inquisitiveness",
+    "facetName": "Inquisitiveness (Entelektüel Merak)",
+    "definition": "Doğa bilimleri, felsefe, tarih ve yeni bilgi alanlarını öğrenme açlığı.",
+    "observableIndicators": [
+      "Farklı bilim ve düşünce dallarındaki kitapları ve belgeselleri araştırır.",
+      "Olayların ve evrenin nasıl işlediğini derinlemesine anlamak ister."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_jung"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "openness",
+    "constructName": "Openness to Experience (Deneyime Açıklık)",
+    "facetId": "creativity",
+    "facetName": "Creativity (Yaratıcı İfade)",
+    "definition": "Problemlere özgün çözümler geliştirme ve yeni fikirler üretme hevesi.",
+    "observableIndicators": [
+      "Standart yollar yerine alışılmadık ve yaratıcı yaklaşımlar dener.",
+      "Zihninde yeni kavramlar, hikayeler veya projeler kurgulamaktan hoşlanır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_gestalt"]
+  },
+  {
+    "domainId": "core_personality",
+    "domainName": "Core Personality",
+    "constructId": "openness",
+    "constructName": "Openness to Experience (Deneyime Açıklık)",
+    "facetId": "unconventionality",
+    "facetName": "Unconventionality (Gelenekdışılık)",
+    "definition": "Alışılmışın dışındaki görüşlere, marjinal fikirlere ve yaşam tarzlarına açıklık.",
+    "observableIndicators": [
+      "Toplumun genel kabullerini sorgulayan sıra dışı fikirleri ilgiyle dinler.",
+      "Geleneksel kalıplara sırf gelenek olduğu için bağlı kalmayı reddeder."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ashton_lee_2007"],
+    "primaryInstrumentId": "inst_ipip_hexaco",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 16
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_adler"]
+  },
+  {
+    "domainId": "self_system",
+    "domainName": "Self-System & Identity",
+    "constructId": "self_evaluation",
+    "constructName": "Self-Evaluation Structure (Benlik Değerlendirmesi)",
+    "facetId": "core_self_esteem",
+    "facetName": "Core Self-Esteem (Temel Benlik Saygısı)",
+    "definition": "Bireyin kendi varoluşuna ve değerine ilişkin genel, koşulsuz özsaygı düzeyi.",
+    "observableIndicators": [
+      "Kendisini genel olarak değerli ve saygıya layık bir insan olarak görür.",
+      "Zorluklar yaşasa dahi varoluşsal öz-değerini toptan inkâr etmez."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_rses",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_adler"]
+  },
+  {
+    "domainId": "self_system",
+    "domainName": "Self-System & Identity",
+    "constructId": "self_evaluation",
+    "constructName": "Self-Evaluation Structure (Benlik Değerlendirmesi)",
+    "facetId": "contingent_self_worth",
+    "facetName": "Contingent Self-Worth (Koşullu Öz-Değer)",
+    "definition": "Öz-değer hissinin dışsal başarıya, akademik/mesleki performansa veya başkalarının beğenisine endeksli olma derecesi.",
+    "observableIndicators": [
+      "Bir sınavda veya projede başarısız olduğunda kendini tamamen değersiz hisseder.",
+      "Kendi değeri hakkında iyi hissetmek için sürekli dışsal övgüye ihtiyaç duyar."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_rses",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers"]
+  },
+  {
+    "domainId": "self_system",
+    "domainName": "Self-System & Identity",
+    "constructId": "self_evaluation",
+    "constructName": "Self-Evaluation Structure (Benlik Değerlendirmesi)",
+    "facetId": "self_compassion",
+    "facetName": "Self-Compassion (Öz-Şefkat)",
+    "definition": "Başarısızlık ve acı anlarında kendine acımasızca saldırmak yerine anlayış ve şefkat gösterebilme.",
+    "observableIndicators": [
+      "Hata yaptığında kendine anlayışlı bir dost gibi yaklaşır.",
+      "Kişisel kusurların insan olmanın doğal bir parçası olduğunu hatırlar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_scs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers"]
+  },
+  {
+    "domainId": "self_system",
+    "domainName": "Self-System & Identity",
+    "constructId": "agency_mastery",
+    "constructName": "Agency & Mastery (Yetkinlik ve İrade)",
+    "facetId": "generalized_self_efficacy",
+    "facetName": "Generalized Self-Efficacy (Genel Öz-Yeterlilik)",
+    "definition": "Yeni veya zorlu taleplerle karşılaştığında gereken eylemleri başarıyla organize edip yürütebilme inancı.",
+    "observableIndicators": [
+      "Beklenmedik bir kriz çıktığında doğru çözümü bulacağına güvenir.",
+      "Zorlu bir problemle karşılaştığında pes etmek yerine alternatif yollar arar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_gses",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_james"]
+  },
+  {
+    "domainId": "self_system",
+    "domainName": "Self-System & Identity",
+    "constructId": "agency_mastery",
+    "constructName": "Agency & Mastery (Yetkinlik ve İrade)",
+    "facetId": "locus_of_control",
+    "facetName": "Internal Locus of Control (İçsel Kontrol Odağı)",
+    "definition": "Yaşam sonuçlarının kader, şans veya güçlü diğerleri yerine kendi kararları ve eylemleri tarafından belirlendiği inancı.",
+    "observableIndicators": [
+      "Hayatındaki başarı ve başarısızlıkların sorumluluğunu kendi adımlarına bağlar.",
+      "Kader veya şansın kendi çabasından daha belirleyici olduğuna inanmaz."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_gses",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_skinner"]
+  },
+  {
+    "domainId": "self_system",
+    "domainName": "Self-System & Identity",
+    "constructId": "identity_integrity",
+    "constructName": "Identity Integrity (Kimlik Bütünlüğü)",
+    "facetId": "self_concept_clarity",
+    "facetName": "Self-Concept Clarity (Benlik Kavramı Netliği)",
+    "definition": "Benliğe dair inançların açık, içsel olarak tutarlı ve zaman içinde kararlı olması.",
+    "observableIndicators": [
+      "Gerçekte kim olduğu ve ne istediği konusunda net bir içsel görüşe sahiptir.",
+      "Benlik algısı günden güne veya ortamdan ortama savrulmaz."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_sccs",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_gestalt"]
+  },
+  {
+    "domainId": "self_system",
+    "domainName": "Self-System & Identity",
+    "constructId": "identity_integrity",
+    "constructName": "Identity Integrity (Kimlik Bütünlüğü)",
+    "facetId": "authenticity",
+    "facetName": "Authenticity (Özgünlük)",
+    "definition": "Dış baskılara boyun eğmek yerine kendi derin değerleri ve gerçek hisleriyle uyumlu yaşama cesareti.",
+    "observableIndicators": [
+      "Sırf kabul görmek için inanmadığı fikirleri savunuyormuş gibi yapmaz.",
+      "Davranışları içsel değerleriyle tutarlı bir bütünlük sergiler."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_sccs",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_james"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "emotion_regulation_strategies",
+    "constructName": "Emotion Regulation Strategies (Duygu Düzenleme)",
+    "facetId": "cognitive_reappraisal",
+    "facetName": "Cognitive Reappraisal (Bilişsel Yeniden Değerlendirme)",
+    "definition": "Duygusal tepkiyi azaltmak veya değiştirmek için duruma yüklenen anlamı zihinsel olarak yeniden çerçeveleme eğilimi.",
+    "observableIndicators": [
+      "Stresli bir olay yaşadığında durumu olumlu veya öğretici tarafından görmeye çalışır.",
+      "Öfkelendiğinde diğer kişinin bakış açısını düşünerek duygusunu sakinleştirir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_gross_john_2003"],
+    "primaryInstrumentId": "inst_erq",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_freud"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "emotion_regulation_strategies",
+    "constructName": "Emotion Regulation Strategies (Duygu Düzenleme)",
+    "facetId": "expressive_suppression",
+    "facetName": "Expressive Suppression (Duygusal İfadeyi Bastırma)",
+    "definition": "Yaşanan duyguların dışavurumunu fiziksel, mimiksel veya sözel olarak baskılama ve gizleme eğilimi.",
+    "observableIndicators": [
+      "Yoğun duygular yaşadığında dışarıdan hiçbir şey hissetmiyormuş gibi davranır.",
+      "Duygusal durumunun başkaları tarafından anlaşılmasını engeller."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_gross_john_2003"],
+    "primaryInstrumentId": "inst_erq",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_rogers"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "affective_dynamics",
+    "constructName": "Affective Dynamics (Duygulanım Dinamikleri)",
+    "facetId": "emotional_reactivity",
+    "facetName": "Emotional Reactivity (Duygusal Reaktivite)",
+    "definition": "Çevresel veya içsel duygusal tetikleyiciler karşısında aniden ve yüksek şiddette uyarılma derecesi.",
+    "observableIndicators": [
+      "Duygusal olaylar karşısında kalbi hızlı çarpar, bedeninde hemen uyarılma hisseder.",
+      "Beklenmeyen durumlara çok hızlı ve yoğun duygusal tepki verir."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_gross_john_2003"],
+    "primaryInstrumentId": "inst_dts",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_freud"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "affective_dynamics",
+    "constructName": "Affective Dynamics (Duygulanım Dinamikleri)",
+    "facetId": "emotional_recovery",
+    "facetName": "Emotional Recovery (Duygusal Toparlanma Hızı)",
+    "definition": "Yoğun bir duygusal sarsıntı veya öfke sonrasında nötr/sakin bazal çizgiye dönme sürati.",
+    "observableIndicators": [
+      "Bir kriz geçtikten kısa süre sonra zihnini toparlayıp işine odaklanabilir.",
+      "Yaşadığı olumsuz bir duygunun etkisinde günlerce takılı kalmaz."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_gross_john_2003"],
+    "primaryInstrumentId": "inst_dts",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "affective_dynamics",
+    "constructName": "Affective Dynamics (Duygulanım Dinamikleri)",
+    "facetId": "trait_positive_affect",
+    "facetName": "Trait Positive Affect (Pozitif Duygulanım Eğilimi)",
+    "definition": "Coşku, canlılık, heyecan ve gurur gibi olumlu duyguları düzenli deneyimleme sıklığı.",
+    "observableIndicators": [
+      "Günlük yaşamda hevesli ve aktif hissettiği anların sıklığı yüksektir.",
+      "Zorluklar karşısında dahi umut ve coşku duyma kapasitesini korur."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_panas",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "affective_dynamics",
+    "constructName": "Affective Dynamics (Duygulanım Dinamikleri)",
+    "facetId": "trait_negative_affect",
+    "facetName": "Trait Negative Affect (Negatif Duygulanım Eğilimi)",
+    "definition": "Kaygı, hüzün, suçluluk ve tedirginlik gibi zorlayıcı duyguları düzenli yaşama sıklığı.",
+    "observableIndicators": [
+      "Belirgin bir sebep yokken bile zihninde gerginlik ve huzursuzluk hisseder.",
+      "Olumsuz hisler zihninde uzun süreli ağırlık oluşturur."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_panas",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_james"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "distress_management",
+    "constructName": "Distress Management (Zorlayıcı Yaşantı Yönetimi)",
+    "facetId": "distress_tolerance",
+    "facetName": "Distress Tolerance (Sıkıntıya Dayanıklılık)",
+    "definition": "Olumsuz içsel duygusal durumları felaketleştirmeden onlarla bir arada kalabilme kapasitesi.",
+    "observableIndicators": [
+      "Sıkıntı hissettiğinde hemen kaçmak yerine bu hissin geçici olduğunu bilir.",
+      "Zorlayıcı duyguları hayatın kabul edilebilir bir boyutu olarak görebilir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_dts",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_james"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "distress_management",
+    "constructName": "Distress Management (Zorlayıcı Yaşantı Yönetimi)",
+    "facetId": "experiential_avoidance",
+    "facetName": "Experiential Avoidance (Yaşantısal Kaçınma)",
+    "definition": "İstenmeyen düşünce, anı veya hislerden kaçınmak için davranış repertuarını daraltma eğilimi.",
+    "observableIndicators": [
+      "Rahatsız edici duyguları tetikleyebilecek her türlü ortamdan uzak durur.",
+      "Olumsuz bir düşünce belirdiğinde dikkatini dağıtmak için aşırı aktiviteye sığınır."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_dts",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_skinner"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "self_conscious_emotions",
+    "constructName": "Self-Conscious Emotions (Öz-Bilinçli Duygular)",
+    "facetId": "shame_proneness",
+    "facetName": "Shame-Proneness (Utanç Eğilimi)",
+    "definition": "Hata yaptığında tüm benliğini kusurlu, küçük ve saklanmaya layık hissetme yatkınlığı.",
+    "observableIndicators": [
+      "Hata yaptığında 'Ben ne kadar yetersizim' diyerek yerin dibine geçmek ister.",
+      "Başkalarının önünde kusur işlediğinde gözlerden kaybolma arzusu duyar."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_panas",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_adler"]
+  },
+  {
+    "domainId": "emotion_regulation",
+    "domainName": "Emotion & Affect Regulation",
+    "constructId": "self_conscious_emotions",
+    "constructName": "Self-Conscious Emotions (Öz-Bilinçli Duygular)",
+    "facetId": "guilt_proneness",
+    "facetName": "Guilt-Proneness (Suçluluk ve Onarım Eğilimi)",
+    "definition": "Hata yaptığında eyleme odaklanıp sorumluluk alma ve durumu düzeltme yönelimi.",
+    "observableIndicators": [
+      "Birini kırdığında benliğini yok etmek yerine hatasını kabul edip telafi arar.",
+      "Hatalı davranışın yol açtığı zararı onarmak için derhal inisiyatif alır."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_panas",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_adler"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "epistemic_drive",
+    "constructName": "Epistemic Drive (Bilişsel Motivasyon)",
+    "facetId": "need_for_cognition",
+    "facetName": "Need for Cognition (Bilişsel Çaba İhtiyacı)",
+    "definition": "Zihinsel çaba ve derin analiz gerektiren karmaşık sorunlarla uğraşmaktan zevk alma derecesi.",
+    "observableIndicators": [
+      "Cevabı hazır olmayan zorlu mantık bulmacaları ve entelektüel problemler onu heyecanlandırır.",
+      "Yüzeysel açıklamalarla yetinmeyip detaylı nedenleri araştırır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_nfcs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_jung"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "epistemic_drive",
+    "constructName": "Epistemic Drive (Bilişsel Motivasyon)",
+    "facetId": "need_for_cognitive_closure",
+    "facetName": "Need for Cognitive Closure (Bilişsel Kapanma İhtiyacı)",
+    "definition": "Belirsizlik ve karmaşayı hızla sonlandırma, kesin ve değiştirilemez yanıtlara ulaşma arzusu.",
+    "observableIndicators": [
+      "Bir sorunun cevapsız veya havada kalmasına tahammül edemez, hızla karara varmak ister.",
+      "Bir kez karar verdikten sonra yeni kanıtlar çıksa dahi fikrini değiştirmekten hoşlanmaz."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_roets_2011_nfcs"],
+    "primaryInstrumentId": "inst_nfcs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_gestalt"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "thinking_styles",
+    "constructName": "Thinking Styles (Düşünme Tarzları)",
+    "facetId": "rational_analytical_style",
+    "facetName": "Rational / Analytical Processing (Rasyonel Analitik Tarz)",
+    "definition": "Karar alırken sistematik adımlara, mantıksal tutarlılığa ve nesnel kanıtlara dayanma tercihi.",
+    "observableIndicators": [
+      "Önemli bir kararda artı ve eksi listeleri hazırlayıp mantıklı seçeneği arar.",
+      "Hissiyatından ziyade istatistiki ve nesnel gerçeklere güvenir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_nfcs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_jung"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "thinking_styles",
+    "constructName": "Thinking Styles (Düşünme Tarzları)",
+    "facetId": "intuitive_experiential_style",
+    "facetName": "Intuitive / Experiential Processing (Sezgisel Yaşantısal Tarz)",
+    "definition": "İçgüdüsel hislere, deneyimsel örüntülere ve bütüncül sezgilere dayanarak hızlı karar verme eğilimi.",
+    "observableIndicators": [
+      "Bir durum hakkında içine doğan ilk hissin genellikle doğru çıktığına inanır.",
+      "Aşırı analiz yerine içsel hissiyatına dayanarak seçim yapar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_nfcs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_jung", "lens_gestalt"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "cognitive_adaptability",
+    "constructName": "Cognitive Adaptability (Bilişsel Uyum ve Esneklik)",
+    "facetId": "cognitive_flexibility",
+    "facetName": "Cognitive Flexibility (Bilişsel Esneklik)",
+    "definition": "Koşullar değiştiğinde strateji değiştirebilme ve olayları çoklu alternatif açılardan görebilme yetisi.",
+    "observableIndicators": [
+      "Planları bozulduğunda hızla alternatif bir B planı geliştirir.",
+      "Bir tartışmada karşı tarafın savlarını objektif olarak değerlendirebilir."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_ius_12",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james", "lens_gestalt"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "cognitive_adaptability",
+    "constructName": "Cognitive Adaptability (Bilişsel Uyum ve Esneklik)",
+    "facetId": "intolerance_of_uncertainty",
+    "facetName": "Intolerance of Uncertainty (Belirsizliğe Tahammülsüzlük)",
+    "definition": "Sonucu önceden kestirilemeyen durumları doğrudan tehdit edici ve felç edici olarak algılama eğilimi.",
+    "observableIndicators": [
+      "Her şeyin önceden planlanmış olmasını ister; sürprizlerden rahatsızlık duyar.",
+      "Geleceğin belirsiz olması onda yoğun stres ve huzursuzluk yaratır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_ius_12",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_gestalt"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "cognitive_adaptability",
+    "constructName": "Cognitive Adaptability (Bilişsel Uyum ve Esneklik)",
+    "facetId": "rumination_brooding",
+    "facetName": "Rumination - Brooding (Ruminatif Saplantı)",
+    "definition": "Geçmişteki hataları, pişmanlıkları ve olumsuz duyguları çözümsüz bir döngüde zihinde çevirme eğilimi.",
+    "observableIndicators": [
+      "Geçmişte yaptığı bir hatayı günlerce zihninde tekrar tekrar yaşar.",
+      "'Neden hep benim başıma geliyor?' sorusuna takılıp kalır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_treynor_2003_rrs"],
+    "primaryInstrumentId": "inst_rrs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_gestalt"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "decision_orientation",
+    "constructName": "Decision Orientation (Karar Verme Yönelimleri)",
+    "facetId": "maximizing_tendency",
+    "facetName": "Maximizing Tendency (Maksimum Seçenek Arayışı)",
+    "definition": "Yeterince iyi olanı kabul etmek yerine her kararda en mükemmel alternatifi bulmak için aşırı enerji harcama.",
+    "observableIndicators": [
+      "Bir şey satın alırken veya karar verirken tüm alternatifleri incelemeden rahat edemez.",
+      "Karar verdikten sonra dahi 'Acaba daha iyisi var mıydı?' şüphesini taşır."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_nfcs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_james"]
+  },
+  {
+    "domainId": "cognition_decision",
+    "domainName": "Cognition & Decision Making",
+    "constructId": "decision_orientation",
+    "constructName": "Decision Orientation (Karar Verme Yönelimleri)",
+    "facetId": "decision_avoidance_procrastination",
+    "facetName": "Decision Avoidance / Procrastination (Karar Erteleme)",
+    "definition": "Karar alma sorumluluğunu veya eyleme geçmeyi belirsizlik ve hata korkusuyla sürekli geciktirme.",
+    "observableIndicators": [
+      "Önemli kararları son ana kadar ertelemeyi alışkanlık haline getirmiştir.",
+      "Yanlış seçim yapma endişesiyle kararı başkalarının vermesini tercih eder."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_nfcs_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_skinner", "lens_freud"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "impulsivity_uppsp",
+    "constructName": "Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli)",
+    "facetId": "negative_urgency",
+    "facetName": "Negative Urgency (Negatif Aciliyet)",
+    "definition": "Yoğun üzüntü, öfke veya kaygı altındayken düşünmeden zararlı dürtüsel eylemlere girişme eğilimi.",
+    "observableIndicators": [
+      "Çok üzgün veya öfkeli olduğunda sonradan pişman olacağı acele kararlar alır.",
+      "Olumsuz hislerini bastırmak için anlık rahatlatıcı zararlı alışkanlıklara sarılır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_cyders_2014_uppsp"],
+    "primaryInstrumentId": "inst_upps_p_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 4,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_skinner"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "impulsivity_uppsp",
+    "constructName": "Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli)",
+    "facetId": "positive_urgency",
+    "facetName": "Positive Urgency (Pozitif Aciliyet)",
+    "definition": "Aşırı neşeli, coşkulu veya heyecanlı anlarda tedbirsizce riskli adımlar atma eğilimi.",
+    "observableIndicators": [
+      "Çok mutlu olduğunda bütçesini aşan harcamalar veya hesapsız sözler verir.",
+      "Yüksek coşku altındayken riskleri tamamen göz ardı eder."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_cyders_2014_uppsp"],
+    "primaryInstrumentId": "inst_upps_p_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 4,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_skinner"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "impulsivity_uppsp",
+    "constructName": "Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli)",
+    "facetId": "lack_of_premeditation",
+    "facetName": "Lack of Premeditation (Önceden Düşünmeme)",
+    "definition": "Eyleme geçmeden önce sonuçları ve olası etkileri tartmama alışkanlığı.",
+    "observableIndicators": [
+      "Bir işe girişmeden önce adımları planlamadan anlık hevesle başlar.",
+      "Sonuçlarını hiç düşünmeden aklına gelen ilk şeyi yapar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_cyders_2014_uppsp"],
+    "primaryInstrumentId": "inst_upps_p_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 4,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_skinner", "lens_james"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "impulsivity_uppsp",
+    "constructName": "Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli)",
+    "facetId": "lack_of_perseverance",
+    "facetName": "Lack of Perseverance (Sebat Eksikliği)",
+    "definition": "Sıkıcı, monoton veya zorlayıcı hale gelen görevlerde dikkati sürdürememe ve yarıda bırakma.",
+    "observableIndicators": [
+      "Bir görev heyecanını yitirip rutine döndüğünde devam etmekte çok zorlanır.",
+      "Zorlu bir problem karşısında çabuk sıkılıp başka şeylerle oyalanır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_cyders_2014_uppsp"],
+    "primaryInstrumentId": "inst_upps_p_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 4,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_skinner"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "impulsivity_uppsp",
+    "constructName": "Impulsivity Dimensions (UPPS-P Dürtüsellik Modeli)",
+    "facetId": "sensation_seeking",
+    "facetName": "Sensation Seeking (Heyecan Arayışı)",
+    "definition": "Yüksek duyusal uyarılma, macera ve yenilik içeren deneyimlere yönelme tercihi.",
+    "observableIndicators": [
+      "Hızlı, adrenalin yükseltici ve heyecan verici aktivitelerden keyif alır.",
+      "Tekdüzelikten kurtulmak için öngörülemeyen yeni deneyimler arar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_cyders_2014_uppsp"],
+    "primaryInstrumentId": "inst_upps_p_sf",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 4,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_james"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "volitional_stamina",
+    "constructName": "Volitional Stamina (İrade ve Hedef Sürdürme)",
+    "facetId": "general_self_control",
+    "facetName": "General Self-Control (Genel Özdenetim)",
+    "definition": "Uzun vadeli amaçlar lehine kısa vadeli anlık cazibelere ve dürtülere direnebilme gücü.",
+    "observableIndicators": [
+      "Hedeflerine ulaşmak için zararlı anlık zevkleri erteleyebilir.",
+      "Kendisine koyduğu disiplinli kurallara sadık kalır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_bscs",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 13
+    },
+    "applicableTheoryLenses": ["lens_skinner", "lens_james"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "volitional_stamina",
+    "constructName": "Volitional Stamina (İrade ve Hedef Sürdürme)",
+    "facetId": "delay_discounting",
+    "facetName": "Delayed Gratification (Gecikmiş Doyum / Ödül Tercihi)",
+    "definition": "Küçük anlık bir kazanç yerine sabrederek gelecekteki çok daha büyük ödülleri seçebilme kapasitesi.",
+    "observableIndicators": [
+      "Gelecekteki büyük bir başarı için bugünkü konforundan feragat edebilir.",
+      "Anlık tatminlerin gelecekteki hedeflerini baltalamasına izin vermez."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_bscs",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 5,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_skinner"]
+  },
+  {
+    "domainId": "self_regulation",
+    "domainName": "Self-Regulation & Volition",
+    "constructId": "volitional_stamina",
+    "constructName": "Volitional Stamina (İrade ve Hedef Sürdürme)",
+    "facetId": "long_term_grit",
+    "facetName": "Long-Term Grit (Azim ve Tutku)",
+    "definition": "Yıllara yayılan uzun vadeli vizyonlara tutku ve ısrarla bağlı kalma direnci.",
+    "observableIndicators": [
+      "Aylar veya yıllar süren projelerde heyecanını kaybetmeden çalışmaya devam eder.",
+      "Ciddi başarısızlıklar yaşasa dahi ana hedefinden vazgeçmez."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_grit_s",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "basic_psychological_needs",
+    "constructName": "Basic Psychological Needs (Temel Psikolojik İhtiyaçlar - SDT)",
+    "facetId": "autonomy_need",
+    "facetName": "Autonomy Need (Özerklik İhtiyacı)",
+    "definition": "Davranışlarının kendi özgür iradesi, değerleri ve seçimleriyle uyumlu olma gereksinimi.",
+    "observableIndicators": [
+      "Hayatındaki önemli seçimleri kendi hür iradesiyle yapabildiğinde tatmin hisseder.",
+      "Zorla veya başkalarının dayatmasıyla bir şey yapmaktan derin rahatsızlık duyar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ryan_deci_2000", "src_kagitcibasi_2005_self"],
+    "primaryInstrumentId": "inst_bpnsfs",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_maslow"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "basic_psychological_needs",
+    "constructName": "Basic Psychological Needs (Temel Psikolojik İhtiyaçlar - SDT)",
+    "facetId": "competence_need",
+    "facetName": "Competence Need (Yeterlik / Ustalık İhtiyacı)",
+    "definition": "Çevreyle etkili etkileşim kurma, becerilerini geliştirme ve yetkin hissetme ihtiyacı.",
+    "observableIndicators": [
+      "Yeni beceriler öğrenip zor görevlerde ustalaştığını gördüğünde içsel doyum yaşar.",
+      "Kapasitesini geliştirebileceği zorlu görevlerde yer almayı arzu eder."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ryan_deci_2000"],
+    "primaryInstrumentId": "inst_bpnsfs",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_maslow"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "basic_psychological_needs",
+    "constructName": "Basic Psychological Needs (Temel Psikolojik İhtiyaçlar - SDT)",
+    "facetId": "relatedness_need",
+    "facetName": "Relatedness Need (İlişkilenme / Ait Olma İhtiyacı)",
+    "definition": "Başkaları tarafından önemsenme, derin bağlar kurma ve sıcak bir topluluğa ait hissetme ihtiyacı.",
+    "observableIndicators": [
+      "Yakınları tarafından samimiyetle sevildiğini ve desteklendiğini hissetmek ister.",
+      "Bir topluluğun veya dost grubunun parçası olmak ona derin bir huzur verir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_ryan_deci_2000", "src_kagitcibasi_2005_self"],
+    "primaryInstrumentId": "inst_bpnsfs",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "universal_values",
+    "constructName": "Universal Human Values (Schwartz Değer Çemberi)",
+    "facetId": "values_openness_to_change",
+    "facetName": "Openness to Change Values (Değişime Açıklık Değerleri)",
+    "definition": "Özyönelim (bağımsız düşünce), uyarılma (yenilik arayışı) ve hazcılığa verilen önem.",
+    "observableIndicators": [
+      "Kendi kararlarını özgürce vermeye ve yenilikçi deneyimler yaşamaya öncelik verir.",
+      "Hayatında rutin yerine heyecan ve keşif arar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_schwartz_2012_values"],
+    "primaryInstrumentId": "inst_ipip_schwartz_values",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_maslow", "lens_rogers"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "universal_values",
+    "constructName": "Universal Human Values (Schwartz Değer Çemberi)",
+    "facetId": "values_self_transcendence",
+    "facetName": "Self-Transcendence Values (Öz-Aşkınlık Değerleri)",
+    "definition": "Evrenselcilik (tüm insanlığın ve doğanın refahı) ve iyilikseverliğe (yakın çevrenin iyiliği) verilen değer.",
+    "observableIndicators": [
+      "Toplumsal adalet, eşitlik ve doğanın korunması onun için temel yaşam ilkesidir.",
+      "Zor durumdaki insanların acısını hafifletmek için gönüllü çaba gösterir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_schwartz_2012_values"],
+    "primaryInstrumentId": "inst_ipip_schwartz_values",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_maslow"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "universal_values",
+    "constructName": "Universal Human Values (Schwartz Değer Çemberi)",
+    "facetId": "values_conservation",
+    "facetName": "Conservation Values (Muhafaza Değerleri)",
+    "definition": "Güvenlik, gelenek ve kurallara uyum (toplumsal istikrar ve aile düzeni) değerleri.",
+    "observableIndicators": [
+      "Sosyal düzenin, istikrarın ve geleneksel kuralların korunmasını önemser.",
+      "Ani ve yıkıcı toplumsal değişimlere karşı mesafelidir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_schwartz_2012_values"],
+    "primaryInstrumentId": "inst_ipip_schwartz_values",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_maslow"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "universal_values",
+    "constructName": "Universal Human Values (Schwartz Değer Çemberi)",
+    "facetId": "values_self_enhancement",
+    "facetName": "Self-Enhancement Values (Kendini Yüceltme Değerleri)",
+    "definition": "Başarı, yetkinlik gösterisi ve sosyal güç/etki kurmaya verilen kişisel öncelik.",
+    "observableIndicators": [
+      "Toplumda etkili, sözü dinlenen ve başarılı bir konuma gelmeyi hedefler.",
+      "Yetkinliklerini sergileyip takdir toplamaktan tatmin olur."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_schwartz_2012_values"],
+    "primaryInstrumentId": "inst_ipip_schwartz_values",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "existential_meaning",
+    "constructName": "Existential Meaning (Varoluşsal Anlam)",
+    "facetId": "presence_of_meaning",
+    "facetName": "Presence of Meaning (Anlamın Varlığı)",
+    "definition": "Kişinin yaşamının bir anlamı, amacı ve değeri olduğunu hissetme derecesi.",
+    "observableIndicators": [
+      "Hayatının neden yaşamaya değer olduğuna dair net bir içsel hissi vardır.",
+      "Güne başladığında kendisini yönlendiren bir hayat gayesi hisseder."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_mlq",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 5,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_maslow", "lens_rogers"]
+  },
+  {
+    "domainId": "motivation_values",
+    "domainName": "Motivation, Needs & Values",
+    "constructId": "existential_meaning",
+    "constructName": "Existential Meaning (Varoluşsal Anlam)",
+    "facetId": "search_for_meaning",
+    "facetName": "Search for Meaning (Anlam Arayışı)",
+    "definition": "Yaşamının amacını, yerini ve derin anlamını aktif olarak keşfetme ve sorgulama yönelimi.",
+    "observableIndicators": [
+      "Hayatın derin amacını ve kendi varoluş gayesini sorgulamaya devam eder.",
+      "Yaşamına anlam katacak yeni felsefi veya manevi derinlikler arar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_mlq",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 5,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_maslow", "lens_jung"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "attachment_system",
+    "constructName": "Adult Attachment Dimensions (Yetişkin Bağlanma Eksenleri)",
+    "facetId": "attachment_anxiety",
+    "facetName": "Attachment Anxiety (Bağlanma Kaygısı)",
+    "definition": "Yakın ilişkilerde sevilmeme, terk edilme ve partnerinin ilgisini kaybetme endişesi.",
+    "observableIndicators": [
+      "Partnerinin ona olan sevgisini ve ilgisini sürekli teyit etme ihtiyacı duyar.",
+      "Ufak bir soğuklukta partnerinin onu terk edeceğinden kaygılanır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_fraley_2000_ecrr"],
+    "primaryInstrumentId": "inst_ecr_r",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 18
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_rogers"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "attachment_system",
+    "constructName": "Adult Attachment Dimensions (Yetişkin Bağlanma Eksenleri)",
+    "facetId": "attachment_avoidance",
+    "facetName": "Attachment Avoidance (Bağlanma Kaçınması)",
+    "definition": "Duygusal yakınlıktan, kırılganlıktan ve başkalarına bağımlı olmaktan rahatsızlık duyup mesafe koyma eğilimi.",
+    "observableIndicators": [
+      "Duygusal olarak birine aşırı bağlanmaktan ve savunmasız kalmaktan kaçınır.",
+      "İlişkilerde bağımsızlığını korumak için duygusal mesafe koymayı tercih eder."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_fraley_2000_ecrr"],
+    "primaryInstrumentId": "inst_ecr_r",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 18
+    },
+    "applicableTheoryLenses": ["lens_freud", "lens_rogers"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "multidimensional_empathy",
+    "constructName": "Multidimensional Empathy (Çok Boyutlu Empati)",
+    "facetId": "cognitive_perspective_taking",
+    "facetName": "Perspective Taking (Bilişsel Perspektif Alma)",
+    "definition": "Olayları ve anlaşmazlıkları diğer insanın bakış açısından görebilme ve zihinselleştirme kapasitesi.",
+    "observableIndicators": [
+      "Bir tartışmada hemen tepki vermek yerine karşıdakinin neden öyle düşündüğünü anlamaya çalışır.",
+      "Kendisiyle zıt fikirdeki insanların gerekçelerini rasyonel biçimde kavrayabilir."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_iri",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "multidimensional_empathy",
+    "constructName": "Multidimensional Empathy (Çok Boyutlu Empati)",
+    "facetId": "empathic_concern",
+    "facetName": "Empathic Concern (Empatik Şefkat ve İlgi)",
+    "definition": "Zor durumda olan veya acı çeken bir başkası karşısında içten şefkat ve koruyucu ilgi hissetme.",
+    "observableIndicators": [
+      "Haksızlığa uğrayan bir insan gördüğünde içinde derin bir koruma ve yardım arzusu uyanır.",
+      "Dostlarının acısına kayıtsız kalamaz, şefkatle destek olur."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_iri",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_rogers"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "social_agency_boundaries",
+    "constructName": "Social Agency & Boundaries (Sosyal İrade ve Sınırlar)",
+    "facetId": "assertiveness",
+    "facetName": "Assertiveness (Kendini Ortaya Koyma)",
+    "definition": "Saldırganlaşmadan kendi haklarını, ihtiyaçlarını ve fikirlerini açıkça savunabilme.",
+    "observableIndicators": [
+      "Gerektiğinde fikirlerini çekinmeden ve saygılı bir dille ifade eder.",
+      "Haksızlığa uğradığında sessiz kalmayıp durumu düzeltmek için konuşur."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_dutch",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "social_agency_boundaries",
+    "constructName": "Social Agency & Boundaries (Sosyal İrade ve Sınırlar)",
+    "facetId": "boundary_setting",
+    "facetName": "Boundary Setting (Kişilerarası Sınır Koyma)",
+    "definition": "İstemediği taleplere suçluluk duymadan 'hayır' diyebilme ve kişisel sınırlarını koruma.",
+    "observableIndicators": [
+      "Kapasitesini aşan talepler karşısında suçluluk hissetmeden hayır diyebilir.",
+      "İnsanların kendi iyi niyetini suistimal etmesine izin vermez."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_dutch",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_gestalt"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "social_agency_boundaries",
+    "constructName": "Social Agency & Boundaries (Sosyal İrade ve Sınırlar)",
+    "facetId": "social_approval_dependence",
+    "facetName": "Social Approval Dependence (Sosyal Onay Bağımlılığı)",
+    "definition": "Kendi eylemlerini ve kararlarını sürekli başkalarının takdirine ve onayına bağlama zaafı.",
+    "observableIndicators": [
+      "Başkalarının ne düşündüğü endişesiyle kendi isteklerinden kolayca vazgeçer.",
+      "En ufak bir eleştiri veya onaylanmama karşısında derin sarsıntı yaşar."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_dutch",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": ["lens_rogers", "lens_adler"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "conflict_styles",
+    "constructName": "Conflict Management Styles (Çatışma Yönetim Stilleri)",
+    "facetId": "conflict_collaborating",
+    "facetName": "Collaborating Conflict Style (İşbirlikçi Çözüm)",
+    "definition": "Çatışma anında her iki tarafın da temel ihtiyaçlarını karşılayacak bütünleştirici çözümler arama.",
+    "observableIndicators": [
+      "Anlaşmazlıkta iki tarafın da kazançlı çıkacağı yaratıcı ortak yollar arar.",
+      "Sorunun kök nedenlerini konuşarak kalıcı uzlaşma sağlar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_dutch",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 5,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  },
+  {
+    "domainId": "social_relational",
+    "domainName": "Interpersonal & Social Dynamics",
+    "constructId": "conflict_styles",
+    "constructName": "Conflict Management Styles (Çatışma Yönetim Stilleri)",
+    "facetId": "conflict_avoiding",
+    "facetName": "Avoiding Conflict Style (Çatışmadan Kaçınma)",
+    "definition": "Gerginlik ve tartışma ihtimali belirdiğinde yüzleşmek yerine konuyu kapatma veya uzaklaşma.",
+    "observableIndicators": [
+      "Tartışma çıkacağını hissettiğinde haklı da olsa sessiz kalmayı seçer.",
+      "Anlaşmazlık yaratan kritik meseleleri konuşmaktan kaçınır."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_aera_apa_ncme_2014"],
+    "primaryInstrumentId": "inst_dutch",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 5,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_skinner"]
+  },
+  {
+    "domainId": "response_integrity",
+    "domainName": "Response Integrity & Measurement Quality",
+    "constructId": "attention_effort",
+    "constructName": "Attention & Effort Detection (Dikkatsiz Yanıt İndeksleri)",
+    "facetId": "response_time_analysis",
+    "facetName": "Response Time Anomaly (Hızlı Tıklama Sinyali)",
+    "definition": "Maddeyi okumadan saniyenin altında yanıt verme davranışı.",
+    "observableIndicators": [
+      "Madde başına 1 saniyenin altında tıklama sıklığı.",
+      "Sayfa tamamlama hızında uç sapmalar."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_curran_2016_careless"],
+    "primaryInstrumentId": "inst_bidr_6",
+    "designTargets": {
+      "minimum_items_target": 0,
+      "initial_standard_form_target": 0,
+      "maximum_research_bank_target": 0
+    },
+    "applicableTheoryLenses": []
+  },
+  {
+    "domainId": "response_integrity",
+    "domainName": "Response Integrity & Measurement Quality",
+    "constructId": "attention_effort",
+    "constructName": "Attention & Effort Detection (Dikkatsiz Yanıt İndeksleri)",
+    "facetId": "longstring_index",
+    "facetName": "Longstring Invariance (Tekdüze Yanıt Örüntüsü)",
+    "definition": "Okumadan ardışık olarak aynı yanıt seçeneğine (örn: 10 kez üst üste 4) basma davranışı.",
+    "observableIndicators": [
+      "Ardı ardına aynı kategoriye basılan maksimum blok uzunluğu."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_curran_2016_careless"],
+    "primaryInstrumentId": "inst_bidr_6",
+    "designTargets": {
+      "minimum_items_target": 0,
+      "initial_standard_form_target": 0,
+      "maximum_research_bank_target": 0
+    },
+    "applicableTheoryLenses": []
+  },
+  {
+    "domainId": "response_integrity",
+    "domainName": "Response Integrity & Measurement Quality",
+    "constructId": "response_bias",
+    "constructName": "Response Bias & Self-Presentation (Yanıt Yanlılığı)",
+    "facetId": "impression_management",
+    "facetName": "Impression Management (Bilinçli Sosyal Beğenirlik)",
+    "definition": "Olumlu izlenim bırakmak amacıyla gerçek dışı kusursuzluk iddialarında bulunma eğilimi.",
+    "observableIndicators": [
+      "'Hayatımda hiç kimse hakkında dedikodu yapmadım' gibi insan doğasına aykırı mükemmellik iddialarını onaylama."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_curran_2016_careless"],
+    "primaryInstrumentId": "inst_bidr_6",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": []
+  },
+  {
+    "domainId": "response_integrity",
+    "domainName": "Response Integrity & Measurement Quality",
+    "constructId": "profile_coherence",
+    "constructName": "Profile Coherence (Profil Tutarlılığı)",
+    "facetId": "semantic_pair_inconsistency",
+    "facetName": "Semantic Pair Inconsistency (Anlamsal Eş/Zıt Tutarsızlığı)",
+    "definition": "Aynı yapıyı ölçen doğrudan ve ters kodlanmış maddeler arasındaki mutlak uyuşmazlık derecesi.",
+    "observableIndicators": [
+      "Birbirine zıt iki maddeye de aynı anda en yüksek puanı verme."
+    ],
+    "epistemicTier": "A",
+    "isOptionalModule": false,
+    "sourceIds": ["src_curran_2016_careless"],
+    "primaryInstrumentId": "inst_bidr_6",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 12
+    },
+    "applicableTheoryLenses": []
+  },
+  {
+    "domainId": "optional_dark_tetrad",
+    "domainName": "Optional Advanced Module: Subclinical Tendencies",
+    "constructId": "dark_tetrad_traits",
+    "constructName": "Subclinical Relational Strategies (Kişilerarası Stratejiler)",
+    "facetId": "machiavellianism",
+    "facetName": "Strategic Pragmatism (Makyavelist Yönelim)",
+    "definition": "Hedefe ulaşmak için ahlaki kuralları ikincil sayarak stratejik ve çıkarcı ilişkiler kurma eğilimi. Subkliniktir; patoloji veya tanı değildir.",
+    "observableIndicators": [
+      "İlişkileri kişisel hedefler için araçsal olarak değerlendirir.",
+      "Planlarını gizli tutarak diğer insanların zayıflıklarından stratejik avantaj sağlamayı normal görür."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": true,
+    "sourceIds": ["src_paulhus_2021_sd4"],
+    "primaryInstrumentId": "inst_sd4",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  },
+  {
+    "domainId": "optional_dark_tetrad",
+    "domainName": "Optional Advanced Module: Subclinical Tendencies",
+    "constructId": "dark_tetrad_traits",
+    "constructName": "Subclinical Relational Strategies (Kişilerarası Stratejiler)",
+    "facetId": "grandiose_narcissism",
+    "facetName": "Ego Striving & Status Need (Statü ve Hayranlık İhtiyacı)",
+    "definition": "Başkalarının hayranlığını kazanma, üstün olduğunu hissetme ve merkezde olma arzusu. Subkliniktir; patoloji veya tanı değildir.",
+    "observableIndicators": [
+      "Bulunduğu her ortamda dikkat çekmeyi ve özel takdir görmeyi arzular.",
+      "Kendisinin diğer insanlardan daha yetenekli ve ayrıcalıklı olduğuna inanır."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": true,
+    "sourceIds": ["src_paulhus_2021_sd4"],
+    "primaryInstrumentId": "inst_sd4",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_adler", "lens_freud"]
+  },
+  {
+    "domainId": "optional_dark_tetrad",
+    "domainName": "Optional Advanced Module: Subclinical Tendencies",
+    "constructId": "dark_tetrad_traits",
+    "constructName": "Subclinical Relational Strategies (Kişilerarası Stratejiler)",
+    "facetId": "subclinical_psychopathy",
+    "facetName": "Impulsive Tough-Mindedness (Sert Mizaç ve Düşük Empati)",
+    "definition": "Düşük suçluluk hissi, duygusal duyarsızlık ve riskli heyecan arayışı. Subkliniktir; patoloji veya tanı değildir.",
+    "observableIndicators": [
+      "Başkalarının duygusal tepkilerini umursamadan başına buyruk hareket eder.",
+      "Tehlikeli ve kural dışı eylemler karşısında kaygı veya pişmanlık duymaz."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": true,
+    "sourceIds": ["src_paulhus_2021_sd4"],
+    "primaryInstrumentId": "inst_sd4",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_skinner"]
+  },
+  {
+    "domainId": "optional_dark_tetrad",
+    "domainName": "Optional Advanced Module: Subclinical Tendencies",
+    "constructId": "dark_tetrad_traits",
+    "constructName": "Subclinical Relational Strategies (Kişilerarası Stratejiler)",
+    "facetId": "everyday_sadism",
+    "facetName": "Antagonistic Assertion (Sert Rekabetçilik)",
+    "definition": "Zorlu rekabette veya oyunlarda karşı tarafı ezmekten ve mahcup etmekten gizli bir keyif alma. Subkliniktir; patoloji veya tanı değildir.",
+    "observableIndicators": [
+      "Münazaralarda veya oyunlarda rakibini küçük düşürdüğünde haz duyar.",
+      "Kendisinden hoşlanmayan insanları zor duruma düşürmekten gizli memnuniyet duyar."
+    ],
+    "epistemicTier": "B",
+    "isOptionalModule": true,
+    "sourceIds": ["src_paulhus_2021_sd4"],
+    "primaryInstrumentId": "inst_sd4",
+    "designTargets": {
+      "minimum_items_target": 3,
+      "initial_standard_form_target": 6,
+      "maximum_research_bank_target": 10
+    },
+    "applicableTheoryLenses": ["lens_adler"]
+  }
+]

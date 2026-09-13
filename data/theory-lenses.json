@@ -1,0 +1,248 @@
+[
+  {
+    "lensId": "lens_freud",
+    "name": "Sigmund Freud — Classical Psychoanalytic Lens",
+    "historicalPeriod": "Late 19th - Early 20th Century (1890-1939)",
+    "coreConcepts": [
+      "Drive & Conflict (Id vs Superego tension)",
+      "Defense Mechanisms (Sublimation, Repression, Reaction Formation)",
+      "Unconscious motivation and symbolic compromise"
+    ],
+    "supportedInputs": [
+      "expressive_suppression",
+      "cognitive_reappraisal",
+      "distress_tolerance",
+      "general_self_control",
+      "negative_urgency",
+      "guilt_proneness",
+      "shame_proneness",
+      "actual_ought_gap"
+    ],
+    "prohibitedClaims": [
+      "Never generate a 'Freud score' or psychoanalytic probability percentage.",
+      "Never claim unconscious trauma, repressed memories, or childhood etiologies as empirical facts.",
+      "Never make clinical diagnoses of neurosis, hysteria, or borderline pathology."
+    ],
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "interpretationRules": [
+      "Frame all insights with explicit conditional language: 'From a classical psychoanalytic perspective...'",
+      "Treat high suppression coupled with high negative urgency as a potential intra-psychic conflict between impulse and restraint.",
+      "Always provide an alternative, modern cognitive-behavioral counter-explanation."
+    ],
+    "limitations": "Classical psychoanalytic concepts are historically influential but lack modern psychometric falsifiability.",
+    "references": ["Freud, S. (1923). The Ego and the Id.", "Vaillant, G. E. (1992). Ego mechanisms of defense."]
+  },
+  {
+    "lensId": "lens_jung",
+    "name": "Carl Gustav Jung — Analytical Psychology Lens",
+    "historicalPeriod": "Early - Mid 20th Century (1913-1961)",
+    "coreConcepts": [
+      "Attitudinal Orientations (Extraversion vs Introversion as energy direction)",
+      "Psychological Functions (Thinking, Feeling, Sensation, Intuition)",
+      "Individuation and Shadow integration"
+    ],
+    "supportedInputs": [
+      "extraversion",
+      "openness",
+      "rational_analytical_style",
+      "intuitive_experiential_style",
+      "inquisitiveness",
+      "creativity"
+    ],
+    "prohibitedClaims": [
+      "Never convert scores into rigid, categorical MBTI 4-letter types.",
+      "Never state archetypes or collective unconscious as empirical scientific facts.",
+      "Never claim compatibility scores between individuals based on types."
+    ],
+    "epistemicStatus": "HISTORICAL_FRAMEWORK",
+    "interpretationRules": [
+      "Interpret extraversion/introversion as continuous energetic orientations rather than fixed boxes.",
+      "Frame the relationship between rational and intuitive styles as complementary faculties working toward individuation.",
+      "Clarify that modern trait psychology replaces Jungian typologies with dimensional models."
+    ],
+    "limitations": "Jungian typologies inspired modern trait research but bimodal type splits fail empirical factor analysis.",
+    "references": ["Jung, C. G. (1921). Psychological Types.", "McCrae, R. R., & Costa, P. T. (1989). Reinterpreting the MBTI from the perspective of the Five-Factor Model."]
+  },
+  {
+    "lensId": "lens_adler",
+    "name": "Alfred Adler — Individual Psychology Lens",
+    "historicalPeriod": "Early 20th Century (1911-1937)",
+    "coreConcepts": [
+      "Social Interest (Gemeinschaftsgefühl)",
+      "Striving for Superiority / Mastery as compensation for felt inferiority",
+      "Teleological (goal-directed) lifestyle and life tasks"
+    ],
+    "supportedInputs": [
+      "honesty_humility",
+      "generalized_self_efficacy",
+      "social_self_esteem",
+      "achievement_motivation",
+      "power_motivation",
+      "empathic_concern",
+      "conflict_collaborating"
+    ],
+    "prohibitedClaims": [
+      "Never diagnose an 'inferiority complex' as a psychiatric condition.",
+      "Never assume childhood birth order determinism without data."
+    ],
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "interpretationRules": [
+      "Examine high achievement or power motivation alongside social interest (empathy/cooperation).",
+      "Interpret perfectionism and diligence as striving for significance and mastery within social life tasks.",
+      "Highlight how individual goals align with or diverge from constructive community feeling."
+    ],
+    "limitations": "Teleological and lifestyle concepts are rich clinically but challenging to isolate psychometrically.",
+    "references": ["Adler, A. (1927). Understanding Human Nature.", "Ansbacher, H. L., & Ansbacher, R. R. (1956). The Individual Psychology of Alfred Adler."]
+  },
+  {
+    "lensId": "lens_rogers",
+    "name": "Carl Rogers — Person-Centered / Humanistic Lens",
+    "historicalPeriod": "Mid 20th Century (1940-1987)",
+    "coreConcepts": [
+      "Self-Congruence (Actual Self vs Ideal Self alignment)",
+      "Conditions of Worth (Contingent Self-Worth)",
+      "Fully Functioning Person (Openness to experience, organismic trusting, authenticity)"
+    ],
+    "supportedInputs": [
+      "core_self_esteem",
+      "authenticity",
+      "contingent_self_worth",
+      "actual_ideal_gap",
+      "actual_ought_gap",
+      "self_compassion",
+      "openness"
+    ],
+    "prohibitedClaims": [
+      "Never label a user as 'incongruent' in a pejorative or diagnostic manner.",
+      "Never guarantee therapeutic transformation through self-assessment alone."
+    ],
+    "epistemicStatus": "EVIDENCE_SUPPORTED_INTERPRETATION",
+    "interpretationRules": [
+      "Ground insights in the mathematically derived Actual-Ideal and Actual-Ought discrepancy scores.",
+      "Interpret contingent self-worth as internalized conditions of worth that restrict unconditional positive self-regard.",
+      "Frame gaps between actual and ideal self as opportunities for organismic growth, not personal deficits."
+    ],
+    "limitations": "While Rogerian self-discrepancy is supported by Higgins' empirical research, organismic valuing remains partly philosophical.",
+    "references": ["Rogers, C. R. (1961). On Becoming a Person.", "Higgins, E. T. (1987). Self-discrepancy: A theory relating vulnerability and affect."]
+  },
+  {
+    "lensId": "lens_maslow",
+    "name": "Abraham Maslow — Holistic Dynamic / Needs Lens",
+    "historicalPeriod": "Mid 20th Century (1943-1970)",
+    "coreConcepts": [
+      "Dynamic Hierarchy of Needs (Deficiency vs Growth motivation)",
+      "Self-Actualization as intrinsic developmental potential",
+      "Peak experiences and transcendent values"
+    ],
+    "supportedInputs": [
+      "autonomy_need",
+      "competence_need",
+      "relatedness_need",
+      "values_self_transcendence",
+      "values_conservation",
+      "presence_of_meaning"
+    ],
+    "prohibitedClaims": [
+      "Never present the strict step-by-step pyramid hierarchy as an invariant empirical law.",
+      "Never claim a user is 'at Level 4' or 'not ready for Level 5'."
+    ],
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "interpretationRules": [
+      "Acknowledge that empirical literature (e.g. Wahba & Bridwell, 1976) does not support a rigid step pyramid.",
+      "Interpret needs as simultaneous, overlapping motivational pressures.",
+      "Examine balance between security/conservation values (deficiency orientation) and growth/meaning values (actualization orientation)."
+    ],
+    "limitations": "The rigid pyramid model lacks empirical cross-cultural replication; Self-Determination Theory (SDT) provides the modern empirical replacement.",
+    "references": ["Maslow, A. H. (1943). A theory of human motivation.", "Wahba, M. A., & Bridwell, L. G. (1976). Maslow reconsidered: A review of research on the need hierarchy theory."]
+  },
+  {
+    "lensId": "lens_skinner",
+    "name": "B.F. Skinner — Radical Behaviorist / Learning Lens",
+    "historicalPeriod": "Mid - Late 20th Century (1938-1990)",
+    "coreConcepts": [
+      "Contingencies of Reinforcement (Antecedent -> Behavior -> Consequence)",
+      "Schedule of Reinforcement and Habit Strength",
+      "Stimulus Control and Contextual Environmental Drivers"
+    ],
+    "supportedInputs": [
+      "general_self_control",
+      "negative_urgency",
+      "delay_discounting",
+      "decision_avoidance_procrastination",
+      "behavioral_activation",
+      "behavioral_inhibition"
+    ],
+    "prohibitedClaims": [
+      "Never reduce human agency to pure mechanical determinism without user consent.",
+      "Never assume specific operant histories without direct situational observation."
+    ],
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "interpretationRules": [
+      "Interpret self-regulation difficulties (e.g. procrastination, urgency) in terms of immediate vs delayed reinforcement contingencies.",
+      "Emphasize environmental context cues and habit loops over internal 'willpower' deficits.",
+      "Focus actionable growth feedback on modifying antecedents and designing immediate feedback loops."
+    ],
+    "limitations": "Radical behaviorism intentionally excludes internal cognitive appraisals and phenomenological meaning.",
+    "references": ["Skinner, B. F. (1953). Science and Human Behavior.", "Epstein, R. (1997). Skinner, creativity, and the problem of spontaneous behavior."]
+  },
+  {
+    "lensId": "lens_james",
+    "name": "William James — Functionalist & Pragmatic Lens",
+    "historicalPeriod": "Late 19th Century (1890-1910)",
+    "coreConcepts": [
+      "Functional Utility (The adaptive purpose of conscious states and behaviors)",
+      "Stream of Consciousness and Selective Attention",
+      "Bodily Feedback in Emotion (James-Lange insight)",
+      "The Multi-Layered Self (Material, Social, Spiritual Me)"
+    ],
+    "supportedInputs": [
+      "need_for_cognition",
+      "cognitive_flexibility",
+      "emotional_reactivity",
+      "emotional_recovery",
+      "distress_tolerance",
+      "authenticity",
+      "social_self_esteem"
+    ],
+    "prohibitedClaims": [
+      "Never treat 19th century physiological hypotheses as modern neuroscience facts."
+    ],
+    "epistemicStatus": "HISTORICAL_FRAMEWORK",
+    "interpretationRules": [
+      "Ask functional questions: 'What adaptive purpose does this trait or behavioral habit serve in the individual's ecology?'",
+      "Interpret avoidance or high emotionality not as pathology, but as functional self-protection mechanisms.",
+      "Examine how the person manages their 'social selves' across different life spheres."
+    ],
+    "limitations": "Functionalism is a philosophical orientation and meta-theory rather than a formal psychometric measurement model.",
+    "references": ["James, W. (1890). The Principles of Psychology.", "Dewey, J. (1896). The reflex arc concept in psychology."]
+  },
+  {
+    "lensId": "lens_gestalt",
+    "name": "Gestalt Psychology — Holistic Field Lens",
+    "historicalPeriod": "Early - Mid 20th Century (1912-1950s)",
+    "coreConcepts": [
+      "Figure-Ground Dynamics (What occupies the foreground of psychological awareness)",
+      "The Whole is Other Than the Sum of its Parts (Structural emergence)",
+      "Unfinished Situations / Gestalt Closure and Field Forces (Lewin)"
+    ],
+    "supportedInputs": [
+      "self_concept_clarity",
+      "cognitive_flexibility",
+      "intolerance_of_uncertainty",
+      "rumination_brooding",
+      "boundary_setting"
+    ],
+    "prohibitedClaims": [
+      "Never confuse perceptual laboratory Gestalt laws with clinical psychotherapy interpretations without distinction.",
+      "Never make mystical or unverifiable field energy assertions."
+    ],
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "interpretationRules": [
+      "Examine how individual personality facets synthesize into an emergent, whole profile configuration.",
+      "Interpret rumination and intolerance of uncertainty as a struggle for cognitive and emotional closure (Zeigarnik effect / unfinished business).",
+      "Highlight figure-ground shifts: how urgent acute stressors pull focus from broader existential values."
+    ],
+    "limitations": "Gestalt principles excel at perceptual and systemic framing but do not provide quantitative latent trait calibration.",
+    "references": ["Wertheimer, M. (1923). Laws of organization in perceptual forms.", "Lewin, K. (1935). A dynamic theory of personality."]
+  }
+]
