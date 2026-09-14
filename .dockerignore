@@ -1,9 +1,34 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies and build outputs
 node_modules
 .next
-.git
-.gemini
+coverage
+
+# Non-runtime documentation and scratch workspaces
+docs
+scratch
+tests
+
+# Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Environment files (secrets protected; allow .env.example as documentation)
+.env
+.env*.local
+.env.development
+.env.production
+.env.test
+!.env.example
+
+# System & editor files
 .DS_Store
-*.log
+Thumbs.db
+.gemini
+.idea
+.vscode
