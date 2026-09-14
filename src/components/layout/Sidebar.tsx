@@ -20,6 +20,20 @@ import {
 
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
+  const [showResearchNav, setShowResearchNav] = React.useState<boolean>(
+    process.env.NODE_ENV !== 'production'
+  );
+
+  React.useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      setShowResearchNav(true);
+      return;
+    }
+    const hasAuthCookie = document.cookie
+      .split(';')
+      .some((c) => c.trim().startsWith('psyche_research_auth=1'));
+    setShowResearchNav(hasAuthCookie);
+  }, [pathname]);
 
   const isActive = (path: string) => {
     if (path === '/overview' && (pathname === '/' || pathname === '/overview')) return true;
@@ -104,17 +118,19 @@ export const Sidebar: React.FC = () => {
           </nav>
         </div>
 
-        <div>
-          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            BİLİMSEL ARAŞTIRMA
+        {showResearchNav && (
+          <div>
+            <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
+              BİLİMSEL ARAŞTIRMA
+            </div>
+            <nav className="space-y-1">
+              <Link href="/research/item-bank" className={navItemClass(isActive('/research/item-bank'))}>
+                <Database className="w-4 h-4 mr-3 opacity-80" />
+                Madde Bankası & Matris
+              </Link>
+            </nav>
           </div>
-          <nav className="space-y-1">
-            <Link href="/research/item-bank" className={navItemClass(isActive('/research/item-bank'))}>
-              <Database className="w-4 h-4 mr-3 opacity-80" />
-              Madde Bankası & Matris
-            </Link>
-          </nav>
-        </div>
+        )}
       </div>
 
       {/* Progress Footer Card */}

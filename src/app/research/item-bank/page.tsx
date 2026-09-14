@@ -1,8 +1,13 @@
 import React from 'react';
 import fs from 'fs';
 import path from 'path';
+import { headers, cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { ItemBankClientView } from './ItemBankClientView';
 import { lintItemBank, analyzeSemanticClusters } from '@/research/item-quality';
+import { validateResearchAccess } from '@/lib/researchAuth';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Master Madde Bankası ve Araştırma Matrisi — PsycheAI',
@@ -10,6 +15,14 @@ export const metadata = {
 };
 
 export default async function ItemBankPage() {
+  const reqHeaders = headers();
+  const reqCookies = cookies();
+  const access = await validateResearchAccess(reqHeaders, reqCookies);
+
+  if (!access.authorized) {
+    notFound();
+  }
+
   const masterBankPath = path.resolve(process.cwd(), 'data/master-item-bank.json');
   const evidenceMapPath = path.resolve(process.cwd(), 'research/facet-evidence-map.json');
   const constructsPath = path.resolve(process.cwd(), 'data/constructs.json');
