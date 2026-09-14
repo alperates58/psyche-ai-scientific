@@ -12,6 +12,7 @@ RUN npm ci
 # STAGE 2: Builder (builder)
 # ---------------------------------------------------------
 FROM node:20-alpine AS builder
+RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
@@ -33,7 +34,7 @@ ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-RUN apk add --no-cache curl openssl
+RUN apk add --no-cache curl openssl libc6-compat
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
