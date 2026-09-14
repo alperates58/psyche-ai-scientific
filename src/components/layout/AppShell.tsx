@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
+import { SessionProvider } from 'next-auth/react';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
 
@@ -111,16 +112,17 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   }, [isMobileMenuOpen]);
 
   return (
-    <AppShellContext.Provider
-      value={{
-        isMobileMenuOpen,
-        openMobileMenu,
-        closeMobileMenu,
-        toggleMobileMenu,
-        triggerButtonRef,
-      }}
-    >
-      <div className="min-h-screen flex flex-col lg:flex-row bg-bg-app text-text-primary antialiased w-full">
+    <SessionProvider>
+      <AppShellContext.Provider
+        value={{
+          isMobileMenuOpen,
+          openMobileMenu,
+          closeMobileMenu,
+          toggleMobileMenu,
+          triggerButtonRef,
+        }}
+      >
+        <div className="min-h-screen flex flex-col lg:flex-row bg-bg-app text-text-primary antialiased w-full">
         {/* 1. Desktop Persistent Sidebar (>= lg) */}
         <div className="hidden lg:block shrink-0">
           <Sidebar />
@@ -161,5 +163,6 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
         </div>
       </div>
     </AppShellContext.Provider>
+    </SessionProvider>
   );
 };

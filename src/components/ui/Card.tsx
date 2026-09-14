@@ -46,6 +46,8 @@ export const SurfaceCard = React.forwardRef<HTMLDivElement, CardProps>(
 );
 SurfaceCard.displayName = 'SurfaceCard';
 
+export const Card = SurfaceCard;
+
 export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className = '',
   children,

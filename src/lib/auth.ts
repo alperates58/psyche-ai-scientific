@@ -1,46 +1,180 @@
+import { auth } from '@/auth';
 import { prisma } from './prisma';
+import { Role, Permission, getUserPermissions, hasRole, hasPermission } from './rbac';
+import { logAuthAuditEvent } from './auditLog';
 
 export interface AuthUser {
   id: string;
   email: string | null;
   name: string;
+  image: string | null;
+  status: string; // 'ACTIVE', 'PENDING_VERIFICATION', 'SUSPENDED', 'DISABLED'
   isDemoUser: boolean;
+  roles: Role[];
+  permissions: Permission[];
 }
 
 /**
- * Server-side user identity abstraction.
- * Resolves the primary test user (Alex Mercer) or creates if missing.
- * Prevents client-side identity spoofing.
+ * Resolves the currently authenticated user from Auth.js session and verifies
+ * it against the authoritative server-side session revocation registry (auth_sessions).
+ * Returns null if unauthenticated, session revoked, expired, or account suspended/disabled.
  */
-export async function getCurrentUser(): Promise<AuthUser> {
-  const user = await prisma.user.findFirst({
-    where: { isDemoUser: true },
-    orderBy: { createdAt: 'asc' }
-  });
+export async function getCurrentUserOrNull(): Promise<AuthUser | null> {
+  const session = await auth();
 
-  if (user) {
-    return {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      isDemoUser: user.isDemoUser
-    };
+  // 1. Session presence check
+  if (!session?.user?.id) {
+    // In test environment, if explicit mock user is set or demo is explicitly enabled
+    if (process.env.NODE_ENV === 'test' && process.env.TEST_AUTH_USER_ID) {
+      const mock = await prisma.user.findUnique({
+        where: { id: process.env.TEST_AUTH_USER_ID },
+        include: { roles: true },
+      });
+      if (mock) {
+        const roles = mock.roles.map((r) => r.role as Role);
+        return {
+          id: mock.id,
+          email: mock.email,
+          name: mock.name,
+          image: mock.image,
+          status: mock.status,
+          isDemoUser: mock.isDemoUser,
+          roles,
+          permissions: getUserPermissions(roles),
+        };
+      }
+    }
+    return null;
   }
 
-  // Fallback if database was cleared without seeding
-  const created = await prisma.user.create({
-    data: {
-      id: 'usr_alex_mercer_demo',
-      email: 'alex.mercer@psycheai.internal',
-      name: 'Alex Mercer',
-      isDemoUser: true
+  const userId = session.user.id;
+  const sid = (session as any).sid;
+
+  // 2. Authoritative server-side session registry & revocation check
+  if (sid) {
+    const activeRegistrySession = await prisma.session.findUnique({
+      where: { sessionToken: sid },
+      select: { revokedAt: true, expires: true },
+    });
+
+    if (!activeRegistrySession) {
+      return null;
     }
+
+    if (activeRegistrySession.revokedAt || activeRegistrySession.expires < new Date()) {
+      return null;
+    }
+  }
+
+  // 3. User status and role verification
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { roles: true },
   });
 
+  if (!user) {
+    return null;
+  }
+
+  // Suspended or disabled accounts are immediately blocked on all server-side operations
+  if (user.status === 'SUSPENDED' || user.status === 'DISABLED') {
+    return null;
+  }
+
+  const roles = user.roles.map((r) => r.role as Role);
+  if (roles.length === 0) {
+    roles.push('USER');
+  }
+
   return {
-    id: created.id,
-    email: created.email,
-    name: created.name,
-    isDemoUser: created.isDemoUser
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    image: user.image,
+    status: user.status,
+    isDemoUser: user.isDemoUser,
+    roles,
+    permissions: getUserPermissions(roles),
   };
+}
+
+/**
+ * Requires an authenticated, active user.
+ * Throws UNAUTHENTICATED if session is missing or revoked.
+ * Throws EMAIL_NOT_VERIFIED if account is PENDING_VERIFICATION.
+ */
+export async function requireUser(): Promise<AuthUser> {
+  const user = await getCurrentUserOrNull();
+
+  if (!user) {
+    throw new Error('UNAUTHENTICATED: Giriş yapmanız gerekmektedir.');
+  }
+
+  if (user.status === 'PENDING_VERIFICATION') {
+    throw new Error('EMAIL_NOT_VERIFIED: Lütfen e-posta adresinizi doğrulayın.');
+  }
+
+  return user;
+}
+
+/**
+ * Alias for requireUser to support existing services.
+ */
+export async function getCurrentUser(): Promise<AuthUser> {
+  return requireUser();
+}
+
+/**
+ * Requires the user to have a specific role.
+ */
+export async function requireRole(role: Role): Promise<AuthUser> {
+  const user = await requireUser();
+  if (!hasRole(user.roles, role)) {
+    throw new Error(`FORBIDDEN: Bu işlem için '${role}' rolü gereklidir.`);
+  }
+  return user;
+}
+
+/**
+ * Requires the user to have at least one of the specified roles.
+ */
+export async function requireAnyRole(roles: Role[]): Promise<AuthUser> {
+  const user = await requireUser();
+  const hasAny = roles.some((r) => hasRole(user.roles, r));
+  if (!hasAny) {
+    throw new Error(`FORBIDDEN: Bu işlem için yetkiniz bulunmamaktadır.`);
+  }
+  return user;
+}
+
+/**
+ * Requires the user to have a specific permission.
+ */
+export async function requirePermission(permission: Permission): Promise<AuthUser> {
+  const user = await requireUser();
+  if (!hasPermission(user.roles, permission)) {
+    throw new Error(`FORBIDDEN: Bu işlem için '${permission}' yetkisi gereklidir.`);
+  }
+  return user;
+}
+
+/**
+ * Revokes all active database registry sessions for a user (Global Sign-out).
+ */
+export async function revokeAllSessions(userId: string): Promise<void> {
+  await prisma.session.updateMany({
+    where: {
+      userId,
+      revokedAt: null,
+    },
+    data: {
+      revokedAt: new Date(),
+    },
+  });
+
+  await logAuthAuditEvent({
+    eventType: 'ALL_SESSIONS_REVOKED',
+    userId,
+    success: true,
+  });
 }

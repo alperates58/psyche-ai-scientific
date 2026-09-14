@@ -14,7 +14,8 @@ import { DEMO_PROFILE_DATA, DemoCoreTrait } from '@/data/demo-profile';
 import { HexacoRadarChart } from '@/components/charts/HexacoRadarChart';
 import { EpistemicBadge } from '@/components/shared/EpistemicBadge';
 import { prisma } from '@/lib/prisma';
-import { getCurrentUser } from '@/lib/auth';
+import { getCurrentUserOrNull } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 import { getLatestProfileSnapshotForUser } from '@/services/profileService';
 
 import { calculateProfileCoverage } from '@/psychometrics/coverage';
@@ -23,7 +24,14 @@ import { PageContainer } from '@/components/ui/PageContainer';
 export const dynamic = 'force-dynamic';
 
 export default async function OverviewPage() {
-  const user = await getCurrentUser();
+  const user = await getCurrentUserOrNull();
+  if (!user) {
+    redirect('/login?callbackUrl=/overview');
+  }
+  if (user.status === 'PENDING_VERIFICATION') {
+    redirect('/verify-email');
+  }
+
   const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
 
   const isLiveProfile = !!latestSnapshot;

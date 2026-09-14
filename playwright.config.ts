@@ -20,9 +20,10 @@ export default defineConfig({
         command: "npx next start -p 3000",
         env: {
           DATABASE_URL: 'postgresql://mock:mock@localhost:5432/mock',
+          AUTH_SECRET: 'psyche-e2e-auth-test-secret-minimum-32-chars-long-abcdef',
         },
         port: 3000,
-        reuseExistingServer: true,
+        reuseExistingServer: false,
         timeout: 120000,
       },
   projects: [

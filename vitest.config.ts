@@ -7,10 +7,16 @@ export default defineConfig({
     environment: 'node',
     testTimeout: 20000,
     exclude: [...configDefaults.exclude, 'tests/e2e/**'],
+    server: {
+      deps: {
+        inline: ['next-auth'],
+      },
+    },
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      'next/server': path.resolve(__dirname, './node_modules/next/server.js'),
     },
   },
 });

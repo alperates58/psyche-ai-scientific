@@ -13,17 +13,168 @@ generator client {
 // ---------------------------------------------------------
 
 model User {
-  id          String              @id @default(cuid())
-  email       String?             @unique
-  name        String
-  isDemoUser  Boolean             @default(false)
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
+  id              String                   @id @default(cuid())
+  email           String?                  @unique
+  emailNormalized String?                  @unique
+  name            String
+  image           String?
+  emailVerified   DateTime?
+  status          String                   @default("ACTIVE") // ACTIVE, PENDING_VERIFICATION, SUSPENDED, DISABLED
+  isDemoUser      Boolean                  @default(false)
+  lastLoginAt     DateTime?
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
 
-  sessions    AssessmentSession[]
-  snapshots   ProfileSnapshot[]
+  credential      UserCredential?
+  roles           UserRole[]
+  authAccounts    Account[]
+  authSessions    Session[]
+  consents        UserConsent[]
+  emailTokens     EmailVerificationToken[]
+  resetTokens     PasswordResetToken[]
+  auditEvents     AuthAuditEvent[]
+
+  // Preserved existing scientific relations
+  sessions        AssessmentSession[]
+  snapshots       ProfileSnapshot[]
 
   @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String    @id @default(cuid())
+  sessionToken String    @unique
+  userId       String
+  expires      DateTime
+  revokedAt    DateTime?
+  ipHash       String?
+  userAgent    String?   @db.Text
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("auth_sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model UserCredential {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  passwordHash      String   @db.Text
+  passwordUpdatedAt DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_credentials")
+}
+
+model UserRole {
+  id        String   @id @default(cuid())
+  userId    String
+  role      String   // USER, EXPERT_REVIEWER, RESEARCHER, ADMIN, SUPER_ADMIN
+  grantedAt DateTime @default(now())
+  grantedBy String?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, role])
+  @@map("user_roles")
+}
+
+model EmailVerificationToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verification_tokens")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
+}
+
+model AuthAuditEvent {
+  id          String   @id @default(cuid())
+  eventType   String
+  userId      String?
+  actorUserId String?
+  success     Boolean
+  ipHash      String?
+  userAgent   String?  @db.Text
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("auth_audit_events")
+}
+
+model UserConsent {
+  id              String    @id @default(cuid())
+  userId          String
+  consentType     String
+  documentVersion String
+  acceptedAt      DateTime  @default(now())
+  withdrawnAt     DateTime?
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_consents")
+}
+
+model RateLimitRecord {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  count     Int      @default(1)
+  expiresAt DateTime
+  updatedAt DateTime @updatedAt
+
+  @@map("rate_limit_records")
 }
 
 // ---------------------------------------------------------

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 import {
   Compass,
   FileCheck2,
@@ -13,6 +14,7 @@ import {
   Layers,
   GitFork,
   Database,
+  LogOut,
   X
 } from 'lucide-react';
 
@@ -23,6 +25,7 @@ export interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) => {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [showResearchNav, setShowResearchNav] = React.useState<boolean>(
     process.env.NODE_ENV !== 'production'
   );
@@ -158,7 +161,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
       </div>
 
       {/* Progress Footer Card */}
-      <div className="p-4 border-t border-border-subtle bg-surface-2/60 shrink-0">
+      <div className="p-4 border-t border-border-subtle bg-surface-2/60 shrink-0 space-y-3">
         <div className="bg-surface-1 p-3.5 rounded-xl border border-border-subtle shadow-xs">
           <div className="flex items-center justify-between text-xs font-semibold text-text-primary mb-1.5">
             <span>Keşif Kapsamı</span>
@@ -174,6 +177,28 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
             </span>
           </div>
         </div>
+
+        {isMobile && session?.user && (
+          <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
+            <div className="min-w-0 pr-2">
+              <div className="text-xs font-semibold text-text-primary truncate">
+                {session.user.name || 'Kullanıcı'}
+              </div>
+              <div className="text-[10px] text-text-tertiary truncate">
+                {session.user.email}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => signOut({ callbackUrl: '/login' })}
+              className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center p-2 rounded-xl text-text-tertiary hover:text-status-danger hover:bg-status-danger/10 transition-colors"
+              title="Çıkış Yap"
+              aria-label="Çıkış Yap"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
     </aside>
   );
