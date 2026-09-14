@@ -612,7 +612,7 @@ async function main() {
       update: {
         promptTr: itemDef.promptTr,
         promptEn: itemDef.promptEn,
-        validationStatus: 'RESEARCH_DRAFT',
+        validationStatus: 'PRE_CALIBRATION',
         licenseStatus: 'approved'
       },
       create: {
@@ -620,7 +620,7 @@ async function main() {
         versionNumber: 1,
         promptTr: itemDef.promptTr,
         promptEn: itemDef.promptEn,
-        validationStatus: 'RESEARCH_DRAFT',
+        validationStatus: 'PRE_CALIBRATION',
         licenseStatus: 'approved'
       }
     });
