@@ -13,9 +13,9 @@ import { recordResponse } from '@/services/responseService';
 import { finalizeAssessmentAndCreateSnapshot, auditSnapshotProvenance } from '@/services/profileService';
 import { evaluateSessionIntegrity } from '@/services/integrityService';
 
-const hasDb = Boolean(process.env.DATABASE_URL || process.env.TEST_DATABASE_URL);
-if (!hasDb) {
-  console.warn('SKIPPED: TEST_DATABASE_URL_NOT_CONFIGURED - Database integration tests skipped because DATABASE_URL is unset');
+const hasTestDb = Boolean(process.env.TEST_DATABASE_URL);
+if (!hasTestDb) {
+  console.warn('SKIPPED: TEST_DATABASE_URL_NOT_CONFIGURED - Database integration tests skipped because TEST_DATABASE_URL is unset');
 }
 
 describe('FAZ 1.1 Scientific Psychometrics (Pure Unit)', () => {
@@ -68,7 +68,7 @@ describe('FAZ 1.1 Scientific Psychometrics (Pure Unit)', () => {
   });
 });
 
-describe.skipIf(!hasDb)('FAZ 1.1 Database & Snapshot Integrity', () => {
+describe.skipIf(!hasTestDb)('FAZ 1.1 Database & Snapshot Integrity', () => {
   let auditUser: any;
   let session: any;
   let snapshotId: string;

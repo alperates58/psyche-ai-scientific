@@ -92,6 +92,21 @@ describe('FAZ 2 & 2.1: Forensic Scientific Master Item Bank Integrity & Epistemi
   });
 
   it('7. no candidate item is automatically published into live assessment form v1.0.0', async () => {
+    if (!process.env.TEST_DATABASE_URL) {
+      // Offline / No-DB mode: verify source-of-truth seed definition directly
+      const seedPath = path.resolve(__dirname, '../prisma/seed.ts');
+      const seedContent = fs.readFileSync(seedPath, 'utf8');
+      expect(seedContent).toContain("versionCode: 'v1.0.0'");
+      const seedItemCodes = (seedContent.match(/itemCode:\s*'itm_[^']+'/g) || [])
+        .map(m => m.replace(/itemCode:\s*'/, '').replace(/'/, ''));
+      const uniqueCodes = new Set(seedItemCodes);
+      expect(uniqueCodes.size).toBe(17);
+      for (const code of uniqueCodes) {
+        expect(items.some((it: any) => it.id === code)).toBe(false);
+      }
+      return;
+    }
+
     try {
       const publishedForms = await prisma.assessmentFormVersion.findMany({
         where: { isPublished: true },
@@ -121,7 +136,7 @@ describe('FAZ 2 & 2.1: Forensic Scientific Master Item Bank Integrity & Epistemi
         e?.message?.includes("Environment variable not found") ||
         e?.name === 'PrismaClientInitializationError'
       ) {
-        // Offline / No-DB mode: verify source-of-truth seed definition directly
+        // Fallback: verify source-of-truth seed definition directly
         const seedPath = path.resolve(__dirname, '../prisma/seed.ts');
         const seedContent = fs.readFileSync(seedPath, 'utf8');
         expect(seedContent).toContain("versionCode: 'v1.0.0'");

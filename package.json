@@ -9,6 +9,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test",
     "audit:report": "tsx scripts/generate-scientific-audit-report.ts",
     "audit:schema": "tsx scripts/audit-schema.ts",
     "prisma:generate": "prisma generate",
