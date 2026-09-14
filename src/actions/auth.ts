@@ -1,14 +1,23 @@
 'use server';
 
 import { z } from 'zod';
+import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { signIn, signOut } from '@/auth';
 import { hashPassword, validatePasswordPolicy } from '@/lib/password';
 import { generateRawToken, hashToken, TOKEN_EXPIRY_MS, isTokenExpired } from '@/lib/tokens';
 import { sendVerificationEmail, sendPasswordResetEmail, isSmtpConfigured } from '@/lib/emailService';
-import { checkRateLimit } from '@/lib/rateLimiter';
+import { checkRateLimit, extractClientIp } from '@/lib/rateLimiter';
 import { logAuthAuditEvent } from '@/lib/auditLog';
 import { revokeAllSessions } from '@/lib/auth';
+
+function getRequestClientIp(): string | null {
+  try {
+    return extractClientIp(headers());
+  } catch {
+    return null;
+  }
+}
 
 const RegisterSchema = z.object({
   name: z.string().trim().min(2, 'Ad Soyad en az 2 karakter olmalıdır.').max(100),
@@ -46,9 +55,10 @@ export async function registerAction(formData: unknown) {
   try {
     const validated = RegisterSchema.parse(formData);
     const emailNormalized = validated.email.trim().toLowerCase();
+    const clientIp = getRequestClientIp();
 
-    // 1. Concurrency-safe rate limit check (3 registrations / hour per IP/email)
-    const rate = await checkRateLimit('register', emailNormalized, null, 5, 3600);
+    // 1. Concurrency-safe rate limit check (independent account & IP dimensions)
+    const rate = await checkRateLimit('register', emailNormalized, clientIp, 5, 3600);
     if (!rate.allowed) {
       return { success: false, error: 'Çok fazla kayıt denemesi yapıldı. Lütfen daha sonra tekrar deneyin.' };
     }
@@ -81,6 +91,7 @@ export async function registerAction(formData: unknown) {
       await logAuthAuditEvent({
         eventType: 'REGISTER_ATTEMPT',
         success: false,
+        ip: clientIp,
         metadata: { reason: 'DUPLICATE_EMAIL', email: emailNormalized },
       });
       // Anti-enumeration or clear guidance
@@ -138,6 +149,7 @@ export async function registerAction(formData: unknown) {
       eventType: 'REGISTER_SUCCESS',
       userId: newUser.id,
       success: true,
+      ip: clientIp,
       metadata: { status: 'PENDING_VERIFICATION' },
     });
 
@@ -204,8 +216,9 @@ export async function requestPasswordResetAction(formData: unknown) {
   try {
     const validated = ForgotPasswordSchema.parse(formData);
     const emailNormalized = validated.email.trim().toLowerCase();
+    const clientIp = getRequestClientIp();
 
-    const rate = await checkRateLimit('forgot_password', emailNormalized, null, 3, 3600);
+    const rate = await checkRateLimit('forgot_password', emailNormalized, clientIp, 3, 3600);
     if (!rate.allowed) {
       return { success: false, error: 'Çok fazla istek gönderildi. Lütfen bir süre sonra tekrar deneyin.' };
     }
@@ -249,6 +262,7 @@ export async function requestPasswordResetAction(formData: unknown) {
         eventType: 'PASSWORD_RESET_REQUEST',
         userId: user.id,
         success: true,
+        ip: clientIp,
       });
     }
 
@@ -284,12 +298,20 @@ export async function resetPasswordAction(formData: unknown) {
 
     const newPasswordHash = await hashPassword(validated.password);
 
-    // Atomic transaction: mark token used, update password, revoke all sessions
-    await prisma.$transaction(async (tx) => {
-      await tx.passwordResetToken.update({
-        where: { id: tokenRecord.id },
+    // Atomic transaction: conditionally consume token, update password, and revoke all sessions
+    const txResult = await prisma.$transaction(async (tx) => {
+      const updateResult = await tx.passwordResetToken.updateMany({
+        where: {
+          id: tokenRecord.id,
+          usedAt: null,
+          expiresAt: { gt: new Date() },
+        },
         data: { usedAt: new Date() },
       });
+
+      if (updateResult.count === 0) {
+        throw new Error('TOKEN_ALREADY_USED_OR_EXPIRED');
+      }
 
       await tx.userCredential.update({
         where: { userId: tokenRecord.userId },
@@ -298,13 +320,33 @@ export async function resetPasswordAction(formData: unknown) {
           passwordUpdatedAt: new Date(),
         },
       });
-    });
 
-    // Revoke all existing sessions across all devices
-    await revokeAllSessions(tokenRecord.userId);
+      // All-device session revocation inside the exact same database transaction
+      await tx.session.updateMany({
+        where: {
+          userId: tokenRecord.userId,
+          revokedAt: null,
+        },
+        data: {
+          revokedAt: new Date(),
+        },
+      });
+
+      return true;
+    }).catch(() => false);
+
+    if (!txResult) {
+      return { success: false, error: 'Şifre sıfırlama bağlantısı geçersiz veya süresi dolmuş.' };
+    }
 
     await logAuthAuditEvent({
       eventType: 'PASSWORD_RESET_SUCCESS',
+      userId: tokenRecord.userId,
+      success: true,
+    });
+
+    await logAuthAuditEvent({
+      eventType: 'ALL_SESSIONS_REVOKED',
       userId: tokenRecord.userId,
       success: true,
     });
@@ -340,12 +382,20 @@ export async function verifyEmailAction(rawToken: string) {
       return { success: false, error: 'Doğrulama bağlantısı geçersiz veya süresi dolmuş.' };
     }
 
-    // Atomic confirmation
-    await prisma.$transaction(async (tx) => {
-      await tx.emailVerificationToken.update({
-        where: { id: tokenRecord.id },
+    // Atomic confirmation: conditionally consume token and activate user
+    const txResult = await prisma.$transaction(async (tx) => {
+      const updateResult = await tx.emailVerificationToken.updateMany({
+        where: {
+          id: tokenRecord.id,
+          usedAt: null,
+          expiresAt: { gt: new Date() },
+        },
         data: { usedAt: new Date() },
       });
+
+      if (updateResult.count === 0) {
+        throw new Error('TOKEN_ALREADY_USED_OR_EXPIRED');
+      }
 
       await tx.user.update({
         where: { id: tokenRecord.userId },
@@ -354,7 +404,13 @@ export async function verifyEmailAction(rawToken: string) {
           status: 'ACTIVE',
         },
       });
-    });
+
+      return true;
+    }).catch(() => false);
+
+    if (!txResult) {
+      return { success: false, error: 'Doğrulama bağlantısı geçersiz veya süresi dolmuş.' };
+    }
 
     await logAuthAuditEvent({
       eventType: 'EMAIL_VERIFICATION_SUCCESS',
@@ -382,9 +438,10 @@ export async function resendVerificationAction(rawEmail: string) {
   }
 
   const emailNormalized = rawEmail.trim().toLowerCase();
+  const clientIp = getRequestClientIp();
 
   try {
-    const rate = await checkRateLimit('resend_verification', emailNormalized, null, 3, 3600);
+    const rate = await checkRateLimit('resend_verification', emailNormalized, clientIp, 3, 3600);
     if (!rate.allowed) {
       return { success: false, error: 'Çok fazla istek gönderildi. Lütfen bir süre sonra tekrar deneyin.' };
     }

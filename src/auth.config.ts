@@ -38,16 +38,6 @@ export const authConfig = {
         return false; // Redirects to signIn page
       }
 
-      const isAuthPage =
-        pathname === '/login' ||
-        pathname === '/register' ||
-        pathname === '/forgot-password' ||
-        pathname === '/reset-password';
-
-      if (isAuthPage && isLoggedIn) {
-        return Response.redirect(new URL('/overview', nextUrl));
-      }
-
       return true;
     },
   },

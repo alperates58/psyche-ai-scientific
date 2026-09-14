@@ -55,6 +55,7 @@ export default auth(async function middleware(request) {
   }
 
   const isLoggedIn = !!(request as any).auth?.user;
+  const userStatus = (request as any).auth?.user?.status;
 
   // 2. Protected App routes
   const isProtectedAppRoute =
@@ -72,6 +73,15 @@ export default auth(async function middleware(request) {
     return NextResponse.redirect(new URL(`/login?callbackUrl=${encodeURIComponent(cleanCallback)}`, request.url));
   }
 
+  // Preliminary UX redirects for unverified or suspended sessions (authoritative check remains server-side)
+  if (isLoggedIn && (userStatus === 'SUSPENDED' || userStatus === 'DISABLED') && pathname !== '/login') {
+    return NextResponse.redirect(new URL('/login?error=AccountDisabled', request.url));
+  }
+
+  if (isLoggedIn && userStatus === 'PENDING_VERIFICATION' && isProtectedAppRoute) {
+    return NextResponse.redirect(new URL('/verify-email', request.url));
+  }
+
   // 3. Guest Auth routes: redirect already authenticated users to /overview
   const isGuestAuthRoute =
     pathname === '/login' ||
@@ -80,6 +90,13 @@ export default auth(async function middleware(request) {
     pathname === '/reset-password';
 
   if (isGuestAuthRoute && isLoggedIn) {
+    if (userStatus === 'SUSPENDED' || userStatus === 'DISABLED') {
+      return NextResponse.next();
+    }
+    // Prevent redirect loop if redirected to login with error or callbackUrl
+    if (request.nextUrl.searchParams.has('callbackUrl') || request.nextUrl.searchParams.has('error')) {
+      return NextResponse.next();
+    }
     return NextResponse.redirect(new URL('/overview', request.url));
   }
 

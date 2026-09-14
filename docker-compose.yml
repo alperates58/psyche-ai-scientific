@@ -46,5 +46,53 @@ services:
       start_period: 25s
     restart: unless-stopped
 
+  test-db:
+    image: postgres:16-alpine
+    container_name: psyche-ai-test-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: psyche_ai_test
+    ports:
+      - "${POSTGRES_TEST_PORT:-5434}:5432"
+    volumes:
+      - psyche_ai_test_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d psyche_ai_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  e2e-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: psyche-ai-e2e-web
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - WATCHPACK_POLLING=true
+      - DATABASE_URL=postgresql://postgres:postgres@test-db:5432/psyche_ai_test?schema=public
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      test-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+    restart: unless-stopped
+
 volumes:
   psyche_ai_postgres_data:
+  psyche_ai_test_postgres_data:

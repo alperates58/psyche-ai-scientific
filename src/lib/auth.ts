@@ -20,18 +20,32 @@ export interface AuthUser {
  * Returns null if unauthenticated, session revoked, expired, or account suspended/disabled.
  */
 export async function getCurrentUserOrNull(): Promise<AuthUser | null> {
-  const session = await auth();
+  let session: any = null;
+  try {
+    session = await auth();
+  } catch {
+    // When invoked outside Next.js request context (e.g. background tasks or unit/integration tests)
+    session = null;
+  }
 
   // 1. Session presence check
   if (!session?.user?.id) {
-    // In test environment, if explicit mock user is set or demo is explicitly enabled
-    if (process.env.NODE_ENV === 'test' && process.env.TEST_AUTH_USER_ID) {
-      const mock = await prisma.user.findUnique({
-        where: { id: process.env.TEST_AUTH_USER_ID },
-        include: { roles: true },
-      });
+    // In test environment without explicit session, resolve test demo user
+    if (process.env.NODE_ENV === 'test') {
+      const targetUserId = process.env.TEST_AUTH_USER_ID;
+      const mock = targetUserId
+        ? await prisma.user.findUnique({
+            where: { id: targetUserId },
+            include: { roles: true },
+          })
+        : await prisma.user.findFirst({
+            where: { isDemoUser: true },
+            include: { roles: true },
+          });
+
       if (mock) {
         const roles = mock.roles.map((r) => r.role as Role);
+        if (roles.length === 0) roles.push('USER');
         return {
           id: mock.id,
           email: mock.email,
@@ -51,19 +65,27 @@ export async function getCurrentUserOrNull(): Promise<AuthUser | null> {
   const sid = (session as any).sid;
 
   // 2. Authoritative server-side session registry & revocation check
-  if (sid) {
-    const activeRegistrySession = await prisma.session.findUnique({
-      where: { sessionToken: sid },
-      select: { revokedAt: true, expires: true },
-    });
+  // MANDATORY: Any authenticated session missing a valid `sid` is invalid.
+  if (!sid || typeof sid !== 'string') {
+    return null;
+  }
 
-    if (!activeRegistrySession) {
-      return null;
-    }
+  const activeRegistrySession = await prisma.session.findUnique({
+    where: { sessionToken: sid },
+    select: { userId: true, revokedAt: true, expires: true },
+  });
 
-    if (activeRegistrySession.revokedAt || activeRegistrySession.expires < new Date()) {
-      return null;
-    }
+  // Session must exist, belong to the authenticated user, not be revoked, and not be expired
+  if (!activeRegistrySession) {
+    return null;
+  }
+
+  if (
+    activeRegistrySession.userId !== userId ||
+    activeRegistrySession.revokedAt !== null ||
+    activeRegistrySession.expires <= new Date()
+  ) {
+    return null;
   }
 
   // 3. User status and role verification

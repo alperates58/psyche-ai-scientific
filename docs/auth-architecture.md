@@ -13,7 +13,7 @@ PsycheAI transitions from a demo-user bootstrap identity model to an enterprise-
   - **Google OAuth 2.0:** Standard OpenID Connect flow with strict account hijacking prevention (`allowDangerousEmailAccountLinking: false`).
 - **Session Architecture:** Encrypted JWT tokens in HTTP-only `Secure` cookies paired with a server-side **revocation and liveness registry** (`auth_sessions`).
 - **Multi-Role RBAC:** Discrete roles (`USER`, `EXPERT_REVIEWER`, `RESEARCHER`, `ADMIN`, `SUPER_ADMIN`) with granular permissions.
-- **Privacy & Anonymization:** Zero raw IP storage (HMAC-SHA256 hashed with rotating salt), sanitization of metadata, and strict email normalization (`example.user+tag@gmail.com` -> `exampleuser@gmail.com`).
+- **Privacy & Anonymization:** Zero raw IP storage (HMAC-SHA256 hashed with rotating salt), sanitization of metadata, and clean email normalization (`trim() + toLowerCase()`). Gmail dots and `+tag` extensions are preserved as distinct addresses and are NOT stripped.
 - **Psychometric Data Isolation:** Strict server-side ownership enforcement; users can only access their own assessments, profiles, and responses. Unverified credentials accounts (`PENDING_VERIFICATION`) are blocked from accessing assessment runtimes and psychological profiles.
 
 ---
@@ -36,9 +36,8 @@ PsycheAI transitions from a demo-user bootstrap identity model to an enterprise-
 - **Upgrade Path:** The modular design in `src/lib/password.ts` supports future transparent algorithm upgrades (e.g. Argon2id) without modifying business logic.
 
 ### 2.2 Password Policy
-- Minimum 12 characters, maximum 128 characters.
-- Requires at least 1 uppercase letter, 1 lowercase letter, and 1 digit or symbol.
-- Disallows common trivial sequences.
+- Supports passphrase-friendly long passwords (12 to 128 characters).
+- Intentionally avoids arbitrary composition rules (no mandatory uppercase, lowercase, digit, or symbol quotas) to facilitate high-entropy, memorable passphrases without artificial friction.
 
 ---
 
@@ -104,12 +103,17 @@ PsycheAI implements 5 distinct roles:
 ## 6. Rate Limiting & Audit Logging
 
 ### 6.1 Concurrency-Safe Rate Limiting (`rate_limit_records`)
-- Backed by PostgreSQL `rate_limit_records` (`key`, `count`, `expiresAt`) with atomic upsert, falling back to in-memory store in isolated environments.
-- Protects:
-  - `/api/auth/callback/credentials` (5 attempts per 15-minute window per IP/email).
-  - Registration (3 attempts per hour per IP).
-  - Password reset requests (3 attempts per hour per IP).
-  - Email verification requests (5 attempts per hour per IP).
+- **Atomic Single-Statement Execution:** Backed by PostgreSQL `rate_limit_records` (`key`, `count`, `expiresAt`) using single-statement `INSERT ... ON CONFLICT ("key") DO UPDATE` to eliminate race conditions under concurrent traffic.
+- **Independent Dimensions:**
+  - Account dimension: `action:account:<emailNormalized>` (e.g. 5 attempts / 15 minutes).
+  - IP dimension: `action:ip:<ipHash>` (e.g. 20 attempts / 15 minutes when client IP is present).
+- **Reverse Proxy Header Trust:**
+  - Client IP is resolved from `x-forwarded-for` (left-most IP) or `x-real-ip` provided by trusted reverse proxies (e.g. Coolify/Traefik).
+  - Raw client IPs are never persisted: transformed into HMAC-SHA256 hashes (`ipHash`).
+- **Fail-Closed Resilience:**
+  - If a database failure occurs on security-critical endpoints (`login`, `register`, `forgot_password`), rate limiting fails closed to prevent unlimited brute-force attacks.
+- **Test/Dev Fallback Guard:**
+  - In-memory rate limiting is strictly prohibited in `production`. Fallback in-memory stores are gated strictly to unit test environments without database configurations.
 
 ### 6.2 Privacy-Preserving Immutable Audit Log (`auth_audit_events`)
 - Logs security lifecycle events: `REGISTER_SUCCESS`, `REGISTER_FAILURE`, `LOGIN_SUCCESS`, `LOGIN_FAILURE`, `LOGOUT`, `PASSWORD_RESET_REQUEST`, `PASSWORD_RESET_SUCCESS`, `EMAIL_VERIFY_SUCCESS`, `ACCOUNT_SUSPENDED`, `ROLE_GRANTED`.

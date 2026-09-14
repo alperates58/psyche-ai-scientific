@@ -50,12 +50,32 @@ describe("FAZ 2.6: Cryptographic Password Service (scrypt)", () => {
   });
 
   it("should reject corrupted or non-scrypt encoded hashes gracefully", async () => {
-    const result = await verifyPassword("Password123!", "invalid-hash-string");
-    expect(result).toBe(false);
+    expect(await verifyPassword("Password123!", "invalid-hash-string")).toBe(false);
+    expect(await verifyPassword("Password123!", "$scrypt$ln=16,r=8,p=1$missingparts")).toBe(false);
+    expect(await verifyPassword("Password123!", "$scrypt$ln=16,r=8,p=1$1234$5678$extra")).toBe(false);
+    expect(await verifyPassword("Password123!", "")).toBe(false);
   });
 
-  it("should run dummyVerifyPassword without errors for timing defense", async () => {
-    await expect(dummyVerifyPassword()).resolves.toBeUndefined();
+  it("should have a well-formed DUMMY_HASH and run real scrypt work in dummyVerifyPassword", async () => {
+    // Import DUMMY_HASH
+    const { DUMMY_HASH } = await import("../src/lib/password");
+    expect(DUMMY_HASH).toBeDefined();
+
+    // Verify format: $scrypt$ln=16,r=8,p=1$<32 hex salt chars>$<128 hex derived-key chars>
+    const parts = DUMMY_HASH.split("$");
+    expect(parts).toHaveLength(5);
+    expect(parts[1]).toBe("scrypt");
+    expect(parts[2]).toBe("ln=16,r=8,p=1");
+    expect(parts[3]).toHaveLength(32);
+    expect(parts[4]).toHaveLength(128);
+
+    // dummyVerifyPassword runs real scrypt computation
+    const start = Date.now();
+    await dummyVerifyPassword();
+    const duration = Date.now() - start;
+
+    // Real scrypt with N=65536, r=8, p=1 takes non-trivial time (>15ms)
+    expect(duration).toBeGreaterThanOrEqual(10);
   });
 
   it("should enforce password length policy (12 - 128 chars)", () => {

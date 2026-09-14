@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma';
 import { authConfig } from './auth.config';
 import { verifyPassword, dummyVerifyPassword } from '@/lib/password';
 import { logAuthAuditEvent } from '@/lib/auditLog';
-import { checkRateLimit } from '@/lib/rateLimiter';
+import { checkRateLimit, extractClientIp } from '@/lib/rateLimiter';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -19,7 +19,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         const rawEmail = credentials?.email;
         const password = credentials?.password;
 
@@ -28,13 +28,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         const emailNormalized = rawEmail.trim().toLowerCase();
+        const clientIp = extractClientIp(req?.headers as any);
 
-        // 1. Rate limiting check (5 attempts / 15 minutes per normalized email)
-        const rate = await checkRateLimit('login', emailNormalized);
+        // 1. Rate limiting check (independent account & IP dimensions)
+        const rate = await checkRateLimit('login', emailNormalized, clientIp);
         if (!rate.allowed) {
           await logAuthAuditEvent({
             eventType: 'LOGIN_FAILURE',
             success: false,
+            ip: clientIp,
             metadata: { reason: 'RATE_LIMIT_EXCEEDED', email: emailNormalized },
           });
           return null;
@@ -127,7 +129,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             },
           });
         } catch (e) {
-          console.error('Failed to create server-side auth_sessions entry:', e);
+          console.error('CRITICAL: Failed to create server-side auth_sessions entry:', e);
+          // Fail closed: Never issue a valid session JWT if registry row creation fails
+          throw new Error('SESSION_REGISTRY_CREATION_FAILED');
         }
 
         token.sid = sid;

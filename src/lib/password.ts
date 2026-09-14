@@ -115,7 +115,8 @@ export async function verifyPassword(password: string, encodedHash: string): Pro
 }
 
 // Dummy hash for constant-time response on missing user lookup
-const DUMMY_HASH = `$scrypt$ln=16,r=8,p=1$${'0'.repeat(32)}${'0'.repeat(128)}`;
+// Format: $scrypt$ln=16,r=8,p=1$<32 hex salt chars>$<128 hex derived-key chars>
+export const DUMMY_HASH = `$scrypt$ln=16,r=8,p=1$${'0'.repeat(32)}$${'0'.repeat(128)}`;
 
 /**
  * Runs a dummy verification calculation to maintain consistent timing

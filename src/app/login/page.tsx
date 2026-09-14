@@ -13,7 +13,11 @@ import { ShieldCheck, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/overview';
+  const rawCallback = searchParams.get('callbackUrl') || '/overview';
+  const callbackUrl =
+    rawCallback.startsWith('/') && !rawCallback.startsWith('//') && !rawCallback.startsWith('/\\')
+      ? rawCallback
+      : '/overview';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
