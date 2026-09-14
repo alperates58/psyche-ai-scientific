@@ -2,11 +2,12 @@
 # STAGE 1: Dependencies (deps)
 # ---------------------------------------------------------
 FROM node:20-alpine AS deps
+ENV NODE_ENV=development
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --include=dev
 
 # ---------------------------------------------------------
 # STAGE 2: Builder (builder)
