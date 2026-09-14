@@ -198,13 +198,13 @@ export function ItemBankClientView({
         <div className="bg-surface-1 p-4 rounded-xl border border-border-subtle shadow-xs">
           <div className="text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">TOPLAM ADAY MADDE</div>
           <div className="text-2xl font-bold text-text-primary mt-1">{items.length}</div>
-          <div className="text-xs text-text-tertiary mt-0.5">84 psikolojik facet (9 domain)</div>
+          <div className="text-xs text-text-tertiary mt-0.5">{trMatrix.length} psikolojik facet (9 domain)</div>
         </div>
 
         <div className="bg-surface-1 p-4 rounded-xl border border-border-subtle shadow-xs">
           <div className="text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">DOĞRUDAN TR VALİDASYON</div>
-          <div className="text-2xl font-bold text-brand-700 mt-1">{directTrCount} / 84</div>
-          <div className="text-xs text-text-secondary mt-0.5">+24 Leksikal Destek (Wasti 2008)</div>
+          <div className="text-2xl font-bold text-brand-700 mt-1">{directTrCount} / {trMatrix.length}</div>
+          <div className="text-xs text-text-secondary mt-0.5">+{evidenceClosureStats.lexicalCount} Leksikal Destek (Wasti 2008)</div>
         </div>
 
         <div className="bg-surface-1 p-4 rounded-xl border border-border-subtle shadow-xs">
@@ -542,11 +542,11 @@ export function ItemBankClientView({
         <div className="bg-surface-1 rounded-xl border border-border-subtle shadow-xs overflow-hidden">
           <div className="p-4 border-b border-border-subtle flex justify-between items-center bg-surface-2">
             <div>
-              <h3 className="text-sm font-semibold text-text-primary">84 Psikolojik Facet Madde Dağılımı ve Metot Dağılımı</h3>
+              <h3 className="text-sm font-semibold text-text-primary">{trMatrix.length} Psikolojik Facet Madde Dağılımı ve Metot Dağılımı</h3>
               <p className="text-xs text-text-tertiary mt-0.5">Her facet için üretilen aday maddelerin yöntem çeşitliliği</p>
             </div>
             <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
-              84 / 84 Facet Kapsandı
+              {trMatrix.length} / {trMatrix.length} Facet Kapsandı
             </span>
           </div>
 

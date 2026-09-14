@@ -201,5 +201,5 @@ console.log(`- sampleN removed from reliabilityEvidence: ${sampleNRemovedCount}`
 console.log(`- Direct CONSTRUCT_ALIGNED: ${Object.keys(DIRECT_SCALE_TOTAL_CONSTRUCT_ALIGNED).length}`);
 console.log(`- Direct SUBSCALE_ALIGNED: ${Object.keys(DIRECT_SUBSCALE_ALIGNED).length}`);
 console.log(`- Related SUBSCALE: ${Object.keys(RELATED_MEASURES).length}`);
-console.log(`- Lexical FACET (NOT_ASSESSED): 24`);
-console.log(`- No Direct FACET (NOT_ASSESSED): 44`);
+console.log(`- Lexical FACET (NOT_ASSESSED): ${normalizedMatrix.filter((f: any) => f.status === 'LEXICAL_SUPPORT_ONLY').length}`);
+console.log(`- No Direct FACET (NOT_ASSESSED): ${normalizedMatrix.filter((f: any) => f.status === 'NO_DIRECT_TURKISH_VALIDATION').length}`);

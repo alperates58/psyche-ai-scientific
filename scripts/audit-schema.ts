@@ -163,7 +163,7 @@ export function runSchemaAudit(): { success: boolean; metrics: any; errors: stri
       RELATED: relatedFacets.length,
       NO_DIRECT: noDirectFacets.length
     },
-    sampleNRemovedFromReliability: forbiddenSampleNCount === 0 ? 84 : 84 - forbiddenSampleNCount,
+    sampleNRemovedFromReliability: totalOntologyFacets - forbiddenSampleNCount,
     sampleNInStudyEvidence: sampleNInStudyEvidenceCount,
     factorStructureLevels: {
       BROAD_FACTOR: broadFactorEvidenceCount,
@@ -196,7 +196,7 @@ if (require.main === module) {
     process.exit(1);
   }
 
-  console.log('✅ SCHEMA AUDIT PASSED: All 84 facets comply with canonical FAZ 2.4 schema.');
+  console.log(`✅ SCHEMA AUDIT PASSED: All ${result.metrics.totalOntologyFacets} facets comply with canonical FAZ 2.4 schema.`);
   console.log('Metrics Summary:');
   console.log(JSON.stringify(result.metrics, null, 2));
 }
