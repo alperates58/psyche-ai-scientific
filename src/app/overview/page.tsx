@@ -19,6 +19,8 @@ import { getLatestProfileSnapshotForUser } from '@/services/profileService';
 
 import { calculateProfileCoverage } from '@/psychometrics/coverage';
 
+export const dynamic = 'force-dynamic';
+
 export default async function OverviewPage() {
   const user = await getCurrentUser();
   const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
