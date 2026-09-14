@@ -5,7 +5,12 @@ import { recordResponse } from '@/services/responseService';
 import { calculatePreCalibrationScores } from '@/services/scoringService';
 import { finalizeAssessmentAndCreateSnapshot } from '@/services/profileService';
 
-describe('Pre-Calibration Scoring & Scientific Guardrails', () => {
+const hasDb = Boolean(process.env.DATABASE_URL || process.env.TEST_DATABASE_URL);
+if (!hasDb) {
+  console.warn('SKIPPED: TEST_DATABASE_URL_NOT_CONFIGURED - Database integration tests skipped because DATABASE_URL is unset');
+}
+
+describe.skipIf(!hasDb)('Pre-Calibration Scoring & Scientific Guardrails', () => {
   let testUser: any;
   let session: any;
 

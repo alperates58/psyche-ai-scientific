@@ -5,7 +5,12 @@ import { getOrCreateAssessmentSession } from '@/services/assessmentService';
 import { recordResponse } from '@/services/responseService';
 import { finalizeAssessmentAndCreateSnapshot, getLatestProfileSnapshotForUser } from '@/services/profileService';
 
-describe('End-to-End Demo Assessment Flow', () => {
+const hasDb = Boolean(process.env.DATABASE_URL || process.env.TEST_DATABASE_URL);
+if (!hasDb) {
+  console.warn('SKIPPED: TEST_DATABASE_URL_NOT_CONFIGURED - Database integration tests skipped because DATABASE_URL is unset');
+}
+
+describe.skipIf(!hasDb)('End-to-End Demo Assessment Flow', () => {
   it('runs complete Alex Mercer assessment and generates verified pre-calibration snapshot', async () => {
     const user = await getCurrentUser();
     expect(user.name).toBe('Alex Mercer');

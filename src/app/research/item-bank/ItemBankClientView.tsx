@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Search,
   Filter,
@@ -19,8 +19,10 @@ import {
   SlidersHorizontal,
   ExternalLink,
   Download,
-  AlertCircle
+  AlertCircle,
+  X
 } from 'lucide-react';
+import { ResponsiveDataTable, Column } from '@/components/ui/ResponsiveDataTable';
 
 interface ItemBankClientViewProps {
   items: any[];
@@ -54,7 +56,22 @@ export function ItemBankClientView({
   const [selectedTriage, setSelectedTriage] = useState('ALL');
   const [inspectedItem, setInspectedItem] = useState<any | null>(null);
 
-  // Lint results map by Item ID
+  // Close drawer on Escape key and prevent body scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setInspectedItem(null);
+      }
+    };
+    if (inspectedItem) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [inspectedItem]);
   const lintMap = useMemo(() => {
     const map = new Map<string, any>();
     for (const r of itemLintResults) {
@@ -191,6 +208,179 @@ export function ItemBankClientView({
     };
   }, [sources, trMatrix]);
 
+  const itemColumns: Column<any>[] = useMemo(() => [
+    {
+      key: 'id',
+      header: 'Madde ID',
+      render: (item) => (
+        <span className="font-mono text-xs font-semibold text-text-primary whitespace-nowrap">
+          {item.id}
+        </span>
+      ),
+      className: 'whitespace-nowrap'
+    },
+    {
+      key: 'facetId',
+      header: 'Facet',
+      render: (item) => (
+        <span className="font-medium text-xs text-text-primary whitespace-nowrap">
+          {item.facetId}
+        </span>
+      ),
+      className: 'whitespace-nowrap'
+    },
+    {
+      key: 'text_tr',
+      header: 'Madde Metni (Türkçe)',
+      render: (item) => (
+        <span className="text-text-primary max-w-md line-clamp-2 text-xs">
+          {item.text_tr}
+        </span>
+      )
+    },
+    {
+      key: 'itemType',
+      header: 'Tip',
+      render: (item) => (
+        <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs whitespace-nowrap">
+          {item.itemType}
+        </span>
+      ),
+      className: 'whitespace-nowrap'
+    },
+    {
+      key: 'trValidation',
+      header: 'TR Validasyon',
+      render: (item) => {
+        const tr = trMap.get(item.facetId);
+        if (tr?.status === 'DIRECT_FACET_VALIDATION') {
+          return (
+            <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-medium whitespace-nowrap">
+              Doğrudan Validasyon
+            </span>
+          );
+        }
+        if (tr?.status === 'LEXICAL_SUPPORT_ONLY') {
+          return (
+            <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-[11px] font-medium whitespace-nowrap">
+              Leksikal (Wasti)
+            </span>
+          );
+        }
+        if (tr?.status === 'RELATED_MEASURE_VALIDATION') {
+          return (
+            <span className="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 text-[11px] font-medium whitespace-nowrap">
+              İlişkili Ölçek
+            </span>
+          );
+        }
+        return (
+          <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200 text-[11px] whitespace-nowrap">
+            Doğrulanmamış
+          </span>
+        );
+      },
+      className: 'whitespace-nowrap'
+    },
+    {
+      key: 'triage',
+      header: 'Triage',
+      headerClassName: 'text-center',
+      className: 'text-center whitespace-nowrap',
+      render: (item) => {
+        const isRevision = item.triageStatus === 'REQUIRES_INTERNAL_REVISION';
+        return isRevision ? (
+          <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-semibold">
+            İç Revizyon
+          </span>
+        ) : (
+          <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-medium">
+            Uzmana Hazır
+          </span>
+        );
+      }
+    },
+    {
+      key: 'actions',
+      header: 'İncele',
+      headerClassName: 'text-center',
+      className: 'text-center',
+      render: (item) => (
+        <button
+          onClick={() => setInspectedItem(item)}
+          className="p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-lg hover:bg-bg-subtle text-text-secondary hover:text-brand-600 transition-colors"
+          aria-label={`${item.id} maddesini incele`}
+        >
+          <Eye className="w-4 h-4" />
+        </button>
+      )
+    }
+  ], [trMap]);
+
+  const renderMobileItemCard = (item: any) => {
+    const tr = trMap.get(item.facetId);
+    const isRevision = item.triageStatus === 'REQUIRES_INTERNAL_REVISION';
+
+    return (
+      <div className="p-4 space-y-3">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-xs font-bold text-text-primary bg-bg-app px-2 py-0.5 rounded border border-border-subtle">
+              {item.id}
+            </span>
+            <span className="text-xs font-medium text-brand-700">
+              {item.facetId}
+            </span>
+          </div>
+          {isRevision ? (
+            <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-semibold">
+              İç Revizyon
+            </span>
+          ) : (
+            <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-medium">
+              Uzmana Hazır
+            </span>
+          )}
+        </div>
+
+        <p className="text-sm text-text-primary line-clamp-3">
+          {item.text_tr}
+        </p>
+
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border-subtle/50">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-[11px]">
+              {item.itemType}
+            </span>
+            {tr?.status === 'DIRECT_FACET_VALIDATION' && (
+              <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-medium">
+                Doğrudan TR
+              </span>
+            )}
+            {tr?.status === 'LEXICAL_SUPPORT_ONLY' && (
+              <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-[11px] font-medium">
+                Leksikal
+              </span>
+            )}
+            {(!tr?.status || tr?.status === 'NO_DIRECT_TURKISH_VALIDATION') && (
+              <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200 text-[11px]">
+                Doğrulanmamış
+              </span>
+            )}
+          </div>
+
+          <button
+            onClick={() => setInspectedItem(item)}
+            className="min-h-[44px] px-3.5 py-2 inline-flex items-center gap-1.5 rounded-lg bg-surface-2 hover:bg-bg-subtle text-xs font-semibold text-brand-700 border border-border-subtle transition-colors"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            İncele
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6">
       {/* 1. FORENSIC AUDIT KEY METRIC CARDS */}
@@ -306,10 +496,10 @@ export function ItemBankClientView({
       </div>
 
       {/* 2. TABBED NAVIGATION */}
-      <div className="flex border-b border-border-subtle gap-2">
+      <div className="flex border-b border-border-subtle gap-2 overflow-x-auto scrollbar-none pb-0.5">
         <button
           onClick={() => setActiveTab('items')}
-          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
+          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all whitespace-nowrap shrink-0 ${
             activeTab === 'items'
               ? 'border-brand-600 text-brand-700 font-semibold'
               : 'border-transparent text-text-secondary hover:text-text-primary'
@@ -323,7 +513,7 @@ export function ItemBankClientView({
 
         <button
           onClick={() => setActiveTab('coverage')}
-          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
+          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all whitespace-nowrap shrink-0 ${
             activeTab === 'coverage'
               ? 'border-brand-600 text-brand-700 font-semibold'
               : 'border-transparent text-text-secondary hover:text-text-primary'
@@ -331,13 +521,13 @@ export function ItemBankClientView({
         >
           <span className="flex items-center gap-2">
             <BarChart2 className="w-4 h-4" />
-            Kapsama Matrisi (84 Facet $\times$ 5 Yöntem)
+            Kapsama Matrisi ({trMatrix.length} Facet &times; 5 Yöntem)
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab('validation')}
-          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
+          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all whitespace-nowrap shrink-0 ${
             activeTab === 'validation'
               ? 'border-brand-600 text-brand-700 font-semibold'
               : 'border-transparent text-text-secondary hover:text-text-primary'
@@ -351,7 +541,7 @@ export function ItemBankClientView({
 
         <button
           onClick={() => setActiveTab('quality')}
-          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
+          className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all whitespace-nowrap shrink-0 ${
             activeTab === 'quality'
               ? 'border-brand-600 text-brand-700 font-semibold'
               : 'border-transparent text-text-secondary hover:text-text-primary'
@@ -446,90 +636,15 @@ export function ItemBankClientView({
 
           {/* Items Table */}
           <div className="bg-surface-1 rounded-xl border border-border-subtle shadow-xs overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-surface-2 text-xs font-semibold text-text-tertiary uppercase tracking-wider border-b border-border-subtle">
-                  <tr>
-                    <th className="py-3 px-4">Madde ID</th>
-                    <th className="py-3 px-4">Facet</th>
-                    <th className="py-3 px-4">Madde Metni (Türkçe)</th>
-                    <th className="py-3 px-4">Tip</th>
-                    <th className="py-3 px-4">TR Validasyon</th>
-                    <th className="py-3 px-4 text-center">Triage</th>
-                    <th className="py-3 px-4 text-center">İncele</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border-subtle">
-                  {filteredItems.slice(0, 60).map(item => {
-                    const lint = lintMap.get(item.id);
-                    const isRevision = item.triageStatus === 'REQUIRES_INTERNAL_REVISION';
-                    const tr = trMap.get(item.facetId);
+            <ResponsiveDataTable
+              data={filteredItems.slice(0, 60)}
+              columns={itemColumns}
+              renderMobileCard={renderMobileItemCard}
+              keyExtractor={(it) => it.id}
+              emptyMessage="Arama kriterlerine uygun aday madde bulunamadı."
+            />
 
-                    return (
-                      <tr key={item.id} className="hover:bg-bg-subtle/50 transition-colors">
-                        <td className="py-3 px-4 font-mono text-xs font-semibold text-text-primary whitespace-nowrap">
-                          {item.id}
-                        </td>
-                        <td className="py-3 px-4 text-xs text-text-secondary whitespace-nowrap">
-                          <span className="font-medium text-text-primary">{item.facetId}</span>
-                        </td>
-                        <td className="py-3 px-4 text-text-primary max-w-md line-clamp-2">
-                          {item.text_tr}
-                        </td>
-                        <td className="py-3 px-4 text-xs whitespace-nowrap">
-                          <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-                            {item.itemType}
-                          </span>
-                        </td>
-                        <td className="py-3 px-4 text-xs whitespace-nowrap">
-                          {tr?.status === 'DIRECT_FACET_VALIDATION' && (
-                            <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-medium">
-                              Doğrudan Validasyon
-                            </span>
-                          )}
-                          {tr?.status === 'LEXICAL_SUPPORT_ONLY' && (
-                            <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-[11px] font-medium">
-                              Leksikal (Wasti)
-                            </span>
-                          )}
-                          {tr?.status === 'RELATED_MEASURE_VALIDATION' && (
-                            <span className="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 text-[11px] font-medium">
-                              İlişkili Ölçek
-                            </span>
-                          )}
-                          {(!tr?.status || tr?.status === 'NO_DIRECT_TURKISH_VALIDATION') && (
-                            <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200 text-[11px]">
-                              Doğrulanmamış
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-3 px-4 text-center whitespace-nowrap">
-                          {isRevision ? (
-                            <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-semibold">
-                              İç Revizyon
-                            </span>
-                          ) : (
-                            <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-medium">
-                              Uzmana Hazır
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-3 px-4 text-center">
-                          <button
-                            onClick={() => setInspectedItem(item)}
-                            className="p-1.5 rounded-lg hover:bg-bg-subtle text-text-secondary hover:text-brand-600 transition-colors"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="p-3 bg-surface-2 border-t border-border-subtle text-xs text-text-tertiary flex justify-between items-center">
+            <div className="p-3 bg-surface-2 border-t border-border-subtle text-xs text-text-tertiary flex flex-col sm:flex-row justify-between items-center gap-1.5">
               <span>Toplam {filteredItems.length} aday maddeden ilk {Math.min(60, filteredItems.length)} tanesi gösteriliyor.</span>
               <span>Sayfa başına limit: 60 (Performans optimizasyonu)</span>
             </div>
@@ -599,7 +714,7 @@ export function ItemBankClientView({
       {activeTab === 'validation' && (
         <div className="bg-surface-1 rounded-xl border border-border-subtle shadow-xs overflow-hidden">
           <div className="p-4 border-b border-border-subtle bg-surface-2">
-            <h3 className="text-sm font-semibold text-text-primary">84 Facet Adli Türkçe Validasyon Matrisi</h3>
+            <h3 className="text-sm font-semibold text-text-primary">{trMatrix.length} Facet Adli Türkçe Validasyon Matrisi</h3>
             <p className="text-xs text-text-tertiary mt-0.5">
               Her facet için doğrulanmış Türkçe adaptasyon kaynağı, örneklem büyüklüğü, güvenilirlik ve leksikal destek durumu
             </p>
@@ -767,8 +882,16 @@ export function ItemBankClientView({
 
       {/* 4. INSPECTION DRAWER (MODAL) */}
       {inspectedItem && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex justify-end z-50 transition-opacity">
-          <div className="w-full max-w-xl bg-surface-1 h-full shadow-2xl overflow-y-auto p-6 space-y-6 border-l border-border-subtle animate-in slide-in-from-right duration-200">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setInspectedItem(null);
+          }}
+          className="fixed inset-0 bg-black/40 backdrop-blur-xs flex justify-end z-50 transition-opacity"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Aday Madde Detayı"
+        >
+          <div className="w-full max-w-xl bg-surface-1 h-full shadow-2xl overflow-y-auto p-4 sm:p-6 space-y-6 border-l border-border-subtle animate-in slide-in-from-right duration-200">
             <div className="flex items-center justify-between border-b border-border-subtle pb-4">
               <div>
                 <span className="text-xs font-mono font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded">
@@ -778,9 +901,10 @@ export function ItemBankClientView({
               </div>
               <button
                 onClick={() => setInspectedItem(null)}
-                className="text-text-tertiary hover:text-text-primary text-xl font-bold p-1"
+                className="text-text-tertiary hover:text-text-primary p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-lg hover:bg-bg-subtle transition-colors"
+                aria-label="Kapat"
               >
-                ✕
+                <X className="w-5 h-5" />
               </button>
             </div>
 

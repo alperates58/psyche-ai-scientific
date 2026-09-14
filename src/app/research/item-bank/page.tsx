@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { ItemBankClientView } from './ItemBankClientView';
 import { lintItemBank, analyzeSemanticClusters } from '@/research/item-quality';
 import { validateResearchAccess } from '@/lib/researchAuth';
+import { PageContainer } from '@/components/ui/PageContainer';
 
 export const dynamic = 'force-dynamic';
 
@@ -46,7 +47,7 @@ export default async function ItemBankPage() {
   );
 
   return (
-    <div className="space-y-8 pb-16">
+    <PageContainer variant="full" className="space-y-8 pb-16">
       {/* Top Banner & Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border-subtle pb-6">
         <div>
@@ -98,6 +99,6 @@ export default async function ItemBankPage() {
         itemLintResults={lintResults.itemResults}
         semanticReport={semanticReport}
       />
-    </div>
+    </PageContainer>
   );
 }

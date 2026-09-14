@@ -4,7 +4,12 @@ import { getOrCreateAssessmentSession } from '@/services/assessmentService';
 import { recordResponse } from '@/services/responseService';
 import { evaluateSessionIntegrity } from '@/services/integrityService';
 
-describe('Response Integrity & Telemetry Engine', () => {
+const hasDb = Boolean(process.env.DATABASE_URL || process.env.TEST_DATABASE_URL);
+if (!hasDb) {
+  console.warn('SKIPPED: TEST_DATABASE_URL_NOT_CONFIGURED - Database integration tests skipped because DATABASE_URL is unset');
+}
+
+describe.skipIf(!hasDb)('Response Integrity & Telemetry Engine', () => {
   let testUser: any;
 
   beforeAll(async () => {

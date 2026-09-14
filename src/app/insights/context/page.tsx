@@ -1,38 +1,39 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, GitFork, Info, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, GitFork, CheckCircle2 } from 'lucide-react';
 import { DEMO_PROFILE_DATA } from '@/data/demo-profile';
 import { EpistemicBadge } from '@/components/shared/EpistemicBadge';
+import { PageContainer } from '@/components/ui/PageContainer';
 
 export default function ContextShiftsPage() {
   const { contextShifts } = DEMO_PROFILE_DATA;
 
   return (
-    <div className="space-y-8 pb-12">
+    <PageContainer variant="wide" className="space-y-8 pb-12">
       {/* Header */}
       <div className="border-b border-border-subtle pb-5">
         <Link
           href="/overview"
-          className="inline-flex items-center text-xs font-semibold text-text-tertiary hover:text-text-primary transition-colors mb-2"
+          className="inline-flex items-center text-xs font-semibold text-text-tertiary hover:text-text-primary transition-colors mb-2 py-1"
         >
-          <ArrowLeft className="w-3.5 h-3.5 mr-1" />
+          <ArrowLeft className="w-3.5 h-3.5 mr-1 shrink-0" />
           <span>Genel Bakışa Dön</span>
         </Link>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div>
             <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-bold text-text-primary">Bağlamsal Değişim</h1>
-              <span className="text-xs bg-amber-50 text-amber-800 border border-amber-200/60 font-semibold px-2 py-0.5 rounded-full">
+              <h1 className="text-xl sm:text-2xl font-bold text-text-primary">Bağlamsal Değişim Analizi</h1>
+              <span className="text-[11px] sm:text-xs bg-amber-50 text-amber-800 border border-amber-200/60 font-semibold px-2 py-0.5 rounded-full shrink-0">
                 ÖNİZLEME VERİSİ
               </span>
             </div>
             <p className="text-xs text-text-secondary mt-1 max-w-2xl">
-              İnsan kişiliği çevreye duyarlıdır. İş ortamı, yakın ilişkiler ve stres altındaki davranışsal değişimler; içsel bir çelişkiyi değil, durumsal adaptasyon esnekliğini yansıtır.
+              İnsan kişiliği çevreye duyarlıdır. İş ortamı, yakın ilişkiler ve stres altındaki davranışsal değişimler içsel bir tutarsızlık değil, durumsal adaptasyon esnekliğini yansıtır.
             </p>
           </div>
 
           <div className="flex items-center space-x-2 bg-surface-1 px-3 py-2 rounded-xl border border-border-subtle text-xs text-text-tertiary">
-            <GitFork className="w-4 h-4 text-brand-600 flex-shrink-0" />
+            <GitFork className="w-4 h-4 text-brand-600 shrink-0" />
             <span>Çok Bağlamlı Gözlem Modeli</span>
           </div>
         </div>
@@ -40,9 +41,9 @@ export default function ContextShiftsPage() {
 
       {/* Conceptual Explanation Banner */}
       <div className="bg-surface-1 p-4 rounded-card border border-border-subtle shadow-xs flex items-start space-x-3">
-        <CheckCircle2 className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+        <CheckCircle2 className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
         <div className="text-xs text-text-secondary leading-relaxed">
-          <span className="font-bold text-text-primary">Bilimsel İlke:</span> Sosyal alanlar arasındaki davranışsal değişim yüksek durumsal zekâ göstergesidir. Bir profil ancak birbirine tamamen zıt değerler aynı bağlamda savunulduğunda çelişki olarak değerlendirilir.
+          <span className="font-bold text-text-primary">Bilimsel İlke:</span> Sosyal bağlamlar arasındaki davranışsal değişim, bağlama özgü durumsal zekâ göstergesidir; patolojik çelişki olarak nitelendirilmez.
         </div>
       </div>
 
@@ -51,13 +52,13 @@ export default function ContextShiftsPage() {
         {contextShifts.map((shift) => (
           <div
             key={shift.constructName}
-            className="bg-surface-1 p-6 rounded-card border border-border-subtle shadow-xs space-y-5"
+            className="bg-surface-1 p-4 sm:p-6 rounded-card border border-border-subtle shadow-xs space-y-5"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border-subtle pb-3">
               <div>
                 <h2 className="text-base font-bold text-text-primary">{shift.constructName_tr || shift.constructName}</h2>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <EpistemicBadge status="CONTEXTUAL_PATTERN" size="sm" />
                 <span className="text-xs font-mono font-semibold text-text-tertiary bg-surface-2 px-2 py-0.5 rounded border border-border-subtle">
                   Değişkenlik İndeksi: {shift.variabilityIndex}
@@ -65,8 +66,8 @@ export default function ContextShiftsPage() {
               </div>
             </div>
 
-            {/* Multi-Context Bar Comparisons */}
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            {/* Multi-Context Bar Comparisons (1 col mobile, 2 col tablet, 4 col desktop) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
               {/* General */}
               <div className="bg-surface-2 p-3.5 rounded-xl border border-border-subtle">
                 <div className="text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
@@ -131,6 +132,6 @@ export default function ContextShiftsPage() {
           </div>
         ))}
       </div>
-    </div>
+    </PageContainer>
   );
 }

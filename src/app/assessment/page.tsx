@@ -22,6 +22,7 @@ import {
   finalizeAssessmentAction
 } from '@/actions/assessment';
 import { DEMO_PROFILE_DATA } from '@/data/demo-profile';
+import { PageContainer } from '@/components/ui/PageContainer';
 
 export default function AssessmentRunnerPage() {
   const router = useRouter();
@@ -308,22 +309,22 @@ export default function AssessmentRunnerPage() {
   const estimatedMinutesLeft = Math.ceil((remainingQuestions * 25) / 60);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6 pb-16">
+    <PageContainer variant="standard" className="space-y-6 pb-20">
       {/* Top Controls & Switcher */}
-      <div className="flex items-center justify-between border-b border-border-subtle pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-subtle pb-4">
         <Link
           href="/overview"
-          className="inline-flex items-center text-xs font-semibold text-text-tertiary hover:text-text-primary transition-colors"
+          className="inline-flex items-center text-xs font-semibold text-text-tertiary hover:text-text-primary transition-colors py-1"
         >
           <ArrowLeft className="w-3.5 h-3.5 mr-1" />
           <span>Genel Bakışa Dön</span>
         </Link>
 
         {/* Item Type Switcher */}
-        <div className="inline-flex p-1 bg-surface-2 border border-border-subtle rounded-xl text-xs font-medium">
+        <div className="inline-flex p-1 bg-surface-2 border border-border-subtle rounded-xl text-xs font-medium w-full sm:w-auto">
           <button
             onClick={() => setActiveType('live')}
-            className={`px-3 py-1 rounded-lg transition-colors ${
+            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg transition-colors text-center ${
               activeType === 'live'
                 ? 'bg-surface-1 text-brand-700 font-semibold shadow-xs'
                 : 'text-text-tertiary hover:text-text-primary'
@@ -333,7 +334,7 @@ export default function AssessmentRunnerPage() {
           </button>
           <button
             onClick={() => setActiveType('scenario')}
-            className={`px-3 py-1 rounded-lg transition-colors ${
+            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg transition-colors text-center ${
               activeType === 'scenario'
                 ? 'bg-surface-1 text-brand-700 font-semibold shadow-xs'
                 : 'text-text-tertiary hover:text-text-primary'
@@ -345,7 +346,7 @@ export default function AssessmentRunnerPage() {
       </div>
 
       {/* Progress & Save Status */}
-      <div className="bg-surface-1 p-4 rounded-card border border-border-subtle shadow-xs flex items-center justify-between">
+      <div className="bg-surface-1 p-4 rounded-card border border-border-subtle shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="text-[11px] font-bold text-brand-700 uppercase tracking-wider">
             {activeType === 'live'
@@ -358,7 +359,7 @@ export default function AssessmentRunnerPage() {
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-between sm:justify-end space-x-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-border-subtle/50">
           {saveStatus && (
             <span className="text-[11px] font-medium text-brand-700 animate-pulse">
               {saveStatus}
@@ -366,16 +367,17 @@ export default function AssessmentRunnerPage() {
           )}
 
           <div className="flex items-center text-xs text-text-tertiary">
-            <Clock className="w-3.5 h-3.5 mr-1 text-brand-600" />
-            <span>~{activeType === 'live' ? estimatedMinutesLeft : scenario.estimatedMinutesLeft} dakika kaldı</span>
+            <Clock className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" />
+            <span className="whitespace-nowrap">~{activeType === 'live' ? estimatedMinutesLeft : scenario.estimatedMinutesLeft} dk</span>
           </div>
 
           <button
+            type="button"
             onClick={handlePauseAndExit}
-            className="inline-flex items-center px-3 py-1.5 rounded-lg border border-border-subtle text-xs font-semibold text-text-secondary hover:bg-bg-subtle transition-colors"
+            className="inline-flex items-center px-3 py-1.5 rounded-lg border border-border-subtle text-xs font-semibold text-text-secondary hover:bg-bg-subtle transition-colors min-h-[36px] touch-manipulation"
           >
-            <Save className="w-3.5 h-3.5 mr-1" />
-            <span>Kaydet ve Çık</span>
+            <Save className="w-3.5 h-3.5 mr-1 shrink-0" />
+            <span>Kaydet & Çık</span>
           </button>
         </div>
       </div>
@@ -409,15 +411,54 @@ export default function AssessmentRunnerPage() {
               <span>Kesinlikle Katılıyorum (5)</span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+            {/* Mobile View (< sm): Stacked full-width radio rows */}
+            <div className="sm:hidden flex flex-col space-y-2">
               {itemVersion?.options?.map((opt: any) => {
                 const isSelected = currentAnswer?.optionId === opt.id || currentAnswer?.value === opt.value;
                 return (
                   <button
                     key={opt.id}
+                    type="button"
                     disabled={isSubmitting}
                     onClick={() => handleSelectOption(opt)}
-                    className={`py-4 px-2 rounded-xl text-center border transition-all duration-150 flex flex-col items-center justify-center ${
+                    className={`w-full min-h-[48px] p-3 rounded-xl border text-left transition-all duration-150 flex items-center justify-between touch-manipulation active:scale-[0.99] ${
+                      isSelected
+                        ? 'bg-brand-50 border-brand-600 ring-2 ring-brand-600/30 text-brand-900 shadow-xs'
+                        : 'bg-surface-1 border-border-default hover:border-brand-300 hover:bg-surface-2 text-text-primary'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-mono text-sm font-bold shrink-0 ${
+                        isSelected ? 'bg-brand-600 text-white' : 'bg-bg-subtle text-text-secondary border border-border-subtle'
+                      }`}>
+                        {opt.value}
+                      </span>
+                      <span className="text-xs font-semibold leading-snug">
+                        {opt.labelTr}
+                      </span>
+                    </div>
+
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                      isSelected ? 'border-brand-600 bg-brand-600' : 'border-border-strong'
+                    }`}>
+                      {isSelected && <span className="w-2 h-2 rounded-full bg-white" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tablet/Desktop View (>= sm): Horizontal 5-column grid */}
+            <div className="hidden sm:grid sm:grid-cols-5 gap-2.5">
+              {itemVersion?.options?.map((opt: any) => {
+                const isSelected = currentAnswer?.optionId === opt.id || currentAnswer?.value === opt.value;
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={() => handleSelectOption(opt)}
+                    className={`py-4 px-2 min-h-[56px] rounded-xl text-center border transition-all duration-150 flex flex-col items-center justify-center touch-manipulation ${
                       isSelected
                         ? 'bg-brand-50 border-brand-600 ring-2 ring-brand-600/30 text-brand-700 shadow-xs'
                         : 'bg-surface-1 border-border-default hover:border-brand-300 hover:bg-surface-2 text-text-primary'
@@ -435,13 +476,13 @@ export default function AssessmentRunnerPage() {
         </div>
       ) : activeType === 'scenario' ? (
         /* Situational Judgement Scenario Item (Preview) */
-        <div className="bg-surface-1 p-8 rounded-panel border border-border-subtle shadow-sm space-y-6">
+        <div className="bg-surface-1 p-6 sm:p-8 rounded-panel border border-border-subtle shadow-sm space-y-6">
           <div className="space-y-2">
             <div className="inline-block px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 text-[11px] font-semibold border border-purple-200/60">
               Senaryo Görevi: {scenario.contextTag}
             </div>
 
-            <h2 className="text-xl font-bold text-text-primary">
+            <h2 className="text-lg sm:text-xl font-bold text-text-primary">
               {scenario.text_tr || scenario.text}
             </h2>
           </div>
@@ -463,14 +504,15 @@ export default function AssessmentRunnerPage() {
                 return (
                   <button
                     key={opt.id}
+                    type="button"
                     onClick={() => setScenarioSelection(opt.id)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all duration-150 flex items-start space-x-3.5 ${
+                    className={`w-full text-left p-4 rounded-xl border transition-all duration-150 flex items-start space-x-3.5 min-h-[48px] touch-manipulation ${
                       isSelected
                         ? 'bg-brand-50 border-brand-600 ring-2 ring-brand-600/30 text-brand-900 shadow-xs'
                         : 'bg-surface-1 border-border-default hover:border-brand-200 hover:bg-surface-2 text-text-primary'
                     }`}
                   >
-                    <span className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5 ${
+                    <span className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 ${
                       isSelected ? 'bg-brand-600 text-white' : 'bg-bg-subtle text-text-secondary border border-border-subtle'
                     }`}>
                       {letter}
@@ -487,11 +529,12 @@ export default function AssessmentRunnerPage() {
       ) : null}
 
       {/* Navigation Footer */}
-      <div className="flex items-center justify-between pt-4">
+      <div className="flex items-center justify-between pt-4 sticky bottom-3 sm:static bg-bg-app/90 backdrop-blur-xs sm:bg-transparent p-2 sm:p-0 rounded-xl z-10 border sm:border-0 border-border-subtle shadow-sm sm:shadow-none">
         <button
+          type="button"
           onClick={handlePrevious}
           disabled={currentIndex === 0 || activeType !== 'live'}
-          className={`inline-flex items-center px-4 py-2.5 rounded-xl border border-border-default bg-surface-1 text-xs font-semibold text-text-secondary transition-colors ${
+          className={`inline-flex items-center px-4 py-2.5 rounded-xl border border-border-default bg-surface-1 text-xs font-semibold text-text-secondary transition-colors min-h-[44px] touch-manipulation ${
             currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-surface-2'
           }`}
         >
@@ -500,9 +543,10 @@ export default function AssessmentRunnerPage() {
         </button>
 
         <button
+          type="button"
           onClick={handleNext}
           disabled={isSubmitting || (activeType === 'live' && !currentAnswer)}
-          className={`inline-flex items-center px-6 py-2.5 rounded-xl text-white text-xs font-semibold shadow-xs transition-colors ${
+          className={`inline-flex items-center px-6 py-2.5 rounded-xl text-white text-xs font-semibold shadow-xs transition-colors min-h-[44px] touch-manipulation ${
             activeType === 'live' && !currentAnswer
               ? 'bg-brand-300 cursor-not-allowed'
               : 'bg-brand-600 hover:bg-brand-700'
@@ -516,6 +560,6 @@ export default function AssessmentRunnerPage() {
           <ChevronRight className="w-4 h-4 ml-1" />
         </button>
       </div>
-    </div>
+    </PageContainer>
   );
 }

@@ -7,18 +7,21 @@ import {
   Compass,
   FileCheck2,
   User,
-  Sparkles,
   BookOpen,
   LayoutGrid,
   Clock,
   Layers,
-  Settings,
   GitFork,
-  CheckCircle2,
-  Database
+  Database,
+  X
 } from 'lucide-react';
 
-export const Sidebar: React.FC = () => {
+export interface SidebarProps {
+  isMobile?: boolean;
+  onClose?: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) => {
   const pathname = usePathname();
   const [showResearchNav, setShowResearchNav] = React.useState<boolean>(
     process.env.NODE_ENV !== 'production'
@@ -40,18 +43,28 @@ export const Sidebar: React.FC = () => {
     return pathname.startsWith(path);
   };
 
+  const handleLinkClick = () => {
+    if (isMobile && onClose) {
+      onClose();
+    }
+  };
+
   const navItemClass = (active: boolean) =>
-    `flex items-center px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 ${
+    `flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-150 touch-manipulation ${
       active
         ? 'bg-brand-50 text-brand-700 font-semibold shadow-xs'
         : 'text-text-secondary hover:text-text-primary hover:bg-bg-subtle'
     }`;
 
+  const containerClass = isMobile
+    ? 'w-full h-full bg-surface-1 flex flex-col select-none'
+    : 'w-64 bg-surface-1 border-r border-border-subtle flex flex-col h-screen sticky top-0 select-none z-30';
+
   return (
-    <aside className="w-64 bg-surface-1 border-r border-border-subtle flex flex-col h-screen sticky top-0 select-none z-30">
-      {/* Brand logo */}
-      <div className="h-16 flex items-center px-6 border-b border-border-subtle">
-        <Link href="/overview" className="flex items-center space-x-2.5">
+    <aside className={containerClass} aria-label="Sol Gezinme Menüsü">
+      {/* Brand logo & Mobile Close */}
+      <div className="h-16 flex items-center justify-between px-6 border-b border-border-subtle shrink-0">
+        <Link href="/overview" onClick={handleLinkClick} className="flex items-center space-x-2.5">
           <div className="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-sm shadow-xs">
             Ψ
           </div>
@@ -62,6 +75,17 @@ export const Sidebar: React.FC = () => {
             </span>
           </div>
         </Link>
+
+        {isMobile && (
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Menüyü Kapat"
+            className="p-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-bg-subtle transition-colors touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Main Navigation */}
@@ -71,12 +95,12 @@ export const Sidebar: React.FC = () => {
             ANALİTİK
           </div>
           <nav className="space-y-1">
-            <Link href="/overview" className={navItemClass(isActive('/overview'))}>
-              <Compass className="w-4 h-4 mr-3 opacity-80" />
+            <Link href="/overview" onClick={handleLinkClick} className={navItemClass(isActive('/overview'))}>
+              <Compass className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Genel Bakış
             </Link>
-            <Link href="/assessment" className={navItemClass(isActive('/assessment'))}>
-              <FileCheck2 className="w-4 h-4 mr-3 opacity-80" />
+            <Link href="/assessment" onClick={handleLinkClick} className={navItemClass(isActive('/assessment'))}>
+              <FileCheck2 className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Değerlendirme
             </Link>
           </nav>
@@ -87,12 +111,12 @@ export const Sidebar: React.FC = () => {
             PROFİL BOYUTLARI
           </div>
           <nav className="space-y-1">
-            <Link href="/profile/personality" className={navItemClass(isActive('/profile/personality'))}>
-              <User className="w-4 h-4 mr-3 opacity-80" />
+            <Link href="/profile/personality" onClick={handleLinkClick} className={navItemClass(isActive('/profile/personality'))}>
+              <User className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Temel Kişilik
             </Link>
-            <Link href="/profile/heatmap" className={navItemClass(isActive('/profile/heatmap'))}>
-              <LayoutGrid className="w-4 h-4 mr-3 opacity-80" />
+            <Link href="/profile/heatmap" onClick={handleLinkClick} className={navItemClass(isActive('/profile/heatmap'))}>
+              <LayoutGrid className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Psikolojik Profil Haritası
             </Link>
           </nav>
@@ -103,16 +127,16 @@ export const Sidebar: React.FC = () => {
             İÇGÖRÜLER & KURAMLAR
           </div>
           <nav className="space-y-1">
-            <Link href="/insights/context" className={navItemClass(isActive('/insights/context'))}>
-              <GitFork className="w-4 h-4 mr-3 opacity-80" />
+            <Link href="/insights/context" onClick={handleLinkClick} className={navItemClass(isActive('/insights/context'))}>
+              <GitFork className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Bağlamsal Değişimler
             </Link>
-            <Link href="/insights/patterns" className={navItemClass(isActive('/insights/patterns'))}>
-              <Layers className="w-4 h-4 mr-3 opacity-80" />
+            <Link href="/insights/patterns" onClick={handleLinkClick} className={navItemClass(isActive('/insights/patterns'))}>
+              <Layers className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Gerilimler & Sinerjiler
             </Link>
-            <Link href="/theory-council" className={navItemClass(isActive('/theory-council'))}>
-              <BookOpen className="w-4 h-4 mr-3 opacity-80" />
+            <Link href="/theory-council" onClick={handleLinkClick} className={navItemClass(isActive('/theory-council'))}>
+              <BookOpen className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Kuramlar Konseyi
             </Link>
           </nav>
@@ -124,8 +148,8 @@ export const Sidebar: React.FC = () => {
               BİLİMSEL ARAŞTIRMA
             </div>
             <nav className="space-y-1">
-              <Link href="/research/item-bank" className={navItemClass(isActive('/research/item-bank'))}>
-                <Database className="w-4 h-4 mr-3 opacity-80" />
+              <Link href="/research/item-bank" onClick={handleLinkClick} className={navItemClass(isActive('/research/item-bank'))}>
+                <Database className="w-4 h-4 mr-3 opacity-80 shrink-0" />
                 Madde Bankası & Matris
               </Link>
             </nav>
@@ -134,7 +158,7 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* Progress Footer Card */}
-      <div className="p-4 border-t border-border-subtle bg-surface-2/60">
+      <div className="p-4 border-t border-border-subtle bg-surface-2/60 shrink-0">
         <div className="bg-surface-1 p-3.5 rounded-xl border border-border-subtle shadow-xs">
           <div className="flex items-center justify-between text-xs font-semibold text-text-primary mb-1.5">
             <span>Keşif Kapsamı</span>

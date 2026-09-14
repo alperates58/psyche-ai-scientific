@@ -98,10 +98,10 @@ export const EpistemicBadge: React.FC<EpistemicBadgeProps> = ({
 
   return (
     <span
-      className={`inline-flex items-center font-medium rounded-full border transition-colors ${sizeClasses} ${styleClasses}`}
+      className={`inline-flex items-center max-w-full break-words whitespace-normal font-medium rounded-full border transition-colors ${sizeClasses} ${styleClasses}`}
     >
-      <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-current opacity-70" />
-      {label}
+      <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-current opacity-70 shrink-0" />
+      <span className="break-words">{label}</span>
     </span>
   );
 };
