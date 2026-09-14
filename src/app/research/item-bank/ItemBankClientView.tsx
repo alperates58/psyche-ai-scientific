@@ -159,7 +159,7 @@ export function ItemBankClientView({
       const claims = [
         f.reliabilityEvidence?.internalConsistency,
         f.reliabilityEvidence?.testRetest,
-        f.studyEvidence?.sampleN || f.reliabilityEvidence?.sampleN
+        f.studyEvidence?.sampleN
       ];
 
       claims.forEach((claim: any) => {
@@ -623,33 +623,40 @@ export function ItemBankClientView({
                 {trMatrix.map((m: any) => {
                   const ic = m.reliabilityEvidence?.internalConsistency;
                   const tr = m.reliabilityEvidence?.testRetest;
-                  const sn = m.studyEvidence?.sampleN || m.reliabilityEvidence?.sampleN;
+                  const sn = m.studyEvidence?.sampleN;
                   const hasLexicalSupport = m.supportingEvidence?.some((se: any) => se.sourceId === 'src_wasti_2008');
                   return (
                     <tr key={m.facetId} className="hover:bg-bg-subtle/50">
                       <td className="py-2 px-3 font-mono font-medium text-text-primary">{m.facetId}</td>
                       <td className="py-2 px-3 text-text-primary font-medium">{m.facetName}</td>
                       <td className="py-2 px-3">
-                        {m.status === 'DIRECT_FACET_VALIDATION' && (
-                          <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold text-[10px]">
-                            DIRECT_FACET_VALIDATION
-                          </span>
-                        )}
-                        {m.status === 'LEXICAL_SUPPORT_ONLY' && (
-                          <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-medium text-[10px]">
-                            LEXICAL_SUPPORT_ONLY
-                          </span>
-                        )}
-                        {m.status === 'RELATED_MEASURE_VALIDATION' && (
-                          <span className="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 font-medium text-[10px]">
-                            RELATED_MEASURE
-                          </span>
-                        )}
-                        {m.status === 'NO_DIRECT_TURKISH_VALIDATION' && (
-                          <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px]">
-                            NO_DIRECT_TURKISH_VALIDATION
-                          </span>
-                        )}
+                        <div className="flex flex-col gap-1 items-start">
+                          {m.status === 'DIRECT_FACET_VALIDATION' && (
+                            <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold text-[10px]">
+                              DIRECT_FACET_VALIDATION
+                            </span>
+                          )}
+                          {m.measurementAlignmentLevel && m.measurementAlignmentLevel !== 'NOT_APPLICABLE' && (
+                            <span className="px-1.5 py-0.2 rounded bg-indigo-50 text-indigo-700 text-[9px] font-mono border border-indigo-200">
+                              {m.measurementAlignmentLevel}
+                            </span>
+                          )}
+                          {m.status === 'LEXICAL_SUPPORT_ONLY' && (
+                            <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-medium text-[10px]">
+                              LEXICAL_SUPPORT_ONLY
+                            </span>
+                          )}
+                          {m.status === 'RELATED_MEASURE_VALIDATION' && (
+                            <span className="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 font-medium text-[10px]">
+                              RELATED_MEASURE
+                            </span>
+                          )}
+                          {m.status === 'NO_DIRECT_TURKISH_VALIDATION' && (
+                            <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px]">
+                              NO_DIRECT_TURKISH_VALIDATION
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="py-2 px-3">
                         {sn?.value != null ? (
