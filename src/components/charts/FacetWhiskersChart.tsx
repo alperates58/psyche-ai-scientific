@@ -1,10 +1,22 @@
 'use client';
 
 import React from 'react';
-import { DemoFacetDetail } from '@/data/demo-profile';
+export interface FacetDetailItem {
+  id: string;
+  name: string;
+  name_tr?: string;
+  constructName: string;
+  description: string;
+  score: number;
+  standardError?: number | null;
+  ci95?: [number, number] | null;
+  measurementPrecision: 'High' | 'Moderate' | 'Developing';
+  observedItems: number;
+  epistemicStatus?: any;
+}
 
 interface FacetWhiskersChartProps {
-  facets: DemoFacetDetail[];
+  facets: FacetDetailItem[];
   isPreCalibration?: boolean;
 }
 
@@ -37,17 +49,18 @@ export const FacetWhiskersChart: React.FC<FacetWhiskersChartProps> = ({
 
       {facets.map((f) => {
         const pointPercent = Math.min(100, Math.max(0, f.score));
+        const ci95 = f.ci95;
         const canRenderInterval =
           hasCalibratedIntervals &&
-          f.ci95 &&
-          Array.isArray(f.ci95) &&
-          f.ci95[0] != null &&
-          f.ci95[1] != null &&
+          ci95 &&
+          Array.isArray(ci95) &&
+          ci95[0] != null &&
+          ci95[1] != null &&
           f.standardError != null &&
           f.standardError > 0;
 
-        const leftPercent = canRenderInterval ? Math.min(100, Math.max(0, f.ci95[0])) : 0;
-        const rightPercent = canRenderInterval ? Math.min(100, Math.max(0, f.ci95[1])) : 0;
+        const leftPercent = canRenderInterval && ci95 ? Math.min(100, Math.max(0, ci95[0])) : 0;
+        const rightPercent = canRenderInterval && ci95 ? Math.min(100, Math.max(0, ci95[1])) : 0;
         const widthPercent = Math.max(2, rightPercent - leftPercent);
 
         return (
@@ -110,8 +123,8 @@ export const FacetWhiskersChart: React.FC<FacetWhiskersChartProps> = ({
                   left: `calc(0.25rem + (100% - 0.5rem) * ${pointPercent / 100})`,
                 }}
                 title={
-                  canRenderInterval
-                    ? `Puan: ${f.score}, %95 GA: [${f.ci95[0]}, ${f.ci95[1]}]`
+                  canRenderInterval && ci95
+                    ? `Puan: ${f.score}, %95 GA: [${ci95[0]}, ${ci95[1]}]`
                     : `Geçici Betimsel Puan: ${f.score} (Ön Kalibrasyon — Güven aralığı dahil edilmemiştir)`
                 }
               />

@@ -23,12 +23,73 @@ export interface SidebarProps {
   onClose?: () => void;
 }
 
+interface CoverageState {
+  exploredFacetsCount: number;
+  totalOntologyFacets: number;
+  explorationPercentage: number;
+  measurementDepthPercentage: number;
+  isAssessed: boolean;
+}
+
+const ZERO_COVERAGE: CoverageState = {
+  exploredFacetsCount: 0,
+  totalOntologyFacets: 84,
+  explorationPercentage: 0,
+  measurementDepthPercentage: 0,
+  isAssessed: false,
+};
+
 export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) => {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [showResearchNav, setShowResearchNav] = React.useState<boolean>(
     process.env.NODE_ENV !== 'production'
   );
+  const [coverage, setCoverage] = React.useState<CoverageState>(ZERO_COVERAGE);
+  const currentUserId = session?.user?.id;
+
+  // Safe authenticated coverage fetcher with abort-on-unmount/user-switch
+  React.useEffect(() => {
+    if (!currentUserId) {
+      setCoverage(ZERO_COVERAGE);
+      return;
+    }
+
+    const abortController = new AbortController();
+
+    async function fetchCoverage() {
+      try {
+        const res = await fetch('/api/profile/coverage', {
+          signal: abortController.signal,
+          cache: 'no-store',
+        });
+        if (!res.ok) {
+          setCoverage(ZERO_COVERAGE);
+          return;
+        }
+        const data = await res.json();
+        if (!abortController.signal.aborted) {
+          setCoverage({
+            exploredFacetsCount: Number(data.exploredFacetsCount) || 0,
+            totalOntologyFacets: Number(data.totalOntologyFacets) || 84,
+            explorationPercentage: Number(data.explorationPercentage) || 0,
+            measurementDepthPercentage: Number(data.measurementDepthPercentage) || 0,
+            isAssessed: Boolean(data.isAssessed),
+          });
+        }
+      } catch (err: any) {
+        if (err?.name !== 'AbortError') {
+          setCoverage(ZERO_COVERAGE);
+        }
+      }
+    }
+
+    fetchCoverage();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [currentUserId, pathname]);
 
   React.useEffect(() => {
     if (process.env.NODE_ENV !== 'production') {
@@ -165,16 +226,25 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
         <div className="bg-surface-1 p-3.5 rounded-xl border border-border-subtle shadow-xs">
           <div className="flex items-center justify-between text-xs font-semibold text-text-primary mb-1.5">
             <span>Keşif Kapsamı</span>
-            <span className="text-brand-600 font-bold">50%</span>
+            <span className="text-brand-600 font-bold">{coverage.explorationPercentage}%</span>
           </div>
           <div className="w-full bg-bg-subtle h-2 rounded-full overflow-hidden mb-2 border border-border-subtle">
-            <div className="bg-brand-500 h-full rounded-full transition-all duration-500" style={{ width: '50%' }} />
+            <div
+              className="bg-brand-500 h-full rounded-full transition-all duration-500"
+              style={{ width: `${coverage.explorationPercentage}%` }}
+            />
           </div>
           <div className="flex items-center text-[11px] text-text-tertiary justify-between">
-            <span>42 / 84 Alt Boyut</span>
-            <span className="inline-flex items-center text-amber-700 font-medium">
-              <Clock className="w-3 h-3 mr-0.5" /> Ön Kalibrasyon
+            <span>
+              {coverage.exploredFacetsCount} / {coverage.totalOntologyFacets} Alt Boyut
             </span>
+            {coverage.isAssessed && coverage.exploredFacetsCount > 0 ? (
+              <span className="inline-flex items-center text-amber-700 font-medium">
+                <Clock className="w-3 h-3 mr-0.5" /> Ön Kalibrasyon
+              </span>
+            ) : (
+              <span className="text-text-tertiary">Henüz Veri Yok</span>
+            )}
           </div>
         </div>
 

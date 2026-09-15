@@ -17,8 +17,9 @@ export default defineConfig({
   webServer: process.env.PLAYWRIGHT_TEST_BASE_URL
     ? undefined
     : {
-        command: "npx next start -p 3000",
+        command: "node .next/standalone/server.js",
         env: {
+          PORT: '3000',
           DATABASE_URL: 'postgresql://mock:mock@localhost:5432/mock',
           AUTH_SECRET: 'psyche-e2e-auth-test-secret-minimum-32-chars-long-abcdef',
         },

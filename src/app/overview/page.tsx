@@ -5,20 +5,13 @@ import {
   ArrowRight,
   ShieldCheck,
   Sparkles,
-  Layers,
-  Activity,
-  CheckCircle2,
-  AlertCircle
 } from 'lucide-react';
-import { DEMO_PROFILE_DATA, DemoCoreTrait } from '@/data/demo-profile';
-import { HexacoRadarChart } from '@/components/charts/HexacoRadarChart';
-import { EpistemicBadge } from '@/components/shared/EpistemicBadge';
+import { HexacoRadarChart, HexacoTraitData } from '@/components/charts/HexacoRadarChart';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUserOrNull } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { getLatestProfileSnapshotForUser } from '@/services/profileService';
-
-import { calculateProfileCoverage } from '@/psychometrics/coverage';
+import { calculateProfileCoverage, TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
 import { PageContainer } from '@/components/ui/PageContainer';
 
 export const dynamic = 'force-dynamic';
@@ -33,14 +26,23 @@ export default async function OverviewPage() {
   }
 
   const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
-
   const isLiveProfile = !!latestSnapshot;
-  const { overallCoverage, measurementQuality, keyInsights } = DEMO_PROFILE_DATA;
 
-  // Compute or map traits
-  let displayTraits: DemoCoreTrait[] = DEMO_PROFILE_DATA.coreTraits;
-  let overallIntegrityLabel = 'Belirgin Kalite Sorunu Saptanmadı';
-  let isIntegrityGood = true;
+  const dbFacetCount = await prisma.facet.count().catch(() => TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH);
+  const totalFacetsCount = dbFacetCount > 0 ? dbFacetCount : TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH;
+
+  const traitMapping = [
+    { id: 'honesty_humility', name: 'Honesty-Humility', name_tr: 'Dürüstlük-Alçakgönüllülük' },
+    { id: 'emotionality', name: 'Emotionality', name_tr: 'Duygusallık' },
+    { id: 'extraversion', name: 'Extraversion', name_tr: 'Dışadönüklük' },
+    { id: 'agreeableness', name: 'Agreeableness', name_tr: 'Uyumluluk' },
+    { id: 'conscientiousness', name: 'Conscientiousness', name_tr: 'Sorumluluk' },
+    { id: 'openness', name: 'Openness to Experience', name_tr: 'Deneyime Açıklık' },
+  ];
+
+  let displayTraits: HexacoTraitData[] = [];
+  let overallIntegrityLabel = 'Henüz Değerlendirme Yapılmadı';
+  let isIntegrityGood = false;
 
   if (latestSnapshot && latestSnapshot.constructScores.length > 0) {
     const constructMap = new Map<string, number>();
@@ -48,27 +50,21 @@ export default async function OverviewPage() {
       constructMap.set(cs.constructId, cs.compositeScore);
     }
 
-    const traitMapping = [
-      { id: 'honesty_humility', name: 'Honesty-Humility', name_tr: 'Dürüstlük-Alçakgönüllülük' },
-      { id: 'emotionality', name: 'Emotionality', name_tr: 'Duygusallık' },
-      { id: 'extraversion', name: 'Extraversion', name_tr: 'Dışadönüklük' },
-      { id: 'agreeableness', name: 'Agreeableness', name_tr: 'Uyumluluk' },
-      { id: 'conscientiousness', name: 'Conscientiousness', name_tr: 'Sorumluluk' },
-      { id: 'openness', name: 'Openness to Experience', name_tr: 'Deneyime Açıklık' },
-    ];
+    displayTraits = traitMapping.map((t) => {
+      const rawScore = constructMap.get(t.id);
+      // Strictly handle missing constructs as null: NEVER use midpoint imputation (?? 3.0)
+      const normalizedScore = typeof rawScore === 'number'
+        ? Math.round(((rawScore - 1) / 4) * 100)
+        : null;
 
-    displayTraits = traitMapping.map(t => {
-      const rawScore = constructMap.get(t.id) ?? 3.0;
-      // Convert 1-5 Likert mean to 0-100 preview scale for radar visualization
-      const normalizedScore = Math.round(((rawScore - 1) / 4) * 100);
       return {
         name: t.name,
         name_tr: t.name_tr,
         score: normalizedScore,
-        standardError: 0, // Pre-calibration null displayed as 0 or null
-        ci95: [0, 0] as [number, number],
+        standardError: null,
+        ci95: null,
         facetCount: 4,
-        coverage: 100
+        coverage: typeof rawScore === 'number' ? 100 : 0,
       };
     });
 
@@ -84,9 +80,19 @@ export default async function OverviewPage() {
     isIntegrityGood =
       latestSnapshot.overallIntegrity === 'EXCELLENT' ||
       latestSnapshot.overallIntegrity === 'ACCEPTABLE';
+  } else {
+    // Unassessed user: zero scores across all dimensions
+    displayTraits = traitMapping.map((t) => ({
+      name: t.name,
+      name_tr: t.name_tr,
+      score: null,
+      standardError: null,
+      ci95: null,
+      facetCount: 4,
+      coverage: 0,
+    }));
   }
 
-  const totalFacetsCount = isLiveProfile ? await prisma.facet.count() : 84;
   const facetItemCounts: Record<string, number> = {};
   if (latestSnapshot) {
     for (const fs of latestSnapshot.facetScores) {
@@ -105,7 +111,7 @@ export default async function OverviewPage() {
             <span>Dijital Psikolojik Profil</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-bold text-text-primary tracking-tight">
-            İyi akşamlar, {user.name}
+            İyi günler, {user.name}
           </h1>
           <p className="text-sm text-text-secondary mt-1">
             Psikolojik profiliniz, yapılandırılmış ölçümler ve bilimsel değerlendirmeler tamamlandıkça gelişmeye devam eder.
@@ -153,7 +159,7 @@ export default async function OverviewPage() {
           <p className="text-xs text-text-secondary leading-relaxed">
             {isLiveProfile
               ? `Ön kalibrasyon formundaki ${latestSnapshot.facetScores.length} alt boyut başlangıç seviyesinde taranmıştır. Tek maddeli tarama yüksek ölçüm hassasiyeti taşımaz; boylamsal modüllerle geliştirilmektedir.`
-              : 'Henüz tamamlanmamış alt boyutlar için yeni değerlendirme modülleri mevcuttur.'}
+              : 'Henüz tamamlanmış alt boyut bulunmuyor. Profilinizi oluşturmak için değerlendirme modülüne başlayın.'}
           </p>
         </div>
 
@@ -166,20 +172,22 @@ export default async function OverviewPage() {
               </span>
               <span
                 className={`text-xs font-bold px-2 py-0.5 rounded-md border ${
-                  isIntegrityGood
-                    ? 'text-teal-700 bg-teal-50 border-teal-200/60'
-                    : 'text-amber-700 bg-amber-50 border-amber-200/60'
+                  isLiveProfile
+                    ? isIntegrityGood
+                      ? 'text-teal-700 bg-teal-50 border-teal-200/60'
+                      : 'text-amber-700 bg-amber-50 border-amber-200/60'
+                    : 'text-text-tertiary bg-surface-2 border-border-subtle'
                 }`}
               >
-                {isLiveProfile ? 'CANLI VERİ KAYDI (ÖN KALİBRASYON)' : 'ÖNİZLEME VERİSİ'}
+                {isLiveProfile ? 'CANLI VERİ KAYDI (ÖN KALİBRASYON)' : 'ÖLÇÜM BEKLENİYOR'}
               </span>
             </div>
             <div className="flex items-baseline space-x-2 mb-2">
               <div className="text-3xl font-bold text-text-primary">
-                {isLiveProfile ? 'Ön Kalibrasyon' : 'Yüksek'}
+                {isLiveProfile ? 'Ön Kalibrasyon' : 'Henüz Veri Yok'}
               </div>
               <span className="text-xs text-text-tertiary">
-                {isLiveProfile ? '(Nüfus Normu Hariç)' : '(SEM ±2.8)'}
+                {isLiveProfile ? '(Nüfus Normu Hariç)' : '(Değerlendirme Bekleniyor)'}
               </span>
             </div>
           </div>
@@ -188,7 +196,7 @@ export default async function OverviewPage() {
             <div className="bg-surface-2 p-2.5 rounded-lg border border-border-subtle/80">
               <div className="text-[11px] text-text-tertiary">Örneklem Durumu</div>
               <div className="font-semibold text-text-primary mt-0.5">
-                {isLiveProfile ? 'TR-Ön-Kalibrasyon' : measurementQuality.precision}
+                {isLiveProfile ? 'TR-Ön-Kalibrasyon' : 'Veri Yok'}
               </div>
             </div>
             <div className="bg-surface-2 p-2.5 rounded-lg border border-border-subtle/80">
@@ -200,7 +208,11 @@ export default async function OverviewPage() {
           </div>
           <div className="flex items-center text-[11px] text-text-tertiary">
             <ShieldCheck className="w-3.5 h-3.5 text-teal-600 mr-1.5 flex-shrink-0" />
-            <span>Çoklu telemetri bütünlük takibi aktif (yanıt süresi, düz yanıtlama ve doğrulama maddesi).</span>
+            <span>
+              {isLiveProfile
+                ? 'Çoklu telemetri bütünlük takibi aktif (yanıt süresi, düz yanıtlama ve doğrulama maddesi).'
+                : 'Değerlendirme tamamlandığında telemetri ve yanıt kalitesi analiz edilir.'}
+            </span>
           </div>
         </div>
       </div>
@@ -217,14 +229,16 @@ export default async function OverviewPage() {
                   className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
                     isLiveProfile
                       ? 'bg-emerald-50 text-emerald-800 border-emerald-200/60'
-                      : 'bg-amber-50 text-amber-800 border-amber-200/60'
+                      : 'bg-surface-2 text-text-tertiary border-border-subtle'
                   }`}
                 >
-                  {isLiveProfile ? 'ÖN KALİBRASYON (v1.0.0)' : 'ÖNİZLEME VERİSİ'}
+                  {isLiveProfile ? 'ÖN KALİBRASYON (v1.0.0)' : 'HENÜZ ÖLÇÜLMEDİ'}
                 </span>
               </div>
               <p className="text-xs text-text-tertiary mt-0.5">
-                HEXACO boyutları genelinde geçici betimsel bileşik puanlar (Ön kalibrasyon modeli)
+                {isLiveProfile
+                  ? 'HEXACO boyutları genelinde geçici betimsel bileşik puanlar (Ön kalibrasyon modeli)'
+                  : 'HEXACO boyutları değerlendirme tamamlandıkça bilimsel algoritmalarla hesaplanır.'}
               </p>
             </div>
             <Link
@@ -236,10 +250,33 @@ export default async function OverviewPage() {
             </Link>
           </div>
 
-          {/* Radar Chart Component */}
-          <div className="py-2">
-            <HexacoRadarChart data={displayTraits} />
-          </div>
+          {/* Radar Chart Component or Empty State */}
+          {!isLiveProfile ? (
+            <div className="py-8 px-4 flex flex-col items-center justify-center text-center space-y-4 bg-surface-2/30 rounded-xl border border-dashed border-border-subtle my-2">
+              <div className="w-12 h-12 rounded-full bg-brand-50 border border-brand-200/60 flex items-center justify-center text-brand-600">
+                <Compass className="w-6 h-6" />
+              </div>
+              <div className="max-w-md space-y-1.5">
+                <div className="text-sm font-bold text-text-primary">
+                  Henüz kişilik ölçümü bulunmuyor.
+                </div>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  İlk değerlendirmenizi tamamladığınızda HEXACO boyutlarınız burada görüntülenecek.
+                </p>
+              </div>
+              <Link
+                href="/assessment"
+                className="inline-flex items-center px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors duration-150"
+              >
+                <span>Değerlendirmeye Başla</span>
+                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+              </Link>
+            </div>
+          ) : (
+            <div className="py-2">
+              <HexacoRadarChart data={displayTraits} />
+            </div>
+          )}
 
           <div className="mt-4 pt-4 border-t border-border-subtle grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center">
             {displayTraits.map((t) => (
@@ -247,9 +284,11 @@ export default async function OverviewPage() {
                 <div className="min-h-[30px] flex items-center justify-center text-[9.5px] font-medium text-text-tertiary leading-tight break-words text-center">
                   {t.name_tr || t.name}
                 </div>
-                <div className="text-sm font-bold text-text-primary mt-1">{t.score}</div>
+                <div className="text-sm font-bold text-text-primary mt-1">
+                  {typeof t.score === 'number' ? t.score : '—'}
+                </div>
                 <div className="text-[9px] text-text-tertiary font-mono">
-                  {isLiveProfile ? 'Geçici Bileşik' : `±${t.standardError}`}
+                  {typeof t.score === 'number' ? 'Geçici Bileşik' : 'Ölçülmedi'}
                 </div>
               </div>
             ))}
@@ -272,33 +311,21 @@ export default async function OverviewPage() {
           </div>
 
           <div className="space-y-3.5">
-            {keyInsights.map((insight) => (
-              <div
-                key={insight.id}
-                className="bg-surface-1 p-4 rounded-card border border-border-subtle shadow-xs hover:border-brand-200 transition-colors"
-              >
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="text-xs font-bold text-text-primary leading-tight">
-                    {insight.title}
-                  </h3>
-                  <EpistemicBadge status={insight.badge} size="sm" />
-                </div>
-                <p className="text-xs text-text-secondary leading-relaxed mb-3">
-                  {insight.body}
-                </p>
-                <div className="flex items-center flex-wrap gap-1.5 pt-2 border-t border-border-subtle/60">
-                  <span className="text-[10px] text-text-tertiary mr-1 font-medium">Dayanak:</span>
-                  {insight.groundedFacets.map((f) => (
-                    <span
-                      key={f}
-                      className="text-[10px] bg-bg-subtle text-text-secondary px-2 py-0.5 rounded border border-border-subtle"
-                    >
-                      {f}
-                    </span>
-                  ))}
-                </div>
+            <div className="bg-surface-1 p-5 rounded-card border border-border-subtle shadow-xs space-y-3">
+              <div className="text-xs font-bold text-text-primary">
+                Henüz yeterli veri yok.
               </div>
-            ))}
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Psikolojik örüntüler, tamamlanan değerlendirmelerden elde edilen ölçümlere göre oluşturulur.
+              </p>
+              <Link
+                href="/assessment"
+                className="inline-flex items-center text-xs font-semibold text-brand-600 hover:text-brand-700"
+              >
+                <span>{isLiveProfile ? 'Yeni Değerlendirme Modülü' : 'Değerlendirmeye Başla'}</span>
+                <ArrowRight className="w-3 h-3 ml-1" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

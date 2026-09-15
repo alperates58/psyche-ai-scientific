@@ -40,6 +40,7 @@ test.describe('FAZ 2.6: Auth Pages Responsive & Layout Invariants', () => {
 test.describe('FAZ 2.6: Auth Page Functional Elements', () => {
   test('Login page has required form elements and Google OAuth option', async ({ page }) => {
     await page.goto('/login', { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('h1', { timeout: 10000 });
 
     // Heading
     await expect(page.locator('h1')).toContainText('PsycheAI Giriş');
@@ -114,6 +115,8 @@ const testPrisma = new PrismaClient({
 });
 
 test.describe('FAZ 2.6: Real Credentials End-to-End Flow (TEST DB)', () => {
+  test.skip(!process.env.TEST_DATABASE_URL, 'Skipped: TEST_DATABASE_URL is not configured');
+
   const e2eEmail = `e2e_user_${Date.now()}@psycheai.test`;
   const e2ePassword = 'ValidPassphrase123!';
   let createdUserId: string | null = null;

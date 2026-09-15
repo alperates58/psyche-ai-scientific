@@ -1,15 +1,29 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Layers, GitCompare, Sparkles } from 'lucide-react';
-import { DEMO_PROFILE_DATA } from '@/data/demo-profile';
-import { EpistemicBadge } from '@/components/shared/EpistemicBadge';
+import { ArrowLeft, ArrowRight, Layers, Compass } from 'lucide-react';
 import { PageContainer } from '@/components/ui/PageContainer';
+import { getCurrentUserOrNull } from '@/lib/auth';
+import { redirect } from 'next/navigation';
+import { getLatestProfileSnapshotForUser } from '@/services/profileService';
 
-export default function PatternsPage() {
-  const { tensionsAndSynergies } = DEMO_PROFILE_DATA;
+export const dynamic = 'force-dynamic';
 
-  const tensions = tensionsAndSynergies.filter((p) => p.type === 'tension');
-  const synergies = tensionsAndSynergies.filter((p) => p.type === 'synergy');
+export default async function PatternsPage() {
+  const user = await getCurrentUserOrNull();
+  if (!user) {
+    redirect('/login?callbackUrl=/insights/patterns');
+  }
+  if (user.status === 'PENDING_VERIFICATION') {
+    redirect('/verify-email');
+  }
+
+  const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
+  const isAssessed = !!latestSnapshot && latestSnapshot.facetScores.length > 0;
+
+  // Scientifically: Snapshot existence alone is NOT sufficient.
+  // Patterns require verified multi-trait interaction evidence.
+  // When evidence is insufficient, system strictly renders the scientific empty state.
+  const hasSufficientPatternEvidence = false;
 
   return (
     <PageContainer variant="wide" className="space-y-8 pb-12">
@@ -26,8 +40,14 @@ export default function PatternsPage() {
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-xl sm:text-2xl font-bold text-text-primary">Gerilimler ve Sinerjiler</h1>
-              <span className="text-[11px] sm:text-xs bg-amber-50 text-amber-800 border border-amber-200/60 font-semibold px-2 py-0.5 rounded-full shrink-0">
-                ÖNİZLEME VERİSİ
+              <span
+                className={`text-[11px] sm:text-xs font-semibold px-2 py-0.5 rounded-full shrink-0 border ${
+                  hasSufficientPatternEvidence
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200/60'
+                    : 'bg-surface-2 text-text-tertiary border-border-subtle'
+                }`}
+              >
+                {hasSufficientPatternEvidence ? 'CANLI ANALİZ' : 'YETERSİZ VERİ'}
               </span>
             </div>
             <p className="text-xs text-text-secondary mt-1 max-w-2xl">
@@ -42,116 +62,24 @@ export default function PatternsPage() {
         </div>
       </div>
 
-      {/* Tensions Section */}
-      <div className="space-y-4">
-        <div className="flex items-center space-x-2">
-          <GitCompare className="w-4 h-4 text-amber-700 shrink-0" />
-          <h2 className="text-base font-bold text-text-primary">İçsel Gerilimler (Gelişim Alanları)</h2>
-          <span className="text-xs text-text-tertiary hidden sm:inline">&bull; Farklı hedefleri olan ve birlikte bulunan özellikler</span>
+      {/* Empty State / Insufficient Evidence Guard */}
+      <div className="bg-surface-1 p-8 sm:p-12 rounded-card border border-border-subtle shadow-xs text-center flex flex-col items-center justify-center space-y-4">
+        <div className="w-14 h-14 rounded-2xl bg-brand-50 border border-brand-200/60 flex items-center justify-center text-brand-600">
+          <Compass className="w-7 h-7" />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {tensions.map((item) => (
-            <div
-              key={item.id}
-              className="bg-surface-1 p-4 sm:p-6 rounded-card border border-border-subtle shadow-xs space-y-4 hover:border-amber-200 transition-colors"
-            >
-              <div className="flex flex-col xs:flex-row items-start justify-between gap-2">
-                <h3 className="text-sm font-bold text-text-primary">{item.title}</h3>
-                <div className="shrink-0">
-                  <EpistemicBadge status="EVIDENCE_SUPPORTED_INTERPRETATION" size="sm" />
-                </div>
-              </div>
-
-              {/* Node link graphic */}
-              <div className="flex items-center justify-between p-3 sm:p-3.5 bg-amber-50/40 rounded-xl border border-amber-200/50 gap-2">
-                <div className="text-center flex-1 min-w-0">
-                  <div className="text-[10px] uppercase font-bold text-amber-900 tracking-wide">Düğüm A</div>
-                  <div className="text-xs font-semibold text-text-primary mt-0.5 break-words">{item.facetA}</div>
-                </div>
-
-                <div className="px-1.5 sm:px-3 flex flex-col items-center shrink-0">
-                  <span className="text-[10px] font-mono font-bold text-amber-800 whitespace-nowrap">
-                    %{Math.round(item.strength * 100)} Gerilim
-                  </span>
-                  <div className="w-8 sm:w-16 h-[2px] bg-amber-400 relative my-1">
-                    <span className="w-2 h-2 rounded-full bg-amber-600 absolute left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                  </div>
-                </div>
-
-                <div className="text-center flex-1 min-w-0">
-                  <div className="text-[10px] uppercase font-bold text-amber-900 tracking-wide">Düğüm B</div>
-                  <div className="text-xs font-semibold text-text-primary mt-0.5 break-words">{item.facetB}</div>
-                </div>
-              </div>
-
-              <p className="text-xs text-text-secondary leading-relaxed">
-                {item.description}
-              </p>
-
-              <div className="p-3 bg-surface-2 rounded-xl border border-border-subtle text-xs text-text-secondary">
-                <span className="font-semibold text-text-primary">Gelişim Önerisi:</span>{' '}
-                {item.recommendation}
-              </div>
-            </div>
-          ))}
+        <div className="max-w-md space-y-2">
+          <h2 className="text-lg font-bold text-text-primary">Henüz yeterli veri yok.</h2>
+          <p className="text-xs text-text-secondary leading-relaxed">
+            İçsel gerilimler ve sinerjiler, tamamlanan psikometrik değerlendirmelerdeki boyut etkileşimlerine göre hesaplanır. Yeterli ampirik veri olmadan yapay örüntü veya korelasyon iddiaları üretilmez.
+          </p>
         </div>
-      </div>
-
-      {/* Synergies Section */}
-      <div className="space-y-4 pt-4">
-        <div className="flex items-center space-x-2">
-          <Sparkles className="w-4 h-4 text-teal-600 shrink-0" />
-          <h2 className="text-base font-bold text-text-primary">Güçlendirici Sinerjiler (Katalitik Güçler)</h2>
-          <span className="text-xs text-text-tertiary hidden sm:inline">&bull; Birlikte etkinliği artıran ve güçlendiren özellikler</span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {synergies.map((item) => (
-            <div
-              key={item.id}
-              className="bg-surface-1 p-4 sm:p-6 rounded-card border border-border-subtle shadow-xs space-y-4 hover:border-teal-200 transition-colors"
-            >
-              <div className="flex flex-col xs:flex-row items-start justify-between gap-2">
-                <h3 className="text-sm font-bold text-text-primary">{item.title}</h3>
-                <div className="shrink-0">
-                  <EpistemicBadge status="EVIDENCE_SUPPORTED_INTERPRETATION" size="sm" />
-                </div>
-              </div>
-
-              {/* Node link graphic */}
-              <div className="flex items-center justify-between p-3 sm:p-3.5 bg-teal-50/40 rounded-xl border border-teal-200/50 gap-2">
-                <div className="text-center flex-1 min-w-0">
-                  <div className="text-[10px] uppercase font-bold text-teal-900 tracking-wide">Düğüm A</div>
-                  <div className="text-xs font-semibold text-text-primary mt-0.5 break-words">{item.facetA}</div>
-                </div>
-
-                <div className="px-1.5 sm:px-3 flex flex-col items-center shrink-0">
-                  <span className="text-[10px] font-mono font-bold text-teal-800 whitespace-nowrap">
-                    %{Math.round(item.strength * 100)} Sinerji
-                  </span>
-                  <div className="w-8 sm:w-16 h-[2px] bg-teal-400 relative my-1">
-                    <span className="w-2 h-2 rounded-full bg-teal-600 absolute left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                  </div>
-                </div>
-
-                <div className="text-center flex-1 min-w-0">
-                  <div className="text-[10px] uppercase font-bold text-teal-900 tracking-wide">Düğüm B</div>
-                  <div className="text-xs font-semibold text-text-primary mt-0.5 break-words">{item.facetB}</div>
-                </div>
-              </div>
-
-              <p className="text-xs text-text-secondary leading-relaxed">
-                {item.description}
-              </p>
-
-              <div className="p-3 bg-surface-2 rounded-xl border border-border-subtle text-xs text-text-secondary">
-                <span className="font-semibold text-text-primary">Kaldıraç Stratejisi:</span>{' '}
-                {item.recommendation}
-              </div>
-            </div>
-          ))}
-        </div>
+        <Link
+          href="/assessment"
+          className="inline-flex items-center px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors duration-150"
+        >
+          <span>{isAssessed ? 'Yeni Değerlendirme Modülü' : 'Değerlendirmeye Başla'}</span>
+          <ArrowRight className="w-4 h-4 ml-1.5" />
+        </Link>
       </div>
     </PageContainer>
   );

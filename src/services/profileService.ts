@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { evaluateSessionIntegrity } from './integrityService';
 import { calculatePreCalibrationScores } from './scoringService';
+import { calculateProfileCoverage, TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
 
 export async function finalizeAssessmentAndCreateSnapshot(
   sessionId: string,
@@ -176,6 +177,54 @@ export async function getLatestProfileSnapshotForUser(userId: string) {
 
   if (!snapshot) return null;
   return getSnapshotById(snapshot.id);
+}
+
+export interface UserProfileCoverageSummary {
+  exploredFacetsCount: number;
+  totalOntologyFacets: number;
+  explorationPercentage: number;
+  measurementDepthPercentage: number;
+  isAssessed: boolean;
+}
+
+export async function getUserProfileCoverage(userId: string): Promise<UserProfileCoverageSummary> {
+  try {
+    const dbFacetCount = await prisma.facet.count().catch(() => TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH);
+    const totalOntologyFacets = dbFacetCount > 0 ? dbFacetCount : TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH;
+
+    const latestSnapshot = await getLatestProfileSnapshotForUser(userId).catch(() => null);
+    if (!latestSnapshot || !latestSnapshot.facetScores || latestSnapshot.facetScores.length === 0) {
+      return {
+        exploredFacetsCount: 0,
+        totalOntologyFacets,
+        explorationPercentage: 0,
+        measurementDepthPercentage: 0,
+        isAssessed: false,
+      };
+    }
+
+    const facetItemCounts: Record<string, number> = {};
+    for (const fs of latestSnapshot.facetScores) {
+      facetItemCounts[fs.facetId] = fs.itemCount;
+    }
+
+    const coverage = calculateProfileCoverage(facetItemCounts, totalOntologyFacets, 6);
+    return {
+      exploredFacetsCount: coverage.exploredFacetsCount,
+      totalOntologyFacets: coverage.totalOntologyFacets,
+      explorationPercentage: coverage.explorationPercentage,
+      measurementDepthPercentage: coverage.measurementDepthPercentage,
+      isAssessed: coverage.exploredFacetsCount > 0,
+    };
+  } catch {
+    return {
+      exploredFacetsCount: 0,
+      totalOntologyFacets: TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH,
+      explorationPercentage: 0,
+      measurementDepthPercentage: 0,
+      isAssessed: false,
+    };
+  }
 }
 
 export interface SnapshotAuditReport {

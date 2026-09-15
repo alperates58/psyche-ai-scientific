@@ -10,10 +10,18 @@ import {
   ResponsiveContainer,
   Tooltip
 } from 'recharts';
-import { DemoCoreTrait } from '@/data/demo-profile';
+export interface HexacoTraitData {
+  name: string;
+  name_tr?: string;
+  score: number | null;
+  standardError?: number | null;
+  ci95?: [number, number] | null;
+  facetCount?: number;
+  coverage?: number;
+}
 
 interface HexacoRadarChartProps {
-  data: DemoCoreTrait[];
+  data: HexacoTraitData[];
   compact?: boolean;
 }
 
@@ -49,6 +57,74 @@ const renderPolarAngleTick = ({ payload, x, y, cx, cy, ...rest }: any) => {
 };
 
 export const HexacoRadarChart: React.FC<HexacoRadarChartProps> = ({ data, compact = false }) => {
+  const measuredTraits = data.filter((d) => typeof d.score === 'number' && !isNaN(d.score));
+  const hasFullSixDimensions = data.length >= 6 && measuredTraits.length === 6;
+
+  // If 0 dimensions measured
+  if (measuredTraits.length === 0) {
+    return (
+      <div className="w-full h-[240px] flex flex-col items-center justify-center p-6 text-center bg-surface-2/50 rounded-xl border border-dashed border-border-subtle">
+        <span className="text-xs font-semibold text-text-secondary mb-1">Henüz Kişilik Ölçümü Bulunmuyor</span>
+        <span className="text-[11px] text-text-tertiary max-w-sm">
+          HEXACO radar grafiği, tüm 6 temel boyut ampirik olarak ölçüldüğünde oluşturulacaktır.
+        </span>
+      </div>
+    );
+  }
+
+  // If partial measurement (< 6 dimensions)
+  if (!hasFullSixDimensions) {
+    return (
+      <div className="w-full p-4 bg-surface-2/40 rounded-xl border border-border-subtle space-y-4">
+        <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+              Kısmi Ölçüm
+            </span>
+            <span className="text-xs text-text-tertiary">({measuredTraits.length} / 6 Boyut Ölçüldü)</span>
+          </div>
+          <span className="text-[10px] text-text-tertiary">Radar poligonu için 6/6 boyut gereklidir</span>
+        </div>
+        <p className="text-xs text-text-secondary leading-relaxed">
+          Radar poligonu yalnızca tüm 6 HEXACO ana boyutu eksiksiz ölçüldüğünde oluşturulur. Eksik boyutları yapay değerlerle kapatmak bilimsel geçerliliği zedeleyeceği için sadece ölçülen boyutlar gösterilmektedir.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+          {data.map((d) => {
+            const isMeasured = typeof d.score === 'number' && !isNaN(d.score);
+            return (
+              <div
+                key={d.name}
+                className={`p-3 rounded-lg border flex flex-col justify-between ${
+                  isMeasured ? 'bg-surface-1 border-border-subtle' : 'bg-bg-subtle/60 border-dashed border-border-subtle opacity-70'
+                }`}
+              >
+                <div className="flex items-center justify-between text-xs font-medium mb-1.5">
+                  <span className={isMeasured ? 'text-text-primary' : 'text-text-tertiary'}>
+                    {d.name_tr || d.name}
+                  </span>
+                  <span className="font-mono font-bold">
+                    {isMeasured ? (
+                      <span className="text-brand-600">{d.score} / 100</span>
+                    ) : (
+                      <span className="text-text-tertiary text-[11px]">Ölçülmedi</span>
+                    )}
+                  </span>
+                </div>
+                <div className="w-full bg-border-subtle/60 h-1.5 rounded-full overflow-hidden">
+                  <div
+                    className={isMeasured ? 'bg-brand-600 h-full rounded-full transition-all duration-500' : 'h-full'}
+                    style={{ width: isMeasured ? `${d.score}%` : '0%' }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // If full 6/6 dimensions measured, render the complete radar chart
   const chartData = data.map((d) => ({
     trait: d.name_tr || d.name,
     score: d.score,
@@ -78,7 +154,6 @@ export const HexacoRadarChart: React.FC<HexacoRadarChartProps> = ({ data, compac
 
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      {/* Chart container with mobile-adapted height */}
       <div className="w-full h-[280px] sm:h-[320px] md:h-[350px]">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart
@@ -89,10 +164,7 @@ export const HexacoRadarChart: React.FC<HexacoRadarChartProps> = ({ data, compac
             margin={{ top: 15, right: 25, bottom: 15, left: 25 }}
           >
             <PolarGrid stroke="#E7EBF0" strokeDasharray="3 3" />
-            <PolarAngleAxis
-              dataKey="trait"
-              tick={renderPolarAngleTick}
-            />
+            <PolarAngleAxis dataKey="trait" tick={renderPolarAngleTick} />
             <PolarRadiusAxis
               angle={30}
               domain={[0, 100]}
@@ -112,7 +184,6 @@ export const HexacoRadarChart: React.FC<HexacoRadarChartProps> = ({ data, compac
         </ResponsiveContainer>
       </div>
 
-      {/* Trait values summary */}
       <div className="text-[11px] text-text-tertiary mt-2 flex items-center space-x-2 text-center">
         <span className="w-2.5 h-2.5 rounded-full bg-brand-500/40 border border-brand-600 inline-block shrink-0" />
         <span className="text-left sm:text-center">
