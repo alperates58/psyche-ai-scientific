@@ -5,7 +5,7 @@ const testDbUrl =
   process.env.TEST_DATABASE_URL ||
   'postgresql://postgres:postgres@localhost:5434/psyche_ai_test?schema=public';
 
-const hasTestDb = Boolean(process.env.TEST_DATABASE_URL);
+const hasTestDb = Boolean(testDbUrl);
 
 const testPrisma = new PrismaClient({
   datasources: {
@@ -17,6 +17,11 @@ const testPrisma = new PrismaClient({
 
 test.describe('FAZ 2.6.1: Authenticated Zero-Assessment User Invariants E2E', () => {
   test.skip(!hasTestDb, 'Skipped: TEST_DATABASE_URL is not configured');
+
+  test.beforeEach(async () => {
+    // Prevent rate limit accumulation across test runs
+    await testPrisma.rateLimitRecord.deleteMany({});
+  });
 
   const timestamp = Date.now();
   const testEmail = `zero_user_${timestamp}@psycheai.test`;
@@ -57,10 +62,14 @@ test.describe('FAZ 2.6.1: Authenticated Zero-Assessment User Invariants E2E', ()
 
   test('login with fresh user and verify zero-data scientific invariants across all routes', async ({ page }) => {
     // 1. Login
+    await page.context().clearCookies();
     await page.goto('/login');
     await page.fill('input[type="email"]', testEmail);
     await page.fill('input[type="password"]', testPassword);
     await page.click('button[type="submit"]');
+    await page.waitForTimeout(3000);
+    console.log('LOGIN URL AFTER SUBMIT:', page.url());
+    console.log('LOGIN BODY AFTER SUBMIT:', await page.locator('body').innerText());
 
     // 2. Overview Page Verification
     await page.waitForURL(/\/overview/, { timeout: 15000 });
@@ -139,5 +148,91 @@ test.describe('FAZ 2.6.1: Authenticated Zero-Assessment User Invariants E2E', ()
     expect(councilBody).toContain('Henüz ölçülmedi (Değerlendirme bekleniyor)');
     expect(councilBody).not.toContain('Alex Mercer');
     expect(councilBody).not.toContain('ÖNİZLEME VERİSİ');
+  });
+
+  test('assessed user displays real non-zero coverage in sidebar and resets safely on logout', async ({ page }) => {
+    // 1. Create an assessed user with real profile snapshot and 14 measured facets
+    const assessedEmail = `assessed_e2e_${Date.now()}@psycheai.test`;
+    const assessedPassword = 'AssessedPassword123!';
+    const passwordHash = await import('@/lib/password').then(m => m.hashPassword(assessedPassword));
+
+    const user = await testPrisma.user.create({
+      data: {
+        email: assessedEmail,
+        emailNormalized: assessedEmail.toLowerCase(),
+        name: 'Değerlendirilmiş Kullanıcı',
+        status: 'ACTIVE',
+        emailVerified: new Date(),
+        isDemoUser: false,
+        credential: {
+          create: { passwordHash },
+        },
+        roles: {
+          create: { role: 'USER' },
+        },
+      },
+    });
+
+    const scoringModel = await testPrisma.scoringModelVersion.findFirstOrThrow();
+    const sampleFacets = await testPrisma.facet.findMany({ take: 14 });
+    expect(sampleFacets.length).toBe(14);
+
+    const snapshot = await testPrisma.profileSnapshot.create({
+      data: {
+        userId: user.id,
+        scoringModelVersionId: scoringModel.id,
+        normStatus: 'UNAVAILABLE',
+        provisionalComposite: 3.45,
+        overallIntegrity: 'ACCEPTABLE',
+      },
+    });
+
+    await testPrisma.facetScore.createMany({
+      data: sampleFacets.map(f => ({
+        profileSnapshotId: snapshot.id,
+        facetId: f.id,
+        rawMean: 3.4,
+        itemCount: 4,
+      })),
+    });
+
+    try {
+      page.on('console', msg => console.log('BROWSER LOG:', msg.text()));
+      page.on('response', async res => {
+        if (res.url().includes('coverage')) {
+          console.log('COVERAGE API RESPONSE:', res.status(), await res.text());
+        }
+      });
+
+      // 2. Login as assessed user
+      await page.context().clearCookies();
+      await page.goto('/login');
+      await page.fill('input[type="email"]', assessedEmail);
+      await page.fill('input[type="password"]', assessedPassword);
+      await page.click('button[type="submit"]');
+      await page.waitForTimeout(3000);
+      console.log('TEST 2 LOGIN URL AFTER SUBMIT:', page.url());
+      console.log('TEST 2 BODY AFTER SUBMIT:', await page.locator('body').innerText());
+
+      // 3. Navigate to /overview and verify Sidebar displays real non-zero coverage
+      await page.waitForURL(/\/overview/, { timeout: 15000 });
+      const sidebar = page.locator('aside[aria-label="Sol Gezinme Menüsü"]');
+      await expect(sidebar).toBeVisible();
+
+      // Math.round((14 / 84) * 100) = 17%
+      await expect(sidebar).toContainText('17%');
+      await expect(sidebar).toContainText('14 / 84 Alt Boyut');
+
+      // 4. Logout through UI
+      const logoutBtn = page.locator('button[aria-label="Güvenli Çıkış Yap"]');
+      await expect(logoutBtn).toBeVisible();
+      await logoutBtn.click();
+
+      // 5. Redirection to /login and verify session is destroyed
+      await page.waitForURL(/\/login/, { timeout: 15000 });
+      expect(page.url()).toContain('/login');
+    } finally {
+      await testPrisma.user.delete({ where: { id: user.id } }).catch(() => {});
+    }
   });
 });

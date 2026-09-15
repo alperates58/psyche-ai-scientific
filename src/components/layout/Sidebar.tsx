@@ -41,7 +41,7 @@ const ZERO_COVERAGE: CoverageState = {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) => {
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [showResearchNav, setShowResearchNav] = React.useState<boolean>(
     process.env.NODE_ENV !== 'production'
   );
@@ -50,8 +50,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
 
   // Safe authenticated coverage fetcher with abort-on-unmount/user-switch
   React.useEffect(() => {
-    if (!currentUserId) {
+    if (status === 'unauthenticated') {
       setCoverage(ZERO_COVERAGE);
+      return;
+    }
+
+    if (status === 'loading') {
       return;
     }
 
@@ -89,7 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
     return () => {
       abortController.abort();
     };
-  }, [currentUserId, pathname]);
+  }, [status, currentUserId, pathname]);
 
   React.useEffect(() => {
     if (process.env.NODE_ENV !== 'production') {

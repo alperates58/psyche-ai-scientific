@@ -33,8 +33,7 @@ function LoginForm() {
     try {
       const res = await loginAction({ email, password });
       if (res.success) {
-        router.push(callbackUrl);
-        router.refresh();
+        window.location.href = callbackUrl;
       } else {
         setErrorMessage(res.error || 'Giriş yapılamadı.');
       }

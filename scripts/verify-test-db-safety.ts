@@ -24,13 +24,29 @@ export function parseSafeDbMetadata(rawUrl?: string): SafeDbMetadata | null {
 
 function getDevDatabaseUrl(): string | undefined {
   if (process.env.DEV_DATABASE_URL) return process.env.DEV_DATABASE_URL;
+  const envPath = path.resolve(process.cwd(), '.env');
+  if (fs.existsSync(envPath)) {
+    const content = fs.readFileSync(envPath, 'utf8');
+    const devMatch = content.match(/^DEV_DATABASE_URL=["']?([^"'\r\n]+)["']?/m);
+    if (devMatch) return devMatch[1];
+    const match = content.match(/^DATABASE_URL=["']?([^"'\r\n]+)["']?/m);
+    if (match && !match[1].includes('psyche_ai_test')) return match[1];
+  }
   if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('psyche_ai_test')) {
+    return process.env.DATABASE_URL;
+  }
+  return undefined;
+}
+
+function getTestDatabaseUrl(): string | undefined {
+  if (process.env.TEST_DATABASE_URL) return process.env.TEST_DATABASE_URL;
+  if (process.env.DATABASE_URL && process.env.DATABASE_URL.includes('psyche_ai_test')) {
     return process.env.DATABASE_URL;
   }
   const envPath = path.resolve(process.cwd(), '.env');
   if (fs.existsSync(envPath)) {
     const content = fs.readFileSync(envPath, 'utf8');
-    const match = content.match(/^DATABASE_URL=["']?([^"'\r\n]+)["']?/m);
+    const match = content.match(/^TEST_DATABASE_URL=["']?([^"'\r\n]+)["']?/m);
     if (match) return match[1];
   }
   return undefined;
@@ -41,7 +57,7 @@ export function assertTestDatabaseSafety(): {
   testMeta: SafeDbMetadata;
 } {
   const devUrl = getDevDatabaseUrl();
-  const testUrl = process.env.TEST_DATABASE_URL || (process.env.DATABASE_URL?.includes('psyche_ai_test') ? process.env.DATABASE_URL : undefined);
+  const testUrl = getTestDatabaseUrl();
 
   if (!testUrl) {
     throw new Error('SAFETY_ABORT: TEST_DATABASE_URL is not set.');

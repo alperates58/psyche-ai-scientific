@@ -15,7 +15,8 @@ import { getMailSink, clearMailSink } from '@/lib/emailService';
 import { hashPassword, verifyPassword, dummyVerifyPassword } from '@/lib/password';
 import { hasRole, hasPermission, getUserPermissions } from '@/lib/rbac';
 import { getOrCreateAssessmentSession, pauseAssessmentSession } from '@/services/assessmentService';
-import { getLatestProfileSnapshotForUser } from '@/services/profileService';
+import { getLatestProfileSnapshotForUser, getUserProfileCoverage } from '@/services/profileService';
+import { GET as getCoverageRoute } from '@/app/api/profile/coverage/route';
 
 // Mock Auth.js session resolution for controlled session/sid matrix testing
 let mockAuthSession: any = null;
@@ -546,5 +547,136 @@ describe.skipIf(!hasTestDb)('FAZ 2.6: Real PostgreSQL Integration & Security Har
     // Profile snapshot isolation
     const snapshotB = await getLatestProfileSnapshotForUser(userB.id);
     expect(snapshotB).toBeNull();
+  });
+
+  // -------------------------------------------------------------
+  // 12. FAZ 2.6.1 PROFILE COVERAGE & SIDEBAR SESSION SAFETY
+  // -------------------------------------------------------------
+  it('verifies zero-assessment coverage returns 0%, and real assessment returns exact explored facet counts', async () => {
+    // 1. Fresh user with zero assessments
+    const freshUser = await prisma.user.create({
+      data: {
+        name: 'Fresh Coverage Subject',
+        email: `fresh_cov_${Date.now()}@psycheai.test`,
+        emailNormalized: `fresh_cov_${Date.now()}@psycheai.test`,
+        status: 'ACTIVE',
+      },
+    });
+    createdUserIds.push(freshUser.id);
+
+    const freshCoverage = await getUserProfileCoverage(freshUser.id);
+    expect(freshCoverage.exploredFacetsCount).toBe(0);
+    expect(freshCoverage.isAssessed).toBe(false);
+    expect(freshCoverage.explorationPercentage).toBe(0);
+    expect(freshCoverage.totalOntologyFacets).toBe(84);
+
+    // Create session in DB for freshUser
+    const freshSid = `sid_fresh_${Date.now()}`;
+    await prisma.session.create({
+      data: {
+        sessionToken: freshSid,
+        userId: freshUser.id,
+        expires: new Date(Date.now() + 86400000),
+      },
+    });
+
+    mockAuthSession = { user: { id: freshUser.id }, sid: freshSid };
+    const freshRes = await getCoverageRoute();
+    expect(freshRes.status).toBe(200);
+    const freshJson = await freshRes.json();
+    expect(freshJson.exploredFacetsCount).toBe(0);
+    expect(freshJson.isAssessed).toBe(false);
+
+    // 2. Assessed user with real snapshot
+    const assessedUser = await prisma.user.create({
+      data: {
+        name: 'Assessed Coverage Subject',
+        email: `assessed_cov_${Date.now()}@psycheai.test`,
+        emailNormalized: `assessed_cov_${Date.now()}@psycheai.test`,
+        status: 'ACTIVE',
+      },
+    });
+    createdUserIds.push(assessedUser.id);
+
+    // Create profile snapshot with 3 measured facets
+    const scoringModel = await prisma.scoringModelVersion.findFirstOrThrow();
+    const snapshot = await prisma.profileSnapshot.create({
+      data: {
+        userId: assessedUser.id,
+        scoringModelVersionId: scoringModel.id,
+        normStatus: 'UNAVAILABLE',
+        provisionalComposite: 3.17,
+        overallIntegrity: 'ACCEPTABLE',
+      },
+    });
+
+    const sampleFacets = await prisma.facet.findMany({ take: 3 });
+    expect(sampleFacets.length).toBe(3);
+
+    await prisma.facetScore.createMany({
+      data: [
+        { profileSnapshotId: snapshot.id, facetId: sampleFacets[0].id, rawMean: 3.5, itemCount: 4 },
+        { profileSnapshotId: snapshot.id, facetId: sampleFacets[1].id, rawMean: 3.2, itemCount: 4 },
+        { profileSnapshotId: snapshot.id, facetId: sampleFacets[2].id, rawMean: 2.8, itemCount: 3 },
+      ],
+    });
+
+    const assessedCoverage = await getUserProfileCoverage(assessedUser.id);
+    expect(assessedCoverage.exploredFacetsCount).toBe(3);
+    expect(assessedCoverage.isAssessed).toBe(true);
+    expect(assessedCoverage.totalOntologyFacets).toBe(84);
+    expect(assessedCoverage.explorationPercentage).toBe(4); // Math.round(3/84 * 100) = 4%
+
+    // Authenticate as assessedUser
+    const assessedSid = `sid_assessed_${Date.now()}`;
+    await prisma.session.create({
+      data: {
+        sessionToken: assessedSid,
+        userId: assessedUser.id,
+        expires: new Date(Date.now() + 86400000),
+      },
+    });
+
+    mockAuthSession = { user: { id: assessedUser.id }, sid: assessedSid };
+    const assessedRes = await getCoverageRoute();
+    expect(assessedRes.status).toBe(200);
+    const assessedJson = await assessedRes.json();
+    expect(assessedJson.exploredFacetsCount).toBe(3);
+    expect(assessedJson.isAssessed).toBe(true);
+    expect(assessedJson.explorationPercentage).toBe(4);
+
+    // 3. Unauthenticated request returns 401
+    mockAuthSession = null;
+    process.env.TEST_AUTH_USER_ID = 'none';
+    try {
+      const unauthRes = await getCoverageRoute();
+      expect(unauthRes.status).toBe(401);
+    } finally {
+      delete process.env.TEST_AUTH_USER_ID;
+    }
+
+    // 4. PENDING_VERIFICATION user returns 403
+    const pendingUser = await prisma.user.create({
+      data: {
+        name: 'Pending Coverage Subject',
+        email: `pending_cov_${Date.now()}@psycheai.test`,
+        emailNormalized: `pending_cov_${Date.now()}@psycheai.test`,
+        status: 'PENDING_VERIFICATION',
+      },
+    });
+    createdUserIds.push(pendingUser.id);
+
+    const pendingSid = `sid_pending_${Date.now()}`;
+    await prisma.session.create({
+      data: {
+        sessionToken: pendingSid,
+        userId: pendingUser.id,
+        expires: new Date(Date.now() + 86400000),
+      },
+    });
+
+    mockAuthSession = { user: { id: pendingUser.id }, sid: pendingSid };
+    const pendingRes = await getCoverageRoute();
+    expect(pendingRes.status).toBe(403);
   });
 });

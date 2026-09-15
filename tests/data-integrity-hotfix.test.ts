@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { calculateProfileCoverage, TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
 import { getUserProfileCoverage } from '@/services/profileService';
 import { prisma } from '@/lib/prisma';
@@ -116,4 +116,163 @@ describe('FAZ 2.6.1 Production Data Integrity Hotfix Unit & Regression Tests', (
   it('5. Verifies canonical ontology denominator invariant', async () => {
     expect(TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH).toBe(84);
   });
+
+  it('6. Coverage API route: unauthenticated request returns 401', async () => {
+    const { GET } = await import('@/app/api/profile/coverage/route');
+    const authLib = await import('@/lib/auth');
+    vi.spyOn(authLib, 'getCurrentUserOrNull').mockResolvedValueOnce(null);
+
+    const res = await GET();
+    expect(res.status).toBe(401);
+    const data = await res.json();
+    expect(data.error).toContain('UNAUTHENTICATED');
+  });
+
+  it('7. Coverage API route: PENDING_VERIFICATION user returns 403 (profile data guarded)', async () => {
+    const { GET } = await import('@/app/api/profile/coverage/route');
+    const authLib = await import('@/lib/auth');
+    vi.spyOn(authLib, 'getCurrentUserOrNull').mockResolvedValueOnce({
+      id: 'pending-user-id',
+      email: 'pending@test.com',
+      name: 'Pending User',
+      image: null,
+      status: 'PENDING_VERIFICATION',
+      isDemoUser: false,
+      roles: ['USER'],
+      permissions: ['APP_USE'],
+    });
+
+    const res = await GET();
+    expect(res.status).toBe(403);
+    const data = await res.json();
+    expect(data.error).toContain('FORBIDDEN');
+  });
+
+  it('8. Coverage API route: fresh authenticated user returns 0 coverage with exact schema', async () => {
+    const { GET } = await import('@/app/api/profile/coverage/route');
+    const authLib = await import('@/lib/auth');
+    const profileService = await import('@/services/profileService');
+
+    vi.spyOn(authLib, 'getCurrentUserOrNull').mockResolvedValueOnce({
+      id: 'fresh-active-user',
+      email: 'fresh@test.com',
+      name: 'Fresh User',
+      image: null,
+      status: 'ACTIVE',
+      isDemoUser: false,
+      roles: ['USER'],
+      permissions: ['APP_USE', 'PROFILE_VIEW_SELF'],
+    });
+
+    vi.spyOn(profileService, 'getUserProfileCoverage').mockResolvedValueOnce({
+      exploredFacetsCount: 0,
+      totalOntologyFacets: 84,
+      explorationPercentage: 0,
+      measurementDepthPercentage: 0,
+      isAssessed: false,
+    });
+
+    const res = await GET();
+    expect(res.status).toBe(200);
+    const data = await res.json();
+    expect(data).toEqual({
+      exploredFacetsCount: 0,
+      totalOntologyFacets: 84,
+      explorationPercentage: 0,
+      measurementDepthPercentage: 0,
+      isAssessed: false,
+    });
+  });
+
+  it('9. Coverage API route: assessed authenticated user returns actual coverage and isAssessed=true', async () => {
+    const { GET } = await import('@/app/api/profile/coverage/route');
+    const authLib = await import('@/lib/auth');
+    const profileService = await import('@/services/profileService');
+
+    vi.spyOn(authLib, 'getCurrentUserOrNull').mockResolvedValueOnce({
+      id: 'assessed-active-user',
+      email: 'assessed@test.com',
+      name: 'Assessed User',
+      image: null,
+      status: 'ACTIVE',
+      isDemoUser: false,
+      roles: ['USER'],
+      permissions: ['APP_USE', 'PROFILE_VIEW_SELF'],
+    });
+
+    vi.spyOn(profileService, 'getUserProfileCoverage').mockResolvedValueOnce({
+      exploredFacetsCount: 14,
+      totalOntologyFacets: 84,
+      explorationPercentage: 17,
+      measurementDepthPercentage: 25,
+      isAssessed: true,
+    });
+
+    const res = await GET();
+    expect(res.status).toBe(200);
+    const data = await res.json();
+    expect(data.exploredFacetsCount).toBe(14);
+    expect(data.isAssessed).toBe(true);
+    expect(data.explorationPercentage).toBe(17);
+  });
+
+  it('10. Coverage API route: cross-user isolation strictly binds to authenticated session ID', async () => {
+    const { GET } = await import('@/app/api/profile/coverage/route');
+    const authLib = await import('@/lib/auth');
+    const profileService = await import('@/services/profileService');
+
+    vi.spyOn(authLib, 'getCurrentUserOrNull').mockResolvedValueOnce({
+      id: 'legitimate-user-a',
+      email: 'usera@test.com',
+      name: 'User A',
+      image: null,
+      status: 'ACTIVE',
+      isDemoUser: false,
+      roles: ['USER'],
+      permissions: ['APP_USE', 'PROFILE_VIEW_SELF'],
+    });
+
+    const coverageSpy = vi.spyOn(profileService, 'getUserProfileCoverage').mockResolvedValueOnce({
+      exploredFacetsCount: 0,
+      totalOntologyFacets: 84,
+      explorationPercentage: 0,
+      measurementDepthPercentage: 0,
+      isAssessed: false,
+    });
+
+    await GET();
+    // Verify it was called with User A's ID from session, never accepting arbitrary query/path IDs
+    expect(coverageSpy).toHaveBeenCalledWith('legitimate-user-a');
+  });
+
+  it('11. Coverage API route: enforces strict no-cache headers', async () => {
+    const { GET } = await import('@/app/api/profile/coverage/route');
+    const authLib = await import('@/lib/auth');
+    const profileService = await import('@/services/profileService');
+
+    vi.spyOn(authLib, 'getCurrentUserOrNull').mockResolvedValueOnce({
+      id: 'cache-check-user',
+      email: 'cache@test.com',
+      name: 'Cache User',
+      image: null,
+      status: 'ACTIVE',
+      isDemoUser: false,
+      roles: ['USER'],
+      permissions: ['APP_USE', 'PROFILE_VIEW_SELF'],
+    });
+
+    vi.spyOn(profileService, 'getUserProfileCoverage').mockResolvedValueOnce({
+      exploredFacetsCount: 0,
+      totalOntologyFacets: 84,
+      explorationPercentage: 0,
+      measurementDepthPercentage: 0,
+      isAssessed: false,
+    });
+
+    const res = await GET();
+    const cacheControl = res.headers.get('Cache-Control');
+    expect(cacheControl).toContain('no-store');
+    expect(cacheControl).toContain('max-age=0');
+  });
 });
+

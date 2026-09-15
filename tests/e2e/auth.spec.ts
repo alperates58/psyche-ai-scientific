@@ -115,7 +115,11 @@ const testPrisma = new PrismaClient({
 });
 
 test.describe('FAZ 2.6: Real Credentials End-to-End Flow (TEST DB)', () => {
-  test.skip(!process.env.TEST_DATABASE_URL, 'Skipped: TEST_DATABASE_URL is not configured');
+  test.skip(!testDbUrl, 'Skipped: TEST_DATABASE_URL is not configured');
+
+  test.beforeEach(async () => {
+    await testPrisma.rateLimitRecord.deleteMany({});
+  });
 
   const e2eEmail = `e2e_user_${Date.now()}@psycheai.test`;
   const e2ePassword = 'ValidPassphrase123!';

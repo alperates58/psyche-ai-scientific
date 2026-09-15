@@ -32,6 +32,9 @@ export async function getCurrentUserOrNull(): Promise<AuthUser | null> {
   if (!session?.user?.id) {
     // In test environment without explicit session, resolve test demo user
     if (process.env.NODE_ENV === 'test') {
+      if (process.env.TEST_AUTH_USER_ID === 'none') {
+        return null;
+      }
       const targetUserId = process.env.TEST_AUTH_USER_ID;
       const mock = targetUserId
         ? await prisma.user.findUnique({
