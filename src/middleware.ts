@@ -57,8 +57,10 @@ export default auth(async function middleware(request) {
   const isLoggedIn = !!(request as any).auth?.user;
   const userStatus = (request as any).auth?.user?.status;
 
-  // 2. Protected App routes
+  // 2. Protected App routes (including /admin)
   const isProtectedAppRoute =
+    pathname === '/admin' ||
+    pathname.startsWith('/admin/') ||
     pathname === '/overview' ||
     pathname.startsWith('/overview/') ||
     pathname === '/assessment' ||

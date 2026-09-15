@@ -111,6 +111,15 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
     return () => window.removeEventListener('keydown', handleTabKey);
   }, [isMobileMenuOpen]);
 
+  // If on admin routes, delegate complete shell ownership to AdminShell inside /admin/layout.tsx
+  if (pathname.startsWith('/admin')) {
+    return (
+      <SessionProvider>
+        {children}
+      </SessionProvider>
+    );
+  }
+
   return (
     <SessionProvider>
       <AppShellContext.Provider
