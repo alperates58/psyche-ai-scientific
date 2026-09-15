@@ -30,5 +30,22 @@ echo "Veritabanı bağlantısı doğrulandı."
 echo "Prisma veritabanı migration'ları uygulanıyor..."
 npx prisma migrate deploy
 
-echo "Migration tamamlandı. Uygulama başlatılıyor..."
+echo "FAZ 2.7C-1 Bilimsel durum doğrulanıyor..."
+if node ./scripts/verify-c1-state.js > /dev/null 2>&1; then
+  echo "✅ Bilimsel durum (C1) eksiksiz ve doğrulanmış."
+else
+  echo "⚠️ Bilimsel durum (C1) henüz tamamlanmamış."
+  if [ "$ALLOW_SCIENTIFIC_BACKFILL_2_7C1" = "YES" ] && [ "$SCIENTIFIC_BACKUP_VERIFIED" = "YES" ]; then
+    echo "Otomatik üretim backfill yetkisi ve yedek onayı mevcut. Backfill çalıştırılıyor..."
+    node ./prisma/backfill-runner.js --target=production
+    echo "Backfill sonrası bilimsel durum yeniden doğrulanıyor..."
+    node ./scripts/verify-c1-state.js
+  else
+    echo "❌ HATA: Bilimsel durum (C1) eksik ve üretim yetkilendirme bayrakları (ALLOW_SCIENTIFIC_BACKFILL_2_7C1=YES, SCIENTIFIC_BACKUP_VERIFIED=YES) tanımlanmamış." >&2
+    echo "Yarım migrate edilmiş verinin kullanıcılara servis edilmesini önlemek için uygulama başlatılamadı." >&2
+    exit 1
+  fi
+fi
+
+echo "Uygulama başlatılıyor..."
 exec node server.js
