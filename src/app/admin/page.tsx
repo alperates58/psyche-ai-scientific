@@ -75,7 +75,7 @@ export default async function AdminDashboardPage() {
           title="Ontoloji Alt Boyutları"
           value={metrics.scientific.facetCount}
           subtitle={`${metrics.scientific.domainCount} Alan, ${metrics.scientific.constructCount} Yapı`}
-          badgeText="84/84 Tam"
+          badgeText="Canlı Ontoloji"
           badgeVariant="brand"
           icon={Layers}
         />

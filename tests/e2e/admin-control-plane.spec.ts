@@ -27,7 +27,11 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
   test.skip(!hasTestDb, 'Skipped: TEST_DATABASE_URL is not configured');
 
   const timestamp = Date.now();
-  const adminEmail = `super_admin_${timestamp}@psycheai.test`;
+  const superAdminEmail = `super_admin_${timestamp}@psycheai.test`;
+  const superAdminPassword = 'SuperAdminPassword123!';
+  let createdSuperAdminId: string | null = null;
+
+  const adminEmail = `standard_admin_${timestamp}@psycheai.test`;
   const adminPassword = 'AdminPassword123!';
   let createdAdminId: string | null = null;
 
@@ -38,12 +42,35 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
   test.beforeAll(async () => {
     const { hashPassword } = await import('@/lib/password');
 
-    // 1. Create Super Admin User
+    // 1. Create Super Admin User (SUPER_ADMIN role)
+    const superAdmin = await testPrisma.user.create({
+      data: {
+        email: superAdminEmail,
+        emailNormalized: superAdminEmail.toLowerCase(),
+        name: 'Sistem Süper Yöneticisi',
+        status: 'ACTIVE',
+        emailVerified: new Date(),
+        isDemoUser: false,
+        credential: {
+          create: {
+            passwordHash: await hashPassword(superAdminPassword),
+          },
+        },
+        roles: {
+          create: {
+            role: 'SUPER_ADMIN',
+          },
+        },
+      },
+    });
+    createdSuperAdminId = superAdmin.id;
+
+    // 2. Create Standard Admin User (ADMIN role only, no ROLE_MANAGE)
     const admin = await testPrisma.user.create({
       data: {
         email: adminEmail,
         emailNormalized: adminEmail.toLowerCase(),
-        name: 'Sistem Süper Yöneticisi',
+        name: 'Standart Yönetici',
         status: 'ACTIVE',
         emailVerified: new Date(),
         isDemoUser: false,
@@ -54,14 +81,14 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
         },
         roles: {
           create: {
-            role: 'SUPER_ADMIN',
+            role: 'ADMIN',
           },
         },
       },
     });
     createdAdminId = admin.id;
 
-    // 2. Create Normal User (USER role only)
+    // 3. Create Normal User (USER role only)
     const normalUser = await testPrisma.user.create({
       data: {
         email: normalUserEmail,
@@ -86,6 +113,9 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
   });
 
   test.afterAll(async () => {
+    if (createdSuperAdminId) {
+      await testPrisma.user.delete({ where: { id: createdSuperAdminId } }).catch(() => {});
+    }
     if (createdAdminId) {
       await testPrisma.user.delete({ where: { id: createdAdminId } }).catch(() => {});
     }
@@ -118,9 +148,9 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
     await expect(page).toHaveURL(/\/overview/);
   });
 
-  test('SUPER_ADMIN can login and access /admin control plane dashboard', async ({ page }) => {
+  test('Standard ADMIN role with ADMIN_ACCESS (without ROLE_MANAGE) can login and access /admin dashboard', async ({ page }) => {
     await page.context().clearCookies();
-    // Log in as Super Admin
+    // Log in as Standard Admin
     await page.goto('/login');
     await page.fill('input[type="email"]', adminEmail);
     await page.fill('input[type="password"]', adminPassword);
@@ -131,8 +161,9 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
     await page.goto('/admin');
     await expect(page).toHaveURL(/\/admin/);
 
-    // Verify Admin Dashboard Title & Epistemic Reminders
+    // Verify Admin Dashboard Title & Header Role Badge
     await expect(page.locator('h1')).toContainText('Yönetim Kontrol Paneli');
+    await expect(page.getByText('ADMIN').first()).toBeVisible();
     await expect(page.getByText('FAZ 2.7A Canlı')).toBeVisible();
 
     // Verify Metric Cards
@@ -149,6 +180,30 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
     await expect(page.getByText('FAZ 2.7D').first()).toBeVisible();
   });
 
+  test('SUPER_ADMIN can login and access /admin control plane dashboard', async ({ page }) => {
+    await page.context().clearCookies();
+    // Log in as Super Admin
+    await page.goto('/login');
+    await page.fill('input[type="email"]', superAdminEmail);
+    await page.fill('input[type="password"]', superAdminPassword);
+    await page.click('button[type="submit"]');
+    await page.waitForURL(/\/overview/, { timeout: 15000 });
+
+    // Navigate to /admin
+    await page.goto('/admin');
+    await expect(page).toHaveURL(/\/admin/);
+
+    // Verify Admin Dashboard Title & Header Role Badge
+    await expect(page.locator('h1')).toContainText('Yönetim Kontrol Paneli');
+    await expect(page.getByText('SUPER_ADMIN').first()).toBeVisible();
+    await expect(page.getByText('FAZ 2.7A Canlı')).toBeVisible();
+
+    // Verify Metric Cards
+    await expect(page.getByText('Toplam Kullanıcı')).toBeVisible();
+    await expect(page.getByText('Canlı Form Maddesi')).toBeVisible();
+    await expect(page.getByText('Ontoloji Alt Boyutları')).toBeVisible();
+  });
+
   for (const vp of VIEWPORTS) {
     test(`Responsive Zero Overflow on /admin at ${vp.name}`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
@@ -156,8 +211,8 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
 
       // Log in as Super Admin
       await page.goto('/login');
-      await page.fill('input[type="email"]', adminEmail);
-      await page.fill('input[type="password"]', adminPassword);
+      await page.fill('input[type="email"]', superAdminEmail);
+      await page.fill('input[type="password"]', superAdminPassword);
       await page.click('button[type="submit"]');
       await page.waitForURL(/\/overview/, { timeout: 15000 });
 
