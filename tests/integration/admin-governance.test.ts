@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { prisma } from '@/lib/prisma';
+import { assertTestDatabaseSafety } from '../../scripts/verify-test-db-safety';
 import {
   getUserDirectory,
   getUserDetail,
@@ -17,6 +18,7 @@ import {
   revokeUserRoleAction,
 } from '@/actions/adminRoleActions';
 import { hashPassword } from '@/lib/password';
+import { logAuthAuditEventTx } from '@/lib/auditLog';
 
 const testDbUrl =
   process.env.TEST_DATABASE_URL ||
@@ -38,22 +40,8 @@ describe('FAZ 2.7B: Admin Governance & Security Real DB Integration Tests', () =
   let testUserUnverifiedId: string;
 
   beforeAll(async () => {
-    // 1. SAFETY GATE CHECK
-    const dbUrl = process.env.DATABASE_URL || '';
-    console.log('--- DATABASE SAFETY GATE CHECK ---');
-    console.log(`DATABASE_URL: ${dbUrl}`);
-    console.log(`TEST_DATABASE_URL: ${testDbUrl}`);
-
-    if (
-      !testDbUrl.includes('localhost:5434') &&
-      !testDbUrl.includes('127.0.0.1:5434') &&
-      !testDbUrl.includes('psyche_ai_test')
-    ) {
-      throw new Error(
-        `SAFETY_GATE_VIOLATION: Refusing to run tests against non-test database: ${testDbUrl}`
-      );
-    }
-    console.log('SAFETY_GATE: PASS (Test database is isolated, local, and psyche_ai_test)');
+    // 1. HARD CANONICAL SAFETY GATE CHECK
+    assertTestDatabaseSafety(testDbUrl);
 
     // 2. Create Seed Users for Integration
     const passwordHash = await hashPassword('AdminPass123!');
@@ -348,13 +336,52 @@ describe('FAZ 2.7B: Admin Governance & Security Real DB Integration Tests', () =
   });
 
   describe('5. PostgreSQL Advisory Lock Concurrency & Last Super Admin Invariant', () => {
-    it('prevents concurrent demotion of the last two SUPER_ADMINs down to zero', async () => {
-      process.env.TEST_AUTH_USER_ID = superAdmin1Id;
+    it('Case A: Concurrent competing revokeUserRoleAction on exactly 2 SUPER_ADMINs allows exactly 1 and rejects 1 with LAST_SUPER_ADMIN_PROTECTION', async () => {
+      // 1. Ensure exactly 2 active SUPER_ADMINs exist
+      // Clean up any extra active super admins from prior test runs
+      const existingSuperAdmins = await prisma.user.findMany({
+        where: {
+          status: 'ACTIVE',
+          roles: { some: { role: 'SUPER_ADMIN' } },
+        },
+      });
 
-      // Launch competing operations concurrently:
-      // Op 1: Revoke SUPER_ADMIN from SA1
-      // Op 2: Revoke SUPER_ADMIN from SA2
-      const [op1, op2] = await Promise.allSettled([
+      for (const sa of existingSuperAdmins) {
+        if (sa.id !== superAdmin1Id && sa.id !== superAdmin2Id) {
+          await prisma.userRole.deleteMany({
+            where: { userId: sa.id, role: 'SUPER_ADMIN' },
+          });
+        }
+      }
+
+      // Ensure superAdmin1 and superAdmin2 are ACTIVE and have SUPER_ADMIN role
+      await prisma.user.updateMany({
+        where: { id: { in: [superAdmin1Id, superAdmin2Id] } },
+        data: { status: 'ACTIVE' },
+      });
+
+      for (const saId of [superAdmin1Id, superAdmin2Id]) {
+        const hasRole = await prisma.userRole.findFirst({
+          where: { userId: saId, role: 'SUPER_ADMIN' },
+        });
+        if (!hasRole) {
+          await prisma.userRole.create({
+            data: { userId: saId, role: 'SUPER_ADMIN', grantedBy: superAdmin1Id },
+          });
+        }
+      }
+
+      const initialCount = await prisma.user.count({
+        where: {
+          status: 'ACTIVE',
+          roles: { some: { role: 'SUPER_ADMIN' } },
+        },
+      });
+      expect(initialCount).toBe(2);
+
+      // 2. Launch concurrent competing operations
+      process.env.TEST_AUTH_USER_ID = superAdmin1Id;
+      const [res1, res2] = await Promise.all([
         revokeUserRoleAction({
           userId: superAdmin1Id,
           role: 'SUPER_ADMIN',
@@ -363,81 +390,122 @@ describe('FAZ 2.7B: Admin Governance & Security Real DB Integration Tests', () =
         revokeUserRoleAction({
           userId: superAdmin2Id,
           role: 'SUPER_ADMIN',
-          confirmSelfDemotion: false,
+          confirmSelfDemotion: true,
         }),
       ]);
 
-      // At least one operation must have succeeded or failed, but active super admins in DB MUST be >= 1
-      const activeSuperAdminCount = await prisma.user.count({
+      // 3. Verify exactly one succeeded and exactly one failed with LAST_SUPER_ADMIN_PROTECTION
+      const succeeded = [res1, res2].filter((r) => r.success);
+      const failed = [res1, res2].filter((r) => !r.success);
+
+      expect(succeeded.length).toBe(1);
+      expect(failed.length).toBe(1);
+      expect(failed[0].error).toContain('LAST_SUPER_ADMIN_PROTECTION');
+
+      // 4. Verify DB state has exactly 1 active SUPER_ADMIN remaining
+      const finalActiveCount = await prisma.user.count({
         where: {
           status: 'ACTIVE',
           roles: { some: { role: 'SUPER_ADMIN' } },
         },
       });
+      expect(finalActiveCount).toBe(1);
+    });
 
-      // Revoke down until exactly 1 active SUPER_ADMIN remains
-      let allActiveSuperAdmins = await prisma.user.findMany({
+    it('Case B (Mixed Mutation): Concurrent suspendUserAction vs revokeUserRoleAction on exactly 2 SUPER_ADMINs allows exactly 1 and rejects 1 with LAST_SUPER_ADMIN_PROTECTION', async () => {
+      // 1. Find the remaining active super admin and seed a second active super admin
+      const remainingSuperAdmins = await prisma.user.findMany({
         where: {
           status: 'ACTIVE',
           roles: { some: { role: 'SUPER_ADMIN' } },
         },
       });
+      expect(remainingSuperAdmins.length).toBe(1);
+      const primarySuperAdmin = remainingSuperAdmins[0];
 
-      while (allActiveSuperAdmins.length > 1) {
-        const toRevoke = allActiveSuperAdmins[0];
-        const actor = allActiveSuperAdmins[1];
-        process.env.TEST_AUTH_USER_ID = actor.id;
+      // Re-grant or create second active super admin
+      const secondarySuperAdminId =
+        primarySuperAdmin.id === superAdmin1Id ? superAdmin2Id : superAdmin1Id;
 
-        await revokeUserRoleAction({
-          userId: toRevoke.id,
-          role: 'SUPER_ADMIN',
-          confirmSelfDemotion: false,
-        });
-
-        allActiveSuperAdmins = await prisma.user.findMany({
-          where: {
-            status: 'ACTIVE',
-            roles: { some: { role: 'SUPER_ADMIN' } },
+      await prisma.user.update({
+        where: { id: secondarySuperAdminId },
+        data: { status: 'ACTIVE' },
+      });
+      const hasSecondaryRole = await prisma.userRole.findFirst({
+        where: { userId: secondarySuperAdminId, role: 'SUPER_ADMIN' },
+      });
+      if (!hasSecondaryRole) {
+        await prisma.userRole.create({
+          data: {
+            userId: secondarySecondaryAdminId(secondarySuperAdminId),
+            role: 'SUPER_ADMIN',
+            grantedBy: primarySuperAdmin.id,
           },
         });
       }
 
-      expect(allActiveSuperAdmins.length).toBe(1);
-      const lastSuperAdmin = allActiveSuperAdmins[0];
-      process.env.TEST_AUTH_USER_ID = lastSuperAdmin.id;
+      function secondarySecondaryAdminId(id: string) {
+        return id;
+      }
 
-      // 1. Attempting to revoke SUPER_ADMIN from the LAST super admin MUST FAIL
-      const finalRevokeAttempt = await revokeUserRoleAction({
-        userId: lastSuperAdmin.id,
-        role: 'SUPER_ADMIN',
-        confirmSelfDemotion: true,
+      const activeCountBeforeMixed = await prisma.user.count({
+        where: {
+          status: 'ACTIVE',
+          roles: { some: { role: 'SUPER_ADMIN' } },
+        },
       });
+      expect(activeCountBeforeMixed).toBe(2);
 
-      expect(finalRevokeAttempt.success).toBe(false);
-      expect(finalRevokeAttempt.error).toContain('LAST_SUPER_ADMIN_PROTECTION');
+      // 2. Launch concurrent mixed destructive operations:
+      // Op 1: suspend primarySuperAdmin
+      // Op 2: revoke SUPER_ADMIN from secondarySuperAdmin
+      process.env.TEST_AUTH_USER_ID = primarySuperAdmin.id;
+      const [resSuspend, resRevoke] = await Promise.all([
+        suspendUserAction({
+          userId: primarySuperAdmin.id,
+          reason: 'Mixed concurrent suspend test',
+        }),
+        revokeUserRoleAction({
+          userId: secondarySuperAdminId,
+          role: 'SUPER_ADMIN',
+          confirmSelfDemotion: true,
+        }),
+      ]);
 
-      // 2. Attempting to suspend the LAST super admin MUST FAIL
-      const finalSuspendAttempt = await suspendUserAction({
-        userId: lastSuperAdmin.id,
-        reason: 'Askıya alma testi',
+      // 3. Verify exactly one succeeded and exactly one failed with LAST_SUPER_ADMIN_PROTECTION
+      const succeededMixed = [resSuspend, resRevoke].filter((r) => r.success);
+      const failedMixed = [resSuspend, resRevoke].filter((r) => !r.success);
+
+      expect(succeededMixed.length).toBe(1);
+      expect(failedMixed.length).toBe(1);
+      expect(failedMixed[0].error).toContain('LAST_SUPER_ADMIN_PROTECTION');
+
+      // 4. Verify DB state has exactly 1 active SUPER_ADMIN remaining
+      const finalCountAfterMixed = await prisma.user.count({
+        where: {
+          status: 'ACTIVE',
+          roles: { some: { role: 'SUPER_ADMIN' } },
+        },
       });
+      expect(finalCountAfterMixed).toBe(1);
 
-      expect(finalSuspendAttempt.success).toBe(false);
-      expect(finalSuspendAttempt.error).toContain('LAST_SUPER_ADMIN_PROTECTION');
-
-      // 3. Attempting to disable the LAST super admin MUST FAIL
-      const finalDisableAttempt = await disableUserAction({
-        userId: lastSuperAdmin.id,
-        reason: 'Devre dışı bırakma testi',
-        confirmationText: 'DEVRE DIŞI BIRAK',
+      // Restore primarySuperAdmin and superAdmin1/2 for remaining tests
+      await prisma.user.update({
+        where: { id: superAdmin1Id },
+        data: { status: 'ACTIVE' },
       });
-
-      expect(finalDisableAttempt.success).toBe(false);
-      expect(finalDisableAttempt.error).toContain('LAST_SUPER_ADMIN_PROTECTION');
+      const sa1Role = await prisma.userRole.findFirst({
+        where: { userId: superAdmin1Id, role: 'SUPER_ADMIN' },
+      });
+      if (!sa1Role) {
+        await prisma.userRole.create({
+          data: { userId: superAdmin1Id, role: 'SUPER_ADMIN' },
+        });
+      }
     });
   });
 
-  describe('6. System Health Secret Scan & Session Registry Semantics', () => {
+  describe('6. System Health Secret Scan & Real Derived Semantics', () => {
     it('returns system health report without leaking infrastructure hosts, db names, or secrets', async () => {
       const report = await getSystemHealthReport();
 
@@ -460,6 +528,67 @@ describe('FAZ 2.7B: Admin Governance & Security Real DB Integration Tests', () =
       // Verify Session Registry Operational is true even if sessions are 0
       expect(report.authService.sessionRegistryOperational).toBe(true);
       expect(typeof report.authService.activeSessionCount).toBe('number');
+
+      // Verify Real Derived App Version & Rate Limiter Status
+      expect(report.application.appVersion).toBeTruthy();
+      expect(typeof report.application.appVersion).toBe('string');
+      expect(typeof report.authService.authJsConfigured).toBe('boolean');
+      expect(['ACTIVE', 'IN_MEMORY', 'DEGRADED', 'UNKNOWN']).toContain(
+        report.authService.rateLimiterStatus
+      );
+    });
+  });
+
+  describe('7. Audit Logging Atomicity & Transaction Rollback Regression', () => {
+    it('guarantees atomic rollback of user mutation when audit log insertion fails', async () => {
+      // 1. Create an isolated active user
+      const atomicTestUser = await prisma.user.create({
+        data: {
+          email: `atomic_rollback_${timestamp}@psycheai.test`,
+          emailNormalized: `atomic_rollback_${timestamp}@psycheai.test`.toLowerCase(),
+          name: 'Atomik Geri Alma Test Kullanıcısı',
+          status: 'ACTIVE',
+          emailVerified: new Date(),
+          credential: {
+            create: { passwordHash: await hashPassword('TestPass123!') },
+          },
+          roles: { create: { role: 'USER' } },
+        },
+      });
+
+      // 2. Execute a transaction that updates user status to SUSPENDED,
+      // but forces audit insert failure (violates foreign key constraint on auth_audit_events.userId)
+      let transactionThrown = false;
+      try {
+        await prisma.$transaction(async (tx) => {
+          // A. Update status to SUSPENDED
+          await tx.user.update({
+            where: { id: atomicTestUser.id },
+            data: { status: 'SUSPENDED' },
+          });
+
+          // B. Force audit log insertion failure by referencing non-existent userId foreign key
+          await logAuthAuditEventTx(tx, {
+            eventType: 'USER_SUSPENDED',
+            userId: '00000000-0000-0000-0000-000000000000', // Non-existent foreign key target
+            actorUserId: superAdmin1Id,
+            success: true,
+          });
+        });
+      } catch {
+        transactionThrown = true;
+      }
+
+      expect(transactionThrown).toBe(true);
+
+      // 3. Verify user status in database ROLLED BACK and remains strictly 'ACTIVE'
+      const freshUser = await prisma.user.findUnique({
+        where: { id: atomicTestUser.id },
+      });
+      expect(freshUser?.status).toBe('ACTIVE');
+
+      // Cleanup
+      await prisma.user.delete({ where: { id: atomicTestUser.id } }).catch(() => {});
     });
   });
 });

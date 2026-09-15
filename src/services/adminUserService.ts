@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { prisma } from '@/lib/prisma';
 import { maskEmail } from './adminService';
 import { isSmtpConfigured } from '@/lib/emailService';
@@ -124,6 +126,7 @@ export interface SystemHealthReport {
     sessionRegistryOperational: boolean;
     activeSessionCount: number;
     rateLimiterActive: boolean;
+    rateLimiterStatus: 'ACTIVE' | 'IN_MEMORY' | 'DEGRADED' | 'UNKNOWN';
   };
   googleOAuth: {
     configured: boolean;
@@ -547,6 +550,48 @@ export async function getSystemHealthReport(): Promise<SystemHealthReport> {
   const smtpConfigured = isSmtpConfigured();
   const researchGateConfigured = isResearchConfigured();
 
+  // Authoritative Application Version (from APP_VERSION, npm_package_version, or package.json)
+  let appVersion = 'UNKNOWN';
+  if (process.env.APP_VERSION && process.env.APP_VERSION.trim()) {
+    appVersion = process.env.APP_VERSION.trim();
+  } else if (process.env.npm_package_version && process.env.npm_package_version.trim()) {
+    appVersion = process.env.npm_package_version.trim();
+  } else {
+    try {
+      const pkgPath = path.resolve(process.cwd(), 'package.json');
+      if (fs.existsSync(pkgPath)) {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+        if (pkg.version) appVersion = pkg.version;
+      }
+    } catch {
+      appVersion = 'UNKNOWN';
+    }
+  }
+
+  // Real Auth.js Configuration Status (requires AUTH_SECRET / NEXTAUTH_SECRET)
+  const authJsConfigured = Boolean(
+    (process.env.AUTH_SECRET && process.env.AUTH_SECRET.trim().length > 0) ||
+    (process.env.NEXTAUTH_SECRET && process.env.NEXTAUTH_SECRET.trim().length > 0)
+  );
+
+  // Real Rate Limiter Operational Status (verified against rate_limit_records table reachability)
+  let rateLimiterActive = false;
+  let rateLimiterStatus: 'ACTIVE' | 'IN_MEMORY' | 'DEGRADED' | 'UNKNOWN' = 'UNKNOWN';
+
+  if (dbHealthy) {
+    try {
+      await prisma.$queryRaw`SELECT 1 FROM "rate_limit_records" LIMIT 1`;
+      rateLimiterActive = true;
+      rateLimiterStatus = 'ACTIVE';
+    } catch {
+      rateLimiterActive = false;
+      rateLimiterStatus = process.env.NODE_ENV === 'production' ? 'DEGRADED' : 'IN_MEMORY';
+    }
+  } else {
+    rateLimiterActive = false;
+    rateLimiterStatus = process.env.NODE_ENV === 'production' ? 'DEGRADED' : 'UNKNOWN';
+  }
+
   let maskedGoogleClientId: string | null = null;
   if (process.env.AUTH_GOOGLE_ID) {
     const rawId = process.env.AUTH_GOOGLE_ID;
@@ -563,7 +608,7 @@ export async function getSystemHealthReport(): Promise<SystemHealthReport> {
   return {
     application: {
       environment: (process.env.NODE_ENV as any) || 'development',
-      appVersion: '0.1.0-research',
+      appVersion,
       nodeVersion: process.version,
       uptimeSeconds: Math.floor(process.uptime()),
       timestamp: new Date(),
@@ -574,10 +619,11 @@ export async function getSystemHealthReport(): Promise<SystemHealthReport> {
       engine: 'PostgreSQL',
     },
     authService: {
-      authJsConfigured: true,
+      authJsConfigured,
       sessionRegistryOperational,
       activeSessionCount,
-      rateLimiterActive: true,
+      rateLimiterActive,
+      rateLimiterStatus,
     },
     googleOAuth: {
       configured: googleOAuthConfigured,

@@ -178,4 +178,57 @@ describe('FAZ 2.7B: Admin Governance & Security Unit Tests', () => {
       expect(activeSessionCount).toBe(0);
     });
   });
+
+  describe('7. Strict Test Database Safety Gate Invariants', () => {
+    it('rejects test database with wrong port (e.g. 5433)', async () => {
+      const { validateTestDatabaseConfig } = await import('../scripts/verify-test-db-safety');
+      const res = validateTestDatabaseConfig(
+        'postgresql://postgres:postgres@localhost:5433/psyche_ai_test',
+        'postgresql://postgres:postgres@localhost:5433/psyche_ai'
+      );
+      expect(res.valid).toBe(false);
+      expect(res.error).toContain('must be exactly 5434');
+    });
+
+    it('rejects test database with remote host', async () => {
+      const { validateTestDatabaseConfig } = await import('../scripts/verify-test-db-safety');
+      const res = validateTestDatabaseConfig(
+        'postgresql://postgres:postgres@remote-host:5434/psyche_ai_test',
+        'postgresql://postgres:postgres@localhost:5433/psyche_ai'
+      );
+      expect(res.valid).toBe(false);
+      expect(res.error).toContain('strictly localhost or 127.0.0.1');
+    });
+
+    it('rejects test database with wrong database name', async () => {
+      const { validateTestDatabaseConfig } = await import('../scripts/verify-test-db-safety');
+      const res = validateTestDatabaseConfig(
+        'postgresql://postgres:postgres@localhost:5434/psyche_ai',
+        'postgresql://postgres:postgres@localhost:5433/psyche_ai'
+      );
+      expect(res.valid).toBe(false);
+      expect(res.error).toContain("must be exactly 'psyche_ai_test'");
+    });
+
+    it('rejects when test database resolves to same database identity as dev database', async () => {
+      const { validateTestDatabaseConfig } = await import('../scripts/verify-test-db-safety');
+      const res = validateTestDatabaseConfig(
+        'postgresql://postgres:postgres@localhost:5434/psyche_ai_test',
+        'postgresql://postgres:postgres@localhost:5434/psyche_ai_test'
+      );
+      expect(res.valid).toBe(false);
+      expect(res.error).toContain('resolves to the same database identity as DEV database');
+    });
+
+    it('accepts isolated valid local test database configuration', async () => {
+      const { validateTestDatabaseConfig } = await import('../scripts/verify-test-db-safety');
+      const res = validateTestDatabaseConfig(
+        'postgresql://postgres:postgres@localhost:5434/psyche_ai_test?schema=public',
+        'postgresql://postgres:postgres@localhost:5433/psyche_ai?schema=public'
+      );
+      expect(res.valid).toBe(true);
+      expect(res.testMeta?.port).toBe('5434');
+      expect(res.testMeta?.database).toBe('psyche_ai_test');
+    });
+  });
 });

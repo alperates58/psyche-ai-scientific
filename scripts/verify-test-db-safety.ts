@@ -52,62 +52,106 @@ function getTestDatabaseUrl(): string | undefined {
   return undefined;
 }
 
-export function assertTestDatabaseSafety(): {
-  devMeta: SafeDbMetadata | null;
-  testMeta: SafeDbMetadata;
-} {
-  const devUrl = getDevDatabaseUrl();
-  const testUrl = getTestDatabaseUrl();
-
+export function validateTestDatabaseConfig(
+  testUrl?: string,
+  devUrl?: string
+): { valid: boolean; error?: string; testMeta?: SafeDbMetadata; devMeta?: SafeDbMetadata | null } {
   if (!testUrl) {
-    throw new Error('SAFETY_ABORT: TEST_DATABASE_URL is not set.');
+    return { valid: false, error: 'SAFETY_ABORT: TEST_DATABASE_URL is not set.' };
   }
 
   const testMeta = parseSafeDbMetadata(testUrl);
   if (!testMeta) {
-    throw new Error('SAFETY_ABORT: TEST_DATABASE_URL could not be parsed.');
+    return { valid: false, error: 'SAFETY_ABORT: TEST_DATABASE_URL could not be parsed.' };
   }
 
   const devMeta = parseSafeDbMetadata(devUrl);
 
-  console.log('--- DATABASE SAFETY GATE CHECK ---');
-  if (devMeta) {
-    console.log(`DATABASE_URL: host=${devMeta.host} port=${devMeta.port} database=${devMeta.database}`);
-  } else {
-    console.log('DATABASE_URL: [not set or unparseable]');
-  }
-  console.log(`TEST_DATABASE_URL: host=${testMeta.host} port=${testMeta.port} database=${testMeta.database}`);
-
-  // 1. Assert TEST_DATABASE_URL database != DATABASE_URL database
-  if (devMeta && testMeta.database === devMeta.database) {
-    throw new Error(
-      `SAFETY_ABORT: TEST_DATABASE_URL database ('${testMeta.database}') matches DATABASE_URL database. Aborting to protect DEV DB!`
-    );
+  // Condition A: host is local (localhost or 127.0.0.1)
+  const allowedHosts = new Set(['localhost', '127.0.0.1']);
+  if (!allowedHosts.has(testMeta.host.toLowerCase())) {
+    return {
+      valid: false,
+      error: `SAFETY_ABORT: TEST_DATABASE_URL host ('${testMeta.host}') must be strictly localhost or 127.0.0.1.`,
+      testMeta,
+      devMeta,
+    };
   }
 
-  // 2. Assert TEST database name clearly identifies it as a test database
-  if (!testMeta.database.toLowerCase().includes('test')) {
-    throw new Error(
-      `SAFETY_ABORT: TEST_DATABASE_URL database ('${testMeta.database}') does not contain 'test'. Aborting!`
-    );
+  // Condition B: port is exactly 5434
+  if (testMeta.port !== '5434') {
+    return {
+      valid: false,
+      error: `SAFETY_ABORT: TEST_DATABASE_URL port ('${testMeta.port}') must be exactly 5434.`,
+      testMeta,
+      devMeta,
+    };
   }
 
+  // Condition C: database name is exactly psyche_ai_test
   if (testMeta.database !== 'psyche_ai_test') {
-    throw new Error(
-      `SAFETY_ABORT: Target test database is not unequivocally 'psyche_ai_test' (found: '${testMeta.database}'). Aborting!`
-    );
+    return {
+      valid: false,
+      error: `SAFETY_ABORT: Target test database name ('${testMeta.database}') must be exactly 'psyche_ai_test'.`,
+      testMeta,
+      devMeta,
+    };
   }
 
-  // 3. Assert TEST connection target != production
-  const allowedLocalHosts = new Set(['localhost', '127.0.0.1', 'test-db', 'db']);
-  if (!allowedLocalHosts.has(testMeta.host.toLowerCase())) {
-    throw new Error(
-      `SAFETY_ABORT: TEST_DATABASE_URL host ('${testMeta.host}') is not an allowed local container/host target. Aborting!`
-    );
+  // Condition D: must not resolve to the same database identity as DEV
+  if (
+    devMeta &&
+    testMeta.host === devMeta.host &&
+    testMeta.port === devMeta.port &&
+    testMeta.database === devMeta.database
+  ) {
+    return {
+      valid: false,
+      error: `SAFETY_ABORT: TEST_DATABASE_URL resolves to the same database identity as DEV database (${devMeta.host}:${devMeta.port}/${devMeta.database}).`,
+      testMeta,
+      devMeta,
+    };
   }
 
-  console.log('SAFETY_GATE: PASS (Test database is isolated, local, and unequivocally psyche_ai_test)');
-  return { devMeta, testMeta };
+  return { valid: true, testMeta, devMeta };
+}
+
+export function assertTestDatabaseSafety(
+  customTestUrl?: string,
+  customDevUrl?: string
+): {
+  devMeta: SafeDbMetadata | null;
+  testMeta: SafeDbMetadata;
+} {
+  const devUrl = customDevUrl || getDevDatabaseUrl();
+  const testUrl = customTestUrl || getTestDatabaseUrl();
+
+  const validation = validateTestDatabaseConfig(testUrl, devUrl);
+
+  console.log('DATABASE SAFETY GATE:');
+  if (validation.devMeta) {
+    console.log(
+      `DEV: host=${validation.devMeta.host} port=${validation.devMeta.port} database=${validation.devMeta.database}`
+    );
+  } else {
+    console.log('DEV: [not configured or unparseable]');
+  }
+
+  if (validation.testMeta) {
+    console.log(
+      `TEST: host=${validation.testMeta.host} port=${validation.testMeta.port} database=${validation.testMeta.database}`
+    );
+  } else {
+    console.log('TEST: [not set]');
+  }
+
+  if (!validation.valid) {
+    console.log(`SAFETY_GATE: FAIL (${validation.error})`);
+    throw new Error(validation.error);
+  }
+
+  console.log('SAFETY_GATE: PASS');
+  return { devMeta: validation.devMeta || null, testMeta: validation.testMeta! };
 }
 
 // CLI direct execution

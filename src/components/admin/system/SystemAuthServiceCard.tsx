@@ -21,6 +21,58 @@ export const SystemAuthServiceCard: React.FC<SystemAuthServiceCardProps> = ({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        {/* Auth.js Engine */}
+        <div className="p-3.5 bg-bg-subtle/60 rounded-xl border border-border-subtle space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="font-semibold text-text-primary flex items-center">
+              <ShieldCheck className="w-3.5 h-3.5 mr-1 text-brand-600" />
+              Auth.js / Kimlik Motoru
+            </span>
+            {authService.authJsConfigured ? (
+              <span className="inline-flex items-center text-emerald-700 font-semibold text-[10px] bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                <CheckCircle2 className="w-2.5 h-2.5 mr-1 text-emerald-600" />
+                Yapılandırıldı
+              </span>
+            ) : (
+              <span className="inline-flex items-center text-rose-700 font-semibold text-[10px] bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200">
+                <XCircle className="w-2.5 h-2.5 mr-1 text-rose-600" />
+                Eksik Sır (Secret)
+              </span>
+            )}
+          </div>
+          <div className="text-[11px] text-text-secondary">
+            {authService.authJsConfigured ? 'AUTH_SECRET aktif ve geçerli' : 'AUTH_SECRET tanımlanmamış'}
+          </div>
+        </div>
+
+        {/* Rate Limiter */}
+        <div className="p-3.5 bg-bg-subtle/60 rounded-xl border border-border-subtle space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="font-semibold text-text-primary flex items-center">
+              <ShieldCheck className="w-3.5 h-3.5 mr-1 text-purple-600" />
+              Hız Sınırlayıcı (Rate Limiter)
+            </span>
+            {authService.rateLimiterStatus === 'ACTIVE' ? (
+              <span className="inline-flex items-center text-emerald-700 font-semibold text-[10px] bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                <CheckCircle2 className="w-2.5 h-2.5 mr-1 text-emerald-600" />
+                Aktif (DB)
+              </span>
+            ) : authService.rateLimiterStatus === 'IN_MEMORY' ? (
+              <span className="inline-flex items-center text-amber-700 font-semibold text-[10px] bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
+                Bellek İçi (Test)
+              </span>
+            ) : (
+              <span className="inline-flex items-center text-rose-700 font-semibold text-[10px] bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200">
+                <XCircle className="w-2.5 h-2.5 mr-1 text-rose-600" />
+                Bozuk / Kapalı
+              </span>
+            )}
+          </div>
+          <div className="text-[11px] text-text-secondary">
+            Durum: <strong>{authService.rateLimiterStatus}</strong>
+          </div>
+        </div>
+
         {/* Session Registry */}
         <div className="p-3.5 bg-bg-subtle/60 rounded-xl border border-border-subtle space-y-1">
           <div className="flex items-center justify-between">
