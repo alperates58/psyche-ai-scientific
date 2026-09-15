@@ -15,7 +15,17 @@ export type Permission =
   | 'USER_MANAGE'
   | 'ITEM_MANAGE'
   | 'SYSTEM_CONFIG'
-  | 'ROLE_MANAGE';
+  | 'ROLE_MANAGE'
+  // Scientific Control Plane (FAZ 2.7C)
+  | 'SCIENTIFIC_VIEW'
+  | 'ITEM_AUTHOR'
+  | 'FORM_DRAFT_MANAGE'
+  | 'FORM_PUBLISH'
+  | 'SOURCE_MANAGE'
+  | 'LICENSE_MANAGE'
+  | 'VALIDATION_REVIEW'
+  | 'SCORING_MODEL_ACTIVATE'
+  | 'NORM_ACTIVATE';
 
 export const ALL_ROLES: Role[] = [
   'USER',
@@ -35,10 +45,19 @@ export const ALL_PERMISSIONS: Permission[] = [
   'USER_MANAGE',
   'ITEM_MANAGE',
   'SYSTEM_CONFIG',
-  'ROLE_MANAGE'
+  'ROLE_MANAGE',
+  'SCIENTIFIC_VIEW',
+  'ITEM_AUTHOR',
+  'FORM_DRAFT_MANAGE',
+  'FORM_PUBLISH',
+  'SOURCE_MANAGE',
+  'LICENSE_MANAGE',
+  'VALIDATION_REVIEW',
+  'SCORING_MODEL_ACTIVATE',
+  'NORM_ACTIVATE'
 ];
 
-// Role to permissions mapping (Versioned RBAC Policy v1.0.0)
+// Role to permissions mapping (Versioned RBAC Policy v1.1.0)
 export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
   USER: [
     'APP_USE',
@@ -50,7 +69,9 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     'PROFILE_VIEW_SELF',
     'ASSESSMENT_TAKE',
     'RESEARCH_VIEW',
-    'RESEARCH_REVIEW'
+    'RESEARCH_REVIEW',
+    'SCIENTIFIC_VIEW',
+    'VALIDATION_REVIEW'
   ],
   RESEARCHER: [
     'APP_USE',
@@ -58,7 +79,12 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     'ASSESSMENT_TAKE',
     'RESEARCH_VIEW',
     'RESEARCH_REVIEW',
-    'ITEM_MANAGE'
+    'ITEM_MANAGE',
+    'SCIENTIFIC_VIEW',
+    'ITEM_AUTHOR',
+    'FORM_DRAFT_MANAGE',
+    'SOURCE_MANAGE',
+    'VALIDATION_REVIEW'
   ],
   ADMIN: [
     'APP_USE',
@@ -69,7 +95,13 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     'ADMIN_ACCESS',
     'USER_MANAGE',
     'ITEM_MANAGE',
-    'SYSTEM_CONFIG'
+    'SYSTEM_CONFIG',
+    'SCIENTIFIC_VIEW',
+    'ITEM_AUTHOR',
+    'FORM_DRAFT_MANAGE',
+    'SOURCE_MANAGE',
+    'LICENSE_MANAGE',
+    'VALIDATION_REVIEW'
   ],
   SUPER_ADMIN: [
     'APP_USE',
@@ -81,7 +113,16 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     'USER_MANAGE',
     'ITEM_MANAGE',
     'SYSTEM_CONFIG',
-    'ROLE_MANAGE'
+    'ROLE_MANAGE',
+    'SCIENTIFIC_VIEW',
+    'ITEM_AUTHOR',
+    'FORM_DRAFT_MANAGE',
+    'FORM_PUBLISH',
+    'SOURCE_MANAGE',
+    'LICENSE_MANAGE',
+    'VALIDATION_REVIEW',
+    'SCORING_MODEL_ACTIVATE',
+    'NORM_ACTIVATE'
   ]
 };
 

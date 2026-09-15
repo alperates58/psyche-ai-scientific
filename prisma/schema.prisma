@@ -13,30 +13,34 @@ generator client {
 // ---------------------------------------------------------
 
 model User {
-  id              String                   @id @default(cuid())
-  email           String?                  @unique
-  emailNormalized String?                  @unique
+  id              String    @id @default(cuid())
+  email           String?   @unique
+  emailNormalized String?   @unique
   name            String
   image           String?
   emailVerified   DateTime?
-  status          String                   @default("ACTIVE") // ACTIVE, PENDING_VERIFICATION, SUSPENDED, DISABLED
-  isDemoUser      Boolean                  @default(false)
+  status          String    @default("ACTIVE") // ACTIVE, PENDING_VERIFICATION, SUSPENDED, DISABLED
+  isDemoUser      Boolean   @default(false)
   lastLoginAt     DateTime?
-  createdAt       DateTime                 @default(now())
-  updatedAt       DateTime                 @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  credential      UserCredential?
-  roles           UserRole[]
-  authAccounts    Account[]
-  authSessions    Session[]
-  consents        UserConsent[]
-  emailTokens     EmailVerificationToken[]
-  resetTokens     PasswordResetToken[]
-  auditEvents     AuthAuditEvent[]
+  credential   UserCredential?
+  roles        UserRole[]
+  authAccounts Account[]
+  authSessions Session[]
+  consents     UserConsent[]
+  emailTokens  EmailVerificationToken[]
+  resetTokens  PasswordResetToken[]
+  auditEvents  AuthAuditEvent[]
 
   // Preserved existing scientific relations
-  sessions        AssessmentSession[]
-  snapshots       ProfileSnapshot[]
+  sessions  AssessmentSession[]
+  snapshots ProfileSnapshot[]
+
+  // FAZ 2.7C Scientific Governance Relations
+  scientificAuditEvents       ScientificAuditEvent[]   @relation("ScientificAuditActor")
+  verifiedValidationSummaries FacetValidationSummary[] @relation("ValidationSummaryVerifier")
 
   @@map("users")
 }
@@ -55,7 +59,7 @@ model Account {
   id_token          String? @db.Text
   session_state     String?
 
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -72,7 +76,7 @@ model Session {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("auth_sessions")
 }
@@ -94,7 +98,7 @@ model UserCredential {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("user_credentials")
 }
@@ -102,11 +106,11 @@ model UserCredential {
 model UserRole {
   id        String   @id @default(cuid())
   userId    String
-  role      String   // USER, EXPERT_REVIEWER, RESEARCHER, ADMIN, SUPER_ADMIN
+  role      String // USER, EXPERT_REVIEWER, RESEARCHER, ADMIN, SUPER_ADMIN
   grantedAt DateTime @default(now())
   grantedBy String?
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, role])
   @@map("user_roles")
@@ -120,7 +124,7 @@ model EmailVerificationToken {
   usedAt    DateTime?
   createdAt DateTime  @default(now())
 
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("email_verification_tokens")
 }
@@ -133,7 +137,7 @@ model PasswordResetToken {
   usedAt    DateTime?
   createdAt DateTime  @default(now())
 
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("password_reset_tokens")
 }
@@ -149,7 +153,7 @@ model AuthAuditEvent {
   metadata    Json?
   createdAt   DateTime @default(now())
 
-  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("auth_audit_events")
 }
@@ -162,7 +166,7 @@ model UserConsent {
   acceptedAt      DateTime  @default(now())
   withdrawnAt     DateTime?
 
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("user_consents")
 }
@@ -182,31 +186,31 @@ model RateLimitRecord {
 // ---------------------------------------------------------
 
 model Domain {
-  id            String          @id
-  code          String          @unique
+  id            String  @id
+  code          String  @unique
   nameTr        String
   nameEn        String
-  descriptionTr String          @db.Text
-  descriptionEn String          @db.Text
+  descriptionTr String  @db.Text
+  descriptionEn String  @db.Text
   color         String?
-  sortOrder     Int             @default(0)
+  sortOrder     Int     @default(0)
 
-  constructs    Construct[]
-  domainScores  DomainScore[]
+  constructs   Construct[]
+  domainScores DomainScore[]
 
   @@map("domains")
 }
 
 model Construct {
-  id              String           @id
-  code            String           @unique
-  domainId        String
-  domain          Domain           @relation(fields: [domainId], references: [id], onDelete: Restrict)
-  nameTr          String
-  nameEn          String
-  descriptionTr   String           @db.Text
-  descriptionEn   String           @db.Text
-  sortOrder       Int              @default(0)
+  id            String @id
+  code          String @unique
+  domainId      String
+  domain        Domain @relation(fields: [domainId], references: [id], onDelete: Restrict)
+  nameTr        String
+  nameEn        String
+  descriptionTr String @db.Text
+  descriptionEn String @db.Text
+  sortOrder     Int    @default(0)
 
   facets          Facet[]
   constructScores ConstructScore[]
@@ -215,21 +219,24 @@ model Construct {
 }
 
 model Facet {
-  id                String                 @id
-  code              String                 @unique
-  constructId       String
-  construct         Construct              @relation(fields: [constructId], references: [id], onDelete: Restrict)
-  nameTr            String
-  nameEn            String
-  descriptionTr     String                 @db.Text
-  descriptionEn     String                 @db.Text
-  sortOrder         Int                    @default(0)
+  id            String    @id
+  code          String    @unique
+  constructId   String
+  construct     Construct @relation(fields: [constructId], references: [id], onDelete: Restrict)
+  nameTr        String
+  nameEn        String
+  descriptionTr String    @db.Text
+  descriptionEn String    @db.Text
+  sortOrder     Int       @default(0)
 
   items             Item[]
   facetScores       FacetScore[]
   scientificSources FacetScientificSource[]
   instruments       FacetInstrument[]
   theoryLenses      FacetTheoryLens[]
+
+  // FAZ 2.7C Reverse Relation (1:1 with FacetValidationSummary)
+  validationSummary FacetValidationSummary?
 
   @@map("facets")
 }
@@ -239,61 +246,71 @@ model Facet {
 // ---------------------------------------------------------
 
 model ScientificSource {
-  id            String                      @id
-  shortKey      String                      @unique
-  citation      String                      @db.Text
-  year          Int?
-  doi           String?
-  url           String?
+  id       String  @id
+  shortKey String  @unique
+  citation String  @db.Text
+  year     Int?
+  doi      String?
+  url      String?
 
-  facets        FacetScientificSource[]
-  theoryLenses  TheoryLensScientificSource[]
+  facets       FacetScientificSource[]
+  theoryLenses TheoryLensScientificSource[]
+
+  // FAZ 2.7C Reverse Relations
+  validationStudyEvidences       FacetValidationStudyEvidence[]
+  validationReliabilityEvidences FacetReliabilityEvidence[]
 
   @@map("scientific_sources")
 }
 
 model FacetScientificSource {
-  facetId       String
-  sourceId      String
-  facet         Facet            @relation(fields: [facetId], references: [id], onDelete: Cascade)
-  source        ScientificSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  facetId  String
+  sourceId String
+  facet    Facet            @relation(fields: [facetId], references: [id], onDelete: Cascade)
+  source   ScientificSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
 
   @@id([facetId, sourceId])
   @@map("facet_scientific_sources")
 }
 
 model Instrument {
-  id                String            @id
-  code              String            @unique
+  id                String  @id
+  code              String  @unique
   name              String
   fullName          String?
   licenseType       String
-  licensingDecision String            // "approved", "rejected", "restricted"
-  citation          String?           @db.Text
+  licensingDecision String // "approved", "rejected", "restricted"
+  citation          String? @db.Text
 
-  facets            FacetInstrument[]
-  items             Item[]
+  facets FacetInstrument[]
+  items  Item[]
+
+  // FAZ 2.7C Reverse Relations
+  validationStudyEvidences           FacetValidationStudyEvidence[]
+  validationReliabilityEvidences     FacetReliabilityEvidence[]
+  targetConstructValidationSummaries FacetValidationSummary[]       @relation("TargetConstructInstrument")
+  supportingValidationSummaries      FacetValidationSummary[]       @relation("SupportingEvidenceInstrument")
 
   @@map("instruments")
 }
 
 model FacetInstrument {
-  facetId       String
-  instrumentId  String
-  facet         Facet      @relation(fields: [facetId], references: [id], onDelete: Cascade)
-  instrument    Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+  facetId      String
+  instrumentId String
+  facet        Facet      @relation(fields: [facetId], references: [id], onDelete: Cascade)
+  instrument   Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
 
   @@id([facetId, instrumentId])
   @@map("facet_instruments")
 }
 
 model TheoryLens {
-  id                String                       @id
-  lensId            String                       @unique // e.g. "jungian", "attachment"
-  school            String
-  theorist          String
-  description       String                       @db.Text
-  primaryFocus      String?
+  id           String  @id
+  lensId       String  @unique // e.g. "jungian", "attachment"
+  school       String
+  theorist     String
+  description  String  @db.Text
+  primaryFocus String?
 
   facets            FacetTheoryLens[]
   scientificSources TheoryLensScientificSource[]
@@ -302,20 +319,20 @@ model TheoryLens {
 }
 
 model FacetTheoryLens {
-  facetId       String
-  theoryLensId  String
-  facet         Facet      @relation(fields: [facetId], references: [id], onDelete: Cascade)
-  theoryLens    TheoryLens @relation(fields: [theoryLensId], references: [id], onDelete: Cascade)
+  facetId      String
+  theoryLensId String
+  facet        Facet      @relation(fields: [facetId], references: [id], onDelete: Cascade)
+  theoryLens   TheoryLens @relation(fields: [theoryLensId], references: [id], onDelete: Cascade)
 
   @@id([facetId, theoryLensId])
   @@map("facet_theory_lenses")
 }
 
 model TheoryLensScientificSource {
-  theoryLensId  String
-  sourceId      String
-  theoryLens    TheoryLens       @relation(fields: [theoryLensId], references: [id], onDelete: Cascade)
-  source        ScientificSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  theoryLensId String
+  sourceId     String
+  theoryLens   TheoryLens       @relation(fields: [theoryLensId], references: [id], onDelete: Cascade)
+  source       ScientificSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
 
   @@id([theoryLensId, sourceId])
   @@map("theory_lens_scientific_sources")
@@ -326,54 +343,61 @@ model TheoryLensScientificSource {
 // ---------------------------------------------------------
 
 model Item {
-  id                String           @id @default(cuid())
-  itemCode          String           @unique
-  facetId           String
-  facet             Facet            @relation(fields: [facetId], references: [id], onDelete: Restrict)
-  instrumentId      String?
-  instrument        Instrument?      @relation(fields: [instrumentId], references: [id], onDelete: SetNull)
-  isKeyed           Boolean          @default(true) // true = regular (+), false = reverse (-)
-  itemType          String           @default("LIKERT_5")
-  isAttentionCheck  Boolean          @default(false)
-  createdAt         DateTime         @default(now())
+  id               String      @id @default(cuid())
+  itemCode         String      @unique
+  facetId          String
+  facet            Facet       @relation(fields: [facetId], references: [id], onDelete: Restrict)
+  instrumentId     String?
+  instrument       Instrument? @relation(fields: [instrumentId], references: [id], onDelete: SetNull)
+  isKeyed          Boolean     @default(true) // true = regular (+), false = reverse (-)
+  itemType         String      @default("LIKERT_5")
+  isAttentionCheck Boolean     @default(false)
+  createdAt        DateTime    @default(now())
 
-  versions          ItemVersion[]
-  responses         ResponseRecord[]
+  versions  ItemVersion[]
+  responses ResponseRecord[]
 
   @@map("items")
 }
 
 model ItemVersion {
-  id                String               @id @default(cuid())
-  itemId            String
-  item              Item                 @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  versionNumber     Int                  @default(1)
-  promptTr          String               @db.Text
-  promptEn          String               @db.Text
-  validationStatus  String               @default("RESEARCH_DRAFT") // "RESEARCH_DRAFT", "VALIDATED", "DEPRECATED"
-  licenseStatus     String               @default("approved")
-  isActive          Boolean              @default(true)
-  createdAt         DateTime             @default(now())
+  id               String    @id @default(cuid())
+  itemId           String
+  item             Item      @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  versionNumber    Int       @default(1)
+  promptTr         String    @db.Text
+  promptEn         String    @db.Text
+  status           String    @default("DRAFT") // "DRAFT", "ACTIVE", "DEPRECATED"
+  validationStatus String    @default("RESEARCH_DRAFT") // "RESEARCH_DRAFT", "VALIDATED", "DEPRECATED", "PRE_CALIBRATION"
+  licenseStatus    String    @default("UNKNOWN") // "APPROVED_PUBLIC", "REQUIRES_LICENSE", "REJECTED_PROPRIETARY", "UNKNOWN"
+  authorType       String? // "HUMAN_EXPERT", "GENERATIVE_AI", "ADAPTATION", "LEGACY_UNSPECIFIED"
+  sourceType       String?
+  notes            String?   @db.Text
+  isActive         Boolean   @default(false)
+  deprecatedAt     DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now()) @updatedAt
 
-  options           ItemVersionOption[]
-  formItems         AssessmentFormItem[]
-  responses         ResponseRecord[]
+  options   ItemVersionOption[]
+  formItems AssessmentFormItem[]
+  responses ResponseRecord[]
 
   @@unique([itemId, versionNumber])
+  @@index([status, validationStatus])
   @@map("item_versions")
 }
 
 model ItemVersionOption {
-  id            String             @id @default(cuid())
+  id            String      @id @default(cuid())
   itemVersionId String
-  itemVersion   ItemVersion        @relation(fields: [itemVersionId], references: [id], onDelete: Cascade)
-  value         Int                // 1, 2, 3, 4, 5
+  itemVersion   ItemVersion @relation(fields: [itemVersionId], references: [id], onDelete: Cascade)
+  value         Int // 1, 2, 3, 4, 5
   labelTr       String
   labelEn       String
-  sortOrder     Int                @default(0)
+  sortOrder     Int         @default(0)
 
-  responses     ResponseRecord[]
-  revisions     ResponseRevision[]
+  responses ResponseRecord[]
+  revisions ResponseRevision[]
 
   @@unique([itemVersionId, value])
   @@map("item_version_options")
@@ -384,32 +408,38 @@ model ItemVersionOption {
 // ---------------------------------------------------------
 
 model AssessmentModule {
-  id               String                  @id @default(cuid())
-  code             String                  @unique // e.g. "MODULE_1_CORE_PERSONALITY"
+  id               String @id @default(cuid())
+  code             String @unique // e.g. "MODULE_1_CORE_PERSONALITY"
   titleTr          String
   titleEn          String
-  descriptionTr    String                  @db.Text
-  descriptionEn    String                  @db.Text
-  estimatedMinutes Int                     @default(15)
+  descriptionTr    String @db.Text
+  descriptionEn    String @db.Text
+  estimatedMinutes Int    @default(15)
 
-  formVersions     AssessmentFormVersion[]
+  formVersions AssessmentFormVersion[]
 
   @@map("assessment_modules")
 }
 
 model AssessmentFormVersion {
-  id          String               @id @default(cuid())
+  id          String           @id @default(cuid())
   moduleId    String
-  module      AssessmentModule     @relation(fields: [moduleId], references: [id], onDelete: Restrict)
-  versionCode String               // e.g. "v1.0.0"
-  isPublished Boolean              @default(true)
-  itemCount   Int                  @default(0)
-  createdAt   DateTime             @default(now())
+  module      AssessmentModule @relation(fields: [moduleId], references: [id], onDelete: Restrict)
+  versionCode String // e.g. "v1.0.0"
+  status      String           @default("DRAFT") // "DRAFT", "PUBLISHED", "ARCHIVED"
+  isPublished Boolean          @default(false)
+  itemCount   Int              @default(0)
+  description String?          @db.Text
+  publishedAt DateTime?
+  archivedAt  DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @default(now()) @updatedAt
 
-  items       AssessmentFormItem[]
-  sessions    AssessmentSession[]
+  items    AssessmentFormItem[]
+  sessions AssessmentSession[]
 
   @@unique([moduleId, versionCode])
+  @@index([status])
   @@map("assessment_form_versions")
 }
 
@@ -421,7 +451,7 @@ model AssessmentFormItem {
   itemVersion   ItemVersion           @relation(fields: [itemVersionId], references: [id], onDelete: Restrict)
   sortOrder     Int
 
-  responses     ResponseRecord[]
+  responses ResponseRecord[]
 
   @@unique([formVersionId, sortOrder])
   @@unique([formVersionId, itemVersionId])
@@ -433,17 +463,17 @@ model AssessmentFormItem {
 // ---------------------------------------------------------
 
 model AssessmentSession {
-  id               String                   @id @default(cuid())
-  userId           String
-  user             User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  formVersionId    String
-  formVersion      AssessmentFormVersion    @relation(fields: [formVersionId], references: [id], onDelete: Restrict)
-  status           String                   @default("IN_PROGRESS") // "IN_PROGRESS", "PAUSED", "COMPLETED", "ABANDONED"
-  startedAt        DateTime                 @default(now())
-  lastActiveAt     DateTime                 @default(now())
-  completedAt      DateTime?
-  totalDurationMs  Int                      @default(0)
-  currentStep      Int                      @default(1)
+  id              String                @id @default(cuid())
+  userId          String
+  user            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  formVersionId   String
+  formVersion     AssessmentFormVersion @relation(fields: [formVersionId], references: [id], onDelete: Restrict)
+  status          String                @default("IN_PROGRESS") // "IN_PROGRESS", "PAUSED", "COMPLETED", "ABANDONED"
+  startedAt       DateTime              @default(now())
+  lastActiveAt    DateTime              @default(now())
+  completedAt     DateTime?
+  totalDurationMs Int                   @default(0)
+  currentStep     Int                   @default(1)
 
   responses        ResponseRecord[]
   telemetries      ResponseTelemetry[]
@@ -471,8 +501,8 @@ model ResponseRecord {
   createdAt               DateTime           @default(now())
   updatedAt               DateTime           @updatedAt
 
-  revisions               ResponseRevision[]
-  telemetries             ResponseTelemetry[]
+  revisions   ResponseRevision[]
+  telemetries ResponseTelemetry[]
 
   @@unique([sessionId, formItemId])
   @@map("response_records")
@@ -494,16 +524,16 @@ model ResponseRevision {
 }
 
 model ResponseTelemetry {
-  id                       String          @id @default(cuid())
+  id                       String            @id @default(cuid())
   sessionId                String
   session                  AssessmentSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   responseRecordId         String?
   responseRecord           ResponseRecord?   @relation(fields: [responseRecordId], references: [id], onDelete: Cascade)
   clientObservedDurationMs Int
-  focusLostCount           Int             @default(0)
+  focusLostCount           Int               @default(0)
   firstInteractionAt       DateTime?
-  serverReceivedAt         DateTime        @default(now())
-  telemetryTrust           String          @default("client_observed")
+  serverReceivedAt         DateTime          @default(now())
+  telemetryTrust           String            @default("client_observed")
 
   @@map("response_telemetry")
 }
@@ -542,36 +572,36 @@ model NormVersion {
 }
 
 model ScoringModelVersion {
-  id               String            @id @default(cuid())
-  code             String            @unique // e.g. "PRE_CALIBRATION_MEAN_V1"
-  description      String            @db.Text
-  algorithm        String            @default("UNWEIGHTED_COMPOSITE_MEAN")
-  isPreCalibration Boolean           @default(true)
-  createdAt        DateTime          @default(now())
+  id               String   @id @default(cuid())
+  code             String   @unique // e.g. "PRE_CALIBRATION_MEAN_V1"
+  description      String   @db.Text
+  algorithm        String   @default("UNWEIGHTED_COMPOSITE_MEAN")
+  isPreCalibration Boolean  @default(true)
+  createdAt        DateTime @default(now())
 
-  snapshots        ProfileSnapshot[]
+  snapshots ProfileSnapshot[]
 
   @@map("scoring_model_versions")
 }
 
 model ProfileSnapshot {
-  id                    String                 @id @default(cuid())
+  id                    String              @id @default(cuid())
   userId                String
-  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                  User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   scoringModelVersionId String
-  scoringModelVersion   ScoringModelVersion    @relation(fields: [scoringModelVersionId], references: [id], onDelete: Restrict)
-  overallIntegrity      String                 @default("ACCEPTABLE")
-  provisionalComposite  Float                  // unweighted mean across domains
-  normStatus            String                 @default("UNAVAILABLE") // strictly UNAVAILABLE in pre-calibration
-  standardError         Float?                 // strictly NULL in pre-calibration
-  ci95Lower             Float?                 // strictly NULL in pre-calibration
-  ci95Upper             Float?                 // strictly NULL in pre-calibration
-  createdAt             DateTime               @default(now())
+  scoringModelVersion   ScoringModelVersion @relation(fields: [scoringModelVersionId], references: [id], onDelete: Restrict)
+  overallIntegrity      String              @default("ACCEPTABLE")
+  provisionalComposite  Float // unweighted mean across domains
+  normStatus            String              @default("UNAVAILABLE") // strictly UNAVAILABLE in pre-calibration
+  standardError         Float? // strictly NULL in pre-calibration
+  ci95Lower             Float? // strictly NULL in pre-calibration
+  ci95Upper             Float? // strictly NULL in pre-calibration
+  createdAt             DateTime            @default(now())
 
-  sessions              ProfileSnapshotSession[]
-  facetScores           FacetScore[]
-  constructScores       ConstructScore[]
-  domainScores          DomainScore[]
+  sessions        ProfileSnapshotSession[]
+  facetScores     FacetScore[]
+  constructScores ConstructScore[]
+  domainScores    DomainScore[]
 
   @@map("profile_snapshots")
 }
@@ -594,10 +624,10 @@ model FacetScore {
   facet             Facet           @relation(fields: [facetId], references: [id], onDelete: Restrict)
   rawMean           Float
   itemCount         Int
-  standardError     Float?          // strictly NULL in pre-calibration
-  ci95Lower         Float?          // strictly NULL in pre-calibration
-  ci95Upper         Float?          // strictly NULL in pre-calibration
-  normVersionId     String?         // strictly NULL in pre-calibration
+  standardError     Float? // strictly NULL in pre-calibration
+  ci95Lower         Float? // strictly NULL in pre-calibration
+  ci95Upper         Float? // strictly NULL in pre-calibration
+  normVersionId     String? // strictly NULL in pre-calibration
 
   @@unique([profileSnapshotId, facetId])
   @@map("facet_scores")
@@ -611,10 +641,10 @@ model ConstructScore {
   construct         Construct       @relation(fields: [constructId], references: [id], onDelete: Restrict)
   compositeScore    Float
   facetCount        Int
-  standardError     Float?          // strictly NULL in pre-calibration
-  ci95Lower         Float?          // strictly NULL in pre-calibration
-  ci95Upper         Float?          // strictly NULL in pre-calibration
-  normVersionId     String?         // strictly NULL in pre-calibration
+  standardError     Float? // strictly NULL in pre-calibration
+  ci95Lower         Float? // strictly NULL in pre-calibration
+  ci95Upper         Float? // strictly NULL in pre-calibration
+  normVersionId     String? // strictly NULL in pre-calibration
 
   @@unique([profileSnapshotId, constructId])
   @@map("construct_scores")
@@ -628,11 +658,110 @@ model DomainScore {
   domain            Domain          @relation(fields: [domainId], references: [id], onDelete: Restrict)
   compositeScore    Float
   constructCount    Int
-  standardError     Float?          // strictly NULL in pre-calibration
-  ci95Lower         Float?          // strictly NULL in pre-calibration
-  ci95Upper         Float?          // strictly NULL in pre-calibration
-  normVersionId     String?         // strictly NULL in pre-calibration
+  standardError     Float? // strictly NULL in pre-calibration
+  ci95Lower         Float? // strictly NULL in pre-calibration
+  ci95Upper         Float? // strictly NULL in pre-calibration
+  normVersionId     String? // strictly NULL in pre-calibration
 
   @@unique([profileSnapshotId, domainId])
   @@map("domain_scores")
+}
+
+// ---------------------------------------------------------
+// FAZ 2.7C SCIENTIFIC AUDIT & VALIDATION EVIDENCE
+// ---------------------------------------------------------
+
+model ScientificAuditEvent {
+  id               String   @id @default(cuid())
+  eventType        String // e.g. "FORM_PUBLISHED", "ITEM_VERSION_CREATED", "SOURCE_VERIFIED"
+  actorUserId      String?
+  actor            User?    @relation("ScientificAuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+  targetEntityType String // e.g. "AssessmentFormVersion", "ItemVersion", "FacetValidationSummary"
+  targetEntityId   String?
+  ipHash           String?
+  userAgent        String?  @db.Text
+  metadata         Json?
+  createdAt        DateTime @default(now())
+
+  @@index([eventType, createdAt])
+  @@index([targetEntityType, targetEntityId])
+  @@map("scientific_audit_events")
+}
+
+model FacetValidationSummary {
+  id                              String      @id @default(cuid())
+  facetId                         String      @unique
+  facet                           Facet       @relation(fields: [facetId], references: [id], onDelete: Restrict)
+  overallTurkishEvidenceLevel     String      @default("NO_DIRECT") // "DIRECT", "LEXICAL", "RELATED", "NO_DIRECT"
+  overallStatus                   String      @default("NOT_ASSESSED") // "LEXICAL_SUPPORT_ONLY", "DIRECT_VALIDATION", etc.
+  measurementAlignmentLevel       String      @default("NOT_APPLICABLE") // "EXACT_FACET", "SUBSCALE_ALIGNED", "CONSTRUCT_ALIGNED", "NOT_APPLICABLE"
+  measurementInvarianceStatus     String      @default("NOT_ASSESSED")
+  instrumentValidationEstablished Boolean     @default(false)
+  targetConstructInstrumentId     String?
+  targetConstructInstrument       Instrument? @relation("TargetConstructInstrument", fields: [targetConstructInstrumentId], references: [id], onDelete: Restrict)
+  supportingEvidenceInstrumentId  String?
+  supportingEvidenceInstrument    Instrument? @relation("SupportingEvidenceInstrument", fields: [supportingEvidenceInstrumentId], references: [id], onDelete: Restrict)
+  sampleDescription               String?     @db.Text
+  scientificNotes                 String?     @db.Text
+  humanVerified                   Boolean     @default(false)
+  verifiedAt                      DateTime?
+  verifiedByUserId                String?
+  verifiedByUser                  User?       @relation("ValidationSummaryVerifier", fields: [verifiedByUserId], references: [id], onDelete: SetNull)
+  createdAt                       DateTime    @default(now())
+  updatedAt                       DateTime    @default(now()) @updatedAt
+
+  studyEvidences       FacetValidationStudyEvidence[]
+  reliabilityEvidences FacetReliabilityEvidence[]
+
+  @@map("facet_validation_summaries")
+}
+
+model FacetValidationStudyEvidence {
+  id                        String                 @id @default(cuid())
+  validationSummaryId       String
+  validationSummary         FacetValidationSummary @relation(fields: [validationSummaryId], references: [id], onDelete: Cascade)
+  sourceId                  String?
+  source                    ScientificSource?      @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  instrumentId              String?
+  instrument                Instrument?            @relation(fields: [instrumentId], references: [id], onDelete: Restrict)
+  evidenceType              String // "BROAD_FACTOR_LEXICAL_SUPPORT", "DIRECT_EMPIRICAL_ADAPTATION", etc.
+  evidenceLevel             String                 @default("NO_DIRECT") // "DIRECT", "LEXICAL", "RELATED", "NO_DIRECT"
+  appliesToLevel            String                 @default("FACET") // "SCALE_TOTAL", "SUBSCALE", "FACET", "BROAD_FACTOR"
+  measurementAlignmentLevel String                 @default("NOT_APPLICABLE") // "EXACT_FACET", "SUBSCALE_ALIGNED", etc.
+  sampleN                   Int? // Sample N belongs to study evidence
+  population                String?
+  samplingMethod            String?
+  doesNotEstablish          Json? // String array of unestablished claims
+  factorEvidenceLevel       String? // "SCALE_TOTAL", "SUBSCALE", "FACET", "BROAD_FACTOR"
+  factorEvidenceStatus      String? // "SUPPORTED", "PRELIMINARY", "NOT_ASSESSED"
+  claimVerificationStatus   String                 @default("NOT_ASSESSED")
+  verificationMethod        String?
+  humanVerified             Boolean                @default(false)
+  notes                     String?                @db.Text
+  createdAt                 DateTime               @default(now())
+
+  @@index([validationSummaryId])
+  @@map("facet_validation_study_evidences")
+}
+
+model FacetReliabilityEvidence {
+  id                      String                 @id @default(cuid())
+  validationSummaryId     String
+  validationSummary       FacetValidationSummary @relation(fields: [validationSummaryId], references: [id], onDelete: Cascade)
+  sourceId                String?
+  source                  ScientificSource?      @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  instrumentId            String?
+  instrument              Instrument?            @relation(fields: [instrumentId], references: [id], onDelete: Restrict)
+  metricType              String // "INTERNAL_CONSISTENCY", "TEST_RETEST"
+  metricName              String? // "CRONBACH_ALPHA", "MCDONALD_OMEGA", "PEARSON_R"
+  value                   Float? // e.g. 0.84
+  interval                String? // e.g. "4 weeks"
+  location                String? // e.g. "Table 2, p. 145"
+  evidenceLevel           String                 @default("NO_DIRECT") // "DIRECT", "LEXICAL", "RELATED", "NO_DIRECT"
+  claimVerificationStatus String                 @default("NOT_ASSESSED")
+  humanVerified           Boolean                @default(false)
+  createdAt               DateTime               @default(now())
+
+  @@index([validationSummaryId])
+  @@map("facet_reliability_evidences")
 }
