@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { Prisma } from '@prisma/client';
 import { prisma } from './prisma';
 
 export type AuthEventType =
@@ -14,7 +15,12 @@ export type AuthEventType =
   | 'ROLE_GRANTED'
   | 'ROLE_REVOKED'
   | 'ACCOUNT_SUSPENDED'
-  | 'ALL_SESSIONS_REVOKED';
+  | 'ALL_SESSIONS_REVOKED'
+  | 'USER_SUSPENDED'
+  | 'USER_REACTIVATED'
+  | 'USER_DISABLED'
+  | 'USER_SESSIONS_REVOKED'
+  | 'ADMIN_SECURITY_ALERT';
 
 const IP_HASH_SALT = process.env.AUTH_RATE_LIMIT_SECRET || process.env.AUTH_SECRET || 'psyche_default_ip_anonymizer_salt';
 
@@ -26,18 +32,15 @@ export function hashIp(ip?: string | null): string | null {
   return crypto.createHmac('sha256', IP_HASH_SALT).update(ip.trim()).digest('hex').substring(0, 32);
 }
 
-const FORBIDDEN_METADATA_KEYS = new Set([
+const FORBIDDEN_METADATA_PATTERNS = [
   'password',
-  'passwordconfirmation',
   'token',
-  'rawtoken',
   'secret',
-  'authsecret',
+  'cookie',
+  'authorization',
   'hash',
   'derivedkey',
-  'cookie',
-  'authorization'
-]);
+];
 
 /**
  * Strips all sensitive credentials, passwords, and raw tokens from metadata before logging.
@@ -48,7 +51,9 @@ export function sanitizeAuditMetadata(metadata?: Record<string, any> | null): Re
   const sanitized: Record<string, any> = {};
   for (const [key, value] of Object.entries(metadata)) {
     const lowerKey = key.toLowerCase().replace(/[^a-z]/g, '');
-    if (FORBIDDEN_METADATA_KEYS.has(lowerKey)) {
+    const isForbidden = FORBIDDEN_METADATA_PATTERNS.some((pattern) => lowerKey.includes(pattern));
+
+    if (isForbidden) {
       sanitized[key] = '[REDACTED]';
     } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       sanitized[key] = sanitizeAuditMetadata(value);
@@ -71,6 +76,30 @@ export interface LogAuthAuditParams {
 }
 
 /**
+ * Immutable audit logger within a transaction client.
+ * Fails the transaction if audit log insertion fails.
+ */
+export async function logAuthAuditEventTx(
+  tx: Prisma.TransactionClient,
+  params: LogAuthAuditParams
+): Promise<void> {
+  const ipHash = hashIp(params.ip);
+  const sanitizedMetadata = sanitizeAuditMetadata(params.metadata);
+
+  await tx.authAuditEvent.create({
+    data: {
+      eventType: params.eventType,
+      userId: params.userId || null,
+      actorUserId: params.actorUserId || null,
+      success: params.success,
+      ipHash,
+      userAgent: params.userAgent ? params.userAgent.substring(0, 500) : null,
+      metadata: sanitizedMetadata ? (sanitizedMetadata as any) : undefined,
+    },
+  });
+}
+
+/**
  * Immutable audit logger. Creates records only; no update or delete operations.
  */
 export async function logAuthAuditEvent(params: LogAuthAuditParams): Promise<void> {
@@ -90,7 +119,7 @@ export async function logAuthAuditEvent(params: LogAuthAuditParams): Promise<voi
       },
     });
   } catch (error) {
-    // Audit logging failure must not crash the application, but must be logged to stderr
+    // Audit logging failure outside transaction must not crash, but logs to stderr
     console.error('Failed to record auth audit event:', error);
   }
 }

@@ -33,7 +33,7 @@ export default async function AdminDashboardPage() {
         <div className="flex items-center space-x-2">
           <span className="inline-flex items-center px-3 py-1 rounded-xl text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-200">
             <ShieldCheck className="w-3.5 h-3.5 mr-1.5" />
-            FAZ 2.7A Canlı
+            FAZ 2.7B Canlı
           </span>
         </div>
       </div>

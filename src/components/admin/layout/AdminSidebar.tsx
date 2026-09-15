@@ -59,21 +59,13 @@ const ADMIN_NAVIGATION: NavCategory[] = [
     items: [
       {
         label: 'Kullanıcı Yönetimi',
+        href: '/admin/users',
         icon: Users,
-        disabled: true,
-        phaseBadge: 'FAZ 2.7B',
-      },
-      {
-        label: 'Roller & Yetkiler',
-        icon: KeyRound,
-        disabled: true,
-        phaseBadge: 'FAZ 2.7B',
       },
       {
         label: 'Denetim Günlüğü',
+        href: '/admin/audit',
         icon: History,
-        disabled: true,
-        phaseBadge: 'FAZ 2.7B',
       },
     ],
   },
@@ -141,9 +133,8 @@ const ADMIN_NAVIGATION: NavCategory[] = [
       },
       {
         label: 'Sistem Durumu',
+        href: '/admin/system',
         icon: Activity,
-        disabled: true,
-        phaseBadge: 'FAZ 2.7B',
       },
       {
         label: 'Sürüm Yönetimi',
@@ -195,7 +186,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ isMobile = false, on
               </span>
             </div>
             <span className="text-[10px] text-text-tertiary font-medium block">
-              Kontrol Düzlemi v2.7A
+              Kontrol Düzlemi v2.7B
             </span>
           </div>
         </Link>

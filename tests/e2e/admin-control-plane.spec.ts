@@ -164,16 +164,15 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
     // Verify Admin Dashboard Title & Header Role Badge
     await expect(page.locator('h1')).toContainText('Yönetim Kontrol Paneli');
     await expect(page.getByText('ADMIN').first()).toBeVisible();
-    await expect(page.getByText('FAZ 2.7A Canlı')).toBeVisible();
+    await expect(page.getByText('FAZ 2.7B Canlı')).toBeVisible();
 
     // Verify Metric Cards
     await expect(page.getByText('Toplam Kullanıcı')).toBeVisible();
     await expect(page.getByText('Canlı Form Maddesi')).toBeVisible();
     await expect(page.getByText('Ontoloji Alt Boyutları')).toBeVisible();
 
-    // Verify Future Navigation Items are disabled with badges
+    // Verify Navigation Items
     await expect(page.getByText('Kullanıcı Yönetimi').first()).toBeVisible();
-    await expect(page.getByText('FAZ 2.7B').first()).toBeVisible();
     await expect(page.getByText('Değerlendirme Formları').first()).toBeVisible();
     await expect(page.getByText('FAZ 2.7C').first()).toBeVisible();
     await expect(page.getByText('Yapay Zekâ Konfigürasyonu').first()).toBeVisible();
@@ -196,7 +195,7 @@ test.describe('FAZ 2.7A: Admin Control Plane Foundation E2E', () => {
     // Verify Admin Dashboard Title & Header Role Badge
     await expect(page.locator('h1')).toContainText('Yönetim Kontrol Paneli');
     await expect(page.getByText('SUPER_ADMIN').first()).toBeVisible();
-    await expect(page.getByText('FAZ 2.7A Canlı')).toBeVisible();
+    await expect(page.getByText('FAZ 2.7B Canlı')).toBeVisible();
 
     // Verify Metric Cards
     await expect(page.getByText('Toplam Kullanıcı')).toBeVisible();
