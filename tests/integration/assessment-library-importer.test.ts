@@ -5,12 +5,14 @@ import { resolveScoringStrategy } from '../../src/lib/scoringStrategies';
 import { getModuleJourneyMetadata } from '../../src/lib/assessmentJourneyConfig';
 
 describe('FAZ 2.10 Integration: Assessment Library Importer & Safety Engine', () => {
-  it('executes dry-run import simulation idempotently without errors', async () => {
+  it('executes dry-run import simulation idempotently and defaults to NON-PUBLISHING', async () => {
+    // Calling without publishRses flag must default to non-publishing
     const dryRunResult = await importAssessmentLibrary({ dryRun: true });
 
     expect(dryRunResult.success).toBe(true);
     expect(dryRunResult.dryRun).toBe(true);
     expect(dryRunResult.errors).toHaveLength(0);
+    expect(dryRunResult.publishedFormIds).toHaveLength(0); // STRICT: No published forms by default
 
     expect(dryRunResult.domainsCreatedOrUpdated).toBeGreaterThanOrEqual(2);
     expect(dryRunResult.constructsCreatedOrUpdated).toBeGreaterThanOrEqual(3);
@@ -38,9 +40,10 @@ describe('FAZ 2.10 Integration: Assessment Library Importer & Safety Engine', ()
     expect(resolveVisualArchetype('MODULE_2_SELF_IDENTITY')).toBe('DIMENSION_SPECTRUM');
     expect(resolveVisualArchetype('MODULE_3_EMOTION_REGULATION')).toBe('TRAIT_BREAKDOWN');
 
-    const rsesStrategy = resolveScoringStrategy('RSES_SUM_V1', 'MODULE_2_SELF_IDENTITY');
-    expect(rsesStrategy.code).toBe('RSES_SUM_V1');
+    const rsesStrategy = resolveScoringStrategy('RSES_MEAN_V1', 'MODULE_2_SELF_IDENTITY');
+    expect(rsesStrategy.code).toBe('RSES_MEAN_V1');
     expect(rsesStrategy.scaleMin).toBe(1.0);
     expect(rsesStrategy.scaleMax).toBe(4.0);
+    expect(rsesStrategy.scoreType).toBe('MEAN');
   });
 });

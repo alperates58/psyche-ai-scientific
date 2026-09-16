@@ -4,19 +4,19 @@ import { prisma } from '../src/lib/prisma';
 async function run() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
-  const noPublish = args.includes('--no-publish-rses');
+  const publishRses = args.includes('--publish-rses'); // Strict requirement: false by default
 
   console.log('====================================================');
   console.log(' PsycheAI Assessment Library Expansion (FAZ 2.10)');
   console.log('====================================================');
   console.log(`Mode: ${dryRun ? 'DRY-RUN (Simulated)' : 'LIVE EXECUTION'}`);
-  console.log(`Publish RSES: ${!noPublish ? 'YES' : 'NO'}`);
+  console.log(`Publish RSES: ${publishRses ? 'YES (Explicitly Requested)' : 'NO (Default: Draft Only)'}`);
   console.log('----------------------------------------------------');
 
   try {
     const result = await importAssessmentLibrary({
       dryRun,
-      publishRses: !noPublish,
+      publishRses,
     });
 
     console.log('\n📊 Import Summary:');

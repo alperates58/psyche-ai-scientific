@@ -8,8 +8,8 @@ import {
 } from '../../src/lib/assessmentInterpretationConfig';
 import {
   resolveScoringStrategy,
-  RSES_SUM_STRATEGY,
-  GSE_SUM_STRATEGY,
+  RSES_MEAN_STRATEGY,
+  GSE_MEAN_STRATEGY,
   HEXACO_PRECALIBRATION_STRATEGY,
   ScoredResponseItem,
 } from '../../src/lib/scoringStrategies';
@@ -37,6 +37,34 @@ describe('FAZ 2.10: Visual Archetype Resolution & Fallback Safety', () => {
   });
 });
 
+describe('FAZ 2.10: Explicit Scale Metadata vs Score Value (Never Infer Scale From Score)', () => {
+  it('HEXACO score 3.8 => scale max remains 5.0 (does not mistakenly switch to 4-point)', () => {
+    const hexacoStrategy = resolveScoringStrategy('PRE_CALIBRATION_MEAN_V1');
+    expect(hexacoStrategy.scaleMin).toBe(1.0);
+    expect(hexacoStrategy.scaleMax).toBe(5.0);
+    expect(hexacoStrategy.scoreType).toBe('MEAN');
+
+    // Score 3.8 on 5.0 max scale
+    const score = 3.8;
+    const band = getScoreBand(score, hexacoStrategy.scaleMax);
+    expect(band.band).toBe('HIGH');
+    expect(hexacoStrategy.scaleMax).toBe(5.0);
+  });
+
+  it('RSES score 3.8 => scale max remains 4.0', () => {
+    const rsesStrategy = resolveScoringStrategy('RSES_MEAN_V1');
+    expect(rsesStrategy.scaleMin).toBe(1.0);
+    expect(rsesStrategy.scaleMax).toBe(4.0);
+    expect(rsesStrategy.scoreType).toBe('MEAN');
+
+    // Score 3.8 on 4.0 max scale
+    const score = 3.8;
+    const band = getScoreBand(score, rsesStrategy.scaleMax);
+    expect(band.band).toBe('HIGH');
+    expect(rsesStrategy.scaleMax).toBe(4.0);
+  });
+});
+
 describe('FAZ 2.10: 4-Point Likert vs 5-Point Likert Score Band Thresholds', () => {
   it('classifies 5-point scale (HEXACO standard)', () => {
     // 5-point: Low < 2.50, Balanced 2.50..3.50, High > 3.50
@@ -58,18 +86,32 @@ describe('FAZ 2.10: 4-Point Likert vs 5-Point Likert Score Band Thresholds', () 
   });
 });
 
-describe('FAZ 2.10: Scoring Strategy Registry & Resolution', () => {
-  it('resolves strategies by model code', () => {
-    expect(resolveScoringStrategy('RSES_SUM_V1').code).toBe('RSES_SUM_V1');
-    expect(resolveScoringStrategy('GSE_SUM_V1').code).toBe('GSE_SUM_V1');
+describe('FAZ 2.10: Scoring Strategy Registry, Strict Resolution & Fail-Closed Behavior', () => {
+  it('resolves strategies by model code authoritatively', () => {
+    expect(resolveScoringStrategy('RSES_MEAN_V1').code).toBe('RSES_MEAN_V1');
+    expect(resolveScoringStrategy('RSES_SUM_V1').code).toBe('RSES_MEAN_V1'); // alias
+    expect(resolveScoringStrategy('GSE_MEAN_V1').code).toBe('GSE_MEAN_V1');
+    expect(resolveScoringStrategy('GSE_SUM_V1').code).toBe('GSE_MEAN_V1'); // alias
     expect(resolveScoringStrategy('PRE_CALIBRATION_MEAN_V1').code).toBe('PRE_CALIBRATION_MEAN_V1');
   });
 
-  it('resolves strategies by module code heuristics', () => {
-    expect(resolveScoringStrategy(null, 'MODULE_2_SELF_IDENTITY').code).toBe('RSES_SUM_V1');
-    expect(resolveScoringStrategy(null, 'RSES_ASSESSMENT').code).toBe('RSES_SUM_V1');
-    expect(resolveScoringStrategy(null, 'GSE_SCALE').code).toBe('GSE_SUM_V1');
+  it('resolves specific rules before broad rules (SELF_EFFICACY resolves to GSE, not RSES)', () => {
+    expect(resolveScoringStrategy(null, 'SELF_EFFICACY').code).toBe('GSE_MEAN_V1');
+    expect(resolveScoringStrategy(null, 'MODULE_2_SELF_IDENTITY').code).toBe('RSES_MEAN_V1');
+    expect(resolveScoringStrategy(null, 'RSES_ASSESSMENT').code).toBe('RSES_MEAN_V1');
     expect(resolveScoringStrategy(null, 'MODULE_1_CORE_PERSONALITY').code).toBe('PRE_CALIBRATION_MEAN_V1');
+  });
+
+  it('FAILS CLOSED on unknown module code (never silently defaults to HEXACO)', () => {
+    expect(() => resolveScoringStrategy(null, 'UNKNOWN_CUSTOM_MODULE')).toThrowError(
+      /UNKNOWN_SCORING_STRATEGY/
+    );
+    expect(() => resolveScoringStrategy('NON_EXISTENT_MODEL_V99')).toThrowError(
+      /UNKNOWN_SCORING_STRATEGY/
+    );
+    expect(() => resolveScoringStrategy(null, null)).toThrowError(
+      /UNKNOWN_SCORING_STRATEGY/
+    );
   });
 });
 
@@ -93,9 +135,10 @@ describe('FAZ 2.10: RSES Scoring Calculation & Reverse-Coding Invariants', () =>
       { itemId: 'RSES_10', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
     ];
 
-    const result = RSES_SUM_STRATEGY.calculate(allFourResponses);
+    const result = RSES_MEAN_STRATEGY.calculate(allFourResponses);
     expect(result.scaleMin).toBe(1.0);
     expect(result.scaleMax).toBe(4.0);
+    expect(result.scoreType).toBe('MEAN');
     expect(result.provisionalComposite).toBe(2.5);
     expect(result.constructScores[0].compositeScore).toBe(2.5);
     expect(result.facetScores[0].rawMean).toBe(2.5);
@@ -116,7 +159,7 @@ describe('FAZ 2.10: RSES Scoring Calculation & Reverse-Coding Invariants', () =>
       { itemId: 'RSES_10', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
     ];
 
-    const result = RSES_SUM_STRATEGY.calculate(perfectResponses);
+    const result = RSES_MEAN_STRATEGY.calculate(perfectResponses);
     expect(result.provisionalComposite).toBe(4.0);
   });
 });
@@ -153,3 +196,21 @@ describe('FAZ 2.10: Expanded Trait Interpretations Quality', () => {
     }
   });
 });
+
+describe('FAZ 2.10: Validation Status vs License Status Independence', () => {
+  it('maintains licenseStatus and validationStatus as independent scientific fields', () => {
+    // RSES is APPROVED_PUBLIC in license, but PRE_CALIBRATION in validation
+    const itemVersionRecord = {
+      licenseStatus: 'APPROVED_PUBLIC',
+      validationStatus: 'PRE_CALIBRATION',
+      authorType: 'ADAPTATION',
+      sourceType: 'ACADEMIC_ADAPTATION',
+    };
+
+    expect(itemVersionRecord.licenseStatus).toBe('APPROVED_PUBLIC');
+    expect(itemVersionRecord.validationStatus).toBe('PRE_CALIBRATION');
+    expect(itemVersionRecord.validationStatus).not.toBe('VALIDATED');
+    expect(itemVersionRecord.authorType).toBe('ADAPTATION');
+  });
+});
+

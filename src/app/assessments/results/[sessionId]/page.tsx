@@ -87,6 +87,7 @@ export default async function AssessmentResultPage({
         <DimensionSpectrumView
           constructs={resultData.constructs}
           moduleTitle={resultData.module.titleTr}
+          scoreScale={resultData.scoreScale}
         />
       )}
 

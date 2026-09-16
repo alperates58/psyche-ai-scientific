@@ -1,9 +1,10 @@
 import { prisma } from '@/lib/prisma';
 import { validateAssessmentFormForPublication, PublicationValidationResult } from '@/lib/publicationValidator';
+import { publishAssessmentFormVersion } from './scientificAdminService';
 
 export interface ImportLibraryOptions {
   dryRun?: boolean;
-  publishRses?: boolean;
+  publishRses?: boolean; // STRICT DEFAULT: false. Must explicitly be passed as true to publish.
 }
 
 export interface PublicationLogEntry {
@@ -106,13 +107,15 @@ const LIKERT_4_OPTIONS = [
 /**
  * Idempotent psychometric assessment library importer.
  * Registers scientific domains, constructs, facets, instruments, scoring models,
- * and valid assessment forms with full provenance and C3 publication validation.
+ * and valid assessment forms with full provenance, C2 immutability verification,
+ * and canonical C3 publication validation.
  */
 export async function importAssessmentLibrary(
   options: ImportLibraryOptions = {}
 ): Promise<ImportLibraryResult> {
   const dryRun = !!options.dryRun;
-  const publishRses = options.publishRses !== false;
+  // STRICT REQUIREMENT: Default is false. Library importer never publishes by default.
+  const publishRses = options.publishRses === true;
 
   const result: ImportLibraryResult = {
     success: true,
@@ -386,17 +389,17 @@ export async function importAssessmentLibrary(
         isPreCalibration: true,
       },
       {
-        id: 'model_rses_sum_v1',
-        code: 'RSES_SUM_V1',
-        description: 'Rosenberg Benlik Saygısı Toplam Puan Modeli (V1)',
-        algorithm: 'RSES_SUM_1_4',
+        id: 'model_rses_mean_v1',
+        code: 'RSES_MEAN_V1',
+        description: 'Rosenberg Benlik Saygısı Ortalama Puan Modeli (V1)',
+        algorithm: 'RSES_MEAN_1_4',
         isPreCalibration: true,
       },
       {
-        id: 'model_gse_sum_v1',
-        code: 'GSE_SUM_V1',
-        description: 'Genel Öz-Yeterlik Toplam Puan Modeli (V1)',
-        algorithm: 'GSE_SUM_1_4',
+        id: 'model_gse_mean_v1',
+        code: 'GSE_MEAN_V1',
+        description: 'Genel Öz-Yeterlik Ortalama Puan Modeli (V1)',
+        algorithm: 'GSE_MEAN_1_4',
         isPreCalibration: true,
       },
     ];
@@ -458,7 +461,7 @@ export async function importAssessmentLibrary(
     }
 
     // ---------------------------------------------------------
-    // 6. RSES ITEMS & ITEM VERSIONS
+    // 6. RSES ITEMS & ITEM VERSIONS (IMMUTABILITY & FAIL-CLOSED VERIFICATION)
     // ---------------------------------------------------------
     const rsesItemVersionIds: string[] = [];
 
@@ -467,26 +470,41 @@ export async function importAssessmentLibrary(
       let itemVersion = null;
 
       if (!dryRun) {
-        item = await prisma.item.upsert({
+        // C2 Immutability Check: Do NOT mutate existing Item metadata in-place!
+        const existingItem = await prisma.item.findUnique({
           where: { itemCode: itemDef.code },
-          update: {
-            facetId: 'core_self_esteem',
-            instrumentId: 'inst_rses',
-            isKeyed: itemDef.isKeyed,
-            itemType: 'LIKERT_4',
-            isAttentionCheck: false,
-          },
-          create: {
-            itemCode: itemDef.code,
-            facetId: 'core_self_esteem',
-            instrumentId: 'inst_rses',
-            isKeyed: itemDef.isKeyed,
-            itemType: 'LIKERT_4',
-            isAttentionCheck: false,
-          },
         });
 
-        itemVersion = await prisma.itemVersion.findUnique({
+        if (!existingItem) {
+          item = await prisma.item.create({
+            data: {
+              itemCode: itemDef.code,
+              facetId: 'core_self_esteem',
+              instrumentId: 'inst_rses',
+              isKeyed: itemDef.isKeyed,
+              itemType: 'LIKERT_4',
+              isAttentionCheck: false,
+            },
+          });
+        } else {
+          // Compare immutable scientific metadata
+          const isFacetMismatch = existingItem.facetId !== 'core_self_esteem';
+          const isInstrumentMismatch = existingItem.instrumentId !== 'inst_rses';
+          const isKeyedMismatch = existingItem.isKeyed !== itemDef.isKeyed;
+          const isTypeMismatch = existingItem.itemType !== 'LIKERT_4';
+          const isAttentionMismatch = existingItem.isAttentionCheck !== false;
+
+          if (isFacetMismatch || isInstrumentMismatch || isKeyedMismatch || isTypeMismatch || isAttentionMismatch) {
+            throw new Error(
+              `SEMANTIC_MISMATCH: Item '${itemDef.code}' exists with different immutable scientific metadata. Expected (facetId='core_self_esteem', isKeyed=${itemDef.isKeyed}, itemType='LIKERT_4'), found (facetId='${existingItem.facetId}', isKeyed=${existingItem.isKeyed}, itemType='${existingItem.itemType}'). Importer fails closed to preserve C2 immutability.`
+            );
+          }
+
+          item = existingItem;
+        }
+
+        // Check ItemVersion v1
+        const existingVersion = await prisma.itemVersion.findUnique({
           where: {
             itemId_versionNumber: {
               itemId: item.id,
@@ -495,20 +513,21 @@ export async function importAssessmentLibrary(
           },
         });
 
-        if (!itemVersion) {
+        if (!existingVersion) {
+          // Create new ItemVersion strictly as DRAFT and isActive: false
           itemVersion = await prisma.itemVersion.create({
             data: {
               itemId: item.id,
               versionNumber: 1,
               promptTr: itemDef.promptTr,
               promptEn: itemDef.promptEn,
-              status: 'ACTIVE',
-              validationStatus: 'VALIDATED',
-              licenseStatus: 'APPROVED_PUBLIC',
-              authorType: 'ADMIN_AUTHORED',
+              status: 'DRAFT', // Requirement 3: Never create live ItemVersions directly
+              isActive: false, // Requirement 3: Activation reserved for C3 publication engine
+              validationStatus: 'PRE_CALIBRATION', // Requirement 4 & 5: Honest pre-calibration state
+              licenseStatus: 'APPROVED_PUBLIC', // Requirement 5: Public domain license
+              authorType: 'ADAPTATION', // Requirement 4: Provenance is scale adaptation
               sourceType: 'ACADEMIC_ADAPTATION',
-              notes: 'Çuhadaroğlu (1986) Türkçeye uyarlanan Rosenberg Benlik Saygısı Alt Ölçeği maddesi.',
-              isActive: true,
+              notes: 'Çuhadaroğlu (1986) Türkçeye uyarlanan Rosenberg Benlik Saygısı Alt Ölçeği maddesi. Ön-kalibrasyon araştırma sürümüdür.',
               options: {
                 create: LIKERT_4_OPTIONS.map((opt) => ({
                   value: opt.value,
@@ -519,6 +538,18 @@ export async function importAssessmentLibrary(
               },
             },
           });
+        } else {
+          // Compare version content for semantic mismatch
+          if (
+            existingVersion.promptTr !== itemDef.promptTr ||
+            existingVersion.promptEn !== itemDef.promptEn
+          ) {
+            throw new Error(
+              `SEMANTIC_MISMATCH: ItemVersion '${itemDef.code} v1' exists with different prompt text. Importer fails closed to preserve C2 immutability.`
+            );
+          }
+
+          itemVersion = existingVersion;
         }
 
         rsesItemVersionIds.push(itemVersion.id);
@@ -530,10 +561,10 @@ export async function importAssessmentLibrary(
     }
 
     // ---------------------------------------------------------
-    // 7. RSES FORM VERSION (MODULE_2_SELF_IDENTITY) & C3 PUBLICATION
+    // 7. RSES FORM VERSION (MODULE_2_SELF_IDENTITY) & C3 CANONICAL PUBLICATION
     // ---------------------------------------------------------
     const selfIdentityModule = dryRun
-      ? { id: 'mod_self_identity', code: 'MODULE_2_SELF_IDENTITY' }
+      ? { id: 'mod_self_identity', code: 'MODULE_2_SELF_IDENTITY', titleTr: 'Benlik ve Kimlik Sistemi' }
       : await prisma.assessmentModule.findUnique({ where: { code: 'MODULE_2_SELF_IDENTITY' } });
 
     if (selfIdentityModule) {
@@ -579,36 +610,19 @@ export async function importAssessmentLibrary(
 
         let isPublished = rsesFormVersion.isPublished;
 
+        // Requirement 6 & 7: Only publish when publishRses is explicitly TRUE and call canonical publishAssessmentFormVersion
         if (validation.publishable && publishRses && !dryRun && !rsesFormVersion.isPublished) {
-          // Atomic publication transaction
-          await prisma.$transaction(async (tx) => {
-            // 1. Archive previous published form in module if any
-            await tx.assessmentFormVersion.updateMany({
-              where: {
-                moduleId: selfIdentityModule.id,
-                status: 'PUBLISHED',
-                id: { not: rsesFormVersion!.id },
-              },
-              data: {
-                status: 'ARCHIVED',
-                isPublished: false,
-                archivedAt: new Date(),
-              },
-            });
-
-            // 2. Mark this form as PUBLISHED
-            await tx.assessmentFormVersion.update({
-              where: { id: rsesFormVersion!.id },
-              data: {
-                status: 'PUBLISHED',
-                isPublished: true,
-                publishedAt: new Date(),
-              },
-            });
-          });
+          const publishedResult = await publishAssessmentFormVersion(
+            { formVersionId: rsesFormVersion.id },
+            {
+              actorUserId: 'system_importer',
+              ip: '127.0.0.1',
+              userAgent: 'PsycheAI-Assessment-Importer/1.0',
+            }
+          );
 
           isPublished = true;
-          result.publishedFormIds.push(rsesFormVersion.id);
+          result.publishedFormIds.push(publishedResult.publishedForm.id);
         }
 
         result.publicationLogs.push({
@@ -624,10 +638,10 @@ export async function importAssessmentLibrary(
     }
 
     // ---------------------------------------------------------
-    // 8. DRAFT EMOTION REGULATION FORM (MODULE_3_EMOTION_REGULATION)
+    // 8. DRAFT EMOTION REGULATION FORM (MODULE_3_EMOTION_REGULATION - NON-LIVE)
     // ---------------------------------------------------------
     const emotionModule = dryRun
-      ? { id: 'mod_emotion_regulation', code: 'MODULE_3_EMOTION_REGULATION' }
+      ? { id: 'mod_emotion_regulation', code: 'MODULE_3_EMOTION_REGULATION', titleTr: 'Duygu Düzenleme ve Esneklik' }
       : await prisma.assessmentModule.findUnique({ where: { code: 'MODULE_3_EMOTION_REGULATION' } });
 
     if (emotionModule) {
@@ -651,7 +665,7 @@ export async function importAssessmentLibrary(
               status: 'DRAFT',
               isPublished: false,
               itemCount: 0,
-              description: 'Duygu Düzenleme Araştırma Taslağı (DERS/ERQ). Lisans onayı beklenmektedir.',
+              description: 'Duygu Düzenleme Araştırma Taslağı (DERS/ERQ). Lisans onayı ve araştırma maddeleri beklenmektedir.',
             },
           });
         }

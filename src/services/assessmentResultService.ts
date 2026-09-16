@@ -94,6 +94,12 @@ export interface AssessmentResultViewModel {
     explanationTr: string;
   };
   visualType: VisualRepresentationType;
+  scoreScale: {
+    min: number;
+    max: number;
+    scoreType: 'MEAN' | 'SUM';
+    scoringStrategyCode: string;
+  };
   compositeScore: number;
   compositeScoreFormatted: string;
   keyObservations: string[];
@@ -412,6 +418,12 @@ export async function getAssessmentResultView(
       explanationTr,
     },
     visualType,
+    scoreScale: {
+      min: scaleMin,
+      max: scaleMax,
+      scoreType: strategy.scoreType,
+      scoringStrategyCode: strategy.code,
+    },
     compositeScore: linkedSnapshot.provisionalComposite,
     compositeScoreFormatted: `${linkedSnapshot.provisionalComposite.toFixed(1)} / ${scaleMax.toFixed(1)}`,
     keyObservations,

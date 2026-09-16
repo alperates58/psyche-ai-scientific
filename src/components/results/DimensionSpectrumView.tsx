@@ -7,12 +7,24 @@ import { Target, CheckCircle2, AlertTriangle, Sparkles, Info } from 'lucide-reac
 interface DimensionSpectrumViewProps {
   constructs: MeasuredConstructViewModel[];
   moduleTitle: string;
+  scoreScale: {
+    min: number;
+    max: number;
+    scoreType: 'MEAN' | 'SUM';
+    scoringStrategyCode: string;
+  };
 }
 
 export const DimensionSpectrumView: React.FC<DimensionSpectrumViewProps> = ({
   constructs,
   moduleTitle,
+  scoreScale,
 }) => {
+  const minScale = scoreScale?.min ?? 1.0;
+  const maxScale = scoreScale?.max ?? 5.0;
+  const scaleRange = Math.max(0.1, maxScale - minScale);
+  const midPoint = (minScale + maxScale) / 2.0;
+
   return (
     <div className="space-y-6">
       {constructs.map((construct) => {
@@ -22,10 +34,10 @@ export const DimensionSpectrumView: React.FC<DimensionSpectrumViewProps> = ({
         const strengths = interp?.strengths[band.band] || [];
         const risks = interp?.risks[band.band] || [];
 
-        // Determine if 4-point or 5-point scale based on score or item options
-        const isFourPoint = construct.compositeScore <= 4.0;
-        const maxScale = isFourPoint ? 4.0 : 5.0;
-        const percentage = Math.min(100, Math.max(0, ((construct.compositeScore - 1.0) / (maxScale - 1.0)) * 100));
+        const percentage = Math.min(
+          100,
+          Math.max(0, ((construct.compositeScore - minScale) / scaleRange) * 100)
+        );
 
         return (
           <div
@@ -61,7 +73,7 @@ export const DimensionSpectrumView: React.FC<DimensionSpectrumViewProps> = ({
             <div className="bg-surface-2/40 p-5 rounded-2xl border border-border-subtle space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="text-xs font-bold text-text-tertiary uppercase tracking-wider">
-                  Ölçek Yanıt Dağılımı (1.0 – {maxScale.toFixed(1)} Likert)
+                  Ölçek Yanıt Dağılımı ({minScale.toFixed(1)} – {maxScale.toFixed(1)} Likert)
                 </div>
 
                 <div className="flex items-baseline space-x-1.5 font-mono">
@@ -83,8 +95,8 @@ export const DimensionSpectrumView: React.FC<DimensionSpectrumViewProps> = ({
 
                 {/* Scale Markers */}
                 <div className="flex justify-between text-[10px] text-text-tertiary font-mono pt-0.5">
-                  <span>1.0 (Daha Düşük)</span>
-                  <span>{isFourPoint ? '2.5 (Dengeli)' : '3.0 (Dengeli)'}</span>
+                  <span>{minScale.toFixed(1)} (Daha Düşük)</span>
+                  <span>{midPoint.toFixed(1)} (Dengeli)</span>
                   <span>{maxScale.toFixed(1)} (Daha Yüksek)</span>
                 </div>
               </div>

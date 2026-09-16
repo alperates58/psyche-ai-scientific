@@ -127,12 +127,12 @@ export const HEXACO_PRECALIBRATION_STRATEGY: ScoringStrategyDefinition = {
 /**
  * Rosenberg Self-Esteem Scale (RSES) scoring strategy.
  * 10 items on 1.0–4.0 scale (Positive: 1, 3, 4, 7, 10; Reverse: 2, 5, 6, 8, 9).
- * Returns both mean (1.0 to 4.0) and sum (10 to 40) representation.
+ * Returns 1.0–4.0 arithmetic mean of reverse-coded scored items.
  */
-export const RSES_SUM_STRATEGY: ScoringStrategyDefinition = {
-  code: 'RSES_SUM_V1',
-  nameTr: 'Rosenberg Benlik Saygısı Puanlama Modeli (V1)',
-  descriptionTr: '10 maddelik Rosenberg Benlik Saygısı Ölçeği için ters kodlama ve toplam/ortalama puan hesaplaması.',
+export const RSES_MEAN_STRATEGY: ScoringStrategyDefinition = {
+  code: 'RSES_MEAN_V1',
+  nameTr: 'Rosenberg Benlik Saygısı Ortalama Puan Modeli (V1)',
+  descriptionTr: '10 maddelik Rosenberg Benlik Saygısı Ölçeği için ters kodlama ve 1.0–4.0 aralığında ortalama puan hesaplaması.',
   scaleMin: 1.0,
   scaleMax: 4.0,
   scoreType: 'MEAN',
@@ -171,15 +171,18 @@ export const RSES_SUM_STRATEGY: ScoringStrategyDefinition = {
     };
   },
 };
+
+export const RSES_SUM_STRATEGY = RSES_MEAN_STRATEGY; // Backward-compatibility alias
 
 /**
  * General Self-Efficacy Scale (GSE) scoring strategy.
  * 10 items on 1.0–4.0 scale (all positively keyed).
+ * Returns 1.0–4.0 arithmetic mean.
  */
-export const GSE_SUM_STRATEGY: ScoringStrategyDefinition = {
-  code: 'GSE_SUM_V1',
-  nameTr: 'Genel Öz-Yeterlik Puanlama Modeli (V1)',
-  descriptionTr: '10 maddelik Schwarzer & Jerusalem Genel Öz-Yeterlik Ölçeği için ortalama puan hesaplaması.',
+export const GSE_MEAN_STRATEGY: ScoringStrategyDefinition = {
+  code: 'GSE_MEAN_V1',
+  nameTr: 'Genel Öz-Yeterlik Ortalama Puan Modeli (V1)',
+  descriptionTr: '10 maddelik Schwarzer & Jerusalem Genel Öz-Yeterlik Ölçeği için 1.0–4.0 aralığında ortalama puan hesaplaması.',
   scaleMin: 1.0,
   scaleMax: 4.0,
   scoreType: 'MEAN',
@@ -219,33 +222,79 @@ export const GSE_SUM_STRATEGY: ScoringStrategyDefinition = {
   },
 };
 
+export const GSE_SUM_STRATEGY = GSE_MEAN_STRATEGY; // Backward-compatibility alias
+
 export const SCORING_STRATEGIES: Record<string, ScoringStrategyDefinition> = {
   PRE_CALIBRATION_MEAN_V1: HEXACO_PRECALIBRATION_STRATEGY,
   HEXACO_PRECALIBRATION_V1: HEXACO_PRECALIBRATION_STRATEGY,
-  RSES_SUM_V1: RSES_SUM_STRATEGY,
-  GSE_SUM_V1: GSE_SUM_STRATEGY,
+  RSES_MEAN_V1: RSES_MEAN_STRATEGY,
+  RSES_SUM_V1: RSES_MEAN_STRATEGY, // Alias for historical snapshots
+  GSE_MEAN_V1: GSE_MEAN_STRATEGY,
+  GSE_SUM_V1: GSE_MEAN_STRATEGY, // Alias for historical snapshots
 };
 
 /**
  * Resolves the appropriate scoring strategy given a model code or module code.
+ * Authoritative: modelCode lookup in registry.
+ * Controlled fallback: specific module rules before broad ones.
+ * Unknown: FAILS CLOSED with explicit error (never defaults to HEXACO silently).
  */
 export function resolveScoringStrategy(
   modelCode?: string | null,
   moduleCode?: string | null
 ): ScoringStrategyDefinition {
+  // 1. Authoritative: modelCode in registry
   if (modelCode && SCORING_STRATEGIES[modelCode]) {
     return SCORING_STRATEGIES[modelCode];
   }
 
+  // 2. Controlled backward-compatibility module code heuristics (specific before broad)
   if (moduleCode) {
-    const norm = moduleCode.toUpperCase();
-    if (norm.includes('SELF') || norm.includes('IDENTITY') || norm.includes('RSES')) {
-      return RSES_SUM_STRATEGY;
+    const norm = moduleCode.toUpperCase().trim();
+
+    // Specific Rule 1: GSE / General Self Efficacy
+    if (
+      norm.includes('GSE') ||
+      norm.includes('GENERAL_SELF_EFFICACY') ||
+      norm.includes('SELF_EFFICACY') ||
+      norm.includes('OZ_YETERLILIK')
+    ) {
+      return GSE_MEAN_STRATEGY;
     }
-    if (norm.includes('EFFICACY') || norm.includes('GSE')) {
-      return GSE_SUM_STRATEGY;
+
+    // Specific Rule 2: RSES / Rosenberg Self Esteem / MODULE_2_SELF_IDENTITY
+    if (
+      norm.includes('RSES') ||
+      norm.includes('ROSENBERG') ||
+      norm === 'MODULE_2_SELF_IDENTITY' ||
+      norm.includes('SELF_ESTEEM') ||
+      norm.includes('BENLIK_SAYGISI')
+    ) {
+      return RSES_MEAN_STRATEGY;
     }
+
+    // Specific Rule 3: HEXACO / Core Personality
+    if (
+      norm.includes('HEXACO') ||
+      norm === 'MODULE_1_CORE_PERSONALITY' ||
+      norm === 'CORE_INTAKE'
+    ) {
+      return HEXACO_PRECALIBRATION_STRATEGY;
+    }
+
+    // Fail closed for unknown module codes
+    throw new Error(
+      `UNKNOWN_SCORING_STRATEGY: '${moduleCode}' değerlendirme modülü için tanımlı bir puanlama stratejisi bulunamadı.`
+    );
   }
 
-  return HEXACO_PRECALIBRATION_STRATEGY;
+  if (modelCode) {
+    throw new Error(
+      `UNKNOWN_SCORING_STRATEGY: '${modelCode}' puanlama modeli kayıt defterinde bulunamadı.`
+    );
+  }
+
+  throw new Error(
+    'UNKNOWN_SCORING_STRATEGY: Puanlama stratejisi çözümlenemedi (modelCode ve moduleCode belirtilmedi).'
+  );
 }
