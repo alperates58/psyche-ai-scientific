@@ -107,12 +107,16 @@ export interface ItemBankFilterParams {
   validationStatus?: string;
   licenseStatus?: string;
   status?: string;
+  isKeyed?: boolean;
+  isAttentionCheck?: boolean;
   search?: string;
 }
 
 export async function getItemBankList(params?: ItemBankFilterParams) {
   const items = await prisma.item.findMany({
     where: {
+      isKeyed: params?.isKeyed !== undefined ? params.isKeyed : undefined,
+      isAttentionCheck: params?.isAttentionCheck !== undefined ? params.isAttentionCheck : undefined,
       facet: {
         id: params?.facetId || undefined,
         construct: {

@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { requirePermission } from '@/lib/auth';
 import { getItemDetail } from '@/services/scientificService';
+import { checkItemMetadataMutability } from '@/lib/scientificImmutability';
 import { LifecycleBadge, LicenseBadge } from '@/components/admin/scientific/ScientificBadges';
 import { normalizeInstrumentLicensingDecision } from '@/lib/licenseNormalization';
+import { ItemDetailClient } from '@/components/admin/items/ItemDetailClient';
 import { Database, ArrowLeft, Lock, FileText, CheckCircle2, History, Scale } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -20,6 +22,7 @@ export default async function ItemDetailPage({
   if (!item) notFound();
 
   const instDecision = normalizeInstrumentLicensingDecision(item.instrument?.licensingDecision);
+  const metadataMutability = checkItemMetadataMutability(item);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
@@ -43,7 +46,11 @@ export default async function ItemDetailPage({
                 <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-mono tracking-tight">
                   {item.itemCode}
                 </h1>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${item.isKeyed ? 'bg-emerald-50 text-emerald-800' : 'bg-purple-50 text-purple-800'}`}>
+                <span
+                  className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold ${
+                    item.isKeyed ? 'bg-emerald-50 text-emerald-800' : 'bg-purple-50 text-purple-800'
+                  }`}
+                >
                   {item.isKeyed ? 'Düz Kodlama (+)' : 'Ters Kodlama (-)'}
                 </span>
                 {item.isAttentionCheck && (
@@ -53,19 +60,31 @@ export default async function ItemDetailPage({
                 )}
               </div>
               <p className="text-xs text-text-secondary mt-0.5">
-                {item.facet.construct.domain.nameTr} &gt; {item.facet.construct.nameTr} &gt; <strong className="text-text-primary">{item.facet.nameTr}</strong>
+                {item.facet.construct.domain.nameTr} &gt; {item.facet.construct.nameTr} &gt;{' '}
+                <strong className="text-text-primary">{item.facet.nameTr}</strong>
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-2">
+            {!metadataMutability.isMutable ? (
+              <span className="inline-flex items-center px-3 py-1.5 rounded-xl bg-surface-1 border border-border-subtle text-xs font-semibold text-text-secondary shadow-xs">
+                <Lock className="w-3.5 h-3.5 mr-1.5 text-amber-600" />
+                Dondurulmuş Madde Üst Verisi
+              </span>
+            ) : (
+              <span className="inline-flex items-center px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 shadow-xs">
+                <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+                Taslak Madde (Değiştirilebilir)
+              </span>
+            )}
             <LicenseBadge decision={instDecision} size="md" />
           </div>
         </div>
       </div>
 
       {/* Metadata Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <div className="p-4 bg-surface-1 border border-border-subtle rounded-2xl shadow-xs">
           <span className="text-[11px] font-semibold text-text-tertiary uppercase tracking-wider block">
             Kayıtlı Sürüm Sayısı
@@ -92,9 +111,21 @@ export default async function ItemDetailPage({
 
         <div className="p-4 bg-surface-1 border border-border-subtle rounded-2xl shadow-xs">
           <span className="text-[11px] font-semibold text-text-tertiary uppercase tracking-wider block">
-            Kaynak Envanter
+            Puanlama Semantiği
           </span>
           <span className="text-sm font-bold text-text-primary mt-1 block">
+            {item.isKeyed ? 'Normal / Düz (+)' : 'Ters Puanlama (-)'}
+          </span>
+          <span className="text-[11px] text-text-secondary mt-0.5 block">
+            {item.itemType} Standart Ölçek
+          </span>
+        </div>
+
+        <div className="p-4 bg-surface-1 border border-border-subtle rounded-2xl shadow-xs">
+          <span className="text-[11px] font-semibold text-text-tertiary uppercase tracking-wider block">
+            Kaynak Envanter
+          </span>
+          <span className="text-sm font-bold text-text-primary mt-1 block truncate">
             {item.instrument?.name || 'Özgün Araştırma / Bağımsız'}
           </span>
           <span className="text-[11px] text-text-secondary mt-0.5 block font-mono">
@@ -103,91 +134,51 @@ export default async function ItemDetailPage({
         </div>
       </div>
 
-      {/* Item Versions History */}
-      <div className="bg-surface-1 border border-border-subtle rounded-2xl shadow-xs overflow-hidden">
-        <div className="px-5 py-4 border-b border-border-subtle flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <History className="w-4 h-4 text-brand-600" />
-            <h2 className="text-sm font-bold text-text-primary tracking-tight">
-              Sürüm Geçmişi & Önerme Metinleri
-            </h2>
-          </div>
-          <span className="text-[11px] font-semibold text-text-tertiary">
-            (Dondurulmuş Maddeler Değiştirilemez)
-          </span>
-        </div>
-
-        <div className="divide-y divide-border-subtle">
-          {item.versions.map((ver) => (
-            <div key={ver.id} className="p-5 space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="flex items-center space-x-2">
-                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-surface-2 text-text-primary border border-border-subtle">
-                    Sürüm v{ver.versionNumber}
-                  </span>
-                  <LifecycleBadge status={ver.status} />
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-surface-2 text-text-tertiary">
-                    Yazar: {ver.authorType || 'LEGACY_UNSPECIFIED'}
-                  </span>
-                </div>
-
-                <div className="text-xs text-text-tertiary">
-                  Oluşturulma: {new Date(ver.createdAt).toLocaleDateString('tr-TR')}
-                </div>
-              </div>
-
-              {/* Prompts */}
-              <div className="space-y-2 p-4 rounded-xl bg-bg-subtle/50 border border-border-subtle">
-                <div>
-                  <span className="text-[10px] font-bold text-text-tertiary uppercase tracking-wider block">
-                    Türkçe Önerme Metni (TR)
-                  </span>
-                  <p className="text-sm font-semibold text-text-primary mt-0.5">
-                    {ver.promptTr}
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-[10px] font-bold text-text-tertiary uppercase tracking-wider block">
-                    İngilizce Orijinal Metin (EN)
-                  </span>
-                  <p className="text-xs text-text-secondary italic mt-0.5">
-                    {ver.promptEn}
-                  </p>
-                </div>
-              </div>
-
-              {/* Likert Options */}
-              <div>
-                <span className="text-[11px] font-bold text-text-tertiary uppercase tracking-wider block mb-2">
-                  Cevap Seçenekleri ({ver.options.length} Seviyeli Likert)
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
-                  {ver.options.map((opt) => (
-                    <div key={opt.id} className="p-2.5 rounded-xl bg-surface-2/60 border border-border-subtle text-xs">
-                      <div className="font-bold text-brand-700 font-mono text-[11px]">{opt.value} Puan</div>
-                      <div className="font-semibold text-text-primary text-[11px] mt-0.5">{opt.labelTr}</div>
-                      <div className="text-[10px] text-text-tertiary italic mt-0.5">{opt.labelEn}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Form Usages */}
-              {ver.formItems.length > 0 && (
-                <div className="text-xs text-text-tertiary pt-1">
-                  Kullanıldığı Formlar:{' '}
-                  {ver.formItems.map((fi) => (
-                    <span key={fi.id} className="font-mono font-semibold text-text-primary mr-2">
-                      {fi.formVersion.versionCode} (Sıra: {fi.sortOrder})
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Item Versions History Client Component */}
+      <ItemDetailClient
+        item={{
+          id: item.id,
+          itemCode: item.itemCode,
+          isKeyed: item.isKeyed,
+          isAttentionCheck: item.isAttentionCheck,
+          itemType: item.itemType,
+          _count: {
+            responses: item._count.responses,
+          },
+          versions: item.versions.map((v) => ({
+            id: v.id,
+            versionNumber: v.versionNumber,
+            promptTr: v.promptTr,
+            promptEn: v.promptEn,
+            notes: v.notes,
+            status: v.status,
+            validationStatus: v.validationStatus,
+            authorType: v.authorType,
+            createdAt: v.createdAt,
+            _count: v._count,
+            options: v.options.map((o) => ({
+              id: o.id,
+              value: o.value,
+              labelTr: o.labelTr,
+              labelEn: o.labelEn,
+              sortOrder: o.sortOrder,
+            })),
+            formItems: v.formItems.map((fi) => ({
+              id: fi.id,
+              sortOrder: fi.sortOrder,
+              formVersion: {
+                id: fi.formVersion.id,
+                versionCode: fi.formVersion.versionCode,
+                status: fi.formVersion.status,
+                isPublished: fi.formVersion.isPublished,
+                module: {
+                  titleTr: fi.formVersion.module.titleTr,
+                },
+              },
+            })),
+          })),
+        }}
+      />
     </div>
   );
 }
