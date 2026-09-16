@@ -74,7 +74,7 @@ export async function verifyScientificC1State(
 
   // 2. Fetch all modules and published forms
   const modules = await prisma.assessmentModule.findMany({
-    orderBy: { sortOrder: 'asc' },
+    orderBy: { code: 'asc' },
   });
 
   const publishedForms = await prisma.assessmentFormVersion.findMany({
