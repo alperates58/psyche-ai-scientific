@@ -26,6 +26,7 @@ export interface AssessmentJourneyItem {
   startedAt?: string | null;
   completedAt?: string | null;
   activeSessionId?: string | null;
+  completedSessionId?: string | null;
   startOrResumeUrl: string;
   resultUrl?: string | null;
   recommendationReason: string;
@@ -124,6 +125,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     let startedAt: string | null = null;
     let completedAt: string | null = null;
     let activeSessionId: string | null = null;
+    let completedSessionId: string | null = null;
 
     const totalItems = publishedForm.itemCount > 0 ? publishedForm.itemCount : 17;
 
@@ -133,6 +135,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
       answeredCount = totalItems;
       startedAt = completedSession.startedAt.toISOString();
       completedAt = completedSession.completedAt ? completedSession.completedAt.toISOString() : null;
+      completedSessionId = completedSession.id;
     } else if (activeSession) {
       status = 'IN_PROGRESS';
       answeredCount = activeSession._count.responses;
@@ -145,7 +148,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     }
 
     const startOrResumeUrl = `/assessment?module=${encodeURIComponent(mod.code)}`;
-    const resultUrl = status === 'COMPLETED' ? '/profile/personality' : null;
+    const resultUrl = completedSessionId ? `/assessments/results/${completedSessionId}` : null;
 
     allItems.push({
       moduleId: mod.id,
@@ -166,6 +169,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
       startedAt,
       completedAt,
       activeSessionId,
+      completedSessionId,
       startOrResumeUrl,
       resultUrl,
       recommendationReason: rule.recommendationReasonTr,

@@ -121,7 +121,7 @@ export default async function AssessmentsCatalogPage() {
           <div>
             {isCompleted ? (
               <Link
-                href="/profile/personality"
+                href={item.resultUrl || '/profile/personality'}
                 className="inline-flex items-center px-4 py-2 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
               >
                 <span>Sonuçları İncele</span>
@@ -159,7 +159,7 @@ export default async function AssessmentsCatalogPage() {
             Değerlendirmeler
           </h1>
           <p className="text-sm text-text-secondary mt-1 max-w-2xl">
-            Bilimsel olarak doğrulanmış ve dondurulmuş formlarla psikolojik profilinizi adım adım derinleştirin.
+            Bilimsel çerçeve ve sürüm kontrollü değerlendirmelerle psikolojik profilinizi adım adım geliştirin.
           </p>
         </div>
 

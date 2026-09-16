@@ -263,18 +263,19 @@ function AssessmentRunnerInner() {
           {/* Action Hand-offs */}
           <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-center gap-3">
             <Link
-              href="/overview"
+              href={`/assessments/results/${session.id}`}
               className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-xs transition-colors"
             >
-              <span>Profilini Geliştirmeye Devam Et</span>
-              <ChevronRight className="w-4 h-4 ml-1.5" />
+              <Sparkles className="w-4 h-4 mr-1.5" />
+              <span>Detaylı Sonucumu Gör</span>
+              <ChevronRight className="w-4 h-4 ml-1" />
             </Link>
 
             <Link
-              href="/assessments"
+              href="/overview"
               className="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
             >
-              <span>Tüm Değerlendirmeler</span>
+              <span>Genel Bakışa Dön</span>
             </Link>
           </div>
         </div>
