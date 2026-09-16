@@ -160,16 +160,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
       <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
         <div>
           <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            ANALİTİK
+            YOLCULUK & ANALİTİK
           </div>
           <nav className="space-y-1">
             <Link href="/overview" onClick={handleLinkClick} className={navItemClass(isActive('/overview'))}>
               <Compass className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Genel Bakış
             </Link>
-            <Link href="/assessment" onClick={handleLinkClick} className={navItemClass(isActive('/assessment'))}>
+            <Link href="/assessments" onClick={handleLinkClick} className={navItemClass(isActive('/assessments'))}>
               <FileCheck2 className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Değerlendirme
+              Değerlendirmeler
             </Link>
           </nav>
         </div>

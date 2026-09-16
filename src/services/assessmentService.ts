@@ -2,22 +2,43 @@ import { prisma } from '@/lib/prisma';
 
 export async function getOrCreateAssessmentSession(
   userId: string,
-  moduleCode: string = 'MODULE_1_CORE_PERSONALITY'
+  moduleCode?: string
 ) {
-  // Find published form version for this module
-  const moduleRecord = await prisma.assessmentModule.findUnique({
-    where: { code: moduleCode },
-    include: {
-      formVersions: {
-        where: { isPublished: true },
-        orderBy: { createdAt: 'desc' },
-        take: 1
-      }
-    }
-  });
+  // Find published form version for this module (or fallback to first published module if omitted)
+  let moduleRecord = null;
+  if (moduleCode) {
+    moduleRecord = await prisma.assessmentModule.findUnique({
+      where: { code: moduleCode },
+      include: {
+        formVersions: {
+          where: { isPublished: true, status: 'PUBLISHED' },
+          orderBy: { publishedAt: 'desc' },
+          take: 1,
+        },
+      },
+    });
+  }
+
+  // Fallback: first available module with a published form
+  if (!moduleRecord || moduleRecord.formVersions.length === 0) {
+    moduleRecord = await prisma.assessmentModule.findFirst({
+      where: {
+        formVersions: {
+          some: { isPublished: true, status: 'PUBLISHED' },
+        },
+      },
+      include: {
+        formVersions: {
+          where: { isPublished: true, status: 'PUBLISHED' },
+          orderBy: { publishedAt: 'desc' },
+          take: 1,
+        },
+      },
+    });
+  }
 
   if (!moduleRecord || moduleRecord.formVersions.length === 0) {
-    throw new Error(`Aktif bir değerlendirme formu bulunamadı (Modül: ${moduleCode})`);
+    throw new Error(`Aktif bir değerlendirme formu bulunamadı (${moduleCode || 'Genel'})`);
   }
 
   const activeFormVersion = moduleRecord.formVersions[0];

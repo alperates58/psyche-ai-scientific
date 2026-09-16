@@ -1,17 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import {
   Compass,
   ArrowRight,
   ShieldCheck,
   Sparkles,
+  CheckCircle2,
+  Clock,
+  RotateCcw,
+  Layers,
+  ChevronRight,
+  TrendingUp,
 } from 'lucide-react';
 import { HexacoRadarChart, HexacoTraitData } from '@/components/charts/HexacoRadarChart';
-import { prisma } from '@/lib/prisma';
 import { getCurrentUserOrNull } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 import { getLatestProfileSnapshotForUser } from '@/services/profileService';
-import { calculateProfileCoverage, TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
+import { getUserAssessmentJourney } from '@/services/assessmentJourneyService';
 import { PageContainer } from '@/components/ui/PageContainer';
 
 export const dynamic = 'force-dynamic';
@@ -25,11 +30,16 @@ export default async function OverviewPage() {
     redirect('/verify-email');
   }
 
+  // 1. Fetch deterministic user assessment journey
+  const journey = await getUserAssessmentJourney(user.id);
+
+  // 2. If new user with 0 history, redirect to calm onboarding
+  if (journey.currentStage === 'ONBOARDING_NOT_STARTED') {
+    redirect('/onboarding');
+  }
+
   const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
   const isLiveProfile = !!latestSnapshot;
-
-  const dbFacetCount = await prisma.facet.count().catch(() => TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH);
-  const totalFacetsCount = dbFacetCount > 0 ? dbFacetCount : TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH;
 
   const traitMapping = [
     { id: 'honesty_humility', name: 'Honesty-Humility', name_tr: 'Dürüstlük-Alçakgönüllülük' },
@@ -53,9 +63,8 @@ export default async function OverviewPage() {
     displayTraits = traitMapping.map((t) => {
       const rawScore = constructMap.get(t.id);
       // Strictly handle missing constructs as null: NEVER use midpoint imputation (?? 3.0)
-      const normalizedScore = typeof rawScore === 'number'
-        ? Math.round(((rawScore - 1) / 4) * 100)
-        : null;
+      const normalizedScore =
+        typeof rawScore === 'number' ? Math.round(((rawScore - 1) / 4) * 100) : null;
 
       return {
         name: t.name,
@@ -81,7 +90,6 @@ export default async function OverviewPage() {
       latestSnapshot.overallIntegrity === 'EXCELLENT' ||
       latestSnapshot.overallIntegrity === 'ACCEPTABLE';
   } else {
-    // Unassessed user: zero scores across all dimensions
     displayTraits = traitMapping.map((t) => ({
       name: t.name,
       name_tr: t.name_tr,
@@ -93,13 +101,8 @@ export default async function OverviewPage() {
     }));
   }
 
-  const facetItemCounts: Record<string, number> = {};
-  if (latestSnapshot) {
-    for (const fs of latestSnapshot.facetScores) {
-      facetItemCounts[fs.facetId] = fs.itemCount;
-    }
-  }
-  const coverageMetrics = calculateProfileCoverage(facetItemCounts, totalFacetsCount, 6);
+  const coverageMetrics = journey.coverage;
+  const nextAction = journey.nextAction;
 
   return (
     <PageContainer variant="wide" className="space-y-8 pb-12">
@@ -114,19 +117,162 @@ export default async function OverviewPage() {
             İyi günler, {user.name}
           </h1>
           <p className="text-sm text-text-secondary mt-1">
-            Psikolojik profiliniz, yapılandırılmış ölçümler ve bilimsel değerlendirmeler tamamlandıkça gelişmeye devam eder.
+            Psikolojik profiliniz, tamamladığınız her yapılandırılmış değerlendirmeyle derinleşir.
           </p>
         </div>
 
         <div className="flex items-center space-x-3">
           <Link
-            href="/assessment"
-            className="inline-flex items-center px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors duration-150"
+            href="/assessments"
+            className="inline-flex items-center px-4 py-2.5 bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold rounded-xl border border-border-subtle shadow-xs transition-colors"
           >
-            <span>{isLiveProfile ? 'Yeni Değerlendirme Başlat' : 'Değerlendirmeye Başla'}</span>
+            <span>Tüm Değerlendirmeler ({journey.totalAvailableAssessments})</span>
             <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
           </Link>
         </div>
+      </div>
+
+      {/* ========================================================= */}
+      {/* DOMINANT HERO SECTION: "SIRADAKİ ADIM" & JOURNEY TRACKER */}
+      {/* ========================================================= */}
+      <div className="space-y-4">
+        {/* Core Profile Ready Milestone Banner */}
+        {journey.coreProfileReady && journey.milestoneMessage && (
+          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-start space-x-3 text-xs text-emerald-900 shadow-xs">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="space-y-0.5">
+              <p className="font-bold text-emerald-950 text-sm">
+                Temel Psikolojik Profilin Hazır!
+              </p>
+              <p className="text-emerald-800 leading-relaxed">
+                {journey.milestoneMessage}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Hero Card: Next Best Assessment */}
+        {nextAction ? (
+          <div className="p-6 sm:p-8 rounded-3xl bg-surface-1 border border-brand-200/80 shadow-sm relative overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center space-x-1.5 text-xs font-bold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-200/60">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+                  <span>Sıradaki Adım</span>
+                </span>
+
+                <span className="text-xs font-medium text-text-tertiary">
+                  {nextAction.assessment.classification === 'REQUIRED'
+                    ? 'Zorunlu Başlangıç'
+                    : 'Önerilen Modül'}
+                </span>
+
+                {nextAction.status === 'IN_PROGRESS' && (
+                  <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                    %{nextAction.assessment.progressPercentage} Tamamlandı
+                  </span>
+                )}
+              </div>
+
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+                  {nextAction.title}
+                </h2>
+                <p className="text-xs sm:text-sm text-text-secondary mt-1 leading-relaxed">
+                  {nextAction.reason}
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-4 text-xs text-text-tertiary pt-1">
+                <span className="inline-flex items-center">
+                  <Clock className="w-3.5 h-3.5 mr-1 text-brand-600" />
+                  Tahmini Süre: ~{nextAction.estimatedMinutes} dk
+                </span>
+                <span>•</span>
+                <span>5 Seçenekli Likert Ölçeği</span>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex items-center shrink-0">
+              <Link
+                href={nextAction.url}
+                className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold shadow-md shadow-brand-600/20 transition-all hover:scale-[1.01] active:scale-[0.99] min-h-[50px]"
+              >
+                <span>{nextAction.ctaText}</span>
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </div>
+          </div>
+        ) : (
+          /* All available assessments completed */
+          <div className="p-6 rounded-3xl bg-surface-1 border border-emerald-200/80 shadow-xs flex items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center space-x-2 text-emerald-800 font-bold text-sm">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                <span>Tüm Mevcut Değerlendirmeler Tamamlandı</span>
+              </div>
+              <p className="text-xs text-text-secondary">
+                Şu anda erişilebilir olan tüm psikometrik modülleri bitirdiniz. Profilinizi aşağıdan detaylı inceleyebilirsiniz.
+              </p>
+            </div>
+            <Link
+              href="/profile/personality"
+              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors shrink-0"
+            >
+              <span>Profilimi İncele</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+            </Link>
+          </div>
+        )}
+
+        {/* Guided Core Sequence Stepper (when in progress) */}
+        {!journey.coreProfileReady && journey.requiredAssessments.length > 0 && (
+          <div className="p-4 sm:p-5 rounded-2xl bg-surface-1 border border-border-subtle shadow-xs space-y-3">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-bold text-text-primary uppercase tracking-wider">
+                Başlangıç Profil Yolculuğu
+              </span>
+              <span className="font-semibold text-brand-700">
+                {journey.completedAssessmentsCount} / {journey.requiredAssessments.length} Tamamlandı
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              {journey.requiredAssessments.map((reqItem, idx) => {
+                const isDone = reqItem.status === 'COMPLETED';
+                const isInProg = reqItem.status === 'IN_PROGRESS';
+                const isNext = nextAction?.assessment.moduleId === reqItem.moduleId;
+
+                return (
+                  <div
+                    key={reqItem.moduleId}
+                    className={`p-3 rounded-xl border text-xs flex items-center space-x-2.5 ${
+                      isDone
+                        ? 'bg-emerald-50/50 border-emerald-200 text-emerald-950 font-semibold'
+                        : isNext
+                        ? 'bg-brand-50/50 border-brand-300 text-brand-950 font-bold ring-1 ring-brand-500/20'
+                        : 'bg-surface-2/60 border-border-subtle text-text-tertiary'
+                    }`}
+                  >
+                    <div
+                      className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-[11px] shrink-0 ${
+                        isDone
+                          ? 'bg-emerald-600 text-white'
+                          : isNext
+                          ? 'bg-brand-600 text-white'
+                          : 'bg-surface-2 text-text-tertiary border border-border-subtle'
+                      }`}
+                    >
+                      {isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : idx + 1}
+                    </div>
+                    <span className="truncate">{reqItem.title}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Progressive Disclosure: 2 Main KPI Cards */}
@@ -144,10 +290,16 @@ export default async function OverviewPage() {
           <div className="flex items-baseline space-x-3 mb-2">
             <div className="text-2xl font-bold text-text-primary">
               {coverageMetrics.exploredFacetsCount}{' '}
-              <span className="text-xs font-normal text-text-tertiary">/ {coverageMetrics.totalOntologyFacets} Alt Boyut</span>
+              <span className="text-xs font-normal text-text-tertiary">
+                / {coverageMetrics.totalOntologyFacets} Alt Boyut
+              </span>
             </div>
             <div className="text-xs text-text-tertiary border-l border-border-subtle pl-3">
-              Ölçüm Derinliği: <span className="font-semibold text-text-primary">%{coverageMetrics.measurementDepthPercentage}</span> (Hedef: 6 Madde/Boyut)
+              Ölçüm Derinliği:{' '}
+              <span className="font-semibold text-text-primary">
+                %{coverageMetrics.measurementDepthPercentage}
+              </span>{' '}
+              (Hedef: 6 Madde/Boyut)
             </div>
           </div>
           <div className="w-full bg-bg-subtle h-2.5 rounded-full overflow-hidden mb-3 border border-border-subtle">
@@ -265,7 +417,7 @@ export default async function OverviewPage() {
                 </p>
               </div>
               <Link
-                href="/assessment"
+                href={nextAction?.url || '/assessment'}
                 className="inline-flex items-center px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors duration-150"
               >
                 <span>Değerlendirmeye Başla</span>
@@ -280,7 +432,10 @@ export default async function OverviewPage() {
 
           <div className="mt-4 pt-4 border-t border-border-subtle grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center">
             {displayTraits.map((t) => (
-              <div key={t.name} className="p-2 rounded-lg bg-surface-2 border border-border-subtle flex flex-col justify-between">
+              <div
+                key={t.name}
+                className="p-2 rounded-lg bg-surface-2 border border-border-subtle flex flex-col justify-between"
+              >
                 <div className="min-h-[30px] flex items-center justify-center text-[9.5px] font-medium text-text-tertiary leading-tight break-words text-center">
                   {t.name_tr || t.name}
                 </div>
@@ -313,16 +468,18 @@ export default async function OverviewPage() {
           <div className="space-y-3.5">
             <div className="bg-surface-1 p-5 rounded-card border border-border-subtle shadow-xs space-y-3">
               <div className="text-xs font-bold text-text-primary">
-                Henüz yeterli veri yok.
+                {isLiveProfile ? 'Temel Profil Analizi' : 'Henüz yeterli veri yok.'}
               </div>
               <p className="text-xs text-text-secondary leading-relaxed">
-                Psikolojik örüntüler, tamamlanan değerlendirmelerden elde edilen ölçümlere göre oluşturulur.
+                {isLiveProfile
+                  ? 'İlk profil ölçümünüz başarıyla tamamlandı. Bağlamsal değişimler ve kuramsal karşılaştırmalar için sonraki modüllere geçebilirsiniz.'
+                  : 'Psikolojik örüntüler, tamamlanan değerlendirmelerden elde edilen ölçümlere göre oluşturulur.'}
               </p>
               <Link
-                href="/assessment"
+                href={nextAction?.url || '/assessments'}
                 className="inline-flex items-center text-xs font-semibold text-brand-600 hover:text-brand-700"
               >
-                <span>{isLiveProfile ? 'Yeni Değerlendirme Modülü' : 'Değerlendirmeye Başla'}</span>
+                <span>{nextAction ? nextAction.ctaText : 'Tüm Değerlendirmeler'}</span>
                 <ArrowRight className="w-3 h-3 ml-1" />
               </Link>
             </div>

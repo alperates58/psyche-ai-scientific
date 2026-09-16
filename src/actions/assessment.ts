@@ -5,10 +5,14 @@ import { getCurrentUser } from '@/lib/auth';
 import {
   getOrCreateAssessmentSession,
   getSessionWithDetails,
-  pauseAssessmentSession
+  pauseAssessmentSession,
 } from '@/services/assessmentService';
 import { recordResponse } from '@/services/responseService';
-import { finalizeAssessmentAndCreateSnapshot, getLatestProfileSnapshotForUser } from '@/services/profileService';
+import {
+  finalizeAssessmentAndCreateSnapshot,
+  getLatestProfileSnapshotForUser,
+} from '@/services/profileService';
+import { getUserAssessmentJourney } from '@/services/assessmentJourneyService';
 
 const SubmitResponseSchema = z.object({
   sessionId: z.string().min(1, 'Oturum kimliği gereklidir'),
@@ -104,3 +108,14 @@ export async function getUserLatestProfileAction() {
     return { success: false, error: error.message || 'Profil verisi alınamadı.' };
   }
 }
+
+export async function getUserAssessmentJourneyAction() {
+  try {
+    const user = await getCurrentUser();
+    const journey = await getUserAssessmentJourney(user.id);
+    return { success: true, data: journey };
+  } catch (error: any) {
+    return { success: false, error: error.message || 'Yolculuk verisi alınamadı.' };
+  }
+}
+

@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ArrowLeft,
   Clock,
@@ -13,7 +13,8 @@ import {
   AlertCircle,
   ShieldCheck,
   RotateCcw,
-  Sparkles
+  Sparkles,
+  Loader2,
 } from 'lucide-react';
 import {
   startOrResumeAssessmentAction,
@@ -24,8 +25,10 @@ import {
 import { DEMO_PROFILE_DATA } from '@/data/demo-profile';
 import { PageContainer } from '@/components/ui/PageContainer';
 
-export default function AssessmentRunnerPage() {
+function AssessmentRunnerInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const requestedModule = searchParams.get('module') || undefined;
   const { scenario } = DEMO_PROFILE_DATA.assessmentSample;
 
   // Mode switcher: 'live' uses real DB items, 'scenario' shows Phase 0 SJT preview
@@ -62,7 +65,7 @@ export default function AssessmentRunnerPage() {
       setIsLoading(true);
       setErrorMessage(null);
       try {
-        const res = await startOrResumeAssessmentAction('MODULE_1_CORE_PERSONALITY');
+        const res = await startOrResumeAssessmentAction(requestedModule);
         if (!res.success || !res.data) {
           setErrorMessage(res.error || 'Değerlendirme oturumu başlatılamadı.');
           setIsLoading(false);
@@ -208,23 +211,24 @@ export default function AssessmentRunnerPage() {
   if (isCompleted && completionResult) {
     const integrity = completionResult.overallIntegrity;
     const isIntegrityGood = integrity === 'EXCELLENT' || integrity === 'ACCEPTABLE';
+    const moduleTitle = session?.formVersion?.module?.titleTr || 'Değerlendirme Modülü';
 
     return (
-      <div className="max-w-2xl mx-auto py-12 space-y-8">
+      <div className="max-w-2xl mx-auto py-12 space-y-8 animate-in fade-in duration-200">
         <div className="bg-surface-1 p-8 rounded-panel border border-border-subtle shadow-sm text-center space-y-6">
           <div className="w-16 h-16 mx-auto rounded-full bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-200/60">
-              Modül 1 Tamamlandı
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+              {moduleTitle} Tamamlandı
             </span>
             <h2 className="text-2xl font-bold text-text-primary tracking-tight">
               Değerlendirmeniz Başarıyla Kaydedildi
             </h2>
             <p className="text-sm text-text-secondary max-w-md mx-auto">
-              Cevaplarınız dondurulmuş form sürümü üzerinden güvenli bir şekilde işlenmiş ve ön kalibrasyon puanlama modeliyle kaydedilmiştir.
+              Cevaplarınız dondurulmuş form sürümü üzerinden güvenli bir şekilde işlenmiş ve profilinize aktarılmıştır.
             </p>
           </div>
 
@@ -252,17 +256,25 @@ export default function AssessmentRunnerPage() {
             </div>
 
             <div className="text-xs text-text-secondary leading-relaxed border-t border-border-subtle pt-3">
-              Ön kalibrasyon aşamasında nüfus yüzdelikleri ve standart hatalar henüz dahil edilmemiştir. Ham bileşik puanlarınız profil genel bakışınıza aktarılmıştır.
+              Ön kalibrasyon aşamasında nüfus yüzdelikleri ve standart hatalar henüz dahil edilmemiştir. Ham bileşik puanlarınız psikolojik profilinize yansıtılmıştır.
             </div>
           </div>
 
-          <div className="pt-2">
+          {/* Action Hand-offs */}
+          <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-center gap-3">
             <Link
               href="/overview"
-              className="inline-flex items-center px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-xs transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-xs transition-colors"
             >
-              <span>Genel Bakış ve Profil Sonuçlarını Gör</span>
+              <span>Profilini Geliştirmeye Devam Et</span>
               <ChevronRight className="w-4 h-4 ml-1.5" />
+            </Link>
+
+            <Link
+              href="/assessments"
+              className="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
+            >
+              <span>Tüm Değerlendirmeler</span>
             </Link>
           </div>
         </div>
@@ -563,3 +575,21 @@ export default function AssessmentRunnerPage() {
     </PageContainer>
   );
 }
+
+export default function AssessmentRunnerPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="max-w-3xl mx-auto py-20 text-center space-y-4">
+          <Loader2 className="w-10 h-10 animate-spin text-brand-600 mx-auto" />
+          <p className="text-xs font-medium text-text-tertiary">
+            Değerlendirme oturumu yükleniyor...
+          </p>
+        </div>
+      }
+    >
+      <AssessmentRunnerInner />
+    </Suspense>
+  );
+}
+
