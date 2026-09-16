@@ -123,11 +123,17 @@ export default async function OverviewPage() {
 
         <div className="flex items-center space-x-3">
           <Link
+            href="/profile"
+            className="inline-flex items-center px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-xl shadow-xs transition-colors"
+          >
+            <span>Profilimi Gör</span>
+            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+          </Link>
+          <Link
             href="/assessments"
             className="inline-flex items-center px-4 py-2.5 bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold rounded-xl border border-border-subtle shadow-xs transition-colors"
           >
-            <span>Tüm Değerlendirmeler ({journey.totalAvailableAssessments})</span>
-            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+            <span>Değerlendirmeler ({journey.totalAvailableAssessments})</span>
           </Link>
         </div>
       </div>
@@ -189,7 +195,7 @@ export default async function OverviewPage() {
                   Tahmini Süre: ~{nextAction.estimatedMinutes} dk
                 </span>
                 <span>•</span>
-                <span>5 Seçenekli Likert Ölçeği</span>
+                <span>{nextAction.assessment.itemCount} Maddeli Değerlendirme</span>
               </div>
             </div>
 
@@ -217,10 +223,10 @@ export default async function OverviewPage() {
               </p>
             </div>
             <Link
-              href="/profile/personality"
-              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors shrink-0"
+              href="/profile"
+              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-xs transition-colors shrink-0"
             >
-              <span>Profilimi İncele</span>
+              <span>Profilimi Gör</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
             </Link>
           </div>

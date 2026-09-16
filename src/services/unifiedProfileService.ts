@@ -1,0 +1,980 @@
+import { prisma } from '@/lib/prisma';
+import { TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH, calculateProfileCoverage } from '@/psychometrics/coverage';
+import { resolveScoringStrategy } from '@/lib/scoringStrategies';
+import { ALL_TRAIT_INTERPRETATIONS, getScoreBand } from '@/lib/assessmentInterpretationConfig';
+import { evaluateUnifiedInteractions } from '@/lib/unifiedInteractionRegistry';
+import { getUserAssessmentJourney } from './assessmentJourneyService';
+import {
+  UnifiedProfileViewModel,
+  UnifiedDomainViewModel,
+  UnifiedConstructViewModel,
+  UnifiedFacetViewModel,
+  ProfileFingerprintDimension,
+  ProfileMaturityStage,
+  UnifiedResponseQualitySummary,
+  UnifiedQualityDimensions,
+  SourceAssessmentProvenance,
+  MeasurementScaleMetadata,
+  MeasurementProvenanceMetadata,
+  ScoreBandDetails,
+} from '@/types/profile';
+
+/**
+ * Deterministic Profile Maturity Evaluator (Product Progress Concept only).
+ * Base it purely on actual measurement coverage (completed assessments, measured domains, measured facets).
+ * NEVER base on psychological score magnitude or clinical completeness.
+ */
+export function deriveProfileMaturity(params: {
+  completedAssessmentsCount: number;
+  measuredDomainsCount: number;
+  measuredFacetsCount: number;
+  totalOntologyFacets: number;
+}): {
+  stage: ProfileMaturityStage;
+  labelTr: string;
+  descriptionTr: string;
+  progressPercentage: number;
+} {
+  const { completedAssessmentsCount, measuredDomainsCount, measuredFacetsCount } = params;
+
+  if (completedAssessmentsCount === 0 || measuredFacetsCount === 0) {
+    return {
+      stage: 'BAŞLANGIÇ',
+      labelTr: 'Başlangıç Aşaması',
+      descriptionTr: 'Henüz tamamlanmış bir psikolojik değerlendirme bulunmuyor.',
+      progressPercentage: 0,
+    };
+  }
+
+  // 1 assessment or 1 domain
+  if (completedAssessmentsCount === 1 || measuredDomainsCount === 1) {
+    return {
+      stage: 'BAŞLANGIÇ',
+      labelTr: 'Başlangıç Profili',
+      descriptionTr: 'Temel profil oluşturuldu. Farklı alanları keşfederek profilinizi zenginleştirebilirsiniz.',
+      progressPercentage: 25,
+    };
+  }
+
+  // 2 assessments or 2 domains
+  if (completedAssessmentsCount === 2 || measuredDomainsCount === 2) {
+    return {
+      stage: 'GELİŞEN',
+      labelTr: 'Gelişen Profil',
+      descriptionTr: 'Çoklu psikolojik alan ölçümü devrede. Boyutlar arası etkileşimler haritalandırılıyor.',
+      progressPercentage: 50,
+    };
+  }
+
+  // 3+ assessments or 3-4 domains
+  if (completedAssessmentsCount >= 3 && measuredDomainsCount >= 3 && measuredDomainsCount < 5) {
+    return {
+      stage: 'GENİŞLEYEN',
+      labelTr: 'Genişleyen Profil',
+      descriptionTr: 'Geniş ontolojik kapsama ulaşıldı. Davranışsal, duygusal ve bilişsel örüntüler belirginleşti.',
+      progressPercentage: 75,
+    };
+  }
+
+  // 4+ assessments or 5+ domains
+  return {
+    stage: 'KAPSAMLI',
+    labelTr: 'Kapsamlı Profil',
+    descriptionTr: 'Kapsamlı ürün ölçüm seviyesi. Ontolojinin büyük çoğunluğu ampirik olarak taranmıştır.',
+    progressPercentage: 100,
+  };
+}
+
+/**
+ * Aggregates response-quality signals across all completed assessments.
+ * Strictly avoids generating a fake master confidence percentage.
+ */
+export function deriveUnifiedResponseQuality(
+  sessionsWithIntegrity: Array<{
+    moduleTitleTr: string;
+    overallFlag: string;
+    speedViolations: number;
+    straightliningDetected: boolean;
+    attentionCheckPassed: boolean;
+  }>
+): UnifiedResponseQualitySummary {
+  if (!sessionsWithIntegrity || sessionsWithIntegrity.length === 0) {
+    return {
+      overallFlag: 'ACCEPTABLE',
+      isClean: true,
+      totalAssessmentsAudited: 0,
+      statusCounts: { excellent: 0, acceptable: 0, questionable: 0, compromised: 0 },
+      speedViolationsCount: 0,
+      straightliningDetected: false,
+      attentionChecksPassed: true,
+      headlineTr: 'Henüz Veri Kaydı Yok',
+      explanationTr: 'Değerlendirmeler tamamlandıkça yanıt bütünlüğü ve veri kalitesi telemetrisi burada sunulur.',
+    };
+  }
+
+  let totalSpeedViolations = 0;
+  let anyStraightlining = false;
+  let allAttentionPassed = true;
+
+  const statusCounts = {
+    excellent: 0,
+    acceptable: 0,
+    questionable: 0,
+    compromised: 0,
+  };
+
+  for (const s of sessionsWithIntegrity) {
+    totalSpeedViolations += s.speedViolations || 0;
+    if (s.straightliningDetected) anyStraightlining = true;
+    if (!s.attentionCheckPassed) allAttentionPassed = false;
+
+    const flag = (s.overallFlag || 'ACCEPTABLE').toUpperCase();
+    if (flag === 'EXCELLENT') statusCounts.excellent++;
+    else if (flag === 'QUESTIONABLE') statusCounts.questionable++;
+    else if (flag === 'COMPROMISED') statusCounts.compromised++;
+    else statusCounts.acceptable++;
+  }
+
+  let overallFlag: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED' = 'ACCEPTABLE';
+  if (statusCounts.compromised > 0) {
+    overallFlag = 'COMPROMISED';
+  } else if (statusCounts.questionable > 0) {
+    overallFlag = 'QUESTIONABLE';
+  } else if (statusCounts.excellent === sessionsWithIntegrity.length) {
+    overallFlag = 'EXCELLENT';
+  } else {
+    overallFlag = 'ACCEPTABLE';
+  }
+
+  const isClean = overallFlag === 'EXCELLENT' || overallFlag === 'ACCEPTABLE';
+  const totalAudited = sessionsWithIntegrity.length;
+  const acceptableOrBetter = statusCounts.excellent + statusCounts.acceptable;
+
+  let headlineTr = '';
+  let explanationTr = '';
+
+  if (overallFlag === 'EXCELLENT') {
+    headlineTr = `${totalAudited} değerlendirmenin tümünde yanıt kalitesi yüksek`;
+    explanationTr = 'Tüm değerlendirmelerde yanıtlama hızı, dikkat kontrolleri ve yanıt çeşitliliği mükemmel standarttadır.';
+  } else if (overallFlag === 'ACCEPTABLE') {
+    headlineTr = `${totalAudited} değerlendirmenin ${acceptableOrBetter}'sinde yanıt kalitesi yeterli`;
+    explanationTr = 'Yanıtlama deseniniz tutarlı ve ölçüm kriterlerine uygundur; belirgin bir veri anomalisi saptanmamıştır.';
+  } else if (overallFlag === 'QUESTIONABLE') {
+    headlineTr = `${statusCounts.questionable} değerlendirmede dikkat/hız uyarısı saptandı`;
+    explanationTr = 'Bazı maddelerde hızlı geçiş veya düz yanıtlama örüntüsü görüldü. Puanlar genel eğilimi yansıtmaktadır.';
+  } else {
+    headlineTr = 'Bazı değerlendirmelerde düşük yanıt kalitesi saptandı';
+    explanationTr = 'Dikkat kontrolü veya yanıtlama süresi kriterlerinde uyumsuzluk tespit edilmiştir.';
+  }
+
+  return {
+    overallFlag,
+    isClean,
+    totalAssessmentsAudited: totalAudited,
+    statusCounts,
+    speedViolationsCount: totalSpeedViolations,
+    straightliningDetected: anyStraightlining,
+    attentionChecksPassed: allAttentionPassed,
+    headlineTr,
+    explanationTr,
+  };
+}
+
+/**
+ * Builds the 4-dimensional honest quality breakdown without a single fake confidence percentage.
+ */
+export function deriveUnifiedQualityDimensions(params: {
+  measuredDomainsCount: number;
+  totalDomainsCount: number;
+  exploredFacetsCount: number;
+  totalFacetsCount: number;
+  explorationPercentage: number;
+  depthPercentage: number;
+  responseQuality: UnifiedResponseQualitySummary;
+  instrumentsUsed: string[];
+}): UnifiedQualityDimensions {
+  const {
+    measuredDomainsCount,
+    totalDomainsCount,
+    exploredFacetsCount,
+    totalFacetsCount,
+    explorationPercentage,
+    depthPercentage,
+    responseQuality,
+    instrumentsUsed,
+  } = params;
+
+  return {
+    coverage: {
+      measuredDomains: measuredDomainsCount,
+      totalDomains: totalDomainsCount,
+      exploredFacets: exploredFacetsCount,
+      totalFacets: totalFacetsCount,
+      explorationPercentage,
+      depthPercentage,
+      labelTr: `${measuredDomainsCount}/${totalDomainsCount} Alan (${exploredFacetsCount}/${totalFacetsCount} Alt Boyut)`,
+    },
+    responseQuality: {
+      status: responseQuality.overallFlag,
+      labelTr:
+        responseQuality.overallFlag === 'EXCELLENT'
+          ? 'Yüksek Kalite'
+          : responseQuality.overallFlag === 'ACCEPTABLE'
+          ? 'Kabul Edilebilir'
+          : responseQuality.overallFlag === 'QUESTIONABLE'
+          ? 'İncelenmesi Önerilir'
+          : 'Düşük Güvenilirlik',
+      detailTr: responseQuality.headlineTr,
+    },
+    methodDiversity: {
+      instrumentCount: instrumentsUsed.length,
+      instrumentsUsed,
+      labelTr: `${instrumentsUsed.length} Değerlendirme Ölçeği`,
+      detailTr:
+        instrumentsUsed.length > 1
+          ? 'Farklı psikometrik ölçeklerle çoklu ölçüm sağlanmıştır.'
+          : instrumentsUsed.length === 1
+          ? 'Tek bir değerlendirme ölçeği tamamlanmıştır.'
+          : 'Henüz tamamlanmış ölçek bulunmuyor.',
+    },
+    calibrationStatus: {
+      status: 'PRE_CALIBRATION',
+      labelTr: 'Ön Kalibrasyon (Nüfus Normu Hariç)',
+      disclaimerTr:
+        'Temsili ulusal norm kalibrasyonu tamamlanana kadar yüzdelik dilimler (percentile) ve z/T puanları gizlenmiştir; betimsel nokta kestirimleri sunulur.',
+    },
+  };
+}
+
+/**
+ * Centralized Server-Side Unified Psychological Profile Service.
+ * Resolves the user's complete psychological profile by aggregating authoritative persisted measurements
+ * across completed assessment sessions at read-time.
+ */
+export async function getUnifiedPsychologicalProfile(userId: string): Promise<UnifiedProfileViewModel> {
+  // 1. Fetch user identity
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { id: true, name: true, email: true },
+  });
+
+  const userName = user?.name || 'Kullanıcı';
+
+  // 2. Fetch canonical ontology (Domains -> Constructs -> Facets)
+  const canonicalDomains = await prisma.domain.findMany({
+    orderBy: { sortOrder: 'asc' },
+    include: {
+      constructs: {
+        orderBy: { sortOrder: 'asc' },
+        include: {
+          facets: {
+            orderBy: { sortOrder: 'asc' },
+          },
+        },
+      },
+    },
+  });
+
+  const totalOntologyFacets = canonicalDomains.reduce(
+    (acc, d) => acc + d.constructs.reduce((cAcc, c) => cAcc + c.facets.length, 0),
+    0
+  ) || TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH;
+
+  // 3. Fetch all completed assessment sessions with linked snapshots & integrity results
+  const completedSessions = await prisma.assessmentSession.findMany({
+    where: {
+      userId,
+      status: 'COMPLETED',
+    },
+    include: {
+      formVersion: {
+        include: {
+          module: true,
+        },
+      },
+      integrityResults: {
+        orderBy: { computedAt: 'desc' },
+        take: 1,
+      },
+      snapshotSessions: {
+        include: {
+          profileSnapshot: {
+            include: {
+              scoringModelVersion: true,
+              facetScores: {
+                include: {
+                  facet: {
+                    include: { construct: true },
+                  },
+                },
+              },
+              constructScores: {
+                include: {
+                  construct: true,
+                },
+              },
+              domainScores: {
+                include: {
+                  domain: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    orderBy: { completedAt: 'desc' },
+  });
+
+  // Filter sessions that have a valid snapshot
+  const validCompletedSessions = completedSessions.filter(
+    (s) => s.snapshotSessions && s.snapshotSessions.length > 0 && s.snapshotSessions[0].profileSnapshot
+  );
+
+  const hasAssessments = validCompletedSessions.length > 0;
+
+  // 4. Group valid sessions by module to identify latest per module and build historical provenance
+  const sessionsByModule = new Map<string, typeof validCompletedSessions>();
+  const sourceAssessments: SourceAssessmentProvenance[] = [];
+  const instrumentsUsedSet = new Set<string>();
+
+  for (const session of validCompletedSessions) {
+    const modId = session.formVersion.module.id;
+    if (!sessionsByModule.has(modId)) {
+      sessionsByModule.set(modId, []);
+    }
+    sessionsByModule.get(modId)!.push(session);
+
+    instrumentsUsedSet.add(session.formVersion.module.titleTr);
+  }
+
+  // Identify latest valid session per module and populate provenance timeline
+  const latestSessionPerModule = new Map<string, typeof validCompletedSessions[0]>();
+  for (const [modId, moduleSessions] of sessionsByModule.entries()) {
+    // Already sorted by completedAt desc
+    const latest = moduleSessions[0];
+    latestSessionPerModule.set(modId, latest);
+  }
+
+  for (const session of validCompletedSessions) {
+    const isLatestForModule = latestSessionPerModule.get(session.formVersion.module.id)?.id === session.id;
+    const snapshot = session.snapshotSessions[0].profileSnapshot;
+    const integrity = session.integrityResults[0]?.overallFlag || 'ACCEPTABLE';
+
+    sourceAssessments.push({
+      sessionId: session.id,
+      moduleId: session.formVersion.module.id,
+      moduleCode: session.formVersion.module.code,
+      moduleTitleTr: session.formVersion.module.titleTr,
+      formVersionCode: session.formVersion.versionCode,
+      scoringModelCode: snapshot.scoringModelVersion.code,
+      completedAt: session.completedAt ? session.completedAt.toISOString() : session.startedAt.toISOString(),
+      resultUrl: `/assessments/results/${session.id}`,
+      integrityFlag: integrity,
+      isLatestForModule,
+    });
+  }
+
+  // 5. Multi-Assessment Read-Time Aggregation (Latest valid measurement per facet/construct/domain)
+  // Maps: ID -> Measured Data with Scale Provenance
+  const latestFacetMap = new Map<
+    string,
+    {
+      rawMean: number;
+      itemCount: number;
+      scale: MeasurementScaleMetadata;
+      provenance: MeasurementProvenanceMetadata;
+    }
+  >();
+
+  const latestConstructMap = new Map<
+    string,
+    {
+      compositeScore: number;
+      facetCount: number;
+      scale: MeasurementScaleMetadata;
+      provenance: MeasurementProvenanceMetadata;
+    }
+  >();
+
+  const latestDomainMap = new Map<
+    string,
+    {
+      compositeScore: number;
+      constructCount: number;
+      scale: MeasurementScaleMetadata;
+      provenance: MeasurementProvenanceMetadata;
+    }
+  >();
+
+  // Iterate over latest valid sessions per module (newest first)
+  const activeSessions = Array.from(latestSessionPerModule.values());
+  activeSessions.sort((a, b) => {
+    const timeA = a.completedAt ? new Date(a.completedAt).getTime() : 0;
+    const timeB = b.completedAt ? new Date(b.completedAt).getTime() : 0;
+    return timeB - timeA;
+  });
+
+  for (const session of activeSessions) {
+    const snapshot = session.snapshotSessions[0].profileSnapshot;
+    const scoringStrategy = resolveScoringStrategy(
+      snapshot.scoringModelVersion.code,
+      session.formVersion.module.code
+    );
+
+    const scaleMetadata: MeasurementScaleMetadata = {
+      scaleMin: scoringStrategy.scaleMin || 1.0,
+      scaleMax: scoringStrategy.scaleMax || 5.0,
+      scoreType: scoringStrategy.scoreType || 'MEAN',
+      scoringModelCode: snapshot.scoringModelVersion.code,
+    };
+
+    const provenanceMetadata: MeasurementProvenanceMetadata = {
+      sessionId: session.id,
+      moduleCode: session.formVersion.module.code,
+      moduleTitleTr: session.formVersion.module.titleTr,
+      formVersionCode: session.formVersion.versionCode,
+      scoringModelCode: snapshot.scoringModelVersion.code,
+      measuredAt: session.completedAt ? session.completedAt.toISOString() : session.startedAt.toISOString(),
+    };
+
+    // Facets
+    for (const fs of snapshot.facetScores) {
+      if (!latestFacetMap.has(fs.facetId)) {
+        latestFacetMap.set(fs.facetId, {
+          rawMean: fs.rawMean,
+          itemCount: fs.itemCount,
+          scale: scaleMetadata,
+          provenance: provenanceMetadata,
+        });
+      }
+    }
+
+    // Constructs
+    for (const cs of snapshot.constructScores) {
+      if (!latestConstructMap.has(cs.constructId)) {
+        latestConstructMap.set(cs.constructId, {
+          compositeScore: cs.compositeScore,
+          facetCount: cs.facetCount,
+          scale: scaleMetadata,
+          provenance: provenanceMetadata,
+        });
+      }
+    }
+
+    // Domains
+    for (const ds of snapshot.domainScores) {
+      if (!latestDomainMap.has(ds.domainId)) {
+        latestDomainMap.set(ds.domainId, {
+          compositeScore: ds.compositeScore,
+          constructCount: ds.constructCount,
+          scale: scaleMetadata,
+          provenance: provenanceMetadata,
+        });
+      }
+    }
+  }
+
+  // 6. Build the Complete 84-Facet List & Hierarchical Domain/Construct Trees
+  const allFacets84: UnifiedFacetViewModel[] = [];
+  const domainViewModels: UnifiedDomainViewModel[] = [];
+  let totalMeasuredFacetsCount = 0;
+  let totalMeasuredDomainsCount = 0;
+
+  // Track map for interaction evaluator: constructCode -> { score, scaleMin, scaleMax, nameTr }
+  const interactionConstructsMap: Record<
+    string,
+    { score: number; scaleMin: number; scaleMax: number; nameTr: string }
+  > = {};
+
+  for (const domain of canonicalDomains) {
+    let domainMeasuredConstructsCount = 0;
+    let domainMeasuredFacetsCount = 0;
+    const constructViewModels: UnifiedConstructViewModel[] = [];
+
+    for (const construct of domain.constructs) {
+      let constructMeasuredFacetsCount = 0;
+      const facetViewModels: UnifiedFacetViewModel[] = [];
+
+      for (const facet of construct.facets) {
+        const measured = latestFacetMap.get(facet.id);
+
+        if (measured) {
+          totalMeasuredFacetsCount++;
+          domainMeasuredFacetsCount++;
+          constructMeasuredFacetsCount++;
+
+          const scaleRange = Math.max(0.1, measured.scale.scaleMax - measured.scale.scaleMin);
+          const scorePercentage = Math.min(
+            100,
+            Math.max(0, Math.round(((measured.rawMean - measured.scale.scaleMin) / scaleRange) * 100))
+          );
+          const bandInfo = getScoreBand(measured.rawMean, measured.scale.scaleMax);
+          const precision =
+            measured.itemCount >= 6 ? 'High' : measured.itemCount >= 3 ? 'Moderate' : 'Developing';
+
+          const facetVm: UnifiedFacetViewModel = {
+            facetId: facet.id,
+            code: facet.code,
+            nameTr: facet.nameTr,
+            nameEn: facet.nameEn,
+            descriptionTr: facet.descriptionTr,
+            constructId: construct.id,
+            constructCode: construct.code,
+            constructNameTr: construct.nameTr,
+            domainId: domain.id,
+            domainCode: domain.code,
+            domainNameTr: domain.nameTr,
+            isMeasured: true,
+            rawMean: measured.rawMean,
+            scorePercentage,
+            scale: measured.scale,
+            itemCount: measured.itemCount,
+            bandInfo,
+            provenance: measured.provenance,
+            epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
+            precision,
+          };
+
+          facetViewModels.push(facetVm);
+          allFacets84.push(facetVm);
+        } else {
+          // Unmeasured facet
+          const facetVm: UnifiedFacetViewModel = {
+            facetId: facet.id,
+            code: facet.code,
+            nameTr: facet.nameTr,
+            nameEn: facet.nameEn,
+            descriptionTr: facet.descriptionTr,
+            constructId: construct.id,
+            constructCode: construct.code,
+            constructNameTr: construct.nameTr,
+            domainId: domain.id,
+            domainCode: domain.code,
+            domainNameTr: domain.nameTr,
+            isMeasured: false,
+            rawMean: null,
+            scorePercentage: null,
+            scale: null,
+            itemCount: 0,
+            bandInfo: null,
+            provenance: null,
+            epistemicStatus: 'UNTOUCHED',
+            precision: 'Unmeasured',
+          };
+
+          facetViewModels.push(facetVm);
+          allFacets84.push(facetVm);
+        }
+      }
+
+      // Construct View Model
+      const measuredConstruct = latestConstructMap.get(construct.id);
+      if (measuredConstruct) {
+        domainMeasuredConstructsCount++;
+
+        const scaleRange = Math.max(0.1, measuredConstruct.scale.scaleMax - measuredConstruct.scale.scaleMin);
+        const scorePercentage = Math.min(
+          100,
+          Math.max(
+            0,
+            Math.round(((measuredConstruct.compositeScore - measuredConstruct.scale.scaleMin) / scaleRange) * 100)
+          )
+        );
+        const bandInfo = getScoreBand(measuredConstruct.compositeScore, measuredConstruct.scale.scaleMax);
+        const interpDef = ALL_TRAIT_INTERPRETATIONS[construct.code];
+
+        const interpretation = interpDef
+          ? {
+              shortDescriptionTr: interpDef.shortDescriptionTr,
+              textTr: interpDef.interpretationByBand[bandInfo.band],
+              strengths: interpDef.strengths[bandInfo.band] || [],
+              risks: interpDef.risks[bandInfo.band] || [],
+            }
+          : null;
+
+        constructViewModels.push({
+          constructId: construct.id,
+          code: construct.code,
+          nameTr: construct.nameTr,
+          nameEn: construct.nameEn,
+          descriptionTr: construct.descriptionTr,
+          domainId: domain.id,
+          domainCode: domain.code,
+          domainNameTr: domain.nameTr,
+          isMeasured: true,
+          compositeScore: measuredConstruct.compositeScore,
+          scorePercentage,
+          scale: measuredConstruct.scale,
+          bandInfo,
+          interpretation,
+          facetCount: construct.facets.length,
+          measuredFacetCount: constructMeasuredFacetsCount,
+          facets: facetViewModels,
+          provenance: measuredConstruct.provenance,
+        });
+
+        interactionConstructsMap[construct.code] = {
+          score: measuredConstruct.compositeScore,
+          scaleMin: measuredConstruct.scale.scaleMin,
+          scaleMax: measuredConstruct.scale.scaleMax,
+          nameTr: construct.nameTr,
+        };
+      } else {
+        // Unmeasured construct
+        constructViewModels.push({
+          constructId: construct.id,
+          code: construct.code,
+          nameTr: construct.nameTr,
+          nameEn: construct.nameEn,
+          descriptionTr: construct.descriptionTr,
+          domainId: domain.id,
+          domainCode: domain.code,
+          domainNameTr: domain.nameTr,
+          isMeasured: false,
+          compositeScore: null,
+          scorePercentage: null,
+          scale: null,
+          bandInfo: null,
+          interpretation: null,
+          facetCount: construct.facets.length,
+          measuredFacetCount: 0,
+          facets: facetViewModels,
+          provenance: null,
+        });
+      }
+    }
+
+    // Determine Domain Status
+    const totalFacetsInDomain = domain.constructs.reduce((acc, c) => acc + c.facets.length, 0);
+    const totalConstructsInDomain = domain.constructs.length;
+
+    let domainStatus: 'MEASURED' | 'PARTIAL' | 'UNMEASURED' = 'UNMEASURED';
+    if (domainMeasuredConstructsCount === totalConstructsInDomain && totalConstructsInDomain > 0) {
+      domainStatus = 'MEASURED';
+      totalMeasuredDomainsCount++;
+    } else if (domainMeasuredConstructsCount > 0) {
+      domainStatus = 'PARTIAL';
+      totalMeasuredDomainsCount++;
+    }
+
+    const coveragePercentage =
+      totalFacetsInDomain > 0 ? Math.round((domainMeasuredFacetsCount / totalFacetsInDomain) * 100) : 0;
+
+    // Conservative Domain Score: ONLY display if an explicit authoritative scientific aggregation exists.
+    // For core_personality when fully measured, use unweighted mean of broad factors.
+    // For partial domains, NEVER synthesize a domain composite score.
+    let domainCompositeScore: number | null = null;
+    let domainScale: MeasurementScaleMetadata | null = null;
+
+    if (domain.code === 'core_personality' && domainStatus === 'MEASURED') {
+      const measuredScores = constructViewModels
+        .map((c) => c.compositeScore)
+        .filter((s): s is number => typeof s === 'number');
+      if (measuredScores.length === 6) {
+        domainCompositeScore = Number((measuredScores.reduce((a, b) => a + b, 0) / 6).toFixed(2));
+        domainScale = {
+          scaleMin: 1.0,
+          scaleMax: 5.0,
+          scoreType: 'MEAN',
+          scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
+        };
+      }
+    }
+
+    domainViewModels.push({
+      domainId: domain.id,
+      code: domain.code,
+      nameTr: domain.nameTr,
+      nameEn: domain.nameEn,
+      descriptionTr: domain.descriptionTr,
+      color: domain.color,
+      sortOrder: domain.sortOrder,
+      status: domainStatus,
+      measuredConstructCount: domainMeasuredConstructsCount,
+      totalConstructCount: totalConstructsInDomain,
+      measuredFacetCount: domainMeasuredFacetsCount,
+      totalFacetCount: totalFacetsInDomain,
+      coveragePercentage,
+      compositeScore: domainCompositeScore,
+      scale: domainScale,
+      constructs: constructViewModels,
+    });
+  }
+
+  // 7. Calculate Exploration Coverage & Measurement Depth
+  const facetItemCounts: Record<string, number> = {};
+  for (const [fId, data] of latestFacetMap.entries()) {
+    facetItemCounts[fId] = data.itemCount;
+  }
+  const coverageMetrics = calculateProfileCoverage(facetItemCounts, totalOntologyFacets, 6);
+
+  // 8. Response Quality Telemetry Summary
+  const sessionsWithIntegrity = validCompletedSessions.map((s) => {
+    const ir = s.integrityResults[0];
+    return {
+      moduleTitleTr: s.formVersion.module.titleTr,
+      overallFlag: ir?.overallFlag || 'ACCEPTABLE',
+      speedViolations: ir?.speedViolations || 0,
+      straightliningDetected: ir?.straightliningDetected || false,
+      attentionCheckPassed: ir?.attentionCheckPassed ?? true,
+    };
+  });
+  const responseQuality = deriveUnifiedResponseQuality(sessionsWithIntegrity);
+
+  // 9. 4-Dimensional Quality Breakdown
+  const qualityDimensions = deriveUnifiedQualityDimensions({
+    measuredDomainsCount: totalMeasuredDomainsCount,
+    totalDomainsCount: canonicalDomains.length,
+    exploredFacetsCount: totalMeasuredFacetsCount,
+    totalFacetsCount: totalOntologyFacets,
+    explorationPercentage: coverageMetrics.explorationPercentage,
+    depthPercentage: coverageMetrics.measurementDepthPercentage,
+    responseQuality,
+    instrumentsUsed: Array.from(instrumentsUsedSet),
+  });
+
+  // 10. Profile Maturity Stage
+  const maturity = deriveProfileMaturity({
+    completedAssessmentsCount: latestSessionPerModule.size,
+    measuredDomainsCount: totalMeasuredDomainsCount,
+    measuredFacetsCount: totalMeasuredFacetsCount,
+    totalOntologyFacets,
+  });
+
+  // 11. Profile Fingerprint Visual Dimensions (Measured constructs across domains)
+  const fingerprintDimensions: ProfileFingerprintDimension[] = [];
+  for (const domain of domainViewModels) {
+    for (const construct of domain.constructs) {
+      if (construct.isMeasured && construct.compositeScore !== null && construct.scale) {
+        const scaleRange = Math.max(0.1, construct.scale.scaleMax - construct.scale.scaleMin);
+        const normalizedCoordinate = Math.min(
+          100,
+          Math.max(
+            0,
+            Math.round(((construct.compositeScore - construct.scale.scaleMin) / scaleRange) * 100)
+          )
+        );
+
+        fingerprintDimensions.push({
+          id: construct.constructId,
+          code: construct.code,
+          nameTr: construct.nameTr,
+          domainNameTr: domain.nameTr,
+          nativeScore: construct.compositeScore,
+          scaleMin: construct.scale.scaleMin,
+          scaleMax: construct.scale.scaleMax,
+          normalizedCoordinate,
+          bandInfo: construct.bandInfo,
+        });
+      }
+    }
+  }
+
+  const fingerprint = {
+    dimensions: fingerprintDimensions,
+    measuredCount: fingerprintDimensions.length,
+    totalCount: canonicalDomains.reduce((acc, d) => acc + d.constructs.length, 0),
+    summaryText:
+      fingerprintDimensions.length > 0
+        ? `Profil parmak iziniz, şu ana kadar ölçülen ${fingerprintDimensions.length} psikolojik boyutun görsel bir özetidir.`
+        : 'Henüz ölçülen bir boyut bulunmuyor.',
+  };
+
+  // 12. Specialized Modular Sections
+  // A) HEXACO Profile Section
+  const coreDomain = domainViewModels.find((d) => d.code === 'core_personality');
+  let hexacoSection = null;
+
+  if (coreDomain && coreDomain.measuredConstructCount > 0) {
+    const radarData = coreDomain.constructs
+      .filter((c) => c.isMeasured && c.compositeScore !== null && c.scale)
+      .map((c) => {
+        const scaleRange = Math.max(0.1, c.scale!.scaleMax - c.scale!.scaleMin);
+        const score100 = Number(
+          (((c.compositeScore! - c.scale!.scaleMin) / scaleRange) * 100).toFixed(1)
+        );
+        return {
+          name: c.code,
+          name_tr: c.nameTr,
+          score: score100,
+          scaleMin: 0,
+          scaleMax: 100,
+        };
+      });
+
+    hexacoSection = {
+      isMeasured: true,
+      radarData,
+      constructs: coreDomain.constructs,
+      measuredFacetCount: coreDomain.measuredFacetCount,
+      totalFacetCount: coreDomain.totalFacetCount,
+    };
+  }
+
+  // B) Self-System Section
+  const selfDomain = domainViewModels.find((d) => d.code === 'self_system');
+  let selfSystemSection = null;
+
+  if (selfDomain && selfDomain.measuredConstructCount > 0) {
+    const rsesConstruct = selfDomain.constructs.find(
+      (c) => c.code === 'self_evaluation' || c.code === 'core_self_esteem'
+    );
+    const gseConstruct = selfDomain.constructs.find(
+      (c) => c.code === 'agency_mastery' || c.code === 'generalized_self_efficacy'
+    );
+
+    const rsesData = rsesConstruct && rsesConstruct.isMeasured && rsesConstruct.compositeScore !== null
+      ? {
+          isMeasured: true,
+          score: rsesConstruct.compositeScore,
+          scaleMin: rsesConstruct.scale?.scaleMin || 1.0,
+          scaleMax: rsesConstruct.scale?.scaleMax || 4.0,
+          bandInfo: rsesConstruct.bandInfo,
+          titleTr: 'Temel Benlik Saygısı (RSES)',
+          measuredAt: rsesConstruct.provenance?.measuredAt || null,
+          itemCount: rsesConstruct.facets.reduce((acc, f) => acc + f.itemCount, 0),
+          provenance: rsesConstruct.provenance,
+        }
+      : null;
+
+    const gseData = gseConstruct && gseConstruct.isMeasured && gseConstruct.compositeScore !== null
+      ? {
+          isMeasured: true,
+          score: gseConstruct.compositeScore,
+          scaleMin: gseConstruct.scale?.scaleMin || 1.0,
+          scaleMax: gseConstruct.scale?.scaleMax || 4.0,
+          bandInfo: gseConstruct.bandInfo,
+          titleTr: 'Genel Öz-Yeterlik (GSE)',
+          measuredAt: gseConstruct.provenance?.measuredAt || null,
+          itemCount: gseConstruct.facets.reduce((acc, f) => acc + f.itemCount, 0),
+          provenance: gseConstruct.provenance,
+        }
+      : null;
+
+    if (rsesData || gseData) {
+      selfSystemSection = {
+        isMeasured: true,
+        rses: rsesData,
+        gse: gseData,
+      };
+    }
+  }
+
+  // 13. Strengths & Attention Points (Deterministic, deduplicated, 4-6 concise items)
+  const strengths: Array<{ traitName: string; point: string; sourceConstruct: string }> = [];
+  const attentionPoints: Array<{ traitName: string; point: string; sourceConstruct: string }> = [];
+  const seenStrengthTexts = new Set<string>();
+  const seenAttentionTexts = new Set<string>();
+
+  for (const domain of domainViewModels) {
+    for (const construct of domain.constructs) {
+      if (construct.isMeasured && construct.interpretation) {
+        for (const st of construct.interpretation.strengths) {
+          if (!seenStrengthTexts.has(st) && strengths.length < 6) {
+            seenStrengthTexts.add(st);
+            strengths.push({
+              traitName: construct.nameTr,
+              point: st,
+              sourceConstruct: construct.code,
+            });
+          }
+        }
+
+        for (const rk of construct.interpretation.risks) {
+          if (!seenAttentionTexts.has(rk) && attentionPoints.length < 5) {
+            seenAttentionTexts.add(rk);
+            attentionPoints.push({
+              traitName: construct.nameTr,
+              point: rk,
+              sourceConstruct: construct.code,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  // 14. Cross-Domain Interactions (Evaluated strictly against measured constructs)
+  const interactions = evaluateUnifiedInteractions(interactionConstructsMap);
+
+  // 15. Unmeasured Domains Catalogue ("Profilinde Henüz Eksik Olan Alanlar")
+  const DOMAIN_WHY_IT_MATTERS: Record<string, string> = {
+    emotional_affective:
+      'Duygusal dayanıklılık, stres toleransı ve duygulanım düzenleme stratejilerinizi haritalandırır.',
+    regulatory_volitional:
+      'Hedef odaklılık, dürtü kontrolü, azim ve yürütücü irade işlevlerinizi analiz eder.',
+    motivational_value:
+      'Yaşamdaki temel motivasyon kaynaklarınızı ve evrensel değer yönelimlerinizi keşfetmenizi sağlar.',
+    relational_interpersonal:
+      'Bağlanma stilleri, empati boyutları ve çatışma yönetimi dinamiklerinizi ortaya koyar.',
+    cognitive_epistemic:
+      'Biliş ihtiyacı, belirsizliğe tahammül ve problem çözme yaklaşımlarınızı değerlendirir.',
+    existential_meaning:
+      'Anlam arayışı, varoluşsal amaç algısı ve içsel bütünlük dinamiklerinizi inceler.',
+    integrity_validity:
+      'Sosyal beğenirlik, öz-aldatma ve cevap verme bütünlüğü telemetrisini tamamlar.',
+    self_system:
+      'Benlik saygısı, öz-yeterlilik ve öz-şefkat dinamiklerini haritalandırır.',
+    core_personality:
+      'Kişiliğin 6 temel faktörü üzerinden geniş davranışsal eğilimlerinizi tanımlar.',
+  };
+
+  const journey = await getUserAssessmentJourney(userId);
+
+  const unmeasuredDomains = domainViewModels
+    .filter((d) => d.status === 'UNMEASURED')
+    .map((d) => {
+      const matchingAssessment = journey.allAssessments.find(
+        (a) =>
+          a.domainName?.toLowerCase().includes(d.nameTr.toLowerCase()) ||
+          a.moduleCode.toLowerCase().includes(d.code.toLowerCase())
+      );
+
+      return {
+        domainId: d.domainId,
+        code: d.code,
+        nameTr: d.nameTr,
+        descriptionTr: d.descriptionTr,
+        whyItMattersTr:
+          DOMAIN_WHY_IT_MATTERS[d.code] || 'Psikolojik profilinizi daha derinlemesine anlamanızı sağlar.',
+        availableAssessmentTitleTr: matchingAssessment?.title,
+        availableAssessmentUrl: matchingAssessment?.startOrResumeUrl,
+        isAssessmentAvailable: Boolean(matchingAssessment),
+      };
+    });
+
+  // 16. Last updated timestamp
+  const latestCompletedDate = validCompletedSessions[0]?.completedAt || null;
+
+  return {
+    userId,
+    userName,
+    hasAssessments,
+    maturity,
+    lastUpdatedAt: latestCompletedDate ? latestCompletedDate.toISOString() : null,
+    completedAssessmentCount: latestSessionPerModule.size,
+    qualityDimensions,
+    responseQuality,
+    domains: domainViewModels,
+    allFacets84,
+    fingerprint,
+    hexacoSection,
+    selfSystemSection,
+    strengths,
+    attentionPoints,
+    interactions,
+    unmeasuredDomains,
+    sourceAssessments,
+    nextAction: journey.nextAction
+      ? {
+          title: journey.nextAction.title,
+          reason: journey.nextAction.reason,
+          estimatedMinutes: journey.nextAction.estimatedMinutes,
+          url: journey.nextAction.url,
+          ctaText: journey.nextAction.ctaText,
+          status: journey.nextAction.status,
+        }
+      : null,
+  };
+}

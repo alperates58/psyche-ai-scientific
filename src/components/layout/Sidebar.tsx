@@ -108,6 +108,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
 
   const isActive = (path: string) => {
     if (path === '/overview' && (pathname === '/' || pathname === '/overview')) return true;
+    if (path === '/profile') return pathname === '/profile';
     return pathname.startsWith(path);
   };
 
@@ -160,12 +161,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
       <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
         <div>
           <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            YOLCULUK & ANALİTİK
+            YOLCULUK & PROFİL
           </div>
           <nav className="space-y-1">
             <Link href="/overview" onClick={handleLinkClick} className={navItemClass(isActive('/overview'))}>
               <Compass className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Genel Bakış
+            </Link>
+            <Link href="/profile" onClick={handleLinkClick} className={navItemClass(isActive('/profile'))}>
+              <User className="w-4 h-4 mr-3 opacity-80 shrink-0" />
+              Profilim
             </Link>
             <Link href="/assessments" onClick={handleLinkClick} className={navItemClass(isActive('/assessments'))}>
               <FileCheck2 className="w-4 h-4 mr-3 opacity-80 shrink-0" />
@@ -176,14 +181,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
 
         <div>
           <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            PROFİL BOYUTLARI
+            ÖZEL GÖRÜNÜMLER
           </div>
           <nav className="space-y-1">
-            <Link href="/profile/personality" onClick={handleLinkClick} className={navItemClass(isActive('/profile/personality'))}>
+            <Link href="/profile/personality" onClick={handleLinkClick} className={navItemClass(pathname === '/profile/personality')}>
               <User className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Temel Kişilik
             </Link>
-            <Link href="/profile/heatmap" onClick={handleLinkClick} className={navItemClass(isActive('/profile/heatmap'))}>
+            <Link href="/profile/heatmap" onClick={handleLinkClick} className={navItemClass(pathname === '/profile/heatmap')}>
               <LayoutGrid className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Psikolojik Profil Haritası
             </Link>

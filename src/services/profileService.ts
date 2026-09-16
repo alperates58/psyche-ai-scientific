@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import { evaluateSessionIntegrity } from './integrityService';
 import { calculatePreCalibrationScores } from './scoringService';
 import { calculateProfileCoverage, TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
+export { getUnifiedPsychologicalProfile } from './unifiedProfileService';
+
 
 export async function finalizeAssessmentAndCreateSnapshot(
   sessionId: string,
