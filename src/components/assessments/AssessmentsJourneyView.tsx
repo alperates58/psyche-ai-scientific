@@ -152,34 +152,55 @@ export function AssessmentsJourneyView({ journey }: AssessmentsJourneyViewProps)
 
           <div>
             {isCompleted ? (
-              <Link
-                href={
-                  item.resultUrl ||
-                  (item.completedSessionId
-                    ? `/assessments/results/${item.completedSessionId}`
-                    : '/assessments')
-                }
-                className="inline-flex items-center px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
-              >
-                <span>Sonuçlar</span>
-                <ArrowRight className="w-3.5 h-3.5 ml-1 text-text-tertiary" />
-              </Link>
+              <div className="flex items-center space-x-1.5">
+                <Link
+                  href={`/assessment?module=${encodeURIComponent(item.moduleCode)}&retake=true`}
+                  className="inline-flex items-center px-3 py-2 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-secondary hover:text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
+                  title="Testi Baştan Yap (Yeniden Çöz)"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 mr-1" />
+                  <span>Tekrar Çöz</span>
+                </Link>
+                <Link
+                  href={
+                    item.resultUrl ||
+                    (item.completedSessionId
+                      ? `/assessments/results/${item.completedSessionId}`
+                      : '/assessments')
+                  }
+                  className="inline-flex items-center px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
+                >
+                  <span>Sonuçlar</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1 text-text-tertiary" />
+                </Link>
+              </div>
             ) : !item.isPlayable || item.status === 'CONTENT_PENDING' ? (
               <span className="inline-flex items-center px-3.5 py-2 rounded-xl bg-surface-2/60 text-text-tertiary text-xs font-medium border border-border-subtle cursor-not-allowed">
                 <span>Bilimsel Doğrulama Aşamasında</span>
               </span>
             ) : (
-              <Link
-                href={item.startOrResumeUrl}
-                className={`inline-flex items-center px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs ${
-                  isNext
-                    ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-brand-600/20'
-                    : 'bg-surface-2 hover:bg-bg-subtle text-text-primary border border-border-subtle'
-                }`}
-              >
-                <span>{isInProgress ? 'Devam Et' : 'Başla'}</span>
-                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </Link>
+              <div className="flex items-center space-x-1.5">
+                {isInProgress && (
+                  <Link
+                    href={`/assessment?module=${encodeURIComponent(item.moduleCode)}&retake=true`}
+                    className="inline-flex items-center p-2 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-tertiary hover:text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
+                    title="Baştan Başla (Yanıtları Sıfırla)"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                  </Link>
+                )}
+                <Link
+                  href={item.startOrResumeUrl}
+                  className={`inline-flex items-center px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs ${
+                    isNext
+                      ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-brand-600/20'
+                      : 'bg-surface-2 hover:bg-bg-subtle text-text-primary border border-border-subtle'
+                  }`}
+                >
+                  <span>{isInProgress ? 'Devam Et' : 'Başla'}</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                </Link>
+              </div>
             )}
           </div>
         </div>

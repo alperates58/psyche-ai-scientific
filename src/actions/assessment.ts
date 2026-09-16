@@ -6,6 +6,7 @@ import {
   getOrCreateAssessmentSession,
   getSessionWithDetails,
   pauseAssessmentSession,
+  restartAssessmentSession,
 } from '@/services/assessmentService';
 import { recordResponse } from '@/services/responseService';
 import {
@@ -33,13 +34,31 @@ const FinalizeAssessmentSchema = z.object({
   sessionId: z.string().min(1, 'Oturum kimliği gereklidir')
 }).strict();
 
-export async function startOrResumeAssessmentAction(moduleCode: string = 'MODULE_1_CORE_PERSONALITY') {
+const RestartAssessmentSchema = z.object({
+  sessionId: z.string().min(1, 'Oturum kimliği gereklidir')
+}).strict();
+
+export async function startOrResumeAssessmentAction(
+  moduleCode: string = 'mod_core_hexaco_60',
+  forceNew: boolean = false
+) {
   try {
     const user = await getCurrentUser();
-    const session = await getOrCreateAssessmentSession(user.id, moduleCode);
+    const session = await getOrCreateAssessmentSession(user.id, moduleCode, { forceNew });
     return { success: true, data: session };
   } catch (error: any) {
     return { success: false, error: error.message || 'Değerlendirme başlatılamadı.' };
+  }
+}
+
+export async function restartAssessmentAction(input: z.infer<typeof RestartAssessmentSchema>) {
+  try {
+    const validated = RestartAssessmentSchema.parse(input);
+    const user = await getCurrentUser();
+    const session = await restartAssessmentSession(validated.sessionId, user.id);
+    return { success: true, data: session };
+  } catch (error: any) {
+    return { success: false, error: error.message || 'Değerlendirme baştan başlatılamadı.' };
   }
 }
 

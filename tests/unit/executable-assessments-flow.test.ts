@@ -1,6 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { prisma } from '@/lib/prisma';
-import { getOrCreateAssessmentSession, pauseAssessmentSession } from '@/services/assessmentService';
+import {
+  getOrCreateAssessmentSession,
+  pauseAssessmentSession,
+  restartAssessmentSession,
+} from '@/services/assessmentService';
 import { recordResponse } from '@/services/responseService';
 import { finalizeAssessmentAndCreateSnapshot } from '@/services/profileService';
 import { getUserAssessmentJourney } from '@/services/assessmentJourneyService';
@@ -159,6 +163,48 @@ describe('FAZ 2.16.1 Executable Assessment Lifecycle & User Journey Verification
       expect(hexacoModule?.status).toBe('COMPLETED');
       expect(hexacoModule?.progressPercentage).toBe(100);
       expect(hexacoModule?.completedSessionId).toBeTruthy();
+    });
+  });
+
+  describe('4. Assessment Retake and Reset Lifecycle', () => {
+    it('allows retaking a completed assessment by creating a fresh in-progress session', async () => {
+      // Step A: Request a retake (forceNew: true)
+      const retakeSession = await getOrCreateAssessmentSession(testUserId, 'mod_core_hexaco_60', { forceNew: true });
+      expect(retakeSession).toBeDefined();
+      expect(retakeSession.status).toBe('IN_PROGRESS');
+      expect(retakeSession.currentStep).toBe(1);
+      expect(retakeSession.responses.length).toBe(0);
+
+      // Step B: User journey shows in-progress retake while keeping completedSessionId
+      const journey = await getUserAssessmentJourney(testUserId);
+      const hexaco = journey.allAssessments.find((a) => a.assessmentId === 'mod_core_hexaco_60');
+      expect(hexaco?.status).toBe('IN_PROGRESS');
+      expect(hexaco?.activeSessionId).toBe(retakeSession.id);
+      expect(hexaco?.completedSessionId).toBeTruthy();
+
+      // Step C: Answering some questions and restarting in the middle of test
+      const item = retakeSession.formVersion.items[0];
+      await recordResponse({
+        userId: testUserId,
+        sessionId: retakeSession.id,
+        formItemId: item.id,
+        selectedOptionVersionId: item.itemVersion.options[1].id,
+        rawValue: item.itemVersion.options[1].value,
+        durationMs: 900,
+        focusLostCount: 0,
+      });
+
+      const restarted = await restartAssessmentSession(retakeSession.id, testUserId);
+      expect(restarted.id).not.toBe(retakeSession.id);
+      expect(restarted.status).toBe('IN_PROGRESS');
+      expect(restarted.currentStep).toBe(1);
+      expect(restarted.responses.length).toBe(0);
+
+      // Check that previous session was marked ABANDONED
+      const oldSession = await prisma.assessmentSession.findUnique({
+        where: { id: retakeSession.id },
+      });
+      expect(oldSession?.status).toBe('ABANDONED');
     });
   });
 });

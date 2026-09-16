@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import {
   startOrResumeAssessmentAction,
+  restartAssessmentAction,
   submitResponseAction,
   pauseAssessmentAction,
   finalizeAssessmentAction,
@@ -33,6 +34,7 @@ function AssessmentRunnerInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const requestedModule = searchParams.get('module') || undefined;
+  const isRetakeRequested = searchParams.get('retake') === 'true';
 
   // Live session state
   const [session, setSession] = useState<any | null>(null);
@@ -44,6 +46,7 @@ function AssessmentRunnerInner() {
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [completionResult, setCompletionResult] = useState<any | null>(null);
+  const [showRestartConfirm, setShowRestartConfirm] = useState(false);
 
   // Telemetry references
   const itemStartTimeRef = useRef<number>(Date.now());
@@ -64,7 +67,7 @@ function AssessmentRunnerInner() {
       setIsLoading(true);
       setErrorMessage(null);
       try {
-        const res = await startOrResumeAssessmentAction(requestedModule);
+        const res = await startOrResumeAssessmentAction(requestedModule, isRetakeRequested);
         if (!res.success || !res.data) {
           setErrorMessage(res.error || 'Değerlendirme oturumu başlatılamadı.');
           setIsLoading(false);
@@ -102,7 +105,32 @@ function AssessmentRunnerInner() {
     }
 
     initSession();
-  }, [requestedModule]);
+  }, [requestedModule, isRetakeRequested]);
+
+  // Handle explicit restart/reset test
+  const handleRestartTest = async () => {
+    if (!session) return;
+    setIsSubmitting(true);
+    try {
+      const res = await restartAssessmentAction({ sessionId: session.id });
+      if (res.success && res.data) {
+        setSession(res.data);
+        setAnswers({});
+        setCurrentIndex(0);
+        itemStartTimeRef.current = Date.now();
+        focusLostCountRef.current = 0;
+        setShowRestartConfirm(false);
+        setSaveStatus('Test baştan başlatıldı');
+        setTimeout(() => setSaveStatus(null), 2000);
+      } else {
+        alert(res.error || 'Test baştan başlatılamadı.');
+      }
+    } catch {
+      alert('Test sıfırlanırken bir hata meydana geldi.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Reset item timer when navigating to a new question
   const resetItemTimer = useCallback(() => {
@@ -433,6 +461,16 @@ function AssessmentRunnerInner() {
 
           <button
             type="button"
+            onClick={() => setShowRestartConfirm(true)}
+            className="inline-flex items-center px-3 py-1.5 rounded-lg border border-border-subtle text-xs font-semibold text-text-secondary hover:text-rose-600 hover:bg-rose-50/50 hover:border-rose-200 transition-colors min-h-[36px] touch-manipulation"
+            title="Testi Baştan Başlat"
+          >
+            <RotateCcw className="w-3.5 h-3.5 mr-1 shrink-0" />
+            <span>Baştan Başla</span>
+          </button>
+
+          <button
+            type="button"
             onClick={handlePauseAndExit}
             className="inline-flex items-center px-3 py-1.5 rounded-lg border border-border-subtle text-xs font-semibold text-text-secondary hover:bg-bg-subtle transition-colors min-h-[36px] touch-manipulation"
           >
@@ -588,6 +626,41 @@ function AssessmentRunnerInner() {
           <ChevronRight className="w-4 h-4 ml-1" />
         </button>
       </div>
+
+      {/* Restart Test Confirmation Modal */}
+      {showRestartConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-surface-1 max-w-md w-full p-6 rounded-2xl border border-border-subtle shadow-xl space-y-4">
+            <div className="flex items-center space-x-3 text-amber-600">
+              <AlertCircle className="w-6 h-6 shrink-0" />
+              <h3 className="text-base font-bold text-text-primary">
+                Değerlendirmeyi Baştan Başlat
+              </h3>
+            </div>
+            <p className="text-xs text-text-secondary leading-relaxed">
+              Bu testteki tüm yanıtlarınız sıfırlanacak ve 1. sorudan itibaren baştan başlayacaksınız. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?
+            </p>
+            <div className="flex items-center justify-end space-x-3 pt-2">
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onClick={() => setShowRestartConfirm(false)}
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-text-secondary hover:bg-surface-2 border border-border-subtle transition-colors"
+              >
+                Vazgeç
+              </button>
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onClick={handleRestartTest}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 transition-colors shadow-xs"
+              >
+                {isSubmitting ? 'Sıfırlanıyor...' : 'Evet, Baştan Başlat'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </PageContainer>
   );
 }

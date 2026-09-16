@@ -13,6 +13,7 @@ import {
   ChevronDown,
   Layers,
   Info,
+  RotateCcw,
 } from 'lucide-react';
 import { AssessmentResultViewModel } from '@/services/assessmentResultService';
 
@@ -70,31 +71,43 @@ export const ResultSummaryHero: React.FC<ResultSummaryHeroProps> = ({ result }) 
         {/* Subtle Decorative Gradient */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
-        <div className="space-y-3 relative z-10">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-brand-50 text-brand-700 border border-brand-200/60">
-              <Layers className="w-3 h-3 mr-1" />
-              {result.module.titleTr}
-            </span>
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 relative z-10">
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-brand-50 text-brand-700 border border-brand-200/60">
+                <Layers className="w-3 h-3 mr-1" />
+                {result.module.titleTr}
+              </span>
 
-            <span className="inline-flex items-center text-[10px] font-mono px-2 py-0.5 rounded bg-bg-subtle text-text-tertiary border border-border-subtle">
-              Form Sürümü: {result.formVersion.versionCode}
-            </span>
+              <span className="inline-flex items-center text-[10px] font-mono px-2 py-0.5 rounded bg-bg-subtle text-text-tertiary border border-border-subtle">
+                Form Sürümü: {result.formVersion.versionCode}
+              </span>
 
-            <span className="inline-flex items-center text-[10px] text-text-tertiary px-2 py-0.5 rounded bg-bg-subtle border border-border-subtle">
-              <Calendar className="w-3 h-3 mr-1" />
-              {completedDateFormatted}
-            </span>
+              <span className="inline-flex items-center text-[10px] text-text-tertiary px-2 py-0.5 rounded bg-bg-subtle border border-border-subtle">
+                <Calendar className="w-3 h-3 mr-1" />
+                {completedDateFormatted}
+              </span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+              Değerlendirme Sonuç Raporu
+            </h1>
+
+            <p className="text-xs sm:text-sm text-text-secondary leading-relaxed max-w-3xl">
+              {result.module.descriptionTr ||
+                'Bu değerlendirme yanıtlarınız, dondurulmuş form sürümü üzerinden güvenli biçimde işlenmiş ve çok boyutlu psikolojik profilinize aktarılmıştır.'}
+            </p>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
-            Değerlendirme Sonuç Raporu
-          </h1>
-
-          <p className="text-xs sm:text-sm text-text-secondary leading-relaxed max-w-3xl">
-            {result.module.descriptionTr ||
-              'Bu değerlendirme yanıtlarınız, dondurulmuş form sürümü üzerinden güvenli biçimde işlenmiş ve çok boyutlu psikolojik profilinize aktarılmıştır.'}
-          </p>
+          <div className="shrink-0 pt-1">
+            <Link
+              href={`/assessment?module=${encodeURIComponent(result.module.code)}&retake=true`}
+              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-bold border border-border-subtle transition-all shadow-xs"
+            >
+              <RotateCcw className="w-3.5 h-3.5 mr-1.5 text-brand-600" />
+              <span>Testi Yeniden Çöz</span>
+            </Link>
+          </div>
         </div>
 
         {/* Score & Integrity Pill Bar */}

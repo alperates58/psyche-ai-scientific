@@ -266,23 +266,25 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
 
     const isPlayable = !!publishedForm;
 
-    if (completedSession) {
+    if (activeSession) {
+      status = 'IN_PROGRESS';
+      answeredCount = activeSession._count?.responses || 0;
+      progressPercentage = Math.min(100, Math.round((answeredCount / formItemCount) * 100));
+      startedAt = activeSession.startedAt ? new Date(activeSession.startedAt).toISOString() : null;
+      activeSessionId = activeSession.id;
+      if (completedSession) {
+        completedSessionId = completedSession.id;
+      }
+    } else if (completedSession) {
       status = 'COMPLETED';
       progressPercentage = 100;
       answeredCount = formItemCount;
       startedAt = completedSession.startedAt ? new Date(completedSession.startedAt).toISOString() : null;
       completedAt = completedSession.completedAt ? new Date(completedSession.completedAt).toISOString() : null;
       completedSessionId = completedSession.id;
-    } else if (activeSession) {
-      status = 'IN_PROGRESS';
-      answeredCount = activeSession._count?.responses || 0;
-      progressPercentage = Math.min(100, Math.round((answeredCount / formItemCount) * 100));
-      startedAt = activeSession.startedAt ? new Date(activeSession.startedAt).toISOString() : null;
-      activeSessionId = activeSession.id;
     } else if (!isPlayable) {
       status = 'CONTENT_PENDING';
-    }
- else {
+    } else {
       status = 'NOT_STARTED';
     }
 

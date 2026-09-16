@@ -2,7 +2,8 @@ import { prisma } from '@/lib/prisma';
 
 export async function getOrCreateAssessmentSession(
   userId: string,
-  moduleCode?: string
+  moduleCode?: string,
+  options?: { forceNew?: boolean }
 ) {
   // Find published form version for this module (or fallback to default core module if omitted)
   let moduleRecord = null;
@@ -69,25 +70,42 @@ export async function getOrCreateAssessmentSession(
     moduleRecord.formVersions.find((f) => f.versionCode === 'v1.0.0-psycheai-native') ||
     moduleRecord.formVersions[0];
 
-  // Check if there is an in-progress or paused session for this user and form version
-  const existingSession = await prisma.assessmentSession.findFirst({
-    where: {
-      userId,
-      formVersionId: activeFormVersion.id,
-      status: { in: ['IN_PROGRESS', 'PAUSED'] }
-    },
-    orderBy: { startedAt: 'desc' }
-  });
-
-  if (existingSession) {
-    const updated = await prisma.assessmentSession.update({
-      where: { id: existingSession.id },
+  if (options?.forceNew) {
+    // Abandon any existing active or paused sessions for this user on this module
+    await prisma.assessmentSession.updateMany({
+      where: {
+        userId,
+        formVersion: {
+          moduleId: moduleRecord.id,
+        },
+        status: { in: ['IN_PROGRESS', 'PAUSED'] },
+      },
       data: {
-        status: 'IN_PROGRESS',
-        lastActiveAt: new Date()
-      }
+        status: 'ABANDONED',
+        lastActiveAt: new Date(),
+      },
     });
-    return getSessionWithDetails(updated.id, userId);
+  } else {
+    // Check if there is an in-progress or paused session for this user and form version
+    const existingSession = await prisma.assessmentSession.findFirst({
+      where: {
+        userId,
+        formVersionId: activeFormVersion.id,
+        status: { in: ['IN_PROGRESS', 'PAUSED'] },
+      },
+      orderBy: { startedAt: 'desc' },
+    });
+
+    if (existingSession) {
+      const updated = await prisma.assessmentSession.update({
+        where: { id: existingSession.id },
+        data: {
+          status: 'IN_PROGRESS',
+          lastActiveAt: new Date(),
+        },
+      });
+      return getSessionWithDetails(updated.id, userId);
+    }
   }
 
   // Create new session
@@ -96,8 +114,46 @@ export async function getOrCreateAssessmentSession(
       userId,
       formVersionId: activeFormVersion.id,
       status: 'IN_PROGRESS',
-      currentStep: 1
-    }
+      currentStep: 1,
+    },
+  });
+
+  return getSessionWithDetails(newSession.id, userId);
+}
+
+export async function restartAssessmentSession(sessionId: string, userId: string) {
+  const session = await prisma.assessmentSession.findUnique({
+    where: { id: sessionId },
+    include: {
+      formVersion: {
+        include: {
+          module: true,
+        },
+      },
+    },
+  });
+
+  if (!session || session.userId !== userId) {
+    throw new Error('Oturum bulunamadı veya yetkisiz erişim.');
+  }
+
+  // Mark current session as ABANDONED
+  await prisma.assessmentSession.update({
+    where: { id: sessionId },
+    data: {
+      status: 'ABANDONED',
+      lastActiveAt: new Date(),
+    },
+  });
+
+  // Create fresh new session for the same form version
+  const newSession = await prisma.assessmentSession.create({
+    data: {
+      userId,
+      formVersionId: session.formVersionId,
+      status: 'IN_PROGRESS',
+      currentStep: 1,
+    },
   });
 
   return getSessionWithDetails(newSession.id, userId);
