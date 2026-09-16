@@ -20,9 +20,11 @@ async function verifyScientificC1State(db) {
     },
     studyEvidencesCount: 0,
     reliabilityEvidencesCount: 0,
+    modulesSummary: [],
   };
 
   try {
+    // 1. Check Schema Migration Readiness
     const [summaryCount, studyCount, relCount] = await Promise.all([
       db.facetValidationSummary.count(),
       db.facetValidationStudyEvidence.count(),
@@ -38,12 +40,19 @@ async function verifyScientificC1State(db) {
     return { isComplete: false, details, errors };
   }
 
+  // 2. Fetch all modules and published forms
+  const modules = await db.assessmentModule.findMany({
+    orderBy: { code: 'asc' },
+  });
+
   const publishedForms = await db.assessmentFormVersion.findMany({
     where: {
       OR: [{ status: 'PUBLISHED' }, { isPublished: true }],
     },
     include: {
+      module: true,
       items: {
+        orderBy: { sortOrder: 'asc' },
         include: {
           itemVersion: true,
         },
@@ -53,57 +62,121 @@ async function verifyScientificC1State(db) {
 
   details.publishedFormsCount = publishedForms.length;
 
-  if (publishedForms.length !== 1) {
-    errors.push(
-      `INTAKE_INVARIANT_VIOLATION: Expected exactly 1 published assessment form, found ${publishedForms.length}`
-    );
-  } else {
-    const liveForm = publishedForms[0];
-    details.liveFormCode = liveForm.versionCode;
-    details.liveFormItemCount = liveForm.items.length;
+  if (publishedForms.length === 0) {
+    errors.push('INTAKE_INVARIANT_VIOLATION: No published assessment forms found in the database.');
+  }
 
-    if (liveForm.versionCode !== 'v1.0.0') {
-      errors.push(`LIVE_FORM_MISMATCH: Expected published form versionCode 'v1.0.0', found '${liveForm.versionCode}'`);
-    }
-    if (liveForm.status !== 'PUBLISHED' || !liveForm.isPublished) {
+  // Check multi-module uniqueness invariant: at most 1 published form per module
+  const publishedFormsByModule = new Map();
+  for (const form of publishedForms) {
+    const list = publishedFormsByModule.get(form.moduleId) || [];
+    list.push(form);
+    publishedFormsByModule.set(form.moduleId, list);
+  }
+
+  for (const mod of modules) {
+    const modForms = publishedFormsByModule.get(mod.id) || [];
+    if (modForms.length > 1) {
       errors.push(
-        `LIFECYCLE_INCOHERENCE: Live form dual-state incoherence (status='${liveForm.status}', isPublished=${liveForm.isPublished})`
+        `MODULE_MULTIPLE_PUBLISHED_FORMS: Modül '${mod.code}' için birden fazla (${modForms.length}) yayınlanmış form bulundu: ${modForms.map((f) => f.versionCode).join(', ')}`
       );
     }
-    if (liveForm.items.length !== 17) {
-      errors.push(`ITEM_COUNT_MISMATCH: Live form v1.0.0 must contain exactly 17 items, found ${liveForm.items.length}`);
+
+    const liveForm = modForms[0] || null;
+    details.modulesSummary.push({
+      moduleId: mod.id,
+      moduleCode: mod.code,
+      moduleTitleTr: mod.titleTr,
+      publishedFormId: liveForm ? liveForm.id : null,
+      publishedVersionCode: liveForm ? liveForm.versionCode : null,
+      itemCount: liveForm ? liveForm.items.length : 0,
+    });
+  }
+
+  // Primary live form (for backward compatibility / logging)
+  const primaryForm = publishedForms[0] || null;
+  if (primaryForm) {
+    details.liveFormCode = primaryForm.versionCode;
+    details.liveFormItemCount = primaryForm.items.length;
+  }
+
+  // 3. Inspect each published form for structural & lifecycle coherence
+  const allLiveItemVersionIds = new Set();
+  let totalLiveCoherentItems = 0;
+
+  for (const form of publishedForms) {
+    // Dual-state coherence check
+    if (form.status !== 'PUBLISHED' || !form.isPublished) {
+      errors.push(
+        `LIFECYCLE_INCOHERENCE: Form '${form.versionCode}' dual-state incoherence (status='${form.status}', isPublished=${form.isPublished})`
+      );
     }
 
-    const liveItemIds = new Set(liveForm.items.map((i) => i.itemVersionId));
-    let liveCoherentCount = 0;
+    if (form.items.length === 0) {
+      errors.push(`EMPTY_PUBLISHED_FORM: Published form '${form.versionCode}' has 0 items.`);
+    }
 
-    for (const item of liveForm.items) {
-      const iv = item.itemVersion;
-      if (iv.status === 'ACTIVE' && iv.isActive === true && iv.authorType === 'LEGACY_UNSPECIFIED') {
-        liveCoherentCount++;
-      } else {
+    // Sort order 1..N and uniqueness
+    const seenSort = new Set();
+    const seenVersionIds = new Set();
+
+    for (let i = 0; i < form.items.length; i++) {
+      const expectedSort = i + 1;
+      const formItem = form.items[i];
+
+      if (formItem.sortOrder !== expectedSort) {
         errors.push(
-          `ITEM_VERSION_INCOHERENCE: ItemVersion '${iv.id}' in live form has status='${iv.status}', isActive=${iv.isActive}, authorType='${iv.authorType}'`
+          `SORT_ORDER_INCONSISTENCY: Form '${form.versionCode}' item #${i + 1} has sortOrder ${formItem.sortOrder} (expected ${expectedSort})`
         );
       }
-    }
-    details.liveItemVersionsCount = liveCoherentCount;
+      seenSort.add(formItem.sortOrder);
 
-    const otherActiveItems = await db.itemVersion.count({
-      where: {
-        isActive: true,
-        id: { notIn: Array.from(liveItemIds) },
-      },
-    });
+      if (seenVersionIds.has(formItem.itemVersionId)) {
+        errors.push(
+          `DUPLICATE_ITEM_IN_FORM: Form '${form.versionCode}' has duplicate itemVersionId '${formItem.itemVersionId}'`
+        );
+      }
+      seenVersionIds.add(formItem.itemVersionId);
 
-    details.activeItemsOutsideLiveFormCount = otherActiveItems;
-    if (otherActiveItems > 0) {
-      errors.push(
-        `AMBIGUOUS_ACTIVE_ITEMS: Found ${otherActiveItems} active item version(s) outside published live form v1.0.0`
-      );
+      // ItemVersion status check
+      const iv = formItem.itemVersion;
+      if (!iv) {
+        errors.push(
+          `MISSING_ITEM_VERSION: Form '${form.versionCode}' references non-existent itemVersionId '${formItem.itemVersionId}'`
+        );
+        continue;
+      }
+
+      if (iv.status !== 'ACTIVE' || !iv.isActive) {
+        errors.push(
+          `ITEM_VERSION_INCOHERENCE: ItemVersion '${iv.id}' in live form '${form.versionCode}' has status='${iv.status}', isActive=${iv.isActive}`
+        );
+      } else {
+        totalLiveCoherentItems++;
+      }
+
+      allLiveItemVersionIds.add(iv.id);
     }
   }
 
+  details.liveItemVersionsCount = totalLiveCoherentItems;
+
+  // 4. Check for active item versions outside published forms
+  const otherActiveItems = await db.itemVersion.count({
+    where: {
+      isActive: true,
+      id: { notIn: Array.from(allLiveItemVersionIds) },
+    },
+  });
+
+  details.activeItemsOutsideLiveFormCount = otherActiveItems;
+  if (otherActiveItems > 0) {
+    errors.push(
+      `AMBIGUOUS_ACTIVE_ITEMS: Found ${otherActiveItems} active item version(s) outside published live forms.`
+    );
+  }
+
+  // 5. Check Validation Matrix (84 Facets & Exact Level Breakdown)
   if (details.validationSummariesCount !== 84) {
     errors.push(
       `VALIDATION_SUMMARY_COUNT_MISMATCH: Expected 84 FacetValidationSummary records, found ${details.validationSummariesCount}`
@@ -129,6 +202,7 @@ async function verifyScientificC1State(db) {
     );
   }
 
+  // 6. Check Evidence Child Records
   if (details.studyEvidencesCount === 0) {
     errors.push('STUDY_EVIDENCE_EMPTY: FacetValidationStudyEvidence table has 0 records');
   }

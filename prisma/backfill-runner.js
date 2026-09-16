@@ -163,171 +163,195 @@ async function executeScientificBackfill(options = {}) {
     return { success: true, dryRun: true };
   }
 
-  // 1. Assessment Form Version
-  await db.assessmentFormVersion.update({
-    where: { id: preflight.liveForm.id },
-    data: {
-      status: 'PUBLISHED',
-      isPublished: true,
-      itemCount: 17,
-      publishedAt: preflight.liveForm.publishedAt || preflight.liveForm.createdAt,
-    },
-  });
+  // EXECUTE ATOMIC TRANSACTION
+  console.log('\n🚀 Executing backfill within single atomic transaction...');
+  await db.$transaction(
+    async (tx) => {
+      // 1. Assessment Form Version
+      await tx.assessmentFormVersion.update({
+        where: { id: preflight.liveForm.id },
+        data: {
+          status: 'PUBLISHED',
+          isPublished: true,
+          itemCount: 17,
+          publishedAt: preflight.liveForm.publishedAt || preflight.liveForm.createdAt,
+        },
+      });
 
-  await db.assessmentFormVersion.updateMany({
-    where: { id: { not: preflight.liveForm.id } },
-    data: { status: 'DRAFT', isPublished: false },
-  });
+      await tx.assessmentFormVersion.updateMany({
+        where: { id: { not: preflight.liveForm.id } },
+        data: { status: 'DRAFT', isPublished: false },
+      });
 
-  // 2. Item Versions
-  await db.itemVersion.updateMany({
-    where: { id: { in: Array.from(preflight.resolvedItemVersionIds) } },
-    data: {
-      status: 'ACTIVE',
-      isActive: true,
-      validationStatus: 'PRE_CALIBRATION',
-      authorType: 'LEGACY_UNSPECIFIED',
-    },
-  });
+      // 2. Item Versions
+      await tx.itemVersion.updateMany({
+        where: { id: { in: Array.from(preflight.resolvedItemVersionIds) } },
+        data: {
+          status: 'ACTIVE',
+          isActive: true,
+          validationStatus: 'PRE_CALIBRATION',
+          authorType: 'LEGACY_UNSPECIFIED',
+        },
+      });
 
-  await db.itemVersion.updateMany({
-    where: { id: { notIn: Array.from(preflight.resolvedItemVersionIds) } },
-    data: { status: 'DRAFT', isActive: false, authorType: 'LEGACY_UNSPECIFIED' },
-  });
+      await tx.itemVersion.updateMany({
+        where: { id: { notIn: Array.from(preflight.resolvedItemVersionIds) } },
+        data: { status: 'DRAFT', isActive: false, authorType: 'LEGACY_UNSPECIFIED' },
+      });
 
-  // 3. Summaries & Evidence
-  const existingInstruments = await db.instrument.findMany({ select: { id: true } });
-  const instrumentIdSet = new Set(existingInstruments.map((i) => i.id));
+      // 3. Summaries & Evidence
+      const existingInstruments = await tx.instrument.findMany({ select: { id: true } });
+      const instrumentIdSet = new Set(existingInstruments.map((i) => i.id));
 
-  const existingSources = await db.scientificSource.findMany({ select: { id: true } });
-  const sourceIdSet = new Set(existingSources.map((s) => s.id));
+      const existingSources = await tx.scientificSource.findMany({ select: { id: true } });
+      const sourceIdSet = new Set(existingSources.map((s) => s.id));
 
-  for (const entry of rawMatrix) {
-    const evidenceLevel = deriveOverallTurkishEvidenceLevel(entry.status);
-    const targetInstId = entry.targetConstructInstrumentId && instrumentIdSet.has(entry.targetConstructInstrumentId)
-      ? entry.targetConstructInstrumentId
-      : null;
-    const suppInstId = entry.supportingEvidenceInstrumentId && instrumentIdSet.has(entry.supportingEvidenceInstrumentId)
-      ? entry.supportingEvidenceInstrumentId
-      : null;
+      for (const entry of rawMatrix) {
+        const evidenceLevel = deriveOverallTurkishEvidenceLevel(entry.status);
+        const targetInstId =
+          entry.targetConstructInstrumentId && instrumentIdSet.has(entry.targetConstructInstrumentId)
+            ? entry.targetConstructInstrumentId
+            : null;
+        const suppInstId =
+          entry.supportingEvidenceInstrumentId && instrumentIdSet.has(entry.supportingEvidenceInstrumentId)
+            ? entry.supportingEvidenceInstrumentId
+            : null;
 
-    const summaryRecord = await db.facetValidationSummary.upsert({
-      where: { facetId: entry.facetId },
-      update: {
-        overallTurkishEvidenceLevel: evidenceLevel,
-        overallStatus: entry.status,
-        measurementAlignmentLevel: entry.measurementAlignmentLevel || 'NOT_APPLICABLE',
-        measurementInvarianceStatus: entry.measurementInvarianceStatus || 'NOT_ASSESSED',
-        instrumentValidationEstablished: Boolean(entry.instrumentValidationEstablished),
-        targetConstructInstrumentId: targetInstId,
-        supportingEvidenceInstrumentId: suppInstId,
-        sampleDescription: entry.sampleDescription || null,
-        scientificNotes: entry.scientificNotes || null,
-        humanVerified: Boolean(entry.reliabilityEvidence?.internalConsistency?.humanVerified && entry.studyEvidence?.sampleN?.humanVerified),
-      },
-      create: {
-        facetId: entry.facetId,
-        overallTurkishEvidenceLevel: evidenceLevel,
-        overallStatus: entry.status,
-        measurementAlignmentLevel: entry.measurementAlignmentLevel || 'NOT_APPLICABLE',
-        measurementInvarianceStatus: entry.measurementInvarianceStatus || 'NOT_ASSESSED',
-        instrumentValidationEstablished: Boolean(entry.instrumentValidationEstablished),
-        targetConstructInstrumentId: targetInstId,
-        supportingEvidenceInstrumentId: suppInstId,
-        sampleDescription: entry.sampleDescription || null,
-        scientificNotes: entry.scientificNotes || null,
-        humanVerified: Boolean(entry.reliabilityEvidence?.internalConsistency?.humanVerified && entry.studyEvidence?.sampleN?.humanVerified),
-      },
-    });
-
-    await db.facetValidationStudyEvidence.deleteMany({ where: { validationSummaryId: summaryRecord.id } });
-    await db.facetReliabilityEvidence.deleteMany({ where: { validationSummaryId: summaryRecord.id } });
-
-    if (entry.supportingEvidence && entry.supportingEvidence.length > 0) {
-      for (const supp of entry.supportingEvidence) {
-        const srcId = supp.sourceId && sourceIdSet.has(supp.sourceId) ? supp.sourceId : null;
-        await db.facetValidationStudyEvidence.create({
-          data: {
-            validationSummaryId: summaryRecord.id,
-            sourceId: srcId,
-            evidenceType: supp.evidenceType,
-            evidenceLevel: evidenceLevel,
-            appliesToLevel: supp.appliesToLevel || 'FACET',
+        const summaryRecord = await tx.facetValidationSummary.upsert({
+          where: { facetId: entry.facetId },
+          update: {
+            overallTurkishEvidenceLevel: evidenceLevel,
+            overallStatus: entry.status,
             measurementAlignmentLevel: entry.measurementAlignmentLevel || 'NOT_APPLICABLE',
-            sampleN: supp.studySampleN || entry.studyEvidence?.sampleN?.value || null,
-            population: entry.studyEvidence?.population || null,
-            samplingMethod: entry.studyEvidence?.samplingMethod || null,
-            doesNotEstablish: supp.doesNotEstablish || [],
-            factorEvidenceLevel: entry.factorStructureEvidence?.level || null,
-            factorEvidenceStatus: entry.factorStructureEvidence?.status || null,
-            claimVerificationStatus: entry.factorStructureEvidence?.claimVerificationStatus || 'NOT_ASSESSED',
-            verificationMethod: entry.factorStructureEvidence?.verificationMethod || 'NOT_VERIFIED',
-            humanVerified: Boolean(entry.factorStructureEvidence?.humanVerified),
-            notes: entry.scientificNotes || null,
+            measurementInvarianceStatus: entry.measurementInvarianceStatus || 'NOT_ASSESSED',
+            instrumentValidationEstablished: Boolean(entry.instrumentValidationEstablished),
+            targetConstructInstrumentId: targetInstId,
+            supportingEvidenceInstrumentId: suppInstId,
+            sampleDescription: entry.sampleDescription || null,
+            scientificNotes: entry.scientificNotes || null,
+            humanVerified: Boolean(
+              entry.reliabilityEvidence?.internalConsistency?.humanVerified &&
+                entry.studyEvidence?.sampleN?.humanVerified
+            ),
+          },
+          create: {
+            facetId: entry.facetId,
+            overallTurkishEvidenceLevel: evidenceLevel,
+            overallStatus: entry.status,
+            measurementAlignmentLevel: entry.measurementAlignmentLevel || 'NOT_APPLICABLE',
+            measurementInvarianceStatus: entry.measurementInvarianceStatus || 'NOT_ASSESSED',
+            instrumentValidationEstablished: Boolean(entry.instrumentValidationEstablished),
+            targetConstructInstrumentId: targetInstId,
+            supportingEvidenceInstrumentId: suppInstId,
+            sampleDescription: entry.sampleDescription || null,
+            scientificNotes: entry.scientificNotes || null,
+            humanVerified: Boolean(
+              entry.reliabilityEvidence?.internalConsistency?.humanVerified &&
+                entry.studyEvidence?.sampleN?.humanVerified
+            ),
           },
         });
+
+        await tx.facetValidationStudyEvidence.deleteMany({ where: { validationSummaryId: summaryRecord.id } });
+        await tx.facetReliabilityEvidence.deleteMany({ where: { validationSummaryId: summaryRecord.id } });
+
+        if (entry.supportingEvidence && entry.supportingEvidence.length > 0) {
+          for (const supp of entry.supportingEvidence) {
+            const srcId = supp.sourceId && sourceIdSet.has(supp.sourceId) ? supp.sourceId : null;
+            await tx.facetValidationStudyEvidence.create({
+              data: {
+                validationSummaryId: summaryRecord.id,
+                sourceId: srcId,
+                evidenceType: supp.evidenceType,
+                evidenceLevel: evidenceLevel,
+                appliesToLevel: supp.appliesToLevel || 'FACET',
+                measurementAlignmentLevel: entry.measurementAlignmentLevel || 'NOT_APPLICABLE',
+                sampleN: supp.studySampleN || entry.studyEvidence?.sampleN?.value || null,
+                population: entry.studyEvidence?.population || null,
+                samplingMethod: entry.studyEvidence?.samplingMethod || null,
+                doesNotEstablish: supp.doesNotEstablish || [],
+                factorEvidenceLevel: entry.factorStructureEvidence?.level || null,
+                factorEvidenceStatus: entry.factorStructureEvidence?.status || null,
+                claimVerificationStatus: entry.factorStructureEvidence?.claimVerificationStatus || 'NOT_ASSESSED',
+                verificationMethod: entry.factorStructureEvidence?.verificationMethod || 'NOT_VERIFIED',
+                humanVerified: Boolean(entry.factorStructureEvidence?.humanVerified),
+                notes: entry.scientificNotes || null,
+              },
+            });
+          }
+        } else if (entry.studyEvidence?.sampleN?.value || entry.studyEvidence?.population) {
+          const srcId =
+            entry.studyEvidence?.sampleN?.sourceId && sourceIdSet.has(entry.studyEvidence.sampleN.sourceId)
+              ? entry.studyEvidence.sampleN.sourceId
+              : null;
+
+          await tx.facetValidationStudyEvidence.create({
+            data: {
+              validationSummaryId: summaryRecord.id,
+              sourceId: srcId,
+              evidenceType: entry.status,
+              evidenceLevel: evidenceLevel,
+              appliesToLevel: 'FACET',
+              measurementAlignmentLevel: entry.measurementAlignmentLevel || 'NOT_APPLICABLE',
+              sampleN: entry.studyEvidence?.sampleN?.value || null,
+              population: entry.studyEvidence?.population || null,
+              samplingMethod: entry.studyEvidence?.samplingMethod || null,
+              doesNotEstablish: [],
+              claimVerificationStatus: entry.studyEvidence?.sampleN?.claimVerificationStatus || 'NOT_ASSESSED',
+              humanVerified: Boolean(entry.studyEvidence?.sampleN?.humanVerified),
+              notes: entry.studyEvidence?.sampleN?.description || entry.scientificNotes || null,
+            },
+          });
+        }
+
+        if (entry.reliabilityEvidence?.internalConsistency) {
+          const ic = entry.reliabilityEvidence.internalConsistency;
+          const srcId = ic.sourceId && sourceIdSet.has(ic.sourceId) ? ic.sourceId : null;
+          await tx.facetReliabilityEvidence.create({
+            data: {
+              validationSummaryId: summaryRecord.id,
+              sourceId: srcId,
+              metricType: 'INTERNAL_CONSISTENCY',
+              metricName: ic.metric || 'CRONBACH_ALPHA',
+              value: ic.value !== null && ic.value !== undefined ? Number(ic.value) : null,
+              location: ic.location || null,
+              evidenceLevel: evidenceLevel,
+              claimVerificationStatus: ic.claimVerificationStatus || 'NOT_ASSESSED',
+              humanVerified: Boolean(ic.humanVerified),
+            },
+          });
+        }
+
+        if (entry.reliabilityEvidence?.testRetest) {
+          const tr = entry.reliabilityEvidence.testRetest;
+          const srcId = tr.sourceId && sourceIdSet.has(tr.sourceId) ? tr.sourceId : null;
+          await tx.facetReliabilityEvidence.create({
+            data: {
+              validationSummaryId: summaryRecord.id,
+              sourceId: srcId,
+              metricType: 'TEST_RETEST',
+              metricName: 'PEARSON_R',
+              value: tr.value !== null && tr.value !== undefined ? Number(tr.value) : null,
+              interval: tr.interval || null,
+              location: tr.location || null,
+              evidenceLevel: evidenceLevel,
+              claimVerificationStatus: tr.claimVerificationStatus || 'NOT_ASSESSED',
+              humanVerified: Boolean(tr.humanVerified),
+            },
+          });
+        }
       }
-    } else if (entry.studyEvidence?.sampleN?.value || entry.studyEvidence?.population) {
-      const srcId = entry.studyEvidence?.sampleN?.sourceId && sourceIdSet.has(entry.studyEvidence.sampleN.sourceId)
-        ? entry.studyEvidence.sampleN.sourceId
-        : null;
 
-      await db.facetValidationStudyEvidence.create({
-        data: {
-          validationSummaryId: summaryRecord.id,
-          sourceId: srcId,
-          evidenceType: entry.status,
-          evidenceLevel: evidenceLevel,
-          appliesToLevel: 'FACET',
-          measurementAlignmentLevel: entry.measurementAlignmentLevel || 'NOT_APPLICABLE',
-          sampleN: entry.studyEvidence?.sampleN?.value || null,
-          population: entry.studyEvidence?.population || null,
-          samplingMethod: entry.studyEvidence?.samplingMethod || null,
-          doesNotEstablish: [],
-          claimVerificationStatus: entry.studyEvidence?.sampleN?.claimVerificationStatus || 'NOT_ASSESSED',
-          humanVerified: Boolean(entry.studyEvidence?.sampleN?.humanVerified),
-          notes: entry.studyEvidence?.sampleN?.description || entry.scientificNotes || null,
-        },
-      });
-    }
-
-    if (entry.reliabilityEvidence?.internalConsistency) {
-      const ic = entry.reliabilityEvidence.internalConsistency;
-      const srcId = ic.sourceId && sourceIdSet.has(ic.sourceId) ? ic.sourceId : null;
-      await db.facetReliabilityEvidence.create({
-        data: {
-          validationSummaryId: summaryRecord.id,
-          sourceId: srcId,
-          metricType: 'INTERNAL_CONSISTENCY',
-          metricName: ic.metric || 'CRONBACH_ALPHA',
-          value: ic.value !== null && ic.value !== undefined ? Number(ic.value) : null,
-          location: ic.location || null,
-          evidenceLevel: evidenceLevel,
-          claimVerificationStatus: ic.claimVerificationStatus || 'NOT_ASSESSED',
-          humanVerified: Boolean(ic.humanVerified),
-        },
-      });
-    }
-
-    if (entry.reliabilityEvidence?.testRetest) {
-      const tr = entry.reliabilityEvidence.testRetest;
-      const srcId = tr.sourceId && sourceIdSet.has(tr.sourceId) ? tr.sourceId : null;
-      await db.facetReliabilityEvidence.create({
-        data: {
-          validationSummaryId: summaryRecord.id,
-          sourceId: srcId,
-          metricType: 'TEST_RETEST',
-          metricName: 'PEARSON_R',
-          value: tr.value !== null && tr.value !== undefined ? Number(tr.value) : null,
-          interval: tr.interval || null,
-          location: tr.location || null,
-          evidenceLevel: evidenceLevel,
-          claimVerificationStatus: tr.claimVerificationStatus || 'NOT_ASSESSED',
-          humanVerified: Boolean(tr.humanVerified),
-        },
-      });
-    }
-  }
+      // In-transaction state verification (fails & rolls back tx if incomplete)
+      const inTxCheck = await verifyScientificC1State(tx);
+      if (!inTxCheck.isComplete) {
+        throw new Error(
+          `POST_BACKFILL_VERIFICATION_FAILED: State remains incomplete within transaction: ${inTxCheck.errors.join(', ')}`
+        );
+      }
+    },
+    { timeout: 60000, maxWait: 10000 }
+  );
 
   const postCheck = await verifyScientificC1State(db);
   if (!postCheck.isComplete) {

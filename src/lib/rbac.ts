@@ -99,6 +99,7 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     'SCIENTIFIC_VIEW',
     'ITEM_AUTHOR',
     'FORM_DRAFT_MANAGE',
+    'FORM_PUBLISH',
     'SOURCE_MANAGE',
     'LICENSE_MANAGE',
     'VALIDATION_REVIEW'
