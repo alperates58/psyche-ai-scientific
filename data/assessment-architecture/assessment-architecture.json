@@ -140,10 +140,12 @@
       ]
     },
     "blockingIssues": [
-      "Official HEXACO-60 (Ashton & Lee, 2009) requires author permission for commercial SaaS.",
-      "Facet content is sampled; broad factors are primary reliable scores."
+      "Resmi HEXACO-60 (Ashton & Lee, 2009) envanterinin ticari kullanım izni ve yetkili Türkçe çeviri doğrulaması devam etmektedir.",
+      "Ön-kalibrasyon aşamasında kamuya açık IPIP-HEXACO formu aktif olarak sunulmaktadır."
     ],
-    "rationale": "Official 60-item short form (Ashton & Lee, 2009) measuring 6 broad personality factors."
+    "rationale": "Bireysel psikolojik analizin temel referans çerçevesidir.",
+    "subtitleTr": "Dürüstlük-Alçakgönüllülük, Duygusallık, Dışadönüklük, Uyumluluk, Sorumluluk, Deneyime Açıklık",
+    "descriptionTr": "Psikolojik profilinizin temel omurgasını oluşturan 6 temel faktörü ve alt boyutları ölçer."
   },
   {
     "assessmentId": "mod_self_agency",
@@ -227,10 +229,11 @@
       ]
     },
     "blockingIssues": [
-      "GSES requires verified commercial license from Schwarzer / FU Berlin.",
-      "RSES original is public domain; Turkish adaptation verified."
+      "Rosenberg Benlik Saygısı ve Genel Öz-Yeterlik ölçeklerinin Türkçe kanonik madde eşleşmesi ve telif süreçleri devam etmektedir."
     ],
-    "rationale": "Combines Rosenberg Self-Esteem (10 items) and General Self-Efficacy (10 items) with independent subscales."
+    "rationale": "Duygusal dayanıklılık ve hedeflere yönelimde belirleyicidir.",
+    "subtitleTr": "Temel Benlik Saygısı ve Genel Öz-Yeterlik",
+    "descriptionTr": "İçsel değerlilik algınızı ve zorluklarla başa çıkma inancınızı bağımsız ölçeklerle ölçer."
   },
   {
     "assessmentId": "mod_emotion_regulation",
@@ -313,9 +316,11 @@
       ]
     },
     "blockingIssues": [
-      "ERQ open for academic research; commercial SaaS usage requires publisher permission."
+      "Duygu Düzenleme Anketi (ERQ) resmi Türkçe adaptasyon madde metinlerinin doğrulanması devam etmektedir."
     ],
-    "rationale": "Standard 10-item instrument cleanly differentiating reappraisal from suppression."
+    "rationale": "Stres yönetimi ve duygusal esenliğin anahtarıdır.",
+    "subtitleTr": "Bilişsel Yeniden Değerlendirme ve İfadeyi Bastırma",
+    "descriptionTr": "Duygusal deneyimleri dönüştürme ve ifade etme tarzlarınızı iki bağımsız eksende değerlendirir."
   },
   {
     "assessmentId": "mod_cognitive_epistemic",
@@ -389,13 +394,15 @@
       ]
     },
     "blockingIssues": [
-      "NFC-SF wording requires verification against Turkish adaptation studies."
+      "Biliş İhtiyacı Ölçeği (NFC) resmi Türkçe form madde eşleşmesi doğrulanmaktadır."
     ],
-    "rationale": "Measures intrinsic motivation to engage in and enjoy effortful cognitive endeavors."
+    "rationale": "Karar alma kalitesi ve problem çözme yaklaşımını belirler.",
+    "subtitleTr": "Biliş İhtiyacı ve Epistemik Merak Boyutları",
+    "descriptionTr": "Zihinsel çaba gösterme arzunuzu ve bilgiye ulaşma motivasyonunuzu analiz eder."
   },
   {
     "assessmentId": "mod_volition_impulse",
-    "titleTr": "İrade, Özdenetim ve Dürtü Dinamikleri",
+    "titleTr": "İrade, Öz-Kontrol ve Dürtüsellik",
     "titleEn": "Volition, Self-Control & Impulsivity",
     "catalogCategory": "SELF_REGULATION",
     "stage": "EXPANSION",
@@ -507,9 +514,11 @@
       ]
     },
     "blockingIssues": [
-      "Commercial permission required for BSCS and UPPS-P Short Form."
+      "Kısa Öz-Kontrol Ölçeği (BSCS) ve UPPS-P kısa form resmi Türkçe madde eşleşmesi doğrulanmaktadır."
     ],
-    "rationale": "Combines Brief Self-Control (13 items) with UPPS-P 5-factor impulsivity model (20 items)."
+    "rationale": "Hedef gerçekleştirme ve alışkanlık yönetiminde kritiktir.",
+    "subtitleTr": "Öz-Kontrol Gücü ve Çok Boyutlu Dürtüsellik Dinamikleri",
+    "descriptionTr": "Hedefe odaklanma gücünü, anlık dürtüleri erteleme kapasitesini ve sebat dinamiklerini inceler."
   },
   {
     "assessmentId": "mod_basic_needs_sdt",
@@ -618,9 +627,11 @@
       ]
     },
     "blockingIssues": [
-      "BPNSFS academic citation free; commercial SaaS requires formal licensing."
+      "Temel Psikolojik İhtiyaçlar (BPNSFS) 24 maddelik Türkçe form metin doğrulaması devam etmektedir."
     ],
-    "rationale": "Measures autonomy, competence, and relatedness satisfaction and frustration."
+    "rationale": "İçsel motivasyon, tükenmişlik ve psikolojik canlılığın belirleyicisidir.",
+    "subtitleTr": "Özerklik, Yetkinlik ve İlişkililik Doyumu ile Engellenmesi",
+    "descriptionTr": "Yaşamınızdaki temel psikolojik besinlerin doyumunu ve engellenme düzeylerini haritalandırır."
   },
   {
     "assessmentId": "mod_universal_values",
@@ -718,9 +729,11 @@
       ]
     },
     "blockingIssues": [
-      "Canonical Schwartz values instruments require author licensing for commercial platform use."
+      "Schwartz Portre Değerler Anketi (PVQ-RR) Türkçe metinleri ve telif izin süreçleri devam etmektedir."
     ],
-    "rationale": "Measures Schwartz 10 basic values aggregated across 4 higher-order quadrants."
+    "rationale": "Yaşam yönelimi ve etik tutarlılığın çekirdeğidir.",
+    "subtitleTr": "Schwartz Değerler Sistemi: Öz-Gelişim, Koruma, Öz-Aşma, Değişime Açıklık",
+    "descriptionTr": "Kararlarınıza ve yaşam tercihlerinize yön veren temel değer önceliklerinizi ortaya koyar."
   },
   {
     "assessmentId": "mod_relational_attachment_empathy",
@@ -819,9 +832,11 @@
       ]
     },
     "blockingIssues": [
-      "ECR-R and IRI are open for academic research; commercial validation required."
+      "Yakın İlişkilerde Yaşantılar (ECR-R) ve Kişilerarası Tepkisellik İndeksi (IRI) Türkçe form doğrulaması sürmektedir."
     ],
-    "rationale": "Combines ECR-R (36 items) with IRI cognitive and affective empathy subscales (14 items)."
+    "rationale": "Sosyal uyum, iletişim derinliği ve ilişki sağlığını belirler.",
+    "subtitleTr": "Bağlanma Kaygısı/Kaçınması ve Bilişsel/Duygusal Empati Boyutları",
+    "descriptionTr": "Yakın ilişkilerdeki güven/mesafe kalıplarınızı ve başkalarının duygularını anlama biçiminizi inceler."
   },
   {
     "assessmentId": "mod_cognitive_adaptability",
@@ -912,13 +927,15 @@
       ]
     },
     "blockingIssues": [
-      "Commercial SaaS terms verification needed for CFI and IUS-12."
+      "Bilişsel Esneklik Envanteri (CFI) ve Belirsizliğe Tahammülsüzlük Ölçeği (IUS-12) Türkçe metin eşleşmesi sürmektedir."
     ],
-    "rationale": "Measures alternative perspective generation, control perception, and emotional tolerance of ambiguity."
+    "rationale": "Problem çözme ve karmaşık karar alma süreçlerinde destekleyicidir.",
+    "subtitleTr": "Belirsizliğe Tahammülsüzlük ve Bilişsel Esneklik",
+    "descriptionTr": "Değişen koşullara uyum sağlama hızınızı ve belirsizlik durumlarındaki zihinsel dayanıklılığınızı ölçer."
   },
   {
     "assessmentId": "mod_meaning_compassion_grit",
-    "titleTr": "Varoluşsal Anlam, Öz-Şefkat ve Azim",
+    "titleTr": "Yaşam Anlamı, Öz-Şefkat ve Sebat",
     "titleEn": "Existential Meaning, Self-Compassion & Grit",
     "catalogCategory": "MOTIVATION_VALUES",
     "stage": "DEEP",
@@ -1019,13 +1036,15 @@
       ]
     },
     "blockingIssues": [
-      "MLQ, SCS-SF, and Grit-S require commercial product licensing confirmation."
+      "Yaşamda Anlam Ölçeği (MLQ), Öz-Şefkat Ölçeği (SCS) ve Azim Ölçeği (Grit-S) Türkçe eşleşmesi sürmektedir."
     ],
-    "rationale": "Triangulates existential purpose (MLQ: 10 items), emotional self-resilience (SCS-SF: 12 items), and grit (Grit-S: 8 items)."
+    "rationale": "Zorlu yaşam dönemlerinde içsel bütünlüğü korumanın dayanağıdır.",
+    "subtitleTr": "Anlam Arayışı/Varlığı, Kendine Şefkat ve Uzun Vadeli Azim",
+    "descriptionTr": "Hayatın anlamını bulma, zor zamanlarda kendine anlayış gösterme ve hedeflere tutkuyla bağlılık seviyenizi analiz eder."
   },
   {
     "assessmentId": "mod_conflict_boundaries",
-    "titleTr": "Çatışma Çözme Yönelimleri ve Sınırlar",
+    "titleTr": "Çatışma Çözümü ve İlişki Sınırları",
     "titleEn": "Conflict Resolution Styles & Boundaries",
     "catalogCategory": "RELATIONSHIPS",
     "stage": "DEEP",
@@ -1126,13 +1145,15 @@
       ]
     },
     "blockingIssues": [
-      "DUTCH test is academic open with citation; commercial verification pending."
+      "Çatışma Yönetim Stilleri Ölçeği (DUTCH) Türkçe adaptasyon metin doğrulaması sürmektedir."
     ],
-    "rationale": "DUTCH 20-item package provides 5-mode conflict handling."
+    "rationale": "İlişkilerde yıpranmayı önler ve dengeli işbirliklerini mümkün kılar.",
+    "subtitleTr": "Çatışma Yönetim Stilleri ve Sağlıklı Kişisel Sınırlar",
+    "descriptionTr": "Anlaşmazlık durumlarında sergilediğiniz davranış biçimlerini ve sınır koyma dinamiklerinizi ölçer."
   },
   {
     "assessmentId": "mod_affective_distress",
-    "titleTr": "Duygulanım Dengesi ve Sıkıntı Toleransı",
+    "titleTr": "Duygusal Esenlik ve Sıkıntı Toleransı",
     "titleEn": "Affective Tone & Distress Tolerance",
     "catalogCategory": "EMOTION",
     "stage": "DEEP",
@@ -1221,13 +1242,15 @@
       ]
     },
     "blockingIssues": [
-      "PANAS and DTS require commercial reproduction permissions."
+      "PANAS ve Sıkıntı Toleransı Ölçeği (DTS) Türkçe kanonik metinleri doğrulanmaktadır."
     ],
-    "rationale": "Measures trait emotional experience (PANAS: 20 items) and capacity to tolerate negative emotional states (DTS: 15 items)."
+    "rationale": "Ruh hali dengesi ve duygusal toparlanma hızını gösterir.",
+    "subtitleTr": "Pozitif/Negatif Duygulanım Dengesi ve Zorlayıcı Duyguları Tolere Etme",
+    "descriptionTr": "Genel duygulanım dengenizi ve yoğun stres/sıkıntı anlarındaki dayanma kapasitenizi analiz eder."
   },
   {
     "assessmentId": "mod_flourishing_vitality",
-    "titleTr": "Psikolojik Canlılık ve Yaşam Doyumu",
+    "titleTr": "Gelişme ve Psikolojik Canlılık",
     "titleEn": "Psychological Flourishing & Life Satisfaction",
     "catalogCategory": "MOTIVATION_VALUES",
     "stage": "DEEP",
@@ -1308,13 +1331,15 @@
       ]
     },
     "blockingIssues": [
-      "Flourishing Scale and SWLS require licensing / permission review."
+      "Gelişme Ölçeği (FS) ve Öznel Canlılık Ölçeği (VS) araştırma bankası soru seti hazırlanmaktadır."
     ],
-    "rationale": "Measures eudaimonic flourishing (Diener: 8 items) and global cognitive life satisfaction (Diener SWLS: 5 items)."
+    "rationale": "Yaşam kalitesi ve pozitif psikolojik işlevselliğin göstergesidir.",
+    "subtitleTr": "Psikolojik İyilik Hali ve Öznel Canlılık Düzeyi",
+    "descriptionTr": "Bütüncül yaşam kalitenizi, sosyal işlevselliğinizi ve enerjik canlılık hissinizi değerlendirir."
   },
   {
     "assessmentId": "mod_coping_resilience",
-    "titleTr": "Başa Çıkma Stratejileri ve Stres Dayanıklılığı",
+    "titleTr": "Stresle Başa Çıkma ve Dayanıklılık",
     "titleEn": "Coping Strategies & Stress Resilience",
     "catalogCategory": "EMOTION",
     "stage": "DEEP",
@@ -1403,13 +1428,15 @@
       ]
     },
     "blockingIssues": [
-      "Brief COPE and BRS require commercial usage authorization."
+      "Brief COPE ve Brief Resilience Scale (BRS) soru seti bilimsel araştırma aşamasındadır."
     ],
-    "rationale": "Measures problem/emotion coping styles (Brief-COPE: 14 items) and psychological bounce-back resilience (BRS: 6 items)."
+    "rationale": "Uzun vadeli zorluklar karşısında psikolojik sağlamlığı destekler.",
+    "subtitleTr": "Problem/Duygu Odaklı Başa Çıkma ve Psikolojik Sağlamlık",
+    "descriptionTr": "Stresli yaşam olaylarıyla yüzleşme biçiminizi ve toparlanma hızınızı ölçer."
   },
   {
     "assessmentId": "mod_creativity_growth",
-    "titleTr": "Yaratıcı Zihniyet ve Epistemik Merak",
+    "titleTr": "Yaratıcı Öz-İnanç ve Gelişim Zihniyeti",
     "titleEn": "Creative Mindset & Epistemic Curiosity",
     "catalogCategory": "COGNITION",
     "stage": "DEEP",
@@ -1498,13 +1525,15 @@
       ]
     },
     "blockingIssues": [
-      "5DCR Curiosity and Creative Self-Efficacy instruments require Turkish psychometric verification."
+      "Yaratıcı Öz-Yeterlik ve Gelişim Zihniyeti araştırma soru seti hazırlanmaktadır."
     ],
-    "rationale": "Measures Joyous Exploration and Deprivation Sensitivity curiosity (10 items) plus creative self-efficacy and mindset (6 items)."
+    "rationale": "Öğrenme çevikliği ve yenilikçi düşünme potansiyelini besler.",
+    "subtitleTr": "Yaratıcı Öz-Yeterlik ve Zihniyet Esnekliği",
+    "descriptionTr": "Yaratıcı potansiyelinize olan inancınızı ve yeteneklerin geliştirilebilirliğine dair bakış açınızı analiz eder."
   },
   {
     "assessmentId": "mod_dark_tetrad_advanced",
-    "titleTr": "Subklinik Kişilik Dinamikleri",
+    "titleTr": "Uç Kişilik Eğilimleri ve Dinamikler",
     "titleEn": "Subclinical Personality Dynamics (SD4)",
     "catalogCategory": "ADVANCED",
     "stage": "ADVANCED",
@@ -1594,8 +1623,10 @@
       ]
     },
     "blockingIssues": [
-      "Strictly non-clinical research module. Excluded from default consumer journey; available only via opt-in."
+      "Karanlık Dörtlü (SD4-28) resmi Türkçe adaptasyon metin doğrulaması devam etmektedir."
     ],
-    "rationale": "28-item validated scale for subclinical personality traits (Paulhus et al. 2021)."
+    "rationale": "İleri düzey psikolojik araştırma ve uç kişilik dinamikleri incelemesidir.",
+    "subtitleTr": "Makyavelizm, Narsisizm, Psikopati ve Sadizm Eğilimleri",
+    "descriptionTr": "Kişilik yapısının uç ve gölgede kalan stratejik dinamiklerini bilimsel sınırlarla inceler."
   }
 ]

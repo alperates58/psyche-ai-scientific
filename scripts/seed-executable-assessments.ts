@@ -2,503 +2,299 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export interface ModuleSeedConfig {
-  assessmentId: string;
-  code: string;
+export interface VerifiedFormManifest {
+  moduleCode: string;
+  formVersionCode: string;
+  instrumentId: string;
   titleTr: string;
   titleEn: string;
   descriptionTr: string;
   descriptionEn: string;
   estimatedMinutes: number;
-  stage: 'CORE' | 'EXPANSION' | 'DEEP' | 'ADVANCED';
-  category: string;
-  isExecutable: boolean;
-  expectedItemCount: number;
-  scoringModelCode: string;
-  facetItemAllocations: Array<{ facetId: string; count: number }>;
+  itemCodes: string[];
 }
 
-export const MODULE_CONFIGS: ModuleSeedConfig[] = [
-  // 1. CORE PERSONALITY (HEXACO-60)
+/**
+ * Authoritative Manifests of Exact Validated Forms.
+ * In accordance with FAZ 2.16 Provenance Lock:
+ * A named form can ONLY be seeded/published if its exact item IDs/codes are explicitly verified.
+ */
+export const VERIFIED_FORM_MANIFESTS: VerifiedFormManifest[] = [
   {
-    assessmentId: 'mod_core_hexaco_60',
-    code: 'mod_core_hexaco_60',
-    titleTr: 'Modül 1: Temel Kişilik Boyutları (HEXACO-60)',
-    titleEn: 'Module 1: Core Personality Dimensions (HEXACO-60)',
-    descriptionTr: 'Altı temel kişilik faktörünün (Dürüstlük-Alçakgönüllülük, Duygusallık, Dışadönüklük, Uyumluluk, Sorumluluk, Deneyime Açıklık) ve 24 alt boyutunun psikometrik ölçümü.',
-    descriptionEn: 'Psychometric measurement of the six core personality factors and 24 facets.',
-    estimatedMinutes: 12,
-    stage: 'CORE',
-    category: 'PERSONALITY',
-    isExecutable: true,
-    expectedItemCount: 60,
-    scoringModelCode: 'HEXACO_PRECALIBRATION_V1',
-    facetItemAllocations: [
-      { facetId: 'sincerity', count: 3 },
-      { facetId: 'fairness', count: 3 },
-      { facetId: 'greed_avoidance', count: 2 },
-      { facetId: 'modesty', count: 2 },
-      { facetId: 'fearfulness', count: 3 },
-      { facetId: 'anxiety_proneness', count: 3 },
-      { facetId: 'dependence', count: 2 },
-      { facetId: 'sentimentality', count: 2 },
-      { facetId: 'social_self_esteem', count: 3 },
-      { facetId: 'social_boldness', count: 3 },
-      { facetId: 'sociability', count: 2 },
-      { facetId: 'liveliness', count: 2 },
-      { facetId: 'forgiveness', count: 3 },
-      { facetId: 'gentleness', count: 3 },
-      { facetId: 'flexibility', count: 2 },
-      { facetId: 'patience', count: 2 },
-      { facetId: 'organization', count: 3 },
-      { facetId: 'diligence', count: 3 },
-      { facetId: 'perfectionism', count: 2 },
-      { facetId: 'prudence', count: 2 },
-      { facetId: 'aesthetic_appreciation', count: 3 },
-      { facetId: 'inquisitiveness', count: 3 },
-      { facetId: 'creativity', count: 2 },
-      { facetId: 'unconventionality', count: 2 },
-    ],
-  },
-
-  // 2. SELF-AGENCY (RSES & GSE)
-  {
-    assessmentId: 'mod_self_agency',
-    code: 'mod_self_agency',
-    titleTr: 'Modül 2: Benlik Sistemi ve Öz-Yetkinlik (RSES & GSE)',
-    titleEn: 'Module 2: Self-System & Generalized Agency (RSES & GSE)',
-    descriptionTr: 'Rosenberg Benlik Saygısı ve Schwarzer-Jerusalem Genel Öz-Yeterlik ölçekleri ile içsel değerlilik ve başa çıkma inancının ölçümü.',
-    descriptionEn: 'Measurement of self-esteem and generalized self-efficacy via RSES and GSE scales.',
-    estimatedMinutes: 4,
-    stage: 'CORE',
-    category: 'SELF_REGULATION',
-    isExecutable: true,
-    expectedItemCount: 20,
-    scoringModelCode: 'SELF_AGENCY_PRECALIBRATION_V1',
-    facetItemAllocations: [
-      { facetId: 'core_self_esteem', count: 10 },
-      { facetId: 'generalized_self_efficacy', count: 10 },
-    ],
-  },
-
-  // 3. EMOTION REGULATION (ERQ)
-  {
-    assessmentId: 'mod_emotion_regulation',
-    code: 'mod_emotion_regulation',
-    titleTr: 'Modül 3: Duygu Düzenleme Stratejileri (ERQ)',
-    titleEn: 'Module 3: Emotion Regulation Strategies (ERQ)',
-    descriptionTr: 'Gross & John Duygu Düzenleme Anketi doğrultusunda bilişsel yeniden değerlendirme ve duygusal bastırma stratejilerinin ölçümü.',
-    descriptionEn: 'Measurement of cognitive reappraisal and expressive suppression strategies via ERQ.',
-    estimatedMinutes: 2,
-    stage: 'CORE',
-    category: 'EMOTION',
-    isExecutable: true,
-    expectedItemCount: 10,
-    scoringModelCode: 'ERQ_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'cognitive_reappraisal', count: 6 },
-      { facetId: 'expressive_suppression', count: 4 },
-    ],
-  },
-
-  // 4. COGNITIVE & EPISTEMIC ORIENTATION (NFC & NFCS)
-  {
-    assessmentId: 'mod_cognitive_epistemic',
-    code: 'mod_cognitive_epistemic',
-    titleTr: 'Modül 4: Bilişsel ve Epistemik Yönelim (NFC & NFCS)',
-    titleEn: 'Module 4: Cognitive & Epistemic Orientation (NFC & NFCS)',
-    descriptionTr: 'Biliş ihtiyacı ve bilişsel kapanma ihtiyacı üzerinden zihinsel çaba harcama ve belirsizliği sonlandırma eğilimlerinin ölçümü.',
-    descriptionEn: 'Measurement of need for cognition and need for cognitive closure.',
-    estimatedMinutes: 4,
-    stage: 'CORE',
-    category: 'COGNITION',
-    isExecutable: true,
-    expectedItemCount: 18,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'need_for_cognition', count: 10 },
-      { facetId: 'need_for_cognitive_closure', count: 8 },
-    ],
-  },
-
-  // 5. VOLITION & IMPULSE CONTROL (BSCS & UPPS-P)
-  {
-    assessmentId: 'mod_volition_impulse',
-    code: 'mod_volition_impulse',
-    titleTr: 'Modül 5: İrade, Özdenetim ve Dürtü Kontrolü (BSCS & UPPS-P)',
-    titleEn: 'Module 5: Volition, Self-Control & Impulsivity (BSCS & UPPS-P)',
-    descriptionTr: 'Genel özdenetim, gecikme indirgeme ve çok boyutlu dürtüsellik dinamiklerinin (acil tepkisellik, sebat, planlılık, heyecan arayışı) ölçümü.',
-    descriptionEn: 'Measurement of general self-control and multidimensional impulsivity via BSCS and UPPS-P.',
-    estimatedMinutes: 7,
-    stage: 'EXPANSION',
-    category: 'SELF_REGULATION',
-    isExecutable: true,
-    expectedItemCount: 33,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'general_self_control', count: 8 },
-      { facetId: 'delay_discounting', count: 5 },
-      { facetId: 'negative_urgency', count: 4 },
-      { facetId: 'positive_urgency', count: 4 },
-      { facetId: 'lack_of_premeditation', count: 4 },
-      { facetId: 'lack_of_perseverance', count: 4 },
-      { facetId: 'sensation_seeking', count: 4 },
-    ],
-  },
-
-  // 6. BASIC PSYCHOLOGICAL NEEDS (BPNSFS)
-  {
-    assessmentId: 'mod_basic_needs_sdt',
-    code: 'mod_basic_needs_sdt',
-    titleTr: 'Modül 6: Temel Psikolojik İhtiyaçlar (BPNSFS)',
-    titleEn: 'Module 6: Basic Psychological Needs (BPNSFS)',
-    descriptionTr: 'Öz-Belirleme Kuramı doğrultusunda özerklik, yetkinlik ve ilişkili olma temel ihtiyaçlarının doyumunun ölçümü.',
-    descriptionEn: 'Measurement of autonomy, competence, and relatedness need satisfaction via BPNSFS.',
+    moduleCode: 'mod_core_hexaco_60',
+    formVersionCode: 'v1.0.0',
+    instrumentId: 'inst_ipip_hexaco',
+    titleTr: 'Temel Kişilik Yapısı',
+    titleEn: 'Core Personality Structure',
+    descriptionTr: 'Psikolojik profilinizin temel omurgasını oluşturan 6 temel faktörü ve alt boyutları ölçer (IPIP-HEXACO Ön-Kalibrasyon Formu).',
+    descriptionEn: 'Measures the 6 core personality factors and sub-facets (IPIP-HEXACO Pre-Calibration Form).',
     estimatedMinutes: 5,
-    stage: 'EXPANSION',
-    category: 'MOTIVATION_VALUES',
-    isExecutable: true,
-    expectedItemCount: 24,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'autonomy_need', count: 8 },
-      { facetId: 'competence_need', count: 8 },
-      { facetId: 'relatedness_need', count: 8 },
-    ],
-  },
-
-  // 7. UNIVERSAL VALUES (PVQ-RR)
-  {
-    assessmentId: 'mod_universal_values',
-    code: 'mod_universal_values',
-    titleTr: 'Modül 7: Evrensel İnsani Değerler (PVQ-RR)',
-    titleEn: 'Module 7: Universal Human Values (PVQ-RR)',
-    descriptionTr: 'Schwartz evrensel değerler çemberi doğrultusunda değişime açıklık, öz-aşma, koruma ve öz-gelişim değer önceliklerinin ölçümü.',
-    descriptionEn: 'Measurement of universal human values across openness to change, self-transcendence, conservation, and self-enhancement.',
-    estimatedMinutes: 8,
-    stage: 'EXPANSION',
-    category: 'MOTIVATION_VALUES',
-    isExecutable: true,
-    expectedItemCount: 40,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'values_openness_to_change', count: 10 },
-      { facetId: 'values_self_transcendence', count: 10 },
-      { facetId: 'values_conservation', count: 10 },
-      { facetId: 'values_self_enhancement', count: 10 },
-    ],
-  },
-
-  // 8. RELATIONAL ATTACHMENT & EMPATHY (ECR-R & IRI)
-  {
-    assessmentId: 'mod_relational_attachment_empathy',
-    code: 'mod_relational_attachment_empathy',
-    titleTr: 'Modül 8: İlişkisel Bağlanma ve Empati (ECR-R & IRI)',
-    titleEn: 'Module 8: Relational Attachment & Empathy (ECR-R & IRI)',
-    descriptionTr: 'Yakın ilişkilerde yetişkin bağlanma boyutları (kaygı, kaçınma) ve çok boyutlu empati (bilişsel perspektif alma, empatik ilgi) analizi.',
-    descriptionEn: 'Assessment of adult attachment anxiety/avoidance and multidimensional empathy via ECR-R and IRI.',
-    estimatedMinutes: 8,
-    stage: 'EXPANSION',
-    category: 'RELATIONSHIPS',
-    isExecutable: true,
-    expectedItemCount: 40,
-    scoringModelCode: 'ECR_R_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'attachment_anxiety', count: 10 },
-      { facetId: 'attachment_avoidance', count: 10 },
-      { facetId: 'cognitive_perspective_taking', count: 10 },
-      { facetId: 'empathic_concern', count: 10 },
-    ],
-  },
-
-  // 9. COGNITIVE ADAPTABILITY & THINKING STYLES (CFI, IUS, REI)
-  {
-    assessmentId: 'mod_cognitive_adaptability',
-    code: 'mod_cognitive_adaptability',
-    titleTr: 'Modül 9: Bilişsel Esneklik ve Belirsizlik Yönetimi (CFI & IUS)',
-    titleEn: 'Module 9: Cognitive Adaptability & Uncertainty Management (CFI & IUS)',
-    descriptionTr: 'Bilişsel esneklik, belirsizliğe tahammülsüzlük, ruminasyon ve rasyonel/sezgisel düşünme tarzlarının ölçümü.',
-    descriptionEn: 'Measurement of cognitive flexibility, intolerance of uncertainty, rumination, and dual-process thinking styles.',
-    estimatedMinutes: 7,
-    stage: 'DEEP',
-    category: 'COGNITION',
-    isExecutable: true,
-    expectedItemCount: 32,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'cognitive_flexibility', count: 10 },
-      { facetId: 'intolerance_of_uncertainty', count: 10 },
-      { facetId: 'rumination_brooding', count: 6 },
-      { facetId: 'rational_analytical_style', count: 3 },
-      { facetId: 'intuitive_experiential_style', count: 3 },
-    ],
-  },
-
-  // 10. EXISTENTIAL MEANING, COMPASSION & GRIT (MLQ, SCS, GRIT)
-  {
-    assessmentId: 'mod_meaning_compassion_grit',
-    code: 'mod_meaning_compassion_grit',
-    titleTr: 'Modül 10: Yaşam Anlamı, Öz-Şefkat ve Azim (MLQ, SCS, GRIT)',
-    titleEn: 'Module 10: Existential Meaning, Self-Compassion & Grit (MLQ, SCS, GRIT)',
-    descriptionTr: 'Yaşamda anlam varlığı, anlam arayışı, kendine şefkatli yaklaşım ve uzun vadeli azim-sebat dinamiklerinin ölçümü.',
-    descriptionEn: 'Measurement of presence and search for meaning, self-compassion, and long-term grit.',
-    estimatedMinutes: 6,
-    stage: 'DEEP',
-    category: 'MOTIVATION_VALUES',
-    isExecutable: true,
-    expectedItemCount: 30,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'presence_of_meaning', count: 5 },
-      { facetId: 'search_for_meaning', count: 5 },
-      { facetId: 'self_compassion', count: 10 },
-      { facetId: 'long_term_grit', count: 10 },
-    ],
-  },
-
-  // 11. CONFLICT STYLES & BOUNDARIES (DUTCH, TKI)
-  {
-    assessmentId: 'mod_conflict_boundaries',
-    code: 'mod_conflict_boundaries',
-    titleTr: 'Modül 11: Çatışma Çözme Yönelimleri ve Sınırlar (DUTCH & TKI)',
-    titleEn: 'Module 11: Conflict Resolution Styles & Boundaries (DUTCH & TKI)',
-    descriptionTr: 'İşbirliği, kaçınma, atılganlık (assertiveness) ve ilişkisel sınır koyma dinamiklerinin ölçümü.',
-    descriptionEn: 'Measurement of cooperation, avoidance, assertiveness, and personal boundary setting.',
-    estimatedMinutes: 4,
-    stage: 'DEEP',
-    category: 'RELATIONSHIPS',
-    isExecutable: true,
-    expectedItemCount: 20,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'conflict_collaborating', count: 5 },
-      { facetId: 'conflict_avoiding', count: 5 },
-      { facetId: 'assertiveness', count: 5 },
-      { facetId: 'boundary_setting', count: 5 },
-    ],
-  },
-
-  // 12. AFFECTIVE DYNAMICS & DISTRESS TOLERANCE (PANAS, DTS)
-  {
-    assessmentId: 'mod_affective_distress',
-    code: 'mod_affective_distress',
-    titleTr: 'Modül 12: Duygulanım Dengesi ve Sıkıntı Toleransı (PANAS & DTS)',
-    titleEn: 'Module 12: Affective Dynamics & Distress Tolerance (PANAS & DTS)',
-    descriptionTr: 'Pozitif ve negatif mizaç duygulanımı, duygusal tepkisellik, sıkıntı toleransı ve yaşantısal kaçınmanın ölçümü.',
-    descriptionEn: 'Measurement of positive/negative trait affect, emotional reactivity, and distress tolerance.',
-    estimatedMinutes: 7,
-    stage: 'DEEP',
-    category: 'EMOTION',
-    isExecutable: true,
-    expectedItemCount: 35,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'trait_positive_affect', count: 10 },
-      { facetId: 'trait_negative_affect', count: 10 },
-      { facetId: 'emotional_reactivity', count: 5 },
-      { facetId: 'distress_tolerance', count: 5 },
-      { facetId: 'experiential_avoidance', count: 5 },
-    ],
-  },
-
-  // 13. FLOURISHING & VITALITY (CONTENT PENDING)
-  {
-    assessmentId: 'mod_flourishing_vitality',
-    code: 'mod_flourishing_vitality',
-    titleTr: 'Modül 13: Psikolojik Gelişme ve Öznel Canlılık (FS & SVS)',
-    titleEn: 'Module 13: Psychological Flourishing & Subjective Vitality (FS & SVS)',
-    descriptionTr: 'Psikolojik gelişme, yaşam doyumu ve öznel canlılık dinamiklerinin ölçümü (İçerik araştırma aşamasındadır).',
-    descriptionEn: 'Psychological flourishing and subjective vitality (Content in authoring phase).',
-    estimatedMinutes: 3,
-    stage: 'DEEP',
-    category: 'MOTIVATION_VALUES',
-    isExecutable: false,
-    expectedItemCount: 13,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [],
-  },
-
-  // 14. COPING & RESILIENCE (CONTENT PENDING)
-  {
-    assessmentId: 'mod_coping_resilience',
-    code: 'mod_coping_resilience',
-    titleTr: 'Modül 14: Başa Çıkma Stratejileri ve Stres Dayanıklılığı (Brief-COPE & BRS)',
-    titleEn: 'Module 14: Coping Strategies & Stress Resilience (Brief-COPE & BRS)',
-    descriptionTr: 'Problem ve duygu odaklı başa çıkma ile stres toparlanma gücünün ölçümü (İçerik araştırma aşamasındadır).',
-    descriptionEn: 'Problem/emotion focused coping and stress recovery (Content in authoring phase).',
-    estimatedMinutes: 4,
-    stage: 'DEEP',
-    category: 'EMOTION',
-    isExecutable: false,
-    expectedItemCount: 20,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [],
-  },
-
-  // 15. CREATIVITY & GROWTH MINDSET (CONTENT PENDING)
-  {
-    assessmentId: 'mod_creativity_growth',
-    code: 'mod_creativity_growth',
-    titleTr: 'Modül 15: Yaratıcı Zihniyet ve Epistemik Merak (5DCR & Dweck)',
-    titleEn: 'Module 15: Creative Mindset & Epistemic Curiosity (5DCR & Dweck)',
-    descriptionTr: 'Yaratıcı öz-yeterlik, zihinsel merak ve gelişim zihniyetinin ölçümü (İçerik araştırma aşamasındadır).',
-    descriptionEn: 'Creative self-efficacy and growth mindset (Content in authoring phase).',
-    estimatedMinutes: 3,
-    stage: 'DEEP',
-    category: 'COGNITION',
-    isExecutable: false,
-    expectedItemCount: 16,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [],
-  },
-
-  // 16. ADVANCED DARK TETRAD (SD4)
-  {
-    assessmentId: 'mod_dark_tetrad_advanced',
-    code: 'mod_dark_tetrad_advanced',
-    titleTr: 'Modül 16: Subklinik Kişilik Dinamikleri (Short Dark Tetrad - SD4)',
-    titleEn: 'Module 16: Subclinical Personality Dynamics (Short Dark Tetrad - SD4)',
-    descriptionTr: 'Makyevelizm, narsisizm, psikopati ve gündelik sadizm eğilimlerinin subklinik ölçümü (İsteğe bağlı ileri düzey araştırma modülü).',
-    descriptionEn: 'Subclinical assessment of Machiavellianism, narcissism, psychopathy, and sadism via SD4.',
-    estimatedMinutes: 6,
-    stage: 'ADVANCED',
-    category: 'ADVANCED',
-    isExecutable: true,
-    expectedItemCount: 28,
-    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
-    facetItemAllocations: [
-      { facetId: 'machiavellianism', count: 7 },
-      { facetId: 'grandiose_narcissism', count: 7 },
-      { facetId: 'subclinical_psychopathy', count: 7 },
-      { facetId: 'everyday_sadism', count: 7 },
+    itemCodes: [
+      'itm_hex_sinc_01',
+      'itm_hex_fair_01',
+      'itm_hex_greed_01',
+      'itm_hex_mod_01',
+      'itm_hex_fear_01',
+      'itm_hex_anx_01',
+      'itm_hex_soc_01',
+      'itm_hex_livel_01',
+      'itm_hex_forg_01',
+      'itm_hex_pat_01',
+      'itm_hex_org_01',
+      'itm_hex_dilig_01',
+      'itm_hex_prud_01',
+      'itm_hex_aes_01',
+      'itm_hex_inq_01',
+      'itm_hex_cre_01',
+      'itm_attn_chk_01',
     ],
   },
 ];
 
+export const ALL_16_MODULE_DEFINITIONS = [
+  {
+    code: 'mod_core_hexaco_60',
+    titleTr: 'Temel Kişilik Yapısı',
+    titleEn: 'Core Personality Structure',
+    descriptionTr: 'Psikolojik profilinizin temel omurgasını oluşturan 6 temel faktörü ve alt boyutları ölçer.',
+    descriptionEn: 'Measures 6 core personality factors and sub-facets.',
+    estimatedMinutes: 5,
+  },
+  {
+    code: 'mod_self_agency',
+    titleTr: 'Benlik Sistemi ve Öz-Yetkinlik',
+    titleEn: 'Self-System & Generalized Agency',
+    descriptionTr: 'İçsel değerlilik algınızı ve zorluklarla başa çıkma inancınızı bağımsız ölçeklerle ölçer.',
+    descriptionEn: 'Measures core self-worth and general competence expectancy.',
+    estimatedMinutes: 4,
+  },
+  {
+    code: 'mod_emotion_regulation',
+    titleTr: 'Duygu Düzenleme Stratejileri',
+    titleEn: 'Emotion Regulation Strategies',
+    descriptionTr: 'Duygusal deneyimleri dönüştürme ve ifade etme tarzlarınızı iki bağımsız eksende değerlendirir.',
+    descriptionEn: 'Evaluates cognitive reappraisal and expressive suppression.',
+    estimatedMinutes: 2,
+  },
+  {
+    code: 'mod_cognitive_epistemic',
+    titleTr: 'Bilişsel ve Epistemik Yönelim',
+    titleEn: 'Cognitive & Epistemic Orientation',
+    descriptionTr: 'Zihinsel çaba gösterme arzunuzu ve bilgiye ulaşma motivasyonunuzu analiz eder.',
+    descriptionEn: 'Analyzes need for cognition and epistemic curiosity.',
+    estimatedMinutes: 4,
+  },
+  {
+    code: 'mod_volition_impulse',
+    titleTr: 'İrade, Öz-Kontrol ve Dürtüsellik',
+    titleEn: 'Volition, Self-Control & Impulsivity',
+    descriptionTr: 'Hedefe odaklanma gücünü, anlık dürtüleri erteleme kapasitesini ve sebat dinamiklerini inceler.',
+    descriptionEn: 'Evaluates self-control and impulsivity dimensions.',
+    estimatedMinutes: 7,
+  },
+  {
+    code: 'mod_basic_needs_sdt',
+    titleTr: 'Temel Psikolojik İhtiyaçlar',
+    titleEn: 'Basic Psychological Needs',
+    descriptionTr: 'Yaşamınızdaki temel psikolojik besinlerin doyumunu ve engellenme düzeylerini haritalandırır.',
+    descriptionEn: 'Maps basic psychological need satisfaction and frustration.',
+    estimatedMinutes: 5,
+  },
+  {
+    code: 'mod_universal_values',
+    titleTr: 'Evrensel İnsani Değerler',
+    titleEn: 'Universal Human Values',
+    descriptionTr: 'Kararlarınıza ve yaşam tercihlerinize yön veren temel değer önceliklerinizi ortaya koyar.',
+    descriptionEn: 'Reveals universal human value priorities.',
+    estimatedMinutes: 10,
+  },
+  {
+    code: 'mod_relational_attachment_empathy',
+    titleTr: 'İlişkisel Bağlanma ve Empati',
+    titleEn: 'Relational Attachment & Empathy',
+    descriptionTr: 'Yakın ilişkilerdeki güven/mesafe kalıplarınızı ve başkalarının duygularını anlama biçiminizi inceler.',
+    descriptionEn: 'Evaluates adult attachment and cognitive/affective empathy.',
+    estimatedMinutes: 10,
+  },
+  {
+    code: 'mod_cognitive_adaptability',
+    titleTr: 'Bilişsel Esneklik ve Belirsizlik Yönetimi',
+    titleEn: 'Cognitive Adaptability & Uncertainty Management',
+    descriptionTr: 'Değişen koşullara uyum sağlama hızınızı ve belirsizlik durumlarındaki zihinsel dayanıklılığınızı ölçer.',
+    descriptionEn: 'Assesses cognitive flexibility and intolerance of uncertainty.',
+    estimatedMinutes: 7,
+  },
+  {
+    code: 'mod_meaning_compassion_grit',
+    titleTr: 'Yaşam Anlamı, Öz-Şefkat ve Sebat',
+    titleEn: 'Existential Meaning, Self-Compassion & Grit',
+    descriptionTr: 'Hayatın anlamını bulma, zor zamanlarda kendine anlayış gösterme ve hedeflere tutkuyla bağlılık seviyenizi analiz eder.',
+    descriptionEn: 'Synthesizes meaning in life, self-compassion, and grit.',
+    estimatedMinutes: 6,
+  },
+  {
+    code: 'mod_conflict_boundaries',
+    titleTr: 'Çatışma Çözümü ve İlişki Sınırları',
+    titleEn: 'Conflict Resolution Styles & Boundaries',
+    descriptionTr: 'Anlaşmazlık durumlarında sergilediğiniz davranış biçimlerini ve sınır koyma dinamiklerinizi ölçer.',
+    descriptionEn: 'Maps conflict styles and personal boundary regulation.',
+    estimatedMinutes: 4.5,
+  },
+  {
+    code: 'mod_affective_distress',
+    titleTr: 'Duygusal Esenlik ve Sıkıntı Toleransı',
+    titleEn: 'Affective Tone & Distress Tolerance',
+    descriptionTr: 'Genel duygulanım dengenizi ve yoğun stres/sıkıntı anlarındaki dayanma kapasitenizi analiz eder.',
+    descriptionEn: 'Analyzes affect balance and distress tolerance.',
+    estimatedMinutes: 7.5,
+  },
+  {
+    code: 'mod_flourishing_vitality',
+    titleTr: 'Gelişme ve Psikolojik Canlılık',
+    titleEn: 'Psychological Flourishing & Life Satisfaction',
+    descriptionTr: 'Bütüncül yaşam kalitenizi, sosyal işlevselliğinizi ve enerjik canlılık hissinizi değerlendirir.',
+    descriptionEn: 'Evaluates psychological flourishing and subjective vitality.',
+    estimatedMinutes: 3,
+  },
+  {
+    code: 'mod_coping_resilience',
+    titleTr: 'Stresle Başa Çıkma ve Dayanıklılık',
+    titleEn: 'Coping Strategies & Stress Resilience',
+    descriptionTr: 'Stresli yaşam olaylarıyla yüzleşme biçiminizi ve toparlanma hızınızı ölçer.',
+    descriptionEn: 'Measures coping repertoires and psychological resilience.',
+    estimatedMinutes: 4.5,
+  },
+  {
+    code: 'mod_creativity_growth',
+    titleTr: 'Yaratıcı Öz-İnanç ve Gelişim Zihniyeti',
+    titleEn: 'Creative Mindset & Epistemic Curiosity',
+    descriptionTr: 'Yaratıcı potansiyelinize olan inancınızı ve yeteneklerin geliştirilebilirliğine dair bakış açınızı analiz eder.',
+    descriptionEn: 'Maps creative self-efficacy and growth mindset.',
+    estimatedMinutes: 3.5,
+  },
+  {
+    code: 'mod_dark_tetrad_advanced',
+    titleTr: 'Uç Kişilik Eğilimleri ve Dinamikler',
+    titleEn: 'Short Dark Tetrad Personality Dimensions',
+    descriptionTr: 'Kişilik yapısının uç ve gölgede kalan stratejik dinamiklerini bilimsel sınırlarla inceler.',
+    descriptionEn: 'Examines subclinical dark tetrad personality tendencies.',
+    estimatedMinutes: 6,
+  },
+];
+
 export async function seedExecutableAssessments() {
-  console.log('='.repeat(65));
-  console.log('SEEDING EXECUTABLE ASSESSMENT SYSTEM & FORMS (FAZ 2.16)');
-  console.log('='.repeat(65));
+  console.log('='.repeat(75));
+  console.log('FAZ 2.16: SCIENTIFIC ASSESSMENT SEEDING (ITEM PROVENANCE LOCK)');
+  console.log('='.repeat(75));
 
-  // 1. Ensure scoring models exist
-  const scoringModels = [
-    { code: 'PRE_CALIBRATION_MEAN_V1', description: 'Standartlaştırılmamış ham aritmetik bileşik ortalama modeli', algorithm: 'UNWEIGHTED_COMPOSITE_MEAN' },
-    { code: 'HEXACO_PRECALIBRATION_V1', description: 'HEXACO 6 faktör ve 24 facet ön kalibrasyon puanlama modeli', algorithm: 'HEXACO_60_MEAN' },
-    { code: 'SELF_AGENCY_PRECALIBRATION_V1', description: 'Benlik Saygısı (RSES) ve Öz-Yeterlik (GSE) bağımsız alt ölçek puanlama modeli', algorithm: 'SELF_AGENCY_INDEPENDENT_MEAN' },
-    { code: 'ERQ_MEAN_V1', description: 'Duygu Düzenleme Anketi (Bilişsel Yeniden Değerlendirme & Bastırma) puanlama modeli', algorithm: 'ERQ_INDEPENDENT_MEAN' },
-    { code: 'ECR_R_MEAN_V1', description: 'Yakın İlişkilerde Yaşantılar (Kaygı & Kaçınma) puanlama modeli', algorithm: 'ECR_R_INDEPENDENT_MEAN' },
-  ];
-
-  for (const sm of scoringModels) {
-    await prisma.scoringModelVersion.upsert({
-      where: { code: sm.code },
-      update: { description: sm.description, algorithm: sm.algorithm, isPreCalibration: true },
-      create: { code: sm.code, description: sm.description, algorithm: sm.algorithm, isPreCalibration: true },
-    });
-  }
-  console.log('✓ Scoring models verified in DB.');
-
-  // 2. Fetch all ItemVersions with Items and Options from DB
-  const allItemVersions = await prisma.itemVersion.findMany({
-    where: { isActive: true },
-    include: {
-      item: {
-        include: { facet: true },
-      },
-      options: {
-        orderBy: { sortOrder: 'asc' },
-      },
-    },
-    orderBy: { createdAt: 'asc' },
-  });
-
-  console.log(`✓ Loaded ${allItemVersions.length} active ItemVersions from DB.`);
-
-  let totalFormsPublished = 0;
-  let totalFormItemsCreated = 0;
-
-  for (const conf of MODULE_CONFIGS) {
-    // Upsert AssessmentModule
-    const moduleRecord = await prisma.assessmentModule.upsert({
-      where: { code: conf.code },
+  // 1. Ensure all 16 AssessmentModule metadata records exist with 100% Turkish text
+  for (const def of ALL_16_MODULE_DEFINITIONS) {
+    await prisma.assessmentModule.upsert({
+      where: { code: def.code },
       update: {
-        titleTr: conf.titleTr,
-        titleEn: conf.titleEn,
-        descriptionTr: conf.descriptionTr,
-        descriptionEn: conf.descriptionEn,
-        estimatedMinutes: conf.estimatedMinutes,
+        titleTr: def.titleTr,
+        titleEn: def.titleEn,
+        descriptionTr: def.descriptionTr,
+        descriptionEn: def.descriptionEn,
+        estimatedMinutes: Math.round(def.estimatedMinutes),
       },
       create: {
-        id: conf.assessmentId,
-        code: conf.code,
-        titleTr: conf.titleTr,
-        titleEn: conf.titleEn,
-        descriptionTr: conf.descriptionTr,
-        descriptionEn: conf.descriptionEn,
-        estimatedMinutes: conf.estimatedMinutes,
+        id: def.code,
+        code: def.code,
+        titleTr: def.titleTr,
+        titleEn: def.titleEn,
+        descriptionTr: def.descriptionTr,
+        descriptionEn: def.descriptionEn,
+        estimatedMinutes: Math.round(def.estimatedMinutes),
+      },
+    });
+  }
+  console.log('✓ All 16 AssessmentModule records registered/updated in Turkish.');
+
+  // 2. Process Verified Form Manifests
+  let publishedFormsCount = 0;
+  let totalMappedItems = 0;
+
+  for (const manifest of VERIFIED_FORM_MANIFESTS) {
+    const mod = await prisma.assessmentModule.findUnique({
+      where: { code: manifest.moduleCode },
+    });
+    if (!mod) {
+      throw new Error(`Module ${manifest.moduleCode} not found in DB`);
+    }
+
+    // Load exact items by itemCode
+    const items = await prisma.item.findMany({
+      where: { itemCode: { in: manifest.itemCodes } },
+      include: {
+        versions: {
+          where: { versionNumber: 1 },
+        },
       },
     });
 
-    if (!conf.isExecutable) {
-      console.log(`- [CONTENT_PENDING] ${conf.code}: Module metadata registered (No active form).`);
-      continue;
+    const itemMap = new Map<string, typeof items[0]>();
+    for (const itm of items) {
+      itemMap.set(itm.itemCode, itm);
     }
 
-    // Collect ItemVersions matching the facet allocations
-    const selectedItemVersions: typeof allItemVersions = [];
-    const usedItemVersionIds = new Set<string>();
-
-    for (const alloc of conf.facetItemAllocations) {
-      const candidates = allItemVersions.filter(
-        (iv) => iv.item.facetId === alloc.facetId && !usedItemVersionIds.has(iv.id)
-      );
-
-      if (candidates.length < alloc.count) {
-        console.warn(`[WARN] Not enough items for facet '${alloc.facetId}' in module '${conf.code}'. Expected ${alloc.count}, found ${candidates.length}`);
-      }
-
-      const picked = candidates.slice(0, alloc.count);
-      for (const p of picked) {
-        selectedItemVersions.push(p);
-        usedItemVersionIds.add(p.id);
-      }
+    // Verify all manifest items exist
+    const missingCodes = manifest.itemCodes.filter((code) => !itemMap.has(code));
+    if (missingCodes.length > 0) {
+      throw new Error(`Manifest for ${manifest.moduleCode} has missing items: ${missingCodes.join(', ')}`);
     }
 
-    if (selectedItemVersions.length !== conf.expectedItemCount) {
-      console.warn(`[WARN] Module ${conf.code} item count mismatch: selected ${selectedItemVersions.length}, expected ${conf.expectedItemCount}`);
-    }
-
-    // Upsert AssessmentFormVersion
-    const formVersionId = `form_${conf.code}_v1_0_0`;
+    // Upsert Form Version
     const formVersion = await prisma.assessmentFormVersion.upsert({
       where: {
         moduleId_versionCode: {
-          moduleId: moduleRecord.id,
-          versionCode: 'v1.0.0',
+          moduleId: mod.id,
+          versionCode: manifest.formVersionCode,
         },
       },
       update: {
         isPublished: true,
         status: 'PUBLISHED',
-        itemCount: selectedItemVersions.length,
+        itemCount: manifest.itemCodes.length,
+        description: manifest.descriptionTr,
         publishedAt: new Date(),
       },
       create: {
-        id: formVersionId,
-        moduleId: moduleRecord.id,
-        versionCode: 'v1.0.0',
+        id: `form_${manifest.moduleCode}_${manifest.formVersionCode.replace(/\\./g, '_')}`,
+        moduleId: mod.id,
+        versionCode: manifest.formVersionCode,
         isPublished: true,
         status: 'PUBLISHED',
-        itemCount: selectedItemVersions.length,
+        itemCount: manifest.itemCodes.length,
+        description: manifest.descriptionTr,
         publishedAt: new Date(),
-        description: `${conf.titleTr} Form Versiyonu 1.0.0`,
       },
     });
 
-    // Upsert form items sequentially by sortOrder (FK-safe)
+    // Check if responses exist for this form version
+    const linkedResponses = await prisma.responseRecord.count({
+      where: {
+        formItem: {
+          formVersionId: formVersion.id,
+        },
+      },
+    });
+
+    if (linkedResponses === 0) {
+      await prisma.assessmentFormItem.deleteMany({
+        where: { formVersionId: formVersion.id },
+      });
+    }
+
+    // Map items sequentially
     let sortOrder = 1;
-    for (const iv of selectedItemVersions) {
-      // Ensure itemVersion has ACTIVE status and isActive=true
+    for (const code of manifest.itemCodes) {
+      const itm = itemMap.get(code)!;
+      const iv = itm.versions[0];
+      if (!iv) {
+        throw new Error(`ItemVersion missing for item ${code}`);
+      }
+
       await prisma.itemVersion.update({
         where: { id: iv.id },
         data: { status: 'ACTIVE', isActive: true },
@@ -515,34 +311,50 @@ export async function seedExecutableAssessments() {
           itemVersionId: iv.id,
         },
         create: {
-          id: `fitem_${conf.code}_${sortOrder}`,
+          id: `fitem_${manifest.moduleCode}_${sortOrder}`,
           formVersionId: formVersion.id,
           itemVersionId: iv.id,
           sortOrder,
         },
       });
+
       sortOrder++;
-      totalFormItemsCreated++;
+      totalMappedItems++;
     }
 
-    totalFormsPublished++;
-    console.log(`✓ [EXECUTABLE] ${conf.code}: Published form v1.0.0 with ${selectedItemVersions.length} items.`);
+    publishedFormsCount++;
+    console.log(`✓ [VALIDATED_FORM_EXECUTABLE] ${manifest.moduleCode} (${manifest.formVersionCode}): ${manifest.itemCodes.length} verified items published.`);
   }
 
-  // Also ensure legacy form version is kept in PUBLISHED state for historical sessions
-  const legacyModule = await prisma.assessmentModule.findUnique({
-    where: { code: 'MODULE_1_CORE_PERSONALITY' },
+  // 3. Mark unverified forms from any prior seed as DRAFT (fail-closed provenance lock)
+  const allModules = await prisma.assessmentModule.findMany({
+    where: {
+      code: {
+        notIn: VERIFIED_FORM_MANIFESTS.map((m) => m.moduleCode).concat(['MODULE_1_CORE_PERSONALITY']),
+      },
+    },
+    include: {
+      formVersions: true,
+    },
   });
-  if (legacyModule) {
-    await prisma.assessmentFormVersion.updateMany({
-      where: { moduleId: legacyModule.id, versionCode: 'v1.0.0' },
-      data: { isPublished: true, status: 'PUBLISHED' },
-    });
+
+  for (const unverifiedMod of allModules) {
+    if (unverifiedMod.formVersions.length > 0) {
+      await prisma.assessmentFormVersion.updateMany({
+        where: { moduleId: unverifiedMod.id },
+        data: {
+          isPublished: false,
+          status: 'DRAFT',
+          description: 'Bilimsel Doğrulama ve Telif İzin Süreci Bekleniyor (CONTENT_PENDING_PROVENANCE)',
+        },
+      });
+      console.log(`- [CONTENT_PENDING_PROVENANCE] ${unverifiedMod.code}: Form set to DRAFT / unpublished.`);
+    }
   }
 
-  console.log('='.repeat(65));
-  console.log(`SEEDING COMPLETE: ${totalFormsPublished} active forms published, ${totalFormItemsCreated} form items mapped.`);
-  console.log('='.repeat(65));
+  console.log('='.repeat(75));
+  console.log(`PROVENANCE SEED COMPLETE: ${publishedFormsCount} validated forms published (${totalMappedItems} items).`);
+  console.log('='.repeat(75));
 }
 
 if (require.main === module) {

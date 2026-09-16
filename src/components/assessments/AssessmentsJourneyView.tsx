@@ -166,7 +166,7 @@ export function AssessmentsJourneyView({ journey }: AssessmentsJourneyViewProps)
               </Link>
             ) : !item.isPlayable || item.status === 'CONTENT_PENDING' ? (
               <span className="inline-flex items-center px-3.5 py-2 rounded-xl bg-surface-2/60 text-text-tertiary text-xs font-medium border border-border-subtle cursor-not-allowed">
-                <span>İçerik Hazırlanıyor</span>
+                <span>Bilimsel Doğrulama Aşamasında</span>
               </span>
             ) : (
               <Link

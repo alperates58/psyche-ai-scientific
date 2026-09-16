@@ -25,6 +25,7 @@ export interface ModuleAuditDetail {
   isExecutable: boolean;
   classification:
     | 'EXECUTABLE'
+    | 'CONTENT_PENDING_PROVENANCE'
     | 'RESEARCH_CONTENT_PENDING'
     | 'CONTENT_MISSING'
     | 'FORM_MISSING'
@@ -163,14 +164,14 @@ export async function runExecutableAssessmentsAudit(): Promise<ExecutableAssessm
         isExecutable = true;
       }
     } else {
-      if (arch.stage === 'ADVANCED' || ['mod_flourishing_vitality', 'mod_coping_resilience', 'mod_creativity_growth'].includes(arch.assessmentId)) {
+      if (['mod_flourishing_vitality', 'mod_coping_resilience', 'mod_creativity_growth'].includes(arch.assessmentId)) {
         classification = 'RESEARCH_CONTENT_PENDING';
       } else if (!dbModuleExists) {
         classification = 'CONTENT_MISSING';
       } else if (!formExists) {
         classification = 'FORM_MISSING';
       } else if (!publishedFormVersionExists) {
-        classification = 'NOT_PUBLISHED';
+        classification = 'CONTENT_PENDING_PROVENANCE';
       } else {
         classification = 'ITEMS_MISSING';
       }

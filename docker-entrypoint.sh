@@ -38,11 +38,11 @@ async function check() {
   const count = await prisma.assessmentFormVersion.count({
     where: { isPublished: true, status: "PUBLISHED" }
   });
-  if (count < 13) {
-    console.log("Yayınlanmış form sayısı: " + count + "/13. Seed işlemi gereklidir.");
+  if (count < 1) {
+    console.log("Yayınlanmış form sayısı: " + count + ". Seed işlemi gereklidir.");
     process.exit(2);
   }
-  console.log("✅ " + count + " yayınlanmış değerlendirme formu doğrulanmış.");
+  console.log("✅ " + count + " yayınlanmış doğrulanmış değerlendirme formu mevcut.");
   process.exit(0);
 }
 check().catch(() => process.exit(2));

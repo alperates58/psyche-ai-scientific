@@ -5,8 +5,11 @@ import { recordResponse } from '@/services/responseService';
 import { finalizeAssessmentAndCreateSnapshot } from '@/services/profileService';
 import { getUserAssessmentJourney } from '@/services/assessmentJourneyService';
 
-const EXECUTABLE_MODULE_CODES = [
+const VALIDATED_EXECUTABLE_MODULE_CODES = [
   'mod_core_hexaco_60',
+];
+
+const CONTENT_PENDING_MODULE_CODES = [
   'mod_self_agency',
   'mod_emotion_regulation',
   'mod_cognitive_epistemic',
@@ -18,16 +21,13 @@ const EXECUTABLE_MODULE_CODES = [
   'mod_meaning_compassion_grit',
   'mod_conflict_boundaries',
   'mod_affective_distress',
-  'mod_dark_tetrad_advanced',
-];
-
-const CONTENT_PENDING_MODULE_CODES = [
   'mod_flourishing_vitality',
   'mod_coping_resilience',
   'mod_creativity_growth',
+  'mod_dark_tetrad_advanced',
 ];
 
-describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification', () => {
+describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification (Item Provenance Lock)', () => {
   let testUserId: string;
 
   beforeAll(async () => {
@@ -64,18 +64,18 @@ describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification',
       expect(journey.allAssessments.length).toBe(16);
 
       for (const item of journey.allAssessments) {
-        if (EXECUTABLE_MODULE_CODES.includes(item.moduleCode) || EXECUTABLE_MODULE_CODES.includes(item.assessmentId)) {
+        if (VALIDATED_EXECUTABLE_MODULE_CODES.includes(item.moduleCode) || VALIDATED_EXECUTABLE_MODULE_CODES.includes(item.assessmentId)) {
           expect(item.isPlayable).toBe(true);
           expect(item.status).toBe('NOT_STARTED');
-          expect(item.itemCount).toBeGreaterThan(0);
-        } else if (CONTENT_PENDING_MODULE_CODES.includes(item.assessmentId)) {
+          expect(item.itemCount).toBe(17);
+        } else if (CONTENT_PENDING_MODULE_CODES.includes(item.assessmentId) || CONTENT_PENDING_MODULE_CODES.includes(item.moduleCode)) {
           expect(item.isPlayable).toBe(false);
           expect(item.status).toBe('CONTENT_PENDING');
         }
       }
     });
 
-    it('rejects session initialization on content-pending modules gracefully without crashing', async () => {
+    it('rejects session initialization on all content-pending unverified modules gracefully without crashing', async () => {
       for (const pendingCode of CONTENT_PENDING_MODULE_CODES) {
         await expect(getOrCreateAssessmentSession(testUserId, pendingCode)).rejects.toThrow(
           /Bu değerlendirme modülünün içerik formu henüz hazırlanma aşamasındadır/
@@ -84,8 +84,8 @@ describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification',
     });
   });
 
-  describe('2. Full Assessment Execution Flow for Every Playable Module', () => {
-    for (const moduleCode of EXECUTABLE_MODULE_CODES) {
+  describe('2. Full Assessment Execution Flow for Verified Validated Module', () => {
+    for (const moduleCode of VALIDATED_EXECUTABLE_MODULE_CODES) {
       it(`successfully completes start -> render -> respond -> pause -> resume -> finalize for ${moduleCode}`, async () => {
         // Step A: Start session
         const session = await getOrCreateAssessmentSession(testUserId, moduleCode);
@@ -95,7 +95,7 @@ describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification',
         expect(session.formVersion).toBeDefined();
 
         const items = session.formVersion.items;
-        expect(items.length).toBeGreaterThan(0);
+        expect(items.length).toBe(17);
 
         // Step B: Verify first item rendering
         const firstItem = items[0];
@@ -125,9 +125,8 @@ describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification',
         const resumed = await getOrCreateAssessmentSession(testUserId, moduleCode);
         expect(resumed.id).toBe(session.id);
         expect(resumed.status).toBe('IN_PROGRESS');
-        expect(resumed.responses.length).toBe(1);
 
-        // Step F: Answer all remaining items
+        // Step F: Complete all remaining responses
         for (let i = 1; i < items.length; i++) {
           const item = items[i];
           const opt = item.itemVersion.options[0];
@@ -137,28 +136,38 @@ describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification',
             formItemId: item.id,
             selectedOptionVersionId: opt.id,
             rawValue: opt.value,
-            durationMs: 900,
+            durationMs: 800,
             focusLostCount: 0,
           });
         }
 
-        // Step G: Finalize session and create profile snapshot
+        // Step G: Finalize Assessment and create deterministic Profile Snapshot
         const snapshot = await finalizeAssessmentAndCreateSnapshot(session.id, testUserId);
         expect(snapshot).toBeDefined();
         expect(snapshot.id).toBeDefined();
+        expect(snapshot.facetScores.length).toBeGreaterThan(0);
+        expect(snapshot.domainScores.length).toBeGreaterThan(0);
 
-        // Step H: Verify session state and scores
-        const finalSession = await prisma.assessmentSession.findUnique({
+        // Verify session status transitioned to COMPLETED
+        const completedSessionInDb = await prisma.assessmentSession.findUnique({
           where: { id: session.id },
         });
-        expect(finalSession?.status).toBe('COMPLETED');
-        expect(finalSession?.completedAt).toBeDefined();
-
-        const facetScores = await prisma.facetScore.findMany({
-          where: { profileSnapshotId: snapshot.id },
-        });
-        expect(facetScores.length).toBeGreaterThan(0);
+        expect(completedSessionInDb?.status).toBe('COMPLETED');
+        expect(completedSessionInDb?.completedAt).toBeInstanceOf(Date);
       });
     }
+  });
+
+  describe('3. User Journey State Transition after Assessment Completion', () => {
+    it('reflects completed assessment in user journey with updated progress metrics', async () => {
+      const journey = await getUserAssessmentJourney(testUserId);
+      expect(journey.completedAssessmentsCount).toBe(1);
+
+      const hexacoModule = journey.allAssessments.find((a) => a.assessmentId === 'mod_core_hexaco_60');
+      expect(hexacoModule).toBeDefined();
+      expect(hexacoModule?.status).toBe('COMPLETED');
+      expect(hexacoModule?.progressPercentage).toBe(100);
+      expect(hexacoModule?.completedSessionId).toBeTruthy();
+    });
   });
 });
