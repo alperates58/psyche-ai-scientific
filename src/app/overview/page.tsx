@@ -34,7 +34,7 @@ export default async function OverviewPage() {
   const journey = await getUserAssessmentJourney(user.id);
 
   // 2. If new user with 0 history, redirect to calm onboarding
-  if (journey.currentStage === 'ONBOARDING_NOT_STARTED') {
+  if (journey.currentStage === 'ONBOARDING' && journey.completedAssessmentsCount === 0 && journey.inProgressAssessmentsCount === 0) {
     redirect('/onboarding');
   }
 

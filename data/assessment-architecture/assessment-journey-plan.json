@@ -3,7 +3,8 @@
     "modelName": "PsycheAI Adaptive Multi-Session Assessment Journey",
     "primaryGoal": "Deliver maximum scientifically meaningful psychological coverage across 37 constructs without cognitive fatigue or straightlining.",
     "corePhilosophy": "Assessment burden is solved through multi-session scheduling, save/resume state management, progressive profile unlocks, and modular flows—never through arbitrary item reduction.",
-    "surveyFatigueLimitMinutes": 25
+    "surveyFatigueLimitMinutes": 25,
+    "totalPlannedModules": 16
   },
   "stages": [
     {
@@ -29,9 +30,9 @@
         "Self-Esteem & Generalized Agency Index",
         "Emotion Regulation Quadrant (Reappraisal vs Suppression)",
         "Epistemic Drive Baseline Score",
-        "First DeepSeek AI Psychological Synthesis"
+        "First Meaningful Profile Synthesis"
       ],
-      "nextBestAssessmentLogic": "Guide directly to Module 1 (HEXACO-60), followed sequentially by Self-Agency, ERQ, and NFC-SF."
+      "nextBestAssessmentLogic": "Guide directly to Module 1 (HEXACO), followed by Self-Agency, ERQ, and NFC-SF."
     },
     {
       "stageId": "FIRST_PROFILE_DELIVERY",
@@ -52,13 +53,13 @@
         "Adlerian & Rogerian Core Lens Perspectives",
         "Initial Confidence Indicators (Baseline Sample Size = 108)"
       ],
-      "nextBestAssessmentLogic": "Recommend a 24-hour cognitive resting window before starting Stage 2 (Expansion)."
+      "nextBestAssessmentLogic": "Recommend an advisory resting window before starting Stage 2 (Expansion)."
     },
     {
       "stageId": "PROFILE_EXPANSION",
       "stageNameTr": "Genişletilmiş Profil ve Değer Haritası",
       "stageNameEn": "Profile Expansion & Motivation Mapping",
-      "entryCriteria": "First Profile reviewed; minimum 12 hours since Session 1.",
+      "entryCriteria": "First Profile reviewed; advisory break recommended.",
       "targetSessionDurationMinutes": 32,
       "requiredModules": [
         "mod_volition_impulse",
@@ -68,7 +69,8 @@
       ],
       "recommendedNextModules": [
         "mod_cognitive_adaptability",
-        "mod_meaning_compassion_grit"
+        "mod_meaning_compassion_grit",
+        "mod_flourishing_vitality"
       ],
       "optionalModules": [],
       "completionCondition": "All 4 expansion modules completed (cumulative 265 target questions answered).",
@@ -79,19 +81,22 @@
         "UPPS-P 5-Factor Impulsivity Profile & General Self-Control",
         "Theory Council Multi-Theorist Tension Analysis"
       ],
-      "nextBestAssessmentLogic": "Recommend highest consumer-value unmeasured module: Basic Psychological Needs (SDT) followed by Schwartz Values."
+      "nextBestAssessmentLogic": "Recommend highest consumer-value unmeasured module: Basic Psychological Needs followed by Schwartz Values."
     },
     {
       "stageId": "DEEP_PROFILE",
       "stageNameTr": "Kapsamlı Derin Haritalama (Master Consumer Tier)",
       "stageNameEn": "Comprehensive Deep Mapping",
       "entryCriteria": "Profile Expansion completed.",
-      "targetSessionDurationMinutes": 25,
+      "targetSessionDurationMinutes": 36,
       "requiredModules": [
         "mod_cognitive_adaptability",
         "mod_meaning_compassion_grit",
         "mod_conflict_boundaries",
-        "mod_affective_distress"
+        "mod_affective_distress",
+        "mod_flourishing_vitality",
+        "mod_coping_resilience",
+        "mod_creativity_growth"
       ],
       "recommendedNextModules": [
         "mod_dark_tetrad_advanced"
@@ -99,16 +104,19 @@
       "optionalModules": [
         "mod_dark_tetrad_advanced"
       ],
-      "completionCondition": "All 12 consumer modules completed (cumulative 382 target questions answered).",
+      "completionCondition": "All 7 deep modules completed (cumulative 431 target questions answered across 15 consumer modules).",
       "profileUnlocks": [
-        "Full 66-Facet Master Psychological Profile",
+        "Full Multi-Domain Master Psychological Profile",
         "Cognitive Flexibility & Ambiguity Resilience Matrix",
         "Frankl Existential Meaning Horizon & Grit Persistence Score",
         "DUTCH 5-Mode Conflict Handling Pentagon",
         "PANAS Affect Balance & Distress Tolerance Metric",
-        "Comprehensive 8-Theorist DeepSeek AI Integrative Analysis"
+        "Psychological Flourishing & Life Satisfaction Indicators",
+        "Coping Styles & Ego-Resilience Profile",
+        "Epistemic Curiosity & Growth Mindset Configuration",
+        "Comprehensive Theory Lens Integrative Analysis"
       ],
-      "nextBestAssessmentLogic": "Offer user choice between Cognitive Adaptability, Meaning Dynamics, or Conflict Resolution based on user interest."
+      "nextBestAssessmentLogic": "Offer user choice among deep mapping modules based on interest."
     },
     {
       "stageId": "ADVANCED_EXPLORATION",
@@ -132,20 +140,20 @@
   "repeatTestPolicy": {
     "stablePersonalityHEXACO": {
       "minimumRetestIntervalDays": 180,
-      "scientificRationale": "Broad personality traits exhibit high 6-month test-retest stability (r > 0.80). Retesting before 6 months measures practice artifacts rather than true psychological change."
+      "scientificRationale": "Broad personality traits exhibit high 6-month test-retest stability (r > 0.80)."
     },
     "relationalAttachment": {
       "minimumRetestIntervalDays": 90,
-      "scientificRationale": "Attachment orientations can shift following major relational events, requiring at least 3-month observation windows."
+      "scientificRationale": "Attachment orientations can shift following major relational events."
     },
     "affectiveToneAndDistress": {
       "minimumRetestIntervalDays": 14,
-      "scientificRationale": "Trait-state affect balances (PANAS) can be tracked at bi-weekly intervals to detect environmental mood shifts."
+      "scientificRationale": "Trait-state affect balances (PANAS) can be tracked at bi-weekly intervals."
     },
     "defaultUnspecifiedInterval": "RETEST_INTERVAL_UNSPECIFIED"
   },
   "longitudinalOutputsSeparation": {
-    "definition": "Longitudinal outputs are derived mathematically across multi-wave snapshot histories. They do NOT add questionnaire items.",
+    "definition": "Longitudinal outputs are derived mathematically across multi-wave snapshot histories.",
     "trackedMetrics": [
       "idx_temporal_trait_stability",
       "idx_stress_induced_profile_shift",
@@ -154,7 +162,7 @@
     ]
   },
   "observationalAiSeparation": {
-    "definition": "Observational AI prompts (e.g. self-reflection text, life story narratives) are qualitative grounding context only. They NEVER alter psychometric scores or scale metrics.",
+    "definition": "Observational AI prompts are qualitative grounding context only. They NEVER alter psychometric scores.",
     "mode": "OBSERVATIONAL_PROMPT_ONLY"
   }
 }

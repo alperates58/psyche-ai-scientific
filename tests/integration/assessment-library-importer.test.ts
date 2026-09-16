@@ -35,22 +35,22 @@ describe('FAZ 2.12 Integration: Assessment Library Importer & Safety Engine', ()
     const rsesJourney = getModuleJourneyMetadata('MODULE_2_SELF_IDENTITY');
     expect(rsesJourney.classification).toBe('REQUIRED');
     expect(rsesJourney.priority).toBe(2);
-    expect(rsesJourney.domainNameTr).toBe('Benlik & Kimlik');
+    expect(rsesJourney.domainNameTr).toBe('Benlik & Öz-Düzenleme');
 
     const gseJourney = getModuleJourneyMetadata('MODULE_5_GENERAL_SELF_EFFICACY');
     expect(gseJourney.classification).toBe('RECOMMENDED');
-    expect(gseJourney.priority).toBe(3);
-    expect(gseJourney.domainNameTr).toBe('Benlik & Yetkinlik');
+    expect(gseJourney.priority).toBe(5);
+    expect(gseJourney.domainNameTr).toBe('Benlik & Öz-Düzenleme');
 
     const erqJourney = getModuleJourneyMetadata('MODULE_3_EMOTION_REGULATION');
-    expect(erqJourney.classification).toBe('RECOMMENDED');
-    expect(erqJourney.priority).toBe(4);
-    expect(erqJourney.domainNameTr).toBe('Duygusal Süreçler');
+    expect(erqJourney.classification).toBe('REQUIRED');
+    expect(erqJourney.priority).toBe(3);
+    expect(erqJourney.domainNameTr).toBe('Duygular & Dayanıklılık');
 
     const attachmentJourney = getModuleJourneyMetadata('MODULE_6_ATTACHMENT_PATTERNS');
     expect(attachmentJourney.classification).toBe('RECOMMENDED');
-    expect(attachmentJourney.priority).toBe(5);
-    expect(attachmentJourney.domainNameTr).toBe('İlişkisel Süreçler');
+    expect(attachmentJourney.priority).toBe(8);
+    expect(attachmentJourney.domainNameTr).toBe('İlişkiler & Sosyal Dinamikler');
   });
 
   it('binds appropriate visual archetype and scoring strategy to expanded modules', () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -15,25 +15,21 @@ import {
   RotateCcw,
   Sparkles,
   Loader2,
+  BookOpen,
+  Keyboard,
 } from 'lucide-react';
 import {
   startOrResumeAssessmentAction,
   submitResponseAction,
   pauseAssessmentAction,
-  finalizeAssessmentAction
+  finalizeAssessmentAction,
 } from '@/actions/assessment';
-import { DEMO_PROFILE_DATA } from '@/data/demo-profile';
 import { PageContainer } from '@/components/ui/PageContainer';
 
 function AssessmentRunnerInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const requestedModule = searchParams.get('module') || undefined;
-  const { scenario } = DEMO_PROFILE_DATA.assessmentSample;
-
-  // Mode switcher: 'live' uses real DB items, 'scenario' shows Phase 0 SJT preview
-  const [activeType, setActiveType] = useState<'live' | 'scenario'>('live');
-  const [scenarioSelection, setScenarioSelection] = useState<string | null>(null);
 
   // Live session state
   const [session, setSession] = useState<any | null>(null);
@@ -81,7 +77,7 @@ function AssessmentRunnerInner() {
           for (const resp of sessionData.responses) {
             initialAnswers[resp.formItemId] = {
               optionId: resp.selectedOptionVersionId,
-              value: resp.rawValue
+              value: resp.rawValue,
             };
           }
         }
@@ -103,13 +99,13 @@ function AssessmentRunnerInner() {
     }
 
     initSession();
-  }, []);
+  }, [requestedModule]);
 
   // Reset item timer when navigating to a new question
-  const resetItemTimer = () => {
+  const resetItemTimer = useCallback(() => {
     itemStartTimeRef.current = Date.now();
     focusLostCountRef.current = 0;
-  };
+  }, []);
 
   // Current item helpers
   const items = session?.formVersion?.items || [];
@@ -118,50 +114,64 @@ function AssessmentRunnerInner() {
   const itemModel = itemVersion?.item;
   const currentAnswer = currentFormItem ? answers[currentFormItem.id] : null;
 
+  // Previous item for section/instrument header check
+  const prevFormItem = currentIndex > 0 ? items[currentIndex - 1] : null;
+  const currentInstrumentName =
+    itemModel?.instrument?.fullName || itemModel?.instrument?.name || null;
+  const prevInstrumentName =
+    prevFormItem?.itemVersion?.item?.instrument?.fullName ||
+    prevFormItem?.itemVersion?.item?.instrument?.name ||
+    null;
+  const isNewInstrumentSection =
+    currentInstrumentName && (currentIndex === 0 || currentInstrumentName !== prevInstrumentName);
+
   // Handle option selection
-  const handleSelectOption = async (option: { id: string; value: number }) => {
-    if (!session || !currentFormItem || isSubmitting) return;
+  const handleSelectOption = useCallback(
+    async (option: { id: string; value: number }) => {
+      if (!session || !currentFormItem || isSubmitting) return;
 
-    const durationMs = Math.max(100, Date.now() - itemStartTimeRef.current);
-    const focusLostCount = focusLostCountRef.current;
+      const durationMs = Math.max(100, Date.now() - itemStartTimeRef.current);
+      const focusLostCount = focusLostCountRef.current;
 
-    // Optimistic state update
-    setAnswers(prev => ({
-      ...prev,
-      [currentFormItem.id]: { optionId: option.id, value: option.value }
-    }));
+      // Optimistic state update
+      setAnswers((prev) => ({
+        ...prev,
+        [currentFormItem.id]: { optionId: option.id, value: option.value },
+      }));
 
-    setIsSubmitting(true);
-    setSaveStatus('Kaydediliyor...');
+      setIsSubmitting(true);
+      setSaveStatus('Kaydediliyor...');
 
-    try {
-      const res = await submitResponseAction({
-        sessionId: session.id,
-        formItemId: currentFormItem.id,
-        selectedOptionVersionId: option.id,
-        rawValue: option.value,
-        durationMs,
-        focusLostCount,
-        firstInteractionAt: new Date(itemStartTimeRef.current).toISOString()
-      });
+      try {
+        const res = await submitResponseAction({
+          sessionId: session.id,
+          formItemId: currentFormItem.id,
+          selectedOptionVersionId: option.id,
+          rawValue: option.value,
+          durationMs,
+          focusLostCount,
+          firstInteractionAt: new Date(itemStartTimeRef.current).toISOString(),
+        });
 
-      if (!res.success) {
-        setSaveStatus(`Hata: ${res.error}`);
-      } else {
-        setSaveStatus('Kaydedildi');
-        setTimeout(() => setSaveStatus(null), 1500);
+        if (!res.success) {
+          setSaveStatus(`Hata: ${res.error}`);
+        } else {
+          setSaveStatus('Kaydedildi');
+          setTimeout(() => setSaveStatus(null), 1500);
+        }
+      } catch {
+        setSaveStatus('Kaydetme hatası');
+      } finally {
+        setIsSubmitting(false);
       }
-    } catch (err: any) {
-      setSaveStatus('Kaydetme hatası');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    },
+    [session, currentFormItem, isSubmitting]
+  );
 
   // Next Question or Finalize
-  const handleNext = async () => {
+  const handleNext = useCallback(async () => {
     if (currentIndex < items.length - 1) {
-      setCurrentIndex(prev => prev + 1);
+      setCurrentIndex((prev) => prev + 1);
       resetItemTimer();
     } else {
       // Last question reached - Finalize
@@ -174,21 +184,54 @@ function AssessmentRunnerInner() {
         } else {
           alert(res.error || 'Değerlendirme sonlandırılamadı.');
         }
-      } catch (err: any) {
+      } catch {
         alert('Değerlendirme tamamlanırken bir hata meydana geldi.');
       } finally {
         setIsSubmitting(false);
       }
     }
-  };
+  }, [currentIndex, items.length, session, resetItemTimer]);
 
   // Previous Question
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (currentIndex > 0) {
-      setCurrentIndex(prev => prev - 1);
+      setCurrentIndex((prev) => prev - 1);
       resetItemTimer();
     }
-  };
+  }, [currentIndex, resetItemTimer]);
+
+  // Keyboard Navigation Support (1..7, ArrowRight/Enter, ArrowLeft)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if typing in input/textarea or modal is open
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+
+      const options = itemVersion?.options || [];
+      const numKey = parseInt(e.key, 10);
+      if (!isNaN(numKey) && numKey >= 1 && numKey <= options.length) {
+        const matchingOption = options.find((o: any) => o.value === numKey);
+        if (matchingOption) {
+          e.preventDefault();
+          handleSelectOption(matchingOption);
+        }
+      } else if (e.key === 'ArrowRight' || e.key === 'Enter') {
+        if (currentAnswer && !isSubmitting) {
+          e.preventDefault();
+          handleNext();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (currentIndex > 0) {
+          e.preventDefault();
+          handlePrevious();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [itemVersion, currentAnswer, isSubmitting, currentIndex, handleSelectOption, handleNext, handlePrevious]);
 
   // Pause and Exit
   const handlePauseAndExit = async () => {
@@ -197,11 +240,11 @@ function AssessmentRunnerInner() {
     try {
       await pauseAssessmentAction({
         sessionId: session.id,
-        currentStep: currentIndex + 1
+        currentStep: currentIndex + 1,
       });
-      router.push('/overview');
-    } catch (err) {
-      router.push('/overview');
+      router.push('/assessments');
+    } catch {
+      router.push('/assessments');
     }
   };
 
@@ -260,6 +303,12 @@ function AssessmentRunnerInner() {
             </div>
           </div>
 
+          {/* Advisory Rest Suggestion */}
+          <div className="p-4 rounded-xl bg-indigo-50/70 border border-indigo-200/70 text-indigo-950 text-xs text-left leading-relaxed">
+            <span className="font-bold">Öneri: </span>
+            Zihinsel yorgunluğu önlemek ve sonraki değerlendirmelerde yanıt kalitesini korumak için 15-30 dakika dinlenme molası verebilir veya istediğiniz zaman devam edebilirsiniz.
+          </div>
+
           {/* Action Hand-offs */}
           <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-center gap-3">
             <Link
@@ -267,15 +316,15 @@ function AssessmentRunnerInner() {
               className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-xs transition-colors"
             >
               <Sparkles className="w-4 h-4 mr-1.5" />
-              <span>Detaylı Sonucumu Gör</span>
+              <span>Modül Sonuçlarını Gör</span>
               <ChevronRight className="w-4 h-4 ml-1" />
             </Link>
 
             <Link
-              href="/overview"
+              href="/assessments"
               className="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
             >
-              <span>Genel Bakışa Dön</span>
+              <span>Profil Yolculuğuma Dön</span>
             </Link>
           </div>
         </div>
@@ -319,56 +368,51 @@ function AssessmentRunnerInner() {
   // Estimate remaining minutes based on remaining questions
   const totalQuestions = items.length;
   const remainingQuestions = Math.max(0, totalQuestions - currentIndex - 1);
-  const estimatedMinutesLeft = Math.ceil((remainingQuestions * 25) / 60);
+  const estimatedMinutesLeft = Math.ceil((remainingQuestions * 22) / 60);
+
+  const options = itemVersion?.options || [];
+  const optionsCount = options.length;
+
+  // Dynamic grid class based on options count (4, 5, 6, 7)
+  const gridColsClass =
+    optionsCount === 4
+      ? 'sm:grid-cols-4'
+      : optionsCount === 6
+      ? 'sm:grid-cols-6'
+      : optionsCount === 7
+      ? 'sm:grid-cols-7'
+      : 'sm:grid-cols-5';
+
+  const firstOption = options[0];
+  const lastOption = options[options.length - 1];
 
   return (
     <PageContainer variant="standard" className="space-y-6 pb-20">
-      {/* Top Controls & Switcher */}
+      {/* Top Controls & Navigation */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-subtle pb-4">
         <Link
-          href="/overview"
+          href="/assessments"
           className="inline-flex items-center text-xs font-semibold text-text-tertiary hover:text-text-primary transition-colors py-1"
         >
           <ArrowLeft className="w-3.5 h-3.5 mr-1" />
-          <span>Genel Bakışa Dön</span>
+          <span>Değerlendirmeler Listesine Dön</span>
         </Link>
 
-        {/* Item Type Switcher */}
-        <div className="inline-flex p-1 bg-surface-2 border border-border-subtle rounded-xl text-xs font-medium w-full sm:w-auto">
-          <button
-            onClick={() => setActiveType('live')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg transition-colors text-center ${
-              activeType === 'live'
-                ? 'bg-surface-1 text-brand-700 font-semibold shadow-xs'
-                : 'text-text-tertiary hover:text-text-primary'
-            }`}
-          >
-            1. HEXACO Formu ({totalQuestions} Madde)
-          </button>
-          <button
-            onClick={() => setActiveType('scenario')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg transition-colors text-center ${
-              activeType === 'scenario'
-                ? 'bg-surface-1 text-brand-700 font-semibold shadow-xs'
-                : 'text-text-tertiary hover:text-text-primary'
-            }`}
-          >
-            2. Durumsal Önizleme (SJT)
-          </button>
+        {/* Keyboard hint */}
+        <div className="hidden md:flex items-center text-[11px] text-text-tertiary space-x-2">
+          <Keyboard className="w-3.5 h-3.5 text-text-tertiary" />
+          <span>Seçim: [1-{optionsCount}] | İlerle: [Sağ Ok/Enter]</span>
         </div>
       </div>
 
-      {/* Progress & Save Status */}
+      {/* Progress & Save Status Header */}
       <div className="bg-surface-1 p-4 rounded-card border border-border-subtle shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="text-[11px] font-bold text-brand-700 uppercase tracking-wider">
-            {activeType === 'live'
-              ? session?.formVersion?.module?.titleTr || 'Modül 1: Temel Kişilik Boyutları'
-              : scenario.moduleName}
+            {session?.formVersion?.module?.titleTr || 'Değerlendirme Modülü'}
           </div>
           <div className="text-xs text-text-tertiary mt-0.5">
-            Soru {activeType === 'live' ? currentIndex + 1 : scenario.questionNumber} /{' '}
-            {activeType === 'live' ? totalQuestions : 48}
+            Soru {currentIndex + 1} / {totalQuestions}
           </div>
         </div>
 
@@ -381,7 +425,7 @@ function AssessmentRunnerInner() {
 
           <div className="flex items-center text-xs text-text-tertiary">
             <Clock className="w-3.5 h-3.5 mr-1 text-brand-600 shrink-0" />
-            <span className="whitespace-nowrap">~{activeType === 'live' ? estimatedMinutesLeft : scenario.estimatedMinutesLeft} dk</span>
+            <span className="whitespace-nowrap">~{estimatedMinutesLeft} dk kaldı</span>
           </div>
 
           <button
@@ -395,13 +439,25 @@ function AssessmentRunnerInner() {
         </div>
       </div>
 
+      {/* Multi-Instrument Container Section Transition Header */}
+      {isNewInstrumentSection && currentInstrumentName && (
+        <div className="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-200/60 flex items-center space-x-2.5 text-xs text-brand-900 animate-in fade-in">
+          <BookOpen className="w-4 h-4 text-brand-600 shrink-0" />
+          <div>
+            <span className="font-bold">Ölçek Bölümü: </span>
+            <span>{currentInstrumentName}</span>
+          </div>
+        </div>
+      )}
+
       {/* Main Question Surface */}
-      {activeType === 'live' && currentFormItem ? (
-        <div className="bg-surface-1 p-8 rounded-panel border border-border-subtle shadow-sm space-y-8">
+      {currentFormItem && (
+        <div className="bg-surface-1 p-6 sm:p-8 rounded-panel border border-border-subtle shadow-sm space-y-8">
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="inline-block px-2.5 py-1 rounded-md bg-bg-subtle text-text-tertiary text-[11px] font-medium border border-border-subtle">
-                {itemModel?.facet?.construct?.nameTr || 'Temel Boyut'} &rsaquo; {itemModel?.facet?.nameTr || 'Alt Boyut'}
+                {itemModel?.facet?.construct?.nameTr || 'Temel Boyut'} &rsaquo;{' '}
+                {itemModel?.facet?.nameTr || 'Alt Boyut'}
               </span>
 
               {itemModel?.isAttentionCheck && (
@@ -417,17 +473,24 @@ function AssessmentRunnerInner() {
             </h2>
           </div>
 
-          {/* 5-Point Likert Options */}
+          {/* Dynamic Likert Scale Options */}
           <div className="space-y-3">
-            <div className="flex justify-between text-xs text-text-tertiary px-1 font-medium">
-              <span>Kesinlikle Katılmıyorum (1)</span>
-              <span>Kesinlikle Katılıyorum (5)</span>
-            </div>
+            {firstOption && lastOption && (
+              <div className="flex justify-between text-xs text-text-tertiary px-1 font-medium">
+                <span>
+                  {firstOption.labelTr} ({firstOption.value})
+                </span>
+                <span>
+                  {lastOption.labelTr} ({lastOption.value})
+                </span>
+              </div>
+            )}
 
             {/* Mobile View (< sm): Stacked full-width radio rows */}
             <div className="sm:hidden flex flex-col space-y-2">
-              {itemVersion?.options?.map((opt: any) => {
-                const isSelected = currentAnswer?.optionId === opt.id || currentAnswer?.value === opt.value;
+              {options.map((opt: any) => {
+                const isSelected =
+                  currentAnswer?.optionId === opt.id || currentAnswer?.value === opt.value;
                 return (
                   <button
                     key={opt.id}
@@ -441,19 +504,23 @@ function AssessmentRunnerInner() {
                     }`}
                   >
                     <div className="flex items-center space-x-3">
-                      <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-mono text-sm font-bold shrink-0 ${
-                        isSelected ? 'bg-brand-600 text-white' : 'bg-bg-subtle text-text-secondary border border-border-subtle'
-                      }`}>
+                      <span
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center font-mono text-sm font-bold shrink-0 ${
+                          isSelected
+                            ? 'bg-brand-600 text-white'
+                            : 'bg-bg-subtle text-text-secondary border border-border-subtle'
+                        }`}
+                      >
                         {opt.value}
                       </span>
-                      <span className="text-xs font-semibold leading-snug">
-                        {opt.labelTr}
-                      </span>
+                      <span className="text-xs font-semibold leading-snug">{opt.labelTr}</span>
                     </div>
 
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                      isSelected ? 'border-brand-600 bg-brand-600' : 'border-border-strong'
-                    }`}>
+                    <div
+                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                        isSelected ? 'border-brand-600 bg-brand-600' : 'border-border-strong'
+                      }`}
+                    >
                       {isSelected && <span className="w-2 h-2 rounded-full bg-white" />}
                     </div>
                   </button>
@@ -461,10 +528,11 @@ function AssessmentRunnerInner() {
               })}
             </div>
 
-            {/* Tablet/Desktop View (>= sm): Horizontal 5-column grid */}
-            <div className="hidden sm:grid sm:grid-cols-5 gap-2.5">
-              {itemVersion?.options?.map((opt: any) => {
-                const isSelected = currentAnswer?.optionId === opt.id || currentAnswer?.value === opt.value;
+            {/* Tablet/Desktop View (>= sm): Horizontal dynamic column grid */}
+            <div className={`hidden sm:grid ${gridColsClass} gap-2`}>
+              {options.map((opt: any) => {
+                const isSelected =
+                  currentAnswer?.optionId === opt.id || currentAnswer?.value === opt.value;
                 return (
                   <button
                     key={opt.id}
@@ -473,102 +541,46 @@ function AssessmentRunnerInner() {
                     onClick={() => handleSelectOption(opt)}
                     className={`py-4 px-2 min-h-[56px] rounded-xl text-center border transition-all duration-150 flex flex-col items-center justify-center touch-manipulation ${
                       isSelected
-                        ? 'bg-brand-50 border-brand-600 ring-2 ring-brand-600/30 text-brand-700 shadow-xs'
+                        ? 'bg-brand-50 border-brand-600 ring-2 ring-brand-600/30 text-brand-700 shadow-xs font-semibold'
                         : 'bg-surface-1 border-border-default hover:border-brand-300 hover:bg-surface-2 text-text-primary'
                     }`}
                   >
                     <span className="font-mono text-base font-bold mb-1">{opt.value}</span>
-                    <span className="text-[11px] font-medium leading-tight">
-                      {opt.labelTr}
-                    </span>
+                    <span className="text-[11px] font-medium leading-tight">{opt.labelTr}</span>
                   </button>
                 );
               })}
             </div>
           </div>
         </div>
-      ) : activeType === 'scenario' ? (
-        /* Situational Judgement Scenario Item (Preview) */
-        <div className="bg-surface-1 p-6 sm:p-8 rounded-panel border border-border-subtle shadow-sm space-y-6">
-          <div className="space-y-2">
-            <div className="inline-block px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 text-[11px] font-semibold border border-purple-200/60">
-              Senaryo Görevi: {scenario.contextTag}
-            </div>
-
-            <h2 className="text-lg sm:text-xl font-bold text-text-primary">
-              {scenario.text_tr || scenario.text}
-            </h2>
-          </div>
-
-          <div className="bg-surface-2 p-4 rounded-xl border border-border-subtle text-xs md:text-sm text-text-secondary leading-relaxed">
-            {scenario.scenarioBody}
-          </div>
-
-          <div className="space-y-3 pt-2">
-            <div className="text-xs font-bold text-text-tertiary uppercase tracking-wider">
-              Tipik karar tarzınızı en iyi temsil eden eylemi seçiniz:
-            </div>
-
-            <div className="space-y-2.5">
-              {scenario.sjtOptions?.map((opt, idx) => {
-                const isSelected = scenarioSelection === opt.id;
-                const letter = String.fromCharCode(65 + idx);
-
-                return (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => setScenarioSelection(opt.id)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all duration-150 flex items-start space-x-3.5 min-h-[48px] touch-manipulation ${
-                      isSelected
-                        ? 'bg-brand-50 border-brand-600 ring-2 ring-brand-600/30 text-brand-900 shadow-xs'
-                        : 'bg-surface-1 border-border-default hover:border-brand-200 hover:bg-surface-2 text-text-primary'
-                    }`}
-                  >
-                    <span className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 ${
-                      isSelected ? 'bg-brand-600 text-white' : 'bg-bg-subtle text-text-secondary border border-border-subtle'
-                    }`}>
-                      {letter}
-                    </span>
-                    <div className="flex-1 text-xs md:text-sm leading-relaxed">
-                      <div className="text-text-primary font-medium">{opt.text_tr || opt.text}</div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      ) : null}
+      )}
 
       {/* Navigation Footer */}
       <div className="flex items-center justify-between pt-4 sticky bottom-3 sm:static bg-bg-app/90 backdrop-blur-xs sm:bg-transparent p-2 sm:p-0 rounded-xl z-10 border sm:border-0 border-border-subtle shadow-sm sm:shadow-none">
         <button
           type="button"
           onClick={handlePrevious}
-          disabled={currentIndex === 0 || activeType !== 'live'}
+          disabled={currentIndex === 0}
           className={`inline-flex items-center px-4 py-2.5 rounded-xl border border-border-default bg-surface-1 text-xs font-semibold text-text-secondary transition-colors min-h-[44px] touch-manipulation ${
             currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-surface-2'
           }`}
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
-          <span>Geri</span>
+          <span>Önceki Soru</span>
         </button>
 
         <button
           type="button"
           onClick={handleNext}
-          disabled={isSubmitting || (activeType === 'live' && !currentAnswer)}
+          disabled={isSubmitting || !currentAnswer}
           className={`inline-flex items-center px-6 py-2.5 rounded-xl text-white text-xs font-semibold shadow-xs transition-colors min-h-[44px] touch-manipulation ${
-            activeType === 'live' && !currentAnswer
+            !currentAnswer
               ? 'bg-brand-300 cursor-not-allowed'
               : 'bg-brand-600 hover:bg-brand-700'
           }`}
         >
           <span>
-            {activeType === 'live' && currentIndex === items.length - 1
-              ? 'Değerlendirmeyi Tamamla'
-              : 'Devam Et'}
+            {currentIndex === items.length - 1 ? 'Değerlendirmeyi Tamamla' : 'Sonraki Soru'}
           </span>
           <ChevronRight className="w-4 h-4 ml-1" />
         </button>
@@ -593,4 +605,3 @@ export default function AssessmentRunnerPage() {
     </Suspense>
   );
 }
-

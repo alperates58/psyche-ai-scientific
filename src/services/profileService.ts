@@ -2,7 +2,8 @@ import { prisma } from '@/lib/prisma';
 import { evaluateSessionIntegrity } from './integrityService';
 import { calculatePreCalibrationScores } from './scoringService';
 import { calculateProfileCoverage, TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
-export { getUnifiedPsychologicalProfile } from './unifiedProfileService';
+import { getUnifiedPsychologicalProfile } from './unifiedProfileService';
+export { getUnifiedPsychologicalProfile };
 
 
 export async function finalizeAssessmentAndCreateSnapshot(
@@ -323,3 +324,252 @@ export async function auditSnapshotProvenance(snapshotId: string): Promise<Snaps
     itemLevelAudit
   };
 }
+
+export interface UserLayerUnlockStatus {
+  layerKey: string;
+  titleTr: string;
+  isUnlocked: boolean;
+  unlockedAt: string | null;
+  requiredModuleCodes: string[];
+  completedRequiredCount: number;
+  totalRequiredCount: number;
+}
+
+export interface StructuredProfileEvidence {
+  userId: string;
+  generatedAt: string;
+  journeyStage: string;
+  depthLevel: string;
+  depthPercentage: number;
+  unlockedLayers: UserLayerUnlockStatus[];
+  unlockedTheoryLenses: Array<{
+    lensCode: string;
+    titleTr: string;
+    isAvailable: boolean;
+    evidenceCount: number;
+    requiredDomains: string[];
+  }>;
+  measuredFacets: Array<{
+    facetId: string;
+    code: string;
+    nameTr: string;
+    rawMean: number;
+    scaleMin: number;
+    scaleMax: number;
+    itemCount: number;
+    constructCode: string;
+    domainCode: string;
+    instrumentName: string | null;
+    confidenceLevel: string;
+    epistemicStatus: string;
+  }>;
+  measuredConstructs: Array<{
+    constructId: string;
+    code: string;
+    nameTr: string;
+    compositeScore: number;
+    scaleMin: number;
+    scaleMax: number;
+    facetCount: number;
+    domainCode: string;
+  }>;
+  qualitySummary: {
+    overallFlag: string;
+    isClean: boolean;
+    instrumentCount: number;
+    measuredDomainsCount: number;
+    totalDomainsCount: number;
+    exploredFacetsCount: number;
+    totalFacetsCount: number;
+  };
+}
+
+export async function getUserLayerUnlocks(userId: string): Promise<UserLayerUnlockStatus[]> {
+  const completedSessions = await prisma.assessmentSession.findMany({
+    where: { userId, status: 'COMPLETED' },
+    include: {
+      formVersion: {
+        include: { module: true }
+      }
+    },
+    orderBy: { completedAt: 'asc' }
+  });
+
+  const completedModuleCodes = new Set(
+    completedSessions.map(s => s.formVersion.module.code)
+  );
+
+  const layerDefinitions = [
+    {
+      layerKey: 'LAYER_1_FIRST_PROFILE',
+      titleTr: 'İlk Profil (Temel Kişilik & Öz-Sistem Katmanı)',
+      requiredModuleCodes: ['mod_core_hexaco_60', 'mod_self_agency', 'mod_emotion_regulation', 'mod_cognitive_epistemic'],
+    },
+    {
+      layerKey: 'LAYER_2_PROFILE_EXPANSION',
+      titleTr: 'Genişletilmiş Profil (İrade, İhtiyaçlar & İlişkiler Katmanı)',
+      requiredModuleCodes: ['mod_volition_impulse', 'mod_basic_needs_sdt', 'mod_universal_values', 'mod_relational_attachment_empathy'],
+    },
+    {
+      layerKey: 'LAYER_3_DEEP_PROFILE',
+      titleTr: 'Derin Profil (Bilişsel Esneklik, Anlam, Çatışma & Dayanıklılık Katmanı)',
+      requiredModuleCodes: [
+        'mod_cognitive_adaptability',
+        'mod_meaning_compassion_grit',
+        'mod_conflict_boundaries',
+        'mod_affective_distress',
+        'mod_flourishing_vitality',
+        'mod_coping_resilience',
+        'mod_creativity_growth',
+      ],
+    },
+    {
+      layerKey: 'LAYER_4_ADVANCED_EXPLORATION',
+      titleTr: 'İleri Düzey İnceleme (Karanlık Dörtlü & Uç Dinamikler Katmanı)',
+      requiredModuleCodes: ['mod_dark_tetrad_advanced'],
+    },
+  ];
+
+  return layerDefinitions.map(def => {
+    const completedRequired = def.requiredModuleCodes.filter(c => completedModuleCodes.has(c));
+    const isUnlocked = completedRequired.length === def.requiredModuleCodes.length;
+    
+    // Find latest completion timestamp among required modules
+    let unlockedAt: string | null = null;
+    if (isUnlocked) {
+      const relevantSessions = completedSessions.filter(s => def.requiredModuleCodes.includes(s.formVersion.module.code));
+      if (relevantSessions.length > 0) {
+        const lastSession = relevantSessions[relevantSessions.length - 1];
+        unlockedAt = lastSession.completedAt ? lastSession.completedAt.toISOString() : lastSession.startedAt.toISOString();
+      }
+    }
+
+    return {
+      layerKey: def.layerKey,
+      titleTr: def.titleTr,
+      isUnlocked,
+      unlockedAt,
+      requiredModuleCodes: def.requiredModuleCodes,
+      completedRequiredCount: completedRequired.length,
+      totalRequiredCount: def.requiredModuleCodes.length,
+    };
+  });
+}
+
+export async function getStructuredProfileEvidence(userId: string): Promise<StructuredProfileEvidence> {
+  const unifiedProfile = await getUnifiedPsychologicalProfile(userId);
+  const layerUnlocks = await getUserLayerUnlocks(userId);
+
+  const measuredFacets: StructuredProfileEvidence['measuredFacets'] = [];
+  const measuredConstructs: StructuredProfileEvidence['measuredConstructs'] = [];
+
+  for (const domain of unifiedProfile.domains) {
+    for (const construct of domain.constructs) {
+      if (construct.isMeasured && construct.compositeScore !== null && construct.scale) {
+        measuredConstructs.push({
+          constructId: construct.constructId,
+          code: construct.code,
+          nameTr: construct.nameTr,
+          compositeScore: construct.compositeScore,
+          scaleMin: construct.scale.scaleMin,
+          scaleMax: construct.scale.scaleMax,
+          facetCount: construct.facetCount,
+          domainCode: domain.code,
+        });
+      }
+
+      for (const facet of construct.facets) {
+        if (facet.isMeasured && facet.rawMean !== null && facet.scale) {
+          measuredFacets.push({
+            facetId: facet.facetId,
+            code: facet.code,
+            nameTr: facet.nameTr,
+            rawMean: facet.rawMean,
+            scaleMin: facet.scale.scaleMin,
+            scaleMax: facet.scale.scaleMax,
+            itemCount: facet.itemCount,
+            constructCode: construct.code,
+            domainCode: domain.code,
+            instrumentName: facet.provenance?.moduleTitleTr || null,
+            confidenceLevel: facet.confidenceLevel || 'MODERATE',
+            epistemicStatus: facet.epistemicStatus,
+          });
+        }
+      }
+    }
+  }
+
+  // Determine Unlocked Theory Lenses for FAZ 2.18 / 2.19
+  const domainCodesMeasured = new Set(
+    unifiedProfile.domains.filter((d: { status: string; code: string }) => d.status !== 'UNMEASURED').map((d: { code: string }) => d.code)
+  );
+
+  const theoryLensDefinitions = [
+    {
+      lensCode: 'TRAIT_DISPOSITIONAL',
+      titleTr: 'Ayırıcı Özellik & Mizaç Lensi (HEXACO / Big Five)',
+      requiredDomains: ['core_personality'],
+    },
+    {
+      lensCode: 'HUMANISTIC_SELF_ACTUALIZATION',
+      titleTr: 'Hümanistik & Kendini Gerçekleştirme Lensi (Rogers / Maslow / SDT)',
+      requiredDomains: ['self_system', 'motivational_value'],
+    },
+    {
+      lensCode: 'COGNITIVE_BEHAVIORAL',
+      titleTr: 'Bilişsel & Davranışsal Düzenleme Lensi (CBT / ERQ)',
+      requiredDomains: ['cognitive_epistemic', 'emotional_affective'],
+    },
+    {
+      lensCode: 'RELATIONAL_ATTACHMENT',
+      titleTr: 'İlişkisel & Bağlanma Lensi (Bowlby / ECR-R)',
+      requiredDomains: ['relational_interpersonal'],
+    },
+    {
+      lensCode: 'VOLITIONAL_EXECUTION',
+      titleTr: 'İrade & Yürütücü İşlevler Lensi (Bandura / Duckworth)',
+      requiredDomains: ['regulatory_volitional'],
+    },
+    {
+      lensCode: 'EXISTENTIAL_MEANING',
+      titleTr: 'Varoluşsal & Anlam Lensi (Frankl / Yalom)',
+      requiredDomains: ['existential_meaning'],
+    },
+  ];
+
+  const unlockedTheoryLenses = theoryLensDefinitions.map(def => {
+    const matchingDomains = def.requiredDomains.filter(d => domainCodesMeasured.has(d));
+    const isAvailable = matchingDomains.length === def.requiredDomains.length;
+    const evidenceCount = measuredFacets.filter(f => def.requiredDomains.includes(f.domainCode)).length;
+
+    return {
+      lensCode: def.lensCode,
+      titleTr: def.titleTr,
+      isAvailable,
+      evidenceCount,
+      requiredDomains: def.requiredDomains,
+    };
+  });
+
+  return {
+    userId,
+    generatedAt: new Date().toISOString(),
+    journeyStage: unifiedProfile.maturity.stage,
+    depthLevel: unifiedProfile.maturity.labelTr,
+    depthPercentage: unifiedProfile.qualityDimensions.coverage.depthPercentage,
+    unlockedLayers: layerUnlocks,
+    unlockedTheoryLenses,
+    measuredFacets,
+    measuredConstructs,
+    qualitySummary: {
+      overallFlag: unifiedProfile.responseQuality.overallFlag,
+      isClean: unifiedProfile.responseQuality.isClean,
+      instrumentCount: unifiedProfile.qualityDimensions.methodDiversity.instrumentCount,
+      measuredDomainsCount: unifiedProfile.qualityDimensions.coverage.measuredDomains,
+      totalDomainsCount: unifiedProfile.qualityDimensions.coverage.totalDomains,
+      exploredFacetsCount: unifiedProfile.qualityDimensions.coverage.exploredFacets,
+      totalFacetsCount: unifiedProfile.qualityDimensions.coverage.totalFacets,
+    },
+  };
+}
+

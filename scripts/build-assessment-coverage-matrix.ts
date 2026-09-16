@@ -1,0 +1,1268 @@
+import fs from 'fs';
+import path from 'path';
+
+const dataDir = path.join(process.cwd(), 'data');
+const archDir = path.join(dataDir, 'assessment-architecture');
+const masterModelDir = path.join(dataDir, 'master-model');
+
+const proposedModel = JSON.parse(
+  fs.readFileSync(path.join(masterModelDir, 'proposed-master-model.json'), 'utf-8')
+);
+
+// Define full 16-module architecture
+const FULL_16_MODULES = [
+  {
+    assessmentId: 'mod_core_hexaco_60',
+    titleTr: 'Temel Kişilik Yapısı',
+    titleEn: 'Core Personality Structure (HEXACO-60)',
+    catalogCategory: 'PERSONALITY',
+    stage: 'CORE',
+    priority: 'P0',
+    requiredForFirstProfile: true,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: [
+      'hexaco_honesty_humility',
+      'hexaco_emotionality',
+      'hexaco_extraversion',
+      'hexaco_agreeableness',
+      'hexaco_conscientiousness',
+      'hexaco_openness'
+    ],
+    facetIdsCovered: [
+      'sincerity',
+      'fairness',
+      'greed_avoidance',
+      'modesty',
+      'fearfulness',
+      'anxiety',
+      'dependence',
+      'sentimentality',
+      'social_self_esteem',
+      'social_boldness',
+      'sociability',
+      'liveliness',
+      'forgivingness',
+      'gentleness',
+      'flexibility',
+      'patience',
+      'organization',
+      'diligence',
+      'perfectionism',
+      'prudence',
+      'aesthetic_appreciation',
+      'inquisitiveness',
+      'creativity',
+      'unconventionality'
+    ],
+    facetMeasurementCapability: 'FACET_CONTENT_SAMPLED_BROAD_FACTOR_PRIMARY',
+    instrumentCandidates: ['inst_hexaco_60', 'inst_ipip_hexaco', 'inst_hexaco_pi_r'],
+    selectedInstrumentId: 'inst_hexaco_60',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 60,
+    estimatedMinutes: 12,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'LEXICAL_AND_ADAPTATION_EVIDENCE',
+    licensingStatus: 'REQUIRES_PERMISSION',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION',
+    commercialUseStatus: 'REQUIRES_AUTHOR_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 28,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'HH', nameTr: 'Dürüstlük-Alçakgönüllülük', nameEn: 'Honesty-Humility', itemCount: 10, constructId: 'hexaco_honesty_humility' },
+      { code: 'EM', nameTr: 'Duygusallık', nameEn: 'Emotionality', itemCount: 10, constructId: 'hexaco_emotionality' },
+      { code: 'EX', nameTr: 'Dışadönüklük', nameEn: 'Extraversion', itemCount: 10, constructId: 'hexaco_extraversion' },
+      { code: 'AG', nameTr: 'Geçimlilik', nameEn: 'Agreeableness', itemCount: 10, constructId: 'hexaco_agreeableness' },
+      { code: 'CO', nameTr: 'Sorumluluk', nameEn: 'Conscientiousness', itemCount: 10, constructId: 'hexaco_conscientiousness' },
+      { code: 'OP', nameTr: 'Deneyime Açıklık', nameEn: 'Openness to Experience', itemCount: 10, constructId: 'hexaco_openness' }
+    ],
+    resultVisualizationIds: ['hexaco_radar_chart', 'personality_trait_bars'],
+    profileContribution: {
+      domains: ['core_personality'],
+      constructs: [
+        'hexaco_honesty_humility',
+        'hexaco_emotionality',
+        'hexaco_extraversion',
+        'hexaco_agreeableness',
+        'hexaco_conscientiousness',
+        'hexaco_openness'
+      ],
+      facets: 24,
+      facetScoringLevel: 'BROAD_FACTORS_PRIMARY_FACET_THEMES_SAMPLED',
+      visualizations: ['Radar', 'Trait Spectrum'],
+      aiInsightInputs: ['HEXACO trait configurations', 'Inter-factor tensions'],
+      longitudinalOutputs: ['Trait stability index', 'Factor shift metrics']
+    },
+    blockingIssues: [
+      'Official HEXACO-60 (Ashton & Lee, 2009) requires author permission for commercial SaaS.',
+      'Facet content is sampled; broad factors are primary reliable scores.'
+    ],
+    rationale: 'Official 60-item short form (Ashton & Lee, 2009) measuring 6 broad personality factors.'
+  },
+  {
+    assessmentId: 'mod_self_agency',
+    titleTr: 'Benlik Sistemi ve Öz-Yetkinlik',
+    titleEn: 'Self-System & Generalized Agency',
+    catalogCategory: 'SELF_REGULATION',
+    stage: 'CORE',
+    priority: 'P0',
+    requiredForFirstProfile: true,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['core_self_esteem', 'generalized_self_efficacy'],
+    facetIdsCovered: ['core_self_esteem', 'contingent_self_worth', 'generalized_self_efficacy'],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_rses', 'inst_gses'],
+    selectedInstrumentId: 'inst_rses',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 20,
+    estimatedMinutes: 4,
+    scoringModel: 'SELF_AGENCY_PRECALIBRATION_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'PARTIALLY_RESTRICTED',
+    exactWordingProvenanceStatus: 'RSES_VERIFIED_GSES_RESEARCH_DRAFT',
+    commercialUseStatus: 'RSES_PUBLIC_GSES_REQUIRES_LICENSE',
+    responseFormat: 'LIKERT_4_AND_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 5,
+      reverseScoringRule: 'Scale dependent (5 - val for 4-point, 6 - val for 5-point)'
+    },
+    subscales: [
+      { code: 'RSES', nameTr: 'Rosenberg Benlik Saygısı Skalası', nameEn: 'Rosenberg Self-Esteem Scale', itemCount: 10, constructId: 'core_self_esteem' },
+      { code: 'GSES', nameTr: 'Genel Öz-Yeterlik Skalası', nameEn: 'General Self-Efficacy Scale', itemCount: 10, constructId: 'generalized_self_efficacy' }
+    ],
+    resultVisualizationIds: ['self_system_gauge', 'agency_profile_cards'],
+    profileContribution: {
+      domains: ['self_system'],
+      constructs: ['core_self_esteem', 'generalized_self_efficacy'],
+      facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Self-Worth Gauge', 'Efficacy Horizon'],
+      aiInsightInputs: ['Self-esteem stability', 'Efficacy-coping alignment'],
+      longitudinalOutputs: ['Self-esteem fluctuation over time']
+    },
+    blockingIssues: [
+      'GSES requires verified commercial license from Schwarzer / FU Berlin.',
+      'RSES original is public domain; Turkish adaptation verified.'
+    ],
+    rationale: 'Combines Rosenberg Self-Esteem (10 items) and General Self-Efficacy (10 items) with independent subscales.'
+  },
+  {
+    assessmentId: 'mod_emotion_regulation',
+    titleTr: 'Duygu Düzenleme Stratejileri',
+    titleEn: 'Emotion Regulation Strategies (ERQ)',
+    catalogCategory: 'EMOTION',
+    stage: 'CORE',
+    priority: 'P0',
+    requiredForFirstProfile: true,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['cognitive_reappraisal', 'expressive_suppression'],
+    facetIdsCovered: ['cognitive_reappraisal', 'expressive_suppression'],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_erq', 'inst_ders'],
+    selectedInstrumentId: 'inst_erq',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 10,
+    estimatedMinutes: 2.5,
+    scoringModel: 'ERQ_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_7',
+    reverseKeying: {
+      hasReverseItems: false,
+      reverseItemCount: 0,
+      reverseScoringRule: 'NONE'
+    },
+    subscales: [
+      { code: 'CR', nameTr: 'Bilişsel Yeniden Değerlendirme', nameEn: 'Cognitive Reappraisal', itemCount: 6, constructId: 'cognitive_reappraisal' },
+      { code: 'ES', nameTr: 'Duygusal Bastırma', nameEn: 'Expressive Suppression', itemCount: 4, constructId: 'expressive_suppression' }
+    ],
+    resultVisualizationIds: ['emotion_regulation_quadrant', 'regulation_balance_bars'],
+    profileContribution: {
+      domains: ['emotion_regulation'],
+      constructs: ['cognitive_reappraisal', 'expressive_suppression'],
+      facets: 2,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['ERQ Quadrant', 'Regulation Strategy Split'],
+      aiInsightInputs: ['Suppression vs reappraisal ratio', 'Affect modulation capacity'],
+      longitudinalOutputs: ['Stress-induced regulation shifts']
+    },
+    blockingIssues: ['ERQ open for academic research; commercial SaaS usage requires publisher permission.'],
+    rationale: 'Standard 10-item instrument cleanly differentiating reappraisal from suppression.'
+  },
+  {
+    assessmentId: 'mod_cognitive_epistemic',
+    titleTr: 'Bilişsel ve Epistemik Yönelim',
+    titleEn: 'Cognitive & Epistemic Orientation (NFC-SF)',
+    catalogCategory: 'COGNITION',
+    stage: 'CORE',
+    priority: 'P0',
+    requiredForFirstProfile: true,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['epistemic_drive'],
+    facetIdsCovered: ['need_for_cognition', 'need_for_cognitive_closure'],
+    facetMeasurementCapability: 'UNIDIMENSIONAL_TOTAL_SCORE',
+    instrumentCandidates: ['inst_nfc_sf', 'inst_nfcs_sf'],
+    selectedInstrumentId: 'inst_nfc_sf',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 18,
+    estimatedMinutes: 4,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 9,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'NFC', nameTr: 'Biliş İhtiyacı', nameEn: 'Need for Cognition', itemCount: 18, constructId: 'epistemic_drive' }
+    ],
+    resultVisualizationIds: ['epistemic_drive_spectrum', 'cognitive_effort_index'],
+    profileContribution: {
+      domains: ['cognition_decision'],
+      constructs: ['epistemic_drive'],
+      facets: 2,
+      facetScoringLevel: 'UNIDIMENSIONAL_SCALE_SCORE',
+      visualizations: ['Epistemic Drive Gauge', 'Cognitive Engagement Score'],
+      aiInsightInputs: ['Analytical vs heuristic preference', 'Intellectual curiosity depth'],
+      longitudinalOutputs: ['Epistemic stamina trajectory']
+    },
+    blockingIssues: ['NFC-SF wording requires verification against Turkish adaptation studies.'],
+    rationale: 'Measures intrinsic motivation to engage in and enjoy effortful cognitive endeavors.'
+  },
+  {
+    assessmentId: 'mod_volition_impulse',
+    titleTr: 'İrade, Özdenetim ve Dürtü Dinamikleri',
+    titleEn: 'Volition, Self-Control & Impulsivity',
+    catalogCategory: 'SELF_REGULATION',
+    stage: 'EXPANSION',
+    priority: 'P0',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['volitional_stamina', 'impulsivity_uppsp'],
+    facetIdsCovered: [
+      'general_self_control',
+      'delay_discounting_preference',
+      'uppsp_negative_urgency',
+      'uppsp_positive_urgency',
+      'uppsp_lack_of_premeditation',
+      'uppsp_lack_of_perseverance',
+      'uppsp_sensation_seeking'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_bscs', 'inst_upps_p_sf'],
+    selectedInstrumentId: 'inst_bscs',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 33,
+    estimatedMinutes: 7,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 15,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'BSCS', nameTr: 'Kısa Özdenetim Skalası', nameEn: 'Brief Self-Control Scale', itemCount: 13, constructId: 'volitional_stamina' },
+      { code: 'UPPSP_NU', nameTr: 'Olumsuz Aciliyet', nameEn: 'Negative Urgency', itemCount: 4, constructId: 'impulsivity_uppsp' },
+      { code: 'UPPSP_PU', nameTr: 'Olumlu Aciliyet', nameEn: 'Positive Urgency', itemCount: 4, constructId: 'impulsivity_uppsp' },
+      { code: 'UPPSP_PRE', nameTr: 'Düşünmeden Hareket (Planlama Eksikliği)', nameEn: 'Lack of Premeditation', itemCount: 4, constructId: 'impulsivity_uppsp' },
+      { code: 'UPPSP_PER', nameTr: 'Sebatsızlık', nameEn: 'Lack of Perseverance', itemCount: 4, constructId: 'impulsivity_uppsp' },
+      { code: 'UPPSP_SS', nameTr: 'Heyecan Arayışı', nameEn: 'Sensation Seeking', itemCount: 4, constructId: 'impulsivity_uppsp' }
+    ],
+    resultVisualizationIds: ['volition_impulse_matrix', 'impulsivity_profile_radar'],
+    profileContribution: {
+      domains: ['self_regulation'],
+      constructs: ['volitional_stamina', 'impulsivity_uppsp'],
+      facets: 7,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Self-Control Spectrum', 'UPPS-P 5-Factor Radar'],
+      aiInsightInputs: ['Executive function regulation', 'Impulsive risk tendencies under stress'],
+      longitudinalOutputs: ['Volitional stamina index']
+    },
+    blockingIssues: ['Commercial permission required for BSCS and UPPS-P Short Form.'],
+    rationale: 'Combines Brief Self-Control (13 items) with UPPS-P 5-factor impulsivity model (20 items).'
+  },
+  {
+    assessmentId: 'mod_basic_needs_sdt',
+    titleTr: 'Temel Psikolojik İhtiyaçlar',
+    titleEn: 'Basic Psychological Needs (SDT)',
+    catalogCategory: 'MOTIVATION_VALUES',
+    stage: 'EXPANSION',
+    priority: 'P0',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['basic_psychological_needs'],
+    facetIdsCovered: [
+      'autonomy_need_satisfaction',
+      'competence_need_satisfaction',
+      'relatedness_need_satisfaction'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_bpnsfs'],
+    selectedInstrumentId: 'inst_bpnsfs',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 24,
+    estimatedMinutes: 5,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 12,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'AUT_SAT', nameTr: 'Özerklik Doyumu', nameEn: 'Autonomy Satisfaction', itemCount: 4, constructId: 'basic_psychological_needs' },
+      { code: 'AUT_FRU', nameTr: 'Özerklik Engellenmesi', nameEn: 'Autonomy Frustration', itemCount: 4, constructId: 'basic_psychological_needs' },
+      { code: 'COM_SAT', nameTr: 'Yetkinlik Doyumu', nameEn: 'Competence Satisfaction', itemCount: 4, constructId: 'basic_psychological_needs' },
+      { code: 'COM_FRU', nameTr: 'Yetkinlik Engellenmesi', nameEn: 'Competence Frustration', itemCount: 4, constructId: 'basic_psychological_needs' },
+      { code: 'REL_SAT', nameTr: 'İlişkililik Doyumu', nameEn: 'Relatedness Satisfaction', itemCount: 4, constructId: 'basic_psychological_needs' },
+      { code: 'REL_FRU', nameTr: 'İlişkililik Engellenmesi', nameEn: 'Relatedness Frustration', itemCount: 4, constructId: 'basic_psychological_needs' }
+    ],
+    resultVisualizationIds: ['sdt_needs_balance_chart', 'need_frustration_warnings'],
+    profileContribution: {
+      domains: ['motivation_values'],
+      constructs: ['basic_psychological_needs'],
+      facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['SDT Triangle', 'Satisfaction vs Frustration Balance'],
+      aiInsightInputs: ['Self-Determination fulfillment', 'Psychological vitality drivers'],
+      longitudinalOutputs: ['Need satisfaction state tracking']
+    },
+    blockingIssues: ['BPNSFS academic citation free; commercial SaaS requires formal licensing.'],
+    rationale: 'Measures autonomy, competence, and relatedness satisfaction and frustration.'
+  },
+  {
+    assessmentId: 'mod_universal_values',
+    titleTr: 'Evrensel İnsani Değerler',
+    titleEn: 'Universal Human Values (Schwartz)',
+    catalogCategory: 'MOTIVATION_VALUES',
+    stage: 'EXPANSION',
+    priority: 'P0',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['universal_values'],
+    facetIdsCovered: [
+      'schwartz_openness_to_change',
+      'schwartz_self_transcendence',
+      'schwartz_conservation',
+      'schwartz_self_enhancement'
+    ],
+    facetMeasurementCapability: 'CIRCUMPLEX_HIGHER_ORDER_QUADRANTS',
+    instrumentCandidates: ['inst_pvq_rr', 'inst_pvq_21', 'inst_ipip_schwartz_values'],
+    selectedInstrumentId: 'inst_pvq_rr',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 50,
+    estimatedMinutes: 10,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'REQUIRES_PERMISSION',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_AUTHOR_PERMISSION',
+    responseFormat: 'LIKERT_6',
+    reverseKeying: {
+      hasReverseItems: false,
+      reverseItemCount: 0,
+      reverseScoringRule: 'NONE'
+    },
+    subscales: [
+      { code: 'VAL_OC', nameTr: 'Değişime Açıklık', nameEn: 'Openness to Change', itemCount: 15, constructId: 'universal_values' },
+      { code: 'VAL_ST', nameTr: 'Özaşkınlık', nameEn: 'Self-Transcendence', itemCount: 10, constructId: 'universal_values' },
+      { code: 'VAL_CO', nameTr: 'Muhafazacılık', nameEn: 'Conservation', itemCount: 15, constructId: 'universal_values' },
+      { code: 'VAL_SE', nameTr: 'Özyükselim', nameEn: 'Self-Enhancement', itemCount: 10, constructId: 'universal_values' }
+    ],
+    resultVisualizationIds: ['schwartz_circumplex_radar', 'value_hierarchy_ladder'],
+    profileContribution: {
+      domains: ['motivation_values'],
+      constructs: ['universal_values'],
+      facets: 4,
+      facetScoringLevel: 'CIRCUMPLEX_4_QUADRANT_SCORES',
+      visualizations: ['Schwartz Circumplex', 'Value Hierarchy Chart'],
+      aiInsightInputs: ['Core motivational drivers', 'Value-behavior incongruence'],
+      longitudinalOutputs: ['Value stability metrics']
+    },
+    blockingIssues: ['Canonical Schwartz values instruments require author licensing for commercial platform use.'],
+    rationale: 'Measures Schwartz 10 basic values aggregated across 4 higher-order quadrants.'
+  },
+  {
+    assessmentId: 'mod_relational_attachment_empathy',
+    titleTr: 'İlişkisel Bağlanma ve Empati',
+    titleEn: 'Relational Attachment & Empathy',
+    catalogCategory: 'RELATIONSHIPS',
+    stage: 'EXPANSION',
+    priority: 'P0',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['attachment_system', 'multidimensional_empathy'],
+    facetIdsCovered: [
+      'attachment_anxiety',
+      'attachment_avoidance',
+      'cognitive_perspective_taking',
+      'empathic_concern'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_ecr_r', 'inst_iri'],
+    selectedInstrumentId: 'inst_ecr_r',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 50,
+    estimatedMinutes: 10,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_7_AND_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 18,
+      reverseScoringRule: 'Scale dependent'
+    },
+    subscales: [
+      { code: 'ECR_ANX', nameTr: 'Bağlanma Kaygısı', nameEn: 'Attachment Anxiety', itemCount: 18, constructId: 'attachment_system' },
+      { code: 'ECR_AVO', nameTr: 'Bağlanma Kaçınması', nameEn: 'Attachment Avoidance', itemCount: 18, constructId: 'attachment_system' },
+      { code: 'IRI_PT', nameTr: 'Perspektif Alma', nameEn: 'Perspective Taking', itemCount: 7, constructId: 'multidimensional_empathy' },
+      { code: 'IRI_EC', nameTr: 'Empatik İlgi', nameEn: 'Empathic Concern', itemCount: 7, constructId: 'multidimensional_empathy' }
+    ],
+    resultVisualizationIds: ['attachment_2d_grid', 'empathy_profile_bars'],
+    profileContribution: {
+      domains: ['social_relational'],
+      constructs: ['attachment_system', 'multidimensional_empathy'],
+      facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Attachment 4-Quadrant Map', 'Empathy Horizon'],
+      aiInsightInputs: ['Attachment security style', 'Relational vulnerability dynamics'],
+      longitudinalOutputs: ['Relational security index']
+    },
+    blockingIssues: ['ECR-R and IRI are open for academic research; commercial validation required.'],
+    rationale: 'Combines ECR-R (36 items) with IRI cognitive and affective empathy subscales (14 items).'
+  },
+  {
+    assessmentId: 'mod_cognitive_adaptability',
+    titleTr: 'Bilişsel Esneklik ve Belirsizlik Yönetimi',
+    titleEn: 'Cognitive Adaptability & Uncertainty Management',
+    catalogCategory: 'COGNITION',
+    stage: 'DEEP',
+    priority: 'P1',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['cognitive_adaptability', 'thinking_styles'],
+    facetIdsCovered: [
+      'cognitive_flexibility',
+      'intolerance_of_uncertainty',
+      'rumination_brooding'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_cfi', 'inst_ius_12', 'inst_rei_40'],
+    selectedInstrumentId: 'inst_cfi',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 32,
+    estimatedMinutes: 7,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 10,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'CFI_ALT', nameTr: 'Alternatif Üretme', nameEn: 'Alternatives Subscale', itemCount: 13, constructId: 'cognitive_adaptability' },
+      { code: 'CFI_CTRL', nameTr: 'Denetim Algısı', nameEn: 'Control Subscale', itemCount: 7, constructId: 'cognitive_adaptability' },
+      { code: 'IUS_12', nameTr: 'Belirsizliğe Tahammülsüzlük', nameEn: 'Intolerance of Uncertainty', itemCount: 12, constructId: 'cognitive_adaptability' }
+    ],
+    resultVisualizationIds: ['cognitive_adaptability_gauge', 'uncertainty_tolerance_meter'],
+    profileContribution: {
+      domains: ['cognition_decision'],
+      constructs: ['cognitive_adaptability', 'thinking_styles'],
+      facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Adaptability Matrix', 'Ambiguity Resilience Index'],
+      aiInsightInputs: ['Problem-solving flexibility under ambiguity'],
+      longitudinalOutputs: ['Adaptive problem solving trajectories']
+    },
+    blockingIssues: ['Commercial SaaS terms verification needed for CFI and IUS-12.'],
+    rationale: 'Measures alternative perspective generation, control perception, and emotional tolerance of ambiguity.'
+  },
+  {
+    assessmentId: 'mod_meaning_compassion_grit',
+    titleTr: 'Varoluşsal Anlam, Öz-Şefkat ve Azim',
+    titleEn: 'Existential Meaning, Self-Compassion & Grit',
+    catalogCategory: 'MOTIVATION_VALUES',
+    stage: 'DEEP',
+    priority: 'P1',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['existential_meaning', 'self_compassion', 'volitional_stamina'],
+    facetIdsCovered: [
+      'presence_of_meaning',
+      'search_for_meaning',
+      'self_compassion',
+      'long_term_grit'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_mlq', 'inst_scs_sf', 'inst_grit_s'],
+    selectedInstrumentId: 'inst_mlq',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 30,
+    estimatedMinutes: 6,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5_AND_7',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 11,
+      reverseScoringRule: 'Scale dependent'
+    },
+    subscales: [
+      { code: 'MLQ_PRES', nameTr: 'Anlam Varlığı', nameEn: 'Presence of Meaning', itemCount: 5, constructId: 'existential_meaning' },
+      { code: 'MLQ_SRCH', nameTr: 'Anlam Arayışı', nameEn: 'Search for Meaning', itemCount: 5, constructId: 'existential_meaning' },
+      { code: 'SCS_SF', nameTr: 'Kısa Öz-Şefkat Skalası', nameEn: 'Self-Compassion Scale (SF)', itemCount: 12, constructId: 'self_compassion' },
+      { code: 'GRIT_S', nameTr: 'Kısa Azim Skalası', nameEn: 'Short Grit Scale', itemCount: 8, constructId: 'volitional_stamina' }
+    ],
+    resultVisualizationIds: ['meaning_compassion_grid', 'grit_perseverance_dial'],
+    profileContribution: {
+      domains: ['motivation_values', 'self_system', 'self_regulation'],
+      constructs: ['existential_meaning', 'self_compassion', 'volitional_stamina'],
+      facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Meaning Matrix (Frankl Lens)', 'Self-Compassion Compass', 'Grit Score'],
+      aiInsightInputs: ['Existential fulfillment vs crisis dynamics', 'Self-criticism vs self-kindness balance'],
+      longitudinalOutputs: ['Existential coherence over life transitions']
+    },
+    blockingIssues: ['MLQ, SCS-SF, and Grit-S require commercial product licensing confirmation.'],
+    rationale: 'Triangulates existential purpose (MLQ: 10 items), emotional self-resilience (SCS-SF: 12 items), and grit (Grit-S: 8 items).'
+  },
+  {
+    assessmentId: 'mod_conflict_boundaries',
+    titleTr: 'Çatışma Çözme Yönelimleri ve Sınırlar',
+    titleEn: 'Conflict Resolution Styles & Boundaries',
+    catalogCategory: 'RELATIONSHIPS',
+    stage: 'DEEP',
+    priority: 'P1',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['conflict_styles', 'social_agency_boundaries'],
+    facetIdsCovered: [
+      'cooperation_orientation',
+      'conflict_avoidance',
+      'assertiveness'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_dutch', 'inst_tki'],
+    selectedInstrumentId: 'inst_dutch',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 20,
+    estimatedMinutes: 4.5,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: false,
+      reverseItemCount: 0,
+      reverseScoringRule: 'NONE'
+    },
+    subscales: [
+      { code: 'DUTCH_PS', nameTr: 'Problem Çözme / İşbirliği', nameEn: 'Problem Solving', itemCount: 4, constructId: 'conflict_styles' },
+      { code: 'DUTCH_FC', nameTr: 'Dayatma / Güç Kullanma', nameEn: 'Forcing', itemCount: 4, constructId: 'conflict_styles' },
+      { code: 'DUTCH_YD', nameTr: 'Uyum Sağlama / Alttan Alma', nameEn: 'Yielding', itemCount: 4, constructId: 'conflict_styles' },
+      { code: 'DUTCH_AV', nameTr: 'Kaçınma', nameEn: 'Avoiding', itemCount: 4, constructId: 'conflict_styles' },
+      { code: 'DUTCH_CP', nameTr: 'Uzlaşma', nameEn: 'Compromising', itemCount: 4, constructId: 'conflict_styles' }
+    ],
+    resultVisualizationIds: ['conflict_style_pentagon', 'boundary_profile_bars'],
+    profileContribution: {
+      domains: ['social_relational'],
+      constructs: ['conflict_styles', 'social_agency_boundaries'],
+      facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Conflict Style Pentagon', 'Interpersonal Boundary Strength'],
+      aiInsightInputs: ['Assertiveness vs accommodation balance', 'Conflict de-escalation strategies'],
+      longitudinalOutputs: ['Interpersonal conflict adaptability']
+    },
+    blockingIssues: ['DUTCH test is academic open with citation; commercial verification pending.'],
+    rationale: 'DUTCH 20-item package provides 5-mode conflict handling.'
+  },
+  {
+    assessmentId: 'mod_affective_distress',
+    titleTr: 'Duygulanım Dengesi ve Sıkıntı Toleransı',
+    titleEn: 'Affective Tone & Distress Tolerance',
+    catalogCategory: 'EMOTION',
+    stage: 'DEEP',
+    priority: 'P0',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['affective_tone', 'distress_tolerance'],
+    facetIdsCovered: [
+      'positive_affect_trait',
+      'negative_affect_trait',
+      'affect_intensity',
+      'distress_tolerance',
+      'experiential_avoidance'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_panas', 'inst_dts'],
+    selectedInstrumentId: 'inst_panas',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 35,
+    estimatedMinutes: 7.5,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 8,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'PANAS_PA', nameTr: 'Olumlu Duygulanım', nameEn: 'Positive Affect', itemCount: 10, constructId: 'affective_tone' },
+      { code: 'PANAS_NA', nameTr: 'Olumsuz Duygulanım', nameEn: 'Negative Affect', itemCount: 10, constructId: 'affective_tone' },
+      { code: 'DTS', nameTr: 'Sıkıntıya Tahammül Skalası', nameEn: 'Distress Tolerance Scale', itemCount: 15, constructId: 'distress_tolerance' }
+    ],
+    resultVisualizationIds: ['panas_affect_balance_meter', 'distress_tolerance_spectrum'],
+    profileContribution: {
+      domains: ['emotion_regulation'],
+      constructs: ['affective_tone', 'distress_tolerance'],
+      facets: 5,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['PANAS Balance Meter', 'Distress Tolerance Thermometer'],
+      aiInsightInputs: ['Affective baseline balance', 'Emotional distress threshold'],
+      longitudinalOutputs: ['Affective volatility tracking']
+    },
+    blockingIssues: ['PANAS and DTS require commercial reproduction permissions.'],
+    rationale: 'Measures trait emotional experience (PANAS: 20 items) and capacity to tolerate negative emotional states (DTS: 15 items).'
+  },
+  {
+    assessmentId: 'mod_flourishing_vitality',
+    titleTr: 'Psikolojik Canlılık ve Yaşam Doyumu',
+    titleEn: 'Psychological Flourishing & Life Satisfaction',
+    catalogCategory: 'MOTIVATION_VALUES',
+    stage: 'DEEP',
+    priority: 'P1',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['psychological_flourishing', 'life_satisfaction'],
+    facetIdsCovered: [
+      'flourishing_scale',
+      'subjective_vitality',
+      'satisfaction_with_life'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_flourishing_scale', 'inst_swls', 'inst_svs_vitality'],
+    selectedInstrumentId: 'inst_flourishing_scale',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 13,
+    estimatedMinutes: 3,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_7',
+    reverseKeying: {
+      hasReverseItems: false,
+      reverseItemCount: 0,
+      reverseScoringRule: 'NONE'
+    },
+    subscales: [
+      { code: 'FS', nameTr: 'Psikolojik Gelişme Skalası', nameEn: 'Flourishing Scale', itemCount: 8, constructId: 'psychological_flourishing' },
+      { code: 'SWLS', nameTr: 'Yaşam Doyumu Skalası', nameEn: 'Satisfaction with Life Scale', itemCount: 5, constructId: 'life_satisfaction' }
+    ],
+    resultVisualizationIds: ['flourishing_vitality_meter', 'life_satisfaction_gauge'],
+    profileContribution: {
+      domains: ['wellbeing_vitality'],
+      constructs: ['psychological_flourishing', 'life_satisfaction'],
+      facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Flourishing Index', 'Life Satisfaction Horizon'],
+      aiInsightInputs: ['Eudaimonic and hedonic wellbeing balance', 'Psychological vitality indicators'],
+      longitudinalOutputs: ['Wellbeing trajectory over time']
+    },
+    blockingIssues: ['Flourishing Scale and SWLS require licensing / permission review.'],
+    rationale: 'Measures eudaimonic flourishing (Diener: 8 items) and global cognitive life satisfaction (Diener SWLS: 5 items).'
+  },
+  {
+    assessmentId: 'mod_coping_resilience',
+    titleTr: 'Başa Çıkma Stratejileri ve Stres Dayanıklılığı',
+    titleEn: 'Coping Strategies & Stress Resilience',
+    catalogCategory: 'EMOTION',
+    stage: 'DEEP',
+    priority: 'P1',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['psychological_resilience', 'coping_orientations'],
+    facetIdsCovered: [
+      'ego_resilience',
+      'stress_recovery',
+      'problem_focused_coping',
+      'emotion_focused_coping'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_brief_cope', 'inst_brs', 'inst_cd_risc'],
+    selectedInstrumentId: 'inst_brief_cope',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 20,
+    estimatedMinutes: 4.5,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_4_AND_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 3,
+      reverseScoringRule: 'Scale dependent'
+    },
+    subscales: [
+      { code: 'COPE_PRB', nameTr: 'Problem Odaklı Başa Çıkma', nameEn: 'Problem-Focused Coping', itemCount: 8, constructId: 'coping_orientations' },
+      { code: 'COPE_EMO', nameTr: 'Duygu Odaklı Başa Çıkma', nameEn: 'Emotion-Focused Coping', itemCount: 6, constructId: 'coping_orientations' },
+      { code: 'RESILIENCE', nameTr: 'Kısa Dayanıklılık Skalası', nameEn: 'Brief Resilience', itemCount: 6, constructId: 'psychological_resilience' }
+    ],
+    resultVisualizationIds: ['coping_strategy_wheel', 'resilience_recovery_dial'],
+    profileContribution: {
+      domains: ['coping_resilience'],
+      constructs: ['psychological_resilience', 'coping_orientations'],
+      facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Coping Style Wheel', 'Stress Recovery Meter'],
+      aiInsightInputs: ['Stress response mechanisms', 'Adaptive vs maladaptive coping patterns'],
+      longitudinalOutputs: ['Resilience adaptability index']
+    },
+    blockingIssues: ['Brief COPE and BRS require commercial usage authorization.'],
+    rationale: 'Measures problem/emotion coping styles (Brief-COPE: 14 items) and psychological bounce-back resilience (BRS: 6 items).'
+  },
+  {
+    assessmentId: 'mod_creativity_growth',
+    titleTr: 'Yaratıcı Zihniyet ve Epistemik Merak',
+    titleEn: 'Creative Mindset & Epistemic Curiosity',
+    catalogCategory: 'COGNITION',
+    stage: 'DEEP',
+    priority: 'P1',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: true,
+    constructIdsCovered: ['epistemic_curiosity', 'creative_mindset'],
+    facetIdsCovered: [
+      'joyous_exploration_curiosity',
+      'deprivation_sensitivity_curiosity',
+      'creative_self_efficacy',
+      'growth_mindset_intelligence'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_5dcr_epistemic', 'inst_creative_self_efficacy', 'inst_dweck_mindset'],
+    selectedInstrumentId: 'inst_5dcr_epistemic',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
+    questionCountPlanned: 16,
+    estimatedMinutes: 3.5,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_EXPLICIT_PERMISSION',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 3,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'CURIOSITY_JOY', nameTr: 'Neşeli Keşif Merakı', nameEn: 'Joyous Exploration', itemCount: 5, constructId: 'epistemic_curiosity' },
+      { code: 'CURIOSITY_DEP', nameTr: 'Yoksunluk Duyarlılığı Merakı', nameEn: 'Deprivation Sensitivity', itemCount: 5, constructId: 'epistemic_curiosity' },
+      { code: 'CREATIVE_SE', nameTr: 'Yaratıcı Öz-İnanç & Gelişim', nameEn: 'Creative Self-Efficacy & Growth', itemCount: 6, constructId: 'creative_mindset' }
+    ],
+    resultVisualizationIds: ['curiosity_profile_radar', 'creative_mindset_spectrum'],
+    profileContribution: {
+      domains: ['creativity_curiosity'],
+      constructs: ['epistemic_curiosity', 'creative_mindset'],
+      facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Curiosity Radar', 'Growth Mindset Index'],
+      aiInsightInputs: ['Curiosity driver configuration', 'Creative confidence & intellectual growth'],
+      longitudinalOutputs: ['Curiosity stability index']
+    },
+    blockingIssues: ['5DCR Curiosity and Creative Self-Efficacy instruments require Turkish psychometric verification.'],
+    rationale: 'Measures Joyous Exploration and Deprivation Sensitivity curiosity (10 items) plus creative self-efficacy and mindset (6 items).'
+  },
+  {
+    assessmentId: 'mod_dark_tetrad_advanced',
+    titleTr: 'Subklinik Kişilik Dinamikleri',
+    titleEn: 'Subclinical Personality Dynamics (SD4)',
+    catalogCategory: 'ADVANCED',
+    stage: 'ADVANCED',
+    priority: 'P2',
+    requiredForFirstProfile: false,
+    requiredForComprehensiveProfile: false,
+    constructIdsCovered: ['dark_tetrad_traits'],
+    facetIdsCovered: [
+      'machiavellianism_subclinical',
+      'grandiose_narcissism_subclinical',
+      'psychopathy_subclinical',
+      'everyday_sadism_subclinical'
+    ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
+    instrumentCandidates: ['inst_sd4'],
+    selectedInstrumentId: 'inst_sd4',
+    selectedInstrumentStatus: 'RESEARCH_ONLY',
+    questionCountPlanned: 28,
+    estimatedMinutes: 6,
+    scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+    publicationReadiness: 'RESEARCH_ONLY',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'RESEARCH_ONLY',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'NON_COMMERCIAL_RESEARCH_ONLY',
+    responseFormat: 'LIKERT_5',
+    reverseKeying: {
+      hasReverseItems: true,
+      reverseItemCount: 6,
+      reverseScoringRule: '6 - rawValue'
+    },
+    subscales: [
+      { code: 'SD4_MACH', nameTr: 'Makyavelizm', nameEn: 'Machiavellianism', itemCount: 7, constructId: 'dark_tetrad_traits' },
+      { code: 'SD4_NARC', nameTr: 'Narsisizm', nameEn: 'Narcissism', itemCount: 7, constructId: 'dark_tetrad_traits' },
+      { code: 'SD4_PSYC', nameTr: 'Psikopati', nameEn: 'Psychopathy', itemCount: 7, constructId: 'dark_tetrad_traits' },
+      { code: 'SD4_SDSM', nameTr: 'Gündelik Sadizm', nameEn: 'Everyday Sadism', itemCount: 7, constructId: 'dark_tetrad_traits' }
+    ],
+    resultVisualizationIds: ['dark_tetrad_radar', 'interpersonal_risk_gauge'],
+    profileContribution: {
+      domains: ['optional_dark_tetrad'],
+      constructs: ['dark_tetrad_traits'],
+      facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
+      visualizations: ['Dark Tetrad 4-Factor Radar'],
+      aiInsightInputs: ['Subclinical interpersonal dynamics'],
+      longitudinalOutputs: ['Subclinical trait stability']
+    },
+    blockingIssues: ['Strictly non-clinical research module. Excluded from default consumer journey; available only via opt-in.'],
+    rationale: '28-item validated scale for subclinical personality traits (Paulhus et al. 2021).'
+  }
+];
+
+// Generate master-model-measurement-coverage.json
+const coverageMatrix: any = {
+  coverageMetadata: {
+    modelName: 'PsycheAI Master Psychological Model Measurement Coverage Matrix',
+    auditDate: '2026-09-16',
+    epistemicStatus: 'EVIDENCE_GRADED_COMPREHENSIVE_AUDIT',
+    totalMasterDomains: proposedModel.domains.length,
+    totalMasterConstructs: proposedModel.domains.reduce((acc: number, d: any) => acc + d.constructs.length, 0),
+    totalMasterFacets: proposedModel.domains.reduce((acc: number, d: any) => acc + d.constructs.reduce((a: number, c: any) => a + c.facets.length, 0), 0),
+    totalAssessmentModules: FULL_16_MODULES.length,
+    consumerAssessmentModules: FULL_16_MODULES.filter(m => m.stage !== 'ADVANCED').length,
+    advancedAssessmentModules: FULL_16_MODULES.filter(m => m.stage === 'ADVANCED').length
+  },
+  domainSummaries: [],
+  constructCoverage: []
+};
+
+// Build coverage matrix per construct and domain
+for (const domain of proposedModel.domains) {
+  let domainDirectConstructs = 0;
+  let domainPartialConstructs = 0;
+  let domainUnmeasuredConstructs = 0;
+  let domainDirectFacets = 0;
+  let domainContentFacets = 0;
+  let domainUnmeasuredFacets = 0;
+  let domainTotalFacets = 0;
+
+  for (const construct of domain.constructs) {
+    const matchingModules = FULL_16_MODULES.filter(m => m.constructIdsCovered.includes(construct.constructId));
+    const totalFacets = construct.facets.length;
+    domainTotalFacets += totalFacets;
+
+    // Check which facets are covered
+    const coveredFacets = construct.facets.filter((f: string) =>
+      matchingModules.some(m => m.facetIdsCovered.includes(f))
+    );
+
+    let directMeasurementStatus = 'NOT_MEASURED';
+    let facetCoverageStatus = 'NOT_MEASURED';
+
+    if (matchingModules.length > 0) {
+      if (coveredFacets.length === totalFacets) {
+        directMeasurementStatus = 'DIRECT_FULL';
+        facetCoverageStatus = 'ALL_FACETS_MEASURED';
+        domainDirectConstructs++;
+        domainDirectFacets += coveredFacets.length;
+      } else if (coveredFacets.length > 0) {
+        directMeasurementStatus = 'DIRECT_PARTIAL';
+        facetCoverageStatus = 'PARTIAL_FACETS_MEASURED';
+        domainPartialConstructs++;
+        domainDirectFacets += coveredFacets.length;
+        domainUnmeasuredFacets += (totalFacets - coveredFacets.length);
+      } else {
+        directMeasurementStatus = 'DIRECT_PARTIAL';
+        facetCoverageStatus = 'BROAD_FACTOR_SAMPLED';
+        domainPartialConstructs++;
+        domainContentFacets += totalFacets;
+      }
+    } else {
+      // Check if it's a known research gap
+      if (['authenticity', 'locus_of_control', 'self_concept_clarity', 'decision_orientation', 'self_conscious_emotions'].includes(construct.constructId)) {
+        directMeasurementStatus = 'RESEARCH_FORM_REQUIRED';
+        facetCoverageStatus = 'RESEARCH_FORM_REQUIRED';
+      } else {
+        directMeasurementStatus = 'NOT_MEASURED';
+        facetCoverageStatus = 'NOT_MEASURED';
+      }
+      domainUnmeasuredConstructs++;
+      domainUnmeasuredFacets += totalFacets;
+    }
+
+    coverageMatrix.constructCoverage.push({
+      domainId: domain.domainId,
+      domainNameTr: domain.domainNameTr,
+      constructId: construct.constructId,
+      constructNameTr: construct.nameTr,
+      constructNameEn: construct.nameEn,
+      priority: construct.priority,
+      evidenceQuality: construct.evidenceQuality,
+      turkishEvidenceStatus: construct.turkishEvidenceStatus,
+      facetIds: construct.facets,
+      totalFacetCount: totalFacets,
+      measuredFacetCount: coveredFacets.length,
+      coveredFacetIds: coveredFacets,
+      unmeasuredFacetIds: construct.facets.filter((f: string) => !coveredFacets.includes(f)),
+      directMeasurementStatus,
+      facetCoverageStatus,
+      assessmentModules: matchingModules.map(m => m.assessmentId),
+      instruments: matchingModules.flatMap(m => m.instrumentCandidates),
+      coverageGaps: construct.facets.filter((f: string) => !coveredFacets.includes(f)),
+      recommendedAction: directMeasurementStatus === 'DIRECT_FULL'
+        ? 'Standard continuous maintenance'
+        : directMeasurementStatus === 'DIRECT_PARTIAL'
+        ? 'Expand facet item markers in subsequent research iterations'
+        : 'Author native PsycheAI research form module'
+    });
+  }
+
+  // Domain Categorical Status
+  let domainStatus = 'PARTIAL';
+  if (domainUnmeasuredConstructs === 0 && domainPartialConstructs === 0) {
+    domainStatus = 'STRONG';
+  } else if (domainDirectConstructs >= domain.constructs.length / 2) {
+    domainStatus = 'MODERATE';
+  } else if (domainDirectConstructs > 0 || domainPartialConstructs > 0) {
+    domainStatus = 'PARTIAL';
+  } else {
+    domainStatus = 'WEAK';
+  }
+
+  coverageMatrix.domainSummaries.push({
+    domainId: domain.domainId,
+    domainNameTr: domain.domainNameTr,
+    domainNameEn: domain.domainNameEn,
+    totalConstructsCount: domain.constructs.length,
+    directlyMeasuredConstructsCount: domainDirectConstructs,
+    partiallyMeasuredConstructsCount: domainPartialConstructs,
+    unmeasuredConstructsCount: domainUnmeasuredConstructs,
+    totalFacetsCount: domainTotalFacets,
+    directlyMeasuredFacetsCount: domainDirectFacets,
+    contentCoveredFacetsCount: domainContentFacets,
+    unmeasuredFacetsCount: domainUnmeasuredFacets,
+    coverageStatus: domainStatus
+  });
+}
+
+// Write master-model-measurement-coverage.json
+fs.writeFileSync(
+  path.join(archDir, 'master-model-measurement-coverage.json'),
+  JSON.stringify(coverageMatrix, null, 2),
+  'utf-8'
+);
+
+// Update assessment-architecture.json
+fs.writeFileSync(
+  path.join(archDir, 'assessment-architecture.json'),
+  JSON.stringify(FULL_16_MODULES, null, 2),
+  'utf-8'
+);
+
+// Calculate dynamic question budgets
+const coreModules = FULL_16_MODULES.filter(m => m.stage === 'CORE');
+const expansionModules = FULL_16_MODULES.filter(m => m.stage === 'EXPANSION');
+const deepModules = FULL_16_MODULES.filter(m => m.stage === 'DEEP');
+const advancedModules = FULL_16_MODULES.filter(m => m.stage === 'ADVANCED');
+
+const coreQuestions = coreModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+const coreMinutes = coreModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+
+const expansionQuestions = coreQuestions + expansionModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+const expansionMinutes = coreMinutes + expansionModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+
+const deepQuestions = expansionQuestions + deepModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+const deepMinutes = expansionMinutes + deepModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+
+const advancedQuestions = deepQuestions + advancedModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+const advancedMinutes = deepMinutes + advancedModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+
+const questionBudget = {
+  budgetMetadata: {
+    averageItemReadingSeconds: 12,
+    fatigueThresholdMinutesPerSession: 25,
+    corePhilosophy: 'PsycheAI is strictly designed for maximum scientifically meaningful psychological coverage across 37 constructs and 91 facets, not minimum question count. Question count is an output of scientific coverage, not an artificial ceiling. Assessment burden is solved via multi-session completion, save/resume, progressive profile unlocking, modular assessment flow, and session scheduling, never through arbitrary item reduction.',
+    coveragePreservationRule: 'If an instrument is unavailable or blocked, construct coverage is preserved through defensible alternatives, open equivalents, or PsycheAI research forms without reducing the Master Model.',
+    governanceRule: 'Target question counts derived dynamically from active 16-module assessment architecture.'
+  },
+  tiers: {
+    FIRST_MEANINGFUL_PROFILE: {
+      tierName: 'First Meaningful Profile (Core Battery)',
+      stage: 'ONBOARDING_CORE',
+      assessmentCountPlanned: coreModules.length,
+      targetQuestionCount: coreQuestions,
+      targetEstimatedMinutes: coreMinutes,
+      domainsCovered: ['core_personality', 'self_system', 'emotion_regulation', 'cognition_decision'],
+      constructsCoveredCount: 11,
+      facetsCoveredCount: 31,
+      recommendedSessionsCount: 1
+    },
+    EXPANDED_PROFILE: {
+      tierName: 'Expanded Profile (Core + High-Value P0 Expansion)',
+      stage: 'EXPANSION',
+      assessmentCountPlanned: coreModules.length + expansionModules.length,
+      targetQuestionCount: expansionQuestions,
+      targetEstimatedMinutes: expansionMinutes,
+      domainsCovered: ['core_personality', 'self_system', 'emotion_regulation', 'cognition_decision', 'self_regulation', 'motivation_values', 'social_relational'],
+      constructsCoveredCount: 18,
+      facetsCoveredCount: 51,
+      recommendedSessionsCount: 2
+    },
+    COMPREHENSIVE_PROFILE: {
+      tierName: 'Comprehensive Profile (Full Multi-Domain Psychometric Battery)',
+      stage: 'COMPREHENSIVE_CONSUMER_MAXIMUM',
+      assessmentCountPlanned: coreModules.length + expansionModules.length + deepModules.length,
+      targetQuestionCount: deepQuestions,
+      targetEstimatedMinutes: deepMinutes,
+      domainsCovered: [
+        'core_personality',
+        'self_system',
+        'emotion_regulation',
+        'cognition_decision',
+        'self_regulation',
+        'motivation_values',
+        'social_relational',
+        'wellbeing_vitality',
+        'coping_resilience',
+        'creativity_curiosity'
+      ],
+      constructsCoveredCount: 36,
+      facetsCoveredCount: 87,
+      recommendedSessionsCount: 3
+    },
+    OPTIONAL_ADVANCED_RESEARCH_MODULE: {
+      tierName: 'Optional Advanced Research Exploration',
+      stage: 'OPTIONAL_ADVANCED',
+      assessmentCountPlanned: advancedModules.length,
+      targetQuestionCount: advancedModules.reduce((acc, m) => acc + m.questionCountPlanned, 0),
+      targetEstimatedMinutes: advancedModules.reduce((acc, m) => acc + m.estimatedMinutes, 0),
+      domainsCovered: ['optional_dark_tetrad'],
+      constructsCoveredCount: 1,
+      facetsCoveredCount: 4,
+      researchOnlyQuestionCount: 28
+    }
+  },
+  grandTotals: {
+    totalPlannedConsumerModules: coreModules.length + expansionModules.length + deepModules.length,
+    totalPlannedConsumerQuestions: deepQuestions,
+    totalPlannedConsumerMinutes: deepMinutes,
+    totalPlannedAllModules: FULL_16_MODULES.length,
+    totalPlannedAllQuestions: advancedQuestions,
+    totalPlannedAllMinutes: advancedMinutes
+  }
+};
+
+fs.writeFileSync(
+  path.join(archDir, 'assessment-question-budget.json'),
+  JSON.stringify(questionBudget, null, 2),
+  'utf-8'
+);
+
+// Update assessment-journey-plan.json
+const journeyPlan = {
+  journeyMetadata: {
+    modelName: 'PsycheAI Adaptive Multi-Session Assessment Journey',
+    primaryGoal: 'Deliver maximum scientifically meaningful psychological coverage across 37 constructs without cognitive fatigue or straightlining.',
+    corePhilosophy: 'Assessment burden is solved through multi-session scheduling, save/resume state management, progressive profile unlocks, and modular flows—never through arbitrary item reduction.',
+    surveyFatigueLimitMinutes: 25,
+    totalPlannedModules: FULL_16_MODULES.length
+  },
+  stages: [
+    {
+      stageId: 'ONBOARDING',
+      stageNameTr: 'Başlangıç ve Temel Profil (Core Onboarding)',
+      stageNameEn: 'Onboarding & First Meaningful Profile',
+      entryCriteria: 'User account created; no prior completed sessions.',
+      targetSessionDurationMinutes: coreMinutes,
+      requiredModules: coreModules.map(m => m.assessmentId),
+      recommendedNextModules: ['mod_volition_impulse', 'mod_basic_needs_sdt'],
+      optionalModules: [],
+      completionCondition: `All ${coreModules.length} core modules completed (${coreQuestions} target questions answered).`,
+      profileUnlocks: [
+        'Core Personality Radar (6 broad factors)',
+        'Self-Esteem & Generalized Agency Index',
+        'Emotion Regulation Quadrant (Reappraisal vs Suppression)',
+        'Epistemic Drive Baseline Score',
+        'First Meaningful Profile Synthesis'
+      ],
+      nextBestAssessmentLogic: 'Guide directly to Module 1 (HEXACO), followed by Self-Agency, ERQ, and NFC-SF.'
+    },
+    {
+      stageId: 'FIRST_PROFILE_DELIVERY',
+      stageNameTr: 'Temel Profil Raporu ve İçgörü İnceleme',
+      stageNameEn: 'First Profile Delivery & Insight Exploration',
+      entryCriteria: 'Core Onboarding completed.',
+      targetSessionDurationMinutes: 5,
+      requiredModules: [],
+      recommendedNextModules: ['mod_volition_impulse', 'mod_basic_needs_sdt', 'mod_universal_values'],
+      optionalModules: [],
+      completionCondition: 'User reviews initial personality atlas, trait radar, and AI synthesis report.',
+      profileUnlocks: [
+        'Unified Profile Dashboard Access',
+        'Adlerian & Rogerian Core Lens Perspectives',
+        `Initial Confidence Indicators (Baseline Sample Size = ${coreQuestions})`
+      ],
+      nextBestAssessmentLogic: 'Recommend an advisory resting window before starting Stage 2 (Expansion).'
+    },
+    {
+      stageId: 'PROFILE_EXPANSION',
+      stageNameTr: 'Genişletilmiş Profil ve Değer Haritası',
+      stageNameEn: 'Profile Expansion & Motivation Mapping',
+      entryCriteria: 'First Profile reviewed; advisory break recommended.',
+      targetSessionDurationMinutes: expansionMinutes - coreMinutes,
+      requiredModules: expansionModules.map(m => m.assessmentId),
+      recommendedNextModules: ['mod_cognitive_adaptability', 'mod_meaning_compassion_grit', 'mod_flourishing_vitality'],
+      optionalModules: [],
+      completionCondition: `All ${expansionModules.length} expansion modules completed (cumulative ${expansionQuestions} target questions answered).`,
+      profileUnlocks: [
+        'Schwartz Universal Value Circumplex (10 basic values)',
+        'SDT Basic Needs Satisfaction & Frustration Balance',
+        'Adult Attachment 4-Quadrant Vector (Anxiety vs Avoidance)',
+        'UPPS-P 5-Factor Impulsivity Profile & General Self-Control',
+        'Theory Council Multi-Theorist Tension Analysis'
+      ],
+      nextBestAssessmentLogic: 'Recommend highest consumer-value unmeasured module: Basic Psychological Needs followed by Schwartz Values.'
+    },
+    {
+      stageId: 'DEEP_PROFILE',
+      stageNameTr: 'Kapsamlı Derin Haritalama (Master Consumer Tier)',
+      stageNameEn: 'Comprehensive Deep Mapping',
+      entryCriteria: 'Profile Expansion completed.',
+      targetSessionDurationMinutes: deepMinutes - expansionMinutes,
+      requiredModules: deepModules.map(m => m.assessmentId),
+      recommendedNextModules: ['mod_dark_tetrad_advanced'],
+      optionalModules: ['mod_dark_tetrad_advanced'],
+      completionCondition: `All ${deepModules.length} deep modules completed (cumulative ${deepQuestions} target questions answered across ${coreModules.length + expansionModules.length + deepModules.length} consumer modules).`,
+      profileUnlocks: [
+        'Full Multi-Domain Master Psychological Profile',
+        'Cognitive Flexibility & Ambiguity Resilience Matrix',
+        'Frankl Existential Meaning Horizon & Grit Persistence Score',
+        'DUTCH 5-Mode Conflict Handling Pentagon',
+        'PANAS Affect Balance & Distress Tolerance Metric',
+        'Psychological Flourishing & Life Satisfaction Indicators',
+        'Coping Styles & Ego-Resilience Profile',
+        'Epistemic Curiosity & Growth Mindset Configuration',
+        'Comprehensive Theory Lens Integrative Analysis'
+      ],
+      nextBestAssessmentLogic: 'Offer user choice among deep mapping modules based on interest.'
+    },
+    {
+      stageId: 'ADVANCED_EXPLORATION',
+      stageNameTr: 'İleri Araştırma ve Boylamsal Takip',
+      stageNameEn: 'Advanced Research & Longitudinal Tracking',
+      entryCriteria: 'Comprehensive Profile completed.',
+      targetSessionDurationMinutes: advancedMinutes - deepMinutes,
+      requiredModules: [],
+      recommendedNextModules: [],
+      optionalModules: ['mod_dark_tetrad_advanced'],
+      completionCondition: 'Explicit opt-in research consent.',
+      profileUnlocks: [
+        'Subclinical Dark Tetrad Exploration (Machiavellianism, Narcissism, Psychopathy, Sadism)',
+        'Longitudinal Trait Stability Tracking Engine'
+      ],
+      nextBestAssessmentLogic: 'Notify user of longitudinal micro-check-ins and state fluctuation tracking.'
+    }
+  ],
+  repeatTestPolicy: {
+    stablePersonalityHEXACO: {
+      minimumRetestIntervalDays: 180,
+      scientificRationale: 'Broad personality traits exhibit high 6-month test-retest stability (r > 0.80).'
+    },
+    relationalAttachment: {
+      minimumRetestIntervalDays: 90,
+      scientificRationale: 'Attachment orientations can shift following major relational events.'
+    },
+    affectiveToneAndDistress: {
+      minimumRetestIntervalDays: 14,
+      scientificRationale: 'Trait-state affect balances (PANAS) can be tracked at bi-weekly intervals.'
+    },
+    defaultUnspecifiedInterval: 'RETEST_INTERVAL_UNSPECIFIED'
+  },
+  longitudinalOutputsSeparation: {
+    definition: 'Longitudinal outputs are derived mathematically across multi-wave snapshot histories.',
+    trackedMetrics: [
+      'idx_temporal_trait_stability',
+      'idx_stress_induced_profile_shift',
+      'idx_need_satisfaction_volatility',
+      'idx_affect_balance_trend'
+    ]
+  },
+  observationalAiSeparation: {
+    definition: 'Observational AI prompts are qualitative grounding context only. They NEVER alter psychometric scores.',
+    mode: 'OBSERVATIONAL_PROMPT_ONLY'
+  }
+};
+
+fs.writeFileSync(
+  path.join(archDir, 'assessment-journey-plan.json'),
+  JSON.stringify(journeyPlan, null, 2),
+  'utf-8'
+);
+
+console.log('✅ Master Model Measurement Coverage Matrix & Assessment Architecture Synced Successfully!');
+console.log(`- Total Modules: ${FULL_16_MODULES.length} (Core: ${coreModules.length}, Expansion: ${expansionModules.length}, Deep: ${deepModules.length}, Advanced: ${advancedModules.length})`);
+console.log(`- Core Questions: ${coreQuestions} (~${coreMinutes} min)`);
+console.log(`- Expansion Cumulative Questions: ${expansionQuestions} (~${expansionMinutes} min)`);
+console.log(`- Comprehensive Cumulative Questions: ${deepQuestions} (~${deepMinutes} min)`);
+console.log(`- Grand Total Questions: ${advancedQuestions} (~${advancedMinutes} min)`);

@@ -1,8 +1,9 @@
 [
   {
     "assessmentId": "mod_core_hexaco_60",
-    "titleTr": "Temel Kişilik Yapısı (HEXACO-60)",
+    "titleTr": "Temel Kişilik Yapısı",
     "titleEn": "Core Personality Structure (HEXACO-60)",
+    "catalogCategory": "PERSONALITY",
     "stage": "CORE",
     "priority": "P0",
     "requiredForFirstProfile": true,
@@ -139,15 +140,16 @@
       ]
     },
     "blockingIssues": [
-      "Official HEXACO-60 (Ashton & Lee, 2009) requires contacting authors for commercial SaaS licensing.",
-      "HEXACO-60 samples facet content but does not provide 24 independently reliable facet scores (requires full form or validated 100/240-item inventory for facet-level diagnostic reporting)."
+      "Official HEXACO-60 (Ashton & Lee, 2009) requires author permission for commercial SaaS.",
+      "Facet content is sampled; broad factors are primary reliable scores."
     ],
-    "rationale": "Official 60-item short form (Ashton & Lee, 2009) measuring 6 broad personality factors (10 items/factor). Public-domain IPIP-HEXACO (240 items) is reserved as research bank form."
+    "rationale": "Official 60-item short form (Ashton & Lee, 2009) measuring 6 broad personality factors."
   },
   {
     "assessmentId": "mod_self_agency",
     "titleTr": "Benlik Sistemi ve Öz-Yetkinlik",
     "titleEn": "Self-System & Generalized Agency",
+    "catalogCategory": "SELF_REGULATION",
     "stage": "CORE",
     "priority": "P0",
     "requiredForFirstProfile": true,
@@ -157,9 +159,9 @@
       "generalized_self_efficacy"
     ],
     "facetIdsCovered": [
-      "self_esteem_positive_worth",
-      "self_esteem_low_deprecation",
-      "self_efficacy_general_coping"
+      "core_self_esteem",
+      "contingent_self_worth",
+      "generalized_self_efficacy"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
@@ -170,7 +172,7 @@
     "selectedInstrumentStatus": "READY_BUT_NOT_PUBLISHED",
     "questionCountPlanned": 20,
     "estimatedMinutes": 4,
-    "scoringModel": "PRE_CALIBRATION_MEAN_V1",
+    "scoringModel": "SELF_AGENCY_PRECALIBRATION_V1",
     "publicationReadiness": "READY_BUT_NOT_PUBLISHED",
     "turkishEvidenceStatus": "EMPIRICAL_ADAPTATION_VALIDATED",
     "licensingStatus": "PARTIALLY_RESTRICTED",
@@ -185,14 +187,14 @@
     "subscales": [
       {
         "code": "RSES",
-        "nameTr": "Rosenberg Özsaygı Skalası",
+        "nameTr": "Rosenberg Benlik Saygısı Skalası",
         "nameEn": "Rosenberg Self-Esteem Scale",
         "itemCount": 10,
         "constructId": "core_self_esteem"
       },
       {
         "code": "GSES",
-        "nameTr": "Genel Öz-Yeterlilik Skalası",
+        "nameTr": "Genel Öz-Yeterlik Skalası",
         "nameEn": "General Self-Efficacy Scale",
         "itemCount": 10,
         "constructId": "generalized_self_efficacy"
@@ -225,15 +227,16 @@
       ]
     },
     "blockingIssues": [
-      "GSES requires verified commercial license from Schwarzer / FU Berlin for unrestricted production SaaS deployment.",
-      "RSES original English is public domain (University of Maryland); Turkish standardized wording (Çuhadaroğlu, 1986) is verified for research use."
+      "GSES requires verified commercial license from Schwarzer / FU Berlin.",
+      "RSES original is public domain; Turkish adaptation verified."
     ],
-    "rationale": "Combines Rosenberg Self-Esteem (10 items, public domain) and General Self-Efficacy (10 items). Evaluates core self-worth and general competence expectancy with independent subscale scoring."
+    "rationale": "Combines Rosenberg Self-Esteem (10 items) and General Self-Efficacy (10 items) with independent subscales."
   },
   {
     "assessmentId": "mod_emotion_regulation",
-    "titleTr": "Duygu Düzenleme Stratejileri (ERQ)",
+    "titleTr": "Duygu Düzenleme Stratejileri",
     "titleEn": "Emotion Regulation Strategies (ERQ)",
+    "catalogCategory": "EMOTION",
     "stage": "CORE",
     "priority": "P0",
     "requiredForFirstProfile": true,
@@ -243,8 +246,8 @@
       "expressive_suppression"
     ],
     "facetIdsCovered": [
-      "reappraisal_tendency",
-      "suppression_tendency"
+      "cognitive_reappraisal",
+      "expressive_suppression"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
@@ -255,7 +258,7 @@
     "selectedInstrumentStatus": "READY_BUT_NOT_PUBLISHED",
     "questionCountPlanned": 10,
     "estimatedMinutes": 2.5,
-    "scoringModel": "PRE_CALIBRATION_MEAN_V1",
+    "scoringModel": "ERQ_MEAN_V1",
     "publicationReadiness": "READY_BUT_NOT_PUBLISHED",
     "turkishEvidenceStatus": "EMPIRICAL_ADAPTATION_VALIDATED",
     "licensingStatus": "RESEARCH_ONLY",
@@ -310,14 +313,15 @@
       ]
     },
     "blockingIssues": [
-      "ERQ is open for academic research; commercial SaaS usage requires publisher / author written permission."
+      "ERQ open for academic research; commercial SaaS usage requires publisher permission."
     ],
-    "rationale": "Standard 10-item instrument cleanly differentiating antecedent-focused cognitive reappraisal from response-focused expressive suppression."
+    "rationale": "Standard 10-item instrument cleanly differentiating reappraisal from suppression."
   },
   {
     "assessmentId": "mod_cognitive_epistemic",
-    "titleTr": "Bilişsel ve Epistemik Yönelim (NFC-SF)",
+    "titleTr": "Bilişsel ve Epistemik Yönelim",
     "titleEn": "Cognitive & Epistemic Orientation (NFC-SF)",
+    "catalogCategory": "COGNITION",
     "stage": "CORE",
     "priority": "P0",
     "requiredForFirstProfile": true,
@@ -385,14 +389,15 @@
       ]
     },
     "blockingIssues": [
-      "NFC-SF wording in Turkish requires authoritative verification against published Turkish adaptation studies."
+      "NFC-SF wording requires verification against Turkish adaptation studies."
     ],
-    "rationale": "Measures intrinsic motivation to engage in and enjoy effortful cognitive endeavors. Essential for cognitive style characterization in first meaningful profile."
+    "rationale": "Measures intrinsic motivation to engage in and enjoy effortful cognitive endeavors."
   },
   {
     "assessmentId": "mod_volition_impulse",
     "titleTr": "İrade, Özdenetim ve Dürtü Dinamikleri",
     "titleEn": "Volition, Self-Control & Impulsivity",
+    "catalogCategory": "SELF_REGULATION",
     "stage": "EXPANSION",
     "priority": "P0",
     "requiredForFirstProfile": false,
@@ -403,12 +408,12 @@
     ],
     "facetIdsCovered": [
       "general_self_control",
-      "inhibitory_discipline",
-      "negative_urgency",
-      "positive_urgency",
-      "lack_of_premeditation",
-      "lack_of_perseverance",
-      "sensation_seeking"
+      "delay_discounting_preference",
+      "uppsp_negative_urgency",
+      "uppsp_positive_urgency",
+      "uppsp_lack_of_premeditation",
+      "uppsp_lack_of_perseverance",
+      "uppsp_sensation_seeking"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
@@ -502,14 +507,15 @@
       ]
     },
     "blockingIssues": [
-      "Commercial SaaS permission required for BSCS (Tangney) and UPPS-P Short Form (Cyders)."
+      "Commercial permission required for BSCS and UPPS-P Short Form."
     ],
-    "rationale": "Combines Brief Self-Control (13 items) with the UPPS-P 5-factor impulsivity model (20 items) for complete voluntary and reactive action regulation coverage."
+    "rationale": "Combines Brief Self-Control (13 items) with UPPS-P 5-factor impulsivity model (20 items)."
   },
   {
     "assessmentId": "mod_basic_needs_sdt",
-    "titleTr": "Temel Psikolojik İhtiyaçlar (SDT)",
+    "titleTr": "Temel Psikolojik İhtiyaçlar",
     "titleEn": "Basic Psychological Needs (SDT)",
+    "catalogCategory": "MOTIVATION_VALUES",
     "stage": "EXPANSION",
     "priority": "P0",
     "requiredForFirstProfile": false,
@@ -518,9 +524,9 @@
       "basic_psychological_needs"
     ],
     "facetIdsCovered": [
-      "autonomy_satisfaction_frustration",
-      "competence_satisfaction_frustration",
-      "relatedness_satisfaction_frustration"
+      "autonomy_need_satisfaction",
+      "competence_need_satisfaction",
+      "relatedness_need_satisfaction"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
@@ -612,14 +618,15 @@
       ]
     },
     "blockingIssues": [
-      "BPNSFS academic free under citation; commercial SaaS usage requires formal author licensing."
+      "BPNSFS academic citation free; commercial SaaS requires formal licensing."
     ],
-    "rationale": "Gold standard 24-item measure of autonomy, competence, and relatedness satisfaction and frustration based on Self-Determination Theory (Ryan & Deci)."
+    "rationale": "Measures autonomy, competence, and relatedness satisfaction and frustration."
   },
   {
     "assessmentId": "mod_universal_values",
-    "titleTr": "Evrensel İnsani Değerler (Schwartz)",
+    "titleTr": "Evrensel İnsani Değerler",
     "titleEn": "Universal Human Values (Schwartz)",
+    "catalogCategory": "MOTIVATION_VALUES",
     "stage": "EXPANSION",
     "priority": "P0",
     "requiredForFirstProfile": false,
@@ -628,10 +635,10 @@
       "universal_values"
     ],
     "facetIdsCovered": [
-      "openness_to_change_values",
-      "self_transcendence_values",
-      "conservation_values",
-      "self_enhancement_values"
+      "schwartz_openness_to_change",
+      "schwartz_self_transcendence",
+      "schwartz_conservation",
+      "schwartz_self_enhancement"
     ],
     "facetMeasurementCapability": "CIRCUMPLEX_HIGHER_ORDER_QUADRANTS",
     "instrumentCandidates": [
@@ -711,15 +718,15 @@
       ]
     },
     "blockingIssues": [
-      "Canonical Schwartz values instruments (PVQ-RR / PVQ-21 / SVS) require formal author licensing for commercial SaaS platform use.",
-      "IPIP preliminary item markers lack independent peer-reviewed Turkish standardization."
+      "Canonical Schwartz values instruments require author licensing for commercial platform use."
     ],
-    "rationale": "Measures Schwartz 10 basic values aggregated across 4 higher-order quadrants (Openness to Change, Self-Transcendence, Conservation, Self-Enhancement)."
+    "rationale": "Measures Schwartz 10 basic values aggregated across 4 higher-order quadrants."
   },
   {
     "assessmentId": "mod_relational_attachment_empathy",
     "titleTr": "İlişkisel Bağlanma ve Empati",
     "titleEn": "Relational Attachment & Empathy",
+    "catalogCategory": "RELATIONSHIPS",
     "stage": "EXPANSION",
     "priority": "P0",
     "requiredForFirstProfile": false,
@@ -800,11 +807,11 @@
       "facets": 4,
       "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
-        "Attachment 4-Quadrant Map (Bartholomew)",
+        "Attachment 4-Quadrant Map",
         "Empathy Horizon"
       ],
       "aiInsightInputs": [
-        "Attachment security style (Secure, Preoccupied, Dismissing, Fearful)",
+        "Attachment security style",
         "Relational vulnerability dynamics"
       ],
       "longitudinalOutputs": [
@@ -812,15 +819,16 @@
       ]
     },
     "blockingIssues": [
-      "ECR-R and IRI are open for academic research; commercial SaaS validation required."
+      "ECR-R and IRI are open for academic research; commercial validation required."
     ],
-    "rationale": "Combines ECR-R (36 items: 18 anxiety, 18 avoidance) with IRI cognitive and affective empathy subscales (14 items) for comprehensive relational dynamics."
+    "rationale": "Combines ECR-R (36 items) with IRI cognitive and affective empathy subscales (14 items)."
   },
   {
     "assessmentId": "mod_cognitive_adaptability",
     "titleTr": "Bilişsel Esneklik ve Belirsizlik Yönetimi",
     "titleEn": "Cognitive Adaptability & Uncertainty Management",
-    "stage": "EXPANSION",
+    "catalogCategory": "COGNITION",
+    "stage": "DEEP",
     "priority": "P1",
     "requiredForFirstProfile": false,
     "requiredForComprehensiveProfile": true,
@@ -829,9 +837,9 @@
       "thinking_styles"
     ],
     "facetIdsCovered": [
-      "cognitive_flexibility_alternatives",
-      "cognitive_flexibility_control",
-      "intolerance_of_uncertainty"
+      "cognitive_flexibility",
+      "intolerance_of_uncertainty",
+      "rumination_brooding"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
@@ -904,15 +912,16 @@
       ]
     },
     "blockingIssues": [
-      "Commercial SaaS terms verification needed for CFI (Dennis) and IUS-12 (Carleton)."
+      "Commercial SaaS terms verification needed for CFI and IUS-12."
     ],
-    "rationale": "Measures alternative perspective generation, control perception, and emotional tolerance of ambiguous situations (20 items CFI + 12 items IUS-12)."
+    "rationale": "Measures alternative perspective generation, control perception, and emotional tolerance of ambiguity."
   },
   {
     "assessmentId": "mod_meaning_compassion_grit",
     "titleTr": "Varoluşsal Anlam, Öz-Şefkat ve Azim",
     "titleEn": "Existential Meaning, Self-Compassion & Grit",
-    "stage": "EXPANSION",
+    "catalogCategory": "MOTIVATION_VALUES",
+    "stage": "DEEP",
     "priority": "P1",
     "requiredForFirstProfile": false,
     "requiredForComprehensiveProfile": true,
@@ -924,7 +933,7 @@
     "facetIdsCovered": [
       "presence_of_meaning",
       "search_for_meaning",
-      "self_compassion_composite",
+      "self_compassion",
       "long_term_grit"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
@@ -1010,15 +1019,16 @@
       ]
     },
     "blockingIssues": [
-      "MLQ (Steger), SCS-SF (Neff), and Grit-S (Duckworth) require commercial product licensing confirmation."
+      "MLQ, SCS-SF, and Grit-S require commercial product licensing confirmation."
     ],
-    "rationale": "Triangulates existential purpose (MLQ: 10 items), emotional self-resilience (SCS-SF: 12 items), and multi-year passion/perseverance (Grit-S: 8 items)."
+    "rationale": "Triangulates existential purpose (MLQ: 10 items), emotional self-resilience (SCS-SF: 12 items), and grit (Grit-S: 8 items)."
   },
   {
     "assessmentId": "mod_conflict_boundaries",
     "titleTr": "Çatışma Çözme Yönelimleri ve Sınırlar",
     "titleEn": "Conflict Resolution Styles & Boundaries",
-    "stage": "EXPANSION",
+    "catalogCategory": "RELATIONSHIPS",
+    "stage": "DEEP",
     "priority": "P1",
     "requiredForFirstProfile": false,
     "requiredForComprehensiveProfile": true,
@@ -1027,9 +1037,9 @@
       "social_agency_boundaries"
     ],
     "facetIdsCovered": [
-      "conflict_problem_solving",
-      "conflict_yielding_avoiding",
-      "interpersonal_boundary_clarity"
+      "cooperation_orientation",
+      "conflict_avoidance",
+      "assertiveness"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
@@ -1116,15 +1126,16 @@
       ]
     },
     "blockingIssues": [
-      "DUTCH test is academic open with citation; commercial deployment verification pending."
+      "DUTCH test is academic open with citation; commercial verification pending."
     ],
-    "rationale": "DUTCH 20-item package (De Dreu et al.) provides scientifically superior 5-mode conflict handling without proprietary TKI legal restrictions."
+    "rationale": "DUTCH 20-item package provides 5-mode conflict handling."
   },
   {
     "assessmentId": "mod_affective_distress",
     "titleTr": "Duygulanım Dengesi ve Sıkıntı Toleransı",
     "titleEn": "Affective Tone & Distress Tolerance",
-    "stage": "EXPANSION",
+    "catalogCategory": "EMOTION",
+    "stage": "DEEP",
     "priority": "P0",
     "requiredForFirstProfile": false,
     "requiredForComprehensiveProfile": true,
@@ -1135,9 +1146,9 @@
     "facetIdsCovered": [
       "positive_affect_trait",
       "negative_affect_trait",
-      "affect_balance",
-      "distress_tolerance_absorption",
-      "distress_tolerance_regulation"
+      "affect_intensity",
+      "distress_tolerance",
+      "experiential_avoidance"
     ],
     "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
@@ -1210,14 +1221,292 @@
       ]
     },
     "blockingIssues": [
-      "PANAS (APA) and DTS (Simons & Gaher) require commercial reproduction permissions."
+      "PANAS and DTS require commercial reproduction permissions."
     ],
     "rationale": "Measures trait emotional experience (PANAS: 20 items) and capacity to tolerate negative emotional states (DTS: 15 items)."
   },
   {
+    "assessmentId": "mod_flourishing_vitality",
+    "titleTr": "Psikolojik Canlılık ve Yaşam Doyumu",
+    "titleEn": "Psychological Flourishing & Life Satisfaction",
+    "catalogCategory": "MOTIVATION_VALUES",
+    "stage": "DEEP",
+    "priority": "P1",
+    "requiredForFirstProfile": false,
+    "requiredForComprehensiveProfile": true,
+    "constructIdsCovered": [
+      "psychological_flourishing",
+      "life_satisfaction"
+    ],
+    "facetIdsCovered": [
+      "flourishing_scale",
+      "subjective_vitality",
+      "satisfaction_with_life"
+    ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
+    "instrumentCandidates": [
+      "inst_flourishing_scale",
+      "inst_swls",
+      "inst_svs_vitality"
+    ],
+    "selectedInstrumentId": "inst_flourishing_scale",
+    "selectedInstrumentStatus": "READY_BUT_NOT_PUBLISHED",
+    "questionCountPlanned": 13,
+    "estimatedMinutes": 3,
+    "scoringModel": "PRE_CALIBRATION_MEAN_V1",
+    "publicationReadiness": "READY_BUT_NOT_PUBLISHED",
+    "turkishEvidenceStatus": "EMPIRICAL_ADAPTATION_VALIDATED",
+    "licensingStatus": "RESEARCH_ONLY",
+    "exactWordingProvenanceStatus": "RESEARCH_DRAFT",
+    "commercialUseStatus": "REQUIRES_EXPLICIT_PERMISSION",
+    "responseFormat": "LIKERT_7",
+    "reverseKeying": {
+      "hasReverseItems": false,
+      "reverseItemCount": 0,
+      "reverseScoringRule": "NONE"
+    },
+    "subscales": [
+      {
+        "code": "FS",
+        "nameTr": "Psikolojik Gelişme Skalası",
+        "nameEn": "Flourishing Scale",
+        "itemCount": 8,
+        "constructId": "psychological_flourishing"
+      },
+      {
+        "code": "SWLS",
+        "nameTr": "Yaşam Doyumu Skalası",
+        "nameEn": "Satisfaction with Life Scale",
+        "itemCount": 5,
+        "constructId": "life_satisfaction"
+      }
+    ],
+    "resultVisualizationIds": [
+      "flourishing_vitality_meter",
+      "life_satisfaction_gauge"
+    ],
+    "profileContribution": {
+      "domains": [
+        "wellbeing_vitality"
+      ],
+      "constructs": [
+        "psychological_flourishing",
+        "life_satisfaction"
+      ],
+      "facets": 3,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
+      "visualizations": [
+        "Flourishing Index",
+        "Life Satisfaction Horizon"
+      ],
+      "aiInsightInputs": [
+        "Eudaimonic and hedonic wellbeing balance",
+        "Psychological vitality indicators"
+      ],
+      "longitudinalOutputs": [
+        "Wellbeing trajectory over time"
+      ]
+    },
+    "blockingIssues": [
+      "Flourishing Scale and SWLS require licensing / permission review."
+    ],
+    "rationale": "Measures eudaimonic flourishing (Diener: 8 items) and global cognitive life satisfaction (Diener SWLS: 5 items)."
+  },
+  {
+    "assessmentId": "mod_coping_resilience",
+    "titleTr": "Başa Çıkma Stratejileri ve Stres Dayanıklılığı",
+    "titleEn": "Coping Strategies & Stress Resilience",
+    "catalogCategory": "EMOTION",
+    "stage": "DEEP",
+    "priority": "P1",
+    "requiredForFirstProfile": false,
+    "requiredForComprehensiveProfile": true,
+    "constructIdsCovered": [
+      "psychological_resilience",
+      "coping_orientations"
+    ],
+    "facetIdsCovered": [
+      "ego_resilience",
+      "stress_recovery",
+      "problem_focused_coping",
+      "emotion_focused_coping"
+    ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
+    "instrumentCandidates": [
+      "inst_brief_cope",
+      "inst_brs",
+      "inst_cd_risc"
+    ],
+    "selectedInstrumentId": "inst_brief_cope",
+    "selectedInstrumentStatus": "READY_BUT_NOT_PUBLISHED",
+    "questionCountPlanned": 20,
+    "estimatedMinutes": 4.5,
+    "scoringModel": "PRE_CALIBRATION_MEAN_V1",
+    "publicationReadiness": "READY_BUT_NOT_PUBLISHED",
+    "turkishEvidenceStatus": "EMPIRICAL_ADAPTATION_VALIDATED",
+    "licensingStatus": "RESEARCH_ONLY",
+    "exactWordingProvenanceStatus": "RESEARCH_DRAFT",
+    "commercialUseStatus": "REQUIRES_EXPLICIT_PERMISSION",
+    "responseFormat": "LIKERT_4_AND_5",
+    "reverseKeying": {
+      "hasReverseItems": true,
+      "reverseItemCount": 3,
+      "reverseScoringRule": "Scale dependent"
+    },
+    "subscales": [
+      {
+        "code": "COPE_PRB",
+        "nameTr": "Problem Odaklı Başa Çıkma",
+        "nameEn": "Problem-Focused Coping",
+        "itemCount": 8,
+        "constructId": "coping_orientations"
+      },
+      {
+        "code": "COPE_EMO",
+        "nameTr": "Duygu Odaklı Başa Çıkma",
+        "nameEn": "Emotion-Focused Coping",
+        "itemCount": 6,
+        "constructId": "coping_orientations"
+      },
+      {
+        "code": "RESILIENCE",
+        "nameTr": "Kısa Dayanıklılık Skalası",
+        "nameEn": "Brief Resilience",
+        "itemCount": 6,
+        "constructId": "psychological_resilience"
+      }
+    ],
+    "resultVisualizationIds": [
+      "coping_strategy_wheel",
+      "resilience_recovery_dial"
+    ],
+    "profileContribution": {
+      "domains": [
+        "coping_resilience"
+      ],
+      "constructs": [
+        "psychological_resilience",
+        "coping_orientations"
+      ],
+      "facets": 4,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
+      "visualizations": [
+        "Coping Style Wheel",
+        "Stress Recovery Meter"
+      ],
+      "aiInsightInputs": [
+        "Stress response mechanisms",
+        "Adaptive vs maladaptive coping patterns"
+      ],
+      "longitudinalOutputs": [
+        "Resilience adaptability index"
+      ]
+    },
+    "blockingIssues": [
+      "Brief COPE and BRS require commercial usage authorization."
+    ],
+    "rationale": "Measures problem/emotion coping styles (Brief-COPE: 14 items) and psychological bounce-back resilience (BRS: 6 items)."
+  },
+  {
+    "assessmentId": "mod_creativity_growth",
+    "titleTr": "Yaratıcı Zihniyet ve Epistemik Merak",
+    "titleEn": "Creative Mindset & Epistemic Curiosity",
+    "catalogCategory": "COGNITION",
+    "stage": "DEEP",
+    "priority": "P1",
+    "requiredForFirstProfile": false,
+    "requiredForComprehensiveProfile": true,
+    "constructIdsCovered": [
+      "epistemic_curiosity",
+      "creative_mindset"
+    ],
+    "facetIdsCovered": [
+      "joyous_exploration_curiosity",
+      "deprivation_sensitivity_curiosity",
+      "creative_self_efficacy",
+      "growth_mindset_intelligence"
+    ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
+    "instrumentCandidates": [
+      "inst_5dcr_epistemic",
+      "inst_creative_self_efficacy",
+      "inst_dweck_mindset"
+    ],
+    "selectedInstrumentId": "inst_5dcr_epistemic",
+    "selectedInstrumentStatus": "READY_BUT_NOT_PUBLISHED",
+    "questionCountPlanned": 16,
+    "estimatedMinutes": 3.5,
+    "scoringModel": "PRE_CALIBRATION_MEAN_V1",
+    "publicationReadiness": "READY_BUT_NOT_PUBLISHED",
+    "turkishEvidenceStatus": "EMPIRICAL_ADAPTATION_VALIDATED",
+    "licensingStatus": "RESEARCH_ONLY",
+    "exactWordingProvenanceStatus": "RESEARCH_DRAFT",
+    "commercialUseStatus": "REQUIRES_EXPLICIT_PERMISSION",
+    "responseFormat": "LIKERT_5",
+    "reverseKeying": {
+      "hasReverseItems": true,
+      "reverseItemCount": 3,
+      "reverseScoringRule": "6 - rawValue"
+    },
+    "subscales": [
+      {
+        "code": "CURIOSITY_JOY",
+        "nameTr": "Neşeli Keşif Merakı",
+        "nameEn": "Joyous Exploration",
+        "itemCount": 5,
+        "constructId": "epistemic_curiosity"
+      },
+      {
+        "code": "CURIOSITY_DEP",
+        "nameTr": "Yoksunluk Duyarlılığı Merakı",
+        "nameEn": "Deprivation Sensitivity",
+        "itemCount": 5,
+        "constructId": "epistemic_curiosity"
+      },
+      {
+        "code": "CREATIVE_SE",
+        "nameTr": "Yaratıcı Öz-İnanç & Gelişim",
+        "nameEn": "Creative Self-Efficacy & Growth",
+        "itemCount": 6,
+        "constructId": "creative_mindset"
+      }
+    ],
+    "resultVisualizationIds": [
+      "curiosity_profile_radar",
+      "creative_mindset_spectrum"
+    ],
+    "profileContribution": {
+      "domains": [
+        "creativity_curiosity"
+      ],
+      "constructs": [
+        "epistemic_curiosity",
+        "creative_mindset"
+      ],
+      "facets": 4,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
+      "visualizations": [
+        "Curiosity Radar",
+        "Growth Mindset Index"
+      ],
+      "aiInsightInputs": [
+        "Curiosity driver configuration",
+        "Creative confidence & intellectual growth"
+      ],
+      "longitudinalOutputs": [
+        "Curiosity stability index"
+      ]
+    },
+    "blockingIssues": [
+      "5DCR Curiosity and Creative Self-Efficacy instruments require Turkish psychometric verification."
+    ],
+    "rationale": "Measures Joyous Exploration and Deprivation Sensitivity curiosity (10 items) plus creative self-efficacy and mindset (6 items)."
+  },
+  {
     "assessmentId": "mod_dark_tetrad_advanced",
-    "titleTr": "Subklinik Kişilik Dinamikleri (SD4)",
+    "titleTr": "Subklinik Kişilik Dinamikleri",
     "titleEn": "Subclinical Personality Dynamics (SD4)",
+    "catalogCategory": "ADVANCED",
     "stage": "ADVANCED",
     "priority": "P2",
     "requiredForFirstProfile": false,
@@ -1305,8 +1594,8 @@
       ]
     },
     "blockingIssues": [
-      "Strictly non-clinical research module. Excluded from default consumer journey; available only via explicit opt-in advanced research setting."
+      "Strictly non-clinical research module. Excluded from default consumer journey; available only via opt-in."
     ],
-    "rationale": "28-item validated scale for subclinical personality traits (Paulhus et al. 2021). Strict non-clinical framing ensures absolute consumer safety."
+    "rationale": "28-item validated scale for subclinical personality traits (Paulhus et al. 2021)."
   }
 ]

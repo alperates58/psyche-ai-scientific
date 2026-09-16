@@ -46,7 +46,7 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     expect(coreTier.assessmentCountPlanned).toBe(coreModules.length);
     expect(coreTier.assessmentCountPlanned).toBe(4);
     expect(coreTier.targetQuestionCount).toBe(calculatedCoreSum);
-    expect(coreTier.productReadyNowQuestionCount + coreTier.conditionalPermissionQuestionCount).toBe(coreTier.targetQuestionCount);
+    expect(coreTier.targetQuestionCount).toBe(108);
     expect(coreTier.targetEstimatedMinutes).toBeLessThanOrEqual(25.0); // Fatigue threshold
     expect(coreTier.domainsCovered).toContain('core_personality');
     expect(coreTier.domainsCovered).toContain('self_system');
@@ -65,11 +65,11 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     expect(expTier.assessmentCountPlanned).toBe(expModules.length);
     expect(expTier.assessmentCountPlanned).toBe(8);
     expect(expTier.targetQuestionCount).toBe(calculatedExpSum);
-    expect(expTier.productReadyNowQuestionCount + expTier.conditionalPermissionQuestionCount).toBe(expTier.targetQuestionCount);
+    expect(expTier.targetQuestionCount).toBe(265);
     expect(expTier.recommendedSessionsCount).toBe(2);
   });
 
-  it('5. Invariant: Comprehensive Consumer battery dynamic budget equals all 12 consumer modules', () => {
+  it('5. Invariant: Comprehensive Consumer battery dynamic budget equals all 15 consumer modules', () => {
     const modules = JSON.parse(fs.readFileSync(archPath, 'utf8'));
     const budget = JSON.parse(fs.readFileSync(budgetPath, 'utf8'));
     const compTier = budget.tiers.COMPREHENSIVE_PROFILE;
@@ -78,9 +78,9 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     const calculatedCompSum = compModules.reduce((acc: number, m: any) => acc + m.questionCountPlanned, 0);
 
     expect(compTier.assessmentCountPlanned).toBe(compModules.length);
-    expect(compTier.assessmentCountPlanned).toBe(12);
+    expect(compTier.assessmentCountPlanned).toBe(15);
     expect(compTier.targetQuestionCount).toBe(calculatedCompSum);
-    expect(compTier.productReadyNowQuestionCount + compTier.conditionalPermissionQuestionCount).toBe(compTier.targetQuestionCount);
+    expect(compTier.targetQuestionCount).toBe(431);
     expect(compTier.recommendedSessionsCount).toBe(3);
   });
 

@@ -5,7 +5,7 @@ import {
   JourneyClassification,
 } from '../../src/lib/assessmentJourneyConfig';
 
-describe('FAZ 2.8: Assessment Journey Config & Metadata Rules', () => {
+describe('FAZ 2.8 & 2.16: Assessment Journey Config & Metadata Rules', () => {
   it('resolves explicit rules for known core modules', () => {
     const core1 = getModuleJourneyMetadata('MODULE_1_CORE_PERSONALITY');
     expect(core1.classification).toBe('REQUIRED');
@@ -21,21 +21,21 @@ describe('FAZ 2.8: Assessment Journey Config & Metadata Rules', () => {
     expect(identity.classification).toBe('REQUIRED');
     expect(identity.priority).toBe(2);
 
-    const gse = getModuleJourneyMetadata('MODULE_5_GENERAL_SELF_EFFICACY');
-    expect(gse.classification).toBe('RECOMMENDED');
-    expect(gse.priority).toBe(3);
-
     const emotion = getModuleJourneyMetadata('MODULE_3_EMOTION_REGULATION');
-    expect(emotion.classification).toBe('RECOMMENDED');
-    expect(emotion.priority).toBe(4);
+    expect(emotion.classification).toBe('REQUIRED');
+    expect(emotion.priority).toBe(3);
+
+    const cognitive = getModuleJourneyMetadata('MODULE_4_COGNITIVE_EPISTEMIC');
+    expect(cognitive.classification).toBe('REQUIRED');
+    expect(cognitive.priority).toBe(4);
+
+    const volition = getModuleJourneyMetadata('MODULE_5_VOLITION_IMPULSE');
+    expect(volition.classification).toBe('RECOMMENDED');
+    expect(volition.priority).toBe(5);
 
     const attachment = getModuleJourneyMetadata('MODULE_6_ATTACHMENT_PATTERNS');
     expect(attachment.classification).toBe('RECOMMENDED');
-    expect(attachment.priority).toBe(5);
-
-    const volition = getModuleJourneyMetadata('MODULE_4_VOLITION_CONTROL');
-    expect(volition.classification).toBe('RECOMMENDED');
-    expect(volition.priority).toBe(6);
+    expect(attachment.priority).toBe(8);
   });
 
   it('resolves intelligent heuristics for custom or dynamic module codes', () => {
@@ -51,11 +51,11 @@ describe('FAZ 2.8: Assessment Journey Config & Metadata Rules', () => {
 
     // Emotion pattern
     const customEmotion = getModuleJourneyMetadata('STRESS_AND_EMOTION_PROFILE');
-    expect(customEmotion.classification).toBe('RECOMMENDED');
+    expect(customEmotion.classification).toBe('REQUIRED');
 
     // Volition / Cognitive pattern
     const customCognitive = getModuleJourneyMetadata('EXECUTIVE_COGNITIVE_CONTROL');
-    expect(customCognitive.classification).toBe('RECOMMENDED');
+    expect(customCognitive.classification).toBe('REQUIRED');
 
     // Unknown custom module fallback to OPTIONAL
     const unknown = getModuleJourneyMetadata('CREATIVE_EXPRESSION_EXP_1');

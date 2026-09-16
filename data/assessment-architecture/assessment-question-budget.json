@@ -4,7 +4,7 @@
     "fatigueThresholdMinutesPerSession": 25,
     "corePhilosophy": "PsycheAI is strictly designed for maximum scientifically meaningful psychological coverage across 37 constructs and 91 facets, not minimum question count. Question count is an output of scientific coverage, not an artificial ceiling. Assessment burden is solved via multi-session completion, save/resume, progressive profile unlocking, modular assessment flow, and session scheduling, never through arbitrary item reduction.",
     "coveragePreservationRule": "If an instrument is unavailable or blocked, construct coverage is preserved through defensible alternatives, open equivalents, or PsycheAI research forms without reducing the Master Model.",
-    "governanceRule": "Target question counts derived from verified scientific scale lengths. Clear distinction between TARGET architecture (~382+ items) and PRODUCT_READY_NOW."
+    "governanceRule": "Target question counts derived dynamically from active 16-module assessment architecture."
   },
   "tiers": {
     "FIRST_MEANINGFUL_PROFILE": {
@@ -13,8 +13,6 @@
       "assessmentCountPlanned": 4,
       "targetQuestionCount": 108,
       "targetEstimatedMinutes": 22.5,
-      "productReadyNowQuestionCount": 10,
-      "conditionalPermissionQuestionCount": 98,
       "domainsCovered": [
         "core_personality",
         "self_system",
@@ -23,20 +21,14 @@
       ],
       "constructsCoveredCount": 11,
       "facetsCoveredCount": 31,
-      "recommendedSessionsCount": 1,
-      "coverageGaps": [
-        "Volition, attachment, and values deferred to expansion tier to keep onboarding strictly under 25 minutes.",
-        "HEXACO-60, GSES, ERQ, and NFC-SF are pending commercial permissions for immediate production deployment."
-      ]
+      "recommendedSessionsCount": 1
     },
     "EXPANDED_PROFILE": {
-      "tierName": "Expanded Profile (Core + High-Value P1 Expansion)",
+      "tierName": "Expanded Profile (Core + High-Value P0 Expansion)",
       "stage": "EXPANSION",
       "assessmentCountPlanned": 8,
       "targetQuestionCount": 265,
       "targetEstimatedMinutes": 54.5,
-      "productReadyNowQuestionCount": 10,
-      "conditionalPermissionQuestionCount": 255,
       "domainsCovered": [
         "core_personality",
         "self_system",
@@ -48,19 +40,14 @@
       ],
       "constructsCoveredCount": 18,
       "facetsCoveredCount": 51,
-      "recommendedSessionsCount": 2,
-      "coverageGaps": [
-        "Cognitive flexibility, existential meaning, and conflict resolution deferred to comprehensive tier."
-      ]
+      "recommendedSessionsCount": 2
     },
     "COMPREHENSIVE_PROFILE": {
       "tierName": "Comprehensive Profile (Full Multi-Domain Psychometric Battery)",
       "stage": "COMPREHENSIVE_CONSUMER_MAXIMUM",
-      "assessmentCountPlanned": 12,
-      "targetQuestionCount": 382,
-      "targetEstimatedMinutes": 79.5,
-      "productReadyNowQuestionCount": 10,
-      "conditionalPermissionQuestionCount": 372,
+      "assessmentCountPlanned": 15,
+      "targetQuestionCount": 431,
+      "targetEstimatedMinutes": 90.5,
       "domainsCovered": [
         "core_personality",
         "self_system",
@@ -68,14 +55,14 @@
         "cognition_decision",
         "self_regulation",
         "motivation_values",
-        "social_relational"
+        "social_relational",
+        "wellbeing_vitality",
+        "coping_resilience",
+        "creativity_curiosity"
       ],
-      "constructsCoveredCount": 26,
-      "facetsCoveredCount": 66,
-      "recommendedSessionsCount": 3,
-      "coverageGaps": [
-        "Subclinical Dark Tetrad traits excluded from standard consumer package; available only as explicit opt-in advanced research module."
-      ]
+      "constructsCoveredCount": 36,
+      "facetsCoveredCount": 87,
+      "recommendedSessionsCount": 3
     },
     "OPTIONAL_ADVANCED_RESEARCH_MODULE": {
       "tierName": "Optional Advanced Research Exploration",
@@ -92,11 +79,11 @@
     }
   },
   "grandTotals": {
-    "totalPlannedConsumerModules": 12,
-    "totalPlannedConsumerQuestions": 382,
-    "totalPlannedConsumerMinutes": 79.5,
-    "totalProductReadyNowQuestions": 10,
-    "totalConditionalPermissionQuestions": 372,
-    "totalResearchOnlyQuestions": 28
+    "totalPlannedConsumerModules": 15,
+    "totalPlannedConsumerQuestions": 431,
+    "totalPlannedConsumerMinutes": 90.5,
+    "totalPlannedAllModules": 16,
+    "totalPlannedAllQuestions": 459,
+    "totalPlannedAllMinutes": 96.5
   }
 }

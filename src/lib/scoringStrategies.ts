@@ -12,7 +12,7 @@ export interface ScoredResponseItem {
 export interface CalculatedScoresResult {
   /**
    * Unweighted mean across dimensions for unidimensional or broad factor instruments (HEXACO, RSES, GSE).
-   * For multi-subscale instruments with NO validated overall composite (e.g. ERQ, ECR-R),
+   * For multi-subscale instruments with NO validated overall composite (e.g. ERQ, ECR-R, Self-Agency),
    * this is set to 0 as a NON-INTERPRETABLE TECHNICAL PLACEHOLDER (never surfaced or used for profile interpretation).
    */
   provisionalComposite: number;
@@ -131,8 +131,7 @@ export const HEXACO_PRECALIBRATION_STRATEGY: ScoringStrategyDefinition = {
 
 /**
  * Rosenberg Self-Esteem Scale (RSES) scoring strategy.
- * 10 items on 1.0–4.0 scale (Positive: 1, 3, 4, 7, 10; Reverse: 2, 5, 6, 8, 9).
- * Returns 1.0–4.0 arithmetic mean of reverse-coded scored items.
+ * 10 items on 1.0–4.0 scale.
  */
 export const RSES_MEAN_STRATEGY: ScoringStrategyDefinition = {
   code: 'RSES_MEAN_V1',
@@ -164,7 +163,6 @@ export const RSES_MEAN_STRATEGY: ScoringStrategyDefinition = {
     const facetScores = [{ facetId: first.facetId, rawMean, itemCount: validResponses.length }];
     const constructScores = [{ constructId: first.constructId, compositeScore: rawMean, facetCount: 1 }];
 
-    // RSES measures self_evaluation construct, but does NOT claim the entire self_system domain.
     return {
       provisionalComposite: rawMean,
       scaleMin: 1.0,
@@ -177,12 +175,11 @@ export const RSES_MEAN_STRATEGY: ScoringStrategyDefinition = {
   },
 };
 
-export const RSES_SUM_STRATEGY = RSES_MEAN_STRATEGY; // Backward-compatibility alias
+export const RSES_SUM_STRATEGY = RSES_MEAN_STRATEGY;
 
 /**
  * General Self-Efficacy Scale (GSE) scoring strategy.
- * 10 items on 1.0–4.0 scale (all positively keyed).
- * Returns 1.0–4.0 arithmetic mean.
+ * 10 items on 1.0–4.0 scale.
  */
 export const GSE_MEAN_STRATEGY: ScoringStrategyDefinition = {
   code: 'GSE_MEAN_V1',
@@ -214,7 +211,6 @@ export const GSE_MEAN_STRATEGY: ScoringStrategyDefinition = {
     const facetScores = [{ facetId: first.facetId, rawMean, itemCount: validResponses.length }];
     const constructScores = [{ constructId: first.constructId, compositeScore: rawMean, facetCount: 1 }];
 
-    // GSE measures agency_mastery construct, but does NOT claim the entire self_system domain.
     return {
       provisionalComposite: rawMean,
       scaleMin: 1.0,
@@ -227,15 +223,74 @@ export const GSE_MEAN_STRATEGY: ScoringStrategyDefinition = {
   },
 };
 
-export const GSE_SUM_STRATEGY = GSE_MEAN_STRATEGY; // Backward-compatibility alias
+export const GSE_SUM_STRATEGY = GSE_MEAN_STRATEGY;
 
 /**
- * Emotion Regulation Questionnaire (ERQ - Gross & John, 2003) scoring strategy.
- * 10 items on 1.0–7.0 scale.
- * 2 scientifically distinct subscales:
- * - Cognitive Reappraisal (Bilişsel Yeniden Değerlendirme - 6 items)
- * - Expressive Suppression (Duygusal Bastırma - 4 items)
- * Strictly preserves both subscale scores separately without collapsing them into a fake total score.
+ * Combined Self-System & Agency (RSES + GSE) multi-instrument container strategy.
+ * Strictly preserves independent scores for RSES and GSE without collapsing into a fake total score.
+ */
+export const SELF_AGENCY_PRECALIBRATION_STRATEGY: ScoringStrategyDefinition = {
+  code: 'SELF_AGENCY_PRECALIBRATION_V1',
+  nameTr: 'Benlik ve Öz-Yetkinlik Çoklu Envanter Puanlama Modeli (V1)',
+  descriptionTr: 'RSES ve GSE ölçeklerini tek modülde bağımsız alt ölçek puanları olarak 1.0–4.0 aralığında hesaplar.',
+  scaleMin: 1.0,
+  scaleMax: 4.0,
+  scoreType: 'MEAN',
+  isPreCalibration: true,
+  calculate: (responses: ScoredResponseItem[]): CalculatedScoresResult => {
+    const validResponses = responses.filter((r) => !r.isAttentionCheck);
+
+    if (validResponses.length === 0) {
+      return {
+        provisionalComposite: 0,
+        scaleMin: 1.0,
+        scaleMax: 4.0,
+        scoreType: 'MEAN',
+        facetScores: [],
+        constructScores: [],
+        domainScores: [],
+      };
+    }
+
+    // Group by constructId & facetId
+    const constructMap = new Map<string, { facetId: string; scoredValues: number[] }>();
+
+    for (const resp of validResponses) {
+      if (!constructMap.has(resp.constructId)) {
+        constructMap.set(resp.constructId, {
+          facetId: resp.facetId,
+          scoredValues: [],
+        });
+      }
+      constructMap.get(resp.constructId)!.scoredValues.push(resp.scoredValue);
+    }
+
+    const facetScores: Array<{ facetId: string; rawMean: number; itemCount: number }> = [];
+    const constructScores: Array<{ constructId: string; compositeScore: number; facetCount: number }> = [];
+
+    for (const [constructId, data] of constructMap.entries()) {
+      const sum = data.scoredValues.reduce((acc, v) => acc + v, 0);
+      const mean = Number((sum / data.scoredValues.length).toFixed(4));
+      facetScores.push({ facetId: data.facetId, rawMean: mean, itemCount: data.scoredValues.length });
+      constructScores.push({ constructId, compositeScore: mean, facetCount: 1 });
+    }
+
+    return {
+      provisionalComposite: 0, // Multi-instrument container has NO single composite total
+      scaleMin: 1.0,
+      scaleMax: 5.0,
+      scoreType: 'MEAN',
+      facetScores,
+      constructScores,
+      domainScores: [],
+    };
+  },
+};
+
+/**
+ * Emotion Regulation Questionnaire (ERQ) scoring strategy.
+ * 2 distinct subscales: Cognitive Reappraisal (CR) & Expressive Suppression (ES).
+ * Strictly preserves both subscale scores separately without collapsing.
  */
 export const ERQ_MEAN_STRATEGY: ScoringStrategyDefinition = {
   code: 'ERQ_MEAN_V1',
@@ -272,7 +327,6 @@ export const ERQ_MEAN_STRATEGY: ScoringStrategyDefinition = {
       facetItemsMap.get(resp.facetId)!.scoredValues.push(resp.scoredValue);
     }
 
-    // 1. Facet Scores (cognitive_reappraisal, expressive_suppression)
     const facetScores: Array<{ facetId: string; rawMean: number; itemCount: number }> = [];
 
     for (const [facetId, data] of facetItemsMap.entries()) {
@@ -281,10 +335,8 @@ export const ERQ_MEAN_STRATEGY: ScoringStrategyDefinition = {
       facetScores.push({ facetId, rawMean, itemCount: data.scoredValues.length });
     }
 
-    // ERQ strictly has NO validated single composite or construct/domain total score.
-    // Preserves the two independent subscales without mathematical collapsing.
     return {
-      provisionalComposite: 0, // Non-interpretable technical placeholder (no single composite score)
+      provisionalComposite: 0, // No single combined score
       scaleMin: 1.0,
       scaleMax: 7.0,
       scoreType: 'MEAN',
@@ -296,12 +348,8 @@ export const ERQ_MEAN_STRATEGY: ScoringStrategyDefinition = {
 };
 
 /**
- * Experiences in Close Relationships - Revised (ECR-R - Fraley et al., 2000) scoring strategy.
- * 36 items on 1.0–7.0 scale.
- * 2 continuous dimensions:
- * - Attachment Anxiety (18 items)
- * - Attachment Avoidance (18 items)
- * Strictly preserves the 2 continuous dimensions without collapsing them into a fake total attachment score.
+ * Experiences in Close Relationships - Revised (ECR-R) scoring strategy.
+ * 2 continuous dimensions: Attachment Anxiety & Attachment Avoidance.
  */
 export const ECR_R_MEAN_STRATEGY: ScoringStrategyDefinition = {
   code: 'ECR_R_MEAN_V1',
@@ -346,10 +394,8 @@ export const ECR_R_MEAN_STRATEGY: ScoringStrategyDefinition = {
       facetScores.push({ facetId, rawMean, itemCount: data.scoredValues.length });
     }
 
-    // ECR-R strictly has NO validated single composite or construct/domain total score.
-    // Preserves the two independent continuous dimensions without mathematical collapsing.
     return {
-      provisionalComposite: 0, // Non-interpretable technical placeholder (no single composite score)
+      provisionalComposite: 0,
       scaleMin: 1.0,
       scaleMax: 7.0,
       scoreType: 'MEAN',
@@ -364,18 +410,16 @@ export const SCORING_STRATEGIES: Record<string, ScoringStrategyDefinition> = {
   PRE_CALIBRATION_MEAN_V1: HEXACO_PRECALIBRATION_STRATEGY,
   HEXACO_PRECALIBRATION_V1: HEXACO_PRECALIBRATION_STRATEGY,
   RSES_MEAN_V1: RSES_MEAN_STRATEGY,
-  RSES_SUM_V1: RSES_MEAN_STRATEGY, // Alias for historical snapshots
+  RSES_SUM_V1: RSES_MEAN_STRATEGY,
   GSE_MEAN_V1: GSE_MEAN_STRATEGY,
-  GSE_SUM_V1: GSE_MEAN_STRATEGY, // Alias for historical snapshots
+  GSE_SUM_V1: GSE_MEAN_STRATEGY,
+  SELF_AGENCY_PRECALIBRATION_V1: SELF_AGENCY_PRECALIBRATION_STRATEGY,
   ERQ_MEAN_V1: ERQ_MEAN_STRATEGY,
   ECR_R_MEAN_V1: ECR_R_MEAN_STRATEGY,
 };
 
 /**
  * Resolves the appropriate scoring strategy given a model code or module code.
- * Authoritative: modelCode lookup in registry.
- * Controlled fallback: specific module rules before broad ones.
- * Unknown: FAILS CLOSED with explicit error (never defaults to HEXACO silently).
  */
 export function resolveScoringStrategy(
   modelCode?: string | null,
@@ -386,11 +430,11 @@ export function resolveScoringStrategy(
     return SCORING_STRATEGIES[modelCode];
   }
 
-  // 2. Controlled backward-compatibility module code heuristics (specific before broad)
+  // 2. Controlled module code heuristics
   if (moduleCode) {
     const norm = moduleCode.toUpperCase().trim();
 
-    // Specific Rule 1: ERQ / Emotion Regulation
+    // ERQ / Emotion Regulation
     if (
       norm.includes('ERQ') ||
       norm === 'MODULE_3_EMOTION_REGULATION' ||
@@ -400,7 +444,7 @@ export function resolveScoringStrategy(
       return ERQ_MEAN_STRATEGY;
     }
 
-    // Specific Rule 2: ECR-R / Attachment Patterns
+    // ECR-R / Attachment Patterns
     if (
       norm.includes('ECR') ||
       norm.includes('ATTACHMENT') ||
@@ -410,7 +454,16 @@ export function resolveScoringStrategy(
       return ECR_R_MEAN_STRATEGY;
     }
 
-    // Specific Rule 3: GSE / General Self Efficacy
+    // Self Agency / RSES + GSE Container
+    if (
+      norm.includes('SELF_AGENCY') ||
+      norm.includes('BENLIK_SISTEMI') ||
+      norm === 'MOD_SELF_AGENCY'
+    ) {
+      return SELF_AGENCY_PRECALIBRATION_STRATEGY;
+    }
+
+    // GSE
     if (
       norm.includes('GSE') ||
       norm === 'MODULE_5_GENERAL_SELF_EFFICACY' ||
@@ -421,7 +474,7 @@ export function resolveScoringStrategy(
       return GSE_MEAN_STRATEGY;
     }
 
-    // Specific Rule 4: RSES / Rosenberg Self Esteem / MODULE_2_SELF_IDENTITY
+    // RSES
     if (
       norm.includes('RSES') ||
       norm.includes('ROSENBERG') ||
@@ -432,18 +485,18 @@ export function resolveScoringStrategy(
       return RSES_MEAN_STRATEGY;
     }
 
-    // Specific Rule 5: HEXACO / Core Personality
+    // HEXACO / Core Personality
     if (
       norm.includes('HEXACO') ||
       norm === 'MODULE_1_CORE_PERSONALITY' ||
-      norm === 'CORE_INTAKE'
+      norm === 'CORE_INTAKE' ||
+      norm.includes('MOD_CORE_HEXACO_60')
     ) {
       return HEXACO_PRECALIBRATION_STRATEGY;
     }
 
-    // Fail closed for unknown module codes
     throw new Error(
-      `UNKNOWN_SCORING_STRATEGY: '${moduleCode}' değerlendirme modülü için tanımlı bir puanlama stratejisi bulunamadı.`
+      `UNKNOWN_SCORING_STRATEGY: '${moduleCode}' modül koduna ait puanlama stratejisi bulunamadı.`
     );
   }
 

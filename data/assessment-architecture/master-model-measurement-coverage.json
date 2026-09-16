@@ -1,0 +1,1403 @@
+{
+  "coverageMetadata": {
+    "modelName": "PsycheAI Master Psychological Model Measurement Coverage Matrix",
+    "auditDate": "2026-09-16",
+    "epistemicStatus": "EVIDENCE_GRADED_COMPREHENSIVE_AUDIT",
+    "totalMasterDomains": 11,
+    "totalMasterConstructs": 37,
+    "totalMasterFacets": 91,
+    "totalAssessmentModules": 16,
+    "consumerAssessmentModules": 15,
+    "advancedAssessmentModules": 1
+  },
+  "domainSummaries": [
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "domainNameEn": "Core Personality (HEXACO)",
+      "totalConstructsCount": 6,
+      "directlyMeasuredConstructsCount": 6,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 24,
+      "directlyMeasuredFacetsCount": 24,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 0,
+      "coverageStatus": "STRONG"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "domainNameEn": "Self-System & Identity Structure",
+      "totalConstructsCount": 6,
+      "directlyMeasuredConstructsCount": 3,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 3,
+      "totalFacetsCount": 8,
+      "directlyMeasuredFacetsCount": 4,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 4,
+      "coverageStatus": "MODERATE"
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "domainNameEn": "Affective Dynamics & Emotion Regulation",
+      "totalConstructsCount": 5,
+      "directlyMeasuredConstructsCount": 4,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 1,
+      "totalFacetsCount": 9,
+      "directlyMeasuredFacetsCount": 7,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 2,
+      "coverageStatus": "MODERATE"
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameTr": "Biliş, Üstbiliş ve Karar Tarzları",
+      "domainNameEn": "Cognition, Metacognition & Decision Styles",
+      "totalConstructsCount": 4,
+      "directlyMeasuredConstructsCount": 2,
+      "partiallyMeasuredConstructsCount": 1,
+      "unmeasuredConstructsCount": 1,
+      "totalFacetsCount": 9,
+      "directlyMeasuredFacetsCount": 5,
+      "contentCoveredFacetsCount": 2,
+      "unmeasuredFacetsCount": 2,
+      "coverageStatus": "MODERATE"
+    },
+    {
+      "domainId": "self_regulation",
+      "domainNameTr": "Öz-Düzenleme, İrade ve Dürtü Kontrolü",
+      "domainNameEn": "Self-Regulation, Volition & Impulse Control",
+      "totalConstructsCount": 2,
+      "directlyMeasuredConstructsCount": 2,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 8,
+      "directlyMeasuredFacetsCount": 8,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 0,
+      "coverageStatus": "STRONG"
+    },
+    {
+      "domainId": "motivation_values",
+      "domainNameTr": "Motivasyon, İhtiyaçlar ve Evrensel Değerler",
+      "domainNameEn": "Motivation, Needs & Human Values",
+      "totalConstructsCount": 3,
+      "directlyMeasuredConstructsCount": 3,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 9,
+      "directlyMeasuredFacetsCount": 9,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 0,
+      "coverageStatus": "STRONG"
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameTr": "Kişilerarası ve İlişkisel Dinamikler",
+      "domainNameEn": "Interpersonal & Relational Dynamics",
+      "totalConstructsCount": 4,
+      "directlyMeasuredConstructsCount": 3,
+      "partiallyMeasuredConstructsCount": 1,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 9,
+      "directlyMeasuredFacetsCount": 7,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 2,
+      "coverageStatus": "MODERATE"
+    },
+    {
+      "domainId": "wellbeing_vitality",
+      "domainNameTr": "Öznel İyi Oluş ve Yaşam Canlılığı",
+      "domainNameEn": "Subjective Well-Being & Vitality",
+      "totalConstructsCount": 2,
+      "directlyMeasuredConstructsCount": 2,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 3,
+      "directlyMeasuredFacetsCount": 3,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 0,
+      "coverageStatus": "STRONG"
+    },
+    {
+      "domainId": "coping_resilience",
+      "domainNameTr": "Başa Çıkma Stratejileri ve Stres Dayanıklılığı",
+      "domainNameEn": "Coping Strategies & Stress Resilience",
+      "totalConstructsCount": 2,
+      "directlyMeasuredConstructsCount": 2,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 4,
+      "directlyMeasuredFacetsCount": 4,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 0,
+      "coverageStatus": "STRONG"
+    },
+    {
+      "domainId": "creativity_curiosity",
+      "domainNameTr": "Yaratıcılık, Merak ve Zihinsel Açıklık",
+      "domainNameEn": "Creativity, Epistemic Curiosity & Openness",
+      "totalConstructsCount": 2,
+      "directlyMeasuredConstructsCount": 2,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 4,
+      "directlyMeasuredFacetsCount": 4,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 0,
+      "coverageStatus": "STRONG"
+    },
+    {
+      "domainId": "optional_dark_tetrad",
+      "domainNameTr": "İleri Düzey Modül: Subklinik Kişilik Eğilimleri",
+      "domainNameEn": "Advanced Research Module: Subclinical Personality",
+      "totalConstructsCount": 1,
+      "directlyMeasuredConstructsCount": 1,
+      "partiallyMeasuredConstructsCount": 0,
+      "unmeasuredConstructsCount": 0,
+      "totalFacetsCount": 4,
+      "directlyMeasuredFacetsCount": 4,
+      "contentCoveredFacetsCount": 0,
+      "unmeasuredFacetsCount": 0,
+      "coverageStatus": "STRONG"
+    }
+  ],
+  "constructCoverage": [
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "constructId": "hexaco_honesty_humility",
+      "constructNameTr": "Dürüstlük-Alçakgönüllülük",
+      "constructNameEn": "Honesty-Humility",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "LEXICAL",
+      "facetIds": [
+        "sincerity",
+        "fairness",
+        "greed_avoidance",
+        "modesty"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "sincerity",
+        "fairness",
+        "greed_avoidance",
+        "modesty"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_core_hexaco_60"
+      ],
+      "instruments": [
+        "inst_hexaco_60",
+        "inst_ipip_hexaco",
+        "inst_hexaco_pi_r"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "constructId": "hexaco_emotionality",
+      "constructNameTr": "Duygusallık",
+      "constructNameEn": "Emotionality",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "LEXICAL",
+      "facetIds": [
+        "fearfulness",
+        "anxiety",
+        "dependence",
+        "sentimentality"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "fearfulness",
+        "anxiety",
+        "dependence",
+        "sentimentality"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_core_hexaco_60"
+      ],
+      "instruments": [
+        "inst_hexaco_60",
+        "inst_ipip_hexaco",
+        "inst_hexaco_pi_r"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "constructId": "hexaco_extraversion",
+      "constructNameTr": "Dışadönüklük",
+      "constructNameEn": "Extraversion",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "LEXICAL",
+      "facetIds": [
+        "social_self_esteem",
+        "social_boldness",
+        "sociability",
+        "liveliness"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "social_self_esteem",
+        "social_boldness",
+        "sociability",
+        "liveliness"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_core_hexaco_60"
+      ],
+      "instruments": [
+        "inst_hexaco_60",
+        "inst_ipip_hexaco",
+        "inst_hexaco_pi_r"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "constructId": "hexaco_agreeableness",
+      "constructNameTr": "Geçimlilik",
+      "constructNameEn": "Agreeableness",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "LEXICAL",
+      "facetIds": [
+        "forgivingness",
+        "gentleness",
+        "flexibility",
+        "patience"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "forgivingness",
+        "gentleness",
+        "flexibility",
+        "patience"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_core_hexaco_60"
+      ],
+      "instruments": [
+        "inst_hexaco_60",
+        "inst_ipip_hexaco",
+        "inst_hexaco_pi_r"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "constructId": "hexaco_conscientiousness",
+      "constructNameTr": "Sorumluluk",
+      "constructNameEn": "Conscientiousness",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "LEXICAL",
+      "facetIds": [
+        "organization",
+        "diligence",
+        "perfectionism",
+        "prudence"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "organization",
+        "diligence",
+        "perfectionism",
+        "prudence"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_core_hexaco_60"
+      ],
+      "instruments": [
+        "inst_hexaco_60",
+        "inst_ipip_hexaco",
+        "inst_hexaco_pi_r"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "constructId": "hexaco_openness",
+      "constructNameTr": "Deneyime Açıklık",
+      "constructNameEn": "Openness to Experience",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "LEXICAL",
+      "facetIds": [
+        "aesthetic_appreciation",
+        "inquisitiveness",
+        "creativity",
+        "unconventionality"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "aesthetic_appreciation",
+        "inquisitiveness",
+        "creativity",
+        "unconventionality"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_core_hexaco_60"
+      ],
+      "instruments": [
+        "inst_hexaco_60",
+        "inst_ipip_hexaco",
+        "inst_hexaco_pi_r"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "constructId": "core_self_esteem",
+      "constructNameTr": "Genel Benlik Saygısı",
+      "constructNameEn": "Global Self-Esteem",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "core_self_esteem",
+        "contingent_self_worth"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "core_self_esteem",
+        "contingent_self_worth"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_self_agency"
+      ],
+      "instruments": [
+        "inst_rses",
+        "inst_gses"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "constructId": "self_compassion",
+      "constructNameTr": "Öz-Şefkat",
+      "constructNameEn": "Self-Compassion",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "self_compassion"
+      ],
+      "totalFacetCount": 1,
+      "measuredFacetCount": 1,
+      "coveredFacetIds": [
+        "self_compassion"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_meaning_compassion_grit"
+      ],
+      "instruments": [
+        "inst_mlq",
+        "inst_scs_sf",
+        "inst_grit_s"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "constructId": "generalized_self_efficacy",
+      "constructNameTr": "Genel Öz-Yeterlik",
+      "constructNameEn": "Generalized Self-Efficacy",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "generalized_self_efficacy"
+      ],
+      "totalFacetCount": 1,
+      "measuredFacetCount": 1,
+      "coveredFacetIds": [
+        "generalized_self_efficacy"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_self_agency"
+      ],
+      "instruments": [
+        "inst_rses",
+        "inst_gses"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "constructId": "locus_of_control",
+      "constructNameTr": "Denetim Odağı",
+      "constructNameEn": "Locus of Control",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "locus_of_control_internal",
+        "locus_of_control_external"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 0,
+      "coveredFacetIds": [],
+      "unmeasuredFacetIds": [
+        "locus_of_control_internal",
+        "locus_of_control_external"
+      ],
+      "directMeasurementStatus": "RESEARCH_FORM_REQUIRED",
+      "facetCoverageStatus": "RESEARCH_FORM_REQUIRED",
+      "assessmentModules": [],
+      "instruments": [],
+      "coverageGaps": [
+        "locus_of_control_internal",
+        "locus_of_control_external"
+      ],
+      "recommendedAction": "Author native PsycheAI research form module"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "constructId": "self_concept_clarity",
+      "constructNameTr": "Benlik Belirginliği",
+      "constructNameEn": "Self-Concept Clarity",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "self_concept_clarity"
+      ],
+      "totalFacetCount": 1,
+      "measuredFacetCount": 0,
+      "coveredFacetIds": [],
+      "unmeasuredFacetIds": [
+        "self_concept_clarity"
+      ],
+      "directMeasurementStatus": "RESEARCH_FORM_REQUIRED",
+      "facetCoverageStatus": "RESEARCH_FORM_REQUIRED",
+      "assessmentModules": [],
+      "instruments": [],
+      "coverageGaps": [
+        "self_concept_clarity"
+      ],
+      "recommendedAction": "Author native PsycheAI research form module"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "constructId": "authenticity",
+      "constructNameTr": "Otantiklik",
+      "constructNameEn": "Authenticity",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "authenticity"
+      ],
+      "totalFacetCount": 1,
+      "measuredFacetCount": 0,
+      "coveredFacetIds": [],
+      "unmeasuredFacetIds": [
+        "authenticity"
+      ],
+      "directMeasurementStatus": "RESEARCH_FORM_REQUIRED",
+      "facetCoverageStatus": "RESEARCH_FORM_REQUIRED",
+      "assessmentModules": [],
+      "instruments": [],
+      "coverageGaps": [
+        "authenticity"
+      ],
+      "recommendedAction": "Author native PsycheAI research form module"
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "constructId": "cognitive_reappraisal",
+      "constructNameTr": "Bilişsel Yeniden Değerlendirme",
+      "constructNameEn": "Cognitive Reappraisal",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "cognitive_reappraisal"
+      ],
+      "totalFacetCount": 1,
+      "measuredFacetCount": 1,
+      "coveredFacetIds": [
+        "cognitive_reappraisal"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_emotion_regulation"
+      ],
+      "instruments": [
+        "inst_erq",
+        "inst_ders"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "constructId": "expressive_suppression",
+      "constructNameTr": "Duygusal Baskılama",
+      "constructNameEn": "Expressive Suppression",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "expressive_suppression"
+      ],
+      "totalFacetCount": 1,
+      "measuredFacetCount": 1,
+      "coveredFacetIds": [
+        "expressive_suppression"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_emotion_regulation"
+      ],
+      "instruments": [
+        "inst_erq",
+        "inst_ders"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "constructId": "affective_tone",
+      "constructNameTr": "Mizaç Duygulanımı",
+      "constructNameEn": "Trait Affective Tone (PANAS)",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "positive_affect_trait",
+        "negative_affect_trait",
+        "affect_intensity"
+      ],
+      "totalFacetCount": 3,
+      "measuredFacetCount": 3,
+      "coveredFacetIds": [
+        "positive_affect_trait",
+        "negative_affect_trait",
+        "affect_intensity"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_affective_distress"
+      ],
+      "instruments": [
+        "inst_panas",
+        "inst_dts"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "constructId": "distress_tolerance",
+      "constructNameTr": "Sıkıntı Toleransı ve Kabul",
+      "constructNameEn": "Distress Tolerance & Acceptance",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "distress_tolerance",
+        "experiential_avoidance"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "distress_tolerance",
+        "experiential_avoidance"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_affective_distress"
+      ],
+      "instruments": [
+        "inst_panas",
+        "inst_dts"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "constructId": "self_conscious_emotions",
+      "constructNameTr": "Öz-Bilinçli Duygular",
+      "constructNameEn": "Self-Conscious Emotions",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "shame_proneness",
+        "guilt_proneness"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 0,
+      "coveredFacetIds": [],
+      "unmeasuredFacetIds": [
+        "shame_proneness",
+        "guilt_proneness"
+      ],
+      "directMeasurementStatus": "RESEARCH_FORM_REQUIRED",
+      "facetCoverageStatus": "RESEARCH_FORM_REQUIRED",
+      "assessmentModules": [],
+      "instruments": [],
+      "coverageGaps": [
+        "shame_proneness",
+        "guilt_proneness"
+      ],
+      "recommendedAction": "Author native PsycheAI research form module"
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameTr": "Biliş, Üstbiliş ve Karar Tarzları",
+      "constructId": "epistemic_drive",
+      "constructNameTr": "Bilişsel Motivasyon ve Belirsizlik Kapatma",
+      "constructNameEn": "Epistemic Drive & Closure",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "need_for_cognition",
+        "need_for_cognitive_closure"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "need_for_cognition",
+        "need_for_cognitive_closure"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_cognitive_epistemic"
+      ],
+      "instruments": [
+        "inst_nfc_sf",
+        "inst_nfcs_sf"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameTr": "Biliş, Üstbiliş ve Karar Tarzları",
+      "constructId": "thinking_styles",
+      "constructNameTr": "İkili Süreç Düşünme Tarzları",
+      "constructNameEn": "Dual-Process Thinking Styles",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "rational_analytical_thinking",
+        "intuitive_experiential_thinking"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 0,
+      "coveredFacetIds": [],
+      "unmeasuredFacetIds": [
+        "rational_analytical_thinking",
+        "intuitive_experiential_thinking"
+      ],
+      "directMeasurementStatus": "DIRECT_PARTIAL",
+      "facetCoverageStatus": "BROAD_FACTOR_SAMPLED",
+      "assessmentModules": [
+        "mod_cognitive_adaptability"
+      ],
+      "instruments": [
+        "inst_cfi",
+        "inst_ius_12",
+        "inst_rei_40"
+      ],
+      "coverageGaps": [
+        "rational_analytical_thinking",
+        "intuitive_experiential_thinking"
+      ],
+      "recommendedAction": "Expand facet item markers in subsequent research iterations"
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameTr": "Biliş, Üstbiliş ve Karar Tarzları",
+      "constructId": "cognitive_adaptability",
+      "constructNameTr": "Bilişsel Esneklik ve Belirsizliğe Tahammül",
+      "constructNameEn": "Cognitive Adaptability & Uncertainty",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "cognitive_flexibility",
+        "intolerance_of_uncertainty",
+        "rumination_brooding"
+      ],
+      "totalFacetCount": 3,
+      "measuredFacetCount": 3,
+      "coveredFacetIds": [
+        "cognitive_flexibility",
+        "intolerance_of_uncertainty",
+        "rumination_brooding"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_cognitive_adaptability"
+      ],
+      "instruments": [
+        "inst_cfi",
+        "inst_ius_12",
+        "inst_rei_40"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameTr": "Biliş, Üstbiliş ve Karar Tarzları",
+      "constructId": "decision_orientation",
+      "constructNameTr": "Karar Yönelimi",
+      "constructNameEn": "Decision Orientation",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "decision_style_maximizing",
+        "procrastination_tendency"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 0,
+      "coveredFacetIds": [],
+      "unmeasuredFacetIds": [
+        "decision_style_maximizing",
+        "procrastination_tendency"
+      ],
+      "directMeasurementStatus": "RESEARCH_FORM_REQUIRED",
+      "facetCoverageStatus": "RESEARCH_FORM_REQUIRED",
+      "assessmentModules": [],
+      "instruments": [],
+      "coverageGaps": [
+        "decision_style_maximizing",
+        "procrastination_tendency"
+      ],
+      "recommendedAction": "Author native PsycheAI research form module"
+    },
+    {
+      "domainId": "self_regulation",
+      "domainNameTr": "Öz-Düzenleme, İrade ve Dürtü Kontrolü",
+      "constructId": "impulsivity_uppsp",
+      "constructNameTr": "Çok Boyutlu Dürtüsellik (UPPS-P)",
+      "constructNameEn": "Multidimensional Impulsivity (UPPS-P)",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "uppsp_negative_urgency",
+        "uppsp_positive_urgency",
+        "uppsp_lack_of_premeditation",
+        "uppsp_lack_of_perseverance",
+        "uppsp_sensation_seeking"
+      ],
+      "totalFacetCount": 5,
+      "measuredFacetCount": 5,
+      "coveredFacetIds": [
+        "uppsp_negative_urgency",
+        "uppsp_positive_urgency",
+        "uppsp_lack_of_premeditation",
+        "uppsp_lack_of_perseverance",
+        "uppsp_sensation_seeking"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_volition_impulse"
+      ],
+      "instruments": [
+        "inst_bscs",
+        "inst_upps_p_sf"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "self_regulation",
+      "domainNameTr": "Öz-Düzenleme, İrade ve Dürtü Kontrolü",
+      "constructId": "volitional_stamina",
+      "constructNameTr": "İrade Gücü ve Öz-Kontrol",
+      "constructNameEn": "Volitional Stamina & Self-Control",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "general_self_control",
+        "delay_discounting_preference",
+        "long_term_grit"
+      ],
+      "totalFacetCount": 3,
+      "measuredFacetCount": 3,
+      "coveredFacetIds": [
+        "general_self_control",
+        "delay_discounting_preference",
+        "long_term_grit"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_volition_impulse",
+        "mod_meaning_compassion_grit"
+      ],
+      "instruments": [
+        "inst_bscs",
+        "inst_upps_p_sf",
+        "inst_mlq",
+        "inst_scs_sf",
+        "inst_grit_s"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "motivation_values",
+      "domainNameTr": "Motivasyon, İhtiyaçlar ve Evrensel Değerler",
+      "constructId": "basic_psychological_needs",
+      "constructNameTr": "Temel Psikolojik İhtiyaçlar (ÖBT)",
+      "constructNameEn": "Basic Psychological Needs (SDT)",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "autonomy_need_satisfaction",
+        "competence_need_satisfaction",
+        "relatedness_need_satisfaction"
+      ],
+      "totalFacetCount": 3,
+      "measuredFacetCount": 3,
+      "coveredFacetIds": [
+        "autonomy_need_satisfaction",
+        "competence_need_satisfaction",
+        "relatedness_need_satisfaction"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_basic_needs_sdt"
+      ],
+      "instruments": [
+        "inst_bpnsfs"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "motivation_values",
+      "domainNameTr": "Motivasyon, İhtiyaçlar ve Evrensel Değerler",
+      "constructId": "universal_values",
+      "constructNameTr": "Evrensel İnsan Değerleri (Schwartz)",
+      "constructNameEn": "Universal Human Values (Schwartz)",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "schwartz_openness_to_change",
+        "schwartz_self_transcendence",
+        "schwartz_conservation",
+        "schwartz_self_enhancement"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "schwartz_openness_to_change",
+        "schwartz_self_transcendence",
+        "schwartz_conservation",
+        "schwartz_self_enhancement"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_universal_values"
+      ],
+      "instruments": [
+        "inst_pvq_rr",
+        "inst_pvq_21",
+        "inst_ipip_schwartz_values"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "motivation_values",
+      "domainNameTr": "Motivasyon, İhtiyaçlar ve Evrensel Değerler",
+      "constructId": "existential_meaning",
+      "constructNameTr": "Varoluşsal Anlam ve Bütünlük Hissi",
+      "constructNameEn": "Existential Meaning & Coherence",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "presence_of_meaning",
+        "search_for_meaning"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "presence_of_meaning",
+        "search_for_meaning"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_meaning_compassion_grit"
+      ],
+      "instruments": [
+        "inst_mlq",
+        "inst_scs_sf",
+        "inst_grit_s"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameTr": "Kişilerarası ve İlişkisel Dinamikler",
+      "constructId": "attachment_system",
+      "constructNameTr": "Yetişkin Bağlanma Boyutları",
+      "constructNameEn": "Adult Attachment Dimensions",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "attachment_anxiety",
+        "attachment_avoidance"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "attachment_anxiety",
+        "attachment_avoidance"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_relational_attachment_empathy"
+      ],
+      "instruments": [
+        "inst_ecr_r",
+        "inst_iri"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameTr": "Kişilerarası ve İlişkisel Dinamikler",
+      "constructId": "multidimensional_empathy",
+      "constructNameTr": "Çok Boyutlu Empati",
+      "constructNameEn": "Multidimensional Empathy (IRI)",
+      "priority": "P0",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "cognitive_perspective_taking",
+        "empathic_concern"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "cognitive_perspective_taking",
+        "empathic_concern"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_relational_attachment_empathy"
+      ],
+      "instruments": [
+        "inst_ecr_r",
+        "inst_iri"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameTr": "Kişilerarası ve İlişkisel Dinamikler",
+      "constructId": "social_agency_boundaries",
+      "constructNameTr": "Sosyal İrade ve İlişkisel Sınırlar",
+      "constructNameEn": "Social Agency & Relational Boundaries",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "assertiveness",
+        "social_connectedness",
+        "rejection_sensitivity_nonclinical"
+      ],
+      "totalFacetCount": 3,
+      "measuredFacetCount": 1,
+      "coveredFacetIds": [
+        "assertiveness"
+      ],
+      "unmeasuredFacetIds": [
+        "social_connectedness",
+        "rejection_sensitivity_nonclinical"
+      ],
+      "directMeasurementStatus": "DIRECT_PARTIAL",
+      "facetCoverageStatus": "PARTIAL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_conflict_boundaries"
+      ],
+      "instruments": [
+        "inst_dutch",
+        "inst_tki"
+      ],
+      "coverageGaps": [
+        "social_connectedness",
+        "rejection_sensitivity_nonclinical"
+      ],
+      "recommendedAction": "Expand facet item markers in subsequent research iterations"
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameTr": "Kişilerarası ve İlişkisel Dinamikler",
+      "constructId": "conflict_styles",
+      "constructNameTr": "Çatışma Çözme Stilleri",
+      "constructNameEn": "Conflict Resolution Styles",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "cooperation_orientation",
+        "conflict_avoidance"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "cooperation_orientation",
+        "conflict_avoidance"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_conflict_boundaries"
+      ],
+      "instruments": [
+        "inst_dutch",
+        "inst_tki"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "wellbeing_vitality",
+      "domainNameTr": "Öznel İyi Oluş ve Yaşam Canlılığı",
+      "constructId": "psychological_flourishing",
+      "constructNameTr": "Psikolojik Gelişme ve Canlılık",
+      "constructNameEn": "Psychological Flourishing & Vitality",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "flourishing_scale",
+        "subjective_vitality"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "flourishing_scale",
+        "subjective_vitality"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_flourishing_vitality"
+      ],
+      "instruments": [
+        "inst_flourishing_scale",
+        "inst_swls",
+        "inst_svs_vitality"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "wellbeing_vitality",
+      "domainNameTr": "Öznel İyi Oluş ve Yaşam Canlılığı",
+      "constructId": "life_satisfaction",
+      "constructNameTr": "Yaşam Doyumu",
+      "constructNameEn": "Life Satisfaction",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "satisfaction_with_life"
+      ],
+      "totalFacetCount": 1,
+      "measuredFacetCount": 1,
+      "coveredFacetIds": [
+        "satisfaction_with_life"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_flourishing_vitality"
+      ],
+      "instruments": [
+        "inst_flourishing_scale",
+        "inst_swls",
+        "inst_svs_vitality"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "coping_resilience",
+      "domainNameTr": "Başa Çıkma Stratejileri ve Stres Dayanıklılığı",
+      "constructId": "psychological_resilience",
+      "constructNameTr": "Psikolojik Sağlamlık ve Toparlanma",
+      "constructNameEn": "Ego-Resilience & Stress Recovery",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "ego_resilience",
+        "stress_recovery"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "ego_resilience",
+        "stress_recovery"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_coping_resilience"
+      ],
+      "instruments": [
+        "inst_brief_cope",
+        "inst_brs",
+        "inst_cd_risc"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "coping_resilience",
+      "domainNameTr": "Başa Çıkma Stratejileri ve Stres Dayanıklılığı",
+      "constructId": "coping_orientations",
+      "constructNameTr": "Çok Boyutlu Başa Çıkma",
+      "constructNameEn": "Multidimensional Coping",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "problem_focused_coping",
+        "emotion_focused_coping"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "problem_focused_coping",
+        "emotion_focused_coping"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_coping_resilience"
+      ],
+      "instruments": [
+        "inst_brief_cope",
+        "inst_brs",
+        "inst_cd_risc"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "creativity_curiosity",
+      "domainNameTr": "Yaratıcılık, Merak ve Zihinsel Açıklık",
+      "constructId": "epistemic_curiosity",
+      "constructNameTr": "Bilişsel Merak Boyutları",
+      "constructNameEn": "Epistemic Curiosity (5DCR)",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "joyous_exploration_curiosity",
+        "deprivation_sensitivity_curiosity"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "joyous_exploration_curiosity",
+        "deprivation_sensitivity_curiosity"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_creativity_growth"
+      ],
+      "instruments": [
+        "inst_5dcr_epistemic",
+        "inst_creative_self_efficacy",
+        "inst_dweck_mindset"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "creativity_curiosity",
+      "domainNameTr": "Yaratıcılık, Merak ve Zihinsel Açıklık",
+      "constructId": "creative_mindset",
+      "constructNameTr": "Yaratıcı Öz-Yeterlik ve Gelişim Zihniyeti",
+      "constructNameEn": "Creative Self-Efficacy & Growth Mindset",
+      "priority": "P1",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "creative_self_efficacy",
+        "growth_mindset_intelligence"
+      ],
+      "totalFacetCount": 2,
+      "measuredFacetCount": 2,
+      "coveredFacetIds": [
+        "creative_self_efficacy",
+        "growth_mindset_intelligence"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_creativity_growth"
+      ],
+      "instruments": [
+        "inst_5dcr_epistemic",
+        "inst_creative_self_efficacy",
+        "inst_dweck_mindset"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    },
+    {
+      "domainId": "optional_dark_tetrad",
+      "domainNameTr": "İleri Düzey Modül: Subklinik Kişilik Eğilimleri",
+      "constructId": "dark_tetrad_traits",
+      "constructNameTr": "Kısa Karanlık Dörtlü (SD4)",
+      "constructNameEn": "Short Dark Tetrad (SD4)",
+      "priority": "P2",
+      "evidenceQuality": "STRONG",
+      "turkishEvidenceStatus": "DIRECT_VALIDATION",
+      "facetIds": [
+        "machiavellianism_subclinical",
+        "grandiose_narcissism_subclinical",
+        "psychopathy_subclinical",
+        "everyday_sadism_subclinical"
+      ],
+      "totalFacetCount": 4,
+      "measuredFacetCount": 4,
+      "coveredFacetIds": [
+        "machiavellianism_subclinical",
+        "grandiose_narcissism_subclinical",
+        "psychopathy_subclinical",
+        "everyday_sadism_subclinical"
+      ],
+      "unmeasuredFacetIds": [],
+      "directMeasurementStatus": "DIRECT_FULL",
+      "facetCoverageStatus": "ALL_FACETS_MEASURED",
+      "assessmentModules": [
+        "mod_dark_tetrad_advanced"
+      ],
+      "instruments": [
+        "inst_sd4"
+      ],
+      "coverageGaps": [],
+      "recommendedAction": "Standard continuous maintenance"
+    }
+  ]
+}
