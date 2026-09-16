@@ -99,19 +99,27 @@ export const ResultSummaryHero: React.FC<ResultSummaryHeroProps> = ({ result }) 
 
         {/* Score & Integrity Pill Bar */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 relative z-10">
-          {/* Pre-Calibration Composite Score */}
+          {/* Pre-Calibration Composite Score or Multi-subscale Indicator */}
           <div className="bg-surface-2/70 p-4 rounded-xl border border-border-subtle space-y-1">
             <div className="text-[10px] font-bold text-text-tertiary uppercase tracking-wider">
-              Ön-Kalibrasyon Bileşik Puanı
+              {result.compositeScoreFormatted.includes('/') ? 'Ön-Kalibrasyon Puanı' : 'Ölçülen Alt Boyutlar'}
             </div>
             <div className="flex items-baseline space-x-2">
               <span className="text-2xl font-extrabold text-brand-600 font-mono">
-                {result.compositeScoreFormatted.split(' ')[0]}
+                {result.compositeScoreFormatted.includes('/')
+                  ? result.compositeScoreFormatted.split(' ')[0]
+                  : `${result.constructs.length} Boyut`}
               </span>
-              <span className="text-xs text-text-tertiary font-mono">/ 5.0 Likert Yanıt Ölçeği</span>
+              <span className="text-xs text-text-tertiary font-mono">
+                {result.compositeScoreFormatted.includes('/')
+                  ? `/ ${result.scoreScale.max.toFixed(1)} Likert`
+                  : 'Ayrı Alt Ölçekler'}
+              </span>
             </div>
             <p className="text-[10px] text-text-tertiary leading-tight pt-0.5">
-              1.0–5.0 yanıt ölçeği üzerindeki aritmetik ortalama
+              {result.compositeScoreFormatted.includes('/')
+                ? `${result.scoreScale.min.toFixed(1)}–${result.scoreScale.max.toFixed(1)} ölçeğinde aritmetik ortalama`
+                : 'Her alt ölçek bağımsız olarak değerlendirilir (genel toplam puan üretilmez)'}
             </p>
           </div>
 

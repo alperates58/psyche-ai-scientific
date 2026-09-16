@@ -265,36 +265,68 @@ export async function getAssessmentResultView(
   const constructScoresMap: Record<string, number> = {};
   const constructs: MeasuredConstructViewModel[] = [];
 
-  for (const cs of linkedSnapshot.constructScores) {
-    constructScoresMap[cs.construct.code] = cs.compositeScore;
-    const bandInfo = getScoreBand(cs.compositeScore, scaleMax);
-    const interp = ALL_TRAIT_INTERPRETATIONS[cs.construct.code];
+  if (linkedSnapshot.constructScores.length > 0) {
+    for (const cs of linkedSnapshot.constructScores) {
+      constructScoresMap[cs.construct.code] = cs.compositeScore;
+      const bandInfo = getScoreBand(cs.compositeScore, scaleMax);
+      const interp = ALL_TRAIT_INTERPRETATIONS[cs.construct.code];
 
-    // Find facets for this construct in this snapshot
-    const matchingFacets = linkedSnapshot.facetScores
-      .filter((fs) => fs.facet.constructId === cs.constructId)
-      .map((fs) => ({
+      // Find facets for this construct in this snapshot
+      const matchingFacets = linkedSnapshot.facetScores
+        .filter((fs) => fs.facet.constructId === cs.constructId)
+        .map((fs) => ({
+          facetId: fs.facetId,
+          code: fs.facet.code,
+          nameTr: fs.facet.nameTr,
+          definitionTr: fs.facet.descriptionTr,
+          rawMean: fs.rawMean,
+          itemCount: fs.itemCount,
+          bandInfo: getScoreBand(fs.rawMean, scaleMax),
+        }));
+
+      constructs.push({
+        constructId: cs.constructId,
+        code: cs.construct.code,
+        nameTr: cs.construct.nameTr,
+        descriptionTr: cs.construct.descriptionTr,
+        compositeScore: cs.compositeScore,
+        scorePercentage: Math.min(100, Math.max(0, Math.round(((cs.compositeScore - scaleMin) / scaleRange) * 100))),
+        bandInfo,
+        facetCount: cs.facetCount,
+        interpretation: interp,
+        facets: matchingFacets,
+      });
+    }
+  } else {
+    // Multi-subscale instruments with independent facets and no construct-level composite (e.g. ERQ, ECR-R)
+    for (const fs of linkedSnapshot.facetScores) {
+      constructScoresMap[fs.facet.code] = fs.rawMean;
+      const bandInfo = getScoreBand(fs.rawMean, scaleMax);
+      const interp = ALL_TRAIT_INTERPRETATIONS[fs.facet.code];
+
+      const facetVm: MeasuredFacetViewModel = {
         facetId: fs.facetId,
         code: fs.facet.code,
         nameTr: fs.facet.nameTr,
         definitionTr: fs.facet.descriptionTr,
         rawMean: fs.rawMean,
         itemCount: fs.itemCount,
-        bandInfo: getScoreBand(fs.rawMean, scaleMax),
-      }));
+        bandInfo,
+      };
 
-    constructs.push({
-      constructId: cs.constructId,
-      code: cs.construct.code,
-      nameTr: cs.construct.nameTr,
-      descriptionTr: cs.construct.descriptionTr,
-      compositeScore: cs.compositeScore,
-      scorePercentage: Math.min(100, Math.max(0, Math.round(((cs.compositeScore - scaleMin) / scaleRange) * 100))),
-      bandInfo,
-      facetCount: cs.facetCount,
-      interpretation: interp,
-      facets: matchingFacets,
-    });
+      constructs.push({
+        constructId: fs.facetId,
+        code: fs.facet.code,
+        nameTr: fs.facet.nameTr,
+        descriptionTr: fs.facet.descriptionTr,
+        compositeScore: fs.rawMean,
+        scorePercentage: Math.min(100, Math.max(0, Math.round(((fs.rawMean - scaleMin) / scaleRange) * 100))),
+        bandInfo,
+        facetCount: 1,
+        interpretation: interp,
+        facets: [facetVm],
+      });
+    }
   }
 
   // 7. Build Radar Data
@@ -424,8 +456,11 @@ export async function getAssessmentResultView(
       scoreType: strategy.scoreType,
       scoringStrategyCode: strategy.code,
     },
-    compositeScore: linkedSnapshot.provisionalComposite,
-    compositeScoreFormatted: `${linkedSnapshot.provisionalComposite.toFixed(1)} / ${scaleMax.toFixed(1)}`,
+    compositeScore: linkedSnapshot.constructScores.length > 0 ? linkedSnapshot.provisionalComposite : 0,
+    compositeScoreFormatted:
+      linkedSnapshot.constructScores.length > 0
+        ? `${linkedSnapshot.provisionalComposite.toFixed(1)} / ${scaleMax.toFixed(1)}`
+        : `${linkedSnapshot.facetScores.length} Ayrı Alt Boyut`,
     keyObservations,
     constructs,
     radarData,

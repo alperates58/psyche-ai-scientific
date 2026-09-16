@@ -311,28 +311,10 @@ export const ALL_TRAIT_INTERPRETATIONS: Record<string, TraitInterpretationDefini
     },
   },
   // ---------------------------------------------------------
-  // 3. Emotion Regulation (ERQ - Gross & John, 2003)
+  // 3. Emotion Regulation Subscales (ERQ - Gross & John, 2003)
+  // Note: emotion_regulation construct has no validated single score;
+  // only independent subscales receive scored interpretation.
   // ---------------------------------------------------------
-  emotion_regulation: {
-    code: 'emotion_regulation',
-    nameTr: 'Duygu Düzenleme Stratejileri',
-    shortDescriptionTr: 'Duygusal durumları anlamlandırma, dönüştürme ve ifade etme yaklaşımları.',
-    interpretationByBand: {
-      HIGH: 'Duygusal deneyimlerinizi yönetmede aktif ve bilinçli düzenleme stratejileri kullanırsınız.',
-      BALANCED: 'Duygusal durumlarınıza göre durumsal ve esnek düzenleme tercihleri sergilersiniz.',
-      LOW: 'Duygusal tepkilerinizi doğrudan akışına bırakmayı tercih edersiniz.',
-    },
-    strengths: {
-      HIGH: ['Duygusal farkındalık ve esneklik', 'Stresli durumlarda içsel dengeyi yeniden kurabilme'],
-      BALANCED: ['Duruma göre esnek uyum', 'Doğal duygu akışı ile rasyonel kontrol dengesi'],
-      LOW: ['Duyguları filtresiz ve doğrudan yaşayabilme'],
-    },
-    risks: {
-      HIGH: ['Aşırı bilişsel kontrol nedeniyle spontane duygulanımı sınırlama'],
-      BALANCED: ['Aşırı yoğun kriz anlarında strateji seçmede duraksama'],
-      LOW: ['Zorlayıcı duygulanım anlarında toparlanma süresinin uzaması'],
-    },
-  },
   cognitive_reappraisal: {
     code: 'cognitive_reappraisal',
     nameTr: 'Bilişsel Yeniden Değerlendirme (Reappraisal)',
@@ -374,28 +356,10 @@ export const ALL_TRAIT_INTERPRETATIONS: Record<string, TraitInterpretationDefini
     },
   },
   // ---------------------------------------------------------
-  // 4. Attachment & Relational Patterns (ECR-R)
+  // 4. Attachment & Relational Dimensions (ECR-R - Fraley et al., 2000)
+  // Note: attachment_patterns construct has no validated single score;
+  // only independent continuous dimensions receive scored interpretation.
   // ---------------------------------------------------------
-  attachment_patterns: {
-    code: 'attachment_patterns',
-    nameTr: 'İlişkisel Bağlanma Örüntüleri',
-    shortDescriptionTr: 'Yakın ilişkilerde güven, özerklik ve yakınlık kurma dinamikleri.',
-    interpretationByBand: {
-      HIGH: 'Yakın ilişkilerde güven ve paylaşım dengesine dair belirgin tercihleriniz vardır.',
-      BALANCED: 'İlişkilerde yakınlık ile kişisel özerklik arasında dengeli bir uyum sergilersiniz.',
-      LOW: 'İlişkisel dinamiklerinizde esnek ve durumsal bir yaklaşım benimsersiniz.',
-    },
-    strengths: {
-      HIGH: ['İlişki ihtiyaçlarının farkındalığı', 'Özerklik ve yakınlık bilinci'],
-      BALANCED: ['Sağlıklı sınırlar koyabilme', 'Dengeli güven inşası'],
-      LOW: ['Farklı ilişki türlerine kolay uyum'],
-    },
-    risks: {
-      HIGH: ['İlişkisel beklentilerde katılık'],
-      BALANCED: ['Yeni ilişkilerde güven tesisinin zaman alması'],
-      LOW: ['Sınır belirlemede belirsizlik'],
-    },
-  },
   attachment_anxiety: {
     code: 'attachment_anxiety',
     nameTr: 'Bağlanma Duyarlılığı (Anxiety Dimension)',

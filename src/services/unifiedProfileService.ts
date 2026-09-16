@@ -762,7 +762,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     totalOntologyFacets,
   });
 
-  // 12. Profile Fingerprint Visual Dimensions (Measured constructs across domains)
+  // 12. Profile Fingerprint Visual Dimensions (Measured constructs and independent subscale facets across domains)
   const fingerprintDimensions: ProfileFingerprintDimension[] = [];
   for (const domain of domainViewModels) {
     for (const construct of domain.constructs) {
@@ -787,6 +787,32 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
           normalizedCoordinate,
           bandInfo: construct.bandInfo,
         });
+      } else if (construct.measuredFacetCount > 0) {
+        // Multi-subscale dimensions where parent construct has no valid single composite (e.g. ERQ, ECR-R)
+        for (const facet of construct.facets) {
+          if (facet.isMeasured && facet.rawMean !== null && facet.scale) {
+            const scaleRange = Math.max(0.1, facet.scale.scaleMax - facet.scale.scaleMin);
+            const normalizedCoordinate = Math.min(
+              100,
+              Math.max(
+                0,
+                Math.round(((facet.rawMean - facet.scale.scaleMin) / scaleRange) * 100)
+              )
+            );
+
+            fingerprintDimensions.push({
+              id: facet.facetId,
+              code: facet.code,
+              nameTr: facet.nameTr,
+              domainNameTr: domain.nameTr,
+              nativeScore: facet.rawMean,
+              scaleMin: facet.scale.scaleMin,
+              scaleMax: facet.scale.scaleMax,
+              normalizedCoordinate,
+              bandInfo: facet.bandInfo,
+            });
+          }
+        }
       }
     }
   }
@@ -909,6 +935,38 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
               point: rk,
               sourceConstruct: construct.code,
             });
+          }
+        }
+      } else if (construct.measuredFacetCount > 0) {
+        // Multi-subscale facets with individual interpretations (e.g. ERQ, ECR-R subscales)
+        for (const facet of construct.facets) {
+          if (facet.isMeasured && facet.rawMean !== null && facet.scale) {
+            const interp = ALL_TRAIT_INTERPRETATIONS[facet.code];
+            if (interp && facet.bandInfo) {
+              const facetStrengths = interp.strengths[facet.bandInfo.band] || [];
+              for (const st of facetStrengths) {
+                if (!seenStrengthTexts.has(st) && strengths.length < 6) {
+                  seenStrengthTexts.add(st);
+                  strengths.push({
+                    traitName: facet.nameTr,
+                    point: st,
+                    sourceConstruct: facet.code,
+                  });
+                }
+              }
+
+              const facetRisks = interp.risks[facet.bandInfo.band] || [];
+              for (const rk of facetRisks) {
+                if (!seenAttentionTexts.has(rk) && attentionPoints.length < 5) {
+                  seenAttentionTexts.add(rk);
+                  attentionPoints.push({
+                    traitName: facet.nameTr,
+                    point: rk,
+                    sourceConstruct: facet.code,
+                  });
+                }
+              }
+            }
           }
         }
       }

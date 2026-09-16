@@ -199,7 +199,7 @@ describe('FAZ 2.10: Expanded Trait Interpretations Quality', () => {
 });
 
 describe('FAZ 2.12: ERQ (Gross & John, 2003) Scoring & Multi-Subscale Separation', () => {
-  it('computes 2 distinct subscale scores (Reappraisal 6 items & Suppression 4 items) on 1.0–7.0 scale', () => {
+  it('computes 2 distinct subscale scores (Reappraisal 6.0 & Suppression 2.0) and strictly NO fake total (4.0)', () => {
     // Reappraisal items (1, 3, 5, 7, 8, 10) scored as 6
     // Suppression items (2, 4, 6, 9) scored as 2
     const erqResponses: ScoredResponseItem[] = [
@@ -221,7 +221,7 @@ describe('FAZ 2.12: ERQ (Gross & John, 2003) Scoring & Multi-Subscale Separation
 
     const result = strategy.calculate(erqResponses);
 
-    // Verify subscale separation
+    // 1. Verify subscale separation
     const reappraisalFacet = result.facetScores.find((f) => f.facetId === 'cognitive_reappraisal');
     const suppressionFacet = result.facetScores.find((f) => f.facetId === 'expressive_suppression');
 
@@ -232,6 +232,77 @@ describe('FAZ 2.12: ERQ (Gross & John, 2003) Scoring & Multi-Subscale Separation
     expect(suppressionFacet).toBeDefined();
     expect(suppressionFacet?.rawMean).toBe(2.0);
     expect(suppressionFacet?.itemCount).toBe(4);
+
+    // 2. Strict Invariants: NO fake construct score, NO domain composite, NO 4.0 combined mean
+    expect(result.constructScores).toEqual([]);
+    expect(result.domainScores).toEqual([]);
+    expect(result.provisionalComposite).not.toBe(4.0);
+    expect(result.provisionalComposite).toBe(0); // non-interpretable placeholder
+
+    // 3. Confirm NO fake composite interpretation exists for parent construct emotion_regulation
+    expect(ALL_TRAIT_INTERPRETATIONS.emotion_regulation).toBeUndefined();
+    expect(ALL_TRAIT_INTERPRETATIONS.cognitive_reappraisal).toBeDefined();
+    expect(ALL_TRAIT_INTERPRETATIONS.expressive_suppression).toBeDefined();
+  });
+});
+
+describe('FAZ 2.12: ECR-R (Fraley et al., 2000) Scoring & Continuous Dimension Separation', () => {
+  it('computes 2 independent dimensions (Anxiety 6.0 & Avoidance 2.0) and strictly NO fake total (4.0)', () => {
+    // 18 Anxiety items scored 6.0, 18 Avoidance items scored 2.0
+    const ecrrResponses: ScoredResponseItem[] = [];
+    for (let i = 1; i <= 18; i++) {
+      ecrrResponses.push({
+        itemId: `ECRR_ANX_${i}`,
+        facetId: 'attachment_anxiety',
+        constructId: 'attachment_patterns',
+        domainId: 'relational_interpersonal',
+        rawValue: 6,
+        scoredValue: 6,
+        isKeyed: true,
+        isAttentionCheck: false,
+      });
+    }
+    for (let i = 1; i <= 18; i++) {
+      ecrrResponses.push({
+        itemId: `ECRR_AVD_${i}`,
+        facetId: 'attachment_avoidance',
+        constructId: 'attachment_patterns',
+        domainId: 'relational_interpersonal',
+        rawValue: 2,
+        scoredValue: 2,
+        isKeyed: true,
+        isAttentionCheck: false,
+      });
+    }
+
+    const strategy = resolveScoringStrategy('ECR_R_MEAN_V1');
+    expect(strategy.scaleMin).toBe(1.0);
+    expect(strategy.scaleMax).toBe(7.0);
+
+    const result = strategy.calculate(ecrrResponses);
+
+    // 1. Verify continuous subscale separation
+    const anxietyFacet = result.facetScores.find((f) => f.facetId === 'attachment_anxiety');
+    const avoidanceFacet = result.facetScores.find((f) => f.facetId === 'attachment_avoidance');
+
+    expect(anxietyFacet).toBeDefined();
+    expect(anxietyFacet?.rawMean).toBe(6.0);
+    expect(anxietyFacet?.itemCount).toBe(18);
+
+    expect(avoidanceFacet).toBeDefined();
+    expect(avoidanceFacet?.rawMean).toBe(2.0);
+    expect(avoidanceFacet?.itemCount).toBe(18);
+
+    // 2. Strict Invariants: NO fake construct score, NO domain composite, NO 4.0 combined mean
+    expect(result.constructScores).toEqual([]);
+    expect(result.domainScores).toEqual([]);
+    expect(result.provisionalComposite).not.toBe(4.0);
+    expect(result.provisionalComposite).toBe(0); // non-interpretable placeholder
+
+    // 3. Confirm NO fake composite interpretation exists for parent construct attachment_patterns
+    expect(ALL_TRAIT_INTERPRETATIONS.attachment_patterns).toBeUndefined();
+    expect(ALL_TRAIT_INTERPRETATIONS.attachment_anxiety).toBeDefined();
+    expect(ALL_TRAIT_INTERPRETATIONS.attachment_avoidance).toBeDefined();
   });
 });
 

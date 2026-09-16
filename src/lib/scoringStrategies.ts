@@ -10,6 +10,11 @@ export interface ScoredResponseItem {
 }
 
 export interface CalculatedScoresResult {
+  /**
+   * Unweighted mean across dimensions for unidimensional or broad factor instruments (HEXACO, RSES, GSE).
+   * For multi-subscale instruments with NO validated overall composite (e.g. ERQ, ECR-R),
+   * this is set to 0 as a NON-INTERPRETABLE TECHNICAL PLACEHOLDER (never surfaced or used for profile interpretation).
+   */
   provisionalComposite: number;
   scaleMin: number;
   scaleMax: number;
@@ -269,54 +274,23 @@ export const ERQ_MEAN_STRATEGY: ScoringStrategyDefinition = {
 
     // 1. Facet Scores (cognitive_reappraisal, expressive_suppression)
     const facetScores: Array<{ facetId: string; rawMean: number; itemCount: number }> = [];
-    const constructFacetsMap = new Map<string, { domainId: string; facetMeans: number[] }>();
 
     for (const [facetId, data] of facetItemsMap.entries()) {
       const sum = data.scoredValues.reduce((acc, v) => acc + v, 0);
       const rawMean = Number((sum / data.scoredValues.length).toFixed(4));
       facetScores.push({ facetId, rawMean, itemCount: data.scoredValues.length });
-
-      if (!constructFacetsMap.has(data.constructId)) {
-        constructFacetsMap.set(data.constructId, { domainId: data.domainId, facetMeans: [] });
-      }
-      constructFacetsMap.get(data.constructId)!.facetMeans.push(rawMean);
     }
 
-    // 2. Construct Scores
-    const constructScores: Array<{ constructId: string; compositeScore: number; facetCount: number }> = [];
-    const domainConstructsMap = new Map<string, number[]>();
-
-    for (const [constructId, data] of constructFacetsMap.entries()) {
-      const sum = data.facetMeans.reduce((acc, v) => acc + v, 0);
-      const compositeScore = Number((sum / data.facetMeans.length).toFixed(4));
-      constructScores.push({ constructId, compositeScore, facetCount: data.facetMeans.length });
-
-      if (!domainConstructsMap.has(data.domainId)) {
-        domainConstructsMap.set(data.domainId, []);
-      }
-      domainConstructsMap.get(data.domainId)!.push(compositeScore);
-    }
-
-    // 3. Domain Scores
-    const domainScores: Array<{ domainId: string; compositeScore: number; constructCount: number }> = [];
-    for (const [domainId, constructs] of domainConstructsMap.entries()) {
-      const sum = constructs.reduce((acc, v) => acc + v, 0);
-      const compositeScore = Number((sum / constructs.length).toFixed(4));
-      domainScores.push({ domainId, compositeScore, constructCount: constructs.length });
-    }
-
-    const totalFacetSum = facetScores.reduce((acc, f) => acc + f.rawMean, 0);
-    const provisionalComposite =
-      facetScores.length > 0 ? Number((totalFacetSum / facetScores.length).toFixed(4)) : 0;
-
+    // ERQ strictly has NO validated single composite or construct/domain total score.
+    // Preserves the two independent subscales without mathematical collapsing.
     return {
-      provisionalComposite,
+      provisionalComposite: 0, // Non-interpretable technical placeholder (no single composite score)
       scaleMin: 1.0,
       scaleMax: 7.0,
       scoreType: 'MEAN',
       facetScores,
-      constructScores,
-      domainScores,
+      constructScores: [],
+      domainScores: [],
     };
   },
 };
@@ -327,6 +301,7 @@ export const ERQ_MEAN_STRATEGY: ScoringStrategyDefinition = {
  * 2 continuous dimensions:
  * - Attachment Anxiety (18 items)
  * - Attachment Avoidance (18 items)
+ * Strictly preserves the 2 continuous dimensions without collapsing them into a fake total attachment score.
  */
 export const ECR_R_MEAN_STRATEGY: ScoringStrategyDefinition = {
   code: 'ECR_R_MEAN_V1',
@@ -364,52 +339,23 @@ export const ECR_R_MEAN_STRATEGY: ScoringStrategyDefinition = {
     }
 
     const facetScores: Array<{ facetId: string; rawMean: number; itemCount: number }> = [];
-    const constructFacetsMap = new Map<string, { domainId: string; facetMeans: number[] }>();
 
     for (const [facetId, data] of facetItemsMap.entries()) {
       const sum = data.scoredValues.reduce((acc, v) => acc + v, 0);
       const rawMean = Number((sum / data.scoredValues.length).toFixed(4));
       facetScores.push({ facetId, rawMean, itemCount: data.scoredValues.length });
-
-      if (!constructFacetsMap.has(data.constructId)) {
-        constructFacetsMap.set(data.constructId, { domainId: data.domainId, facetMeans: [] });
-      }
-      constructFacetsMap.get(data.constructId)!.facetMeans.push(rawMean);
     }
 
-    const constructScores: Array<{ constructId: string; compositeScore: number; facetCount: number }> = [];
-    const domainConstructsMap = new Map<string, number[]>();
-
-    for (const [constructId, data] of constructFacetsMap.entries()) {
-      const sum = data.facetMeans.reduce((acc, v) => acc + v, 0);
-      const compositeScore = Number((sum / data.facetMeans.length).toFixed(4));
-      constructScores.push({ constructId, compositeScore, facetCount: data.facetMeans.length });
-
-      if (!domainConstructsMap.has(data.domainId)) {
-        domainConstructsMap.set(data.domainId, []);
-      }
-      domainConstructsMap.get(data.domainId)!.push(compositeScore);
-    }
-
-    const domainScores: Array<{ domainId: string; compositeScore: number; constructCount: number }> = [];
-    for (const [domainId, constructs] of domainConstructsMap.entries()) {
-      const sum = constructs.reduce((acc, v) => acc + v, 0);
-      const compositeScore = Number((sum / constructs.length).toFixed(4));
-      domainScores.push({ domainId, compositeScore, constructCount: constructs.length });
-    }
-
-    const totalFacetSum = facetScores.reduce((acc, f) => acc + f.rawMean, 0);
-    const provisionalComposite =
-      facetScores.length > 0 ? Number((totalFacetSum / facetScores.length).toFixed(4)) : 0;
-
+    // ECR-R strictly has NO validated single composite or construct/domain total score.
+    // Preserves the two independent continuous dimensions without mathematical collapsing.
     return {
-      provisionalComposite,
+      provisionalComposite: 0, // Non-interpretable technical placeholder (no single composite score)
       scaleMin: 1.0,
       scaleMax: 7.0,
       scoreType: 'MEAN',
       facetScores,
-      constructScores,
-      domainScores,
+      constructScores: [],
+      domainScores: [],
     };
   },
 };
