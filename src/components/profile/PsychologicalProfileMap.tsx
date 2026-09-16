@@ -22,7 +22,7 @@ export const PsychologicalProfileMap: React.FC<PsychologicalProfileMapProps> = (
   const filteredDomains =
     selectedDomainFilter === 'ALL'
       ? domains
-      : domains.filter((d) => d.id === selectedDomainFilter);
+      : domains.filter((d) => d.domainId === selectedDomainFilter);
 
   // Morally neutral violet / slate shading for measured scores
   const getFacetTileStyle = (facet: UnifiedFacetViewModel) => {
@@ -221,11 +221,11 @@ export const PsychologicalProfileMap: React.FC<PsychologicalProfileMapProps> = (
 
         {domains.map((d) => (
           <button
-            key={d.id}
+            key={d.domainId}
             type="button"
-            onClick={() => setSelectedDomainFilter(d.id)}
+            onClick={() => setSelectedDomainFilter(d.domainId)}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors flex items-center space-x-1.5 ${
-              selectedDomainFilter === d.id
+              selectedDomainFilter === d.domainId
                 ? 'bg-brand-600 text-white shadow-xs'
                 : 'bg-surface-1 border border-border-subtle text-text-secondary hover:bg-surface-2'
             }`}
@@ -251,7 +251,7 @@ export const PsychologicalProfileMap: React.FC<PsychologicalProfileMapProps> = (
         {/* Main Matrix Surface */}
         <div className="lg:col-span-8 bg-surface-1 p-5 sm:p-6 rounded-panel border border-border-subtle shadow-xs space-y-6">
           {filteredDomains.map((domain) => (
-            <div key={domain.id} className="space-y-3 pb-5 border-b border-border-subtle/80 last:border-b-0 last:pb-0">
+            <div key={domain.domainId} className="space-y-3 pb-5 border-b border-border-subtle/80 last:border-b-0 last:pb-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <h3 className="text-sm font-bold text-text-primary">
