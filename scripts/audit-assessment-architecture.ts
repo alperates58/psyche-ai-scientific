@@ -234,16 +234,16 @@ export function runAssessmentArchitectureAudit(): AssessmentArchitectureAuditRes
   const expTier = budget.tiers.EXPANDED_PROFILE;
   const compTier = budget.tiers.COMPREHENSIVE_PROFILE;
 
-  if (coreTier.questionCountPlannedTotal !== firstProfileQCount) {
-    errors.push(`Budget core questionCountPlannedTotal (${coreTier.questionCountPlannedTotal}) does not match module sum (${firstProfileQCount})`);
+  if (coreTier.targetQuestionCount !== firstProfileQCount) {
+    errors.push(`Budget core targetQuestionCount (${coreTier.targetQuestionCount}) does not match module sum (${firstProfileQCount})`);
   }
-  if (compTier.questionCountPlannedTotal !== compConsumerQCount) {
-    errors.push(`Budget comprehensive questionCountPlannedTotal (${compTier.questionCountPlannedTotal}) does not match consumer module sum (${compConsumerQCount})`);
+  if (compTier.targetQuestionCount !== compConsumerQCount) {
+    errors.push(`Budget comprehensive targetQuestionCount (${compTier.targetQuestionCount}) does not match consumer module sum (${compConsumerQCount})`);
   }
 
   // Verify Product Ready totals calculation
-  if (coreTier.productReadyQuestions + coreTier.plannedIfLicensedQuestions !== coreTier.questionCountPlannedTotal) {
-    errors.push(`Core tier product-ready (${coreTier.productReadyQuestions}) + planned-if-licensed (${coreTier.plannedIfLicensedQuestions}) !== total (${coreTier.questionCountPlannedTotal})`);
+  if (coreTier.productReadyNowQuestionCount + coreTier.conditionalPermissionQuestionCount !== coreTier.targetQuestionCount) {
+    errors.push(`Core tier product-ready (${coreTier.productReadyNowQuestionCount}) + conditional-permission (${coreTier.conditionalPermissionQuestionCount}) !== total (${coreTier.targetQuestionCount})`);
   }
 
   // =========================================================================
@@ -272,11 +272,11 @@ export function runAssessmentArchitectureAudit(): AssessmentArchitectureAuditRes
       advancedModulesCount: advancedCount,
       totalMasterConstructsMapped: mappedConstructIds.size,
       totalMasterFacetsCovered: 66,
-      firstProfileQuestionCount: coreTier.questionCountPlannedTotal,
-      expandedProfileQuestionCount: expTier.questionCountPlannedTotal,
-      comprehensiveConsumerQuestionCount: compTier.questionCountPlannedTotal,
-      productReadyQuestionCount: budget.grandTotals.totalProductReadyQuestions,
-      plannedIfLicensedQuestionCount: budget.grandTotals.totalPlannedIfLicensedQuestions,
+      firstProfileQuestionCount: coreTier.targetQuestionCount,
+      expandedProfileQuestionCount: expTier.targetQuestionCount,
+      comprehensiveConsumerQuestionCount: compTier.targetQuestionCount,
+      productReadyQuestionCount: budget.grandTotals.totalProductReadyNowQuestions,
+      plannedIfLicensedQuestionCount: budget.grandTotals.totalConditionalPermissionQuestions,
       researchOnlyQuestionCount: budget.grandTotals.totalResearchOnlyQuestions,
       licensingInstrumentsAudited: licensing.length,
       turkishValidationInstrumentsAudited: trValidation.length,

@@ -2,15 +2,17 @@
   "budgetMetadata": {
     "averageItemReadingSeconds": 12,
     "fatigueThresholdMinutesPerSession": 25,
-    "governanceRule": "Exact question counts derived from verified scientific scale lengths. No arbitrary rounding."
+    "governanceRule": "Target question counts derived from verified scientific scale lengths. Clear distinction between TARGET architecture and PRODUCT_READY_NOW."
   },
   "tiers": {
     "FIRST_MEANINGFUL_PROFILE": {
       "tierName": "First Meaningful Profile (Core Battery)",
       "stage": "ONBOARDING_CORE",
-      "assessmentCount": 4,
-      "questionCountPlannedTotal": 108,
-      "estimatedMinutesTotal": 22.5,
+      "assessmentCountPlanned": 4,
+      "targetQuestionCount": 108,
+      "targetEstimatedMinutes": 22.5,
+      "productReadyNowQuestionCount": 10,
+      "conditionalPermissionQuestionCount": 98,
       "domainsCovered": [
         "core_personality",
         "self_system",
@@ -20,18 +22,19 @@
       "constructsCoveredCount": 11,
       "facetsCoveredCount": 31,
       "recommendedSessionsCount": 1,
-      "productReadyQuestions": 70,
-      "plannedIfLicensedQuestions": 38,
       "coverageGaps": [
-        "Volition, attachment, and values deferred to expansion tier to keep onboarding strictly under 25 minutes."
+        "Volition, attachment, and values deferred to expansion tier to keep onboarding strictly under 25 minutes.",
+        "HEXACO-60, GSES, ERQ, and NFC-SF are pending commercial permissions for immediate production deployment."
       ]
     },
     "EXPANDED_PROFILE": {
       "tierName": "Expanded Profile (Core + High-Value P1 Expansion)",
       "stage": "EXPANSION",
-      "assessmentCount": 8,
-      "questionCountPlannedTotal": 265,
-      "estimatedMinutesTotal": 54.5,
+      "assessmentCountPlanned": 8,
+      "targetQuestionCount": 265,
+      "targetEstimatedMinutes": 54.5,
+      "productReadyNowQuestionCount": 10,
+      "conditionalPermissionQuestionCount": 255,
       "domainsCovered": [
         "core_personality",
         "self_system",
@@ -44,8 +47,6 @@
       "constructsCoveredCount": 18,
       "facetsCoveredCount": 51,
       "recommendedSessionsCount": 2,
-      "productReadyQuestions": 120,
-      "plannedIfLicensedQuestions": 145,
       "coverageGaps": [
         "Cognitive flexibility, existential meaning, and conflict resolution deferred to comprehensive tier."
       ]
@@ -53,9 +54,11 @@
     "COMPREHENSIVE_PROFILE": {
       "tierName": "Comprehensive Profile (Full Multi-Domain Psychometric Battery)",
       "stage": "COMPREHENSIVE_CONSUMER_MAXIMUM",
-      "assessmentCount": 12,
-      "questionCountPlannedTotal": 382,
-      "estimatedMinutesTotal": 79.5,
+      "assessmentCountPlanned": 12,
+      "targetQuestionCount": 382,
+      "targetEstimatedMinutes": 79.5,
+      "productReadyNowQuestionCount": 10,
+      "conditionalPermissionQuestionCount": 372,
       "domainsCovered": [
         "core_personality",
         "self_system",
@@ -68,8 +71,6 @@
       "constructsCoveredCount": 26,
       "facetsCoveredCount": 66,
       "recommendedSessionsCount": 3,
-      "productReadyQuestions": 120,
-      "plannedIfLicensedQuestions": 262,
       "coverageGaps": [
         "Subclinical Dark Tetrad traits excluded from standard consumer package; available only as explicit opt-in advanced research module."
       ]
@@ -77,23 +78,23 @@
     "OPTIONAL_ADVANCED_RESEARCH_MODULE": {
       "tierName": "Optional Advanced Research Exploration",
       "stage": "OPTIONAL_ADVANCED",
-      "assessmentCount": 1,
-      "questionCountPlannedTotal": 28,
-      "estimatedMinutesTotal": 6,
+      "assessmentCountPlanned": 1,
+      "targetQuestionCount": 28,
+      "targetEstimatedMinutes": 6,
       "domainsCovered": [
         "optional_dark_tetrad"
       ],
       "constructsCoveredCount": 1,
       "facetsCoveredCount": 4,
-      "researchOnlyQuestions": 28
+      "researchOnlyQuestionCount": 28
     }
   },
   "grandTotals": {
     "totalPlannedConsumerModules": 12,
     "totalPlannedConsumerQuestions": 382,
     "totalPlannedConsumerMinutes": 79.5,
-    "totalProductReadyQuestions": 110,
-    "totalPlannedIfLicensedQuestions": 272,
+    "totalProductReadyNowQuestions": 10,
+    "totalConditionalPermissionQuestions": 372,
     "totalResearchOnlyQuestions": 28
   }
 }

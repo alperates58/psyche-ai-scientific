@@ -1,7 +1,7 @@
 [
   {
-    "instrumentId": "inst_ipip_hexaco",
-    "instrumentName": "IPIP-HEXACO 60-Item Equivalent Form",
+    "instrumentId": "inst_hexaco_60",
+    "instrumentName": "HEXACO-60 Short Form",
     "constructsCovered": [
       "hexaco_honesty_humility",
       "hexaco_emotionality",
@@ -10,18 +10,41 @@
       "hexaco_conscientiousness",
       "hexaco_openness"
     ],
-    "turkishEvidenceLevel": "STRONG_LEXICAL_AND_EMPIRICAL",
-    "appliesToLevel": "FACET_AND_BROAD_FACTOR",
-    "sampleEvidence": "Wasti et al. (2008) Turkish lexical study (N = 650); Göz (2018) HEXACO validation (N = 824).",
-    "factorEvidence": "6-factor structure confirmed via EFA and CFA with adequate fit (CFI > 0.90, RMSEA < 0.06).",
-    "reliabilityEvidence": "McDonald Omega >= 0.78 across all 6 broad domains; alpha >= 0.72 for 24 sub-facets.",
+    "turkishEvidenceLevel": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "appliesToLevel": "BROAD_FACTOR_PRIMARY",
+    "sampleEvidence": "Wasti et al. (2008) Turkish lexical study; Göz (2018) HEXACO validation thesis.",
+    "factorEvidence": "6-factor structure replicates cross-culturally at broad factor level.",
+    "reliabilityEvidence": null,
+    "sourceIds": [
+      "src_ashton_lee_2007"
+    ],
+    "exactFormMatch": "EXACT_60_ITEM_SHORT_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_ipip_hexaco",
+    "instrumentName": "IPIP-HEXACO 240-Item Research Form",
+    "constructsCovered": [
+      "hexaco_honesty_humility",
+      "hexaco_emotionality",
+      "hexaco_extraversion",
+      "hexaco_agreeableness",
+      "hexaco_conscientiousness",
+      "hexaco_openness"
+    ],
+    "turkishEvidenceLevel": "LEXICAL_AND_RELATED",
+    "appliesToLevel": "RESEARCH_BANK_LEVEL",
+    "sampleEvidence": "Ashton, Lee & Goldberg (2007); Goldberg (2006).",
+    "factorEvidence": "Full 24-facet public domain item pool.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_ashton_lee_2007",
-      "src_wasti_2008"
+      "src_goldberg_2006"
     ],
-    "exactFormMatch": "EXACT_IPIP_60_ITEM_FORM",
-    "translationProvenance": "VERIFIED_AUTHORITATIVE_PUBLIC_TRANSLATION",
-    "readiness": "READY_FOR_PRODUCT_REVIEW"
+    "exactFormMatch": "FULL_240_ITEM_RESEARCH_POOL",
+    "translationProvenance": "PUBLIC_DOMAIN_RESEARCH_TRANSLATION",
+    "readiness": "RESEARCH_ONLY"
   },
   {
     "instrumentId": "inst_rses",
@@ -29,16 +52,16 @@
     "constructsCovered": [
       "core_self_esteem"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "FULL_SCALE",
-    "sampleEvidence": "Çuhadaroğlu (1986) initial Turkish adaptation (N = 340); Çakar (2012) large university cohort (N = 1,120).",
-    "factorEvidence": "Unidimensional and two-method-factor structures verified with high construct validity.",
-    "reliabilityEvidence": "Cronbach alpha = 0.86; test-retest reliability r = 0.75.",
+    "sampleEvidence": "Çuhadaroğlu (1986) Turkish adaptation; widely replicated in Turkish literature.",
+    "factorEvidence": "Unidimensional self-esteem structure confirmed in Turkish samples.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_rosenberg_1965"
     ],
     "exactFormMatch": "EXACT_10_ITEM_STANDARD",
-    "translationProvenance": "VERIFIED_STANDARDIZED_TURKISH_FORM",
+    "translationProvenance": "VERIFIED_ACADEMIC_ADAPTATION",
     "readiness": "READY_FOR_PRODUCT_REVIEW"
   },
   {
@@ -47,11 +70,11 @@
     "constructsCovered": [
       "generalized_self_efficacy"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "FULL_SCALE",
-    "sampleEvidence": "Yeşilayaprak et al. (1999); Aygün & Akçamete (2000) (N = 480).",
-    "factorEvidence": "Single-factor structure confirmed with factor loadings between 0.45 and 0.78.",
-    "reliabilityEvidence": "Cronbach alpha = 0.83.",
+    "sampleEvidence": "Yeşilayaprak et al. (1999); Aygün & Akçamete (2000).",
+    "factorEvidence": "Single-factor general self-efficacy structure replicated.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_schwarzer_1995"
     ],
@@ -66,11 +89,11 @@
       "cognitive_reappraisal",
       "expressive_suppression"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "SUBSCALE_LEVEL",
-    "sampleEvidence": "Yurtsever (2008) (N = 354); Uçanok (2012) (N = 512).",
-    "factorEvidence": "Two orthogonal factors (Cognitive Reappraisal: 6 items, Expressive Suppression: 4 items) replicated cleanly.",
-    "reliabilityEvidence": "Alpha = 0.85 (Reappraisal), Alpha = 0.78 (Suppression).",
+    "sampleEvidence": "Yurtsever (2008); Uçanok (2012).",
+    "factorEvidence": "Two orthogonal factors (Cognitive Reappraisal, Expressive Suppression) replicated.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_gross_john_2003"
     ],
@@ -84,11 +107,11 @@
     "constructsCovered": [
       "epistemic_drive"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "FULL_SCALE",
-    "sampleEvidence": "Gülgöz & Sancar (2004) (N = 420); Güvenç (2011) (N = 615).",
-    "factorEvidence": "Unidimensional structure verified via CFA with acceptable indices.",
-    "reliabilityEvidence": "Cronbach alpha = 0.81.",
+    "sampleEvidence": "Gülgöz & Sancar (2004); Güvenç (2011).",
+    "factorEvidence": "Unidimensional structure supported in Turkish cohorts.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_cacioppo_1982"
     ],
@@ -102,11 +125,11 @@
     "constructsCovered": [
       "volitional_stamina"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "FULL_SCALE",
-    "sampleEvidence": "Nebioğlu et al. (2012) (N = 450); Duru et al. (2018) (N = 820).",
-    "factorEvidence": "Bifactor model supporting general self-control score with high variance explained.",
-    "reliabilityEvidence": "Cronbach alpha = 0.83.",
+    "sampleEvidence": "Nebioğlu et al. (2012); Duru et al. (2018).",
+    "factorEvidence": "General self-control factor structure supported.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_tangney_2004"
     ],
@@ -120,11 +143,11 @@
     "constructsCovered": [
       "impulsivity_uppsp"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "5_DISTINCT_FACETS",
-    "sampleEvidence": "Yargıç et al. (2016) validation study in Turkish clinical and healthy samples (N = 540).",
-    "factorEvidence": "5-factor structure replicated cleanly (Negative Urgency, Positive Urgency, Lack of Premeditation, Lack of Perseverance, Sensation Seeking).",
-    "reliabilityEvidence": "Alphas between 0.72 and 0.84 across all 5 subscales.",
+    "sampleEvidence": "Yargıç et al. (2016) Turkish validation study.",
+    "factorEvidence": "5-factor impulsivity structure replicated.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_cyders_2014"
     ],
@@ -138,11 +161,11 @@
     "constructsCovered": [
       "basic_psychological_needs"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "6_SUB_DIMENSIONS",
-    "sampleEvidence": "Başyurt & Şahin (2018) (N = 680).",
-    "factorEvidence": "6-factor CFA confirmed distinguishing satisfaction and frustration for Autonomy, Competence, and Relatedness.",
-    "reliabilityEvidence": "Alphas range from 0.76 to 0.88 across subscales.",
+    "sampleEvidence": "Başyurt & Şahin (2018).",
+    "factorEvidence": "6-factor CFA confirmed for satisfaction and frustration across 3 needs.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_chen_2015"
     ],
@@ -151,23 +174,22 @@
     "readiness": "READY_BUT_NOT_PUBLISHED"
   },
   {
-    "instrumentId": "inst_ipip_schwartz_values",
-    "instrumentName": "IPIP 50-Item Representation of Schwartz Values",
+    "instrumentId": "inst_pvq_rr",
+    "instrumentName": "Portrait Values Questionnaire - Revised (PVQ-RR)",
     "constructsCovered": [
       "universal_values"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
-    "appliesToLevel": "4_HIGHER_ORDER_QUADRANTS",
-    "sampleEvidence": "Kuşdil & Kağıtçıbaşı (2000) (N = 1,020); Demirutku (2007) (N = 750).",
-    "factorEvidence": "MDS circumplex structure replicates Schwartz circular continuum in Turkish population.",
-    "reliabilityEvidence": "Alphas >= 0.74 for the 4 higher-order dimensions.",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
+    "appliesToLevel": "CIRCUMPLEX_CONTINUUM",
+    "sampleEvidence": "Kuşdil & Kağıtçıbaşı (2000); Demirutku (2007).",
+    "factorEvidence": "Schwartz circumplex circular structure verified in Turkish culture.",
+    "reliabilityEvidence": null,
     "sourceIds": [
-      "src_goldberg_2006",
       "src_schwartz_1992"
     ],
-    "exactFormMatch": "EXACT_50_ITEM_FORM",
-    "translationProvenance": "VERIFIED_AUTHORITATIVE_PUBLIC_TRANSLATION",
-    "readiness": "READY_FOR_PRODUCT_REVIEW"
+    "exactFormMatch": "EXACT_57_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
   },
   {
     "instrumentId": "inst_ecr_r",
@@ -175,11 +197,11 @@
     "constructsCovered": [
       "attachment_system"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "2_ORTHOGONAL_DIMENSIONS",
-    "sampleEvidence": "Selçuk et al. (2005) (N = 842); Sümer (2006) (N = 610).",
-    "factorEvidence": "Two-factor structure (Anxiety: 18 items, Avoidance: 18 items) confirmed via CFA and IRT.",
-    "reliabilityEvidence": "Anxiety alpha = 0.90; Avoidance alpha = 0.88.",
+    "sampleEvidence": "Selçuk et al. (2005); Sümer (2006).",
+    "factorEvidence": "Two-factor structure (Anxiety, Avoidance) confirmed in Turkish population.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_fraley_2000"
     ],
@@ -193,11 +215,11 @@
     "constructsCovered": [
       "multidimensional_empathy"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "SUBSCALE_LEVEL",
-    "sampleEvidence": "Engeler & Yücel (2009) (N = 480).",
-    "factorEvidence": "Perspective Taking (7 items) and Empathic Concern (7 items) factors confirmed.",
-    "reliabilityEvidence": "Alpha = 0.77 (Perspective Taking), Alpha = 0.79 (Empathic Concern).",
+    "sampleEvidence": "Engeler & Yücel (2009).",
+    "factorEvidence": "Perspective Taking and Empathic Concern factors supported.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_davis_1983"
     ],
@@ -211,11 +233,11 @@
     "constructsCovered": [
       "cognitive_adaptability"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "2_SUB_DIMENSIONS",
-    "sampleEvidence": "Gülüm & Dağ (2012) (N = 515).",
-    "factorEvidence": "Alternatives (13 items) and Control (7 items) factors confirmed via CFA.",
-    "reliabilityEvidence": "Alternatives alpha = 0.88, Control alpha = 0.84.",
+    "sampleEvidence": "Gülüm & Dağ (2012).",
+    "factorEvidence": "Alternatives and Control factors confirmed in Turkish sample.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_dennis_2010"
     ],
@@ -229,11 +251,11 @@
     "constructsCovered": [
       "cognitive_adaptability"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "FULL_SCALE",
-    "sampleEvidence": "Sarı & Dağ (2009) (N = 430).",
-    "factorEvidence": "Prospective and inhibitory anxiety factors replicate cleanly.",
-    "reliabilityEvidence": "Cronbach alpha = 0.88.",
+    "sampleEvidence": "Sarı & Dağ (2009).",
+    "factorEvidence": "Prospective and inhibitory anxiety factors supported.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_carleton_2007"
     ],
@@ -247,11 +269,11 @@
     "constructsCovered": [
       "existential_meaning"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "2_ORTHOGONAL_DIMENSIONS",
-    "sampleEvidence": "Boyraz et al. (2013) (N = 612).",
-    "factorEvidence": "Presence of Meaning (5 items) and Search for Meaning (5 items) confirmed orthogonal.",
-    "reliabilityEvidence": "Presence alpha = 0.86, Search alpha = 0.87.",
+    "sampleEvidence": "Boyraz et al. (2013).",
+    "factorEvidence": "Presence of Meaning and Search for Meaning confirmed orthogonal.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_steger_2006"
     ],
@@ -265,11 +287,11 @@
     "constructsCovered": [
       "volitional_stamina"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "2_SUB_DIMENSIONS",
-    "sampleEvidence": "Sarısakaloğlu et al. (2014) (N = 420).",
-    "factorEvidence": "Consistency of Interest (4 items) and Perseverance of Effort (4 items) confirmed.",
-    "reliabilityEvidence": "Total Grit alpha = 0.80.",
+    "sampleEvidence": "Sarısakaloğlu et al. (2014).",
+    "factorEvidence": "Consistency of Interest and Perseverance of Effort factors supported.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_duckworth_2009"
     ],
@@ -283,11 +305,11 @@
     "constructsCovered": [
       "conflict_styles"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "5_DISTINCT_MODES",
-    "sampleEvidence": "Arslan (2017) (N = 390); Kozan (1989) (N = 280).",
-    "factorEvidence": "5-factor structure (Problem Solving, Forcing, Yielding, Avoiding, Compromising) replicated with CFI = 0.92.",
-    "reliabilityEvidence": "Alphas range between 0.71 and 0.82 across all 5 subscales.",
+    "sampleEvidence": "Arslan (2017); Kozan (1989).",
+    "factorEvidence": "5-factor structure (Problem Solving, Forcing, Yielding, Avoiding, Compromising) replicated.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_dedreu_2001"
     ],
@@ -301,11 +323,11 @@
     "constructsCovered": [
       "affective_tone"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "2_ORTHOGONAL_DIMENSIONS",
-    "sampleEvidence": "Gençöz (2000) (N = 468).",
-    "factorEvidence": "Positive Affect (10 descriptors) and Negative Affect (10 descriptors) confirmed orthogonal.",
-    "reliabilityEvidence": "PA alpha = 0.86, NA alpha = 0.83.",
+    "sampleEvidence": "Gençöz (2000).",
+    "factorEvidence": "Positive Affect and Negative Affect confirmed orthogonal in Turkish sample.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_watson_1988"
     ],
@@ -319,11 +341,11 @@
     "constructsCovered": [
       "distress_tolerance"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "FULL_SCALE",
-    "sampleEvidence": "Sarı et al. (2017) (N = 510).",
-    "factorEvidence": "Higher-order general distress tolerance factor supported.",
-    "reliabilityEvidence": "Cronbach alpha = 0.89.",
+    "sampleEvidence": "Sarı et al. (2017).",
+    "factorEvidence": "Distress tolerance general factor supported in Turkish sample.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_simons_2005"
     ],
@@ -337,11 +359,11 @@
     "constructsCovered": [
       "dark_tetrad_traits"
     ],
-    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "turkishEvidenceLevel": "EMPIRICAL_ADAPTATION",
     "appliesToLevel": "4_DISTINCT_FACTORS",
-    "sampleEvidence": "Özsoy et al. (2022) (N = 720).",
-    "factorEvidence": "4-factor structure (Machiavellianism, Narcissism, Psychopathy, Sadism - 7 items each) confirmed via CFA.",
-    "reliabilityEvidence": "Alphas range from 0.75 to 0.86.",
+    "sampleEvidence": "Özsoy et al. (2022).",
+    "factorEvidence": "4-factor structure (Machiavellianism, Narcissism, Psychopathy, Sadism) confirmed via CFA.",
+    "reliabilityEvidence": null,
     "sourceIds": [
       "src_paulhus_2021"
     ],

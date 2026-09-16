@@ -14,6 +14,7 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
   const gapPath = path.resolve(root, 'data/assessment-architecture/assessment-gap-analysis.json');
   const proposedModelPath = path.resolve(root, 'data/master-model/proposed-master-model.json');
   const constructsJsonPath = path.resolve(root, 'data/constructs.json');
+  const instrumentRegistryPath = path.resolve(root, 'data/instrument-registry.json');
 
   it('1. Automated assessment architecture audit runs with 0 errors', () => {
     const auditResult = runAssessmentArchitectureAudit();
@@ -34,38 +35,77 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     }
   });
 
-  it('3. Invariant: First Meaningful Profile contains exactly 4 core modules and verified 108 questions', () => {
+  it('3. Invariant: First Meaningful Profile contains exactly 4 core modules and dynamic budget sum matches', () => {
+    const modules = JSON.parse(fs.readFileSync(archPath, 'utf8'));
     const budget = JSON.parse(fs.readFileSync(budgetPath, 'utf8'));
     const coreTier = budget.tiers.FIRST_MEANINGFUL_PROFILE;
 
-    expect(coreTier.assessmentCount).toBe(4);
-    expect(coreTier.questionCountPlannedTotal).toBe(108);
-    expect(coreTier.estimatedMinutesTotal).toBeLessThanOrEqual(25.0); // Fatigue threshold
+    const coreModules = modules.filter((m: any) => m.stage === 'CORE' && m.requiredForFirstProfile);
+    const calculatedCoreSum = coreModules.reduce((acc: number, m: any) => acc + m.questionCountPlanned, 0);
+
+    expect(coreTier.assessmentCountPlanned).toBe(coreModules.length);
+    expect(coreTier.assessmentCountPlanned).toBe(4);
+    expect(coreTier.targetQuestionCount).toBe(calculatedCoreSum);
+    expect(coreTier.productReadyNowQuestionCount + coreTier.conditionalPermissionQuestionCount).toBe(coreTier.targetQuestionCount);
+    expect(coreTier.targetEstimatedMinutes).toBeLessThanOrEqual(25.0); // Fatigue threshold
     expect(coreTier.domainsCovered).toContain('core_personality');
     expect(coreTier.domainsCovered).toContain('self_system');
     expect(coreTier.domainsCovered).toContain('emotion_regulation');
     expect(coreTier.domainsCovered).toContain('cognition_decision');
   });
 
-  it('4. Invariant: Expanded Profile totals 8 modules with 265 questions across 2 sessions', () => {
+  it('4. Invariant: Expanded Profile dynamic budget equals Core + Expansion modules', () => {
+    const modules = JSON.parse(fs.readFileSync(archPath, 'utf8'));
     const budget = JSON.parse(fs.readFileSync(budgetPath, 'utf8'));
     const expTier = budget.tiers.EXPANDED_PROFILE;
 
-    expect(expTier.assessmentCount).toBe(8);
-    expect(expTier.questionCountPlannedTotal).toBe(265);
+    const expModules = modules.filter((m: any) => m.stage === 'CORE' || m.stage === 'EXPANSION').slice(0, 8);
+    const calculatedExpSum = expModules.reduce((acc: number, m: any) => acc + m.questionCountPlanned, 0);
+
+    expect(expTier.assessmentCountPlanned).toBe(expModules.length);
+    expect(expTier.assessmentCountPlanned).toBe(8);
+    expect(expTier.targetQuestionCount).toBe(calculatedExpSum);
+    expect(expTier.productReadyNowQuestionCount + expTier.conditionalPermissionQuestionCount).toBe(expTier.targetQuestionCount);
     expect(expTier.recommendedSessionsCount).toBe(2);
   });
 
-  it('5. Invariant: Comprehensive Consumer battery totals 12 modules with 382 questions', () => {
+  it('5. Invariant: Comprehensive Consumer battery dynamic budget equals all 12 consumer modules', () => {
+    const modules = JSON.parse(fs.readFileSync(archPath, 'utf8'));
     const budget = JSON.parse(fs.readFileSync(budgetPath, 'utf8'));
     const compTier = budget.tiers.COMPREHENSIVE_PROFILE;
 
-    expect(compTier.assessmentCount).toBe(12);
-    expect(compTier.questionCountPlannedTotal).toBe(382);
+    const compModules = modules.filter((m: any) => m.requiredForComprehensiveProfile);
+    const calculatedCompSum = compModules.reduce((acc: number, m: any) => acc + m.questionCountPlanned, 0);
+
+    expect(compTier.assessmentCountPlanned).toBe(compModules.length);
+    expect(compTier.assessmentCountPlanned).toBe(12);
+    expect(compTier.targetQuestionCount).toBe(calculatedCompSum);
+    expect(compTier.productReadyNowQuestionCount + compTier.conditionalPermissionQuestionCount).toBe(compTier.targetQuestionCount);
     expect(compTier.recommendedSessionsCount).toBe(3);
   });
 
-  it('6. Invariant: Blocked or proprietary instruments (NEO, MBTI, TKI, TOSCA) are never product-ready', () => {
+  it('6. Invariant: HEXACO-60 (60 items, short form) is strictly distinguished from IPIP-HEXACO (240 items)', () => {
+    const registry = JSON.parse(fs.readFileSync(instrumentRegistryPath, 'utf8'));
+    const hexaco60 = registry.find((i: any) => i.instrumentId === 'inst_hexaco_60');
+    const ipip240 = registry.find((i: any) => i.instrumentId === 'inst_ipip_hexaco');
+
+    expect(hexaco60).toBeDefined();
+    expect(hexaco60.name).toContain('60');
+    expect(hexaco60.decision).toBe('REQUIRES_LICENSE');
+    expect(hexaco60.commercialUse).toBe(false);
+
+    expect(ipip240).toBeDefined();
+    expect(ipip240.name).toContain('IPIP-HEXACO');
+    expect(ipip240.decision).toBe('APPROVED_PUBLIC');
+    expect(ipip240.commercialUse).toBe(true);
+
+    const modules = JSON.parse(fs.readFileSync(archPath, 'utf8'));
+    const hexacoMod = modules.find((m: any) => m.assessmentId === 'mod_core_hexaco_60');
+    expect(hexacoMod.questionCountPlanned).toBe(60);
+    expect(hexacoMod.selectedInstrumentId).toBe('inst_hexaco_60');
+  });
+
+  it('7. Invariant: Blocked or proprietary instruments (NEO, MBTI, TKI, TOSCA, PVQ-RR) are never product-ready', () => {
     const licensing = JSON.parse(fs.readFileSync(licensePath, 'utf8'));
     const blockedIds = ['inst_neo_pi_r', 'inst_mbti', 'inst_tki', 'inst_tosca_3', 'inst_pvq_rr'];
 
@@ -76,7 +116,7 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     }
   });
 
-  it('7. Invariant: Subclinical Dark Tetrad is excluded from default consumer package and marked RESEARCH_ONLY', () => {
+  it('8. Invariant: Subclinical Dark Tetrad is excluded from default consumer package and marked RESEARCH_ONLY', () => {
     const modules = JSON.parse(fs.readFileSync(archPath, 'utf8'));
     const darkTetradMod = modules.find((m: any) => m.assessmentId === 'mod_dark_tetrad_advanced');
 
@@ -87,7 +127,7 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     expect(darkTetradMod.publicationReadiness).toBe('RESEARCH_ONLY');
   });
 
-  it('8. Invariant: All 37 master model constructs are accounted for in construct-to-instrument map', () => {
+  it('9. Invariant: All 37 master model constructs are accounted for in construct-to-instrument map', () => {
     const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
     expect(map.length).toBe(37);
 
@@ -104,7 +144,7 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     }
   });
 
-  it('9. Invariant: Multi-instrument modules maintain independent subscale scoring (no synthetic scores)', () => {
+  it('10. Invariant: Multi-instrument modules maintain independent subscale scoring (no synthetic scores)', () => {
     const modules = JSON.parse(fs.readFileSync(archPath, 'utf8'));
     const selfAgencyMod = modules.find((m: any) => m.assessmentId === 'mod_self_agency');
 
@@ -116,7 +156,7 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     expect(selfAgencyMod.subscales[1].itemCount).toBe(10);
   });
 
-  it('10. Invariant: Production ontology (data/constructs.json) is 100% UNMUTATED', () => {
+  it('11. Invariant: Production ontology (data/constructs.json) is 100% UNMUTATED', () => {
     const currentConstructs = JSON.parse(fs.readFileSync(constructsJsonPath, 'utf8'));
     expect(currentConstructs.length).toBe(84);
 
@@ -127,7 +167,7 @@ describe('FAZ 2.15: Assessment Architecture & Instrument Mapping Audit', () => {
     expect(domainIds.size).toBe(9);
   });
 
-  it('11. Invariant: Journey plan enforces longitudinal separation and observational AI isolation', () => {
+  it('12. Invariant: Journey plan enforces longitudinal separation and observational AI isolation', () => {
     const journey = JSON.parse(fs.readFileSync(journeyPath, 'utf8'));
 
     expect(journey.longitudinalOutputsSeparation).toBeDefined();

@@ -8,14 +8,8 @@ const dataDir = path.resolve(root, 'data/assessment-architecture');
 const proposedMasterModel = JSON.parse(
   fs.readFileSync(path.resolve(root, 'data/master-model/proposed-master-model.json'), 'utf8')
 );
-const candidateConstructs = JSON.parse(
-  fs.readFileSync(path.resolve(root, 'data/master-model/candidate-constructs.json'), 'utf8')
-);
 const instrumentRegistry = JSON.parse(
   fs.readFileSync(path.resolve(root, 'data/instrument-registry.json'), 'utf8')
-);
-const masterModelSources = JSON.parse(
-  fs.readFileSync(path.resolve(root, 'data/master-model/master-model-sources.json'), 'utf8')
 );
 
 // -----------------------------------------------------------------------------
@@ -64,17 +58,18 @@ const assessmentModules = [
       'creativity',
       'unconventionality'
     ],
-    instrumentCandidates: ['inst_ipip_hexaco', 'inst_hexaco_pi_r'],
-    selectedInstrumentId: 'inst_ipip_hexaco',
-    selectedInstrumentStatus: 'READY_FOR_PRODUCT_REVIEW',
+    facetMeasurementCapability: 'FACET_CONTENT_SAMPLED_BROAD_FACTOR_PRIMARY',
+    instrumentCandidates: ['inst_hexaco_60', 'inst_ipip_hexaco', 'inst_hexaco_pi_r'],
+    selectedInstrumentId: 'inst_hexaco_60',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
     questionCountPlanned: 60,
     estimatedMinutes: 12.0,
     scoringModel: 'PRE_CALIBRATION_MEAN_V1',
-    publicationReadiness: 'READY_FOR_PRODUCT_REVIEW',
-    turkishEvidenceStatus: 'LEXICAL_AND_EMPIRICAL_SUPPORTED',
-    licensingStatus: 'APPROVED_PUBLIC_DOMAIN',
-    exactWordingProvenanceStatus: 'VERIFIED_PUBLIC_DOMAIN_TRANSLATION',
-    commercialUseStatus: 'UNRESTRICTED_COMMERCIAL_USE',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'LEXICAL_AND_ADAPTATION_EVIDENCE',
+    licensingStatus: 'REQUIRES_PERMISSION',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION',
+    commercialUseStatus: 'REQUIRES_AUTHOR_PERMISSION',
     responseFormat: 'LIKERT_5',
     reverseKeying: {
       hasReverseItems: true,
@@ -89,17 +84,21 @@ const assessmentModules = [
       { code: 'CO', nameTr: 'Sorumluluk', nameEn: 'Conscientiousness', itemCount: 10, constructId: 'hexaco_conscientiousness' },
       { code: 'OP', nameTr: 'Deneyime Açıklık', nameEn: 'Openness to Experience', itemCount: 10, constructId: 'hexaco_openness' }
     ],
-    resultVisualizationIds: ['hexaco_radar_chart', 'hexaco_facet_whiskers', 'personality_trait_bars'],
+    resultVisualizationIds: ['hexaco_radar_chart', 'personality_trait_bars'],
     profileContribution: {
       domains: ['core_personality'],
       constructs: ['hexaco_honesty_humility', 'hexaco_emotionality', 'hexaco_extraversion', 'hexaco_agreeableness', 'hexaco_conscientiousness', 'hexaco_openness'],
       facets: 24,
-      visualizations: ['Radar', 'Facet Whiskers', 'Trait Spectrum'],
-      aiInsightInputs: ['HEXACO trait configurations', 'Inter-factor tensions', 'Cross-facet balance'],
+      facetScoringLevel: 'BROAD_FACTORS_PRIMARY_FACET_THEMES_SAMPLED',
+      visualizations: ['Radar', 'Trait Spectrum'],
+      aiInsightInputs: ['HEXACO trait configurations', 'Inter-factor tensions'],
       longitudinalOutputs: ['Trait stability index', 'Factor shift metrics']
     },
-    blockingIssues: [],
-    rationale: 'Public domain 60-item validated operationalization of the HEXACO 6-factor model. Forms the foundational anchor of the entire psychological profile.'
+    blockingIssues: [
+      'Official HEXACO-60 (Ashton & Lee, 2009) requires contacting authors for commercial SaaS licensing.',
+      'HEXACO-60 samples facet content but does not provide 24 independently reliable facet scores (requires full form or validated 100/240-item inventory for facet-level diagnostic reporting).'
+    ],
+    rationale: 'Official 60-item short form (Ashton & Lee, 2009) measuring 6 broad personality factors (10 items/factor). Public-domain IPIP-HEXACO (240 items) is reserved as research bank form.'
   },
   {
     assessmentId: 'mod_self_agency',
@@ -111,6 +110,7 @@ const assessmentModules = [
     requiredForComprehensiveProfile: true,
     constructIdsCovered: ['core_self_esteem', 'generalized_self_efficacy'],
     facetIdsCovered: ['self_esteem_positive_worth', 'self_esteem_low_deprecation', 'self_efficacy_general_coping'],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_rses', 'inst_gses'],
     selectedInstrumentId: 'inst_rses',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -137,12 +137,14 @@ const assessmentModules = [
       domains: ['self_system'],
       constructs: ['core_self_esteem', 'generalized_self_efficacy'],
       facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['Self-Worth Gauge', 'Efficacy Horizon'],
-      aiInsightInputs: ['Self-esteem stability', 'Efficacy-coping alignment', 'Adlerian inferiority compensation hypotheses'],
+      aiInsightInputs: ['Self-esteem stability', 'Efficacy-coping alignment'],
       longitudinalOutputs: ['Self-esteem fluctuation over time']
     },
     blockingIssues: [
-      'GSES requires verified commercial license from Schwarzer / FU Berlin for unrestricted production SaaS deployment.'
+      'GSES requires verified commercial license from Schwarzer / FU Berlin for unrestricted production SaaS deployment.',
+      'RSES original English is public domain (University of Maryland); Turkish standardized wording (Çuhadaroğlu, 1986) is verified for research use.'
     ],
     rationale: 'Combines Rosenberg Self-Esteem (10 items, public domain) and General Self-Efficacy (10 items). Evaluates core self-worth and general competence expectancy with independent subscale scoring.'
   },
@@ -156,6 +158,7 @@ const assessmentModules = [
     requiredForComprehensiveProfile: true,
     constructIdsCovered: ['cognitive_reappraisal', 'expressive_suppression'],
     facetIdsCovered: ['reappraisal_tendency', 'suppression_tendency'],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_erq', 'inst_ders'],
     selectedInstrumentId: 'inst_erq',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -182,8 +185,9 @@ const assessmentModules = [
       domains: ['emotion_regulation'],
       constructs: ['cognitive_reappraisal', 'expressive_suppression'],
       facets: 2,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['ERQ Quadrant', 'Regulation Strategy Split'],
-      aiInsightInputs: ['Suppression vs reappraisal ratio', 'Affect modulation capacity', 'Psychodynamic defense mechanisms'],
+      aiInsightInputs: ['Suppression vs reappraisal ratio', 'Affect modulation capacity'],
       longitudinalOutputs: ['Stress-induced regulation shifts']
     },
     blockingIssues: [
@@ -201,6 +205,7 @@ const assessmentModules = [
     requiredForComprehensiveProfile: true,
     constructIdsCovered: ['epistemic_drive'],
     facetIdsCovered: ['need_for_cognition', 'need_for_cognitive_closure'],
+    facetMeasurementCapability: 'UNIDIMENSIONAL_TOTAL_SCORE',
     instrumentCandidates: ['inst_nfc_sf', 'inst_nfcs_sf'],
     selectedInstrumentId: 'inst_nfc_sf',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -226,12 +231,13 @@ const assessmentModules = [
       domains: ['cognition_decision'],
       constructs: ['epistemic_drive'],
       facets: 2,
+      facetScoringLevel: 'UNIDIMENSIONAL_SCALE_SCORE',
       visualizations: ['Epistemic Drive Gauge', 'Cognitive Engagement Score'],
-      aiInsightInputs: ['Analytical vs heuristic preference', 'Intellectual curiosity depth', 'Decision deliberation style'],
+      aiInsightInputs: ['Analytical vs heuristic preference', 'Intellectual curiosity depth'],
       longitudinalOutputs: ['Epistemic stamina trajectory']
     },
     blockingIssues: [
-      'NFC-SF wording in Turkish requires authoritative verification against Gülgöz & Sancar (2004) / Güvenç (2011) publications.'
+      'NFC-SF wording in Turkish requires authoritative verification against published Turkish adaptation studies.'
     ],
     rationale: 'Measures intrinsic motivation to engage in and enjoy effortful cognitive endeavors. Essential for cognitive style characterization in first meaningful profile.'
   },
@@ -253,6 +259,7 @@ const assessmentModules = [
       'lack_of_perseverance',
       'sensation_seeking'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_bscs', 'inst_upps_p_sf'],
     selectedInstrumentId: 'inst_bscs',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -283,8 +290,9 @@ const assessmentModules = [
       domains: ['self_regulation'],
       constructs: ['volitional_stamina', 'impulsivity_uppsp'],
       facets: 7,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['Self-Control Spectrum', 'UPPS-P 5-Factor Radar'],
-      aiInsightInputs: ['Executive function regulation', 'Impulsive risk tendencies under stress', 'Ego-depletion vulnerability'],
+      aiInsightInputs: ['Executive function regulation', 'Impulsive risk tendencies under stress'],
       longitudinalOutputs: ['Volitional stamina index']
     },
     blockingIssues: [
@@ -306,6 +314,7 @@ const assessmentModules = [
       'competence_satisfaction_frustration',
       'relatedness_satisfaction_frustration'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_bpnsfs'],
     selectedInstrumentId: 'inst_bpnsfs',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -336,8 +345,9 @@ const assessmentModules = [
       domains: ['motivation_values'],
       constructs: ['basic_psychological_needs'],
       facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['SDT Triangle', 'Satisfaction vs Frustration Balance'],
-      aiInsightInputs: ['Self-Determination fulfillment', 'Psychological vitality drivers', 'Contextual frustration points'],
+      aiInsightInputs: ['Self-Determination fulfillment', 'Psychological vitality drivers'],
       longitudinalOutputs: ['Need satisfaction state tracking']
     },
     blockingIssues: [
@@ -360,22 +370,23 @@ const assessmentModules = [
       'conservation_values',
       'self_enhancement_values'
     ],
-    instrumentCandidates: ['inst_ipip_schwartz_values', 'inst_pvq_rr'],
-    selectedInstrumentId: 'inst_ipip_schwartz_values',
-    selectedInstrumentStatus: 'READY_FOR_PRODUCT_REVIEW',
+    facetMeasurementCapability: 'CIRCUMPLEX_HIGHER_ORDER_QUADRANTS',
+    instrumentCandidates: ['inst_pvq_rr', 'inst_pvq_21', 'inst_ipip_schwartz_values'],
+    selectedInstrumentId: 'inst_pvq_rr',
+    selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
     questionCountPlanned: 50,
     estimatedMinutes: 10.0,
     scoringModel: 'PRE_CALIBRATION_MEAN_V1',
-    publicationReadiness: 'READY_FOR_PRODUCT_REVIEW',
-    turkishEvidenceStatus: 'LEXICAL_AND_EMPIRICAL_SUPPORTED',
-    licensingStatus: 'APPROVED_PUBLIC_DOMAIN',
-    exactWordingProvenanceStatus: 'VERIFIED_PUBLIC_DOMAIN_TRANSLATION',
-    commercialUseStatus: 'UNRESTRICTED_COMMERCIAL_USE',
-    responseFormat: 'LIKERT_5',
+    publicationReadiness: 'READY_BUT_NOT_PUBLISHED',
+    turkishEvidenceStatus: 'EMPIRICAL_ADAPTATION_VALIDATED',
+    licensingStatus: 'REQUIRES_PERMISSION',
+    exactWordingProvenanceStatus: 'RESEARCH_DRAFT',
+    commercialUseStatus: 'REQUIRES_AUTHOR_PERMISSION',
+    responseFormat: 'LIKERT_6',
     reverseKeying: {
-      hasReverseItems: true,
-      reverseItemCount: 14,
-      reverseScoringRule: '6 - rawValue'
+      hasReverseItems: false,
+      reverseItemCount: 0,
+      reverseScoringRule: 'NONE'
     },
     subscales: [
       { code: 'VAL_OC', nameTr: 'Değişime Açıklık', nameEn: 'Openness to Change', itemCount: 15, constructId: 'universal_values' },
@@ -388,12 +399,16 @@ const assessmentModules = [
       domains: ['motivation_values'],
       constructs: ['universal_values'],
       facets: 4,
+      facetScoringLevel: 'CIRCUMPLEX_4_QUADRANT_SCORES',
       visualizations: ['Schwartz Circumplex', 'Value Hierarchy Chart'],
-      aiInsightInputs: ['Core motivational drivers', 'Value-behavior incongruence', 'Life priority alignment'],
+      aiInsightInputs: ['Core motivational drivers', 'Value-behavior incongruence'],
       longitudinalOutputs: ['Value stability metrics']
     },
-    blockingIssues: [],
-    rationale: 'Public domain 50-item IPIP representation of the 10 basic Schwartz values across 4 higher-order quadrants. Avoids proprietary PVQ licensing issues.'
+    blockingIssues: [
+      'Canonical Schwartz values instruments (PVQ-RR / PVQ-21 / SVS) require formal author licensing for commercial SaaS platform use.',
+      'IPIP preliminary item markers lack independent peer-reviewed Turkish standardization.'
+    ],
+    rationale: 'Measures Schwartz 10 basic values aggregated across 4 higher-order quadrants (Openness to Change, Self-Transcendence, Conservation, Self-Enhancement).'
   },
   {
     assessmentId: 'mod_relational_attachment_empathy',
@@ -410,6 +425,7 @@ const assessmentModules = [
       'cognitive_perspective_taking',
       'empathic_concern'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_ecr_r', 'inst_iri'],
     selectedInstrumentId: 'inst_ecr_r',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -438,8 +454,9 @@ const assessmentModules = [
       domains: ['social_relational'],
       constructs: ['attachment_system', 'multidimensional_empathy'],
       facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['Attachment 4-Quadrant Map (Bartholomew)', 'Empathy Horizon'],
-      aiInsightInputs: ['Attachment security style (Secure, Preoccupied, Dismissing, Fearful)', 'Relational vulnerability dynamics', 'Empathy-burnout vulnerability'],
+      aiInsightInputs: ['Attachment security style (Secure, Preoccupied, Dismissing, Fearful)', 'Relational vulnerability dynamics'],
       longitudinalOutputs: ['Relational security index']
     },
     blockingIssues: [
@@ -461,6 +478,7 @@ const assessmentModules = [
       'cognitive_flexibility_control',
       'intolerance_of_uncertainty'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_cfi', 'inst_ius_12', 'inst_rei_40'],
     selectedInstrumentId: 'inst_cfi',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -488,8 +506,9 @@ const assessmentModules = [
       domains: ['cognition_decision'],
       constructs: ['cognitive_adaptability', 'thinking_styles'],
       facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['Adaptability Matrix', 'Ambiguity Resilience Index'],
-      aiInsightInputs: ['Problem-solving flexibility under ambiguity', 'Catastrophizing risk in ambiguous scenarios'],
+      aiInsightInputs: ['Problem-solving flexibility under ambiguity'],
       longitudinalOutputs: ['Adaptive problem solving trajectories']
     },
     blockingIssues: [
@@ -512,6 +531,7 @@ const assessmentModules = [
       'self_compassion_composite',
       'long_term_grit'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_mlq', 'inst_scs_sf', 'inst_grit_s'],
     selectedInstrumentId: 'inst_mlq',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -540,8 +560,9 @@ const assessmentModules = [
       domains: ['motivation_values', 'self_system', 'self_regulation'],
       constructs: ['existential_meaning', 'self_compassion', 'volitional_stamina'],
       facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['Meaning Matrix (Frankl Lens)', 'Self-Compassion Compass', 'Grit Score'],
-      aiInsightInputs: ['Existential fulfillment vs crisis dynamics', 'Self-criticism vs self-kindness balance', 'Multi-year perseverance stamina'],
+      aiInsightInputs: ['Existential fulfillment vs crisis dynamics', 'Self-criticism vs self-kindness balance'],
       longitudinalOutputs: ['Existential coherence over life transitions']
     },
     blockingIssues: [
@@ -563,6 +584,7 @@ const assessmentModules = [
       'conflict_yielding_avoiding',
       'interpersonal_boundary_clarity'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_dutch', 'inst_tki'],
     selectedInstrumentId: 'inst_dutch',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -592,8 +614,9 @@ const assessmentModules = [
       domains: ['social_relational'],
       constructs: ['conflict_styles', 'social_agency_boundaries'],
       facets: 3,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['Conflict Style Pentagon', 'Interpersonal Boundary Strength'],
-      aiInsightInputs: ['Assertiveness vs accommodation balance', 'Conflict de-escalation strategies', 'Relational negotiation styles'],
+      aiInsightInputs: ['Assertiveness vs accommodation balance', 'Conflict de-escalation strategies'],
       longitudinalOutputs: ['Interpersonal conflict adaptability']
     },
     blockingIssues: [
@@ -617,6 +640,7 @@ const assessmentModules = [
       'distress_tolerance_absorption',
       'distress_tolerance_regulation'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_panas', 'inst_dts'],
     selectedInstrumentId: 'inst_panas',
     selectedInstrumentStatus: 'READY_BUT_NOT_PUBLISHED',
@@ -644,8 +668,9 @@ const assessmentModules = [
       domains: ['emotion_regulation'],
       constructs: ['affective_tone', 'distress_tolerance'],
       facets: 5,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['PANAS Balance Meter', 'Distress Tolerance Thermometer'],
-      aiInsightInputs: ['Affective baseline balance', 'Emotional distress threshold', 'Stress vulnerability vs resilience'],
+      aiInsightInputs: ['Affective baseline balance', 'Emotional distress threshold'],
       longitudinalOutputs: ['Affective volatility tracking']
     },
     blockingIssues: [
@@ -668,6 +693,7 @@ const assessmentModules = [
       'psychopathy_subclinical',
       'everyday_sadism_subclinical'
     ],
+    facetMeasurementCapability: 'FULL_INDEPENDENT_SUBSCALE_SCORES',
     instrumentCandidates: ['inst_sd4'],
     selectedInstrumentId: 'inst_sd4',
     selectedInstrumentStatus: 'RESEARCH_ONLY',
@@ -696,8 +722,9 @@ const assessmentModules = [
       domains: ['optional_dark_tetrad'],
       constructs: ['dark_tetrad_traits'],
       facets: 4,
+      facetScoringLevel: 'INDEPENDENT_SUBSCALE_SCORES',
       visualizations: ['Dark Tetrad 4-Factor Radar'],
-      aiInsightInputs: ['Subclinical interpersonal dynamics', 'Manipulative tendencies vs authentic connection'],
+      aiInsightInputs: ['Subclinical interpersonal dynamics'],
       longitudinalOutputs: ['Subclinical trait stability']
     },
     blockingIssues: [
@@ -736,21 +763,21 @@ const constructInstrumentMapping = allMasterConstructs.map((c: any) => {
       constructId: cId,
       constructNameTr: c.nameTr,
       measurementMode: 'DIRECT_PSYCHOMETRIC_ITEM_BANK',
-      preferredInstrumentCandidates: ['inst_ipip_hexaco'],
-      selectedInstrument: 'inst_ipip_hexaco',
-      selectionRationale: 'Public domain 60-item IPIP-HEXACO inventory covering 4 facets with 2.5 items/facet (10 items/factor).',
-      alternativeInstruments: ['inst_hexaco_pi_r'],
-      instrumentCoverage: 'FULL_CONSTRUCT_AND_FACETS',
+      preferredInstrumentCandidates: ['inst_hexaco_60', 'inst_ipip_hexaco'],
+      selectedInstrument: 'inst_hexaco_60',
+      selectionRationale: 'Official HEXACO-60 short form (Ashton & Lee, 2009) measuring 6 broad factors (10 items/factor). Research bank alternative is 240-item IPIP-HEXACO.',
+      alternativeInstruments: ['inst_ipip_hexaco', 'inst_hexaco_pi_r'],
+      instrumentCoverage: 'BROAD_FACTOR_PRIMARY_FACET_CONTENT_SAMPLED',
       facetCoverage: (c.facets || []).length,
       questionCount: 10,
-      turkishEvidence: 'VALIDATED_DIRECT',
-      licensing: 'APPROVED_FOR_PRODUCT',
-      commercialRights: 'VERIFIED_COMMERCIAL_PERMITTED',
-      exactItemProvenance: 'VERIFIED_PUBLIC_DOMAIN_TRANSLATION',
+      turkishEvidence: 'LEXICAL_AND_ADAPTATION_EVIDENCE',
+      licensing: 'REQUIRES_PERMISSION',
+      commercialRights: 'REQUIRES_AUTHOR_PERMISSION',
+      exactItemProvenance: 'RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION',
       scoringAvailability: 'PRE_CALIBRATION_MEAN_IMPLEMENTED',
       currentImplementationStatus: 'FORM_V1_SEED_COMPLIANT',
-      readiness: 'READY_FOR_PRODUCT_REVIEW',
-      gapType: 'NONE'
+      readiness: 'READY_BUT_NOT_PUBLISHED',
+      gapType: 'COMMERCIAL_RIGHTS_UNKNOWN'
     };
   }
 
@@ -762,7 +789,7 @@ const constructInstrumentMapping = allMasterConstructs.map((c: any) => {
       measurementMode: 'DIRECT_PSYCHOMETRIC_ITEM_BANK',
       preferredInstrumentCandidates: ['inst_rses'],
       selectedInstrument: 'inst_rses',
-      selectionRationale: 'Rosenberg Self-Esteem Scale (10 items, public domain). Authoritative standard for global self-worth.',
+      selectionRationale: 'Rosenberg Self-Esteem Scale (10 items). University of Maryland confirms public domain status of original English; standard Turkish adaptation (Çuhadaroğlu, 1986).',
       alternativeInstruments: [],
       instrumentCoverage: 'FULL_CONSTRUCT_AND_FACETS',
       facetCoverage: (c.facets || []).length,
@@ -770,7 +797,7 @@ const constructInstrumentMapping = allMasterConstructs.map((c: any) => {
       turkishEvidence: 'VALIDATED_DIRECT',
       licensing: 'APPROVED_FOR_PRODUCT',
       commercialRights: 'VERIFIED_COMMERCIAL_PERMITTED',
-      exactItemProvenance: 'VERIFIED_PUBLIC_DOMAIN_TRANSLATION',
+      exactItemProvenance: 'VERIFIED_ACADEMIC_ADAPTATION',
       scoringAvailability: 'PRE_CALIBRATION_MEAN_IMPLEMENTED',
       currentImplementationStatus: 'FORM_SPECIFIED',
       readiness: 'READY_FOR_PRODUCT_REVIEW',
@@ -1132,21 +1159,21 @@ const constructInstrumentMapping = allMasterConstructs.map((c: any) => {
       constructId: cId,
       constructNameTr: c.nameTr,
       measurementMode: 'DIRECT_PSYCHOMETRIC_ITEM_BANK',
-      preferredInstrumentCandidates: ['inst_ipip_schwartz_values'],
-      selectedInstrument: 'inst_ipip_schwartz_values',
-      selectionRationale: 'IPIP 50-item Public Domain Representation of Schwartz Values Framework.',
-      alternativeInstruments: ['inst_pvq_rr'],
+      preferredInstrumentCandidates: ['inst_pvq_rr', 'inst_pvq_21', 'inst_ipip_schwartz_values'],
+      selectedInstrument: 'inst_pvq_rr',
+      selectionRationale: 'Portrait Values Questionnaire (PVQ-RR / PVQ-21). Official operationalization of Schwartz circular continuum.',
+      alternativeInstruments: ['inst_ipip_schwartz_values'],
       instrumentCoverage: 'FULL_CONSTRUCT_AND_FACETS',
       facetCoverage: (c.facets || []).length,
       questionCount: 50,
-      turkishEvidence: 'VALIDATED_DIRECT',
-      licensing: 'APPROVED_FOR_PRODUCT',
-      commercialRights: 'VERIFIED_COMMERCIAL_PERMITTED',
-      exactItemProvenance: 'VERIFIED_PUBLIC_DOMAIN_TRANSLATION',
+      turkishEvidence: 'EMPIRICAL_ADAPTATION_VALIDATED',
+      licensing: 'REQUIRES_PERMISSION',
+      commercialRights: 'REQUIRES_AUTHOR_PERMISSION',
+      exactItemProvenance: 'RESEARCH_DRAFT',
       scoringAvailability: 'PRE_CALIBRATION_MEAN_IMPLEMENTED',
       currentImplementationStatus: 'FORM_SPECIFIED',
-      readiness: 'READY_FOR_PRODUCT_REVIEW',
-      gapType: 'NONE'
+      readiness: 'READY_BUT_NOT_PUBLISHED',
+      gapType: 'COMMERCIAL_RIGHTS_UNKNOWN'
     };
   }
 
@@ -1392,54 +1419,56 @@ console.log('✅ Generated construct-to-instrument-map.json (37 constructs)');
 // -----------------------------------------------------------------------------
 // 3. USER BURDEN & QUESTION BUDGET (assessment-question-budget.json)
 // -----------------------------------------------------------------------------
-// Calculate empirical totals directly from module structures
 const coreModules = assessmentModules.filter(m => m.requiredForFirstProfile);
-const coreQuestions = coreModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
-const coreMinutes = coreModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+const coreTargetQuestions = coreModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+const coreTargetMinutes = coreModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
 
 const expandedModules = assessmentModules.filter(m => m.stage === 'CORE' || m.stage === 'EXPANSION').slice(0, 8);
-const expandedQuestions = expandedModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
-const expandedMinutes = expandedModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+const expandedTargetQuestions = expandedModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+const expandedTargetMinutes = expandedModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
 
 const compConsumerModules = assessmentModules.filter(m => m.stage === 'CORE' || m.stage === 'EXPANSION');
-const compConsumerQuestions = compConsumerModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
-const compConsumerMinutes = compConsumerModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+const compConsumerTargetQuestions = compConsumerModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+const compConsumerTargetMinutes = compConsumerModules.reduce((acc, m) => acc + m.estimatedMinutes, 0);
 
-const productReadyModules = assessmentModules.filter(m => m.publicationReadiness === 'READY_FOR_PRODUCT_REVIEW');
-const productReadyQuestions = productReadyModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
-
-const researchOnlyModules = assessmentModules.filter(m => m.publicationReadiness === 'RESEARCH_ONLY');
-const researchOnlyQuestions = researchOnlyModules.reduce((acc, m) => acc + m.questionCountPlanned, 0);
+// Product-ready calculations:
+// Only inst_rses (10 items) passes all 4 gates unconditionally right now.
+const productReadyQuestionsCore = 10; // inst_rses
+const productReadyQuestionsExpanded = 10; // inst_rses
+const productReadyQuestionsComp = 10; // inst_rses
 
 const questionBudget = {
   budgetMetadata: {
     averageItemReadingSeconds: 12.0,
     fatigueThresholdMinutesPerSession: 25.0,
-    governanceRule: 'Exact question counts derived from verified scientific scale lengths. No arbitrary rounding.'
+    governanceRule: 'Target question counts derived from verified scientific scale lengths. Clear distinction between TARGET architecture and PRODUCT_READY_NOW.'
   },
   tiers: {
     FIRST_MEANINGFUL_PROFILE: {
       tierName: 'First Meaningful Profile (Core Battery)',
       stage: 'ONBOARDING_CORE',
-      assessmentCount: coreModules.length,
-      questionCountPlannedTotal: coreQuestions,
-      estimatedMinutesTotal: coreMinutes,
+      assessmentCountPlanned: coreModules.length,
+      targetQuestionCount: coreTargetQuestions,
+      targetEstimatedMinutes: coreTargetMinutes,
+      productReadyNowQuestionCount: productReadyQuestionsCore,
+      conditionalPermissionQuestionCount: coreTargetQuestions - productReadyQuestionsCore,
       domainsCovered: ['core_personality', 'self_system', 'emotion_regulation', 'cognition_decision'],
       constructsCoveredCount: 11,
       facetsCoveredCount: 31,
       recommendedSessionsCount: 1,
-      productReadyQuestions: 70, // HEXACO-60 (60) + RSES (10)
-      plannedIfLicensedQuestions: 38, // GSES (10) + ERQ (10) + NFC-SF (18)
       coverageGaps: [
-        'Volition, attachment, and values deferred to expansion tier to keep onboarding strictly under 25 minutes.'
+        'Volition, attachment, and values deferred to expansion tier to keep onboarding strictly under 25 minutes.',
+        'HEXACO-60, GSES, ERQ, and NFC-SF are pending commercial permissions for immediate production deployment.'
       ]
     },
     EXPANDED_PROFILE: {
       tierName: 'Expanded Profile (Core + High-Value P1 Expansion)',
       stage: 'EXPANSION',
-      assessmentCount: expandedModules.length,
-      questionCountPlannedTotal: expandedQuestions,
-      estimatedMinutesTotal: expandedMinutes,
+      assessmentCountPlanned: expandedModules.length,
+      targetQuestionCount: expandedTargetQuestions,
+      targetEstimatedMinutes: expandedTargetMinutes,
+      productReadyNowQuestionCount: productReadyQuestionsExpanded,
+      conditionalPermissionQuestionCount: expandedTargetQuestions - productReadyQuestionsExpanded,
       domainsCovered: [
         'core_personality',
         'self_system',
@@ -1452,8 +1481,6 @@ const questionBudget = {
       constructsCoveredCount: 18,
       facetsCoveredCount: 51,
       recommendedSessionsCount: 2,
-      productReadyQuestions: 120, // HEXACO-60 (60) + RSES (10) + Schwartz IPIP (50)
-      plannedIfLicensedQuestions: 145,
       coverageGaps: [
         'Cognitive flexibility, existential meaning, and conflict resolution deferred to comprehensive tier.'
       ]
@@ -1461,9 +1488,11 @@ const questionBudget = {
     COMPREHENSIVE_PROFILE: {
       tierName: 'Comprehensive Profile (Full Multi-Domain Psychometric Battery)',
       stage: 'COMPREHENSIVE_CONSUMER_MAXIMUM',
-      assessmentCount: compConsumerModules.length,
-      questionCountPlannedTotal: compConsumerQuestions,
-      estimatedMinutesTotal: compConsumerMinutes,
+      assessmentCountPlanned: compConsumerModules.length,
+      targetQuestionCount: compConsumerTargetQuestions,
+      targetEstimatedMinutes: compConsumerTargetMinutes,
+      productReadyNowQuestionCount: productReadyQuestionsComp,
+      conditionalPermissionQuestionCount: compConsumerTargetQuestions - productReadyQuestionsComp,
       domainsCovered: [
         'core_personality',
         'self_system',
@@ -1476,8 +1505,6 @@ const questionBudget = {
       constructsCoveredCount: 26,
       facetsCoveredCount: 66,
       recommendedSessionsCount: 3,
-      productReadyQuestions: 120,
-      plannedIfLicensedQuestions: 262,
       coverageGaps: [
         'Subclinical Dark Tetrad traits excluded from standard consumer package; available only as explicit opt-in advanced research module.'
       ]
@@ -1485,22 +1512,22 @@ const questionBudget = {
     OPTIONAL_ADVANCED_RESEARCH_MODULE: {
       tierName: 'Optional Advanced Research Exploration',
       stage: 'OPTIONAL_ADVANCED',
-      assessmentCount: 1,
-      questionCountPlannedTotal: 28,
-      estimatedMinutesTotal: 6.0,
+      assessmentCountPlanned: 1,
+      targetQuestionCount: 28,
+      targetEstimatedMinutes: 6.0,
       domainsCovered: ['optional_dark_tetrad'],
       constructsCoveredCount: 1,
       facetsCoveredCount: 4,
-      researchOnlyQuestions: 28
+      researchOnlyQuestionCount: 28
     }
   },
   grandTotals: {
     totalPlannedConsumerModules: 12,
-    totalPlannedConsumerQuestions: compConsumerQuestions,
-    totalPlannedConsumerMinutes: compConsumerMinutes,
-    totalProductReadyQuestions: productReadyQuestions,
-    totalPlannedIfLicensedQuestions: compConsumerQuestions - productReadyQuestions,
-    totalResearchOnlyQuestions: researchOnlyQuestions
+    totalPlannedConsumerQuestions: compConsumerTargetQuestions,
+    totalPlannedConsumerMinutes: compConsumerTargetMinutes,
+    totalProductReadyNowQuestions: productReadyQuestionsComp,
+    totalConditionalPermissionQuestions: compConsumerTargetQuestions - productReadyQuestionsComp,
+    totalResearchOnlyQuestions: 28
   }
 };
 
@@ -1535,10 +1562,9 @@ const journeyPlan = {
       ],
       recommendedNextModules: ['mod_volition_impulse', 'mod_basic_needs_sdt'],
       optionalModules: [],
-      completionCondition: 'All 4 core modules completed (108 questions answered).',
+      completionCondition: 'All 4 core modules completed (108 target questions answered).',
       profileUnlocks: [
-        'Core Personality Hexagon/Radar (6 broad factors)',
-        '24 HEXACO Facet Baseline Scores',
+        'Core Personality Radar (6 broad factors)',
         'Self-Esteem & Generalized Agency Index',
         'Emotion Regulation Quadrant (Reappraisal vs Suppression)',
         'Epistemic Drive Baseline Score',
@@ -1577,7 +1603,7 @@ const journeyPlan = {
       ],
       recommendedNextModules: ['mod_cognitive_adaptability', 'mod_meaning_compassion_grit'],
       optionalModules: [],
-      completionCondition: 'All 4 expansion modules completed (cumulative 265 questions answered).',
+      completionCondition: 'All 4 expansion modules completed (cumulative 265 target questions answered).',
       profileUnlocks: [
         'Schwartz Universal Value Circumplex (10 basic values)',
         'SDT Basic Needs Satisfaction & Frustration Balance',
@@ -1601,7 +1627,7 @@ const journeyPlan = {
       ],
       recommendedNextModules: ['mod_dark_tetrad_advanced'],
       optionalModules: ['mod_dark_tetrad_advanced'],
-      completionCondition: 'All 12 consumer modules completed (cumulative 382 questions answered).',
+      completionCondition: 'All 12 consumer modules completed (cumulative 382 target questions answered).',
       profileUnlocks: [
         'Full 66-Facet Master Psychological Profile',
         'Cognitive Flexibility & Ambiguity Resilience Matrix',
@@ -1721,42 +1747,56 @@ console.log(`✅ Generated licensing-readiness-matrix.json (${licensingMatrix.le
 // -----------------------------------------------------------------------------
 const turkishValidationData = [
   {
-    instrumentId: 'inst_ipip_hexaco',
-    instrumentName: 'IPIP-HEXACO 60-Item Equivalent Form',
+    instrumentId: 'inst_hexaco_60',
+    instrumentName: 'HEXACO-60 Short Form',
     constructsCovered: ['hexaco_honesty_humility', 'hexaco_emotionality', 'hexaco_extraversion', 'hexaco_agreeableness', 'hexaco_conscientiousness', 'hexaco_openness'],
-    turkishEvidenceLevel: 'STRONG_LEXICAL_AND_EMPIRICAL',
-    appliesToLevel: 'FACET_AND_BROAD_FACTOR',
-    sampleEvidence: 'Wasti et al. (2008) Turkish lexical study (N = 650); Göz (2018) HEXACO validation (N = 824).',
-    factorEvidence: '6-factor structure confirmed via EFA and CFA with adequate fit (CFI > 0.90, RMSEA < 0.06).',
-    reliabilityEvidence: 'McDonald Omega >= 0.78 across all 6 broad domains; alpha >= 0.72 for 24 sub-facets.',
-    sourceIds: ['src_ashton_lee_2007', 'src_wasti_2008'],
-    exactFormMatch: 'EXACT_IPIP_60_ITEM_FORM',
-    translationProvenance: 'VERIFIED_AUTHORITATIVE_PUBLIC_TRANSLATION',
-    readiness: 'READY_FOR_PRODUCT_REVIEW'
+    turkishEvidenceLevel: 'LEXICAL_AND_ADAPTATION_EVIDENCE',
+    appliesToLevel: 'BROAD_FACTOR_PRIMARY',
+    sampleEvidence: 'Wasti et al. (2008) Turkish lexical study; Göz (2018) HEXACO validation thesis.',
+    factorEvidence: '6-factor structure replicates cross-culturally at broad factor level.',
+    reliabilityEvidence: null,
+    sourceIds: ['src_ashton_lee_2007'],
+    exactFormMatch: 'EXACT_60_ITEM_SHORT_FORM',
+    translationProvenance: 'RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION',
+    readiness: 'READY_BUT_NOT_PUBLISHED'
+  },
+  {
+    instrumentId: 'inst_ipip_hexaco',
+    instrumentName: 'IPIP-HEXACO 240-Item Research Form',
+    constructsCovered: ['hexaco_honesty_humility', 'hexaco_emotionality', 'hexaco_extraversion', 'hexaco_agreeableness', 'hexaco_conscientiousness', 'hexaco_openness'],
+    turkishEvidenceLevel: 'LEXICAL_AND_RELATED',
+    appliesToLevel: 'RESEARCH_BANK_LEVEL',
+    sampleEvidence: 'Ashton, Lee & Goldberg (2007); Goldberg (2006).',
+    factorEvidence: 'Full 24-facet public domain item pool.',
+    reliabilityEvidence: null,
+    sourceIds: ['src_ashton_lee_2007', 'src_goldberg_2006'],
+    exactFormMatch: 'FULL_240_ITEM_RESEARCH_POOL',
+    translationProvenance: 'PUBLIC_DOMAIN_RESEARCH_TRANSLATION',
+    readiness: 'RESEARCH_ONLY'
   },
   {
     instrumentId: 'inst_rses',
     instrumentName: 'Rosenberg Self-Esteem Scale (RSES)',
     constructsCovered: ['core_self_esteem'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'FULL_SCALE',
-    sampleEvidence: 'Çuhadaroğlu (1986) initial Turkish adaptation (N = 340); Çakar (2012) large university cohort (N = 1,120).',
-    factorEvidence: 'Unidimensional and two-method-factor structures verified with high construct validity.',
-    reliabilityEvidence: 'Cronbach alpha = 0.86; test-retest reliability r = 0.75.',
+    sampleEvidence: 'Çuhadaroğlu (1986) Turkish adaptation; widely replicated in Turkish literature.',
+    factorEvidence: 'Unidimensional self-esteem structure confirmed in Turkish samples.',
+    reliabilityEvidence: null,
     sourceIds: ['src_rosenberg_1965'],
     exactFormMatch: 'EXACT_10_ITEM_STANDARD',
-    translationProvenance: 'VERIFIED_STANDARDIZED_TURKISH_FORM',
+    translationProvenance: 'VERIFIED_ACADEMIC_ADAPTATION',
     readiness: 'READY_FOR_PRODUCT_REVIEW'
   },
   {
     instrumentId: 'inst_gses',
     instrumentName: 'General Self-Efficacy Scale (GSES)',
     constructsCovered: ['generalized_self_efficacy'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'FULL_SCALE',
-    sampleEvidence: 'Yeşilayaprak et al. (1999); Aygün & Akçamete (2000) (N = 480).',
-    factorEvidence: 'Single-factor structure confirmed with factor loadings between 0.45 and 0.78.',
-    reliabilityEvidence: 'Cronbach alpha = 0.83.',
+    sampleEvidence: 'Yeşilayaprak et al. (1999); Aygün & Akçamete (2000).',
+    factorEvidence: 'Single-factor general self-efficacy structure replicated.',
+    reliabilityEvidence: null,
     sourceIds: ['src_schwarzer_1995'],
     exactFormMatch: 'EXACT_10_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1766,11 +1806,11 @@ const turkishValidationData = [
     instrumentId: 'inst_erq',
     instrumentName: 'Emotion Regulation Questionnaire (ERQ)',
     constructsCovered: ['cognitive_reappraisal', 'expressive_suppression'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'SUBSCALE_LEVEL',
-    sampleEvidence: 'Yurtsever (2008) (N = 354); Uçanok (2012) (N = 512).',
-    factorEvidence: 'Two orthogonal factors (Cognitive Reappraisal: 6 items, Expressive Suppression: 4 items) replicated cleanly.',
-    reliabilityEvidence: 'Alpha = 0.85 (Reappraisal), Alpha = 0.78 (Suppression).',
+    sampleEvidence: 'Yurtsever (2008); Uçanok (2012).',
+    factorEvidence: 'Two orthogonal factors (Cognitive Reappraisal, Expressive Suppression) replicated.',
+    reliabilityEvidence: null,
     sourceIds: ['src_gross_john_2003'],
     exactFormMatch: 'EXACT_10_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1780,11 +1820,11 @@ const turkishValidationData = [
     instrumentId: 'inst_nfc_sf',
     instrumentName: 'Need for Cognition Scale (Short Form)',
     constructsCovered: ['epistemic_drive'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'FULL_SCALE',
-    sampleEvidence: 'Gülgöz & Sancar (2004) (N = 420); Güvenç (2011) (N = 615).',
-    factorEvidence: 'Unidimensional structure verified via CFA with acceptable indices.',
-    reliabilityEvidence: 'Cronbach alpha = 0.81.',
+    sampleEvidence: 'Gülgöz & Sancar (2004); Güvenç (2011).',
+    factorEvidence: 'Unidimensional structure supported in Turkish cohorts.',
+    reliabilityEvidence: null,
     sourceIds: ['src_cacioppo_1982'],
     exactFormMatch: 'EXACT_18_ITEM_SHORT_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1794,11 +1834,11 @@ const turkishValidationData = [
     instrumentId: 'inst_bscs',
     instrumentName: 'Brief Self-Control Scale (BSCS)',
     constructsCovered: ['volitional_stamina'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'FULL_SCALE',
-    sampleEvidence: 'Nebioğlu et al. (2012) (N = 450); Duru et al. (2018) (N = 820).',
-    factorEvidence: 'Bifactor model supporting general self-control score with high variance explained.',
-    reliabilityEvidence: 'Cronbach alpha = 0.83.',
+    sampleEvidence: 'Nebioğlu et al. (2012); Duru et al. (2018).',
+    factorEvidence: 'General self-control factor structure supported.',
+    reliabilityEvidence: null,
     sourceIds: ['src_tangney_2004'],
     exactFormMatch: 'EXACT_13_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1808,11 +1848,11 @@ const turkishValidationData = [
     instrumentId: 'inst_upps_p_sf',
     instrumentName: 'UPPS-P Impulsive Behavior Scale (Short Form)',
     constructsCovered: ['impulsivity_uppsp'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '5_DISTINCT_FACETS',
-    sampleEvidence: 'Yargıç et al. (2016) validation study in Turkish clinical and healthy samples (N = 540).',
-    factorEvidence: '5-factor structure replicated cleanly (Negative Urgency, Positive Urgency, Lack of Premeditation, Lack of Perseverance, Sensation Seeking).',
-    reliabilityEvidence: 'Alphas between 0.72 and 0.84 across all 5 subscales.',
+    sampleEvidence: 'Yargıç et al. (2016) Turkish validation study.',
+    factorEvidence: '5-factor impulsivity structure replicated.',
+    reliabilityEvidence: null,
     sourceIds: ['src_cyders_2014'],
     exactFormMatch: 'EXACT_20_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1822,39 +1862,39 @@ const turkishValidationData = [
     instrumentId: 'inst_bpnsfs',
     instrumentName: 'Basic Psychological Need Satisfaction and Frustration Scale',
     constructsCovered: ['basic_psychological_needs'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '6_SUB_DIMENSIONS',
-    sampleEvidence: 'Başyurt & Şahin (2018) (N = 680).',
-    factorEvidence: '6-factor CFA confirmed distinguishing satisfaction and frustration for Autonomy, Competence, and Relatedness.',
-    reliabilityEvidence: 'Alphas range from 0.76 to 0.88 across subscales.',
+    sampleEvidence: 'Başyurt & Şahin (2018).',
+    factorEvidence: '6-factor CFA confirmed for satisfaction and frustration across 3 needs.',
+    reliabilityEvidence: null,
     sourceIds: ['src_chen_2015'],
     exactFormMatch: 'EXACT_24_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
     readiness: 'READY_BUT_NOT_PUBLISHED'
   },
   {
-    instrumentId: 'inst_ipip_schwartz_values',
-    instrumentName: 'IPIP 50-Item Representation of Schwartz Values',
+    instrumentId: 'inst_pvq_rr',
+    instrumentName: 'Portrait Values Questionnaire - Revised (PVQ-RR)',
     constructsCovered: ['universal_values'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
-    appliesToLevel: '4_HIGHER_ORDER_QUADRANTS',
-    sampleEvidence: 'Kuşdil & Kağıtçıbaşı (2000) (N = 1,020); Demirutku (2007) (N = 750).',
-    factorEvidence: 'MDS circumplex structure replicates Schwartz circular continuum in Turkish population.',
-    reliabilityEvidence: 'Alphas >= 0.74 for the 4 higher-order dimensions.',
-    sourceIds: ['src_goldberg_2006', 'src_schwartz_1992'],
-    exactFormMatch: 'EXACT_50_ITEM_FORM',
-    translationProvenance: 'VERIFIED_AUTHORITATIVE_PUBLIC_TRANSLATION',
-    readiness: 'READY_FOR_PRODUCT_REVIEW'
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
+    appliesToLevel: 'CIRCUMPLEX_CONTINUUM',
+    sampleEvidence: 'Kuşdil & Kağıtçıbaşı (2000); Demirutku (2007).',
+    factorEvidence: 'Schwartz circumplex circular structure verified in Turkish culture.',
+    reliabilityEvidence: null,
+    sourceIds: ['src_schwartz_1992'],
+    exactFormMatch: 'EXACT_57_ITEM_FORM',
+    translationProvenance: 'RESEARCH_DRAFT',
+    readiness: 'READY_BUT_NOT_PUBLISHED'
   },
   {
     instrumentId: 'inst_ecr_r',
     instrumentName: 'Experiences in Close Relationships - Revised (ECR-R)',
     constructsCovered: ['attachment_system'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '2_ORTHOGONAL_DIMENSIONS',
-    sampleEvidence: 'Selçuk et al. (2005) (N = 842); Sümer (2006) (N = 610).',
-    factorEvidence: 'Two-factor structure (Anxiety: 18 items, Avoidance: 18 items) confirmed via CFA and IRT.',
-    reliabilityEvidence: 'Anxiety alpha = 0.90; Avoidance alpha = 0.88.',
+    sampleEvidence: 'Selçuk et al. (2005); Sümer (2006).',
+    factorEvidence: 'Two-factor structure (Anxiety, Avoidance) confirmed in Turkish population.',
+    reliabilityEvidence: null,
     sourceIds: ['src_fraley_2000'],
     exactFormMatch: 'EXACT_36_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1864,11 +1904,11 @@ const turkishValidationData = [
     instrumentId: 'inst_iri',
     instrumentName: 'Interpersonal Reactivity Index (IRI)',
     constructsCovered: ['multidimensional_empathy'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'SUBSCALE_LEVEL',
-    sampleEvidence: 'Engeler & Yücel (2009) (N = 480).',
-    factorEvidence: 'Perspective Taking (7 items) and Empathic Concern (7 items) factors confirmed.',
-    reliabilityEvidence: 'Alpha = 0.77 (Perspective Taking), Alpha = 0.79 (Empathic Concern).',
+    sampleEvidence: 'Engeler & Yücel (2009).',
+    factorEvidence: 'Perspective Taking and Empathic Concern factors supported.',
+    reliabilityEvidence: null,
     sourceIds: ['src_davis_1983'],
     exactFormMatch: 'EXACT_14_ITEM_NORMAL_SUBSET',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1878,11 +1918,11 @@ const turkishValidationData = [
     instrumentId: 'inst_cfi',
     instrumentName: 'Cognitive Flexibility Inventory (CFI)',
     constructsCovered: ['cognitive_adaptability'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '2_SUB_DIMENSIONS',
-    sampleEvidence: 'Gülüm & Dağ (2012) (N = 515).',
-    factorEvidence: 'Alternatives (13 items) and Control (7 items) factors confirmed via CFA.',
-    reliabilityEvidence: 'Alternatives alpha = 0.88, Control alpha = 0.84.',
+    sampleEvidence: 'Gülüm & Dağ (2012).',
+    factorEvidence: 'Alternatives and Control factors confirmed in Turkish sample.',
+    reliabilityEvidence: null,
     sourceIds: ['src_dennis_2010'],
     exactFormMatch: 'EXACT_20_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1892,11 +1932,11 @@ const turkishValidationData = [
     instrumentId: 'inst_ius_12',
     instrumentName: 'Intolerance of Uncertainty Scale Short Form (IUS-12)',
     constructsCovered: ['cognitive_adaptability'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'FULL_SCALE',
-    sampleEvidence: 'Sarı & Dağ (2009) (N = 430).',
-    factorEvidence: 'Prospective and inhibitory anxiety factors replicate cleanly.',
-    reliabilityEvidence: 'Cronbach alpha = 0.88.',
+    sampleEvidence: 'Sarı & Dağ (2009).',
+    factorEvidence: 'Prospective and inhibitory anxiety factors supported.',
+    reliabilityEvidence: null,
     sourceIds: ['src_carleton_2007'],
     exactFormMatch: 'EXACT_12_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1906,11 +1946,11 @@ const turkishValidationData = [
     instrumentId: 'inst_mlq',
     instrumentName: 'Meaning in Life Questionnaire (MLQ)',
     constructsCovered: ['existential_meaning'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '2_ORTHOGONAL_DIMENSIONS',
-    sampleEvidence: 'Boyraz et al. (2013) (N = 612).',
-    factorEvidence: 'Presence of Meaning (5 items) and Search for Meaning (5 items) confirmed orthogonal.',
-    reliabilityEvidence: 'Presence alpha = 0.86, Search alpha = 0.87.',
+    sampleEvidence: 'Boyraz et al. (2013).',
+    factorEvidence: 'Presence of Meaning and Search for Meaning confirmed orthogonal.',
+    reliabilityEvidence: null,
     sourceIds: ['src_steger_2006'],
     exactFormMatch: 'EXACT_10_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1920,11 +1960,11 @@ const turkishValidationData = [
     instrumentId: 'inst_grit_s',
     instrumentName: 'Short Grit Scale (Grit-S)',
     constructsCovered: ['volitional_stamina'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '2_SUB_DIMENSIONS',
-    sampleEvidence: 'Sarısakaloğlu et al. (2014) (N = 420).',
-    factorEvidence: 'Consistency of Interest (4 items) and Perseverance of Effort (4 items) confirmed.',
-    reliabilityEvidence: 'Total Grit alpha = 0.80.',
+    sampleEvidence: 'Sarısakaloğlu et al. (2014).',
+    factorEvidence: 'Consistency of Interest and Perseverance of Effort factors supported.',
+    reliabilityEvidence: null,
     sourceIds: ['src_duckworth_2009'],
     exactFormMatch: 'EXACT_8_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1934,11 +1974,11 @@ const turkishValidationData = [
     instrumentId: 'inst_dutch',
     instrumentName: 'DUTCH Conflict Management Package',
     constructsCovered: ['conflict_styles'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '5_DISTINCT_MODES',
-    sampleEvidence: 'Arslan (2017) (N = 390); Kozan (1989) (N = 280).',
-    factorEvidence: '5-factor structure (Problem Solving, Forcing, Yielding, Avoiding, Compromising) replicated with CFI = 0.92.',
-    reliabilityEvidence: 'Alphas range between 0.71 and 0.82 across all 5 subscales.',
+    sampleEvidence: 'Arslan (2017); Kozan (1989).',
+    factorEvidence: '5-factor structure (Problem Solving, Forcing, Yielding, Avoiding, Compromising) replicated.',
+    reliabilityEvidence: null,
     sourceIds: ['src_dedreu_2001'],
     exactFormMatch: 'EXACT_20_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1948,11 +1988,11 @@ const turkishValidationData = [
     instrumentId: 'inst_panas',
     instrumentName: 'Positive and Negative Affect Schedule (PANAS)',
     constructsCovered: ['affective_tone'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '2_ORTHOGONAL_DIMENSIONS',
-    sampleEvidence: 'Gençöz (2000) (N = 468).',
-    factorEvidence: 'Positive Affect (10 descriptors) and Negative Affect (10 descriptors) confirmed orthogonal.',
-    reliabilityEvidence: 'PA alpha = 0.86, NA alpha = 0.83.',
+    sampleEvidence: 'Gençöz (2000).',
+    factorEvidence: 'Positive Affect and Negative Affect confirmed orthogonal in Turkish sample.',
+    reliabilityEvidence: null,
     sourceIds: ['src_watson_1988'],
     exactFormMatch: 'EXACT_20_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1962,11 +2002,11 @@ const turkishValidationData = [
     instrumentId: 'inst_dts',
     instrumentName: 'Distress Tolerance Scale (DTS)',
     constructsCovered: ['distress_tolerance'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: 'FULL_SCALE',
-    sampleEvidence: 'Sarı et al. (2017) (N = 510).',
-    factorEvidence: 'Higher-order general distress tolerance factor supported.',
-    reliabilityEvidence: 'Cronbach alpha = 0.89.',
+    sampleEvidence: 'Sarı et al. (2017).',
+    factorEvidence: 'Distress tolerance general factor supported in Turkish sample.',
+    reliabilityEvidence: null,
     sourceIds: ['src_simons_2005'],
     exactFormMatch: 'EXACT_15_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -1976,11 +2016,11 @@ const turkishValidationData = [
     instrumentId: 'inst_sd4',
     instrumentName: 'Short Dark Tetrad (SD4)',
     constructsCovered: ['dark_tetrad_traits'],
-    turkishEvidenceLevel: 'STRONG_EMPIRICAL',
+    turkishEvidenceLevel: 'EMPIRICAL_ADAPTATION',
     appliesToLevel: '4_DISTINCT_FACTORS',
-    sampleEvidence: 'Özsoy et al. (2022) (N = 720).',
-    factorEvidence: '4-factor structure (Machiavellianism, Narcissism, Psychopathy, Sadism - 7 items each) confirmed via CFA.',
-    reliabilityEvidence: 'Alphas range from 0.75 to 0.86.',
+    sampleEvidence: 'Özsoy et al. (2022).',
+    factorEvidence: '4-factor structure (Machiavellianism, Narcissism, Psychopathy, Sadism) confirmed via CFA.',
+    reliabilityEvidence: null,
     sourceIds: ['src_paulhus_2021'],
     exactFormMatch: 'EXACT_28_ITEM_FORM',
     translationProvenance: 'RESEARCH_DRAFT_VERIFICATION_PENDING',
@@ -2086,5 +2126,5 @@ fs.writeFileSync(
 console.log(`✅ Generated assessment-gap-analysis.json (${gapAnalysis.length} construct gaps identified)`);
 
 console.log('\n======================================================');
-console.log('FAZ 2.15 ASSESSMENT ARCHITECTURE GENERATION COMPLETE');
+console.log('FAZ 2.15 REFINED ASSESSMENT ARCHITECTURE GENERATED');
 console.log('======================================================');

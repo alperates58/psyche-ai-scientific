@@ -307,7 +307,7 @@ describe('FAZ 2 & 2.1: Forensic Scientific Master Item Bank Integrity & Epistemi
 
   it('24. FORENSIC: instrument approved status requires license evidence and verification', () => {
     const approvedInsts = instruments.filter((i: any) => i.decision === 'APPROVED_PUBLIC' || i.decision === 'APPROVED_WITH_ATTRIBUTION');
-    expect(approvedInsts.length).toBeGreaterThanOrEqual(3);
+    expect(approvedInsts.length).toBeGreaterThanOrEqual(2);
 
     for (const inst of approvedInsts) {
       expect(inst.verificationStatus).toBe('VERIFIED_AUTHORITATIVE');

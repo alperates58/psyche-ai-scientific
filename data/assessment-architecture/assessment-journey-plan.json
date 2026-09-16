@@ -22,10 +22,9 @@
         "mod_basic_needs_sdt"
       ],
       "optionalModules": [],
-      "completionCondition": "All 4 core modules completed (108 questions answered).",
+      "completionCondition": "All 4 core modules completed (108 target questions answered).",
       "profileUnlocks": [
-        "Core Personality Hexagon/Radar (6 broad factors)",
-        "24 HEXACO Facet Baseline Scores",
+        "Core Personality Radar (6 broad factors)",
         "Self-Esteem & Generalized Agency Index",
         "Emotion Regulation Quadrant (Reappraisal vs Suppression)",
         "Epistemic Drive Baseline Score",
@@ -71,7 +70,7 @@
         "mod_meaning_compassion_grit"
       ],
       "optionalModules": [],
-      "completionCondition": "All 4 expansion modules completed (cumulative 265 questions answered).",
+      "completionCondition": "All 4 expansion modules completed (cumulative 265 target questions answered).",
       "profileUnlocks": [
         "Schwartz Universal Value Circumplex (10 basic values)",
         "SDT Basic Needs Satisfaction & Frustration Balance",
@@ -99,7 +98,7 @@
       "optionalModules": [
         "mod_dark_tetrad_advanced"
       ],
-      "completionCondition": "All 12 consumer modules completed (cumulative 382 questions answered).",
+      "completionCondition": "All 12 consumer modules completed (cumulative 382 target questions answered).",
       "profileUnlocks": [
         "Full 66-Facet Master Psychological Profile",
         "Cognitive Flexibility & Ambiguity Resilience Matrix",

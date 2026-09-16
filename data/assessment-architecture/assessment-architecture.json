@@ -41,20 +41,22 @@
       "creativity",
       "unconventionality"
     ],
+    "facetMeasurementCapability": "FACET_CONTENT_SAMPLED_BROAD_FACTOR_PRIMARY",
     "instrumentCandidates": [
+      "inst_hexaco_60",
       "inst_ipip_hexaco",
       "inst_hexaco_pi_r"
     ],
-    "selectedInstrumentId": "inst_ipip_hexaco",
-    "selectedInstrumentStatus": "READY_FOR_PRODUCT_REVIEW",
+    "selectedInstrumentId": "inst_hexaco_60",
+    "selectedInstrumentStatus": "READY_BUT_NOT_PUBLISHED",
     "questionCountPlanned": 60,
     "estimatedMinutes": 12,
     "scoringModel": "PRE_CALIBRATION_MEAN_V1",
-    "publicationReadiness": "READY_FOR_PRODUCT_REVIEW",
-    "turkishEvidenceStatus": "LEXICAL_AND_EMPIRICAL_SUPPORTED",
-    "licensingStatus": "APPROVED_PUBLIC_DOMAIN",
-    "exactWordingProvenanceStatus": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
-    "commercialUseStatus": "UNRESTRICTED_COMMERCIAL_USE",
+    "publicationReadiness": "READY_BUT_NOT_PUBLISHED",
+    "turkishEvidenceStatus": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "licensingStatus": "REQUIRES_PERMISSION",
+    "exactWordingProvenanceStatus": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
+    "commercialUseStatus": "REQUIRES_AUTHOR_PERMISSION",
     "responseFormat": "LIKERT_5",
     "reverseKeying": {
       "hasReverseItems": true,
@@ -107,7 +109,6 @@
     ],
     "resultVisualizationIds": [
       "hexaco_radar_chart",
-      "hexaco_facet_whiskers",
       "personality_trait_bars"
     ],
     "profileContribution": {
@@ -123,23 +124,25 @@
         "hexaco_openness"
       ],
       "facets": 24,
+      "facetScoringLevel": "BROAD_FACTORS_PRIMARY_FACET_THEMES_SAMPLED",
       "visualizations": [
         "Radar",
-        "Facet Whiskers",
         "Trait Spectrum"
       ],
       "aiInsightInputs": [
         "HEXACO trait configurations",
-        "Inter-factor tensions",
-        "Cross-facet balance"
+        "Inter-factor tensions"
       ],
       "longitudinalOutputs": [
         "Trait stability index",
         "Factor shift metrics"
       ]
     },
-    "blockingIssues": [],
-    "rationale": "Public domain 60-item validated operationalization of the HEXACO 6-factor model. Forms the foundational anchor of the entire psychological profile."
+    "blockingIssues": [
+      "Official HEXACO-60 (Ashton & Lee, 2009) requires contacting authors for commercial SaaS licensing.",
+      "HEXACO-60 samples facet content but does not provide 24 independently reliable facet scores (requires full form or validated 100/240-item inventory for facet-level diagnostic reporting)."
+    ],
+    "rationale": "Official 60-item short form (Ashton & Lee, 2009) measuring 6 broad personality factors (10 items/factor). Public-domain IPIP-HEXACO (240 items) is reserved as research bank form."
   },
   {
     "assessmentId": "mod_self_agency",
@@ -158,6 +161,7 @@
       "self_esteem_low_deprecation",
       "self_efficacy_general_coping"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_rses",
       "inst_gses"
@@ -207,21 +211,22 @@
         "generalized_self_efficacy"
       ],
       "facets": 3,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "Self-Worth Gauge",
         "Efficacy Horizon"
       ],
       "aiInsightInputs": [
         "Self-esteem stability",
-        "Efficacy-coping alignment",
-        "Adlerian inferiority compensation hypotheses"
+        "Efficacy-coping alignment"
       ],
       "longitudinalOutputs": [
         "Self-esteem fluctuation over time"
       ]
     },
     "blockingIssues": [
-      "GSES requires verified commercial license from Schwarzer / FU Berlin for unrestricted production SaaS deployment."
+      "GSES requires verified commercial license from Schwarzer / FU Berlin for unrestricted production SaaS deployment.",
+      "RSES original English is public domain (University of Maryland); Turkish standardized wording (Çuhadaroğlu, 1986) is verified for research use."
     ],
     "rationale": "Combines Rosenberg Self-Esteem (10 items, public domain) and General Self-Efficacy (10 items). Evaluates core self-worth and general competence expectancy with independent subscale scoring."
   },
@@ -241,6 +246,7 @@
       "reappraisal_tendency",
       "suppression_tendency"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_erq",
       "inst_ders"
@@ -290,14 +296,14 @@
         "expressive_suppression"
       ],
       "facets": 2,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "ERQ Quadrant",
         "Regulation Strategy Split"
       ],
       "aiInsightInputs": [
         "Suppression vs reappraisal ratio",
-        "Affect modulation capacity",
-        "Psychodynamic defense mechanisms"
+        "Affect modulation capacity"
       ],
       "longitudinalOutputs": [
         "Stress-induced regulation shifts"
@@ -323,6 +329,7 @@
       "need_for_cognition",
       "need_for_cognitive_closure"
     ],
+    "facetMeasurementCapability": "UNIDIMENSIONAL_TOTAL_SCORE",
     "instrumentCandidates": [
       "inst_nfc_sf",
       "inst_nfcs_sf"
@@ -364,21 +371,21 @@
         "epistemic_drive"
       ],
       "facets": 2,
+      "facetScoringLevel": "UNIDIMENSIONAL_SCALE_SCORE",
       "visualizations": [
         "Epistemic Drive Gauge",
         "Cognitive Engagement Score"
       ],
       "aiInsightInputs": [
         "Analytical vs heuristic preference",
-        "Intellectual curiosity depth",
-        "Decision deliberation style"
+        "Intellectual curiosity depth"
       ],
       "longitudinalOutputs": [
         "Epistemic stamina trajectory"
       ]
     },
     "blockingIssues": [
-      "NFC-SF wording in Turkish requires authoritative verification against Gülgöz & Sancar (2004) / Güvenç (2011) publications."
+      "NFC-SF wording in Turkish requires authoritative verification against published Turkish adaptation studies."
     ],
     "rationale": "Measures intrinsic motivation to engage in and enjoy effortful cognitive endeavors. Essential for cognitive style characterization in first meaningful profile."
   },
@@ -403,6 +410,7 @@
       "lack_of_perseverance",
       "sensation_seeking"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_bscs",
       "inst_upps_p_sf"
@@ -480,14 +488,14 @@
         "impulsivity_uppsp"
       ],
       "facets": 7,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "Self-Control Spectrum",
         "UPPS-P 5-Factor Radar"
       ],
       "aiInsightInputs": [
         "Executive function regulation",
-        "Impulsive risk tendencies under stress",
-        "Ego-depletion vulnerability"
+        "Impulsive risk tendencies under stress"
       ],
       "longitudinalOutputs": [
         "Volitional stamina index"
@@ -514,6 +522,7 @@
       "competence_satisfaction_frustration",
       "relatedness_satisfaction_frustration"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_bpnsfs"
     ],
@@ -589,14 +598,14 @@
         "basic_psychological_needs"
       ],
       "facets": 3,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "SDT Triangle",
         "Satisfaction vs Frustration Balance"
       ],
       "aiInsightInputs": [
         "Self-Determination fulfillment",
-        "Psychological vitality drivers",
-        "Contextual frustration points"
+        "Psychological vitality drivers"
       ],
       "longitudinalOutputs": [
         "Need satisfaction state tracking"
@@ -624,25 +633,27 @@
       "conservation_values",
       "self_enhancement_values"
     ],
+    "facetMeasurementCapability": "CIRCUMPLEX_HIGHER_ORDER_QUADRANTS",
     "instrumentCandidates": [
-      "inst_ipip_schwartz_values",
-      "inst_pvq_rr"
+      "inst_pvq_rr",
+      "inst_pvq_21",
+      "inst_ipip_schwartz_values"
     ],
-    "selectedInstrumentId": "inst_ipip_schwartz_values",
-    "selectedInstrumentStatus": "READY_FOR_PRODUCT_REVIEW",
+    "selectedInstrumentId": "inst_pvq_rr",
+    "selectedInstrumentStatus": "READY_BUT_NOT_PUBLISHED",
     "questionCountPlanned": 50,
     "estimatedMinutes": 10,
     "scoringModel": "PRE_CALIBRATION_MEAN_V1",
-    "publicationReadiness": "READY_FOR_PRODUCT_REVIEW",
-    "turkishEvidenceStatus": "LEXICAL_AND_EMPIRICAL_SUPPORTED",
-    "licensingStatus": "APPROVED_PUBLIC_DOMAIN",
-    "exactWordingProvenanceStatus": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
-    "commercialUseStatus": "UNRESTRICTED_COMMERCIAL_USE",
-    "responseFormat": "LIKERT_5",
+    "publicationReadiness": "READY_BUT_NOT_PUBLISHED",
+    "turkishEvidenceStatus": "EMPIRICAL_ADAPTATION_VALIDATED",
+    "licensingStatus": "REQUIRES_PERMISSION",
+    "exactWordingProvenanceStatus": "RESEARCH_DRAFT",
+    "commercialUseStatus": "REQUIRES_AUTHOR_PERMISSION",
+    "responseFormat": "LIKERT_6",
     "reverseKeying": {
-      "hasReverseItems": true,
-      "reverseItemCount": 14,
-      "reverseScoringRule": "6 - rawValue"
+      "hasReverseItems": false,
+      "reverseItemCount": 0,
+      "reverseScoringRule": "NONE"
     },
     "subscales": [
       {
@@ -686,21 +697,24 @@
         "universal_values"
       ],
       "facets": 4,
+      "facetScoringLevel": "CIRCUMPLEX_4_QUADRANT_SCORES",
       "visualizations": [
         "Schwartz Circumplex",
         "Value Hierarchy Chart"
       ],
       "aiInsightInputs": [
         "Core motivational drivers",
-        "Value-behavior incongruence",
-        "Life priority alignment"
+        "Value-behavior incongruence"
       ],
       "longitudinalOutputs": [
         "Value stability metrics"
       ]
     },
-    "blockingIssues": [],
-    "rationale": "Public domain 50-item IPIP representation of the 10 basic Schwartz values across 4 higher-order quadrants. Avoids proprietary PVQ licensing issues."
+    "blockingIssues": [
+      "Canonical Schwartz values instruments (PVQ-RR / PVQ-21 / SVS) require formal author licensing for commercial SaaS platform use.",
+      "IPIP preliminary item markers lack independent peer-reviewed Turkish standardization."
+    ],
+    "rationale": "Measures Schwartz 10 basic values aggregated across 4 higher-order quadrants (Openness to Change, Self-Transcendence, Conservation, Self-Enhancement)."
   },
   {
     "assessmentId": "mod_relational_attachment_empathy",
@@ -720,6 +734,7 @@
       "cognitive_perspective_taking",
       "empathic_concern"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_ecr_r",
       "inst_iri"
@@ -783,14 +798,14 @@
         "multidimensional_empathy"
       ],
       "facets": 4,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "Attachment 4-Quadrant Map (Bartholomew)",
         "Empathy Horizon"
       ],
       "aiInsightInputs": [
         "Attachment security style (Secure, Preoccupied, Dismissing, Fearful)",
-        "Relational vulnerability dynamics",
-        "Empathy-burnout vulnerability"
+        "Relational vulnerability dynamics"
       ],
       "longitudinalOutputs": [
         "Relational security index"
@@ -818,6 +833,7 @@
       "cognitive_flexibility_control",
       "intolerance_of_uncertainty"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_cfi",
       "inst_ius_12",
@@ -875,13 +891,13 @@
         "thinking_styles"
       ],
       "facets": 3,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "Adaptability Matrix",
         "Ambiguity Resilience Index"
       ],
       "aiInsightInputs": [
-        "Problem-solving flexibility under ambiguity",
-        "Catastrophizing risk in ambiguous scenarios"
+        "Problem-solving flexibility under ambiguity"
       ],
       "longitudinalOutputs": [
         "Adaptive problem solving trajectories"
@@ -911,6 +927,7 @@
       "self_compassion_composite",
       "long_term_grit"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_mlq",
       "inst_scs_sf",
@@ -978,6 +995,7 @@
         "volitional_stamina"
       ],
       "facets": 4,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "Meaning Matrix (Frankl Lens)",
         "Self-Compassion Compass",
@@ -985,8 +1003,7 @@
       ],
       "aiInsightInputs": [
         "Existential fulfillment vs crisis dynamics",
-        "Self-criticism vs self-kindness balance",
-        "Multi-year perseverance stamina"
+        "Self-criticism vs self-kindness balance"
       ],
       "longitudinalOutputs": [
         "Existential coherence over life transitions"
@@ -1014,6 +1031,7 @@
       "conflict_yielding_avoiding",
       "interpersonal_boundary_clarity"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_dutch",
       "inst_tki"
@@ -1084,14 +1102,14 @@
         "social_agency_boundaries"
       ],
       "facets": 3,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "Conflict Style Pentagon",
         "Interpersonal Boundary Strength"
       ],
       "aiInsightInputs": [
         "Assertiveness vs accommodation balance",
-        "Conflict de-escalation strategies",
-        "Relational negotiation styles"
+        "Conflict de-escalation strategies"
       ],
       "longitudinalOutputs": [
         "Interpersonal conflict adaptability"
@@ -1121,6 +1139,7 @@
       "distress_tolerance_absorption",
       "distress_tolerance_regulation"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_panas",
       "inst_dts"
@@ -1177,14 +1196,14 @@
         "distress_tolerance"
       ],
       "facets": 5,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "PANAS Balance Meter",
         "Distress Tolerance Thermometer"
       ],
       "aiInsightInputs": [
         "Affective baseline balance",
-        "Emotional distress threshold",
-        "Stress vulnerability vs resilience"
+        "Emotional distress threshold"
       ],
       "longitudinalOutputs": [
         "Affective volatility tracking"
@@ -1212,6 +1231,7 @@
       "psychopathy_subclinical",
       "everyday_sadism_subclinical"
     ],
+    "facetMeasurementCapability": "FULL_INDEPENDENT_SUBSCALE_SCORES",
     "instrumentCandidates": [
       "inst_sd4"
     ],
@@ -1273,12 +1293,12 @@
         "dark_tetrad_traits"
       ],
       "facets": 4,
+      "facetScoringLevel": "INDEPENDENT_SUBSCALE_SCORES",
       "visualizations": [
         "Dark Tetrad 4-Factor Radar"
       ],
       "aiInsightInputs": [
-        "Subclinical interpersonal dynamics",
-        "Manipulative tendencies vs authentic connection"
+        "Subclinical interpersonal dynamics"
       ],
       "longitudinalOutputs": [
         "Subclinical trait stability"

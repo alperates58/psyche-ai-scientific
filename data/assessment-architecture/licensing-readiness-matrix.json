@@ -18,6 +18,24 @@
     "recommendedNextAction": "Maintain open-science attribution in application legal notices."
   },
   {
+    "instrumentId": "inst_hexaco_60",
+    "instrumentName": "HEXACO-60 Short Form",
+    "copyrightHolder": "Ashton, M. C.; Lee, K.",
+    "year": 2009,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Academic Free / Commercial License Required",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1080/00223890902935878"
+    ],
+    "licensingOutcome": "REQUIRES_PERMISSION",
+    "blockerDescription": "Commercial license required by copyright holder (Ashton, M. C.).",
+    "recommendedNextAction": "Initiate formal publisher licensing agreement or author permission query."
+  },
+  {
     "instrumentId": "inst_hexaco_pi_r",
     "instrumentName": "HEXACO Personality Inventory-Revised (Official)",
     "copyrightHolder": "Lee, K.; Ashton, M. C.",
@@ -239,17 +257,17 @@
     "copyrightHolder": "Goldberg, L. R.",
     "year": 2006,
     "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
-    "licenseType": "Public Domain",
-    "commercialUsePermitted": true,
-    "commercialUseVerified": true,
-    "itemReproductionVerified": true,
-    "translationRightsVerified": true,
+    "licenseType": "Research Construct Markers / Unverified Commercial",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
     "evidenceSourceIds": [
       "doi:10.1016/j.jrp.2005.08.007"
     ],
-    "licensingOutcome": "APPROVED_FOR_PRODUCT",
-    "blockerDescription": null,
-    "recommendedNextAction": "Maintain open-science attribution in application legal notices."
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
   },
   {
     "instrumentId": "inst_pvq_rr",

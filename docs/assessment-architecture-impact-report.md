@@ -35,39 +35,41 @@ PsycheAI platformunda hiçbir envanter yalnızca "popüler" veya "ünlü" olduğ
 ```
 
 ### Kapı Sonuçları ve Hazırlık Sınıflandırması:
-1. **Tam Doğrulanmış Kamu Malı (Public Domain) — `READY_FOR_PRODUCT_REVIEW`**:
-   - `inst_ipip_hexaco` (60 madde): Goldberg (2006) IPIP public domain, Wasti et al. (2008) / Göz (2018) Türkiye psikometrik validasyonu.
-   - `inst_rses` (10 madde): Rosenberg (1965) public domain (UMD), Çuhadaroğlu (1986) Türkiye standardizasyonu.
-   - `inst_ipip_schwartz_values` (50 madde): Goldberg (2006) IPIP public domain, Kuşdil & Kağıtçıbaşı (2000) Türkiye validasyonu.
-   - *Toplam Ürün İncelemesine Hazır Madde:* **120 Soru** (Core'da 70, Expansion'da 50).
+1. **Dört Kapıyı da Koşulsuz Geçen — `PRODUCT_READY_NOW` (Hemen Üretime Açılabilir)**:
+   - `inst_rses` (10 madde): Rosenberg (1965) public domain (University of Maryland); Çuhadaroğlu (1986) Türkiye standardizasyonu ve özgün madde metinleri doğrulanmış.
+   - *Toplam Hemen Üretime Hazır Madde:* **10 Soru**.
 
-2. **Akademik Açık / Ticari İzin Bekleyen — `READY_BUT_NOT_PUBLISHED`**:
-   - `inst_gses` (10 madde, Schwarzer & Jerusalem)
-   - `inst_erq` (10 madde, Gross & John)
-   - `inst_nfc_sf` (18 madde, Cacioppo et al.)
-   - `inst_bscs` (13 madde, Tangney et al.)
-   - `inst_upps_p_sf` (20 madde, Cyders et al.)
-   - `inst_bpnsfs` (24 madde, Chen et al. / Deci & Ryan)
-   - `inst_ecr_r` (36 madde, Fraley et al.)
-   - `inst_iri` (14 madde, Davis)
-   - `inst_cfi` (20 madde, Dennis & Vander Wal)
-   - `inst_ius_12` (12 madde, Carleton et al.)
-   - `inst_mlq` (10 madde, Steger et al.)
-   - `inst_grit_s` (8 madde, Duckworth & Quinn)
-   - `inst_dutch` (20 madde, De Dreu et al.)
-   - `inst_panas` (20 madde, Watson et al.)
-   - `inst_dts` (15 madde, Simons & Gaher)
-   - *Toplam İzin Durumunda Yayına Hazır Madde:* **262 Soru**.
+2. **Bilimsel Olarak Hazır / Ticari Yayım veya Yazar İzni Koşullu — `READY_BUT_NOT_PUBLISHED` (Koşullu İzin)**:
+   - `inst_hexaco_60` (60 madde, Ashton & Lee 2009): Resmi 60 maddelik kısa form; 6 geniş faktörü ölçer, faset temalarını örnekler. Akademik araştırma serbesttir; ticari SaaS yayımı için telif sahibi yazarlardan izin gerektirir.
+   - `inst_gses` (10 madde, Schwarzer & Jerusalem 1995): FU Berlin / yazarlardan izin gerektirir.
+   - `inst_erq` (10 madde, Gross & John 2003): Stanford / yazarlardan ticari izin gerektirir.
+   - `inst_nfc_sf` (18 madde, Cacioppo et al. 1984): Akademik açık, ticari izin teyidi gerekir.
+   - `inst_bscs` (13 madde, Tangney et al. 2004): Duyan et al. (2012) Türkçe validasyonu; ticari izin teyidi gerekir.
+   - `inst_upps_p_sf` (20 madde, Cyders et al. 2014): UPPS-P kısa form.
+   - `inst_bpnsfs` (24 madde, Chen et al. 2015): Deci & Ryan SDT Enstitüsü izni.
+   - `inst_pvq_40` / `inst_pvq_21` (40 / 21 madde, Schwartz 1992, 2001): Shalom Schwartz onaylı formlar; ticari çoğaltma izni gerektirir.
+   - `inst_ecr_r` (36 madde, Fraley et al. 2000): Sümer (2006) Türkçe standardizasyonu.
+   - `inst_iri` (14 madde, Davis 1983 / Yıldırım 2008): Empatik Eğilim.
+   - `inst_cfi` (20 madde, Dennis & Vander Wal 2010): Gülüm & Dağ (2012) Türkçe standardizasyonu.
+   - `inst_ius_12` (12 madde, Carleton et al. 2007): Sarı & Dağ (2009) Türkçe standardizasyonu.
+   - `inst_mlq` (10 madde, Steger et al. 2006): Akın & Taş (2015) Türkçe standardizasyonu.
+   - `inst_scs_sf` (12 madde, Raes et al. 2011): Öz-Şefkat Kısa Formu.
+   - `inst_grit_s` (8 madde, Duckworth & Quinn 2009): Sarıçam et al. (2016) Türkçe standardizasyonu.
+   - `inst_dutch` (20 madde, De Dreu et al. 2001): Çatışma Stilleri.
+   - `inst_panas` (20 madde, Watson et al. 1988): Gençöz (2000) Türkçe standardizasyonu.
+   - `inst_dts` (15 madde, Simons & Gaher 2005): Sıkıntıya Dayanma.
+   - *Toplam İzin Alındığında Yayına Hazır Madde:* **372 Soru** (12 Tüketici Modülü).
 
 3. **İleri Düzey Araştırma / Opt-in — `RESEARCH_ONLY`**:
-   - `inst_sd4` (28 madde, Paulhus et al. 2021): Subklinik Karanlık Dörtlü (Makyavelizm, Narsisizm, Psikopati, Sadizm). Yalnızca açık rıza ile araştırma amaçlı.
+   - `inst_ipip_hexaco` (240 madde, Ashton, Lee & Goldberg 2007): 24 faset için 240 maddelik kamu malı araştırma madde havuzu. Doğrulanmamış 60 maddelik türetmeler tüketicide kullanılamaz.
+   - `inst_ipip_schwartz_values` (50 madde): Kamu malı araştırma madde havuzu.
+   - `inst_sd4` (28 madde, Paulhus et al. 2021): Subklinik Karanlık Dörtlü (Makyavelizm, Narsisizm, Psikopati, Sadizm). Yalnızca açık rıza ile ileri araştırma amaçlı.
 
 4. **Kesinlikle Reddedilen / Telifli Engelli — `REJECTED` / `BLOCKED_LICENSE`**:
    - `inst_neo_pi_r` (PAR Inc. özel mülkiyeti — REJECTED)
    - `inst_mbti` (The Myers-Briggs Company — REJECTED)
    - `inst_tki` (The Myers-Briggs Company — REJECTED)
-   - `inst_hexaco_pi_r` (Ticari lisans zorunluluğu — BLOCKED; `inst_ipip_hexaco` kullanıldı)
-   - `inst_pvq_rr` (Ticari lisans zorunluluğu — BLOCKED; `inst_ipip_schwartz_values` kullanıldı)
+   - `inst_pvq_rr` (Shalom Schwartz ticari lisans kısıtı — REJECTED/BLOCKED)
    - `inst_tosca_3` (Senaryo tabanlı ticari kısıt — BLOCKED; PsycheAI araştırma formu planlandı)
 
 ---

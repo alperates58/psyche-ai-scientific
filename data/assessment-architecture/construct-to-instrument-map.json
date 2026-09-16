@@ -4,144 +4,156 @@
     "constructNameTr": "Dürüstlük-Alçakgönüllülük",
     "measurementMode": "DIRECT_PSYCHOMETRIC_ITEM_BANK",
     "preferredInstrumentCandidates": [
+      "inst_hexaco_60",
       "inst_ipip_hexaco"
     ],
-    "selectedInstrument": "inst_ipip_hexaco",
-    "selectionRationale": "Public domain 60-item IPIP-HEXACO inventory covering 4 facets with 2.5 items/facet (10 items/factor).",
+    "selectedInstrument": "inst_hexaco_60",
+    "selectionRationale": "Official HEXACO-60 short form (Ashton & Lee, 2009) measuring 6 broad factors (10 items/factor). Research bank alternative is 240-item IPIP-HEXACO.",
     "alternativeInstruments": [
+      "inst_ipip_hexaco",
       "inst_hexaco_pi_r"
     ],
-    "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
+    "instrumentCoverage": "BROAD_FACTOR_PRIMARY_FACET_CONTENT_SAMPLED",
     "facetCoverage": 4,
     "questionCount": 10,
-    "turkishEvidence": "VALIDATED_DIRECT",
-    "licensing": "APPROVED_FOR_PRODUCT",
-    "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "turkishEvidence": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "licensing": "REQUIRES_PERMISSION",
+    "commercialRights": "REQUIRES_AUTHOR_PERMISSION",
+    "exactItemProvenance": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_V1_SEED_COMPLIANT",
-    "readiness": "READY_FOR_PRODUCT_REVIEW",
-    "gapType": "NONE"
+    "readiness": "READY_BUT_NOT_PUBLISHED",
+    "gapType": "COMMERCIAL_RIGHTS_UNKNOWN"
   },
   {
     "constructId": "hexaco_emotionality",
     "constructNameTr": "Duygusallık",
     "measurementMode": "DIRECT_PSYCHOMETRIC_ITEM_BANK",
     "preferredInstrumentCandidates": [
+      "inst_hexaco_60",
       "inst_ipip_hexaco"
     ],
-    "selectedInstrument": "inst_ipip_hexaco",
-    "selectionRationale": "Public domain 60-item IPIP-HEXACO inventory covering 4 facets with 2.5 items/facet (10 items/factor).",
+    "selectedInstrument": "inst_hexaco_60",
+    "selectionRationale": "Official HEXACO-60 short form (Ashton & Lee, 2009) measuring 6 broad factors (10 items/factor). Research bank alternative is 240-item IPIP-HEXACO.",
     "alternativeInstruments": [
+      "inst_ipip_hexaco",
       "inst_hexaco_pi_r"
     ],
-    "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
+    "instrumentCoverage": "BROAD_FACTOR_PRIMARY_FACET_CONTENT_SAMPLED",
     "facetCoverage": 4,
     "questionCount": 10,
-    "turkishEvidence": "VALIDATED_DIRECT",
-    "licensing": "APPROVED_FOR_PRODUCT",
-    "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "turkishEvidence": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "licensing": "REQUIRES_PERMISSION",
+    "commercialRights": "REQUIRES_AUTHOR_PERMISSION",
+    "exactItemProvenance": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_V1_SEED_COMPLIANT",
-    "readiness": "READY_FOR_PRODUCT_REVIEW",
-    "gapType": "NONE"
+    "readiness": "READY_BUT_NOT_PUBLISHED",
+    "gapType": "COMMERCIAL_RIGHTS_UNKNOWN"
   },
   {
     "constructId": "hexaco_extraversion",
     "constructNameTr": "Dışadönüklük",
     "measurementMode": "DIRECT_PSYCHOMETRIC_ITEM_BANK",
     "preferredInstrumentCandidates": [
+      "inst_hexaco_60",
       "inst_ipip_hexaco"
     ],
-    "selectedInstrument": "inst_ipip_hexaco",
-    "selectionRationale": "Public domain 60-item IPIP-HEXACO inventory covering 4 facets with 2.5 items/facet (10 items/factor).",
+    "selectedInstrument": "inst_hexaco_60",
+    "selectionRationale": "Official HEXACO-60 short form (Ashton & Lee, 2009) measuring 6 broad factors (10 items/factor). Research bank alternative is 240-item IPIP-HEXACO.",
     "alternativeInstruments": [
+      "inst_ipip_hexaco",
       "inst_hexaco_pi_r"
     ],
-    "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
+    "instrumentCoverage": "BROAD_FACTOR_PRIMARY_FACET_CONTENT_SAMPLED",
     "facetCoverage": 4,
     "questionCount": 10,
-    "turkishEvidence": "VALIDATED_DIRECT",
-    "licensing": "APPROVED_FOR_PRODUCT",
-    "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "turkishEvidence": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "licensing": "REQUIRES_PERMISSION",
+    "commercialRights": "REQUIRES_AUTHOR_PERMISSION",
+    "exactItemProvenance": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_V1_SEED_COMPLIANT",
-    "readiness": "READY_FOR_PRODUCT_REVIEW",
-    "gapType": "NONE"
+    "readiness": "READY_BUT_NOT_PUBLISHED",
+    "gapType": "COMMERCIAL_RIGHTS_UNKNOWN"
   },
   {
     "constructId": "hexaco_agreeableness",
     "constructNameTr": "Geçimlilik",
     "measurementMode": "DIRECT_PSYCHOMETRIC_ITEM_BANK",
     "preferredInstrumentCandidates": [
+      "inst_hexaco_60",
       "inst_ipip_hexaco"
     ],
-    "selectedInstrument": "inst_ipip_hexaco",
-    "selectionRationale": "Public domain 60-item IPIP-HEXACO inventory covering 4 facets with 2.5 items/facet (10 items/factor).",
+    "selectedInstrument": "inst_hexaco_60",
+    "selectionRationale": "Official HEXACO-60 short form (Ashton & Lee, 2009) measuring 6 broad factors (10 items/factor). Research bank alternative is 240-item IPIP-HEXACO.",
     "alternativeInstruments": [
+      "inst_ipip_hexaco",
       "inst_hexaco_pi_r"
     ],
-    "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
+    "instrumentCoverage": "BROAD_FACTOR_PRIMARY_FACET_CONTENT_SAMPLED",
     "facetCoverage": 4,
     "questionCount": 10,
-    "turkishEvidence": "VALIDATED_DIRECT",
-    "licensing": "APPROVED_FOR_PRODUCT",
-    "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "turkishEvidence": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "licensing": "REQUIRES_PERMISSION",
+    "commercialRights": "REQUIRES_AUTHOR_PERMISSION",
+    "exactItemProvenance": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_V1_SEED_COMPLIANT",
-    "readiness": "READY_FOR_PRODUCT_REVIEW",
-    "gapType": "NONE"
+    "readiness": "READY_BUT_NOT_PUBLISHED",
+    "gapType": "COMMERCIAL_RIGHTS_UNKNOWN"
   },
   {
     "constructId": "hexaco_conscientiousness",
     "constructNameTr": "Sorumluluk",
     "measurementMode": "DIRECT_PSYCHOMETRIC_ITEM_BANK",
     "preferredInstrumentCandidates": [
+      "inst_hexaco_60",
       "inst_ipip_hexaco"
     ],
-    "selectedInstrument": "inst_ipip_hexaco",
-    "selectionRationale": "Public domain 60-item IPIP-HEXACO inventory covering 4 facets with 2.5 items/facet (10 items/factor).",
+    "selectedInstrument": "inst_hexaco_60",
+    "selectionRationale": "Official HEXACO-60 short form (Ashton & Lee, 2009) measuring 6 broad factors (10 items/factor). Research bank alternative is 240-item IPIP-HEXACO.",
     "alternativeInstruments": [
+      "inst_ipip_hexaco",
       "inst_hexaco_pi_r"
     ],
-    "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
+    "instrumentCoverage": "BROAD_FACTOR_PRIMARY_FACET_CONTENT_SAMPLED",
     "facetCoverage": 4,
     "questionCount": 10,
-    "turkishEvidence": "VALIDATED_DIRECT",
-    "licensing": "APPROVED_FOR_PRODUCT",
-    "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "turkishEvidence": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "licensing": "REQUIRES_PERMISSION",
+    "commercialRights": "REQUIRES_AUTHOR_PERMISSION",
+    "exactItemProvenance": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_V1_SEED_COMPLIANT",
-    "readiness": "READY_FOR_PRODUCT_REVIEW",
-    "gapType": "NONE"
+    "readiness": "READY_BUT_NOT_PUBLISHED",
+    "gapType": "COMMERCIAL_RIGHTS_UNKNOWN"
   },
   {
     "constructId": "hexaco_openness",
     "constructNameTr": "Deneyime Açıklık",
     "measurementMode": "DIRECT_PSYCHOMETRIC_ITEM_BANK",
     "preferredInstrumentCandidates": [
+      "inst_hexaco_60",
       "inst_ipip_hexaco"
     ],
-    "selectedInstrument": "inst_ipip_hexaco",
-    "selectionRationale": "Public domain 60-item IPIP-HEXACO inventory covering 4 facets with 2.5 items/facet (10 items/factor).",
+    "selectedInstrument": "inst_hexaco_60",
+    "selectionRationale": "Official HEXACO-60 short form (Ashton & Lee, 2009) measuring 6 broad factors (10 items/factor). Research bank alternative is 240-item IPIP-HEXACO.",
     "alternativeInstruments": [
+      "inst_ipip_hexaco",
       "inst_hexaco_pi_r"
     ],
-    "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
+    "instrumentCoverage": "BROAD_FACTOR_PRIMARY_FACET_CONTENT_SAMPLED",
     "facetCoverage": 4,
     "questionCount": 10,
-    "turkishEvidence": "VALIDATED_DIRECT",
-    "licensing": "APPROVED_FOR_PRODUCT",
-    "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "turkishEvidence": "LEXICAL_AND_ADAPTATION_EVIDENCE",
+    "licensing": "REQUIRES_PERMISSION",
+    "commercialRights": "REQUIRES_AUTHOR_PERMISSION",
+    "exactItemProvenance": "RESEARCH_DRAFT_PENDING_AUTHOR_VERIFICATION",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_V1_SEED_COMPLIANT",
-    "readiness": "READY_FOR_PRODUCT_REVIEW",
-    "gapType": "NONE"
+    "readiness": "READY_BUT_NOT_PUBLISHED",
+    "gapType": "COMMERCIAL_RIGHTS_UNKNOWN"
   },
   {
     "constructId": "core_self_esteem",
@@ -151,7 +163,7 @@
       "inst_rses"
     ],
     "selectedInstrument": "inst_rses",
-    "selectionRationale": "Rosenberg Self-Esteem Scale (10 items, public domain). Authoritative standard for global self-worth.",
+    "selectionRationale": "Rosenberg Self-Esteem Scale (10 items). University of Maryland confirms public domain status of original English; standard Turkish adaptation (Çuhadaroğlu, 1986).",
     "alternativeInstruments": [],
     "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
     "facetCoverage": 2,
@@ -159,7 +171,7 @@
     "turkishEvidence": "VALIDATED_DIRECT",
     "licensing": "APPROVED_FOR_PRODUCT",
     "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "exactItemProvenance": "VERIFIED_ACADEMIC_ADAPTATION",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_SPECIFIED",
     "readiness": "READY_FOR_PRODUCT_REVIEW",
@@ -549,24 +561,26 @@
     "constructNameTr": "Evrensel İnsan Değerleri (Schwartz)",
     "measurementMode": "DIRECT_PSYCHOMETRIC_ITEM_BANK",
     "preferredInstrumentCandidates": [
+      "inst_pvq_rr",
+      "inst_pvq_21",
       "inst_ipip_schwartz_values"
     ],
-    "selectedInstrument": "inst_ipip_schwartz_values",
-    "selectionRationale": "IPIP 50-item Public Domain Representation of Schwartz Values Framework.",
+    "selectedInstrument": "inst_pvq_rr",
+    "selectionRationale": "Portrait Values Questionnaire (PVQ-RR / PVQ-21). Official operationalization of Schwartz circular continuum.",
     "alternativeInstruments": [
-      "inst_pvq_rr"
+      "inst_ipip_schwartz_values"
     ],
     "instrumentCoverage": "FULL_CONSTRUCT_AND_FACETS",
     "facetCoverage": 4,
     "questionCount": 50,
-    "turkishEvidence": "VALIDATED_DIRECT",
-    "licensing": "APPROVED_FOR_PRODUCT",
-    "commercialRights": "VERIFIED_COMMERCIAL_PERMITTED",
-    "exactItemProvenance": "VERIFIED_PUBLIC_DOMAIN_TRANSLATION",
+    "turkishEvidence": "EMPIRICAL_ADAPTATION_VALIDATED",
+    "licensing": "REQUIRES_PERMISSION",
+    "commercialRights": "REQUIRES_AUTHOR_PERMISSION",
+    "exactItemProvenance": "RESEARCH_DRAFT",
     "scoringAvailability": "PRE_CALIBRATION_MEAN_IMPLEMENTED",
     "currentImplementationStatus": "FORM_SPECIFIED",
-    "readiness": "READY_FOR_PRODUCT_REVIEW",
-    "gapType": "NONE"
+    "readiness": "READY_BUT_NOT_PUBLISHED",
+    "gapType": "COMMERCIAL_RIGHTS_UNKNOWN"
   },
   {
     "constructId": "existential_meaning",
