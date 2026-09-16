@@ -145,7 +145,7 @@ export function deriveDimensionConfidence(
       levelLabelTr = 'Orta (İlişkili Envanter Kanıtı)';
     } else {
       level = 'LOW';
-      levelLabelTr = !isInstrumentMatched
+      levelLabelTr = instrumentMatch === false
         ? 'Sınırlı (Eşleşmeyen Envanter)'
         : 'Sınırlı (Doğrulanmamış Kanıt)';
     }
@@ -200,7 +200,7 @@ export function deriveDimensionConfidence(
   missingSignals.push('Temsili ulusal norm kıyaslaması');
 
   // Provenance & Instrument match uncertainty
-  if (!isInstrumentMatched) {
+  if (instrumentMatch === false) {
     uncertainties.push({
       type: 'PROVENANCE_UNCERTAINTY',
       labelTr: 'Envanter Eşleşme Uyarısı',
@@ -268,7 +268,7 @@ export function deriveDimensionConfidence(
     uncertainties.push({
       type: 'TEMPORAL_UNCERTAINTY',
       labelTr: 'Zaman İçinde Değişkenlik',
-      descriptionTr: 'Farklı oturumlarda puan değişkenliği saptandı; bağlamsal veya durumsal dalgalanmalar olabilir.',
+      descriptionTr: 'Farklı oturumlarda puan değişkenliği ve oturumlar arası dalgalanma saptandı; bağlamsal veya durumsal değişkenlik olabilir.',
     });
   }
 
@@ -402,9 +402,17 @@ export function deriveProfileCompleteness(params: {
   const facetCoveragePercentage =
     totalOntologyFacets > 0 ? Math.round((measuredFacetsCount / totalOntologyFacets) * 100) : 0;
 
+  const formatTurkishDomainLocative = (count: number) => {
+    if (count === 2 || count === 7) return `${count}'sinde`;
+    if (count === 6) return `${count}'sında`;
+    if (count === 9) return `${count}'unda`;
+    if (count === 3 || count === 4) return `${count}'ünde`;
+    return `${count}'inde`;
+  };
+
   const summaryStatementsTr = [
     `Profiliniz ${totalOntologyFacets} psikolojik alt boyutun ${measuredFacetsCount}'ini (%${facetCoveragePercentage}) doğrudan ölçmektedir.`,
-    `${totalUserFacingDomains} temel psikolojik alandan ${measuredUserFacingDomains}'inde ölçüm kaydı mevcuttur.`,
+    `${totalUserFacingDomains} temel psikolojik alandan ${formatTurkishDomainLocative(measuredUserFacingDomains)} ölçüm kaydı mevcuttur.`,
     measuredFacetsCount < 30
       ? 'Ek modülleri tamamlayarak profilinizin açıklama gücünü ve kapsama derinliğini artırabilirsiniz.'
       : 'Geniş bir psikolojik yelpazede doğrudan ölçüm verisine ulaşılmıştır.',

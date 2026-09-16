@@ -31,13 +31,13 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       expect(conf.calibrationState).toBe('PRE_CALIBRATION');
       expect(conf.positiveFactors.length).toBeGreaterThanOrEqual(3);
       expect(conf.positiveFactors.some((f) => f.includes('10 madde'))).toBe(true);
-      expect(conf.positiveFactors.some((f) => f.includes('Türkçe psikometrik'))).toBe(true);
+      expect(conf.positiveFactors.some((f) => f.includes('Türkçe doğrudan psikometrik uyarlama'))).toBe(true);
       expect(conf.positiveFactors.some((f) => f.includes('Doğrulanmış psikometrik envanter'))).toBe(true);
       expect(conf.uncertainties.some((u) => u.type === 'CALIBRATION_UNCERTAINTY')).toBe(true);
       expect(conf.explanationTr).toContain('ampirik ölçüm desteği güçlüdür');
     });
 
-    it('caps confidence at MODERATE when item count is high (10 items) but evidenceLevel is UNKNOWN', () => {
+    it('caps confidence at LOW when item count is high (10 items) but evidenceLevel is UNKNOWN without validated inventory', () => {
       const conf = deriveDimensionConfidence({
         dimensionId: 'facet-unknown-ev',
         dimensionCode: 'unknown_trait',
@@ -52,8 +52,8 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
 
       // Must NOT be HIGH!
       expect(conf.level).not.toBe('HIGH');
-      expect(conf.level).toBe('MODERATE');
-      expect(conf.levelLabelTr).toContain('Orta');
+      expect(conf.level).toBe('LOW');
+      expect(conf.levelLabelTr).toContain('Sınırlı');
       expect(conf.uncertainties.some((u) => u.type === 'EVIDENCE_UNCERTAINTY')).toBe(true);
       expect(conf.missingSignals).toContain('Doğrulanmış psikometrik envanter kaydı');
     });
