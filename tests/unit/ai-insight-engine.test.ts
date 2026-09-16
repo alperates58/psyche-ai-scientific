@@ -5,6 +5,7 @@ import {
 } from '@/services/aiInsightService';
 import { validateAIInsightPolicy } from '@/lib/aiInsightPolicy';
 import { AIInsightInput, AIInsightOutput } from '@/types/aiInsight';
+import { UnifiedProfileViewModel } from '@/types/profile';
 
 describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests', () => {
   const sampleInput: AIInsightInput = {
@@ -18,9 +19,11 @@ describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests',
         rawScore: 3.8,
         scaleMin: 1.0,
         scaleMax: 5.0,
+        scoringStrategyCode: 'HEXACO_60_STRATEGY',
         epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
         confidenceLevel: 'HIGH',
         itemCount: 10,
+        instrumentProvenance: 'HEXACO-60 TR',
       },
       {
         dimensionId: 'dim-conscientiousness',
@@ -30,9 +33,11 @@ describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests',
         rawScore: 4.1,
         scaleMin: 1.0,
         scaleMax: 5.0,
+        scoringStrategyCode: 'HEXACO_60_STRATEGY',
         epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
         confidenceLevel: 'HIGH',
         itemCount: 10,
+        instrumentProvenance: 'HEXACO-60 TR',
       },
     ],
     responseQualitySummary: {
@@ -51,6 +56,7 @@ describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests',
         descriptionTr: 'Yüksek Dışadönüklük ve Yüksek Sorumluluk vizyoner hedefleri somut başarılara dönüştürür.',
         epistemicStatus: 'THEORETICAL_INTERPRETATION',
         sourceDimensions: ['Dışadönüklük', 'Sorumluluk'],
+        sourceDimensionCodes: ['extraversion', 'conscientiousness'],
       },
     ],
     unmeasuredGaps: [
@@ -65,14 +71,129 @@ describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests',
       {
         instrumentName: 'HEXACO-60 TR',
         formVersion: 'v1.0.0',
-        scoringModel: 'PRE_CALIBRATION_MEAN_V1',
+        scoringModel: 'HEXACO_60_STRATEGY',
         measuredAt: '2026-09-16T12:00:00Z',
       },
     ],
   };
 
   // ---------------------------------------------------------
-  // 1. Deterministic Grounded Synthesis Fallback
+  // 1. AI Payload Truthfulness Tests
+  // ---------------------------------------------------------
+  describe('AI Payload Truthfulness & Extraction', () => {
+    it('uses real confidence level and exact item count without fabricating itemCount=4', () => {
+      const mockProfile = {
+        userId: 'user-xyz',
+        fingerprint: {
+          dimensions: [
+            {
+              id: 'facet-org',
+              code: 'organization',
+              nameTr: 'Düzenlilik',
+              domainNameTr: 'Temel Kişilik',
+              nativeScore: 4.2,
+              scaleMin: 1.0,
+              scaleMax: 5.0,
+              normalizedCoordinate: 80,
+              isMeasured: true,
+              bandInfo: null,
+              measurementSupport: 'High',
+              instrumentName: 'HEXACO-60',
+              measuredAt: '2026-09-16',
+            },
+          ],
+          measuredCount: 1,
+          totalCount: 84,
+          summaryText: 'Özet',
+        },
+        confidenceMap: {
+          distribution: { high: 1, moderate: 0, low: 0, veryLow: 0, totalMeasured: 1 },
+          dimensions: [
+            {
+              dimensionId: 'facet-org',
+              dimensionCode: 'organization',
+              dimensionNameTr: 'Düzenlilik',
+              domainCode: 'core_personality',
+              domainNameTr: 'Temel Kişilik',
+              level: 'HIGH' as const,
+              levelLabelTr: 'Yüksek',
+              itemCount: 10,
+              responseQuality: 'EXCELLENT' as const,
+              evidenceLevel: 'DIRECT',
+              calibrationState: 'PRE_CALIBRATION' as const,
+              temporalSignal: 'SINGLE_MEASUREMENT' as const,
+              measurementCount: 1,
+              provenanceCompleteness: true,
+              positiveFactors: ['10 madde'],
+              uncertainties: [],
+              missingSignals: [],
+              explanationTr: 'Güçlü kanıt',
+            },
+          ],
+          headlineTr: 'Başlık',
+          overallNoteTr: 'Not',
+        },
+        allFacets84: [
+          {
+            facetId: 'facet-org',
+            code: 'organization',
+            nameTr: 'Düzenlilik',
+            nameEn: 'Organization',
+            descriptionTr: 'Açıklama',
+            constructId: 'c-1',
+            constructCode: 'conscientiousness',
+            constructNameTr: 'Sorumluluk',
+            domainId: 'd-1',
+            domainCode: 'core_personality',
+            domainNameTr: 'Temel Kişilik',
+            isMeasured: true,
+            rawMean: 4.2,
+            scorePercentage: 80,
+            scale: {
+              scaleMin: 1.0,
+              scaleMax: 5.0,
+              scoreType: 'MEAN',
+              scoringModelCode: 'HEXACO_60_STRATEGY',
+            },
+            itemCount: 10,
+            bandInfo: null,
+            provenance: null,
+            epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
+            precision: 'High',
+            measurementSupport: 'High',
+            confidenceLevel: 'HIGH',
+            responseRangeState: 'UPPER_RESPONSE_RANGE',
+          },
+        ],
+        responseQuality: {
+          overallFlag: 'EXCELLENT' as const,
+          isClean: true,
+          totalAssessmentsAudited: 1,
+          statusCounts: { excellent: 1, acceptable: 0, questionable: 0, compromised: 0 },
+          speedViolationsCount: 0,
+          straightliningDetected: false,
+          attentionChecksPassed: true,
+          headlineTr: 'Kalite yüksek',
+          explanationTr: 'Açıklama',
+        },
+        interactions: [],
+        unmeasuredDomains: [],
+        sourceAssessments: [],
+      } as unknown as UnifiedProfileViewModel;
+
+      const payload = buildAIInsightInputPayload(mockProfile);
+      expect(payload.measuredDimensions).toHaveLength(1);
+      const dim = payload.measuredDimensions[0];
+
+      // Assert real values are preserved
+      expect(dim.itemCount).toBe(10);
+      expect(dim.confidenceLevel).toBe('HIGH');
+      expect(dim.scoringStrategyCode).toBe('HEXACO_60_STRATEGY');
+    });
+  });
+
+  // ---------------------------------------------------------
+  // 2. Deterministic Grounded Synthesis Fallback
   // ---------------------------------------------------------
   describe('Deterministic AI Insight Fallback Engine', () => {
     it('generates fully grounded insights from valid measured dimensions', () => {
@@ -94,6 +215,31 @@ describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests',
       const policyCheck = validateAIInsightPolicy(output, sampleInput);
       expect(policyCheck.isValid).toBe(true);
       expect(policyCheck.errors).toHaveLength(0);
+    });
+
+    it('omits interaction insights when required source dimensions are not measured (no fake fallback ID)', () => {
+      const partialInput: AIInsightInput = {
+        ...sampleInput,
+        measuredDimensions: [
+          // Only extraversion is measured; conscientiousness is missing
+          sampleInput.measuredDimensions[0],
+        ],
+        registeredInteractions: [
+          {
+            id: 'goal_execution_dynamic',
+            titleTr: 'Eylem ve Hedef Odaklılık Sinerjisi',
+            type: 'SYNERGY',
+            descriptionTr: 'Yüksek Dışadönüklük ve Yüksek Sorumluluk',
+            epistemicStatus: 'THEORETICAL_INTERPRETATION',
+            sourceDimensions: ['Dışadönüklük', 'Sorumluluk'],
+            sourceDimensionCodes: ['extraversion', 'conscientiousness'],
+          },
+        ],
+      };
+
+      const output = generateDeterministicAIInsights(partialInput);
+      // Since conscientiousness is missing, synergy MUST NOT be emitted
+      expect(output.synergies).toHaveLength(0);
     });
 
     it('handles empty profile gracefully with clean non-hallucinatory output', () => {
@@ -121,7 +267,7 @@ describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests',
   });
 
   // ---------------------------------------------------------
-  // 2. Structured Policy Validation & Guardrails
+  // 3. Structured Policy Validation & Guardrails
   // ---------------------------------------------------------
   describe('Structured Policy Validation Guardrails', () => {
     it('rejects output with ungrounded (fake) dimension IDs', () => {
@@ -147,6 +293,98 @@ describe('FAZ 2.13 — AI Insight Engine Policy, Grounding & Safety Unit Tests',
       const check = validateAIInsightPolicy(fakeOutput, sampleInput);
       expect(check.isValid).toBe(false);
       expect(check.errors.some((e) => e.includes('fake-dimension-id-999'))).toBe(true);
+    });
+
+    it('rejects observation with empty sourceDimensionIds list', () => {
+      const emptySourceOutput: AIInsightOutput = {
+        headline: 'Test Başlık',
+        summary: 'Test özeti geçerli ve yeterlidir.',
+        observations: [
+          {
+            sourceDimensionIds: [],
+            observationTr: 'Bu gözlem hiçbir kaynağa dayanmıyor.',
+            confidenceLevel: 'HIGH',
+            epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
+          },
+        ],
+        tensions: [],
+        synergies: [],
+        profileGaps: [],
+        reflectionQuestions: ['Soru 1?'],
+        provenanceReferences: [],
+        limitations: ['Ön kalibrasyon'],
+      };
+
+      const check = validateAIInsightPolicy(emptySourceOutput, sampleInput);
+      expect(check.isValid).toBe(false);
+      expect(check.errors.some((e) => e.includes('boş kaynak boyut listesi'))).toBe(true);
+    });
+
+    it('rejects tension or synergy with ungrounded interaction ID', () => {
+      const invalidInteractionOutput: AIInsightOutput = {
+        headline: 'Test Başlık',
+        summary: 'Test özeti geçerli ve yeterlidir.',
+        observations: [
+          {
+            sourceDimensionIds: ['dim-extraversion'],
+            observationTr: 'Dışadönüklük puanı yeterlidir.',
+            confidenceLevel: 'HIGH',
+            epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
+          },
+        ],
+        tensions: [
+          {
+            sourceDimensionIds: ['dim-extraversion'],
+            registeredInteractionId: 'unregistered_fake_tension_id',
+            tensionTr: 'Uydurma gerilim açıklaması.',
+            reflectionQuestionTr: 'Yansıtma sorusu?',
+          },
+        ],
+        synergies: [],
+        profileGaps: [],
+        reflectionQuestions: ['Soru 1?'],
+        provenanceReferences: [],
+        limitations: ['Ön kalibrasyon'],
+      };
+
+      const check = validateAIInsightPolicy(invalidInteractionOutput, sampleInput);
+      expect(check.isValid).toBe(false);
+      expect(check.errors.some((e) => e.includes('kayıtlı ve geçerli bir etkileşim ID'))).toBe(true);
+    });
+
+    it('rejects epistemic ceiling upgrade for low-confidence dimensions', () => {
+      const lowConfidenceInput: AIInsightInput = {
+        ...sampleInput,
+        measuredDimensions: [
+          {
+            ...sampleInput.measuredDimensions[0],
+            confidenceLevel: 'LOW',
+          },
+        ],
+      };
+
+      const upgradedOutput: AIInsightOutput = {
+        headline: 'Test Başlık',
+        summary: 'Test özeti geçerli ve yeterlidir.',
+        observations: [
+          {
+            sourceDimensionIds: ['dim-extraversion'],
+            observationTr: 'Düşük kanıtlı boyut için kesin yorum yapıldı.',
+            confidenceLevel: 'HIGH',
+            epistemicStatus: 'EVIDENCE_SUPPORTED_INTERPRETATION', // Illegal upgrade!
+          },
+        ],
+        tensions: [],
+        synergies: [],
+        profileGaps: [],
+        reflectionQuestions: ['Soru 1?'],
+        provenanceReferences: [],
+        limitations: ['Ön kalibrasyon'],
+      };
+
+      const check = validateAIInsightPolicy(upgradedOutput, lowConfidenceInput);
+      expect(check.isValid).toBe(false);
+      expect(check.errors.some((e) => e.includes('EVIDENCE_SUPPORTED_INTERPRETATION'))).toBe(true);
     });
 
     it('rejects output containing clinical diagnosis keywords', () => {

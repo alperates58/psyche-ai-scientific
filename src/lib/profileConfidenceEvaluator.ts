@@ -3,8 +3,8 @@
  * 
  * Implements an explicit conservative ordinal decision table for dimension-level confidence.
  * Strictly avoids hidden weighted numeric points or pseudo-statistical confidence percentages.
- * Transparently separates scientific instrument evidence, Turkish adaptation evidence,
- * calibration status, and response telemetry.
+ * Fails conservatively: UNKNOWN evidence remains UNKNOWN, and high confidence requires
+ * full item coverage, clean telemetry, verified provenance, and documented adaptation evidence.
  */
 
 import {
@@ -16,6 +16,22 @@ import {
   TemporalStabilitySignal,
 } from '@/types/confidence';
 
+/**
+ * Canonical standard user profile domain codes (7 core domains).
+ * Excludes optional/experimental domains and response integrity from standard completeness denominator.
+ */
+export const STANDARD_USER_PROFILE_DOMAIN_CODES = [
+  'core_personality',
+  'self_system',
+  'emotional_affective',
+  'regulatory_volitional',
+  'motivational_value',
+  'relational_interpersonal',
+  'cognitive_epistemic',
+] as const;
+
+export type StandardUserProfileDomainCode = typeof STANDARD_USER_PROFILE_DOMAIN_CODES[number];
+
 export interface EvaluateDimensionConfidenceParams {
   dimensionId: string;
   dimensionCode: string;
@@ -24,16 +40,22 @@ export interface EvaluateDimensionConfidenceParams {
   domainNameTr: string;
   itemCount: number;
   responseQuality: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED';
-  evidenceLevel?: string;
+  evidenceLevel?: 'DIRECT' | 'INDIRECT' | 'PROVISIONAL' | 'UNKNOWN';
   hasTurkishEvidence?: boolean;
-  instrumentName?: string;
+  instrumentName?: string | null;
   measurementCount?: number;
   temporalSignal?: TemporalStabilitySignal;
 }
 
 /**
- * Evaluates dimension confidence level via explicit ordinal decision table.
+ * Evaluates dimension confidence level via an explicit conservative ordinal decision table.
  * NO hidden weighted score (e.g., +20, +30) is used.
+ * HIGH confidence requires ALL of:
+ * - Adequate item coverage (>= 6 items or scale full form)
+ * - Clean response quality (EXCELLENT or ACCEPTABLE)
+ * - Verified direct instrument provenance (evidenceLevel === 'DIRECT')
+ * - Documented Turkish adaptation evidence (hasTurkishEvidence === true)
+ * - Known instrument identifier
  */
 export function deriveDimensionConfidence(
   params: EvaluateDimensionConfidenceParams
@@ -46,38 +68,56 @@ export function deriveDimensionConfidence(
     domainNameTr,
     itemCount,
     responseQuality,
-    evidenceLevel = 'DIRECT',
-    hasTurkishEvidence = true,
-    instrumentName = 'Geçerliği Belirlenmiş Ölçek',
+    evidenceLevel = 'UNKNOWN',
+    hasTurkishEvidence = false,
+    instrumentName = null,
     measurementCount = 1,
     temporalSignal = measurementCount > 1 ? 'REPEATED_CONSISTENT' : 'SINGLE_MEASUREMENT',
   } = params;
 
-  // 1. Explicit Ordinal Decision Table
+  // 1. Explicit Conservative Ordinal Decision Table
   let level: DimensionConfidenceLevel = 'LOW';
   let levelLabelTr = 'Düşük';
+
+  const isTelemetryClean = responseQuality === 'EXCELLENT' || responseQuality === 'ACCEPTABLE';
+  const hasDirectEvidence = evidenceLevel === 'DIRECT' && Boolean(instrumentName);
+  const isFullyValidated = hasDirectEvidence && hasTurkishEvidence;
 
   if (responseQuality === 'COMPROMISED') {
     level = 'VERY_LOW';
     levelLabelTr = 'Çok Düşük';
-  } else if (responseQuality === 'QUESTIONABLE') {
-    level = 'LOW';
-    levelLabelTr = 'Düşük (Telemetri Uyarısı)';
   } else if (itemCount <= 0) {
     level = 'VERY_LOW';
     levelLabelTr = 'Ölçülmedi';
+  } else if (responseQuality === 'QUESTIONABLE') {
+    // Flagged response quality strictly caps confidence at LOW
+    level = 'LOW';
+    levelLabelTr = 'Düşük (Telemetri Uyarısı)';
   } else if (itemCount < 3) {
-    // 1-2 items: initial/sparse probe
+    // 1-2 items: sparse probe, strictly LOW
     level = 'LOW';
     levelLabelTr = 'Düşük (Kısa Form / 1-2 Madde)';
-  } else if (itemCount >= 6) {
-    // >= 6 items + clean telemetry
+  } else if (itemCount >= 6 && isTelemetryClean && isFullyValidated) {
+    // HIGH requires ALL: >=6 items, clean telemetry, direct evidence, Turkish evidence, verified provenance
     level = 'HIGH';
     levelLabelTr = 'Yüksek';
+  } else if (itemCount >= 3 && isTelemetryClean) {
+    if (isFullyValidated || hasDirectEvidence || hasTurkishEvidence) {
+      level = 'MODERATE';
+      levelLabelTr = 'Orta';
+    } else {
+      // Missing both direct evidence and Turkish evidence: conservative capping
+      if (itemCount >= 6) {
+        level = 'MODERATE';
+        levelLabelTr = 'Orta (Kanıt Bilgisi Kısıtlı)';
+      } else {
+        level = 'LOW';
+        levelLabelTr = 'Düşük (Doğrulanmamış Kanıt)';
+      }
+    }
   } else {
-    // 3-5 items + clean telemetry
-    level = 'MODERATE';
-    levelLabelTr = 'Orta';
+    level = 'LOW';
+    levelLabelTr = 'Düşük';
   }
 
   // 2. Derive Transparent Positive Factors
@@ -101,6 +141,10 @@ export function deriveDimensionConfidence(
     positiveFactors.push('Türkçe psikometrik uyarlama ve literatür dayanağı mevcut');
   }
 
+  if (hasDirectEvidence) {
+    positiveFactors.push(`Doğrulanmış psikometrik envanter kaynağı (${instrumentName})`);
+  }
+
   if (temporalSignal === 'REPEATED_CONSISTENT') {
     positiveFactors.push('Tekrarlı ölçümlerde tutarlı puanlama deseni gözlendi');
   }
@@ -116,6 +160,25 @@ export function deriveDimensionConfidence(
     descriptionTr: 'Bu ölçüm henüz temsili ulusal nüfus normlarıyla kalibre edilmemiştir; betimsel puan sunulur.',
   });
   missingSignals.push('Temsili ulusal norm kıyaslaması');
+
+  // Evidence / Adaptation uncertainty
+  if (evidenceLevel === 'UNKNOWN' || !instrumentName) {
+    uncertainties.push({
+      type: 'EVIDENCE_UNCERTAINTY',
+      labelTr: 'Doğrulanmamış Envanter Kanıtı',
+      descriptionTr: 'Bu boyut için literatür geçerlik kaydı veya envanter kaynağı doğrulanmamıştır.',
+    });
+    missingSignals.push('Doğrulanmış psikometrik envanter kaydı');
+  }
+
+  if (!hasTurkishEvidence) {
+    uncertainties.push({
+      type: 'EVIDENCE_UNCERTAINTY',
+      labelTr: 'Türkçe Uyarlama Kanıtı Eksik',
+      descriptionTr: 'Bu ölçeğin Türkçe psikometrik uyarlama ve geçerlik kanıtı doğrulanmamıştır.',
+    });
+    missingSignals.push('Türkçe psikometrik geçerlik kanıtı');
+  }
 
   // Temporal uncertainty
   if (temporalSignal === 'SINGLE_MEASUREMENT') {
@@ -155,13 +218,15 @@ export function deriveDimensionConfidence(
   // 4. Construct Clear Explanation
   let explanationTr = '';
   if (level === 'HIGH') {
-    explanationTr = `${itemCount} maddelik doğrudan ölçekleme ve tutarlı yanıt telemetrisi sayesinde ölçüm kanıt gücü yüksektir.`;
+    explanationTr = `${itemCount} maddelik doğrudan ölçekleme, doğrulanmış Türkçe uyarlama ve tutarlı yanıt telemetrisi sayesinde ölçüm kanıt gücü yüksektir.`;
   } else if (level === 'MODERATE') {
     explanationTr = `${itemCount} maddelik ampirik ölçüm ve tutarlı yanıtlama deseni ile güvenilirdir.`;
   } else if (level === 'LOW') {
     explanationTr = itemCount < 3
       ? `Az sayıda madde (${itemCount} md.) ile ölçüldüğünden kanıt gücü başlangıç düzeyindedir; ek değerlendirme önerilir.`
-      : 'Yanıt telemetrisindeki dikkat/hız uyarısı nedeniyle temkinli değerlendirilmelidir.';
+      : responseQuality === 'QUESTIONABLE'
+      ? 'Yanıt telemetrisindeki dikkat/hız uyarısı nedeniyle temkinli değerlendirilmelidir.'
+      : 'Psikometrik kanıt veya uyarlama bilgisi doğrulanmadığından temkinli değerlendirilmelidir.';
   } else {
     explanationTr = 'Veri kalitesi veya madde sayısı yetersiz olduğundan güven düzeyi düşüktür.';
   }
@@ -180,7 +245,7 @@ export function deriveDimensionConfidence(
     calibrationState: 'PRE_CALIBRATION',
     temporalSignal,
     measurementCount,
-    provenanceCompleteness: Boolean(instrumentName),
+    provenanceCompleteness: Boolean(instrumentName) && hasDirectEvidence,
     positiveFactors,
     uncertainties,
     missingSignals,
@@ -246,7 +311,7 @@ export function deriveProfileCompleteness(params: {
     measuredFacetsCount,
     totalOntologyFacets = 84,
     measuredUserFacingDomains,
-    totalUserFacingDomains = 8,
+    totalUserFacingDomains = 7,
     totalOntologyDomains = 9,
     measuredOntologyDomains,
   } = params;
@@ -255,7 +320,7 @@ export function deriveProfileCompleteness(params: {
     totalOntologyFacets > 0 ? Math.round((measuredFacetsCount / totalOntologyFacets) * 100) : 0;
 
   const summaryStatementsTr = [
-    `Profiliniz 84 psikolojik alt boyutun ${measuredFacetsCount}'ini (%${facetCoveragePercentage}) doğrudan ölçmektedir.`,
+    `Profiliniz ${totalOntologyFacets} psikolojik alt boyutun ${measuredFacetsCount}'ini (%${facetCoveragePercentage}) doğrudan ölçmektedir.`,
     `${totalUserFacingDomains} temel psikolojik alandan ${measuredUserFacingDomains}'inde ölçüm kaydı mevcuttur.`,
     measuredFacetsCount < 30
       ? 'Ek modülleri tamamlayarak profilinizin açıklama gücünü ve kapsama derinliğini artırabilirsiniz.'

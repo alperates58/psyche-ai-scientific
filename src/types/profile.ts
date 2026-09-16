@@ -339,6 +339,7 @@ export interface UnifiedInteractionViewModel {
   descriptionTr: string;
   epistemicStatus: string;
   sourceDimensions: string[];
+  sourceDimensionCodes?: string[];
 }
 
 export interface SourceAssessmentProvenance {

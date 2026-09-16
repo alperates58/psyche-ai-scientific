@@ -3,14 +3,15 @@ import {
   deriveDimensionConfidence,
   buildProfileConfidenceMap,
   deriveProfileCompleteness,
+  STANDARD_USER_PROFILE_DOMAIN_CODES,
 } from '@/lib/profileConfidenceEvaluator';
 
 describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', () => {
   // ---------------------------------------------------------
   // 1. Explicit Ordinal Decision Table Tests (Zero Hidden Numeric Points)
   // ---------------------------------------------------------
-  describe('Ordinal Decision Table Derivation', () => {
-    it('assigns HIGH confidence for >=6 items with clean response telemetry', () => {
+  describe('Ordinal Decision Table Derivation & Conservative Guardrails', () => {
+    it('assigns HIGH confidence ONLY when ALL criteria are met (>=6 items, clean telemetry, direct evidence, Turkish adaptation, verified instrument)', () => {
       const conf = deriveDimensionConfidence({
         dimensionId: 'facet-1',
         dimensionCode: 'organization',
@@ -19,20 +20,63 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
         domainNameTr: 'Temel Kişilik',
         itemCount: 10,
         responseQuality: 'EXCELLENT',
+        evidenceLevel: 'DIRECT',
         hasTurkishEvidence: true,
+        instrumentName: 'HEXACO-60 TR',
       });
 
       expect(conf.level).toBe('HIGH');
       expect(conf.levelLabelTr).toBe('Yüksek');
       expect(conf.itemCount).toBe(10);
       expect(conf.calibrationState).toBe('PRE_CALIBRATION');
-      expect(conf.positiveFactors.length).toBeGreaterThanOrEqual(2);
+      expect(conf.positiveFactors.length).toBeGreaterThanOrEqual(3);
       expect(conf.positiveFactors.some((f) => f.includes('10 madde'))).toBe(true);
+      expect(conf.positiveFactors.some((f) => f.includes('Türkçe psikometrik'))).toBe(true);
+      expect(conf.positiveFactors.some((f) => f.includes('Doğrulanmış psikometrik envanter'))).toBe(true);
       expect(conf.uncertainties.some((u) => u.type === 'CALIBRATION_UNCERTAINTY')).toBe(true);
       expect(conf.explanationTr).toContain('kanıt gücü yüksektir');
     });
 
-    it('assigns MODERATE confidence for 3–5 items with acceptable response telemetry', () => {
+    it('caps confidence at MODERATE when item count is high (10 items) but evidenceLevel is UNKNOWN', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-unknown-ev',
+        dimensionCode: 'unknown_trait',
+        dimensionNameTr: 'Bilinmeyen Boyut',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT',
+        evidenceLevel: 'UNKNOWN',
+        hasTurkishEvidence: false,
+      });
+
+      // Must NOT be HIGH!
+      expect(conf.level).not.toBe('HIGH');
+      expect(conf.level).toBe('MODERATE');
+      expect(conf.uncertainties.some((u) => u.type === 'EVIDENCE_UNCERTAINTY')).toBe(true);
+      expect(conf.missingSignals).toContain('Doğrulanmış psikometrik envanter kaydı');
+    });
+
+    it('caps confidence at MODERATE when item count is high (10 items) but hasTurkishEvidence is false', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-no-tr',
+        dimensionCode: 'foreign_scale',
+        dimensionNameTr: 'Yabancı Ölçek Boyutu',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'ACCEPTABLE',
+        evidenceLevel: 'DIRECT',
+        hasTurkishEvidence: false,
+        instrumentName: 'Unadapted Foreign Inventory',
+      });
+
+      expect(conf.level).not.toBe('HIGH');
+      expect(conf.level).toBe('MODERATE');
+      expect(conf.uncertainties.some((u) => u.labelTr.includes('Türkçe Uyarlama'))).toBe(true);
+    });
+
+    it('assigns MODERATE confidence for 3–5 items with acceptable response telemetry and evidence', () => {
       const conf = deriveDimensionConfidence({
         dimensionId: 'facet-2',
         dimensionCode: 'prudence',
@@ -41,7 +85,9 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
         domainNameTr: 'Temel Kişilik',
         itemCount: 4,
         responseQuality: 'ACCEPTABLE',
+        evidenceLevel: 'DIRECT',
         hasTurkishEvidence: true,
+        instrumentName: 'HEXACO-24 TR',
       });
 
       expect(conf.level).toBe('MODERATE');
@@ -50,7 +96,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       expect(conf.positiveFactors.some((f) => f.includes('4 madde'))).toBe(true);
     });
 
-    it('assigns LOW confidence for 1–2 items (sparse probe) even with clean telemetry', () => {
+    it('assigns LOW confidence for 1–2 items (sparse probe) even with clean telemetry and direct evidence', () => {
       const conf = deriveDimensionConfidence({
         dimensionId: 'facet-3',
         dimensionCode: 'creativity',
@@ -59,6 +105,9 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
         domainNameTr: 'Temel Kişilik',
         itemCount: 2,
         responseQuality: 'EXCELLENT',
+        evidenceLevel: 'DIRECT',
+        hasTurkishEvidence: true,
+        instrumentName: 'HEXACO-60 TR',
       });
 
       expect(conf.level).toBe('LOW');
@@ -66,7 +115,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       expect(conf.uncertainties.some((u) => u.type === 'MEASUREMENT_COVERAGE_UNCERTAINTY')).toBe(true);
     });
 
-    it('caps confidence at LOW when response telemetry is QUESTIONABLE, regardless of item count', () => {
+    it('strictly caps confidence at LOW when response telemetry is QUESTIONABLE, regardless of 10 items or direct evidence', () => {
       const conf = deriveDimensionConfidence({
         dimensionId: 'facet-4',
         dimensionCode: 'self_esteem',
@@ -75,6 +124,9 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
         domainNameTr: 'Benlik Sistemi',
         itemCount: 10,
         responseQuality: 'QUESTIONABLE',
+        evidenceLevel: 'DIRECT',
+        hasTurkishEvidence: true,
+        instrumentName: 'RSES-10',
       });
 
       expect(conf.level).toBe('LOW');
@@ -111,6 +163,22 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       expect(conf.level).toBe('VERY_LOW');
       expect(conf.levelLabelTr).toBe('Ölçülmedi');
     });
+
+    it('fails conservatively when defaults are used (unknown evidence remains unknown)', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-default',
+        dimensionCode: 'trait_default',
+        dimensionNameTr: 'Varsayılan Boyut',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 8,
+        responseQuality: 'ACCEPTABLE',
+      });
+
+      expect(conf.evidenceLevel).toBe('UNKNOWN');
+      expect(conf.provenanceCompleteness).toBe(false);
+      expect(conf.level).not.toBe('HIGH');
+    });
   });
 
   // ---------------------------------------------------------
@@ -126,6 +194,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
         domainNameTr: 'Benlik Sistemi',
         itemCount: 10,
         responseQuality: 'EXCELLENT',
+        evidenceLevel: 'DIRECT',
         hasTurkishEvidence: true,
         instrumentName: 'Rosenberg Self-Esteem Scale (Çuhadaroğlu, 1986)',
       });
@@ -153,6 +222,9 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
         domainNameTr: 'Temel Kişilik',
         itemCount: 10,
         responseQuality: 'EXCELLENT',
+        evidenceLevel: 'DIRECT',
+        hasTurkishEvidence: true,
+        instrumentName: 'HEXACO-60 TR',
         measurementCount: 1,
         temporalSignal: 'SINGLE_MEASUREMENT',
       });
@@ -194,6 +266,9 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
           domainNameTr: 'D',
           itemCount: 10,
           responseQuality: 'EXCELLENT',
+          evidenceLevel: 'DIRECT',
+          hasTurkishEvidence: true,
+          instrumentName: 'Valid Inst',
         }),
         deriveDimensionConfidence({
           dimensionId: '2',
@@ -203,6 +278,9 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
           domainNameTr: 'D',
           itemCount: 4,
           responseQuality: 'ACCEPTABLE',
+          evidenceLevel: 'DIRECT',
+          hasTurkishEvidence: true,
+          instrumentName: 'Valid Inst',
         }),
         deriveDimensionConfidence({
           dimensionId: '3',
@@ -233,12 +311,12 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
   // 5. Central Completeness Denominator
   // ---------------------------------------------------------
   describe('Profile Completeness Central Denominators', () => {
-    it('derives central completeness summary distinguishing user-facing domains from internal models', () => {
+    it('derives central completeness summary dynamically with zero hardcoded 84', () => {
       const completeness = deriveProfileCompleteness({
         measuredFacetsCount: 24,
         totalOntologyFacets: 84,
         measuredUserFacingDomains: 2,
-        totalUserFacingDomains: 8,
+        totalUserFacingDomains: 7,
         totalOntologyDomains: 9,
         measuredOntologyDomains: 2,
       });
@@ -246,12 +324,30 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       expect(completeness.totalOntologyFacets).toBe(84);
       expect(completeness.measuredFacetsCount).toBe(24);
       expect(completeness.facetCoveragePercentage).toBe(29); // Math.round(24/84 * 100) = 29
-      expect(completeness.totalUserFacingDomains).toBe(8);
+      expect(completeness.totalUserFacingDomains).toBe(7);
       expect(completeness.measuredUserFacingDomains).toBe(2);
 
       expect(completeness.summaryStatementsTr[0]).toContain('84 psikolojik alt boyutun 24\'ini (%29)');
-      expect(completeness.summaryStatementsTr[1]).toContain('8 temel psikolojik alandan 2\'sinde');
+      expect(completeness.summaryStatementsTr[1]).toContain('7 temel psikolojik alandan 2\'sinde');
       expect(completeness.disclaimerTr).toContain('psikolojik kesinlik veya eksiksizlik anlamına gelmez');
+    });
+
+    it('dynamically formats arbitrary totalOntologyFacets (e.g. 50)', () => {
+      const completeness = deriveProfileCompleteness({
+        measuredFacetsCount: 10,
+        totalOntologyFacets: 50,
+        measuredUserFacingDomains: 3,
+        totalUserFacingDomains: 7,
+        totalOntologyDomains: 9,
+        measuredOntologyDomains: 3,
+      });
+
+      expect(completeness.summaryStatementsTr[0]).toContain('50 psikolojik alt boyutun 10\'ini (%20)');
+    });
+
+    it('standard user profile domain codes contains exactly 7 standard domains', () => {
+      expect(STANDARD_USER_PROFILE_DOMAIN_CODES).toHaveLength(7);
+      expect(STANDARD_USER_PROFILE_DOMAIN_CODES).not.toContain('integrity_validity');
     });
   });
 });

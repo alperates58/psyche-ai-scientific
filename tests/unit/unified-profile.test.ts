@@ -191,28 +191,35 @@ describe('FAZ 2.13 — Unified Psychological Profile Unit Tests', () => {
   // ---------------------------------------------------------
   describe('Heatmap Scale-Relative Response Range Resolution', () => {
     it('resolves UNMEASURED for null/NaN scores', () => {
-      expect(getDescriptiveResponseRangeState(null, 1.0, 5.0).state).toBe('UNMEASURED');
+      expect(getDescriptiveResponseRangeState(null, 1.0, 5.0, 'HEXACO_60_STRATEGY').state).toBe('UNMEASURED');
     });
 
-    it('resolves LOWER_RESPONSE_RANGE for bottom region of scale (<38%)', () => {
-      // 1.8 on 1.0–5.0 scale -> (1.8 - 1.0)/4.0 = 0.20 ratio
-      const result = getDescriptiveResponseRangeState(1.8, 1.0, 5.0);
-      expect(result.state).toBe('LOWER_RESPONSE_RANGE');
-      expect(result.labelTr).toBe('Ölçek Alt Yanıt Bölgesi');
+    it('resolves policy-registered descriptive states for valid instruments (e.g. HEXACO)', () => {
+      // 1.8 on 1.0–5.0 scale -> (1.8 - 1.0)/4.0 = 0.20 ratio -> LOWER
+      const lowerRes = getDescriptiveResponseRangeState(1.8, 1.0, 5.0, 'HEXACO_60_STRATEGY');
+      expect(lowerRes.state).toBe('LOWER_RESPONSE_RANGE');
+      expect(lowerRes.labelTr).toBe('Ölçek Alt Yanıt Bölgesi');
+
+      // 3.0 on 1.0–5.0 scale -> (3.0 - 1.0)/4.0 = 0.50 ratio -> MID
+      const midRes = getDescriptiveResponseRangeState(3.0, 1.0, 5.0, 'HEXACO_60_STRATEGY');
+      expect(midRes.state).toBe('MID_RESPONSE_RANGE');
+      expect(midRes.labelTr).toBe('Ölçek Orta Yanıt Bölgesi');
+
+      // 4.2 on 1.0–5.0 scale -> (4.2 - 1.0)/4.0 = 0.80 ratio -> UPPER
+      const upperRes = getDescriptiveResponseRangeState(4.2, 1.0, 5.0, 'HEXACO_60_STRATEGY');
+      expect(upperRes.state).toBe('UPPER_RESPONSE_RANGE');
+      expect(upperRes.labelTr).toBe('Ölçek Üst Yanıt Bölgesi');
     });
 
-    it('resolves MID_RESPONSE_RANGE for middle region of scale (38%–62%)', () => {
-      // 3.0 on 1.0–5.0 scale -> (3.0 - 1.0)/4.0 = 0.50 ratio
-      const result = getDescriptiveResponseRangeState(3.0, 1.0, 5.0);
-      expect(result.state).toBe('MID_RESPONSE_RANGE');
-      expect(result.labelTr).toBe('Ölçek Orta Yanıt Bölgesi');
+    it('returns DESCRIPTIVE_BAND_UNAVAILABLE when scoring strategy has no registered policy', () => {
+      const unmappedRes = getDescriptiveResponseRangeState(3.5, 1.0, 5.0, 'UNMAPPED_CUSTOM_STRATEGY');
+      expect(unmappedRes.state).toBe('DESCRIPTIVE_BAND_UNAVAILABLE');
+      expect(unmappedRes.labelTr).toBe('Betimsel Bant Tanımlanmamış');
     });
 
-    it('resolves UPPER_RESPONSE_RANGE for top region of scale (>62%)', () => {
-      // 4.2 on 1.0–5.0 scale -> (4.2 - 1.0)/4.0 = 0.80 ratio
-      const result = getDescriptiveResponseRangeState(4.2, 1.0, 5.0);
-      expect(result.state).toBe('UPPER_RESPONSE_RANGE');
-      expect(result.labelTr).toBe('Ölçek Üst Yanıt Bölgesi');
+    it('returns DESCRIPTIVE_BAND_UNAVAILABLE when no strategy code is supplied', () => {
+      const noStrategyRes = getDescriptiveResponseRangeState(3.5, 1.0, 5.0, null);
+      expect(noStrategyRes.state).toBe('DESCRIPTIVE_BAND_UNAVAILABLE');
     });
   });
 

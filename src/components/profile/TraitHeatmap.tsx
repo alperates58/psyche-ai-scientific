@@ -34,6 +34,8 @@ export const TraitHeatmap: React.FC<TraitHeatmapProps> = ({ matrix }) => {
         return 'bg-brand-100 text-brand-900 border-brand-200';
       case 'LOWER_RESPONSE_RANGE':
         return 'bg-slate-200 text-slate-800 border-slate-300';
+      case 'DESCRIPTIVE_BAND_UNAVAILABLE':
+        return 'bg-surface-2 text-text-primary border-border-strong/40';
       default:
         return 'bg-surface-2 text-text-secondary border-border-subtle';
     }
@@ -168,13 +170,16 @@ export const TraitHeatmap: React.FC<TraitHeatmapProps> = ({ matrix }) => {
             Ölçülmedi
           </span>
           <span className="px-2 py-0.5 rounded bg-slate-200 text-slate-800">
-            Alt Yanıt Bölgesi (&lt;38%)
+            Alt Yanıt Bölgesi
           </span>
           <span className="px-2 py-0.5 rounded bg-brand-100 text-brand-900 font-medium">
-            Orta Yanıt Bölgesi (38–62%)
+            Orta Yanıt Bölgesi
           </span>
           <span className="px-2 py-0.5 rounded bg-brand-600 text-white font-semibold">
-            Üst Yanıt Bölgesi (&gt;62%)
+            Üst Yanıt Bölgesi
+          </span>
+          <span className="px-2 py-0.5 rounded bg-surface-2 text-text-secondary border border-border-strong/40">
+            Bant Tanımlanmamış
           </span>
         </div>
       </div>

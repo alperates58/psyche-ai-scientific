@@ -11,7 +11,9 @@ import {
   deriveDimensionConfidence,
   buildProfileConfidenceMap,
   deriveProfileCompleteness,
+  STANDARD_USER_PROFILE_DOMAIN_CODES,
 } from '@/lib/profileConfidenceEvaluator';
+import { resolveDescriptiveBand } from '@/lib/descriptiveBandPolicyRegistry';
 import { getUserAssessmentJourney } from './assessmentJourneyService';
 import {
   UnifiedProfileViewModel,
@@ -268,31 +270,15 @@ export function deriveUnifiedQualityDimensions(params: {
 
 /**
  * Helper to determine instrument-specific scale-relative response range state.
- * Never uses universal thirds or calls bands "low personality" / "normal".
+ * Uses explicit descriptive band policy registry; returns DESCRIPTIVE_BAND_UNAVAILABLE if unmapped.
  */
 export function getDescriptiveResponseRangeState(
   score: number | null,
   scaleMin: number,
-  scaleMax: number
+  scaleMax: number,
+  strategyOrInstrumentCode?: string | null
 ): { state: HeatmapCellState; labelTr: string } {
-  if (score === null || typeof score !== 'number' || isNaN(score)) {
-    return { state: 'UNMEASURED', labelTr: 'Ölçülmedi' };
-  }
-
-  const range = scaleMax - scaleMin;
-  if (range <= 0) {
-    return { state: 'DESCRIPTIVE_BAND_UNAVAILABLE', labelTr: 'Ölçek Aralığı Belirsiz' };
-  }
-
-  const ratio = (score - scaleMin) / range;
-
-  if (ratio < 0.38) {
-    return { state: 'LOWER_RESPONSE_RANGE', labelTr: 'Ölçek Alt Yanıt Bölgesi' };
-  }
-  if (ratio <= 0.62) {
-    return { state: 'MID_RESPONSE_RANGE', labelTr: 'Ölçek Orta Yanıt Bölgesi' };
-  }
-  return { state: 'UPPER_RESPONSE_RANGE', labelTr: 'Ölçek Üst Yanıt Bölgesi' };
+  return resolveDescriptiveBand(score, scaleMin, scaleMax, strategyOrInstrumentCode);
 }
 
 /**
@@ -591,16 +577,22 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
             Math.max(0, Math.round(((measured.rawMean - measured.scale.scaleMin) / scaleRange) * 100))
           );
           const bandInfo = getScoreBand(measured.rawMean, measured.scale.scaleMax);
-          const measurementSupport: 'High' | 'Moderate' | 'Developing' =
-            measured.itemCount >= 6 ? 'High' : measured.itemCount >= 3 ? 'Moderate' : 'Developing';
+          const isKnownDirectInstrument = Boolean(
+            measured.provenance.moduleCode?.toUpperCase().includes('HEXACO') ||
+            measured.provenance.moduleCode?.toUpperCase().includes('RSES') ||
+            measured.provenance.moduleCode?.toUpperCase().includes('GSE') ||
+            measured.provenance.moduleCode?.toUpperCase().includes('DERS') ||
+            measured.provenance.moduleCode?.toUpperCase().includes('COPE')
+          );
 
           const responseRange = getDescriptiveResponseRangeState(
             measured.rawMean,
             measured.scale.scaleMin,
-            measured.scale.scaleMax
+            measured.scale.scaleMax,
+            measured.scale.scoringModelCode || measured.provenance.moduleCode
           );
 
-          // Dimension Confidence derivation
+          // Dimension Confidence derivation with conservative evidence provenance
           const confidenceObj = deriveDimensionConfidence({
             dimensionId: facet.id,
             dimensionCode: facet.code,
@@ -609,6 +601,8 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
             domainNameTr: domain.nameTr,
             itemCount: measured.itemCount,
             responseQuality: responseQuality.overallFlag,
+            evidenceLevel: isKnownDirectInstrument ? 'DIRECT' : 'UNKNOWN',
+            hasTurkishEvidence: isKnownDirectInstrument,
             instrumentName: measured.instrumentName || measured.provenance.moduleTitleTr,
           });
 
@@ -897,13 +891,20 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
   // 12. Profile Confidence Map & Completeness Summary (FAZ 2.13)
   const confidenceMap = buildProfileConfidenceMap(dimensionConfidenceList);
 
+  const standardUserDomains = canonicalDomains.filter((d) =>
+    (STANDARD_USER_PROFILE_DOMAIN_CODES as readonly string[]).includes(d.code)
+  );
+  const measuredStandardUserDomains = domainViewModels.filter(
+    (d) =>
+      d.status !== 'UNMEASURED' &&
+      (STANDARD_USER_PROFILE_DOMAIN_CODES as readonly string[]).includes(d.code)
+  );
+
   const completenessSummary = deriveProfileCompleteness({
     measuredFacetsCount: totalMeasuredFacetsCount,
     totalOntologyFacets,
-    measuredUserFacingDomains: domainViewModels.filter(
-      (d) => d.status !== 'UNMEASURED' && d.code !== 'integrity_validity'
-    ).length,
-    totalUserFacingDomains: canonicalDomains.filter((d) => d.code !== 'integrity_validity').length,
+    measuredUserFacingDomains: measuredStandardUserDomains.length,
+    totalUserFacingDomains: standardUserDomains.length,
     totalOntologyDomains: canonicalDomains.length,
     measuredOntologyDomains: totalMeasuredDomainsCount,
   });

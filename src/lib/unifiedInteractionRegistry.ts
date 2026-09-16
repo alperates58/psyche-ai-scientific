@@ -318,6 +318,7 @@ export function evaluateUnifiedInteractions(
   descriptionTr: string;
   epistemicStatus: string;
   sourceDimensions: string[];
+  sourceDimensionCodes: string[];
 }> {
   const results: Array<{
     id: string;
@@ -326,6 +327,7 @@ export function evaluateUnifiedInteractions(
     descriptionTr: string;
     epistemicStatus: string;
     sourceDimensions: string[];
+    sourceDimensionCodes: string[];
   }> = [];
 
   for (const rule of UNIFIED_INTERACTION_RULES) {
@@ -342,6 +344,7 @@ export function evaluateUnifiedInteractions(
         descriptionTr: rule.descriptionTr,
         epistemicStatus: rule.epistemicStatus,
         sourceDimensions: rule.getSourceDimensionNames(measuredConstructsMap),
+        sourceDimensionCodes: rule.requiredConstructCodes,
       });
     }
   }

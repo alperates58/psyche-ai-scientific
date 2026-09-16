@@ -2,7 +2,8 @@
  * PsycheAI AI Insight Engine Data Model & Validation Schemas
  * 
  * Defines structured input and output schemas for AI-assisted profile synthesis.
- * Strictly enforces grounding, non-diagnostic boundaries, and zero psychometric scoring.
+ * Strictly enforces grounding, non-diagnostic boundaries, mandatory source grounding,
+ * and zero psychometric scoring.
  */
 
 import { z } from 'zod';
@@ -26,9 +27,11 @@ export const AIInsightInputSchema = z.object({
       rawScore: z.number(),
       scaleMin: z.number(),
       scaleMax: z.number(),
+      scoringStrategyCode: z.string().optional(),
       epistemicStatus: z.string(),
       confidenceLevel: z.enum(['VERY_LOW', 'LOW', 'MODERATE', 'HIGH']),
-      itemCount: z.number(),
+      itemCount: z.number().nullable().optional(),
+      instrumentProvenance: z.string().nullable().optional(),
     })
   ),
   responseQualitySummary: z.object({
@@ -47,6 +50,7 @@ export const AIInsightInputSchema = z.object({
       descriptionTr: z.string(),
       epistemicStatus: z.string(),
       sourceDimensions: z.array(z.string()),
+      sourceDimensionCodes: z.array(z.string()).default([]),
     })
   ),
   unmeasuredGaps: z.array(
@@ -78,14 +82,14 @@ export const AIObservationItemSchema = z.object({
 
 export const AITensionInsightSchema = z.object({
   sourceDimensionIds: z.array(z.string()).min(1),
-  registeredInteractionId: z.string().optional(),
+  registeredInteractionId: z.string().min(1),
   tensionTr: z.string().min(10).max(500),
   reflectionQuestionTr: z.string().min(10).max(300),
 });
 
 export const AISynergyInsightSchema = z.object({
   sourceDimensionIds: z.array(z.string()).min(1),
-  registeredInteractionId: z.string().optional(),
+  registeredInteractionId: z.string().min(1),
   synergyTr: z.string().min(10).max(500),
 });
 

@@ -7,6 +7,9 @@
  * - Safe deterministic synthesis by default
  * - Structured Zod schema output
  * - Policy validation and fail-closed architecture
+ * - Real confidence & item count data (zero fabrication)
+ * - Exact source dimension grounding for interactions (no unrelated fallbacks)
+ * - Bounded timeouts and strict privacy (zero profile payload logging)
  */
 
 import { UnifiedProfileViewModel } from '@/types/profile';
@@ -16,17 +19,33 @@ import {
   AIInsightOutputSchema,
 } from '@/types/aiInsight';
 import { validateAIInsightPolicy } from '@/lib/aiInsightPolicy';
+import { resolveDescriptiveBand } from '@/lib/descriptiveBandPolicyRegistry';
+import { UNIFIED_INTERACTION_RULES } from '@/lib/unifiedInteractionRegistry';
 
 /**
  * Builds the structured, private, server-sanitized input payload for AI synthesis.
+ * Strictly uses real confidence data and exact item counts from the UnifiedProfileViewModel.
  */
 export function buildAIInsightInputPayload(
   profile: UnifiedProfileViewModel
 ): AIInsightInput {
+  const confidenceByDimId = new Map(
+    profile.confidenceMap.dimensions.map((c) => [c.dimensionId, c])
+  );
+  const facetById = new Map(profile.allFacets84.map((f) => [f.facetId, f]));
+
   const measuredDimensions = profile.fingerprint.dimensions
     .filter((d) => d.isMeasured && d.nativeScore !== null)
     .map((d) => {
-      // Find corresponding facet/construct to extract confidence
+      const conf = confidenceByDimId.get(d.id);
+      const facet = facetById.get(d.id);
+
+      const confidenceLevel = conf?.level || (facet?.confidenceLevel as 'VERY_LOW' | 'LOW' | 'MODERATE' | 'HIGH') || 'LOW';
+      const itemCount = conf?.itemCount !== undefined ? conf.itemCount : (facet?.itemCount !== undefined ? facet.itemCount : null);
+      const scoringStrategyCode = facet?.scale?.scoringModelCode || undefined;
+      const epistemicStatus = facet?.epistemicStatus || 'PROVISIONAL_POINT_ESTIMATE';
+      const instrumentProvenance = d.instrumentName || facet?.provenance?.moduleTitleTr || null;
+
       return {
         dimensionId: d.id,
         code: d.code,
@@ -35,20 +54,28 @@ export function buildAIInsightInputPayload(
         rawScore: d.nativeScore!,
         scaleMin: d.scaleMin,
         scaleMax: d.scaleMax,
-        epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
-        confidenceLevel: (d.bandInfo ? 'MODERATE' : 'LOW') as 'VERY_LOW' | 'LOW' | 'MODERATE' | 'HIGH',
-        itemCount: 4, // Conservative estimate
+        scoringStrategyCode,
+        epistemicStatus,
+        confidenceLevel,
+        itemCount,
+        instrumentProvenance,
       };
     });
 
-  const registeredInteractions = profile.interactions.map((i) => ({
-    id: i.id,
-    titleTr: i.titleTr,
-    type: i.type as 'SYNERGY' | 'TENSION' | 'MODULATION',
-    descriptionTr: i.descriptionTr,
-    epistemicStatus: i.epistemicStatus,
-    sourceDimensions: i.sourceDimensions,
-  }));
+  const registeredInteractions = profile.interactions.map((i) => {
+    const rule = UNIFIED_INTERACTION_RULES.find((r) => r.id === i.id);
+    const sourceDimensionCodes = rule?.requiredConstructCodes || [];
+
+    return {
+      id: i.id,
+      titleTr: i.titleTr,
+      type: i.type as 'SYNERGY' | 'TENSION' | 'MODULATION',
+      descriptionTr: i.descriptionTr,
+      epistemicStatus: i.epistemicStatus,
+      sourceDimensions: i.sourceDimensions,
+      sourceDimensionCodes,
+    };
+  });
 
   const unmeasuredGaps = profile.unmeasuredDomains.map((u) => ({
     domainCode: u.code,
@@ -84,6 +111,7 @@ export function buildAIInsightInputPayload(
 /**
  * Deterministic Synthesis Fallback Engine
  * Generates rich, scientific Turkish profile insights without transmitting data to external APIs.
+ * Consumes the exact descriptiveBandPolicy and enforces strict dimension grounding.
  */
 export function generateDeterministicAIInsights(
   input: AIInsightInput
@@ -105,41 +133,84 @@ export function generateDeterministicAIInsights(
 
   // 2. Grounded Observations
   const observations = input.measuredDimensions.slice(0, 5).map((dim) => {
-    const ratio = (dim.rawScore - dim.scaleMin) / Math.max(0.1, dim.scaleMax - dim.scaleMin);
-    let bandText = 'dengeli bir düzeyde';
-    if (ratio >= 0.65) bandText = 'belirgin bir üst eğilim bölgesinde';
-    else if (ratio <= 0.35) bandText = 'daha temkinli / alt yanıt bölgesinde';
+    const band = resolveDescriptiveBand(
+      dim.rawScore,
+      dim.scaleMin,
+      dim.scaleMax,
+      dim.scoringStrategyCode
+    );
+
+    let observationTr = '';
+    if (band.policyEnabled && band.state !== 'DESCRIPTIVE_BAND_UNAVAILABLE' && band.state !== 'UNMEASURED') {
+      observationTr = `${dim.nameTr} boyutu ${dim.rawScore.toFixed(2)} (${dim.scaleMin}–${dim.scaleMax}) puanıyla ${band.labelTr.toLowerCase()} konumlanmaktadır.`;
+    } else {
+      observationTr = `${dim.nameTr} puanı ${dim.rawScore.toFixed(2)}, ölçek aralığı ${dim.scaleMin}–${dim.scaleMax}.`;
+    }
+
+    const epistemicStatus =
+      dim.confidenceLevel === 'HIGH'
+        ? 'EVIDENCE_SUPPORTED_INTERPRETATION'
+        : 'PROVISIONAL_PATTERN';
 
     return {
       sourceDimensionIds: [dim.dimensionId],
-      observationTr: `${dim.nameTr} boyutu ${dim.rawScore.toFixed(2)} (${dim.scaleMin}–${dim.scaleMax}) puanıyla ${bandText} konumlanmaktadır.`,
+      observationTr,
       confidenceLevel: dim.confidenceLevel,
-      epistemicStatus: dim.epistemicStatus,
+      epistemicStatus,
     };
   });
 
-  // 3. Tensions & Synergies from registered interactions
-  const tensions = input.registeredInteractions
-    .filter((i) => i.type === 'TENSION' || i.type === 'MODULATION')
-    .map((inter) => ({
-      sourceDimensionIds: input.measuredDimensions
-        .filter((d) => inter.sourceDimensions.some((sd) => sd.toLowerCase().includes(d.nameTr.toLowerCase())))
-        .map((d) => d.dimensionId).concat(input.measuredDimensions.length > 0 ? [input.measuredDimensions[0].dimensionId] : []),
-      registeredInteractionId: inter.id,
-      tensionTr: inter.descriptionTr,
-      reflectionQuestionTr:
-        'Bu iki eğilimin karşı karşıya geldiği durumlarda hangi tarafın karar süreçlerinizi yönlendirmesini tercih edersiniz?',
-    }));
+  // 3. Tensions & Synergies with Exact Grounding (no arbitrary fallbacks)
+  const dimByCode = new Map(input.measuredDimensions.map((d) => [d.code, d]));
+  const dimById = new Map(input.measuredDimensions.map((d) => [d.dimensionId, d]));
 
-  const synergies = input.registeredInteractions
-    .filter((i) => i.type === 'SYNERGY')
-    .map((inter) => ({
-      sourceDimensionIds: input.measuredDimensions
-        .filter((d) => inter.sourceDimensions.some((sd) => sd.toLowerCase().includes(d.nameTr.toLowerCase())))
-        .map((d) => d.dimensionId).concat(input.measuredDimensions.length > 0 ? [input.measuredDimensions[0].dimensionId] : []),
-      registeredInteractionId: inter.id,
-      synergyTr: inter.descriptionTr,
-    }));
+  const tensions: AIInsightOutput['tensions'] = [];
+  const synergies: AIInsightOutput['synergies'] = [];
+
+  for (const inter of input.registeredInteractions) {
+    // Map required construct codes to exact measured dimension IDs
+    let resolvedDimensionIds: string[] = [];
+
+    if (inter.sourceDimensionCodes && inter.sourceDimensionCodes.length > 0) {
+      const allFound = inter.sourceDimensionCodes.every((code) => dimByCode.has(code));
+      if (allFound) {
+        resolvedDimensionIds = inter.sourceDimensionCodes.map(
+          (code) => dimByCode.get(code)!.dimensionId
+        );
+      }
+    } else {
+      // Try matching by nameTr
+      const matched = input.measuredDimensions.filter((d) =>
+        inter.sourceDimensions.some(
+          (sd) => sd.toLowerCase().includes(d.nameTr.toLowerCase()) || d.nameTr.toLowerCase().includes(sd.toLowerCase())
+        )
+      );
+      if (matched.length >= 2) {
+        resolvedDimensionIds = matched.map((d) => d.dimensionId);
+      }
+    }
+
+    // Strict Grounding Invariant: If not all source dimensions could be authoritatively resolved, OMIT!
+    if (resolvedDimensionIds.length === 0) {
+      continue;
+    }
+
+    if (inter.type === 'TENSION' || inter.type === 'MODULATION') {
+      tensions.push({
+        sourceDimensionIds: resolvedDimensionIds,
+        registeredInteractionId: inter.id,
+        tensionTr: inter.descriptionTr,
+        reflectionQuestionTr:
+          'Bu iki eğilimin karşı karşıya geldiği durumlarda hangi tarafın karar süreçlerinizi yönlendirmesini tercih edersiniz?',
+      });
+    } else if (inter.type === 'SYNERGY') {
+      synergies.push({
+        sourceDimensionIds: resolvedDimensionIds,
+        registeredInteractionId: inter.id,
+        synergyTr: inter.descriptionTr,
+      });
+    }
+  }
 
   // 4. Profile Gaps
   const profileGaps = input.unmeasuredGaps.slice(0, 3).map((g) => ({
@@ -200,6 +271,10 @@ export async function getProfileAIInsights(
     return generateDeterministicAIInsights(inputPayload);
   }
 
+  const timeoutMs = Number(process.env.AI_INSIGHT_TIMEOUT_MS) || 8000;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
   try {
     const baseUrl = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com';
     const model = process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash';
@@ -212,17 +287,19 @@ STRICT INVIOLABLE RULES:
 2. NEVER formulate clinical diagnoses (depression, ADHD, bipolar, autism, personality disorders).
 3. In pre-calibration mode, NEVER generate percentile claims like "toplumun %80'inden yüksek".
 4. Every observation MUST reference valid sourceDimensionIds present in input.measuredDimensions.
-5. Every tension and synergy MUST reference valid sourceDimensionIds.
+5. Every tension and synergy MUST reference valid sourceDimensionIds and a valid registeredInteractionId.
 6. Output MUST strictly conform to the requested JSON schema.`;
 
     const response = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         model,
+        max_tokens: 1500,
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: systemPrompt },
@@ -230,6 +307,8 @@ STRICT INVIOLABLE RULES:
         ],
       }),
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       console.warn(`External AI API returned HTTP ${response.status}. Using deterministic fallback.`);
@@ -248,13 +327,18 @@ STRICT INVIOLABLE RULES:
     // Validate PsycheAI grounding & safety policy
     const policyCheck = validateAIInsightPolicy(validatedOutput, inputPayload);
     if (!policyCheck.isValid) {
-      console.warn('AI output failed PsycheAI scientific policy:', policyCheck.errors);
+      console.warn('AI output failed PsycheAI policy check category:', policyCheck.errors.length);
       return generateDeterministicAIInsights(inputPayload);
     }
 
     return validatedOutput;
-  } catch (err) {
-    console.warn('Error during external AI insight synthesis, falling back to deterministic:', err);
+  } catch (err: any) {
+    clearTimeout(timeoutId);
+    if (err?.name === 'AbortError') {
+      console.warn(`External AI insight synthesis timed out after ${timeoutMs}ms, falling back to deterministic.`);
+    } else {
+      console.warn('External AI insight synthesis failed, falling back to deterministic.');
+    }
     return generateDeterministicAIInsights(inputPayload);
   }
 }
