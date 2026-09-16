@@ -1,0 +1,2213 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generatedAt": "2026-09-16T20:01:31.714Z",
+    "title": "PsycheAI Deterministic Scoring & Aggregation Engine Specifications",
+    "scoringEngine": "PRE_CALIBRATION_MEAN_V1",
+    "rules": [
+      "All calculations are deterministic arithmetic functions. AI NEVER calculates scores.",
+      "Response scale is 1 to 5 (1 = Strongly Disagree, 5 = Strongly Agree).",
+      "Reverse-keyed items are transformed via: ReversedScore = 6 - RawScore.",
+      "Facet Score = Arithmetic Mean of the 5 administered item scores for that facet.",
+      "Scale bounds are strictly [1.00, 5.00].",
+      "NO fabricated percentile rankings, NO unverified clinical cutoffs, NO fake population norms.",
+      "Standard disclaimer is mandatory: 'Ön Kalibrasyon Ölçümü — Norm çalışması devam etmektedir.'"
+    ]
+  },
+  "facetsScoring": [
+    {
+      "facetId": "sincerity",
+      "domainId": "core_personality",
+      "constructId": "hexaco_honesty_humility",
+      "nameTr": "İçtenlik",
+      "nameEn": "Sincerity",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_hh_sinc_01",
+        "psi_hh_sinc_02",
+        "psi_hh_sinc_04",
+        "psi_hh_sinc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_hh_sinc_03"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "fairness",
+      "domainId": "core_personality",
+      "constructId": "hexaco_honesty_humility",
+      "nameTr": "Adillik",
+      "nameEn": "Fairness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_hh_fair_01",
+        "psi_hh_fair_02",
+        "psi_hh_fair_04",
+        "psi_hh_fair_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_hh_fair_03"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "greed_avoidance",
+      "domainId": "core_personality",
+      "constructId": "hexaco_honesty_humility",
+      "nameTr": "Açgözlülükten Kaçınma",
+      "nameEn": "Greed Avoidance",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_hh_greed_01",
+        "psi_hh_greed_03",
+        "psi_hh_greed_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_hh_greed_02",
+        "psi_hh_greed_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "modesty",
+      "domainId": "core_personality",
+      "constructId": "hexaco_honesty_humility",
+      "nameTr": "Alçakgönüllülük",
+      "nameEn": "Modesty",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_hh_mod_01",
+        "psi_hh_mod_03",
+        "psi_hh_mod_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_hh_mod_02",
+        "psi_hh_mod_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "fearfulness",
+      "domainId": "core_personality",
+      "constructId": "hexaco_emotionality",
+      "nameTr": "Korku / Tedbirlilik",
+      "nameEn": "Fearfulness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_em_fear_01",
+        "psi_em_fear_03",
+        "psi_em_fear_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_em_fear_02",
+        "psi_em_fear_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "anxiety",
+      "domainId": "core_personality",
+      "constructId": "hexaco_emotionality",
+      "nameTr": "Kaygıya Yatkınlık",
+      "nameEn": "Anxiety",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_em_anx_01",
+        "psi_em_anx_03",
+        "psi_em_anx_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_em_anx_02",
+        "psi_em_anx_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "dependence",
+      "domainId": "core_personality",
+      "constructId": "hexaco_emotionality",
+      "nameTr": "Bağlılık ve Destek Arayışı",
+      "nameEn": "Dependence",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_em_dep_01",
+        "psi_em_dep_03",
+        "psi_em_dep_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_em_dep_02",
+        "psi_em_dep_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "sentimentality",
+      "domainId": "core_personality",
+      "constructId": "hexaco_emotionality",
+      "nameTr": "Duygusallık ve İçsel Duyarlık",
+      "nameEn": "Sentimentality",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_em_sent_01",
+        "psi_em_sent_02",
+        "psi_em_sent_04",
+        "psi_em_sent_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_em_sent_03"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "social_self_esteem",
+      "domainId": "core_personality",
+      "constructId": "hexaco_extraversion",
+      "nameTr": "Sosyal Özsaygı",
+      "nameEn": "Social Self-Esteem",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ex_sse_01",
+        "psi_ex_sse_03",
+        "psi_ex_sse_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ex_sse_02",
+        "psi_ex_sse_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "social_boldness",
+      "domainId": "core_personality",
+      "constructId": "hexaco_extraversion",
+      "nameTr": "Sosyal Cesaret",
+      "nameEn": "Social Boldness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ex_sbd_01",
+        "psi_ex_sbd_03",
+        "psi_ex_sbd_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ex_sbd_02",
+        "psi_ex_sbd_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "sociability",
+      "domainId": "core_personality",
+      "constructId": "hexaco_extraversion",
+      "nameTr": "Sosyallik",
+      "nameEn": "Sociability",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ex_soc_01",
+        "psi_ex_soc_03",
+        "psi_ex_soc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ex_soc_02",
+        "psi_ex_soc_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "liveliness",
+      "domainId": "core_personality",
+      "constructId": "hexaco_extraversion",
+      "nameTr": "Canlılık ve İyimserlik",
+      "nameEn": "Liveliness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ex_liv_01",
+        "psi_ex_liv_03",
+        "psi_ex_liv_04",
+        "psi_ex_liv_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ex_liv_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "forgivingness",
+      "domainId": "core_personality",
+      "constructId": "hexaco_agreeableness",
+      "nameTr": "Affedicilik",
+      "nameEn": "Forgivingness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ag_forg_01",
+        "psi_ag_forg_03",
+        "psi_ag_forg_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ag_forg_02",
+        "psi_ag_forg_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "gentleness",
+      "domainId": "core_personality",
+      "constructId": "hexaco_agreeableness",
+      "nameTr": "Yumuşak Başlılık ve Nezaket",
+      "nameEn": "Gentleness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ag_gent_01",
+        "psi_ag_gent_03",
+        "psi_ag_gent_04",
+        "psi_ag_gent_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ag_gent_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "flexibility",
+      "domainId": "core_personality",
+      "constructId": "hexaco_agreeableness",
+      "nameTr": "Esneklik ve Uzlaşmacılık",
+      "nameEn": "Flexibility",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ag_flex_01",
+        "psi_ag_flex_03",
+        "psi_ag_flex_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ag_flex_02",
+        "psi_ag_flex_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "patience",
+      "domainId": "core_personality",
+      "constructId": "hexaco_agreeableness",
+      "nameTr": "Sabır ve Sakinlik",
+      "nameEn": "Patience",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ag_pat_01",
+        "psi_ag_pat_03",
+        "psi_ag_pat_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ag_pat_02",
+        "psi_ag_pat_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "organization",
+      "domainId": "core_personality",
+      "constructId": "hexaco_conscientiousness",
+      "nameTr": "Düzenlilik ve Planlılık",
+      "nameEn": "Organization",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_co_org_01",
+        "psi_co_org_03",
+        "psi_co_org_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_co_org_02",
+        "psi_co_org_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "diligence",
+      "domainId": "core_personality",
+      "constructId": "hexaco_conscientiousness",
+      "nameTr": "Çalışkanlık ve Sebat",
+      "nameEn": "Diligence",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_co_dil_01",
+        "psi_co_dil_03",
+        "psi_co_dil_04",
+        "psi_co_dil_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_co_dil_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "perfectionism",
+      "domainId": "core_personality",
+      "constructId": "hexaco_conscientiousness",
+      "nameTr": "Mükemmeliyetçilik ve Titizlik",
+      "nameEn": "Perfectionism",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_co_perf_01",
+        "psi_co_perf_03",
+        "psi_co_perf_04",
+        "psi_co_perf_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_co_perf_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "prudence",
+      "domainId": "core_personality",
+      "constructId": "hexaco_conscientiousness",
+      "nameTr": "İhtiyatlılık ve Tedbirlilik",
+      "nameEn": "Prudence",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_co_prud_01",
+        "psi_co_prud_03",
+        "psi_co_prud_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_co_prud_02",
+        "psi_co_prud_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "aesthetic_appreciation",
+      "domainId": "core_personality",
+      "constructId": "hexaco_openness",
+      "nameTr": "Estetik Takdir ve Sanat Duyarlılığı",
+      "nameEn": "Aesthetic Appreciation",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_op_aes_01",
+        "psi_op_aes_03",
+        "psi_op_aes_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_op_aes_02",
+        "psi_op_aes_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "inquisitiveness",
+      "domainId": "core_personality",
+      "constructId": "hexaco_openness",
+      "nameTr": "Zihinsel Merak ve Araştırmacılık",
+      "nameEn": "Inquisitiveness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_op_inq_01",
+        "psi_op_inq_03",
+        "psi_op_inq_04",
+        "psi_op_inq_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_op_inq_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "creativity",
+      "domainId": "core_personality",
+      "constructId": "hexaco_openness",
+      "nameTr": "Yaratıcılık ve Özgün Fikir Üretimi",
+      "nameEn": "Creativity",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_op_cre_01",
+        "psi_op_cre_03",
+        "psi_op_cre_04",
+        "psi_op_cre_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_op_cre_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "unconventionality",
+      "domainId": "core_personality",
+      "constructId": "hexaco_openness",
+      "nameTr": "Sıradışılık ve Yeniliğe Açıklık",
+      "nameEn": "Unconventionality",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_op_unc_01",
+        "psi_op_unc_03",
+        "psi_op_unc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_op_unc_02",
+        "psi_op_unc_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "core_self_esteem",
+      "domainId": "self_system",
+      "constructId": "core_self_esteem",
+      "nameTr": "Temel Benlik Saygısı",
+      "nameEn": "Core Self-Esteem",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_rse_01",
+        "psi_ss_rse_03",
+        "psi_ss_rse_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_rse_02",
+        "psi_ss_rse_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "contingent_self_worth",
+      "domainId": "self_system",
+      "constructId": "core_self_esteem",
+      "nameTr": "Koşullu Öz-Değerlilik",
+      "nameEn": "Contingent Self-Worth",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_csw_01",
+        "psi_ss_csw_03",
+        "psi_ss_csw_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_csw_02",
+        "psi_ss_csw_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "self_compassion",
+      "domainId": "self_system",
+      "constructId": "self_compassion",
+      "nameTr": "Öz-Şefkat ve Kendine Anlayış",
+      "nameEn": "Self-Compassion",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_scp_01",
+        "psi_ss_scp_03",
+        "psi_ss_scp_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_scp_02",
+        "psi_ss_scp_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "generalized_self_efficacy",
+      "domainId": "self_system",
+      "constructId": "generalized_self_efficacy",
+      "nameTr": "Genel Öz-Yeterlik",
+      "nameEn": "Generalized Self-Efficacy",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_gse_01",
+        "psi_ss_gse_03",
+        "psi_ss_gse_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_gse_02",
+        "psi_ss_gse_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "locus_of_control_internal",
+      "domainId": "self_system",
+      "constructId": "locus_of_control",
+      "nameTr": "İçsel Denetim Odağı",
+      "nameEn": "Internal Locus of Control",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_loc_in_01",
+        "psi_ss_loc_in_03",
+        "psi_ss_loc_in_04",
+        "psi_ss_loc_in_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_loc_in_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "locus_of_control_external",
+      "domainId": "self_system",
+      "constructId": "locus_of_control",
+      "nameTr": "Dışsal Denetim Odağı",
+      "nameEn": "External Locus of Control",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_loc_ex_01",
+        "psi_ss_loc_ex_03",
+        "psi_ss_loc_ex_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_loc_ex_02",
+        "psi_ss_loc_ex_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "self_concept_clarity",
+      "domainId": "self_system",
+      "constructId": "self_concept_clarity",
+      "nameTr": "Benlik Belirginliği ve Tutarlılığı",
+      "nameEn": "Self-Concept Clarity",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_scc_01",
+        "psi_ss_scc_03",
+        "psi_ss_scc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_scc_02",
+        "psi_ss_scc_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "authenticity",
+      "domainId": "self_system",
+      "constructId": "authenticity",
+      "nameTr": "Otantiklik ve Özgün Yaşantı",
+      "nameEn": "Authenticity",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_ss_aut_01",
+        "psi_ss_aut_03",
+        "psi_ss_aut_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_ss_aut_02",
+        "psi_ss_aut_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "cognitive_reappraisal",
+      "domainId": "emotion_regulation",
+      "constructId": "cognitive_reappraisal",
+      "nameTr": "Bilişsel Yeniden Değerlendirme",
+      "nameEn": "Cognitive Reappraisal",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_reap_01",
+        "psi_er_reap_02",
+        "psi_er_reap_03",
+        "psi_er_reap_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_reap_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "expressive_suppression",
+      "domainId": "emotion_regulation",
+      "constructId": "expressive_suppression",
+      "nameTr": "Duygusal Baskılama",
+      "nameEn": "Expressive Suppression",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_sup_01",
+        "psi_er_sup_03",
+        "psi_er_sup_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_sup_02",
+        "psi_er_sup_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "positive_affect_trait",
+      "domainId": "emotion_regulation",
+      "constructId": "affective_tone",
+      "nameTr": "Pozitif Duygulanım Eğilimi",
+      "nameEn": "Trait Positive Affect",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_pa_01",
+        "psi_er_pa_03",
+        "psi_er_pa_04",
+        "psi_er_pa_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_pa_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "negative_affect_trait",
+      "domainId": "emotion_regulation",
+      "constructId": "affective_tone",
+      "nameTr": "Negatif Duygulanım Eğilimi",
+      "nameEn": "Trait Negative Affect",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_na_01",
+        "psi_er_na_03",
+        "psi_er_na_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_na_02",
+        "psi_er_na_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "affect_intensity",
+      "domainId": "emotion_regulation",
+      "constructId": "affective_tone",
+      "nameTr": "Duygu Yoğunluğu",
+      "nameEn": "Affect Intensity",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_int_01",
+        "psi_er_int_03",
+        "psi_er_int_04",
+        "psi_er_int_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_int_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "distress_tolerance",
+      "domainId": "emotion_regulation",
+      "constructId": "distress_tolerance",
+      "nameTr": "Sıkıntı Toleransı",
+      "nameEn": "Distress Tolerance",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_dt_01",
+        "psi_er_dt_03",
+        "psi_er_dt_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_dt_02",
+        "psi_er_dt_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "experiential_avoidance",
+      "domainId": "emotion_regulation",
+      "constructId": "distress_tolerance",
+      "nameTr": "Yaşantısal Kaçınma",
+      "nameEn": "Experiential Avoidance",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_ea_01",
+        "psi_er_ea_03",
+        "psi_er_ea_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_ea_02",
+        "psi_er_ea_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "shame_proneness",
+      "domainId": "emotion_regulation",
+      "constructId": "self_conscious_emotions",
+      "nameTr": "Utanç Yatkınlığı",
+      "nameEn": "Shame Proneness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_shm_01",
+        "psi_er_shm_03",
+        "psi_er_shm_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_shm_02",
+        "psi_er_shm_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "guilt_proneness",
+      "domainId": "emotion_regulation",
+      "constructId": "self_conscious_emotions",
+      "nameTr": "Suçluluk Yatkınlığı ve Telafi Bilinci",
+      "nameEn": "Guilt Proneness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_er_glt_01",
+        "psi_er_glt_03",
+        "psi_er_glt_04",
+        "psi_er_glt_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_er_glt_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "need_for_cognition",
+      "domainId": "cognition_decision",
+      "constructId": "epistemic_drive",
+      "nameTr": "Biliş İhtiyacı",
+      "nameEn": "Need for Cognition",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_nfc_01",
+        "psi_cd_nfc_03",
+        "psi_cd_nfc_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_nfc_02",
+        "psi_cd_nfc_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "need_for_cognitive_closure",
+      "domainId": "cognition_decision",
+      "constructId": "epistemic_drive",
+      "nameTr": "Bilişsel Kapanma İhtiyacı",
+      "nameEn": "Need for Cognitive Closure",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_nfcc_01",
+        "psi_cd_nfcc_03",
+        "psi_cd_nfcc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_nfcc_02",
+        "psi_cd_nfcc_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "rational_analytical_thinking",
+      "domainId": "cognition_decision",
+      "constructId": "thinking_styles",
+      "nameTr": "Rasyonel-Analitik Düşünme",
+      "nameEn": "Rational-Analytical Thinking",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_rat_01",
+        "psi_cd_rat_02",
+        "psi_cd_rat_04",
+        "psi_cd_rat_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_rat_03"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "intuitive_experiential_thinking",
+      "domainId": "cognition_decision",
+      "constructId": "thinking_styles",
+      "nameTr": "Sezgisel-Yaşantısal Düşünme",
+      "nameEn": "Intuitive-Experiential Thinking",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_int_01",
+        "psi_cd_int_02",
+        "psi_cd_int_04",
+        "psi_cd_int_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_int_03"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "cognitive_flexibility",
+      "domainId": "cognition_decision",
+      "constructId": "cognitive_adaptability",
+      "nameTr": "Bilişsel Esneklik",
+      "nameEn": "Cognitive Flexibility",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_cfx_01",
+        "psi_cd_cfx_03",
+        "psi_cd_cfx_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_cfx_02",
+        "psi_cd_cfx_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "intolerance_of_uncertainty",
+      "domainId": "cognition_decision",
+      "constructId": "cognitive_adaptability",
+      "nameTr": "Belirsizliğe Tahammülsüzlük",
+      "nameEn": "Intolerance of Uncertainty",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_iu_01",
+        "psi_cd_iu_03",
+        "psi_cd_iu_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_iu_02",
+        "psi_cd_iu_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "rumination_brooding",
+      "domainId": "cognition_decision",
+      "constructId": "cognitive_adaptability",
+      "nameTr": "Ruminasyon ve Kara Kara Düşünme",
+      "nameEn": "Rumination (Brooding)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_rum_01",
+        "psi_cd_rum_03",
+        "psi_cd_rum_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_rum_02",
+        "psi_cd_rum_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "decision_style_maximizing",
+      "domainId": "cognition_decision",
+      "constructId": "decision_orientation",
+      "nameTr": "Maksimalist Karar Tarzı (En İyiyi Arama)",
+      "nameEn": "Decision Style (Maximizing)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_max_01",
+        "psi_cd_max_03",
+        "psi_cd_max_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_max_02",
+        "psi_cd_max_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "procrastination_tendency",
+      "domainId": "cognition_decision",
+      "constructId": "decision_orientation",
+      "nameTr": "Erteleme Eğilimi",
+      "nameEn": "Procrastination Tendency",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cd_prc_01",
+        "psi_cd_prc_03",
+        "psi_cd_prc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cd_prc_02",
+        "psi_cd_prc_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "uppsp_negative_urgency",
+      "domainId": "self_regulation",
+      "constructId": "impulsivity_uppsp",
+      "nameTr": "Negatif Dürtüsellik (Olumsuz Aciliyet)",
+      "nameEn": "Negative Urgency (UPPS-P)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_nu_01",
+        "psi_sr_nu_03",
+        "psi_sr_nu_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_nu_02",
+        "psi_sr_nu_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "uppsp_positive_urgency",
+      "domainId": "self_regulation",
+      "constructId": "impulsivity_uppsp",
+      "nameTr": "Pozitif Dürtüsellik (Olumlu Aciliyet)",
+      "nameEn": "Positive Urgency (UPPS-P)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_pu_01",
+        "psi_sr_pu_03",
+        "psi_sr_pu_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_pu_02",
+        "psi_sr_pu_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "uppsp_lack_of_premeditation",
+      "domainId": "self_regulation",
+      "constructId": "impulsivity_uppsp",
+      "nameTr": "Önceden Düşünmeme (Fevrilik)",
+      "nameEn": "Lack of Premeditation (UPPS-P)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_lop_01",
+        "psi_sr_lop_03",
+        "psi_sr_lop_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_lop_02",
+        "psi_sr_lop_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "uppsp_lack_of_perseverance",
+      "domainId": "self_regulation",
+      "constructId": "impulsivity_uppsp",
+      "nameTr": "Sebat Eksikliği (Çabuk Bıkma)",
+      "nameEn": "Lack of Perseverance (UPPS-P)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_lopv_01",
+        "psi_sr_lopv_03",
+        "psi_sr_lopv_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_lopv_02",
+        "psi_sr_lopv_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "uppsp_sensation_seeking",
+      "domainId": "self_regulation",
+      "constructId": "impulsivity_uppsp",
+      "nameTr": "Heyecan Arayışı",
+      "nameEn": "Sensation Seeking (UPPS-P)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_ss_01",
+        "psi_sr_ss_03",
+        "psi_sr_ss_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_ss_02",
+        "psi_sr_ss_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "general_self_control",
+      "domainId": "self_regulation",
+      "constructId": "volitional_stamina",
+      "nameTr": "Genel Öz-Kontrol",
+      "nameEn": "General Self-Control",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_sc_01",
+        "psi_sr_sc_03",
+        "psi_sr_sc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_sc_02",
+        "psi_sr_sc_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "delay_discounting_preference",
+      "domainId": "self_regulation",
+      "constructId": "volitional_stamina",
+      "nameTr": "Gecikmeli Ödül Tercihi (Geleceğe Yatırım)",
+      "nameEn": "Delay Discounting Preference",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_dd_01",
+        "psi_sr_dd_03",
+        "psi_sr_dd_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_dd_02",
+        "psi_sr_dd_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "long_term_grit",
+      "domainId": "self_regulation",
+      "constructId": "volitional_stamina",
+      "nameTr": "Uzun Vadeli Sebat ve Azim (Grit)",
+      "nameEn": "Long-Term Grit",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_grt_01",
+        "psi_sr_grt_03",
+        "psi_sr_grt_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_grt_02",
+        "psi_sr_grt_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "autonomy_need_satisfaction",
+      "domainId": "motivation_values",
+      "constructId": "basic_psychological_needs",
+      "nameTr": "Özerklik İhtiyacı Doyumu",
+      "nameEn": "Autonomy Need Satisfaction",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_aut_01",
+        "psi_mv_aut_03",
+        "psi_mv_aut_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_aut_02",
+        "psi_mv_aut_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "competence_need_satisfaction",
+      "domainId": "motivation_values",
+      "constructId": "basic_psychological_needs",
+      "nameTr": "Yetkinlik İhtiyacı Doyumu",
+      "nameEn": "Competence Need Satisfaction",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_cmp_01",
+        "psi_mv_cmp_03",
+        "psi_mv_cmp_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_cmp_02",
+        "psi_mv_cmp_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "relatedness_need_satisfaction",
+      "domainId": "motivation_values",
+      "constructId": "basic_psychological_needs",
+      "nameTr": "İlişkililik İhtiyacı Doyumu",
+      "nameEn": "Relatedness Need Satisfaction",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_rel_01",
+        "psi_mv_rel_03",
+        "psi_mv_rel_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_rel_02",
+        "psi_mv_rel_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "schwartz_openness_to_change",
+      "domainId": "motivation_values",
+      "constructId": "universal_values",
+      "nameTr": "Değişime Açıklık Değerleri",
+      "nameEn": "Openness to Change Values",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_opc_01",
+        "psi_mv_opc_03",
+        "psi_mv_opc_04",
+        "psi_mv_opc_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_opc_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "schwartz_self_transcendence",
+      "domainId": "motivation_values",
+      "constructId": "universal_values",
+      "nameTr": "Öz-Aşım Değerleri (Evrenselcilik ve İyilikseverlik)",
+      "nameEn": "Self-Transcendence Values",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_st_01",
+        "psi_mv_st_03",
+        "psi_mv_st_04",
+        "psi_mv_st_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_st_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "schwartz_conservation",
+      "domainId": "motivation_values",
+      "constructId": "universal_values",
+      "nameTr": "Muhafazakarlık ve Koruma Değerleri (Güvenlik, Uyum, Gelenek)",
+      "nameEn": "Conservation Values",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_con_01",
+        "psi_mv_con_03",
+        "psi_mv_con_04",
+        "psi_mv_con_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_con_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "schwartz_self_enhancement",
+      "domainId": "motivation_values",
+      "constructId": "universal_values",
+      "nameTr": "Öz-Geliştirme Değerleri (Güç ve Başarı)",
+      "nameEn": "Self-Enhancement Values",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_se_01",
+        "psi_mv_se_03",
+        "psi_mv_se_04",
+        "psi_mv_se_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_se_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "presence_of_meaning",
+      "domainId": "motivation_values",
+      "constructId": "existential_meaning",
+      "nameTr": "Anlam Varlığı",
+      "nameEn": "Presence of Meaning",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_pom_01",
+        "psi_mv_pom_03",
+        "psi_mv_pom_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_pom_02",
+        "psi_mv_pom_04"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "search_for_meaning",
+      "domainId": "motivation_values",
+      "constructId": "existential_meaning",
+      "nameTr": "Anlam Arayışı",
+      "nameEn": "Search for Meaning",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_mv_sfm_01",
+        "psi_mv_sfm_03",
+        "psi_mv_sfm_04",
+        "psi_mv_sfm_05"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_mv_sfm_02"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "attachment_anxiety",
+      "domainId": "social_relational",
+      "constructId": "adult_attachment",
+      "nameTr": "Bağlanma Kaygısı",
+      "nameEn": "Attachment Anxiety",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_anx_01",
+        "psi_sr_anx_03",
+        "psi_sr_anx_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_anx_02",
+        "psi_sr_anx_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "attachment_avoidance",
+      "domainId": "social_relational",
+      "constructId": "adult_attachment",
+      "nameTr": "Bağlanma Kaçınması",
+      "nameEn": "Attachment Avoidance",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_avd_01",
+        "psi_sr_avd_03",
+        "psi_sr_avd_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_avd_02",
+        "psi_sr_avd_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "cognitive_perspective_taking",
+      "domainId": "social_relational",
+      "constructId": "interpersonal_competence",
+      "nameTr": "Bilişsel Perspektif Alma",
+      "nameEn": "Cognitive Perspective Taking",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_cpt_01",
+        "psi_sr_cpt_03",
+        "psi_sr_cpt_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_cpt_02",
+        "psi_sr_cpt_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "empathic_concern",
+      "domainId": "social_relational",
+      "constructId": "interpersonal_competence",
+      "nameTr": "Empatik İlgi ve Şefkat",
+      "nameEn": "Empathic Concern",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_emp_01",
+        "psi_sr_emp_03",
+        "psi_sr_emp_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_emp_02",
+        "psi_sr_emp_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "assertiveness",
+      "domainId": "social_relational",
+      "constructId": "interpersonal_competence",
+      "nameTr": "Girişkenlik ve Kendini İfade Etme",
+      "nameEn": "Assertiveness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_asr_01",
+        "psi_sr_asr_03",
+        "psi_sr_asr_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_asr_02",
+        "psi_sr_asr_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "social_connectedness",
+      "domainId": "social_relational",
+      "constructId": "interpersonal_competence",
+      "nameTr": "Sosyal Bağlılık ve Aidiyet",
+      "nameEn": "Social Connectedness",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_sct_01",
+        "psi_sr_sct_03",
+        "psi_sr_sct_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_sct_02",
+        "psi_sr_sct_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "rejection_sensitivity_nonclinical",
+      "domainId": "social_relational",
+      "constructId": "interpersonal_competence",
+      "nameTr": "Reddedilme Hassasiyeti (Subklinik)",
+      "nameEn": "Rejection Sensitivity (Nonclinical)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_rsn_01",
+        "psi_sr_rsn_03",
+        "psi_sr_rsn_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_rsn_02",
+        "psi_sr_rsn_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "cooperation_orientation",
+      "domainId": "social_relational",
+      "constructId": "interpersonal_competence",
+      "nameTr": "İş Birliği ve Ortak Fayda Yönelimi",
+      "nameEn": "Cooperation Orientation",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_coo_01",
+        "psi_sr_coo_03",
+        "psi_sr_coo_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_coo_02",
+        "psi_sr_coo_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "conflict_avoidance",
+      "domainId": "social_relational",
+      "constructId": "interpersonal_competence",
+      "nameTr": "Çatışma Kaçınması ve Uyum Sağlama",
+      "nameEn": "Conflict Avoidance",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_sr_cav_01",
+        "psi_sr_cav_03",
+        "psi_sr_cav_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_sr_cav_02",
+        "psi_sr_cav_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "flourishing_scale",
+      "domainId": "wellbeing_vitality",
+      "constructId": "subjective_wellbeing",
+      "nameTr": "Psikolojik Gelişme ve Çiçeklenme (Flourishing)",
+      "nameEn": "Psychological Flourishing",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_wv_flr_01",
+        "psi_wv_flr_03",
+        "psi_wv_flr_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_wv_flr_02",
+        "psi_wv_flr_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "subjective_vitality",
+      "domainId": "wellbeing_vitality",
+      "constructId": "subjective_wellbeing",
+      "nameTr": "Öznel Canlılık ve Enerji",
+      "nameEn": "Subjective Vitality",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_wv_vit_01",
+        "psi_wv_vit_03",
+        "psi_wv_vit_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_wv_vit_02",
+        "psi_wv_vit_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "satisfaction_with_life",
+      "domainId": "wellbeing_vitality",
+      "constructId": "subjective_wellbeing",
+      "nameTr": "Yaşam Doyumu",
+      "nameEn": "Satisfaction with Life",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_wv_swl_01",
+        "psi_wv_swl_03",
+        "psi_wv_swl_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_wv_swl_02",
+        "psi_wv_swl_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "ego_resilience",
+      "domainId": "coping_resilience",
+      "constructId": "trait_resilience",
+      "nameTr": "Ego Dayanıklılığı ve Esnek Uyum",
+      "nameEn": "Ego-Resilience",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cr_egr_01",
+        "psi_cr_egr_03",
+        "psi_cr_egr_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cr_egr_02",
+        "psi_cr_egr_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "stress_recovery",
+      "domainId": "coping_resilience",
+      "constructId": "trait_resilience",
+      "nameTr": "Stresten Toparlanma Hızı (Bounce-Back)",
+      "nameEn": "Stress Recovery",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cr_rec_01",
+        "psi_cr_rec_03",
+        "psi_cr_rec_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cr_rec_02",
+        "psi_cr_rec_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "problem_focused_coping",
+      "domainId": "coping_resilience",
+      "constructId": "coping_strategies",
+      "nameTr": "Problem Odaklı Başa Çıkma",
+      "nameEn": "Problem-Focused Coping",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cr_pfc_01",
+        "psi_cr_pfc_03",
+        "psi_cr_pfc_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cr_pfc_02",
+        "psi_cr_pfc_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "emotion_focused_coping",
+      "domainId": "coping_resilience",
+      "constructId": "coping_strategies",
+      "nameTr": "Duygu Odaklı Başa Çıkma ve Anlamlandırma",
+      "nameEn": "Emotion-Focused Coping & Meaning-Making",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cr_efc_01",
+        "psi_cr_efc_03",
+        "psi_cr_efc_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cr_efc_02",
+        "psi_cr_efc_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "joyous_exploration_curiosity",
+      "domainId": "creativity_curiosity",
+      "constructId": "epistemic_curiosity",
+      "nameTr": "Neşeli Keşif Merakı (Joyous Exploration)",
+      "nameEn": "Joyous Exploration Curiosity",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cc_jex_01",
+        "psi_cc_jex_03",
+        "psi_cc_jex_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cc_jex_02",
+        "psi_cc_jex_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "deprivation_sensitivity_curiosity",
+      "domainId": "creativity_curiosity",
+      "constructId": "epistemic_curiosity",
+      "nameTr": "Yoksunluk Duyarlılığı Merakı (Deprivation Sensitivity)",
+      "nameEn": "Deprivation Sensitivity Curiosity",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cc_dep_01",
+        "psi_cc_dep_03",
+        "psi_cc_dep_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cc_dep_02",
+        "psi_cc_dep_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "creative_self_efficacy",
+      "domainId": "creativity_curiosity",
+      "constructId": "creative_growth_mindset",
+      "nameTr": "Yaratıcı Öz-Yeterlik",
+      "nameEn": "Creative Self-Efficacy",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cc_cse_01",
+        "psi_cc_cse_03",
+        "psi_cc_cse_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cc_cse_02",
+        "psi_cc_cse_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "growth_mindset_intelligence",
+      "domainId": "creativity_curiosity",
+      "constructId": "creative_growth_mindset",
+      "nameTr": "Gelişim Zihniyeti (Growth Mindset)",
+      "nameEn": "Growth Mindset Intelligence",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_cc_gmw_01",
+        "psi_cc_gmw_03",
+        "psi_cc_gmw_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_cc_gmw_02",
+        "psi_cc_gmw_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "machiavellianism",
+      "domainId": "optional_dark_tetrad",
+      "constructId": "dark_tetrad_subclinical",
+      "nameTr": "Makyavelizm (Stratejik Manipülasyon)",
+      "nameEn": "Machiavellianism",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_dt_mac_01",
+        "psi_dt_mac_03",
+        "psi_dt_mac_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_dt_mac_02",
+        "psi_dt_mac_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "grandiose_narcissism",
+      "domainId": "optional_dark_tetrad",
+      "constructId": "dark_tetrad_subclinical",
+      "nameTr": "Büyüklenmeci Narsisizm (Subklinik)",
+      "nameEn": "Grandiose Narcissism",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_dt_nar_01",
+        "psi_dt_nar_03",
+        "psi_dt_nar_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_dt_nar_02",
+        "psi_dt_nar_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "psychopathy",
+      "domainId": "optional_dark_tetrad",
+      "constructId": "dark_tetrad_subclinical",
+      "nameTr": "Subklinik Psikopati (Duygusal Soğukluk ve Dürtüsellik)",
+      "nameEn": "Subclinical Psychopathy",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_dt_psy_01",
+        "psi_dt_psy_03",
+        "psi_dt_psy_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_dt_psy_02",
+        "psi_dt_psy_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    },
+    {
+      "facetId": "everyday_sadism_subclinical",
+      "domainId": "optional_dark_tetrad",
+      "constructId": "dark_tetrad_subclinical",
+      "nameTr": "Gündelik Sadizm (Subklinik)",
+      "nameEn": "Everyday Sadism (Subclinical)",
+      "itemCount": 5,
+      "positiveItemIds": [
+        "psi_dt_sad_01",
+        "psi_dt_sad_03",
+        "psi_dt_sad_04"
+      ],
+      "reverseKeyedItemIds": [
+        "psi_dt_sad_02",
+        "psi_dt_sad_05"
+      ],
+      "formulaTr": "Faktör Skoru = (Σ Pozitif Maddeler + Σ (6 - Ters Maddeler)) / 5",
+      "formulaEn": "Facet Score = (Sum(Positive Items) + Sum(6 - Reverse Items)) / 5",
+      "scoreRange": {
+        "min": 1,
+        "max": 5
+      },
+      "disclaimerTr": "Ön Kalibrasyon Ölçümü: Bu skor bireyin göreli eğilimini temsil eden araştırma düzeyinde aritmetik ortalamadır. Klinik teşhis amacı taşımaz."
+    }
+  ],
+  "responseQualityScoring": {
+    "attentionCheckRule": "Herhangi bir dikkat kontrol maddesinde beklenen yanıttan sapma durumunda DIKKAT_UYARISI bayrağı atanır.",
+    "pairedConsistencyRule": "Zıt anlamlı çiftlerde mutlak puan farkı 1'den küçük olduğunda TUTARSIZLIK bayrağı atanır.",
+    "infrequencyRule": "Olasılıksız maddelere 2'den yüksek yanıt verildiğinde OLASILIKSIZ_YANIT bayrağı atanır.",
+    "validityThresholds": {
+      "validProtocol": "0 bayrak",
+      "cautionProtocol": "1 bayrak",
+      "invalidProtocol": ">= 2 bayrak"
+    }
+  }
+}

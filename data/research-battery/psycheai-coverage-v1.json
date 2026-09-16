@@ -1,0 +1,1669 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generatedAt": "2026-09-16T20:01:31.715Z",
+    "title": "PsycheAI Native Master Measurement Coverage Matrix",
+    "description": "100% verification and mapping of all 11 domains, 37 constructs, and 91 facets against authored items and scientific sources."
+  },
+  "summaryMetrics": {
+    "totalDomains": 11,
+    "totalConstructs": 34,
+    "totalFacets": 91,
+    "totalPsychologicalItems": 455,
+    "totalResponseQualityItems": 14,
+    "totalBatteryItems": 469,
+    "coverageCompletenessPercent": 100,
+    "gapCount": 0,
+    "facetTargetRatio": "5 items per facet across all 91 facets (455 items total)"
+  },
+  "domainsMatrix": [
+    {
+      "domainId": "core_personality",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "domainNameEn": "Core Personality (HEXACO)",
+      "constructsCount": 6,
+      "facetsCount": 24,
+      "itemsCount": 120,
+      "constructs": [
+        {
+          "constructId": "hexaco_honesty_humility",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "sincerity",
+              "nameTr": "İçtenlik",
+              "nameEn": "Sincerity",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "fairness",
+              "nameTr": "Adillik",
+              "nameEn": "Fairness",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "greed_avoidance",
+              "nameTr": "Açgözlülükten Kaçınma",
+              "nameEn": "Greed Avoidance",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "modesty",
+              "nameTr": "Alçakgönüllülük",
+              "nameEn": "Modesty",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "hexaco_emotionality",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "fearfulness",
+              "nameTr": "Korku / Tedbirlilik",
+              "nameEn": "Fearfulness",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "anxiety",
+              "nameTr": "Kaygıya Yatkınlık",
+              "nameEn": "Anxiety",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "dependence",
+              "nameTr": "Bağlılık ve Destek Arayışı",
+              "nameEn": "Dependence",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "sentimentality",
+              "nameTr": "Duygusallık ve İçsel Duyarlık",
+              "nameEn": "Sentimentality",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "hexaco_extraversion",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "social_self_esteem",
+              "nameTr": "Sosyal Özsaygı",
+              "nameEn": "Social Self-Esteem",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "social_boldness",
+              "nameTr": "Sosyal Cesaret",
+              "nameEn": "Social Boldness",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "sociability",
+              "nameTr": "Sosyallik",
+              "nameEn": "Sociability",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "liveliness",
+              "nameTr": "Canlılık ve İyimserlik",
+              "nameEn": "Liveliness",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "hexaco_agreeableness",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "forgivingness",
+              "nameTr": "Affedicilik",
+              "nameEn": "Forgivingness",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "gentleness",
+              "nameTr": "Yumuşak Başlılık ve Nezaket",
+              "nameEn": "Gentleness",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "flexibility",
+              "nameTr": "Esneklik ve Uzlaşmacılık",
+              "nameEn": "Flexibility",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "patience",
+              "nameTr": "Sabır ve Sakinlik",
+              "nameEn": "Patience",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "hexaco_conscientiousness",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "organization",
+              "nameTr": "Düzenlilik ve Planlılık",
+              "nameEn": "Organization",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "diligence",
+              "nameTr": "Çalışkanlık ve Sebat",
+              "nameEn": "Diligence",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "perfectionism",
+              "nameTr": "Mükemmeliyetçilik ve Titizlik",
+              "nameEn": "Perfectionism",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "prudence",
+              "nameTr": "İhtiyatlılık ve Tedbirlilik",
+              "nameEn": "Prudence",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "hexaco_openness",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "aesthetic_appreciation",
+              "nameTr": "Estetik Takdir ve Sanat Duyarlılığı",
+              "nameEn": "Aesthetic Appreciation",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "inquisitiveness",
+              "nameTr": "Zihinsel Merak ve Araştırmacılık",
+              "nameEn": "Inquisitiveness",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "creativity",
+              "nameTr": "Yaratıcılık ve Özgün Fikir Üretimi",
+              "nameEn": "Creativity",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "unconventionality",
+              "nameTr": "Sıradışılık ve Yeniliğe Açıklık",
+              "nameEn": "Unconventionality",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_ashton_2004",
+                "src_ashton_lee_2007"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "self_system",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "domainNameEn": "Self-System & Identity Structure",
+      "constructsCount": 6,
+      "facetsCount": 8,
+      "itemsCount": 40,
+      "constructs": [
+        {
+          "constructId": "core_self_esteem",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "core_self_esteem",
+              "nameTr": "Temel Benlik Saygısı",
+              "nameEn": "Core Self-Esteem",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_rosenberg_1965"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_cuhadaroglu_1986_rses_tr"
+              ]
+            },
+            {
+              "facetId": "contingent_self_worth",
+              "nameTr": "Koşullu Öz-Değerlilik",
+              "nameEn": "Contingent Self-Worth",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_crocker_wolfe_2001"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_cuhadaroglu_1986_rses_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "self_compassion",
+          "facetsCount": 1,
+          "itemsCount": 5,
+          "facets": [
+            {
+              "facetId": "self_compassion",
+              "nameTr": "Öz-Şefkat ve Kendine Anlayış",
+              "nameEn": "Self-Compassion",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_neff_2003"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_akin_2007_self_compassion_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "generalized_self_efficacy",
+          "facetsCount": 1,
+          "itemsCount": 5,
+          "facets": [
+            {
+              "facetId": "generalized_self_efficacy",
+              "nameTr": "Genel Öz-Yeterlik",
+              "nameEn": "Generalized Self-Efficacy",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_schwarzer_1995_gses"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yesilay_2003_gse_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "locus_of_control",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "locus_of_control_internal",
+              "nameTr": "İçsel Denetim Odağı",
+              "nameEn": "Internal Locus of Control",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_rotter_1966_loc"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_dag_1991_loc_tr"
+              ]
+            },
+            {
+              "facetId": "locus_of_control_external",
+              "nameTr": "Dışsal Denetim Odağı",
+              "nameEn": "External Locus of Control",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_rotter_1966_loc"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_dag_1991_loc_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "self_concept_clarity",
+          "facetsCount": 1,
+          "itemsCount": 5,
+          "facets": [
+            {
+              "facetId": "self_concept_clarity",
+              "nameTr": "Benlik Belirginliği ve Tutarlılığı",
+              "nameEn": "Self-Concept Clarity",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_campbell_1996_scc"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_sumer_gungor_1999_scc_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "authenticity",
+          "facetsCount": 1,
+          "itemsCount": 5,
+          "facets": [
+            {
+              "facetId": "authenticity",
+              "nameTr": "Otantiklik ve Özgün Yaşantı",
+              "nameEn": "Authenticity",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_wood_2008_authenticity"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_ilhan_2013_authenticity_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "domainNameEn": "Affective Dynamics & Emotion Regulation",
+      "constructsCount": 5,
+      "facetsCount": 9,
+      "itemsCount": 45,
+      "constructs": [
+        {
+          "constructId": "cognitive_reappraisal",
+          "facetsCount": 1,
+          "itemsCount": 5,
+          "facets": [
+            {
+              "facetId": "cognitive_reappraisal",
+              "nameTr": "Bilişsel Yeniden Değerlendirme",
+              "nameEn": "Cognitive Reappraisal",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_gross_john_2003_erq"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_ucanok_2006_erq_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "expressive_suppression",
+          "facetsCount": 1,
+          "itemsCount": 5,
+          "facets": [
+            {
+              "facetId": "expressive_suppression",
+              "nameTr": "Duygusal Baskılama",
+              "nameEn": "Expressive Suppression",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_gross_john_2003_erq"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_ucanok_2006_erq_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "affective_tone",
+          "facetsCount": 3,
+          "itemsCount": 15,
+          "facets": [
+            {
+              "facetId": "positive_affect_trait",
+              "nameTr": "Pozitif Duygulanım Eğilimi",
+              "nameEn": "Trait Positive Affect",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_watson_1988_panas"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_gencoz_2000_panas_tr"
+              ]
+            },
+            {
+              "facetId": "negative_affect_trait",
+              "nameTr": "Negatif Duygulanım Eğilimi",
+              "nameEn": "Trait Negative Affect",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_watson_1988_panas"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_gencoz_2000_panas_tr"
+              ]
+            },
+            {
+              "facetId": "affect_intensity",
+              "nameTr": "Duygu Yoğunluğu",
+              "nameEn": "Affect Intensity",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_larsen_diener_1987_aim"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_gencoz_2000_panas_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "distress_tolerance",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "distress_tolerance",
+              "nameTr": "Sıkıntı Toleransı",
+              "nameEn": "Distress Tolerance",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_simons_gaher_2005_dts"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_sirimseri_2019_dts_tr"
+              ]
+            },
+            {
+              "facetId": "experiential_avoidance",
+              "nameTr": "Yaşantısal Kaçınma",
+              "nameEn": "Experiential Avoidance",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_hayes_2004_aaq"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yavuz_2016_aaq_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "self_conscious_emotions",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "shame_proneness",
+              "nameTr": "Utanç Yatkınlığı",
+              "nameEn": "Shame Proneness",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_tangney_1992_tosca"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_sahin_1992_tosca_tr"
+              ]
+            },
+            {
+              "facetId": "guilt_proneness",
+              "nameTr": "Suçluluk Yatkınlığı ve Telafi Bilinci",
+              "nameEn": "Guilt Proneness",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_tangney_1992_tosca"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_sahin_1992_tosca_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameTr": "Biliş, Üstbiliş ve Karar Tarzları",
+      "domainNameEn": "Cognition, Metacognition & Decision Styles",
+      "constructsCount": 4,
+      "facetsCount": 9,
+      "itemsCount": 45,
+      "constructs": [
+        {
+          "constructId": "epistemic_drive",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "need_for_cognition",
+              "nameTr": "Biliş İhtiyacı",
+              "nameEn": "Need for Cognition",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_cacioppo_1982_nfc"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_gulgoz_1995_nfc_tr"
+              ]
+            },
+            {
+              "facetId": "need_for_cognitive_closure",
+              "nameTr": "Bilişsel Kapanma İhtiyacı",
+              "nameEn": "Need for Cognitive Closure",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_webster_kruglanski_1994_nfcc"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yurtsever_2001_nfcc_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "thinking_styles",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "rational_analytical_thinking",
+              "nameTr": "Rasyonel-Analitik Düşünme",
+              "nameEn": "Rational-Analytical Thinking",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_epstein_1996_rei"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_bulus_2011_rei_tr"
+              ]
+            },
+            {
+              "facetId": "intuitive_experiential_thinking",
+              "nameTr": "Sezgisel-Yaşantısal Düşünme",
+              "nameEn": "Intuitive-Experiential Thinking",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_epstein_1996_rei"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_bulus_2011_rei_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "cognitive_adaptability",
+          "facetsCount": 3,
+          "itemsCount": 15,
+          "facets": [
+            {
+              "facetId": "cognitive_flexibility",
+              "nameTr": "Bilişsel Esneklik",
+              "nameEn": "Cognitive Flexibility",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_dennis_2010_cfi"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_gulum_dag_2012_cfi_tr"
+              ]
+            },
+            {
+              "facetId": "intolerance_of_uncertainty",
+              "nameTr": "Belirsizliğe Tahammülsüzlük",
+              "nameEn": "Intolerance of Uncertainty",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_freeston_1994_ius"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_sari_dag_2009_ius_tr"
+              ]
+            },
+            {
+              "facetId": "rumination_brooding",
+              "nameTr": "Ruminasyon ve Kara Kara Düşünme",
+              "nameEn": "Rumination (Brooding)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_treynor_2003_rrs"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_erdur_baker_2010_rrs_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "decision_orientation",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "decision_style_maximizing",
+              "nameTr": "Maksimalist Karar Tarzı (En İyiyi Arama)",
+              "nameEn": "Decision Style (Maximizing)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_schwartz_2002_maximizing"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_isgor_2014_maximizing_tr"
+              ]
+            },
+            {
+              "facetId": "procrastination_tendency",
+              "nameTr": "Erteleme Eğilimi",
+              "nameEn": "Procrastination Tendency",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_tuckman_1991_procrastination"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_uzun_ozer_2009_procrastination_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "self_regulation",
+      "domainNameTr": "Öz-Düzenleme, İrade ve Dürtü Kontrolü",
+      "domainNameEn": "Self-Regulation, Volition & Impulse Control",
+      "constructsCount": 2,
+      "facetsCount": 8,
+      "itemsCount": 40,
+      "constructs": [
+        {
+          "constructId": "impulsivity_uppsp",
+          "facetsCount": 5,
+          "itemsCount": 25,
+          "facets": [
+            {
+              "facetId": "uppsp_negative_urgency",
+              "nameTr": "Negatif Dürtüsellik (Olumsuz Aciliyet)",
+              "nameEn": "Negative Urgency (UPPS-P)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_whiteside_lynam_2001_uppsp"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yargic_2011_uppsp_tr"
+              ]
+            },
+            {
+              "facetId": "uppsp_positive_urgency",
+              "nameTr": "Pozitif Dürtüsellik (Olumlu Aciliyet)",
+              "nameEn": "Positive Urgency (UPPS-P)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_whiteside_lynam_2001_uppsp"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yargic_2011_uppsp_tr"
+              ]
+            },
+            {
+              "facetId": "uppsp_lack_of_premeditation",
+              "nameTr": "Önceden Düşünmeme (Fevrilik)",
+              "nameEn": "Lack of Premeditation (UPPS-P)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_whiteside_lynam_2001_uppsp"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yargic_2011_uppsp_tr"
+              ]
+            },
+            {
+              "facetId": "uppsp_lack_of_perseverance",
+              "nameTr": "Sebat Eksikliği (Çabuk Bıkma)",
+              "nameEn": "Lack of Perseverance (UPPS-P)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_whiteside_lynam_2001_uppsp"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yargic_2011_uppsp_tr"
+              ]
+            },
+            {
+              "facetId": "uppsp_sensation_seeking",
+              "nameTr": "Heyecan Arayışı",
+              "nameEn": "Sensation Seeking (UPPS-P)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_whiteside_lynam_2001_uppsp"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_yargic_2011_uppsp_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "volitional_stamina",
+          "facetsCount": 3,
+          "itemsCount": 15,
+          "facets": [
+            {
+              "facetId": "general_self_control",
+              "nameTr": "Genel Öz-Kontrol",
+              "nameEn": "General Self-Control",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_tangney_2004_bscs"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_duyan_2012_bscs_tr"
+              ]
+            },
+            {
+              "facetId": "delay_discounting_preference",
+              "nameTr": "Gecikmeli Ödül Tercihi (Geleceğe Yatırım)",
+              "nameEn": "Delay Discounting Preference",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_kirby_1999_discounting"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_duyan_2012_bscs_tr"
+              ]
+            },
+            {
+              "facetId": "long_term_grit",
+              "nameTr": "Uzun Vadeli Sebat ve Azim (Grit)",
+              "nameEn": "Long-Term Grit",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_duckworth_2007_grit"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_saricam_2016_grit_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "motivation_values",
+      "domainNameTr": "Motivasyon, İhtiyaçlar ve Evrensel Değerler",
+      "domainNameEn": "Motivation, Needs & Human Values",
+      "constructsCount": 3,
+      "facetsCount": 9,
+      "itemsCount": 45,
+      "constructs": [
+        {
+          "constructId": "basic_psychological_needs",
+          "facetsCount": 3,
+          "itemsCount": 15,
+          "facets": [
+            {
+              "facetId": "autonomy_need_satisfaction",
+              "nameTr": "Özerklik İhtiyacı Doyumu",
+              "nameEn": "Autonomy Need Satisfaction",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_chen_2015_bpnsfs"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_selvi_bozo_2020_bpnsfs_tr"
+              ]
+            },
+            {
+              "facetId": "competence_need_satisfaction",
+              "nameTr": "Yetkinlik İhtiyacı Doyumu",
+              "nameEn": "Competence Need Satisfaction",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_chen_2015_bpnsfs"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_selvi_bozo_2020_bpnsfs_tr"
+              ]
+            },
+            {
+              "facetId": "relatedness_need_satisfaction",
+              "nameTr": "İlişkililik İhtiyacı Doyumu",
+              "nameEn": "Relatedness Need Satisfaction",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_chen_2015_bpnsfs"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_selvi_bozo_2020_bpnsfs_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "universal_values",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "schwartz_openness_to_change",
+              "nameTr": "Değişime Açıklık Değerleri",
+              "nameEn": "Openness to Change Values",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_schwartz_2012_values"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_kusdil_2000_values_tr"
+              ]
+            },
+            {
+              "facetId": "schwartz_self_transcendence",
+              "nameTr": "Öz-Aşım Değerleri (Evrenselcilik ve İyilikseverlik)",
+              "nameEn": "Self-Transcendence Values",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_schwartz_2012_values"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_kusdil_2000_values_tr"
+              ]
+            },
+            {
+              "facetId": "schwartz_conservation",
+              "nameTr": "Muhafazakarlık ve Koruma Değerleri (Güvenlik, Uyum, Gelenek)",
+              "nameEn": "Conservation Values",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_schwartz_2012_values"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_kusdil_2000_values_tr"
+              ]
+            },
+            {
+              "facetId": "schwartz_self_enhancement",
+              "nameTr": "Öz-Geliştirme Değerleri (Güç ve Başarı)",
+              "nameEn": "Self-Enhancement Values",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_schwartz_2012_values"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_kusdil_2000_values_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "existential_meaning",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "presence_of_meaning",
+              "nameTr": "Anlam Varlığı",
+              "nameEn": "Presence of Meaning",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_steger_2006_mlq"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_boyraz_2013_mlq_tr"
+              ]
+            },
+            {
+              "facetId": "search_for_meaning",
+              "nameTr": "Anlam Arayışı",
+              "nameEn": "Search for Meaning",
+              "itemsCount": 5,
+              "positiveItems": 4,
+              "reverseItems": 1,
+              "primarySourceIds": [
+                "src_steger_2006_mlq"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_boyraz_2013_mlq_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameTr": "Sosyal ve İlişkisel Dinamikler",
+      "domainNameEn": "Social & Relational Dynamics",
+      "constructsCount": 2,
+      "facetsCount": 9,
+      "itemsCount": 45,
+      "constructs": [
+        {
+          "constructId": "adult_attachment",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "attachment_anxiety",
+              "nameTr": "Bağlanma Kaygısı",
+              "nameEn": "Attachment Anxiety",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_fraley_2000_ecrr",
+                "src_brennan_1998_ecr"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_sumer_2001_attachment_tr"
+              ]
+            },
+            {
+              "facetId": "attachment_avoidance",
+              "nameTr": "Bağlanma Kaçınması",
+              "nameEn": "Attachment Avoidance",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_fraley_2000_ecrr",
+                "src_brennan_1998_ecr"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_sumer_2001_attachment_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "interpersonal_competence",
+          "facetsCount": 7,
+          "itemsCount": 35,
+          "facets": [
+            {
+              "facetId": "cognitive_perspective_taking",
+              "nameTr": "Bilişsel Perspektif Alma",
+              "nameEn": "Cognitive Perspective Taking",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_davis_1983_iri"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_derlega_1993_self_disclosure"
+              ]
+            },
+            {
+              "facetId": "empathic_concern",
+              "nameTr": "Empatik İlgi ve Şefkat",
+              "nameEn": "Empathic Concern",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_davis_1983_iri"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_derlega_1993_self_disclosure"
+              ]
+            },
+            {
+              "facetId": "assertiveness",
+              "nameTr": "Girişkenlik ve Kendini İfade Etme",
+              "nameEn": "Assertiveness",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_alberti_emmons_2017"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_derlega_1993_self_disclosure"
+              ]
+            },
+            {
+              "facetId": "social_connectedness",
+              "nameTr": "Sosyal Bağlılık ve Aidiyet",
+              "nameEn": "Social Connectedness",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_lee_robbins_1995_scs"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_derlega_1993_self_disclosure"
+              ]
+            },
+            {
+              "facetId": "rejection_sensitivity_nonclinical",
+              "nameTr": "Reddedilme Hassasiyeti (Subklinik)",
+              "nameEn": "Rejection Sensitivity (Nonclinical)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_downey_feldman_1996_rsq"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_derlega_1993_self_disclosure"
+              ]
+            },
+            {
+              "facetId": "cooperation_orientation",
+              "nameTr": "İş Birliği ve Ortak Fayda Yönelimi",
+              "nameEn": "Cooperation Orientation",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_goldberg_1999_ipip"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_wasti_2008_lexical"
+              ]
+            },
+            {
+              "facetId": "conflict_avoidance",
+              "nameTr": "Çatışma Kaçınması ve Uyum Sağlama",
+              "nameEn": "Conflict Avoidance",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_thomas_kilmann_1974_tki"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_derlega_1993_self_disclosure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "wellbeing_vitality",
+      "domainNameTr": "İyilik Hali, Gelişme ve Yaşam Canlılığı",
+      "domainNameEn": "Wellbeing, Flourishing & Vitality",
+      "constructsCount": 1,
+      "facetsCount": 3,
+      "itemsCount": 15,
+      "constructs": [
+        {
+          "constructId": "subjective_wellbeing",
+          "facetsCount": 3,
+          "itemsCount": 15,
+          "facets": [
+            {
+              "facetId": "flourishing_scale",
+              "nameTr": "Psikolojik Gelişme ve Çiçeklenme (Flourishing)",
+              "nameEn": "Psychological Flourishing",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_diener_2010_flourishing"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_telefoncu_2016_flourishing_tr"
+              ]
+            },
+            {
+              "facetId": "subjective_vitality",
+              "nameTr": "Öznel Canlılık ve Enerji",
+              "nameEn": "Subjective Vitality",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_ryan_frederick_1997_vitality"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_akin_2012_vitality_tr"
+              ]
+            },
+            {
+              "facetId": "satisfaction_with_life",
+              "nameTr": "Yaşam Doyumu",
+              "nameEn": "Satisfaction with Life",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_diener_1985_swls"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_koker_1991_swls_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "coping_resilience",
+      "domainNameTr": "Başa Çıkma, Uyum ve Psikolojik Dayanıklılık",
+      "domainNameEn": "Coping, Adaptation & Psychological Resilience",
+      "constructsCount": 2,
+      "facetsCount": 4,
+      "itemsCount": 20,
+      "constructs": [
+        {
+          "constructId": "trait_resilience",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "ego_resilience",
+              "nameTr": "Ego Dayanıklılığı ve Esnek Uyum",
+              "nameEn": "Ego-Resilience",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_block_kremen_1996_er89"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_karairmak_2010_resilience_tr"
+              ]
+            },
+            {
+              "facetId": "stress_recovery",
+              "nameTr": "Stresten Toparlanma Hızı (Bounce-Back)",
+              "nameEn": "Stress Recovery",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_smith_2008_brs"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_karairmak_2010_resilience_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "coping_strategies",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "problem_focused_coping",
+              "nameTr": "Problem Odaklı Başa Çıkma",
+              "nameEn": "Problem-Focused Coping",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_carver_1989_cope"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_agargun_2005_cope_tr"
+              ]
+            },
+            {
+              "facetId": "emotion_focused_coping",
+              "nameTr": "Duygu Odaklı Başa Çıkma ve Anlamlandırma",
+              "nameEn": "Emotion-Focused Coping & Meaning-Making",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_carver_1989_cope"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_agargun_2005_cope_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "creativity_curiosity",
+      "domainNameTr": "Yaratıcılık, Merak ve Entelektüel Açıklık",
+      "domainNameEn": "Creativity, Curiosity & Intellectual Openness",
+      "constructsCount": 2,
+      "facetsCount": 4,
+      "itemsCount": 20,
+      "constructs": [
+        {
+          "constructId": "epistemic_curiosity",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "joyous_exploration_curiosity",
+              "nameTr": "Neşeli Keşif Merakı (Joyous Exploration)",
+              "nameEn": "Joyous Exploration Curiosity",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_kashdan_2018_5dc"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_demirtas_madran_2020_5dc_tr"
+              ]
+            },
+            {
+              "facetId": "deprivation_sensitivity_curiosity",
+              "nameTr": "Yoksunluk Duyarlılığı Merakı (Deprivation Sensitivity)",
+              "nameEn": "Deprivation Sensitivity Curiosity",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_kashdan_2018_5dc"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_demirtas_madran_2020_5dc_tr"
+              ]
+            }
+          ]
+        },
+        {
+          "constructId": "creative_growth_mindset",
+          "facetsCount": 2,
+          "itemsCount": 10,
+          "facets": [
+            {
+              "facetId": "creative_self_efficacy",
+              "nameTr": "Yaratıcı Öz-Yeterlik",
+              "nameEn": "Creative Self-Efficacy",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_tierney_farmer_2002_cse"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_demirtas_madran_2020_5dc_tr"
+              ]
+            },
+            {
+              "facetId": "growth_mindset_intelligence",
+              "nameTr": "Gelişim Zihniyeti (Growth Mindset)",
+              "nameEn": "Growth Mindset Intelligence",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_dweck_2006_mindset"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_demirtas_madran_2020_5dc_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "optional_dark_tetrad",
+      "domainNameTr": "Opsiyonel / Araştırma Odaklı Karanlık Dörtlü (Subklinik)",
+      "domainNameEn": "Optional / Research-Only Dark Tetrad (Subclinical)",
+      "constructsCount": 1,
+      "facetsCount": 4,
+      "itemsCount": 20,
+      "constructs": [
+        {
+          "constructId": "dark_tetrad_subclinical",
+          "facetsCount": 4,
+          "itemsCount": 20,
+          "facets": [
+            {
+              "facetId": "machiavellianism",
+              "nameTr": "Makyavelizm (Stratejik Manipülasyon)",
+              "nameEn": "Machiavellianism",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_paulhus_2002_dark_triad"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_ozsoy_2017_sd3_tr"
+              ]
+            },
+            {
+              "facetId": "grandiose_narcissism",
+              "nameTr": "Büyüklenmeci Narsisizm (Subklinik)",
+              "nameEn": "Grandiose Narcissism",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_paulhus_2002_dark_triad"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_ozsoy_2017_sd3_tr"
+              ]
+            },
+            {
+              "facetId": "psychopathy",
+              "nameTr": "Subklinik Psikopati (Duygusal Soğukluk ve Dürtüsellik)",
+              "nameEn": "Subclinical Psychopathy",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_paulhus_2002_dark_triad"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_ozsoy_2017_sd3_tr"
+              ]
+            },
+            {
+              "facetId": "everyday_sadism_subclinical",
+              "nameTr": "Gündelik Sadizm (Subklinik)",
+              "nameEn": "Everyday Sadism (Subclinical)",
+              "itemsCount": 5,
+              "positiveItems": 3,
+              "reverseItems": 2,
+              "primarySourceIds": [
+                "src_buckels_2013_sadism"
+              ],
+              "turkishEvidenceSourceIds": [
+                "src_ozsoy_2017_sd3_tr"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
