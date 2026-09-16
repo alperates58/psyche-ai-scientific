@@ -785,6 +785,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
           scaleMin: construct.scale.scaleMin,
           scaleMax: construct.scale.scaleMax,
           normalizedCoordinate,
+          isMeasured: true,
           bandInfo: construct.bandInfo,
         });
       } else if (construct.measuredFacetCount > 0) {
@@ -809,6 +810,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
               scaleMin: facet.scale.scaleMin,
               scaleMax: facet.scale.scaleMax,
               normalizedCoordinate,
+              isMeasured: true,
               bandInfo: facet.bandInfo,
             });
           }
