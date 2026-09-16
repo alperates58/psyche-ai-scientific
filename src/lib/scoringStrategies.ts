@@ -495,6 +495,25 @@ export function resolveScoringStrategy(
       return HEXACO_PRECALIBRATION_STRATEGY;
     }
 
+    // Default Pre-Calibration Mean Strategy for all scientific modules (e.g. Cognitive, Volition, Needs, Values, Adaptability, Meaning, Conflict, Affective, Dark Tetrad)
+    if (
+      norm.startsWith('MOD_') ||
+      norm.startsWith('MODULE_') ||
+      norm.includes('COGNITIVE') ||
+      norm.includes('VOLITION') ||
+      norm.includes('BASIC_NEEDS') ||
+      norm.includes('UNIVERSAL_VALUES') ||
+      norm.includes('MEANING') ||
+      norm.includes('CONFLICT') ||
+      norm.includes('AFFECTIVE') ||
+      norm.includes('DARK_TETRAD') ||
+      norm.includes('FLOURISHING') ||
+      norm.includes('COPING') ||
+      norm.includes('CREATIVITY')
+    ) {
+      return HEXACO_PRECALIBRATION_STRATEGY;
+    }
+
     throw new Error(
       `UNKNOWN_SCORING_STRATEGY: '${moduleCode}' modül koduna ait puanlama stratejisi bulunamadı.`
     );

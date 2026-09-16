@@ -164,6 +164,10 @@ export function AssessmentsJourneyView({ journey }: AssessmentsJourneyViewProps)
                 <span>Sonuçlar</span>
                 <ArrowRight className="w-3.5 h-3.5 ml-1 text-text-tertiary" />
               </Link>
+            ) : !item.isPlayable || item.status === 'CONTENT_PENDING' ? (
+              <span className="inline-flex items-center px-3.5 py-2 rounded-xl bg-surface-2/60 text-text-tertiary text-xs font-medium border border-border-subtle cursor-not-allowed">
+                <span>İçerik Hazırlanıyor</span>
+              </span>
             ) : (
               <Link
                 href={item.startOrResumeUrl}

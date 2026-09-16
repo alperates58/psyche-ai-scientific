@@ -4,11 +4,22 @@ export async function getOrCreateAssessmentSession(
   userId: string,
   moduleCode?: string
 ) {
-  // Find published form version for this module (or fallback to first published module if omitted)
+  // Find published form version for this module (or fallback to default core module if omitted)
   let moduleRecord = null;
+
   if (moduleCode) {
-    moduleRecord = await prisma.assessmentModule.findUnique({
-      where: { code: moduleCode },
+    // 1. Direct search by code or id
+    moduleRecord = await prisma.assessmentModule.findFirst({
+      where: {
+        OR: [
+          { code: moduleCode },
+          { id: moduleCode },
+          { code: moduleCode.toLowerCase() },
+          { code: moduleCode.toUpperCase() },
+          ...(moduleCode === 'mod_core_hexaco_60' ? [{ code: 'MODULE_1_CORE_PERSONALITY' }] : []),
+          ...(moduleCode === 'MODULE_1_CORE_PERSONALITY' ? [{ code: 'mod_core_hexaco_60' }] : []),
+        ],
+      },
       include: {
         formVersions: {
           where: { isPublished: true, status: 'PUBLISHED' },
@@ -17,12 +28,21 @@ export async function getOrCreateAssessmentSession(
         },
       },
     });
+
+    if (moduleRecord && moduleRecord.formVersions.length === 0) {
+      throw new Error(`Bu değerlendirme modülünün içerik formu henüz hazırlanma aşamasındadır (${moduleCode})`);
+    }
   }
 
-  // Fallback: first available module with a published form
+  // Fallback if no module code provided: default to core personality module
   if (!moduleRecord || moduleRecord.formVersions.length === 0) {
+    if (moduleCode) {
+      throw new Error(`Aktif bir değerlendirme formu bulunamadı (${moduleCode})`);
+    }
+
     moduleRecord = await prisma.assessmentModule.findFirst({
       where: {
+        OR: [{ code: 'mod_core_hexaco_60' }, { code: 'MODULE_1_CORE_PERSONALITY' }],
         formVersions: {
           some: { isPublished: true, status: 'PUBLISHED' },
         },

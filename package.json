@@ -17,6 +17,7 @@
     "audit:assessment-architecture": "tsx scripts/audit-assessment-architecture.ts",
     "audit:assessment-journey": "tsx scripts/audit-assessment-journey.ts",
     "audit:assessment-coverage": "tsx scripts/audit-assessment-coverage.ts",
+    "audit:executable-assessments": "tsx scripts/audit-executable-assessments.ts",
     "admin:grant-role": "tsx scripts/admin-grant-role.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
