@@ -1,0 +1,1659 @@
+[
+  {
+    "currentEntityId": "honesty_humility",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_hexaco_honesty_humility"
+    ],
+    "rationale": "Core HEXACO broad factor maintained as primary baseline personality framework.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004",
+      "src_wasti_2008_lexical"
+    ]
+  },
+  {
+    "currentEntityId": "emotionality",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_hexaco_emotionality"
+    ],
+    "rationale": "Core HEXACO broad factor maintained as primary baseline personality framework.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004",
+      "src_wasti_2008_lexical"
+    ]
+  },
+  {
+    "currentEntityId": "extraversion",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_hexaco_extraversion"
+    ],
+    "rationale": "Core HEXACO broad factor maintained as primary baseline personality framework.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004",
+      "src_wasti_2008_lexical"
+    ]
+  },
+  {
+    "currentEntityId": "agreeableness",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_hexaco_agreeableness"
+    ],
+    "rationale": "Core HEXACO broad factor maintained as primary baseline personality framework.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004",
+      "src_wasti_2008_lexical"
+    ]
+  },
+  {
+    "currentEntityId": "conscientiousness",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_hexaco_conscientiousness"
+    ],
+    "rationale": "Core HEXACO broad factor maintained as primary baseline personality framework.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004",
+      "src_wasti_2008_lexical"
+    ]
+  },
+  {
+    "currentEntityId": "openness",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_hexaco_openness"
+    ],
+    "rationale": "Core HEXACO broad factor maintained as primary baseline personality framework.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004",
+      "src_wasti_2008_lexical"
+    ]
+  },
+  {
+    "currentEntityId": "self_evaluation",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "self_system",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_core_self_esteem",
+      "cand_self_compassion",
+      "cand_contingent_self_worth"
+    ],
+    "rationale": "Self-evaluation construct split into distinct validated constructs: Global Self-Esteem, Self-Compassion, and Contingent Self-Worth to preserve structural independence.",
+    "evidenceSourceIds": [
+      "src_rosenberg_1965",
+      "src_neff_2003_scs",
+      "src_crocker_2001_csw"
+    ]
+  },
+  {
+    "currentEntityId": "agency_mastery",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "self_system",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_generalized_self_efficacy",
+      "cand_locus_of_control_internal",
+      "cand_locus_of_control_external"
+    ],
+    "rationale": "Split into Generalized Self-Efficacy and Internal/External Locus of Control to separate outcome expectancy from perceived personal competence.",
+    "evidenceSourceIds": [
+      "src_bandura_1997",
+      "src_schwarzer_1995_gse",
+      "src_rotter_1966"
+    ]
+  },
+  {
+    "currentEntityId": "identity_integrity",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "self_system",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_self_concept_clarity",
+      "cand_authenticity",
+      "cand_actual_ideal_discrepancy"
+    ],
+    "rationale": "Split into Self-Concept Clarity, Authenticity, and Self-Discrepancy to distinguish structural clarity from eudaimonic authentic functioning.",
+    "evidenceSourceIds": [
+      "src_campbell_1996_scc",
+      "src_wood_2008_authenticity",
+      "src_higgins_1987_discrepancy"
+    ]
+  },
+  {
+    "currentEntityId": "emotion_regulation_strategies",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "emotion_regulation",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_cognitive_reappraisal",
+      "cand_expressive_suppression"
+    ],
+    "rationale": "Split into distinct ERQ subscales (Cognitive Reappraisal and Expressive Suppression) which have divergent functional outcomes.",
+    "evidenceSourceIds": [
+      "src_gross_john_2003",
+      "src_ucanok_2011_erq"
+    ]
+  },
+  {
+    "currentEntityId": "affective_dynamics",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "emotion_regulation",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_positive_affect_trait",
+      "cand_negative_affect_trait",
+      "cand_affect_intensity"
+    ],
+    "rationale": "Split into orthogonal Positive Affect, Negative Affect, and Affect Intensity to avoid bipolar affect conflation.",
+    "evidenceSourceIds": [
+      "src_watson_clark_tellegen_1988",
+      "src_gencoz_2000_panas",
+      "src_larsen_1987_aim"
+    ]
+  },
+  {
+    "currentEntityId": "distress_management",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "emotion_regulation",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_emotional_awareness",
+      "cand_emotional_clarity",
+      "cand_distress_tolerance",
+      "cand_experiential_avoidance"
+    ],
+    "rationale": "Split into DERS Awareness, DERS Clarity, DTS Distress Tolerance, and AAQ Experiential Avoidance.",
+    "evidenceSourceIds": [
+      "src_gratz_roemer_2004_ders",
+      "src_ruganci_gencoz_2010_ders",
+      "src_simons_gaher_2005_dts",
+      "src_bond_2011_aaq2"
+    ]
+  },
+  {
+    "currentEntityId": "self_conscious_emotions",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "emotion_regulation",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_shame_proneness",
+      "cand_guilt_proneness"
+    ],
+    "rationale": "Split into distinct TOSCA-3 Shame-Proneness (maladaptive) and Guilt-Proneness (adaptive moral self-correction).",
+    "evidenceSourceIds": [
+      "src_tangney_1992_tosca",
+      "src_deryakulu_2014_tosca"
+    ]
+  },
+  {
+    "currentEntityId": "epistemic_drive",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "cognition_decision",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_need_for_cognition",
+      "cand_need_for_cognitive_closure"
+    ],
+    "rationale": "Split into Need for Cognition (epistemic engagement) and Need for Closure (ambiguity intolerance).",
+    "evidenceSourceIds": [
+      "src_cacioppo_petty_1982_nfc",
+      "src_kruglanski_webster_1996_nfc",
+      "src_derbentli_2008_closure"
+    ]
+  },
+  {
+    "currentEntityId": "thinking_styles",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "cognition_decision",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_rational_analytical_thinking",
+      "cand_intuitive_experiential_thinking",
+      "cand_cognitive_reflection_tendency"
+    ],
+    "rationale": "Split into orthogonal Rational and Experiential thinking styles (REI) plus Cognitive Reflection.",
+    "evidenceSourceIds": [
+      "src_epstein_1996_rei",
+      "src_gulgoz_2001_rei",
+      "src_frederick_2005_crt"
+    ]
+  },
+  {
+    "currentEntityId": "cognitive_adaptability",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "cognition_decision",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_cognitive_flexibility",
+      "cand_intolerance_of_uncertainty",
+      "cand_rumination_brooding",
+      "cand_ambiguity_tolerance"
+    ],
+    "rationale": "Split into Cognitive Flexibility (CFI), Intolerance of Uncertainty (IUS), and Rumination Brooding (RRS).",
+    "evidenceSourceIds": [
+      "src_gulum_dag_2012_cfi",
+      "src_buhr_dugas_2002_ius",
+      "src_treynor_2003_rrs"
+    ]
+  },
+  {
+    "currentEntityId": "decision_orientation",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "cognition_decision",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_decision_style_maximizing",
+      "cand_risk_taking_domain_specific",
+      "cand_future_time_perspective"
+    ],
+    "rationale": "Split into Maximizing vs Satisficing, DOSPERT Domain Risk, and Future Time Perspective.",
+    "evidenceSourceIds": [
+      "src_schwartz_2002_maximization",
+      "src_weber_2002_dospert",
+      "src_zimbardo_1999_ztpi"
+    ]
+  },
+  {
+    "currentEntityId": "impulsivity_uppsp",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "self_regulation",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_uppsp_negative_urgency",
+      "cand_uppsp_positive_urgency",
+      "cand_uppsp_lack_of_premeditation",
+      "cand_uppsp_lack_of_perseverance",
+      "cand_uppsp_sensation_seeking"
+    ],
+    "rationale": "Split into the 5 discrete validated UPPS-P subscales to maintain multidimensional psychometric precision.",
+    "evidenceSourceIds": [
+      "src_whiteside_lynam_2001_upps",
+      "src_cyders_2007_uppsp",
+      "src_yilmaz_2017_uppsp"
+    ]
+  },
+  {
+    "currentEntityId": "volitional_stamina",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "self_regulation",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_general_self_control",
+      "cand_delay_discounting_preference",
+      "cand_long_term_grit",
+      "cand_procrastination_tendency",
+      "cand_habitual_behavior_strength"
+    ],
+    "rationale": "Split into General Self-Control (BSCS), Delayed Gratification, Long-Term Grit, Procrastination Tendency, and Habit Strength.",
+    "evidenceSourceIds": [
+      "src_tangney_2004_bscs",
+      "src_duckworth_2007_grit",
+      "src_lay_1986_procrastination",
+      "src_verplanken_2003_srhi"
+    ]
+  },
+  {
+    "currentEntityId": "basic_psychological_needs",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "motivation_values",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_autonomy_need_satisfaction",
+      "cand_competence_need_satisfaction",
+      "cand_relatedness_need_satisfaction"
+    ],
+    "rationale": "Split into the 3 discrete basic psychological needs of Self-Determination Theory (Autonomy, Competence, Relatedness).",
+    "evidenceSourceIds": [
+      "src_deci_ryan_2000_sdt",
+      "src_chen_2015_bpnsfs",
+      "src_cihangir_cankaya_2009_bpns"
+    ]
+  },
+  {
+    "currentEntityId": "universal_values",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "motivation_values",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_schwartz_openness_to_change",
+      "cand_schwartz_self_transcendence",
+      "cand_schwartz_conservation",
+      "cand_schwartz_self_enhancement"
+    ],
+    "rationale": "Split into the 4 higher-order value circumplex quadrants of Schwartz Theory of Basic Human Values.",
+    "evidenceSourceIds": [
+      "src_schwartz_2012_values",
+      "src_kusdil_kagitcibasi_2000_values"
+    ]
+  },
+  {
+    "currentEntityId": "existential_meaning",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "motivation_values",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_presence_of_meaning",
+      "cand_search_for_meaning",
+      "cand_sense_of_coherence"
+    ],
+    "rationale": "Split into Presence of Meaning, Search for Meaning (MLQ), and Sense of Coherence (SOC).",
+    "evidenceSourceIds": [
+      "src_steger_2006_mlq",
+      "src_akin_tas_2015_mlq",
+      "src_antonovsky_1987_soc"
+    ]
+  },
+  {
+    "currentEntityId": "attachment_system",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "social_relational",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_attachment_anxiety",
+      "cand_attachment_avoidance"
+    ],
+    "rationale": "Split into the 2 orthogonal continuous adult attachment dimensions of ECR-R (Anxiety and Avoidance).",
+    "evidenceSourceIds": [
+      "src_fraley_2000_ecrr",
+      "src_sumer_2006_ecrr"
+    ]
+  },
+  {
+    "currentEntityId": "multidimensional_empathy",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "social_relational",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_cognitive_perspective_taking",
+      "cand_empathic_concern"
+    ],
+    "rationale": "Split into Cognitive Perspective Taking and Empathic Concern (Davis IRI) to separate cognitive from affective empathy.",
+    "evidenceSourceIds": [
+      "src_davis_1983_iri",
+      "src_yildirim_2013_iri"
+    ]
+  },
+  {
+    "currentEntityId": "social_agency_boundaries",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "social_relational",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_assertiveness",
+      "cand_social_connectedness",
+      "cand_propensity_to_trust",
+      "cand_rejection_sensitivity_nonclinical"
+    ],
+    "rationale": "Split into Assertiveness, Social Connectedness, Propensity to Trust, and Rejection Sensitivity.",
+    "evidenceSourceIds": [
+      "src_rathus_1973_assertiveness",
+      "src_lee_robbins_1995_connectedness",
+      "src_mayer_1995_trust",
+      "src_downey_1996_rsq"
+    ]
+  },
+  {
+    "currentEntityId": "conflict_styles",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "social_relational",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_cooperation_orientation",
+      "cand_conflict_avoidance"
+    ],
+    "rationale": "Split into Collaborating (problem solving) and Avoiding conflict styles.",
+    "evidenceSourceIds": [
+      "src_dedreu_2001_dutch"
+    ]
+  },
+  {
+    "currentEntityId": "attention_effort",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "response_integrity",
+    "action": "MOVE_DOMAIN",
+    "targetMasterEntityIds": [
+      "cand_careless_responding_longstring",
+      "cand_response_latency_anomaly"
+    ],
+    "targetDomainId": "response_integrity",
+    "rationale": "Isolated under response_integrity governance outside direct trait counts.",
+    "evidenceSourceIds": [
+      "src_curran_2016_careless"
+    ]
+  },
+  {
+    "currentEntityId": "response_bias",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "response_integrity",
+    "action": "MOVE_DOMAIN",
+    "targetMasterEntityIds": [
+      "cand_impression_management_telemetry"
+    ],
+    "targetDomainId": "response_integrity",
+    "rationale": "Isolated under response_integrity governance outside direct trait counts.",
+    "evidenceSourceIds": [
+      "src_paulhus_1991_bidr"
+    ]
+  },
+  {
+    "currentEntityId": "profile_coherence",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "response_integrity",
+    "action": "MOVE_DOMAIN",
+    "targetMasterEntityIds": [
+      "cand_self_deceptive_enhancement_telemetry"
+    ],
+    "targetDomainId": "response_integrity",
+    "rationale": "Isolated under response_integrity governance outside direct trait counts.",
+    "evidenceSourceIds": [
+      "src_paulhus_1991_bidr"
+    ]
+  },
+  {
+    "currentEntityId": "dark_tetrad_traits",
+    "currentEntityType": "CONSTRUCT",
+    "currentDomainId": "optional_dark_tetrad",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_machiavellianism_subclinical",
+      "cand_grandiose_narcissism_subclinical",
+      "cand_psychopathy_subclinical",
+      "cand_everyday_sadism_subclinical"
+    ],
+    "rationale": "Split into the 4 subclinical traits of the Short Dark Tetrad (SD4).",
+    "evidenceSourceIds": [
+      "src_paulhus_2020_sd4",
+      "src_ozsoy_2017_darktriad"
+    ]
+  },
+  {
+    "currentEntityId": "sincerity",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_sincerity"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "fairness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_fairness"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "greed_avoidance",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_greed_avoidance"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "modesty",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_modesty"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "fearfulness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_fearfulness"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "anxiety_proneness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_anxiety"
+    ],
+    "rationale": "Standardized to canonical HEXACO anxiety facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "dependence",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_dependence"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "sentimentality",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_sentimentality"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "social_self_esteem",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_social_self_esteem"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "social_boldness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_social_boldness"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "sociability",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_sociability"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "liveliness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_liveliness"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "forgiveness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_forgivingness"
+    ],
+    "rationale": "Standardized to canonical HEXACO forgivingness facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "gentleness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_gentleness"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "flexibility",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_flexibility"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "patience",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_patience"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "organization",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_organization"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "diligence",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_diligence"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "perfectionism",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_perfectionism"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "prudence",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_prudence"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "aesthetic_appreciation",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_aesthetic_appreciation"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "inquisitiveness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_inquisitiveness"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "creativity",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_creativity"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "unconventionality",
+    "currentEntityType": "FACET",
+    "currentDomainId": "core_personality",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_unconventionality"
+    ],
+    "rationale": "Direct mapping into proposed master model facet.",
+    "evidenceSourceIds": [
+      "src_ashton_lee_2007",
+      "src_lee_ashton_2004"
+    ]
+  },
+  {
+    "currentEntityId": "core_self_esteem",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_system",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_core_self_esteem"
+    ],
+    "rationale": "Direct mapping into proposed master model construct/facet.",
+    "evidenceSourceIds": [
+      "src_rosenberg_1965",
+      "src_cuhadaroglu_1986"
+    ]
+  },
+  {
+    "currentEntityId": "contingent_self_worth",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_system",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_contingent_self_worth"
+    ],
+    "rationale": "Direct mapping into proposed master model construct/facet.",
+    "evidenceSourceIds": [
+      "src_crocker_2001_csw"
+    ]
+  },
+  {
+    "currentEntityId": "self_compassion",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_system",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_self_compassion"
+    ],
+    "rationale": "Direct mapping into proposed master model construct/facet.",
+    "evidenceSourceIds": [
+      "src_neff_2003_scs",
+      "src_deniz_2008_scs"
+    ]
+  },
+  {
+    "currentEntityId": "generalized_self_efficacy",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_system",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_generalized_self_efficacy"
+    ],
+    "rationale": "Direct mapping into proposed master model construct.",
+    "evidenceSourceIds": [
+      "src_bandura_1997",
+      "src_schwarzer_1995_gse",
+      "src_yesilay_1995_gse"
+    ]
+  },
+  {
+    "currentEntityId": "locus_of_control",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_system",
+    "action": "SPLIT",
+    "targetMasterEntityIds": [
+      "cand_locus_of_control_internal",
+      "cand_locus_of_control_external"
+    ],
+    "rationale": "Split into internal vs external locus of control candidates.",
+    "evidenceSourceIds": [
+      "src_rotter_1966",
+      "src_dag_1991_rotter"
+    ]
+  },
+  {
+    "currentEntityId": "self_concept_clarity",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_system",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_self_concept_clarity"
+    ],
+    "rationale": "Direct mapping into proposed master model construct.",
+    "evidenceSourceIds": [
+      "src_campbell_1996_scc",
+      "src_akin_2012_scc"
+    ]
+  },
+  {
+    "currentEntityId": "authenticity",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_system",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_authenticity"
+    ],
+    "rationale": "Direct mapping into proposed master model construct.",
+    "evidenceSourceIds": [
+      "src_wood_2008_authenticity",
+      "src_ilhan_2013_authenticity"
+    ]
+  },
+  {
+    "currentEntityId": "cognitive_reappraisal",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_cognitive_reappraisal"
+    ],
+    "rationale": "Direct mapping into proposed master model construct.",
+    "evidenceSourceIds": [
+      "src_gross_john_2003",
+      "src_ucanok_2011_erq"
+    ]
+  },
+  {
+    "currentEntityId": "expressive_suppression",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_expressive_suppression"
+    ],
+    "rationale": "Direct mapping into proposed master model construct.",
+    "evidenceSourceIds": [
+      "src_gross_john_2003",
+      "src_ucanok_2011_erq"
+    ]
+  },
+  {
+    "currentEntityId": "emotional_reactivity",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_affect_intensity"
+    ],
+    "rationale": "Mapped to Larsen Affect Intensity candidate.",
+    "evidenceSourceIds": [
+      "src_larsen_1987_aim"
+    ]
+  },
+  {
+    "currentEntityId": "emotional_recovery",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_distress_tolerance"
+    ],
+    "rationale": "Mapped to Simons & Gaher Distress Tolerance candidate.",
+    "evidenceSourceIds": [
+      "src_simons_gaher_2005_dts"
+    ]
+  },
+  {
+    "currentEntityId": "trait_positive_affect",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_positive_affect_trait"
+    ],
+    "rationale": "Mapped to Watson PANAS Positive Affect candidate.",
+    "evidenceSourceIds": [
+      "src_watson_clark_tellegen_1988",
+      "src_gencoz_2000_panas"
+    ]
+  },
+  {
+    "currentEntityId": "trait_negative_affect",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_negative_affect_trait"
+    ],
+    "rationale": "Mapped to Watson PANAS Negative Affect candidate.",
+    "evidenceSourceIds": [
+      "src_watson_clark_tellegen_1988",
+      "src_gencoz_2000_panas"
+    ]
+  },
+  {
+    "currentEntityId": "distress_tolerance",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_distress_tolerance"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_simons_gaher_2005_dts"
+    ]
+  },
+  {
+    "currentEntityId": "experiential_avoidance",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_experiential_avoidance"
+    ],
+    "rationale": "Mapped to Bond AAQ-2 candidate.",
+    "evidenceSourceIds": [
+      "src_bond_2011_aaq2"
+    ]
+  },
+  {
+    "currentEntityId": "shame_proneness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_shame_proneness"
+    ],
+    "rationale": "Mapped to Tangney TOSCA-3 Shame Proneness candidate.",
+    "evidenceSourceIds": [
+      "src_tangney_1992_tosca",
+      "src_deryakulu_2014_tosca"
+    ]
+  },
+  {
+    "currentEntityId": "guilt_proneness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "emotion_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_guilt_proneness"
+    ],
+    "rationale": "Mapped to Tangney TOSCA-3 Guilt Proneness candidate.",
+    "evidenceSourceIds": [
+      "src_tangney_1992_tosca",
+      "src_deryakulu_2014_tosca"
+    ]
+  },
+  {
+    "currentEntityId": "need_for_cognition",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_need_for_cognition"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_cacioppo_petty_1982_nfc",
+      "src_demirtas_2013_nfc"
+    ]
+  },
+  {
+    "currentEntityId": "need_for_cognitive_closure",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_need_for_cognitive_closure"
+    ],
+    "rationale": "Mapped to Kruglanski & Derbentli Kalıpçı NFCS candidate.",
+    "evidenceSourceIds": [
+      "src_kruglanski_webster_1996_nfc",
+      "src_derbentli_2008_closure"
+    ]
+  },
+  {
+    "currentEntityId": "rational_analytical_style",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_rational_analytical_thinking"
+    ],
+    "rationale": "Mapped to Epstein REI Rational Thinking candidate.",
+    "evidenceSourceIds": [
+      "src_epstein_1996_rei",
+      "src_gulgoz_2001_rei"
+    ]
+  },
+  {
+    "currentEntityId": "intuitive_experiential_style",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_intuitive_experiential_thinking"
+    ],
+    "rationale": "Mapped to Epstein REI Experiential Thinking candidate.",
+    "evidenceSourceIds": [
+      "src_epstein_1996_rei",
+      "src_gulgoz_2001_rei"
+    ]
+  },
+  {
+    "currentEntityId": "cognitive_flexibility",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_cognitive_flexibility"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_gulum_dag_2012_cfi"
+    ]
+  },
+  {
+    "currentEntityId": "intolerance_of_uncertainty",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_intolerance_of_uncertainty"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_buhr_dugas_2002_ius",
+      "src_sari_dag_2009_ius"
+    ]
+  },
+  {
+    "currentEntityId": "rumination_brooding",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_rumination_brooding"
+    ],
+    "rationale": "Mapped to Treynor RRS Brooding candidate.",
+    "evidenceSourceIds": [
+      "src_treynor_2003_rrs"
+    ]
+  },
+  {
+    "currentEntityId": "maximizing_tendency",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_decision_style_maximizing"
+    ],
+    "rationale": "Mapped to Schwartz Maximization candidate.",
+    "evidenceSourceIds": [
+      "src_schwartz_2002_maximization"
+    ]
+  },
+  {
+    "currentEntityId": "decision_avoidance_procrastination",
+    "currentEntityType": "FACET",
+    "currentDomainId": "cognition_decision",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_procrastination_tendency"
+    ],
+    "rationale": "Mapped to Lay Procrastination candidate.",
+    "evidenceSourceIds": [
+      "src_lay_1986_procrastination"
+    ]
+  },
+  {
+    "currentEntityId": "negative_urgency",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_uppsp_negative_urgency"
+    ],
+    "rationale": "Mapped to UPPS-P Negative Urgency candidate.",
+    "evidenceSourceIds": [
+      "src_whiteside_lynam_2001_upps",
+      "src_cyders_2007_uppsp",
+      "src_yilmaz_2017_uppsp"
+    ]
+  },
+  {
+    "currentEntityId": "positive_urgency",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_uppsp_positive_urgency"
+    ],
+    "rationale": "Mapped to UPPS-P Positive Urgency candidate.",
+    "evidenceSourceIds": [
+      "src_whiteside_lynam_2001_upps",
+      "src_cyders_2007_uppsp",
+      "src_yilmaz_2017_uppsp"
+    ]
+  },
+  {
+    "currentEntityId": "lack_of_premeditation",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_uppsp_lack_of_premeditation"
+    ],
+    "rationale": "Mapped to UPPS-P Lack of Premeditation candidate.",
+    "evidenceSourceIds": [
+      "src_whiteside_lynam_2001_upps",
+      "src_cyders_2007_uppsp",
+      "src_yilmaz_2017_uppsp"
+    ]
+  },
+  {
+    "currentEntityId": "lack_of_perseverance",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_uppsp_lack_of_perseverance"
+    ],
+    "rationale": "Mapped to UPPS-P Lack of Perseverance candidate.",
+    "evidenceSourceIds": [
+      "src_whiteside_lynam_2001_upps",
+      "src_cyders_2007_uppsp",
+      "src_yilmaz_2017_uppsp"
+    ]
+  },
+  {
+    "currentEntityId": "sensation_seeking",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_uppsp_sensation_seeking"
+    ],
+    "rationale": "Mapped to UPPS-P Sensation Seeking candidate.",
+    "evidenceSourceIds": [
+      "src_whiteside_lynam_2001_upps",
+      "src_cyders_2007_uppsp",
+      "src_yilmaz_2017_uppsp"
+    ]
+  },
+  {
+    "currentEntityId": "general_self_control",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_general_self_control"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_tangney_2004_bscs",
+      "src_nebioz_2012_bscs"
+    ]
+  },
+  {
+    "currentEntityId": "delay_discounting",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_delay_discounting_preference"
+    ],
+    "rationale": "Mapped to Delay Discounting Preference candidate.",
+    "evidenceSourceIds": [
+      "src_tangney_2004_bscs"
+    ]
+  },
+  {
+    "currentEntityId": "long_term_grit",
+    "currentEntityType": "FACET",
+    "currentDomainId": "self_regulation",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_long_term_grit"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_duckworth_2007_grit",
+      "src_crede_2017_grit_meta"
+    ]
+  },
+  {
+    "currentEntityId": "autonomy_need",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_autonomy_need_satisfaction"
+    ],
+    "rationale": "Mapped to SDT Autonomy Need Satisfaction candidate.",
+    "evidenceSourceIds": [
+      "src_deci_ryan_2000_sdt",
+      "src_chen_2015_bpnsfs",
+      "src_cihangir_cankaya_2009_bpns"
+    ]
+  },
+  {
+    "currentEntityId": "competence_need",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_competence_need_satisfaction"
+    ],
+    "rationale": "Mapped to SDT Competence Need Satisfaction candidate.",
+    "evidenceSourceIds": [
+      "src_deci_ryan_2000_sdt",
+      "src_chen_2015_bpnsfs",
+      "src_cihangir_cankaya_2009_bpns"
+    ]
+  },
+  {
+    "currentEntityId": "relatedness_need",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_relatedness_need_satisfaction"
+    ],
+    "rationale": "Mapped to SDT Relatedness Need Satisfaction candidate.",
+    "evidenceSourceIds": [
+      "src_deci_ryan_2000_sdt",
+      "src_chen_2015_bpnsfs",
+      "src_cihangir_cankaya_2009_bpns"
+    ]
+  },
+  {
+    "currentEntityId": "values_openness_to_change",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_schwartz_openness_to_change"
+    ],
+    "rationale": "Mapped to Schwartz Openness to Change quadrant candidate.",
+    "evidenceSourceIds": [
+      "src_schwartz_2012_values",
+      "src_kusdil_kagitcibasi_2000_values"
+    ]
+  },
+  {
+    "currentEntityId": "values_self_transcendence",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_schwartz_self_transcendence"
+    ],
+    "rationale": "Mapped to Schwartz Self-Transcendence quadrant candidate.",
+    "evidenceSourceIds": [
+      "src_schwartz_2012_values",
+      "src_kusdil_kagitcibasi_2000_values"
+    ]
+  },
+  {
+    "currentEntityId": "values_conservation",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_schwartz_conservation"
+    ],
+    "rationale": "Mapped to Schwartz Conservation quadrant candidate.",
+    "evidenceSourceIds": [
+      "src_schwartz_2012_values",
+      "src_kusdil_kagitcibasi_2000_values"
+    ]
+  },
+  {
+    "currentEntityId": "values_self_enhancement",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_schwartz_self_enhancement"
+    ],
+    "rationale": "Mapped to Schwartz Self-Enhancement quadrant candidate.",
+    "evidenceSourceIds": [
+      "src_schwartz_2012_values",
+      "src_kusdil_kagitcibasi_2000_values"
+    ]
+  },
+  {
+    "currentEntityId": "presence_of_meaning",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_presence_of_meaning"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_steger_2006_mlq",
+      "src_akin_tas_2015_mlq"
+    ]
+  },
+  {
+    "currentEntityId": "search_for_meaning",
+    "currentEntityType": "FACET",
+    "currentDomainId": "motivation_values",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_search_for_meaning"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_steger_2006_mlq",
+      "src_akin_tas_2015_mlq"
+    ]
+  },
+  {
+    "currentEntityId": "attachment_anxiety",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_attachment_anxiety"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_fraley_2000_ecrr",
+      "src_sumer_2006_ecrr"
+    ]
+  },
+  {
+    "currentEntityId": "attachment_avoidance",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_attachment_avoidance"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_fraley_2000_ecrr",
+      "src_sumer_2006_ecrr"
+    ]
+  },
+  {
+    "currentEntityId": "cognitive_perspective_taking",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_cognitive_perspective_taking"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_davis_1983_iri",
+      "src_yildirim_2013_iri"
+    ]
+  },
+  {
+    "currentEntityId": "empathic_concern",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_empathic_concern"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_davis_1983_iri",
+      "src_yildirim_2013_iri"
+    ]
+  },
+  {
+    "currentEntityId": "assertiveness",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "KEEP",
+    "targetMasterEntityIds": [
+      "cand_assertiveness"
+    ],
+    "rationale": "Direct mapping into proposed master model candidate.",
+    "evidenceSourceIds": [
+      "src_rathus_1973_assertiveness",
+      "src_voltan_1980_assertiveness"
+    ]
+  },
+  {
+    "currentEntityId": "boundary_setting",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_social_connectedness"
+    ],
+    "rationale": "Mapped to Social Connectedness / Relational Autonomy candidate.",
+    "evidenceSourceIds": [
+      "src_lee_robbins_1995_connectedness",
+      "src_kagitcibasi_2007_autonomous_relational"
+    ]
+  },
+  {
+    "currentEntityId": "social_approval_dependence",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_rejection_sensitivity_nonclinical"
+    ],
+    "rationale": "Mapped to Rejection Sensitivity candidate.",
+    "evidenceSourceIds": [
+      "src_downey_1996_rsq"
+    ]
+  },
+  {
+    "currentEntityId": "conflict_collaborating",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_cooperation_orientation"
+    ],
+    "rationale": "Mapped to Cooperation / Collaborating style candidate.",
+    "evidenceSourceIds": [
+      "src_dedreu_2001_dutch"
+    ]
+  },
+  {
+    "currentEntityId": "conflict_avoiding",
+    "currentEntityType": "FACET",
+    "currentDomainId": "social_relational",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_conflict_avoidance"
+    ],
+    "rationale": "Mapped to Conflict Avoidance style candidate.",
+    "evidenceSourceIds": [
+      "src_dedreu_2001_dutch"
+    ]
+  },
+  {
+    "currentEntityId": "response_time_analysis",
+    "currentEntityType": "FACET",
+    "currentDomainId": "response_integrity",
+    "action": "MOVE_DOMAIN",
+    "targetMasterEntityIds": [
+      "cand_response_latency_anomaly"
+    ],
+    "rationale": "Isolated under telemetry metrics outside trait counts.",
+    "evidenceSourceIds": [
+      "src_curran_2016_careless"
+    ]
+  },
+  {
+    "currentEntityId": "longstring_index",
+    "currentEntityType": "FACET",
+    "currentDomainId": "response_integrity",
+    "action": "MOVE_DOMAIN",
+    "targetMasterEntityIds": [
+      "cand_careless_responding_longstring"
+    ],
+    "rationale": "Isolated under telemetry metrics outside trait counts.",
+    "evidenceSourceIds": [
+      "src_curran_2016_careless"
+    ]
+  },
+  {
+    "currentEntityId": "impression_management",
+    "currentEntityType": "FACET",
+    "currentDomainId": "response_integrity",
+    "action": "MOVE_DOMAIN",
+    "targetMasterEntityIds": [
+      "cand_impression_management_telemetry"
+    ],
+    "rationale": "Isolated under telemetry metrics outside trait counts.",
+    "evidenceSourceIds": [
+      "src_paulhus_1991_bidr"
+    ]
+  },
+  {
+    "currentEntityId": "semantic_pair_inconsistency",
+    "currentEntityType": "FACET",
+    "currentDomainId": "response_integrity",
+    "action": "MOVE_DOMAIN",
+    "targetMasterEntityIds": [
+      "cand_self_deceptive_enhancement_telemetry"
+    ],
+    "rationale": "Isolated under telemetry metrics outside trait counts.",
+    "evidenceSourceIds": [
+      "src_paulhus_1991_bidr"
+    ]
+  },
+  {
+    "currentEntityId": "machiavellianism",
+    "currentEntityType": "FACET",
+    "currentDomainId": "optional_dark_tetrad",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_machiavellianism_subclinical"
+    ],
+    "rationale": "Mapped to subclinical Machiavellianism candidate.",
+    "evidenceSourceIds": [
+      "src_paulhus_2020_sd4",
+      "src_ozsoy_2017_darktriad"
+    ]
+  },
+  {
+    "currentEntityId": "grandiose_narcissism",
+    "currentEntityType": "FACET",
+    "currentDomainId": "optional_dark_tetrad",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_grandiose_narcissism_subclinical"
+    ],
+    "rationale": "Mapped to subclinical Grandiose Narcissism candidate.",
+    "evidenceSourceIds": [
+      "src_paulhus_2020_sd4",
+      "src_ozsoy_2017_darktriad"
+    ]
+  },
+  {
+    "currentEntityId": "subclinical_psychopathy",
+    "currentEntityType": "FACET",
+    "currentDomainId": "optional_dark_tetrad",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_psychopathy_subclinical"
+    ],
+    "rationale": "Mapped to subclinical Psychopathy candidate.",
+    "evidenceSourceIds": [
+      "src_paulhus_2020_sd4",
+      "src_ozsoy_2017_darktriad"
+    ]
+  },
+  {
+    "currentEntityId": "everyday_sadism",
+    "currentEntityType": "FACET",
+    "currentDomainId": "optional_dark_tetrad",
+    "action": "RENAME",
+    "targetMasterEntityIds": [
+      "cand_everyday_sadism_subclinical"
+    ],
+    "rationale": "Mapped to subclinical Everyday Sadism candidate.",
+    "evidenceSourceIds": [
+      "src_paulhus_2020_sd4",
+      "src_ozsoy_2017_darktriad"
+    ]
+  }
+]

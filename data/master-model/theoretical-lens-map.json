@@ -1,0 +1,206 @@
+[
+  {
+    "lensId": "lens_freud",
+    "historicalFigure": "Sigmund Freud",
+    "theoreticalFrameworkName": "Classical Psychoanalysis & Drive Dynamics",
+    "historicalPeriod": "Late 19th - Early 20th Century (1890-1939)",
+    "lensType": "FREUDIAN_PSYCHOANALYTIC",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_expressive_suppression",
+      "cand_cognitive_reappraisal",
+      "cand_distress_tolerance",
+      "cand_general_self_control",
+      "cand_uppsp_negative_urgency",
+      "cand_actual_ought_discrepancy"
+    ],
+    "interpretivePrinciple": "Frame self-regulation challenges and expressive suppression as internal compromises between instinctual urges (Id) and internalized social standards (Superego).",
+    "prohibitedClaims": [
+      "Never compute a numerical 'Freud score' or psychoanalytic percentile.",
+      "Never assert unconscious childhood trauma or repressed memories as verified facts from questionnaire responses.",
+      "Never render psychiatric diagnostic classifications (e.g. neurosis, hysteria)."
+    ],
+    "references": [
+      "src_freud_1923_ego_id"
+    ]
+  },
+  {
+    "lensId": "lens_jung",
+    "historicalFigure": "Carl Gustav Jung",
+    "theoreticalFrameworkName": "Analytical Psychology & Psychological Types",
+    "historicalPeriod": "Early - Mid 20th Century (1913-1961)",
+    "lensType": "JUNGIAN_ANALYTICAL",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_hexaco_extraversion",
+      "cand_hexaco_openness",
+      "cand_rational_analytical_thinking",
+      "cand_intuitive_experiential_thinking",
+      "cand_inquisitiveness",
+      "cand_creativity"
+    ],
+    "interpretivePrinciple": "Interpret extraversion/introversion as continuous energetic orientations and rational vs experiential thinking as complementary faculties working toward individuation.",
+    "prohibitedClaims": [
+      "Never convert continuous scores into rigid 4-letter categorical MBTI boxes.",
+      "Never claim collective unconscious archetypes as empirical facts.",
+      "Never state relational compatibility percentages based on psychological types."
+    ],
+    "references": [
+      "src_jung_1921_types"
+    ]
+  },
+  {
+    "lensId": "lens_adler",
+    "historicalFigure": "Alfred Adler",
+    "theoreticalFrameworkName": "Individual Psychology & Social Interest",
+    "historicalPeriod": "Early 20th Century (1911-1937)",
+    "lensType": "ADLERIAN_INDIVIDUAL",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_hexaco_honesty_humility",
+      "cand_generalized_self_efficacy",
+      "cand_social_self_esteem",
+      "cand_need_for_achievement",
+      "cand_cooperation_orientation",
+      "cand_social_connectedness"
+    ],
+    "interpretivePrinciple": "Explain striving for mastery and social connectedness through Adler's concept of Gemeinschaftsgefühl (Social Interest) and constructive compensation for feelings of inferiority.",
+    "prohibitedClaims": [
+      "Never score an 'Inferiority Complex Index' or numerical Adler score.",
+      "Never attribute birth-order dynamics deterministically without empirical basis."
+    ],
+    "references": [
+      "src_adler_1927_individual"
+    ]
+  },
+  {
+    "lensId": "lens_rogers",
+    "historicalFigure": "Carl Rogers",
+    "theoreticalFrameworkName": "Person-Centered Phenomenological Theory",
+    "historicalPeriod": "Mid 20th Century (1940-1987)",
+    "lensType": "ROGERS_HUMANISTIC",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_authenticity",
+      "cand_self_concept_clarity",
+      "cand_actual_ideal_discrepancy",
+      "cand_contingent_self_worth",
+      "cand_self_compassion",
+      "cand_autonomy_need_satisfaction"
+    ],
+    "interpretivePrinciple": "View high actual-ideal congruence, unconditional self-regard, and authentic functioning as markers of the 'fully functioning person'.",
+    "prohibitedClaims": [
+      "Never provide pseudo-clinical unconditional positive regard as a surrogate for therapy.",
+      "Never compute a 'Rogerian Congruence Percentage'."
+    ],
+    "references": [
+      "src_rogers_1961_person"
+    ]
+  },
+  {
+    "lensId": "lens_maslow",
+    "historicalFigure": "Abraham Maslow",
+    "theoreticalFrameworkName": "Humanistic Need Hierarchy & Self-Actualization",
+    "historicalPeriod": "Mid 20th Century (1943-1970)",
+    "lensType": "MASLOW_TRANSPERSONAL",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_autonomy_need_satisfaction",
+      "cand_competence_need_satisfaction",
+      "cand_relatedness_need_satisfaction",
+      "cand_schwartz_self_transcendence",
+      "cand_presence_of_meaning",
+      "cand_search_for_meaning",
+      "cand_creativity"
+    ],
+    "interpretivePrinciple": "Frame the interplay between basic deficiency needs (safety, belonging) and growth needs (self-actualization, transcendence) as an ongoing developmental trajectory.",
+    "prohibitedClaims": [
+      "Never enforce rigid pyramid level lockouts.",
+      "Never diagnose spiritual or transpersonal pathology."
+    ],
+    "references": [
+      "src_maslow_1943_motivation"
+    ]
+  },
+  {
+    "lensId": "lens_skinner",
+    "historicalFigure": "B. F. Skinner",
+    "theoreticalFrameworkName": "Radical Behaviorism & Contingency Analysis",
+    "historicalPeriod": "Mid - Late 20th Century (1938-1990)",
+    "lensType": "SKINNER_BEHAVIORAL",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_general_self_control",
+      "cand_delay_discounting_preference",
+      "cand_habitual_behavior_strength",
+      "cand_procrastination_tendency"
+    ],
+    "interpretivePrinciple": "Analyze self-regulation, delay discounting, and procrastination as operant behavioral patterns governed by reinforcement schedules and environmental stimulus control.",
+    "prohibitedClaims": [
+      "Never deny cognitive agency or self-report validity.",
+      "Never present behavioral modification prescriptions without human clinical oversight."
+    ],
+    "references": [
+      "src_skinner_1953_science"
+    ]
+  },
+  {
+    "lensId": "lens_james",
+    "historicalFigure": "William James",
+    "theoreticalFrameworkName": "Functionalist Stream of Consciousness & The Empirical Self",
+    "historicalPeriod": "Late 19th - Early 20th Century (1890-1910)",
+    "lensType": "JAMES_FUNCTIONALIST",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_core_self_esteem",
+      "cand_self_concept_clarity",
+      "cand_cognitive_flexibility",
+      "cand_habitual_behavior_strength",
+      "cand_need_for_cognition"
+    ],
+    "interpretivePrinciple": "Explore the dual nature of the self (the 'I' as subjective knower vs the 'Me' as empirical known) and the formation of behavioral habits as neural pathways.",
+    "prohibitedClaims": [
+      "Never generate mystical or occult interpretations from James's Varieties of Religious Experience."
+    ],
+    "references": [
+      "src_james_1890_principles"
+    ]
+  },
+  {
+    "lensId": "lens_gestalt",
+    "historicalFigure": "Gestalt School (Wertheimer, Koffka, Kohler)",
+    "theoreticalFrameworkName": "Gestalt Field Theory & Phenomenological Awareness",
+    "historicalPeriod": "Early - Mid 20th Century (1920-1970)",
+    "lensType": "GESTALT",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "directionality": "MODERN_TO_HISTORICAL_INTERPRETIVE",
+    "isSyntheticTraitScore": false,
+    "mappedModernConstructs": [
+      "cand_emotional_awareness",
+      "cand_emotional_clarity",
+      "cand_distress_tolerance",
+      "cand_cognitive_flexibility"
+    ],
+    "interpretivePrinciple": "Interpret emotional awareness, figure-ground cognitive shifting, and psychological clarity as holistic, present-moment integration of experience.",
+    "prohibitedClaims": [
+      "Never deliver Gestalt hot-seat confrontational prompts in automated consumer software."
+    ],
+    "references": [
+      "src_wertheimer_1923_gestalt"
+    ]
+  }
+]

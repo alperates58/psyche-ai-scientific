@@ -1,0 +1,694 @@
+{
+  "modelMetadata": {
+    "modelName": "PsycheAI Consolidated Master Psychological Model",
+    "modelStage": "LITERATURE_SCREENED_GOVERNANCE_REVIEW_PROPOSAL",
+    "epistemicStatus": "EVIDENCE_GRADED_PRE_ADOPTION_PROPOSAL",
+    "corePersonalityFramework": "HEXACO_6_FACTOR_MODEL",
+    "governanceInvariant": "Production ontology (data/constructs.json) and database are NOT mutated during this phase.",
+    "summaryCounts": {
+      "proposedDomainsCount": 11,
+      "proposedConstructsCount": 42,
+      "proposedFacetsCount": 96,
+      "directPsychometricCount": 88,
+      "derivedIndicesCount": 8,
+      "responseTelemetryCount": 4
+    }
+  },
+  "domains": [
+    {
+      "domainId": "core_personality",
+      "domainNameEn": "Core Personality (HEXACO)",
+      "domainNameTr": "Temel Kişilik Boyutları (HEXACO)",
+      "descriptionEn": "Broad structural dimensions of personality based on the HEXACO 6-factor framework.",
+      "descriptionTr": "HEXACO 6 faktör modeli temelinde bireyin 6 geniş kişilik faktörü ve 24 alt boyutu.",
+      "priority": "P0",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "hexaco_honesty_humility",
+          "nameEn": "Honesty-Humility",
+          "nameTr": "Dürüstlük-Alçakgönüllülük",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "LEXICAL",
+          "priority": "P0",
+          "facets": [
+            "sincerity",
+            "fairness",
+            "greed_avoidance",
+            "modesty"
+          ]
+        },
+        {
+          "constructId": "hexaco_emotionality",
+          "nameEn": "Emotionality",
+          "nameTr": "Duygusallık",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "LEXICAL",
+          "priority": "P0",
+          "facets": [
+            "fearfulness",
+            "anxiety",
+            "dependence",
+            "sentimentality"
+          ]
+        },
+        {
+          "constructId": "hexaco_extraversion",
+          "nameEn": "Extraversion",
+          "nameTr": "Dışadönüklük",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "LEXICAL",
+          "priority": "P0",
+          "facets": [
+            "social_self_esteem",
+            "social_boldness",
+            "sociability",
+            "liveliness"
+          ]
+        },
+        {
+          "constructId": "hexaco_agreeableness",
+          "nameEn": "Agreeableness",
+          "nameTr": "Geçimlilik",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "LEXICAL",
+          "priority": "P0",
+          "facets": [
+            "forgivingness",
+            "gentleness",
+            "flexibility",
+            "patience"
+          ]
+        },
+        {
+          "constructId": "hexaco_conscientiousness",
+          "nameEn": "Conscientiousness",
+          "nameTr": "Sorumluluk",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "LEXICAL",
+          "priority": "P0",
+          "facets": [
+            "organization",
+            "diligence",
+            "perfectionism",
+            "prudence"
+          ]
+        },
+        {
+          "constructId": "hexaco_openness",
+          "nameEn": "Openness to Experience",
+          "nameTr": "Deneyime Açıklık",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "LEXICAL",
+          "priority": "P0",
+          "facets": [
+            "aesthetic_appreciation",
+            "inquisitiveness",
+            "creativity",
+            "unconventionality"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "self_system",
+      "domainNameEn": "Self-System & Identity Structure",
+      "domainNameTr": "Benlik Sistemi ve Kimlik Yapısı",
+      "descriptionEn": "Evaluative, functional, and structural representations of the self.",
+      "descriptionTr": "Benlik saygısı, öz-şefkat, öz-yeterlik, denetim odağı ve kimlik belirginliği boyutları.",
+      "priority": "P0",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "core_self_esteem",
+          "nameEn": "Global Self-Esteem",
+          "nameTr": "Genel Benlik Saygısı",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "core_self_esteem",
+            "contingent_self_worth"
+          ]
+        },
+        {
+          "constructId": "self_compassion",
+          "nameEn": "Self-Compassion",
+          "nameTr": "Öz-Şefkat",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "self_compassion"
+          ]
+        },
+        {
+          "constructId": "generalized_self_efficacy",
+          "nameEn": "Generalized Self-Efficacy",
+          "nameTr": "Genel Öz-Yeterlik",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "generalized_self_efficacy"
+          ]
+        },
+        {
+          "constructId": "locus_of_control",
+          "nameEn": "Locus of Control",
+          "nameTr": "Denetim Odağı",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "locus_of_control_internal",
+            "locus_of_control_external"
+          ]
+        },
+        {
+          "constructId": "self_concept_clarity",
+          "nameEn": "Self-Concept Clarity",
+          "nameTr": "Benlik Belirginliği",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "self_concept_clarity"
+          ]
+        },
+        {
+          "constructId": "authenticity",
+          "nameEn": "Authenticity",
+          "nameTr": "Otantiklik",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "authenticity"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameEn": "Affective Dynamics & Emotion Regulation",
+      "domainNameTr": "Duygu Dinamikleri ve Duygu Düzenleme",
+      "descriptionEn": "Baseline affective tendencies, regulation strategies, and distress handling capabilities.",
+      "descriptionTr": "Duygusal tepkisellik, başa çıkma stratejileri ve sıkıntı toleransı süreçleri.",
+      "priority": "P0",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "cognitive_reappraisal",
+          "nameEn": "Cognitive Reappraisal",
+          "nameTr": "Bilişsel Yeniden Değerlendirme",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "cognitive_reappraisal"
+          ]
+        },
+        {
+          "constructId": "expressive_suppression",
+          "nameEn": "Expressive Suppression",
+          "nameTr": "Duygusal Baskılama",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "expressive_suppression"
+          ]
+        },
+        {
+          "constructId": "affective_tone",
+          "nameEn": "Trait Affective Tone (PANAS)",
+          "nameTr": "Mizaç Duygulanımı",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "positive_affect_trait",
+            "negative_affect_trait",
+            "affect_intensity"
+          ]
+        },
+        {
+          "constructId": "distress_tolerance",
+          "nameEn": "Distress Tolerance & Acceptance",
+          "nameTr": "Sıkıntı Toleransı ve Kabul",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "distress_tolerance",
+            "experiential_avoidance"
+          ]
+        },
+        {
+          "constructId": "self_conscious_emotions",
+          "nameEn": "Self-Conscious Emotions",
+          "nameTr": "Öz-Bilinçli Duygular",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "shame_proneness",
+            "guilt_proneness"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameEn": "Cognition, Metacognition & Decision Styles",
+      "domainNameTr": "Biliş, Üstbiliş ve Karar Tarzları",
+      "descriptionEn": "Epistemic motivation, dual-process thinking styles, cognitive flexibility, and decision behaviors.",
+      "descriptionTr": "Bilişsel motivasyon, rasyonel/sezgisel düşünme tarzı ve karar verme stratejileri.",
+      "priority": "P0",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "epistemic_drive",
+          "nameEn": "Epistemic Drive & Closure",
+          "nameTr": "Bilişsel Motivasyon ve Belirsizlik Kapatma",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "need_for_cognition",
+            "need_for_cognitive_closure"
+          ]
+        },
+        {
+          "constructId": "thinking_styles",
+          "nameEn": "Dual-Process Thinking Styles",
+          "nameTr": "İkili Süreç Düşünme Tarzları",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "rational_analytical_thinking",
+            "intuitive_experiential_thinking"
+          ]
+        },
+        {
+          "constructId": "cognitive_adaptability",
+          "nameEn": "Cognitive Adaptability & Uncertainty",
+          "nameTr": "Bilişsel Esneklik ve Belirsizliğe Tahammül",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "cognitive_flexibility",
+            "intolerance_of_uncertainty",
+            "rumination_brooding"
+          ]
+        },
+        {
+          "constructId": "decision_orientation",
+          "nameEn": "Decision Orientation",
+          "nameTr": "Karar Yönelimi",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "decision_style_maximizing",
+            "procrastination_tendency"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "self_regulation",
+      "domainNameEn": "Self-Regulation, Volition & Impulse Control",
+      "domainNameTr": "Öz-Düzenleme, İrade ve Dürtü Kontrolü",
+      "descriptionEn": "Multidimensional impulsivity facets, executive self-control, stamina, and delay discounting.",
+      "descriptionTr": "Dürtüsellik boyutları, öz-kontrol ve uzun vadeli azim kapasitesi.",
+      "priority": "P0",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "impulsivity_uppsp",
+          "nameEn": "Multidimensional Impulsivity (UPPS-P)",
+          "nameTr": "Çok Boyutlu Dürtüsellik (UPPS-P)",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "uppsp_negative_urgency",
+            "uppsp_positive_urgency",
+            "uppsp_lack_of_premeditation",
+            "uppsp_lack_of_perseverance",
+            "uppsp_sensation_seeking"
+          ]
+        },
+        {
+          "constructId": "volitional_stamina",
+          "nameEn": "Volitional Stamina & Self-Control",
+          "nameTr": "İrade Gücü ve Öz-Kontrol",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "general_self_control",
+            "delay_discounting_preference",
+            "long_term_grit"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "motivation_values",
+      "domainNameEn": "Motivation, Needs & Human Values",
+      "domainNameTr": "Motivasyon, İhtiyaçlar ve Evrensel Değerler",
+      "descriptionEn": "Basic psychological needs (SDT), Schwartz value circumplex, and existential meaning.",
+      "descriptionTr": "Temel psikolojik ihtiyaçlar (Öz-Belirleme), Schwartz değer çemberi ve varoluşsal anlam.",
+      "priority": "P0",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "basic_psychological_needs",
+          "nameEn": "Basic Psychological Needs (SDT)",
+          "nameTr": "Temel Psikolojik İhtiyaçlar (ÖBT)",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "autonomy_need_satisfaction",
+            "competence_need_satisfaction",
+            "relatedness_need_satisfaction"
+          ]
+        },
+        {
+          "constructId": "universal_values",
+          "nameEn": "Universal Human Values (Schwartz)",
+          "nameTr": "Evrensel İnsan Değerleri (Schwartz)",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "schwartz_openness_to_change",
+            "schwartz_self_transcendence",
+            "schwartz_conservation",
+            "schwartz_self_enhancement"
+          ]
+        },
+        {
+          "constructId": "existential_meaning",
+          "nameEn": "Existential Meaning & Coherence",
+          "nameTr": "Varoluşsal Anlam ve Bütünlük Hissi",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "presence_of_meaning",
+            "search_for_meaning"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameEn": "Interpersonal & Relational Dynamics",
+      "domainNameTr": "Kişilerarası ve İlişkisel Dinamikler",
+      "descriptionEn": "Adult attachment security/insecurity, empathy dimensions, assertiveness, and conflict resolution.",
+      "descriptionTr": "Yetişkin bağlanma boyutları, çok boyutlu empati, atılganlık ve çatışma çözme tarzları.",
+      "priority": "P0",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "attachment_system",
+          "nameEn": "Adult Attachment Dimensions",
+          "nameTr": "Yetişkin Bağlanma Boyutları",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "attachment_anxiety",
+            "attachment_avoidance"
+          ]
+        },
+        {
+          "constructId": "multidimensional_empathy",
+          "nameEn": "Multidimensional Empathy (IRI)",
+          "nameTr": "Çok Boyutlu Empati",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P0",
+          "facets": [
+            "cognitive_perspective_taking",
+            "empathic_concern"
+          ]
+        },
+        {
+          "constructId": "social_agency_boundaries",
+          "nameEn": "Social Agency & Relational Boundaries",
+          "nameTr": "Sosyal İrade ve İlişkisel Sınırlar",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "assertiveness",
+            "social_connectedness",
+            "rejection_sensitivity_nonclinical"
+          ]
+        },
+        {
+          "constructId": "conflict_styles",
+          "nameEn": "Conflict Resolution Styles",
+          "nameTr": "Çatışma Çözme Stilleri",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "cooperation_orientation",
+            "conflict_avoidance"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "wellbeing_vitality",
+      "domainNameEn": "Subjective Well-Being & Vitality",
+      "domainNameTr": "Öznel İyi Oluş ve Yaşam Canlılığı",
+      "descriptionEn": "Flourishing, life satisfaction, and subjective vitality.",
+      "descriptionTr": "Psikolojik gelişme ve yaşam memnuniyeti göstergeleri.",
+      "priority": "P1",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "psychological_flourishing",
+          "nameEn": "Psychological Flourishing & Vitality",
+          "nameTr": "Psikolojik Gelişme ve Canlılık",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "flourishing_scale",
+            "subjective_vitality"
+          ]
+        },
+        {
+          "constructId": "life_satisfaction",
+          "nameEn": "Life Satisfaction",
+          "nameTr": "Yaşam Doyumu",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "satisfaction_with_life"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "coping_resilience",
+      "domainNameEn": "Coping Strategies & Stress Resilience",
+      "domainNameTr": "Başa Çıkma Stratejileri ve Stres Dayanıklılığı",
+      "descriptionEn": "Problem-focused vs emotion-focused coping, cognitive reappraisal, and psychological resilience.",
+      "descriptionTr": "Stresle başa çıkma tarzları ve psikolojik sağlamlık dinamikleri.",
+      "priority": "P1",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "psychological_resilience",
+          "nameEn": "Ego-Resilience & Stress Recovery",
+          "nameTr": "Psikolojik Sağlamlık ve Toparlanma",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "ego_resilience",
+            "stress_recovery"
+          ]
+        },
+        {
+          "constructId": "coping_orientations",
+          "nameEn": "Multidimensional Coping",
+          "nameTr": "Çok Boyutlu Başa Çıkma",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "problem_focused_coping",
+            "emotion_focused_coping"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "creativity_curiosity",
+      "domainNameEn": "Creativity, Epistemic Curiosity & Openness",
+      "domainNameTr": "Yaratıcılık, Merak ve Zihinsel Açıklık",
+      "descriptionEn": "Multidimensional epistemic curiosity (I-type, D-type) and creative self-efficacy.",
+      "descriptionTr": "İlgi ve yoksunluk tipi merak boyutları ve yaratıcı öz-inanç.",
+      "priority": "P1",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "epistemic_curiosity",
+          "nameEn": "Epistemic Curiosity (5DCR)",
+          "nameTr": "Bilişsel Merak Boyutları",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "joyous_exploration_curiosity",
+            "deprivation_sensitivity_curiosity"
+          ]
+        },
+        {
+          "constructId": "creative_mindset",
+          "nameEn": "Creative Self-Efficacy & Growth Mindset",
+          "nameTr": "Yaratıcı Öz-Yeterlik ve Gelişim Zihniyeti",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P1",
+          "facets": [
+            "creative_self_efficacy",
+            "growth_mindset_intelligence"
+          ]
+        }
+      ]
+    },
+    {
+      "domainId": "optional_dark_tetrad",
+      "domainNameEn": "Advanced Research Module: Subclinical Personality",
+      "domainNameTr": "İleri Düzey Modül: Subklinik Kişilik Eğilimleri",
+      "descriptionEn": "Subclinical non-pathological Dark Tetrad traits assessed under opt-in governance.",
+      "descriptionTr": "Kullanıcı onayıyla ölçülen subklinik Karanlık Dörtlü özellikleri.",
+      "priority": "P2",
+      "measurementMode": "DIRECT_PSYCHOMETRIC",
+      "constructs": [
+        {
+          "constructId": "dark_tetrad_traits",
+          "nameEn": "Short Dark Tetrad (SD4)",
+          "nameTr": "Kısa Karanlık Dörtlü (SD4)",
+          "evidenceQuality": "STRONG",
+          "turkishEvidenceStatus": "DIRECT_VALIDATION",
+          "priority": "P2",
+          "facets": [
+            "machiavellianism_subclinical",
+            "grandiose_narcissism_subclinical",
+            "psychopathy_subclinical",
+            "everyday_sadism_subclinical"
+          ]
+        }
+      ]
+    }
+  ],
+  "responseIntegrityTelemetry": [
+    {
+      "metricId": "telemetry_response_latency",
+      "metricName": "Item Response Latency & Speed Outlier Index",
+      "operationalDefinition": "Item presentation to click timestamp difference in milliseconds; detects rapid mindless clicking (<800ms) or extended distraction pauses.",
+      "telemetrySource": "CLIENT_SIDE_PAGE_TIMING",
+      "clinicalSafetyImpact": "FLAG_ONLY",
+      "visualizationDisplay": "QUALITY_INDICATOR_BADGE"
+    },
+    {
+      "metricId": "telemetry_longstring_careless",
+      "metricName": "Longstring Pattern Detection",
+      "operationalDefinition": "Maximum invariant response sequence length; flags straight-lining response patterns.",
+      "telemetrySource": "RESPONSE_VECTOR_ANALYSIS",
+      "clinicalSafetyImpact": "FLAG_ONLY",
+      "visualizationDisplay": "QUALITY_INDICATOR_BADGE"
+    },
+    {
+      "metricId": "telemetry_impression_management",
+      "metricName": "Impression Management Bias",
+      "operationalDefinition": "Conscious self-presentation inflation assessed via socially desirable responding items.",
+      "telemetrySource": "ITEM_SCORE_TELEMETRY",
+      "clinicalSafetyImpact": "FLAG_ONLY",
+      "visualizationDisplay": "QUALITY_INDICATOR_BADGE"
+    },
+    {
+      "metricId": "telemetry_self_deceptive_enhancement",
+      "metricName": "Self-Deceptive Enhancement Bias",
+      "operationalDefinition": "Unconscious positive self-bias assessed via overclaiming and uncalibrated certainty markers.",
+      "telemetrySource": "ITEM_SCORE_TELEMETRY",
+      "clinicalSafetyImpact": "FLAG_ONLY",
+      "visualizationDisplay": "QUALITY_INDICATOR_BADGE"
+    }
+  ],
+  "derivedIndices": [
+    {
+      "indexId": "idx_overall_agency",
+      "indexName": "Integrated Agency Index",
+      "formulaDescription": "Linear combination of Generalized Self-Efficacy, Internal Locus of Control, and Autonomy Need Satisfaction.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    },
+    {
+      "indexId": "idx_stress_resilience_composite",
+      "indexName": "Composite Stress Resilience Index",
+      "formulaDescription": "Composite score derived from Distress Tolerance, Cognitive Reappraisal, and Low Trait Negative Affect.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    },
+    {
+      "indexId": "idx_epistemic_rigor",
+      "indexName": "Epistemic Rigor Index",
+      "formulaDescription": "Interaction score of Need for Cognition and Rational Thinking Style.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    },
+    {
+      "indexId": "idx_relational_security",
+      "indexName": "Relational Security Index",
+      "formulaDescription": "Inverse composite of Attachment Anxiety and Attachment Avoidance with Empathic Concern.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    },
+    {
+      "indexId": "idx_volitional_drive",
+      "indexName": "Volitional Drive Index",
+      "formulaDescription": "Conscientiousness Diligence combined with General Self-Control and Long-Term Grit.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    },
+    {
+      "indexId": "idx_emotional_stability_composite",
+      "indexName": "Emotional Stability Composite",
+      "formulaDescription": "Inverse of HEXACO Emotionality and Trait Negative Affect with High Cognitive Reappraisal.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    },
+    {
+      "indexId": "idx_creative_dynamism",
+      "indexName": "Creative Dynamism Index",
+      "formulaDescription": "Openness Unconventionality combined with Epistemic Curiosity and Creative Self-Efficacy.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    },
+    {
+      "indexId": "idx_moral_integrity_composite",
+      "indexName": "Moral Integrity Composite",
+      "formulaDescription": "HEXACO Honesty-Humility combined with Schwartz Self-Transcendence values and Low Dark Tetrad traits.",
+      "governanceStatus": "DERIVED_CALCULATED_ONLY"
+    }
+  ],
+  "observationalAILayer": {
+    "governancePrinciple": "Observational AI constructs are generated strictly through semi-structured conversational transcripts and behavioral pacing, NEVER masquerading as standardized psychometric trait items.",
+    "observationalConstructs": [
+      "cand_ai_narrative_complexity",
+      "cand_ai_metacognitive_spontaneity",
+      "cand_ai_linguistic_emotional_granularity",
+      "cand_ai_relational_stance_openness"
+    ]
+  }
+}

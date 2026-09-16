@@ -1,0 +1,367 @@
+{
+  "protocolVersion": "1.0.0",
+  "screeningDate": "2026-09-16",
+  "protocolTitle": "PsycheAI Master Psychological Model: Systematic Broad Literature Screening Protocol",
+  "methodology": "SYSTEMATIC_BROAD_LITERATURE_SCREEN",
+  "leadInvestigator": "PsycheAI Psychometric & Scientific Architecture Group",
+  "epistemicPolicy": "EVIDENCE_GRADED_NON_CLINICAL_CONSUMER_MODEL",
+  "databasesSearched": [
+    {
+      "database": "APA PsycINFO / PsycNet",
+      "coverage": "Peer-reviewed psychological journals, book chapters, psychometrics (1887-2026)"
+    },
+    {
+      "database": "PubMed / MEDLINE",
+      "coverage": "Neuroscience, behavioral medicine, clinical boundaries, psychiatric screening distinctions (1950-2026)"
+    },
+    {
+      "database": "Web of Science / Scopus",
+      "coverage": "Cross-disciplinary social sciences, psychometric replication studies, citation networks"
+    },
+    {
+      "database": "Google Scholar",
+      "coverage": "Comprehensive academic citation tracking, meta-analytic cross-checks"
+    },
+    {
+      "database": "International Personality Item Pool (IPIP - ORI)",
+      "coverage": "Public domain psychometric operationalizations and item provenance (Goldberg et al.)"
+    },
+    {
+      "database": "DergiPark / TÜBİTAK ULAKBİM Social Sciences Database",
+      "coverage": "Turkish national psychometric adaptations, scale translations, Turkish lexical personality studies"
+    },
+    {
+      "database": "Open Science Framework (OSF) / PsychArchives",
+      "coverage": "Preregistered replications, open psychometric scale repositories"
+    }
+  ],
+  "keywordFamilies": [
+    {
+      "domainArea": "Core Personality & Trait Models",
+      "keywords": [
+        "HEXACO model",
+        "Big Five personality traits",
+        "Five-Factor Model (FFM)",
+        "Honesty-Humility",
+        "Emotionality",
+        "Extraversion",
+        "Agreeableness",
+        "Conscientiousness",
+        "Openness to Experience",
+        "Dark Triad",
+        "Dark Tetrad",
+        "lexical personality studies Turkey"
+      ]
+    },
+    {
+      "domainArea": "Self-System & Self-Evaluations",
+      "keywords": [
+        "self-esteem",
+        "Rosenberg Self-Esteem Scale",
+        "generalized self-efficacy",
+        "Bandura self-efficacy",
+        "self-compassion",
+        "Neff self-compassion scale",
+        "self-concept clarity",
+        "Campbell self-concept clarity",
+        "locus of control",
+        "Rotter locus of control",
+        "contingent self-worth",
+        "Crocker contingencies",
+        "authenticity",
+        "Wood authenticity scale",
+        "self-discrepancy theory",
+        "Higgins actual ideal ought self"
+      ]
+    },
+    {
+      "domainArea": "Emotion, Affect & Emotion Regulation",
+      "keywords": [
+        "emotion regulation",
+        "Gross process model",
+        "cognitive reappraisal",
+        "expressive suppression",
+        "ERQ Emotion Regulation Questionnaire",
+        "positive and negative affect",
+        "PANAS Watson Clark Tellegen",
+        "affect intensity",
+        "Larsen AIM",
+        "emotional clarity",
+        "emotional awareness",
+        "DERS Difficulties in Emotion Regulation",
+        "distress tolerance",
+        "Simons Gaher DTS",
+        "emotion differentiation",
+        "emotional granularity"
+      ]
+    },
+    {
+      "domainArea": "Self-Regulation, Volition & Impulse Control",
+      "keywords": [
+        "self-control",
+        "Tangney Brief Self-Control Scale",
+        "UPPS-P impulsivity model",
+        "negative urgency",
+        "positive urgency",
+        "lack of premeditation",
+        "lack of perseverance",
+        "sensation seeking",
+        "delay discounting",
+        "delayed gratification",
+        "grit",
+        "Duckworth Grit Scale",
+        "procrastination tendency",
+        "Lay Procrastination Scale",
+        "Tuckman Procrastination Scale",
+        "behavioral inhibition behavioral activation BIS BAS",
+        "Carver White BIS BAS",
+        "effortful control",
+        "habitual regulation"
+      ]
+    },
+    {
+      "domainArea": "Motivation, Needs & Human Values",
+      "keywords": [
+        "Self-Determination Theory",
+        "Deci Ryan basic psychological needs",
+        "autonomy need",
+        "competence need",
+        "relatedness need",
+        "BPNSFS",
+        "acquired needs theory",
+        "McClelland achievement affiliation power",
+        "Schwartz Theory of Basic Human Values",
+        "PVQ",
+        "universal values",
+        "growth mindset",
+        "Dweck implicit theories of intelligence",
+        "intrinsic extrinsic motivation"
+      ]
+    },
+    {
+      "domainArea": "Interpersonal & Relational Functioning",
+      "keywords": [
+        "adult attachment",
+        "Brennan Clark Shaver Experiences in Close Relationships",
+        "ECR-R",
+        "attachment anxiety",
+        "attachment avoidance",
+        "interpersonal circumplex",
+        "Wiggins IPC",
+        "interpersonal dominance",
+        "interpersonal warmth",
+        "assertiveness",
+        "Rathus assertiveness",
+        "social connectedness",
+        "Lee Robbins Social Connectedness Scale",
+        "propensity to trust",
+        "Mayer Davis Schoorman trust",
+        "cooperation tendency",
+        "conflict management styles",
+        "Thomas Kilmann TKI",
+        "De Dreu DUTCH conflict",
+        "multidimensional empathy",
+        "Davis Interpersonal Reactivity Index IRI",
+        "perspective taking",
+        "empathic concern",
+        "rejection sensitivity",
+        "Downey Feldman RSQ",
+        "social approval dependence"
+      ]
+    },
+    {
+      "domainArea": "Cognition, Decision Making & Epistemic Styles",
+      "keywords": [
+        "need for cognition",
+        "Cacioppo Petty NFC",
+        "dual process theory",
+        "Rational-Experiential Inventory REI",
+        "Epstein rational analytical intuitive",
+        "Cognitive Reflection Test CRT",
+        "Frederick CRT",
+        "General Decision Making Styles GDMS",
+        "Scott Bruce GDMS",
+        "risk preference",
+        "Blais Weber DOSPERT",
+        "intolerance of uncertainty",
+        "Freeston Buhr IUS",
+        "ambiguity tolerance",
+        "Budner ambiguity",
+        "maximizing satisficing",
+        "Schwartz Maximization Scale",
+        "time perspective",
+        "Zimbardo Time Perspective Inventory ZTPI",
+        "future orientation"
+      ]
+    },
+    {
+      "domainArea": "Vocational Interests & Work Dispositions",
+      "keywords": [
+        "Holland RIASEC model",
+        "vocational interests",
+        "Realistic Investigative Artistic Social Enterprising Conventional",
+        "work values",
+        "Super Work Values Inventory",
+        "transformational leadership tendencies",
+        "work engagement",
+        "Schaufeli Utrecht Work Engagement Scale UWES"
+      ]
+    },
+    {
+      "domainArea": "Coping Mechanisms & Stress Responses",
+      "keywords": [
+        "coping strategies",
+        "Lazarus Folkman transactional model",
+        "Carver Brief COPE",
+        "problem-focused coping",
+        "emotion-focused coping",
+        "avoidant coping",
+        "positive reframing",
+        "acceptance coping",
+        "active coping",
+        "support seeking coping"
+      ]
+    },
+    {
+      "domainArea": "Existential & Meaning Dynamics",
+      "keywords": [
+        "Meaning in Life",
+        "Steger Meaning in Life Questionnaire MLQ",
+        "presence of meaning",
+        "search for meaning",
+        "existential anxiety",
+        "sense of coherence",
+        "Antonovsky SOC"
+      ]
+    },
+    {
+      "domainArea": "Moral & Prosocial Dispositions",
+      "keywords": [
+        "Moral Foundations Theory",
+        "Graham Haidt Moral Foundations Questionnaire MFQ",
+        "care harm",
+        "fairness cheating",
+        "loyalty betrayal",
+        "authority subversion",
+        "sanctity degradation",
+        "prosocial behavior tendencies",
+        "Carlo Randall PTM"
+      ]
+    },
+    {
+      "domainArea": "Historical & Theoretical Lenses (Interpretive Only)",
+      "keywords": [
+        "Freud defense mechanisms",
+        "Vaillant defense mechanisms DSQ",
+        "Jungian psychological types",
+        "Adler social interest striving for superiority",
+        "Rogerian self-congruence",
+        "Maslow hierarchy of needs empirical review",
+        "Skinner operant reinforcement contingencies",
+        "William James functional self stream of thought",
+        "Gestalt figure ground closure"
+      ]
+    },
+    {
+      "domainArea": "Measurement Quality & Response Integrity Telemetry",
+      "keywords": [
+        "social desirability",
+        "Paulhus Balanced Inventory of Desirable Responding BIDR-6",
+        "impression management",
+        "self-deceptive enhancement",
+        "careless responding",
+        "insufficient effort responding",
+        "longstring index",
+        "response time anomaly",
+        "semantic pair inconsistency",
+        "Curran careless responding guidelines"
+      ]
+    },
+    {
+      "domainArea": "Subjective Well-Being, Flourishing & Vitality",
+      "keywords": [
+        "Satisfaction with Life Scale SWLS",
+        "Diener life satisfaction",
+        "Psychological Flourishing",
+        "Diener Flourishing Scale",
+        "Subjective Vitality",
+        "Ryan Frederick subjective vitality",
+        "eudaimonic well-being",
+        "hedonic tone"
+      ]
+    },
+    {
+      "domainArea": "Creativity, Epistemic Curiosity & Growth Mindset",
+      "keywords": [
+        "Five-Dimensional Curiosity Scale 5DCR",
+        "Kashdan epistemic curiosity",
+        "joyous exploration",
+        "deprivation sensitivity",
+        "creative self-efficacy",
+        "Tierney Farmer creative self-efficacy",
+        "growth mindset intelligence",
+        "Dweck implicit theories"
+      ]
+    },
+    {
+      "domainArea": "Clinical Screening Boundaries & Transdiagnostic Exclusion",
+      "keywords": [
+        "PHQ-9 depression screening criteria",
+        "GAD-7 anxiety screening criteria",
+        "Personality Inventory for DSM-5 PID-5",
+        "psychopathology screener non-clinical boundary",
+        "transdiagnostic risk factor vs normal personality trait",
+        "safety exclusions from automated consumer reporting"
+      ]
+    }
+  ],
+  "inclusionCriteria": [
+    "Published in peer-reviewed scientific journals or authoritative psychometric handbooks.",
+    "Explicit theoretical construct definition backed by empirical factor structure or latent modeling.",
+    "Non-clinical applicability suitable for normative consumer profile assessment.",
+    "Availability of validated measurement instruments or operationalized item pools (e.g., IPIP, public domain, or research scales).",
+    "Evidence of cross-cultural replicability or identifiable cross-cultural research.",
+    "Demonstrated or plausible incremental validity beyond broad HEXACO/Big Five factors."
+  ],
+  "exclusionCriteria": [
+    "Primary clinical diagnostic classification instruments (e.g., DSM-5 / ICD-11 psychiatric disorders, psychosis, schizophrenia, severe clinical depression, bipolar disorder, clinical personality disorder diagnostics).",
+    "Commercial unvalidated pop-psychology typologies (e.g., Enneagram, unvalidated commercial MBTI variants, astrological or archetype scoring).",
+    "Cognitive ability / IQ performance tests masquerading as personality self-reports.",
+    "Single-study idiosyncratic constructs lacking independent replication.",
+    "Purely physiological or biomedical biomarkers lacking self-report psychometric operationalization.",
+    "Composite derived scores disguised as independent latent traits without explicit underlying item measurement."
+  ],
+  "sourceTypePrioritization": [
+    "Tier 1: Systematic reviews and meta-analyses (e.g., Psychological Bulletin, Annual Review of Psychology, Nature Human Behaviour, JPSP).",
+    "Tier 2: Seminal psychometric scale development and structural validation studies (e.g., JPSP, Psychological Assessment, Assessment, Personality and Individual Differences).",
+    "Tier 3: Large-scale cross-cultural and lexical studies (e.g., Journal of Cross-Cultural Psychology, European Journal of Personality).",
+    "Tier 4: Verified Turkish psychometric adaptations published in indexed peer-reviewed journals (e.g., Türk Psikoloji Dergisi, Türk Psikiyatri Dergisi, Anadolu Psikiyatri Dergisi).",
+    "Tier 5: Authoritative scale archives and project repositories (e.g., IPIP, HEXACO.org, Open Science Framework).",
+    "Tier 6: Foundational theoretical treatises for historical lens mapping (e.g., Freud 1923, James 1890, Rogers 1961, Adler 1927) - explicitly tagged as THEORETICAL_FRAMEWORK."
+  ],
+  "duplicateHandlingPolicy": "When multiple instruments or conceptualizations exist for the same construct (e.g., Self-Control via BSCS vs UPPS-P lack of premeditation/perseverance; Grit vs Conscientiousness persistence), constructs undergo directional overlap analysis in overlap-analysis.json to determine whether they are distinct, hierarchical facets, or redundant.",
+  "dateRangePolicy": "Foundational classic works retained for theoretical lineage (1890-1980); contemporary psychometric literature prioritized from 1980 to 2026; recent meta-analyses up to 2026 prioritized for evidence grading.",
+  "languagePolicy": "Primary global construct validity evaluated in English; Turkish validation status searched and evaluated independently in Turkish psychometric literature (DergiPark, ULAKBİM, TR journals).",
+  "turkishEvidenceSearchProtocol": {
+    "methodology": "Independent dedicated search for Turkish adaptation studies for every candidate construct.",
+    "granularityLevels": [
+      "BROAD_FACTOR: Broad lexical or multi-factor structure evidence in Turkish population (e.g. Wasti et al., 2008).",
+      "SCALE_TOTAL: Turkish adaptation validated only at the overall composite scale score level.",
+      "SUBSCALE: Turkish adaptation validating specific subscales.",
+      "CONSTRUCT: Turkish adaptation validating the full construct.",
+      "EXACT_FACET: Direct Turkish psychometric validation at the exact item/facet level.",
+      "NO_DIRECT: No verified peer-reviewed Turkish adaptation in the registry."
+    ],
+    "verificationRequirement": "A Turkish online translation or non-peer-reviewed blog does NOT qualify as psychometric evidence. Must have verified citation from peer-reviewed journal or academic thesis."
+  },
+  "licensingAuditProtocol": {
+    "methodology": "Independent verification of copyright and commercial reproduction terms directly from official publisher/licensor documentation.",
+    "categories": [
+      "APPROVED_PUBLIC: Public domain (IPIP), Creative Commons CC-BY, or explicit open scientific permission.",
+      "REQUIRES_LICENSE: Free for academic research, but requires formal author/publisher license for commercial software/SaaS.",
+      "STRICTLY_PROPRIETARY: Protected by commercial test publishers (e.g., PAR Inc., Pearson, MHS, Hogrefe) prohibiting electronic reproduction.",
+      "UNKNOWN: Instrument provenance or license terms not formally published in open sources.",
+      "NOT_APPLICABLE: Theoretical framework, derived index, or observational telemetry not requiring instrument copyright."
+    ]
+  }
+}

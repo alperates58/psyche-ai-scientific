@@ -13,6 +13,7 @@
     "test:e2e": "playwright test",
     "audit:report": "tsx scripts/generate-scientific-audit-report.ts",
     "audit:schema": "tsx scripts/audit-schema.ts",
+    "audit:master-model": "tsx scripts/audit-master-model.ts",
     "admin:grant-role": "tsx scripts/admin-grant-role.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",

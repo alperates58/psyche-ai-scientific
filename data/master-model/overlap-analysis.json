@@ -1,0 +1,154 @@
+[
+  {
+    "pairId": "overlap_grit_vs_conscientiousness",
+    "constructA": "cand_long_term_grit",
+    "constructB": "cand_hexaco_conscientiousness",
+    "overlapType": "PARTIALLY_CONVERGENT",
+    "relationDirection": "B_SUBSUMES_A",
+    "conceptualOverlap": "Both constructs evaluate dedication to effort, task persistence, and discipline over time.",
+    "empiricalOverlap": "Meta-analyses (Credé et al., 2017) demonstrate that Grit correlates substantially with Conscientiousness (specifically Industriousness/Diligence). However, the Perseverance of Effort facet displays modest incremental validity for multi-year goal completion beyond standard conscientiousness scales.",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_duckworth_2007_grit",
+      "src_crede_2017_grit_meta",
+      "src_ashton_lee_2007"
+    ],
+    "substantiveRationale": "Conscientiousness remains the broad foundational trait battery (P0). Grit is maintained as an advanced enrichment construct (P1) specifically capturing multi-year goal passion and sustained stamina without conflating them into a single score."
+  },
+  {
+    "pairId": "overlap_self_esteem_vs_self_worth",
+    "constructA": "cand_core_self_esteem",
+    "constructB": "cand_contingent_self_worth",
+    "overlapType": "PARTIALLY_CONVERGENT",
+    "relationDirection": "SYMMETRIC_CONVERGENCE",
+    "conceptualOverlap": "Global self-esteem evaluates the general affective level of self-worth; contingent self-worth assesses the situational vulnerability and stake domains upon which that self-worth depends.",
+    "empiricalOverlap": "Crocker & Wolfe (2001) demonstrate that individuals with identical high self-esteem can differ dramatically in self-esteem stability and defensive reactions depending on their contingencies.",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_rosenberg_1965",
+      "src_crocker_2001_csw"
+    ],
+    "substantiveRationale": "Both are maintained distinctly. Global Self-Esteem measures baseline trait level; Contingent Self-Worth provides structural qualitative insight into self-esteem fragility."
+  },
+  {
+    "pairId": "overlap_self_efficacy_vs_competence_need",
+    "constructA": "cand_generalized_self_efficacy",
+    "constructB": "cand_competence_need_satisfaction",
+    "overlapType": "PARTIALLY_CONVERGENT",
+    "relationDirection": "SYMMETRIC_CONVERGENCE",
+    "conceptualOverlap": "Self-efficacy reflects optimistic prospective beliefs about capability to handle future obstacles; Competence Need Satisfaction reflects the experienced psychological feeling of mastery and fulfillment in current life activities.",
+    "empiricalOverlap": "Bandura (1997) vs Deci & Ryan (2000). While positively correlated, self-efficacy is a cognitive expectation whereas competence need satisfaction is an experiential affective-motivational state.",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_bandura_1997",
+      "src_deci_ryan_2000_sdt",
+      "src_chen_2015_bpnsfs"
+    ],
+    "substantiveRationale": "Maintained in separate domains (Self-System vs Motivation & Needs). They provide complementary cognitive vs experiential perspectives."
+  },
+  {
+    "pairId": "overlap_nfc_vs_rational_thinking",
+    "constructA": "cand_need_for_cognition",
+    "constructB": "cand_rational_analytical_thinking",
+    "overlapType": "PARTIALLY_CONVERGENT",
+    "relationDirection": "SYMMETRIC_CONVERGENCE",
+    "conceptualOverlap": "Need for Cognition evaluates intrinsic motivation and pleasure in thinking; Rational Thinking Style evaluates perceived ability and behavioral reliance on analytical logic.",
+    "empiricalOverlap": "Epstein et al. (1996) and Cacioppo & Petty (1982). Correlate moderately to strongly, but REI separates rational ability/engagement from experiential intuitive processing, whereas NFC is unidimensional epistemic drive.",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_cacioppo_petty_1982_nfc",
+      "src_epstein_1996_rei"
+    ],
+    "substantiveRationale": "Retained separately in proposed model under Epistemic Drive vs Thinking Styles constructs."
+  },
+  {
+    "pairId": "overlap_perspective_taking_vs_empathic_concern",
+    "constructA": "cand_cognitive_perspective_taking",
+    "constructB": "cand_empathic_concern",
+    "overlapType": "DISTINCT_SURFACE_SIMILAR",
+    "relationDirection": "SYMMETRIC_CONVERGENCE",
+    "conceptualOverlap": "Perspective taking is the cognitive capacity to adopt others' viewpoints; Empathic concern is the emotional tendency to feel compassion and warmth for unfortunate others.",
+    "empiricalOverlap": "Davis (1983) IRI demonstrates distinct neurocognitive substrates (theory of mind vs emotional resonance) with modest intercorrelation.",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_davis_1983_iri",
+      "src_yildirim_2013_iri"
+    ],
+    "substantiveRationale": "Both are maintained as distinct facets under the Multidimensional Empathy construct (P0)."
+  },
+  {
+    "pairId": "overlap_schwartz_self_transcendence_vs_hexaco_honesty",
+    "constructA": "cand_schwartz_self_transcendence",
+    "constructB": "cand_hexaco_honesty_humility",
+    "overlapType": "PARTIALLY_CONVERGENT",
+    "relationDirection": "DIFFERENT_GRANULARITY_PARALLEL",
+    "conceptualOverlap": "Both constructs capture prosocial orientation, egalitarian values, and altruism.",
+    "empiricalOverlap": "Schwartz (2012) and Ashton & Lee (2007). Values represent conscious normative goals ('what is important to me'), whereas personality traits represent habitual behavioral tendencies ('how I typically act').",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_schwartz_2012_values",
+      "src_ashton_lee_2007"
+    ],
+    "substantiveRationale": "Maintained in separate domains (Values vs Core Personality) to enable deep profile triangulation between stated values and spontaneous trait behaviors."
+  },
+  {
+    "pairId": "overlap_reappraisal_vs_suppression",
+    "constructA": "cand_cognitive_reappraisal",
+    "constructB": "cand_expressive_suppression",
+    "overlapType": "DISTINCT_SURFACE_SIMILAR",
+    "relationDirection": "DIFFERENT_GRANULARITY_PARALLEL",
+    "conceptualOverlap": "Both are emotion regulation strategies from Gross's process model.",
+    "empiricalOverlap": "Gross & John (2003) demonstrate they are orthogonal (near-zero correlation, r ~ -.05 to .10) with opposite mental health and social functioning outcomes.",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_gross_john_2003",
+      "src_ucanok_2011_erq"
+    ],
+    "substantiveRationale": "Preserved as separate constructs in proposed master model to prevent misleading composite averaging."
+  },
+  {
+    "pairId": "overlap_subclinical_narcissism_vs_clinical_bpo",
+    "constructA": "cand_grandiose_narcissism_subclinical",
+    "constructB": "cand_borderline_personality_organization",
+    "overlapType": "PARTIALLY_CONVERGENT",
+    "relationDirection": "DIFFERENT_GRANULARITY_PARALLEL",
+    "conceptualOverlap": "Both involve self-esteem vulnerability, interpersonal entitlement, and defensive grandiosity.",
+    "empiricalOverlap": "Paulhus (2020) vs APA DSM-5. Subclinical narcissism reflects normal-range assertive self-enhancement; clinical personality organization involves pervasive structural identity diffusion and reality testing vulnerabilities.",
+    "resolutionDecision": "EXCLUDE_B_CLINICAL",
+    "sourceIds": [
+      "src_paulhus_2020_sd4",
+      "src_apa_dsm5_tr_2022"
+    ],
+    "substantiveRationale": "Exclude clinical personality disorder screening from consumer scoring. Retain only subclinical SD4 Narcissism as opt-in research module (P2)."
+  },
+  {
+    "pairId": "overlap_mbti_types_vs_hexaco_traits",
+    "constructA": "cand_hexaco_extraversion",
+    "constructB": "cand_jungian_psychological_types",
+    "overlapType": "DIFFERENT_THEORETICAL_FRAMEWORK_SAME_PHENOMENON",
+    "relationDirection": "DIFFERENT_GRANULARITY_PARALLEL",
+    "conceptualOverlap": "Both frameworks address inward vs outward psychological orientation.",
+    "empiricalOverlap": "Continuous trait measurement has superior test-retest reliability, predictive validity, and avoids artificial bimodal splitting compared to categorical type sorting.",
+    "resolutionDecision": "KEEP_A_AS_PSYCHOMETRIC_KEEP_B_AS_LENS",
+    "sourceIds": [
+      "src_ashton_lee_2007",
+      "src_jung_1921_types"
+    ],
+    "substantiveRationale": "Score Extraversion strictly via continuous psychometric item banks. Maintain Jungian types strictly as qualitative interpretive lens."
+  },
+  {
+    "pairId": "overlap_actual_ideal_discrepancy_vs_self_esteem",
+    "constructA": "cand_actual_ideal_discrepancy",
+    "constructB": "cand_core_self_esteem",
+    "overlapType": "PARTIALLY_CONVERGENT",
+    "relationDirection": "DIFFERENT_GRANULARITY_PARALLEL",
+    "conceptualOverlap": "Both assess negative self-evaluation and dissatisfaction with current self.",
+    "empiricalOverlap": "Higgins (1987) vs Rosenberg (1965). Actual-ideal discrepancy predicts dejection-related emotions specifically, whereas self-esteem is global affective self-worth.",
+    "resolutionDecision": "RETAIN_BOTH_SEPARATE",
+    "sourceIds": [
+      "src_higgins_1987_discrepancy",
+      "src_rosenberg_1965"
+    ],
+    "substantiveRationale": "Both are maintained. Self-esteem is direct psychometric; Self-discrepancy is derived from self-state comparisons."
+  }
+]

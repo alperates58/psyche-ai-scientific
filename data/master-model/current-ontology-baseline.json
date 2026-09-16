@@ -1,0 +1,3614 @@
+{
+  "baselineMetadata": {
+    "generatedAt": "2026-09-16T20:45:00Z",
+    "sourceOfTruthFiles": [
+      "data/constructs.json",
+      "data/source-registry.json",
+      "data/instrument-registry.json",
+      "research/turkish-validation-matrix.json"
+    ],
+    "invariants": {
+      "totalDomains": 9,
+      "totalConstructs": 30,
+      "totalFacets": 84
+    }
+  },
+  "domains": [
+    {
+      "domainId": "core_personality",
+      "domainNameEn": "Core Personality",
+      "domainNameTr": "Core Personality",
+      "constructCount": 6,
+      "facetCount": 24,
+      "constructIds": [
+        "honesty_humility",
+        "emotionality",
+        "extraversion",
+        "agreeableness",
+        "conscientiousness",
+        "openness"
+      ],
+      "status": "CORE_ACTIVE"
+    },
+    {
+      "domainId": "self_system",
+      "domainNameEn": "Self-System & Identity",
+      "domainNameTr": "Self-System & Identity",
+      "constructCount": 3,
+      "facetCount": 7,
+      "constructIds": [
+        "self_evaluation",
+        "agency_mastery",
+        "identity_integrity"
+      ],
+      "status": "CORE_ACTIVE"
+    },
+    {
+      "domainId": "emotion_regulation",
+      "domainNameEn": "Emotion & Affect Regulation",
+      "domainNameTr": "Emotion & Affect Regulation",
+      "constructCount": 4,
+      "facetCount": 10,
+      "constructIds": [
+        "emotion_regulation_strategies",
+        "affective_dynamics",
+        "distress_management",
+        "self_conscious_emotions"
+      ],
+      "status": "CORE_ACTIVE"
+    },
+    {
+      "domainId": "cognition_decision",
+      "domainNameEn": "Cognition & Decision Making",
+      "domainNameTr": "Cognition & Decision Making",
+      "constructCount": 4,
+      "facetCount": 9,
+      "constructIds": [
+        "epistemic_drive",
+        "thinking_styles",
+        "cognitive_adaptability",
+        "decision_orientation"
+      ],
+      "status": "CORE_ACTIVE"
+    },
+    {
+      "domainId": "self_regulation",
+      "domainNameEn": "Self-Regulation & Volition",
+      "domainNameTr": "Self-Regulation & Volition",
+      "constructCount": 2,
+      "facetCount": 8,
+      "constructIds": [
+        "impulsivity_uppsp",
+        "volitional_stamina"
+      ],
+      "status": "CORE_ACTIVE"
+    },
+    {
+      "domainId": "motivation_values",
+      "domainNameEn": "Motivation, Needs & Values",
+      "domainNameTr": "Motivation, Needs & Values",
+      "constructCount": 3,
+      "facetCount": 9,
+      "constructIds": [
+        "basic_psychological_needs",
+        "universal_values",
+        "existential_meaning"
+      ],
+      "status": "CORE_ACTIVE"
+    },
+    {
+      "domainId": "social_relational",
+      "domainNameEn": "Interpersonal & Social Dynamics",
+      "domainNameTr": "Interpersonal & Social Dynamics",
+      "constructCount": 4,
+      "facetCount": 9,
+      "constructIds": [
+        "attachment_system",
+        "multidimensional_empathy",
+        "social_agency_boundaries",
+        "conflict_styles"
+      ],
+      "status": "CORE_ACTIVE"
+    },
+    {
+      "domainId": "response_integrity",
+      "domainNameEn": "Response Integrity & Measurement Quality",
+      "domainNameTr": "Response Integrity & Measurement Quality",
+      "constructCount": 3,
+      "facetCount": 4,
+      "constructIds": [
+        "attention_effort",
+        "response_bias",
+        "profile_coherence"
+      ],
+      "status": "MEASUREMENT_QUALITY"
+    },
+    {
+      "domainId": "optional_dark_tetrad",
+      "domainNameEn": "Optional Advanced Module: Subclinical Tendencies",
+      "domainNameTr": "Optional Advanced Module: Subclinical Tendencies",
+      "constructCount": 1,
+      "facetCount": 4,
+      "constructIds": [
+        "dark_tetrad_traits"
+      ],
+      "status": "OPTIONAL_EXPANSION"
+    }
+  ],
+  "constructs": [
+    {
+      "constructId": "honesty_humility",
+      "constructNameEn": "Honesty-Humility",
+      "constructNameTr": "Dürüstlük-Alçakgönüllülük",
+      "domainId": "core_personality",
+      "facetCount": 4,
+      "facetIds": [
+        "sincerity",
+        "fairness",
+        "greed_avoidance",
+        "modesty"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "emotionality",
+      "constructNameEn": "Emotionality",
+      "constructNameTr": "Duygusallık / Hassasiyet",
+      "domainId": "core_personality",
+      "facetCount": 4,
+      "facetIds": [
+        "fearfulness",
+        "anxiety_proneness",
+        "dependence",
+        "sentimentality"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "extraversion",
+      "constructNameEn": "Extraversion",
+      "constructNameTr": "Dışadönüklük",
+      "domainId": "core_personality",
+      "facetCount": 4,
+      "facetIds": [
+        "social_self_esteem",
+        "social_boldness",
+        "sociability",
+        "liveliness"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "agreeableness",
+      "constructNameEn": "Agreeableness",
+      "constructNameTr": "Geçimlilik / Hoşgörü",
+      "domainId": "core_personality",
+      "facetCount": 4,
+      "facetIds": [
+        "forgiveness",
+        "gentleness",
+        "flexibility",
+        "patience"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "conscientiousness",
+      "constructNameEn": "Conscientiousness",
+      "constructNameTr": "Sorumluluk / Öz-Disiplin",
+      "domainId": "core_personality",
+      "facetCount": 4,
+      "facetIds": [
+        "organization",
+        "diligence",
+        "perfectionism",
+        "prudence"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "openness",
+      "constructNameEn": "Openness to Experience",
+      "constructNameTr": "Deneyime Açıklık",
+      "domainId": "core_personality",
+      "facetCount": 4,
+      "facetIds": [
+        "aesthetic_appreciation",
+        "inquisitiveness",
+        "creativity",
+        "unconventionality"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "self_evaluation",
+      "constructNameEn": "Self-Evaluation Structure",
+      "constructNameTr": "Benlik Değerlendirmesi",
+      "domainId": "self_system",
+      "facetCount": 3,
+      "facetIds": [
+        "core_self_esteem",
+        "contingent_self_worth",
+        "self_compassion"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "agency_mastery",
+      "constructNameEn": "Agency & Mastery",
+      "constructNameTr": "Yetkinlik ve İrade",
+      "domainId": "self_system",
+      "facetCount": 2,
+      "facetIds": [
+        "generalized_self_efficacy",
+        "locus_of_control"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "identity_integrity",
+      "constructNameEn": "Identity Integrity",
+      "constructNameTr": "Kimlik Bütünlüğü",
+      "domainId": "self_system",
+      "facetCount": 2,
+      "facetIds": [
+        "self_concept_clarity",
+        "authenticity"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "emotion_regulation_strategies",
+      "constructNameEn": "Emotion Regulation Strategies",
+      "constructNameTr": "Duygu Düzenleme",
+      "domainId": "emotion_regulation",
+      "facetCount": 2,
+      "facetIds": [
+        "cognitive_reappraisal",
+        "expressive_suppression"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "affective_dynamics",
+      "constructNameEn": "Affective Dynamics",
+      "constructNameTr": "Duygulanım Dinamikleri",
+      "domainId": "emotion_regulation",
+      "facetCount": 4,
+      "facetIds": [
+        "emotional_reactivity",
+        "emotional_recovery",
+        "trait_positive_affect",
+        "trait_negative_affect"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "distress_management",
+      "constructNameEn": "Distress Management",
+      "constructNameTr": "Zorlayıcı Yaşantı Yönetimi",
+      "domainId": "emotion_regulation",
+      "facetCount": 2,
+      "facetIds": [
+        "distress_tolerance",
+        "experiential_avoidance"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "self_conscious_emotions",
+      "constructNameEn": "Self-Conscious Emotions",
+      "constructNameTr": "Öz-Bilinçli Duygular",
+      "domainId": "emotion_regulation",
+      "facetCount": 2,
+      "facetIds": [
+        "shame_proneness",
+        "guilt_proneness"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "epistemic_drive",
+      "constructNameEn": "Epistemic Drive",
+      "constructNameTr": "Bilişsel Motivasyon",
+      "domainId": "cognition_decision",
+      "facetCount": 2,
+      "facetIds": [
+        "need_for_cognition",
+        "need_for_cognitive_closure"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "thinking_styles",
+      "constructNameEn": "Thinking Styles",
+      "constructNameTr": "Düşünme Tarzları",
+      "domainId": "cognition_decision",
+      "facetCount": 2,
+      "facetIds": [
+        "rational_analytical_style",
+        "intuitive_experiential_style"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "cognitive_adaptability",
+      "constructNameEn": "Cognitive Adaptability",
+      "constructNameTr": "Bilişsel Uyum ve Esneklik",
+      "domainId": "cognition_decision",
+      "facetCount": 3,
+      "facetIds": [
+        "cognitive_flexibility",
+        "intolerance_of_uncertainty",
+        "rumination_brooding"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "decision_orientation",
+      "constructNameEn": "Decision Orientation",
+      "constructNameTr": "Karar Verme Yönelimleri",
+      "domainId": "cognition_decision",
+      "facetCount": 2,
+      "facetIds": [
+        "maximizing_tendency",
+        "decision_avoidance_procrastination"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "impulsivity_uppsp",
+      "constructNameEn": "Impulsivity Dimensions",
+      "constructNameTr": "UPPS-P Dürtüsellik Modeli",
+      "domainId": "self_regulation",
+      "facetCount": 5,
+      "facetIds": [
+        "negative_urgency",
+        "positive_urgency",
+        "lack_of_premeditation",
+        "lack_of_perseverance",
+        "sensation_seeking"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "volitional_stamina",
+      "constructNameEn": "Volitional Stamina",
+      "constructNameTr": "İrade ve Hedef Sürdürme",
+      "domainId": "self_regulation",
+      "facetCount": 3,
+      "facetIds": [
+        "general_self_control",
+        "delay_discounting",
+        "long_term_grit"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "basic_psychological_needs",
+      "constructNameEn": "Basic Psychological Needs",
+      "constructNameTr": "Temel Psikolojik İhtiyaçlar - SDT",
+      "domainId": "motivation_values",
+      "facetCount": 3,
+      "facetIds": [
+        "autonomy_need",
+        "competence_need",
+        "relatedness_need"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "universal_values",
+      "constructNameEn": "Universal Human Values",
+      "constructNameTr": "Schwartz Değer Çemberi",
+      "domainId": "motivation_values",
+      "facetCount": 4,
+      "facetIds": [
+        "values_openness_to_change",
+        "values_self_transcendence",
+        "values_conservation",
+        "values_self_enhancement"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "existential_meaning",
+      "constructNameEn": "Existential Meaning",
+      "constructNameTr": "Varoluşsal Anlam",
+      "domainId": "motivation_values",
+      "facetCount": 2,
+      "facetIds": [
+        "presence_of_meaning",
+        "search_for_meaning"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "attachment_system",
+      "constructNameEn": "Adult Attachment Dimensions",
+      "constructNameTr": "Yetişkin Bağlanma Eksenleri",
+      "domainId": "social_relational",
+      "facetCount": 2,
+      "facetIds": [
+        "attachment_anxiety",
+        "attachment_avoidance"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "multidimensional_empathy",
+      "constructNameEn": "Multidimensional Empathy",
+      "constructNameTr": "Çok Boyutlu Empati",
+      "domainId": "social_relational",
+      "facetCount": 2,
+      "facetIds": [
+        "cognitive_perspective_taking",
+        "empathic_concern"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "social_agency_boundaries",
+      "constructNameEn": "Social Agency & Boundaries",
+      "constructNameTr": "Sosyal İrade ve Sınırlar",
+      "domainId": "social_relational",
+      "facetCount": 3,
+      "facetIds": [
+        "assertiveness",
+        "boundary_setting",
+        "social_approval_dependence"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "conflict_styles",
+      "constructNameEn": "Conflict Management Styles",
+      "constructNameTr": "Çatışma Yönetim Stilleri",
+      "domainId": "social_relational",
+      "facetCount": 2,
+      "facetIds": [
+        "conflict_collaborating",
+        "conflict_avoiding"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "attention_effort",
+      "constructNameEn": "Attention & Effort Detection",
+      "constructNameTr": "Dikkatsiz Yanıt İndeksleri",
+      "domainId": "response_integrity",
+      "facetCount": 2,
+      "facetIds": [
+        "response_time_analysis",
+        "longstring_index"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "response_bias",
+      "constructNameEn": "Response Bias & Self-Presentation",
+      "constructNameTr": "Yanıt Yanlılığı",
+      "domainId": "response_integrity",
+      "facetCount": 1,
+      "facetIds": [
+        "impression_management"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "profile_coherence",
+      "constructNameEn": "Profile Coherence",
+      "constructNameTr": "Profil Tutarlılığı",
+      "domainId": "response_integrity",
+      "facetCount": 1,
+      "facetIds": [
+        "semantic_pair_inconsistency"
+      ],
+      "measurementStatus": "ACTIVE_MEASUREMENT"
+    },
+    {
+      "constructId": "dark_tetrad_traits",
+      "constructNameEn": "Subclinical Relational Strategies",
+      "constructNameTr": "Kişilerarası Stratejiler",
+      "domainId": "optional_dark_tetrad",
+      "facetCount": 4,
+      "facetIds": [
+        "machiavellianism",
+        "grandiose_narcissism",
+        "subclinical_psychopathy",
+        "everyday_sadism"
+      ],
+      "measurementStatus": "OPTIONAL_RESEARCH"
+    }
+  ],
+  "facets": [
+    {
+      "facetId": "sincerity",
+      "canonicalNameEn": "Sincerity",
+      "canonicalNameTr": "İçtenlik",
+      "definition": "Kişilerarası ilişkilerde yapmacıklıktan, manipülasyondan ve dalkavukluktan kaçınma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "honesty_humility",
+        "constructNameEn": "Honesty-Humility",
+        "constructNameTr": "Dürüstlük-Alçakgönüllülük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "fairness",
+      "canonicalNameEn": "Fairness",
+      "canonicalNameTr": "Adalet",
+      "definition": "Hile, yolsuzluk, rüşvet ve kayırmacılıktan uzak durarak adil davranma ilkesi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "honesty_humility",
+        "constructNameEn": "Honesty-Humility",
+        "constructNameTr": "Dürüstlük-Alçakgönüllülük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "greed_avoidance",
+      "canonicalNameEn": "Greed Avoidance",
+      "canonicalNameTr": "Açgözlülükten Kaçınma",
+      "definition": "Aşırı zenginlik, lüks tüketim ve gösterişli statü sembolleri peşinde koşmama eğilimi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "honesty_humility",
+        "constructNameEn": "Honesty-Humility",
+        "constructNameTr": "Dürüstlük-Alçakgönüllülük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "modesty",
+      "canonicalNameEn": "Modesty",
+      "canonicalNameTr": "Tevazu",
+      "definition": "Kendini başkalarından üstün veya özel ayrıcalıklara layık görmeme tutumu.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "honesty_humility",
+        "constructNameEn": "Honesty-Humility",
+        "constructNameTr": "Dürüstlük-Alçakgönüllülük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "fearfulness",
+      "canonicalNameEn": "Fearfulness",
+      "canonicalNameTr": "Korku Hassasiyeti",
+      "definition": "Fiziksel tehlike, acı veya bedensel zarar içeren durumlara karşı duyarlılık ve kaçınma.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "emotionality",
+        "constructNameEn": "Emotionality",
+        "constructNameTr": "Duygusallık / Hassasiyet"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "anxiety_proneness",
+      "canonicalNameEn": "Anxiety Proneness",
+      "canonicalNameTr": "Kaygı Eğilimi",
+      "definition": "Gelecekteki belirsizlikler, olası güçlükler ve stresörler karşısında endişelenme eğilimi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "emotionality",
+        "constructNameEn": "Emotionality",
+        "constructNameTr": "Duygusallık / Hassasiyet"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "dependence",
+      "canonicalNameEn": "Dependence",
+      "canonicalNameTr": "Duygusal Destek İhtiyacı",
+      "definition": "Zor zamanlarda duygusal teselli, onay ve yakınlarına yaslanma ihtiyacı.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "emotionality",
+        "constructNameEn": "Emotionality",
+        "constructNameTr": "Duygusallık / Hassasiyet"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "sentimentality",
+      "canonicalNameEn": "Sentimentality",
+      "canonicalNameTr": "Duygusal Bağlılık ve Hüzün",
+      "definition": "Derin duygusal bağlar kurma, vedalarda veya hüzünlü sanatsal uyaranlarda çabuk duygulanma.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "emotionality",
+        "constructNameEn": "Emotionality",
+        "constructNameTr": "Duygusallık / Hassasiyet"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "social_self_esteem",
+      "canonicalNameEn": "Social Self-Esteem",
+      "canonicalNameTr": "Sosyal Özsaygı",
+      "definition": "Sosyal ortamlarda kendini rahat, kabul görmüş ve değerli hissetme eğilimi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "extraversion",
+        "constructNameEn": "Extraversion",
+        "constructNameTr": "Dışadönüklük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "social_boldness",
+      "canonicalNameEn": "Social Boldness",
+      "canonicalNameTr": "Sosyal Cesaret / Liderlik",
+      "definition": "Grup içinde söz alma, topluluk önünde konuşma ve yönlendirici rol üstlenme rahatlığı.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "extraversion",
+        "constructNameEn": "Extraversion",
+        "constructNameTr": "Dışadönüklük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "sociability",
+      "canonicalNameEn": "Sociability",
+      "canonicalNameTr": "Sosyallik",
+      "definition": "İnsanlarla bir arada bulunmaktan ve grup etkileşimlerinden keyif alma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "extraversion",
+        "constructNameEn": "Extraversion",
+        "constructNameTr": "Dışadönüklük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "liveliness",
+      "canonicalNameEn": "Liveliness",
+      "canonicalNameTr": "Canlılık ve İyimser Coşku",
+      "definition": "Genel yaşam enerjisi, neşe, heves ve pozitif duygulanım aktarımı.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "extraversion",
+        "constructNameEn": "Extraversion",
+        "constructNameTr": "Dışadönüklük"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "forgiveness",
+      "canonicalNameEn": "Forgiveness",
+      "canonicalNameTr": "Bağışlayıcılık",
+      "definition": "Haksızlık yapanlara karşı kin tutmama ve affetmeye açık olma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "agreeableness",
+        "constructNameEn": "Agreeableness",
+        "constructNameTr": "Geçimlilik / Hoşgörü"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "gentleness",
+      "canonicalNameEn": "Gentleness",
+      "canonicalNameTr": "Yumuşak Başlılık",
+      "definition": "İletişimde sertlik ve kabalıktan kaçınma, yapıcı ve nazik olma tutumu.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "agreeableness",
+        "constructNameEn": "Agreeableness",
+        "constructNameTr": "Geçimlilik / Hoşgörü"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "flexibility",
+      "canonicalNameEn": "Flexibility",
+      "canonicalNameTr": "Uzlaşmacılık",
+      "definition": "Ortak kararlarda inatçılık yapmama, başkalarının görüşlerine uyum sağlama esnekliği.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "agreeableness",
+        "constructNameEn": "Agreeableness",
+        "constructNameTr": "Geçimlilik / Hoşgörü"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "patience",
+      "canonicalNameEn": "Patience",
+      "canonicalNameTr": "Sabır / Sakinlik",
+      "definition": "Tahrik ve engellenme anlarında öfke patlaması yaşamama, sakin kalabilme kapasitesi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "agreeableness",
+        "constructNameEn": "Agreeableness",
+        "constructNameTr": "Geçimlilik / Hoşgörü"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "organization",
+      "canonicalNameEn": "Organization",
+      "canonicalNameTr": "Düzenlilik",
+      "definition": "Yaşam ve çalışma alanlarını, görevleri yapılandırılmış ve düzenli tutma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "conscientiousness",
+        "constructNameEn": "Conscientiousness",
+        "constructNameTr": "Sorumluluk / Öz-Disiplin"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "diligence",
+      "canonicalNameEn": "Diligence",
+      "canonicalNameTr": "Çalışkanlık",
+      "definition": "Zorlu görevleri başarıyla sonuçlandırmak için yoğun çaba sarf etme disiplini.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "conscientiousness",
+        "constructNameEn": "Conscientiousness",
+        "constructNameTr": "Sorumluluk / Öz-Disiplin"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "perfectionism",
+      "canonicalNameEn": "Perfectionism",
+      "canonicalNameTr": "Yüksek Standart Titizliği",
+      "definition": "Detaylara aşırı özen gösterme ve yüksek kalite standartları talep etme.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "conscientiousness",
+        "constructNameEn": "Conscientiousness",
+        "constructNameTr": "Sorumluluk / Öz-Disiplin"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "prudence",
+      "canonicalNameEn": "Prudence",
+      "canonicalNameTr": "Tedbirlilik",
+      "definition": "Karar alırken dürtüsel davranmama, olası sonuçları dikkatle tartma alışkanlığı.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "conscientiousness",
+        "constructNameEn": "Conscientiousness",
+        "constructNameTr": "Sorumluluk / Öz-Disiplin"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "aesthetic_appreciation",
+      "canonicalNameEn": "Aesthetic Appreciation",
+      "canonicalNameTr": "Estetik Duyarlılık",
+      "definition": "Sanat, doğa güzelliği, müzik ve tasarımdan derinden etkilenme kapasitesi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "openness",
+        "constructNameEn": "Openness to Experience",
+        "constructNameTr": "Deneyime Açıklık"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "inquisitiveness",
+      "canonicalNameEn": "Inquisitiveness",
+      "canonicalNameTr": "Entelektüel Merak",
+      "definition": "Doğa bilimleri, felsefe, tarih ve yeni bilgi alanlarını öğrenme açlığı.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "openness",
+        "constructNameEn": "Openness to Experience",
+        "constructNameTr": "Deneyime Açıklık"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "creativity",
+      "canonicalNameEn": "Creativity",
+      "canonicalNameTr": "Yaratıcı İfade",
+      "definition": "Problemlere özgün çözümler geliştirme ve yeni fikirler üretme hevesi.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "openness",
+        "constructNameEn": "Openness to Experience",
+        "constructNameTr": "Deneyime Açıklık"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "unconventionality",
+      "canonicalNameEn": "Unconventionality",
+      "canonicalNameTr": "Gelenekdışılık",
+      "definition": "Alışılmışın dışındaki görüşlere, marjinal fikirlere ve yaşam tarzlarına açıklık.",
+      "parentHierarchy": {
+        "domainId": "core_personality",
+        "domainNameEn": "Core Personality",
+        "domainNameTr": "Core Personality",
+        "constructId": "openness",
+        "constructNameEn": "Openness to Experience",
+        "constructNameTr": "Deneyime Açıklık"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_hexaco",
+        "instrumentName": "IPIP-HEXACO Equivalent Scales",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "LEXICAL_SUPPORT_ONLY",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_wasti_2008",
+          "src_ashton_lee_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "RADAR",
+        "FACET_PROFILE",
+        "HEATMAP",
+        "FINGERPRINT"
+      ]
+    },
+    {
+      "facetId": "core_self_esteem",
+      "canonicalNameEn": "Core Self-Esteem",
+      "canonicalNameTr": "Temel Benlik Saygısı",
+      "definition": "Bireyin kendi varoluşuna ve değerine ilişkin genel, koşulsuz özsaygı düzeyi.",
+      "parentHierarchy": {
+        "domainId": "self_system",
+        "domainNameEn": "Self-System & Identity",
+        "domainNameTr": "Self-System & Identity",
+        "constructId": "self_evaluation",
+        "constructNameEn": "Self-Evaluation Structure",
+        "constructNameTr": "Benlik Değerlendirmesi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_rses",
+        "instrumentName": "Rosenberg Self-Esteem Scale",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "CONSTRUCT_ALIGNED",
+        "factorStructureLevel": "SCALE_TOTAL",
+        "sourceIds": [
+          "src_cuhadaroglu_1986",
+          "src_rosenberg_1965"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "contingent_self_worth",
+      "canonicalNameEn": "Contingent Self-Worth",
+      "canonicalNameTr": "Koşullu Öz-Değer",
+      "definition": "Öz-değer hissinin dışsal başarıya, akademik/mesleki performansa veya başkalarının beğenisine endeksli olma derecesi.",
+      "parentHierarchy": {
+        "domainId": "self_system",
+        "domainNameEn": "Self-System & Identity",
+        "domainNameTr": "Self-System & Identity",
+        "constructId": "self_evaluation",
+        "constructNameEn": "Self-Evaluation Structure",
+        "constructNameTr": "Benlik Değerlendirmesi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_rses",
+        "instrumentName": "Rosenberg Self-Esteem Scale",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "self_compassion",
+      "canonicalNameEn": "Self-Compassion",
+      "canonicalNameTr": "Öz-Şefkat",
+      "definition": "Başarısızlık ve acı anlarında kendine acımasızca saldırmak yerine anlayış ve şefkat gösterebilme.",
+      "parentHierarchy": {
+        "domainId": "self_system",
+        "domainNameEn": "Self-System & Identity",
+        "domainNameTr": "Self-System & Identity",
+        "constructId": "self_evaluation",
+        "constructNameEn": "Self-Evaluation Structure",
+        "constructNameTr": "Benlik Değerlendirmesi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_scs_sf",
+        "instrumentName": "Self-Compassion Scale - Short Form (SCS-SF)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "CONSTRUCT_ALIGNED",
+        "factorStructureLevel": "SCALE_TOTAL",
+        "sourceIds": [
+          "src_akin_2007_scs",
+          "src_neff_2003"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "generalized_self_efficacy",
+      "canonicalNameEn": "Generalized Self-Efficacy",
+      "canonicalNameTr": "Genel Öz-Yeterlilik",
+      "definition": "Yeni veya zorlu taleplerle karşılaştığında gereken eylemleri başarıyla organize edip yürütebilme inancı.",
+      "parentHierarchy": {
+        "domainId": "self_system",
+        "domainNameEn": "Self-System & Identity",
+        "domainNameTr": "Self-System & Identity",
+        "constructId": "agency_mastery",
+        "constructNameEn": "Agency & Mastery",
+        "constructNameTr": "Yetkinlik ve İrade"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_gses",
+        "instrumentName": "General Self-Efficacy Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "CONSTRUCT_ALIGNED",
+        "factorStructureLevel": "SCALE_TOTAL",
+        "sourceIds": [
+          "src_celikkaleli_capri_2008_gse",
+          "src_schwarzer_1995"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "locus_of_control",
+      "canonicalNameEn": "Internal Locus of Control",
+      "canonicalNameTr": "İçsel Kontrol Odağı",
+      "definition": "Yaşam sonuçlarının kader, şans veya güçlü diğerleri yerine kendi kararları ve eylemleri tarafından belirlendiği inancı.",
+      "parentHierarchy": {
+        "domainId": "self_system",
+        "domainNameEn": "Self-System & Identity",
+        "domainNameTr": "Self-System & Identity",
+        "constructId": "agency_mastery",
+        "constructNameEn": "Agency & Mastery",
+        "constructNameTr": "Yetkinlik ve İrade"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_gses",
+        "instrumentName": "General Self-Efficacy Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "self_concept_clarity",
+      "canonicalNameEn": "Self-Concept Clarity",
+      "canonicalNameTr": "Benlik Kavramı Netliği",
+      "definition": "Benliğe dair inançların açık, içsel olarak tutarlı ve zaman içinde kararlı olması.",
+      "parentHierarchy": {
+        "domainId": "self_system",
+        "domainNameEn": "Self-System & Identity",
+        "domainNameTr": "Self-System & Identity",
+        "constructId": "identity_integrity",
+        "constructNameEn": "Identity Integrity",
+        "constructNameTr": "Kimlik Bütünlüğü"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_sccs",
+        "instrumentName": "Self-Concept Clarity Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "authenticity",
+      "canonicalNameEn": "Authenticity",
+      "canonicalNameTr": "Özgünlük",
+      "definition": "Dış baskılara boyun eğmek yerine kendi derin değerleri ve gerçek hisleriyle uyumlu yaşama cesareti.",
+      "parentHierarchy": {
+        "domainId": "self_system",
+        "domainNameEn": "Self-System & Identity",
+        "domainNameTr": "Self-System & Identity",
+        "constructId": "identity_integrity",
+        "constructNameEn": "Identity Integrity",
+        "constructNameTr": "Kimlik Bütünlüğü"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_sccs",
+        "instrumentName": "Self-Concept Clarity Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "cognitive_reappraisal",
+      "canonicalNameEn": "Cognitive Reappraisal",
+      "canonicalNameTr": "Bilişsel Yeniden Değerlendirme",
+      "definition": "Duygusal tepkiyi azaltmak veya değiştirmek için duruma yüklenen anlamı zihinsel olarak yeniden çerçeveleme eğilimi.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "emotion_regulation_strategies",
+        "constructNameEn": "Emotion Regulation Strategies",
+        "constructNameTr": "Duygu Düzenleme"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_erq",
+        "instrumentName": "Emotion Regulation Questionnaire (ERQ)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_gross_john_2003"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "expressive_suppression",
+      "canonicalNameEn": "Expressive Suppression",
+      "canonicalNameTr": "Duygusal İfadeyi Bastırma",
+      "definition": "Yaşanan duyguların dışavurumunu fiziksel, mimiksel veya sözel olarak baskılama ve gizleme eğilimi.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "emotion_regulation_strategies",
+        "constructNameEn": "Emotion Regulation Strategies",
+        "constructNameTr": "Duygu Düzenleme"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_erq",
+        "instrumentName": "Emotion Regulation Questionnaire (ERQ)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_gross_john_2003"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "emotional_reactivity",
+      "canonicalNameEn": "Emotional Reactivity",
+      "canonicalNameTr": "Duygusal Reaktivite",
+      "definition": "Çevresel veya içsel duygusal tetikleyiciler karşısında aniden ve yüksek şiddette uyarılma derecesi.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "affective_dynamics",
+        "constructNameEn": "Affective Dynamics",
+        "constructNameTr": "Duygulanım Dinamikleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dts",
+        "instrumentName": "Distress Tolerance Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "RELATED_MEASURE_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_ruganci_gencoz_2010"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "emotional_recovery",
+      "canonicalNameEn": "Emotional Recovery",
+      "canonicalNameTr": "Duygusal Toparlanma Hızı",
+      "definition": "Yoğun bir duygusal sarsıntı veya öfke sonrasında nötr/sakin bazal çizgiye dönme sürati.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "affective_dynamics",
+        "constructNameEn": "Affective Dynamics",
+        "constructNameTr": "Duygulanım Dinamikleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dts",
+        "instrumentName": "Distress Tolerance Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "RELATED_MEASURE_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_ruganci_gencoz_2010"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "trait_positive_affect",
+      "canonicalNameEn": "Trait Positive Affect",
+      "canonicalNameTr": "Pozitif Duygulanım Eğilimi",
+      "definition": "Coşku, canlılık, heyecan ve gurur gibi olumlu duyguları düzenli deneyimleme sıklığı.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "affective_dynamics",
+        "constructNameEn": "Affective Dynamics",
+        "constructNameTr": "Duygulanım Dinamikleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_panas",
+        "instrumentName": "Positive and Negative Affect Schedule (PANAS)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "SUBSCALE_ALIGNED",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_gencoz_2000_panas",
+          "src_watson_clark_1988"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "trait_negative_affect",
+      "canonicalNameEn": "Trait Negative Affect",
+      "canonicalNameTr": "Negatif Duygulanım Eğilimi",
+      "definition": "Kaygı, hüzün, suçluluk ve tedirginlik gibi zorlayıcı duyguları düzenli yaşama sıklığı.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "affective_dynamics",
+        "constructNameEn": "Affective Dynamics",
+        "constructNameTr": "Duygulanım Dinamikleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_panas",
+        "instrumentName": "Positive and Negative Affect Schedule (PANAS)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "SUBSCALE_ALIGNED",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_gencoz_2000_panas",
+          "src_watson_clark_1988"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "distress_tolerance",
+      "canonicalNameEn": "Distress Tolerance",
+      "canonicalNameTr": "Sıkıntıya Dayanıklılık",
+      "definition": "Olumsuz içsel duygusal durumları felaketleştirmeden onlarla bir arada kalabilme kapasitesi.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "distress_management",
+        "constructNameEn": "Distress Management",
+        "constructNameTr": "Zorlayıcı Yaşantı Yönetimi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dts",
+        "instrumentName": "Distress Tolerance Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_simons_gaher_2005"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "experiential_avoidance",
+      "canonicalNameEn": "Experiential Avoidance",
+      "canonicalNameTr": "Yaşantısal Kaçınma",
+      "definition": "İstenmeyen düşünce, anı veya hislerden kaçınmak için davranış repertuarını daraltma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "distress_management",
+        "constructNameEn": "Distress Management",
+        "constructNameTr": "Zorlayıcı Yaşantı Yönetimi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dts",
+        "instrumentName": "Distress Tolerance Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "shame_proneness",
+      "canonicalNameEn": "Shame-Proneness",
+      "canonicalNameTr": "Utanç Eğilimi",
+      "definition": "Hata yaptığında tüm benliğini kusurlu, küçük ve saklanmaya layık hissetme yatkınlığı.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "self_conscious_emotions",
+        "constructNameEn": "Self-Conscious Emotions",
+        "constructNameTr": "Öz-Bilinçli Duygular"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_panas",
+        "instrumentName": "Positive and Negative Affect Schedule (PANAS)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "guilt_proneness",
+      "canonicalNameEn": "Guilt-Proneness",
+      "canonicalNameTr": "Suçluluk ve Onarım Eğilimi",
+      "definition": "Hata yaptığında eyleme odaklanıp sorumluluk alma ve durumu düzeltme yönelimi.",
+      "parentHierarchy": {
+        "domainId": "emotion_regulation",
+        "domainNameEn": "Emotion & Affect Regulation",
+        "domainNameTr": "Emotion & Affect Regulation",
+        "constructId": "self_conscious_emotions",
+        "constructNameEn": "Self-Conscious Emotions",
+        "constructNameTr": "Öz-Bilinçli Duygular"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_panas",
+        "instrumentName": "Positive and Negative Affect Schedule (PANAS)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "need_for_cognition",
+      "canonicalNameEn": "Need for Cognition",
+      "canonicalNameTr": "Bilişsel Çaba İhtiyacı",
+      "definition": "Zihinsel çaba ve derin analiz gerektiren karmaşık sorunlarla uğraşmaktan zevk alma derecesi.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "epistemic_drive",
+        "constructNameEn": "Epistemic Drive",
+        "constructNameTr": "Bilişsel Motivasyon"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_nfcs_sf",
+        "instrumentName": "Need for Cognitive Closure Scale - Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_cacioppo_petty_1982"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "need_for_cognitive_closure",
+      "canonicalNameEn": "Need for Cognitive Closure",
+      "canonicalNameTr": "Bilişsel Kapanma İhtiyacı",
+      "definition": "Belirsizlik ve karmaşayı hızla sonlandırma, kesin ve değiştirilemez yanıtlara ulaşma arzusu.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "epistemic_drive",
+        "constructNameEn": "Epistemic Drive",
+        "constructNameTr": "Bilişsel Motivasyon"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_nfcs_sf",
+        "instrumentName": "Need for Cognitive Closure Scale - Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_roets_2011_nfcs"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "rational_analytical_style",
+      "canonicalNameEn": "Rational / Analytical Processing",
+      "canonicalNameTr": "Rasyonel Analitik Tarz",
+      "definition": "Karar alırken sistematik adımlara, mantıksal tutarlılığa ve nesnel kanıtlara dayanma tercihi.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "thinking_styles",
+        "constructNameEn": "Thinking Styles",
+        "constructNameTr": "Düşünme Tarzları"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_nfcs_sf",
+        "instrumentName": "Need for Cognitive Closure Scale - Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "intuitive_experiential_style",
+      "canonicalNameEn": "Intuitive / Experiential Processing",
+      "canonicalNameTr": "Sezgisel Yaşantısal Tarz",
+      "definition": "İçgüdüsel hislere, deneyimsel örüntülere ve bütüncül sezgilere dayanarak hızlı karar verme eğilimi.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "thinking_styles",
+        "constructNameEn": "Thinking Styles",
+        "constructNameTr": "Düşünme Tarzları"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_nfcs_sf",
+        "instrumentName": "Need for Cognitive Closure Scale - Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "cognitive_flexibility",
+      "canonicalNameEn": "Cognitive Flexibility",
+      "canonicalNameTr": "Bilişsel Esneklik",
+      "definition": "Koşullar değiştiğinde strateji değiştirebilme ve olayları çoklu alternatif açılardan görebilme yetisi.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "cognitive_adaptability",
+        "constructNameEn": "Cognitive Adaptability",
+        "constructNameTr": "Bilişsel Uyum ve Esneklik"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ius_12",
+        "instrumentName": "Intolerance of Uncertainty Scale Short Form (IUS-12)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "CONSTRUCT_ALIGNED",
+        "factorStructureLevel": "SCALE_TOTAL",
+        "sourceIds": [
+          "src_gulum_dag_2012_cfi",
+          "src_dennis_vanderwal_2010"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "intolerance_of_uncertainty",
+      "canonicalNameEn": "Intolerance of Uncertainty",
+      "canonicalNameTr": "Belirsizliğe Tahammülsüzlük",
+      "definition": "Sonucu önceden kestirilemeyen durumları doğrudan tehdit edici ve felç edici olarak algılama eğilimi.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "cognitive_adaptability",
+        "constructNameEn": "Cognitive Adaptability",
+        "constructNameTr": "Bilişsel Uyum ve Esneklik"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ius_12",
+        "instrumentName": "Intolerance of Uncertainty Scale Short Form (IUS-12)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "CONSTRUCT_ALIGNED",
+        "factorStructureLevel": "SCALE_TOTAL",
+        "sourceIds": [
+          "src_sari_dag_2009_ius",
+          "src_carleton_2007"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "rumination_brooding",
+      "canonicalNameEn": "Rumination - Brooding",
+      "canonicalNameTr": "Ruminatif Saplantı",
+      "definition": "Geçmişteki hataları, pişmanlıkları ve olumsuz duyguları çözümsüz bir döngüde zihinde çevirme eğilimi.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "cognitive_adaptability",
+        "constructNameEn": "Cognitive Adaptability",
+        "constructNameTr": "Bilişsel Uyum ve Esneklik"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_rrs_sf",
+        "instrumentName": "Ruminative Responses Scale - Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "SUBSCALE_ALIGNED",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_erdur_baker_bugay_2010_rrs",
+          "src_treynor_2003_rrs"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "maximizing_tendency",
+      "canonicalNameEn": "Maximizing Tendency",
+      "canonicalNameTr": "Maksimum Seçenek Arayışı",
+      "definition": "Yeterince iyi olanı kabul etmek yerine her kararda en mükemmel alternatifi bulmak için aşırı enerji harcama.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "decision_orientation",
+        "constructNameEn": "Decision Orientation",
+        "constructNameTr": "Karar Verme Yönelimleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_nfcs_sf",
+        "instrumentName": "Need for Cognitive Closure Scale - Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "decision_avoidance_procrastination",
+      "canonicalNameEn": "Decision Avoidance / Procrastination",
+      "canonicalNameTr": "Karar Erteleme",
+      "definition": "Karar alma sorumluluğunu veya eyleme geçmeyi belirsizlik ve hata korkusuyla sürekli geciktirme.",
+      "parentHierarchy": {
+        "domainId": "cognition_decision",
+        "domainNameEn": "Cognition & Decision Making",
+        "domainNameTr": "Cognition & Decision Making",
+        "constructId": "decision_orientation",
+        "constructNameEn": "Decision Orientation",
+        "constructNameTr": "Karar Verme Yönelimleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_nfcs_sf",
+        "instrumentName": "Need for Cognitive Closure Scale - Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "negative_urgency",
+      "canonicalNameEn": "Negative Urgency",
+      "canonicalNameTr": "Negatif Aciliyet",
+      "definition": "Yoğun üzüntü, öfke veya kaygı altındayken düşünmeden zararlı dürtüsel eylemlere girişme eğilimi.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "impulsivity_uppsp",
+        "constructNameEn": "Impulsivity Dimensions",
+        "constructNameTr": "UPPS-P Dürtüsellik Modeli"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_upps_p_sf",
+        "instrumentName": "UPPS-P Impulsive Behavior Scale Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_cyders_2014_uppsp"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "positive_urgency",
+      "canonicalNameEn": "Positive Urgency",
+      "canonicalNameTr": "Pozitif Aciliyet",
+      "definition": "Aşırı neşeli, coşkulu veya heyecanlı anlarda tedbirsizce riskli adımlar atma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "impulsivity_uppsp",
+        "constructNameEn": "Impulsivity Dimensions",
+        "constructNameTr": "UPPS-P Dürtüsellik Modeli"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_upps_p_sf",
+        "instrumentName": "UPPS-P Impulsive Behavior Scale Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_cyders_2014_uppsp"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "lack_of_premeditation",
+      "canonicalNameEn": "Lack of Premeditation",
+      "canonicalNameTr": "Önceden Düşünmeme",
+      "definition": "Eyleme geçmeden önce sonuçları ve olası etkileri tartmama alışkanlığı.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "impulsivity_uppsp",
+        "constructNameEn": "Impulsivity Dimensions",
+        "constructNameTr": "UPPS-P Dürtüsellik Modeli"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_upps_p_sf",
+        "instrumentName": "UPPS-P Impulsive Behavior Scale Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_cyders_2014_uppsp"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "lack_of_perseverance",
+      "canonicalNameEn": "Lack of Perseverance",
+      "canonicalNameTr": "Sebat Eksikliği",
+      "definition": "Sıkıcı, monoton veya zorlayıcı hale gelen görevlerde dikkati sürdürememe ve yarıda bırakma.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "impulsivity_uppsp",
+        "constructNameEn": "Impulsivity Dimensions",
+        "constructNameTr": "UPPS-P Dürtüsellik Modeli"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_upps_p_sf",
+        "instrumentName": "UPPS-P Impulsive Behavior Scale Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_cyders_2014_uppsp"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "sensation_seeking",
+      "canonicalNameEn": "Sensation Seeking",
+      "canonicalNameTr": "Heyecan Arayışı",
+      "definition": "Yüksek duyusal uyarılma, macera ve yenilik içeren deneyimlere yönelme tercihi.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "impulsivity_uppsp",
+        "constructNameEn": "Impulsivity Dimensions",
+        "constructNameTr": "UPPS-P Dürtüsellik Modeli"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_upps_p_sf",
+        "instrumentName": "UPPS-P Impulsive Behavior Scale Short Form",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_cyders_2014_uppsp"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "general_self_control",
+      "canonicalNameEn": "General Self-Control",
+      "canonicalNameTr": "Genel Özdenetim",
+      "definition": "Uzun vadeli amaçlar lehine kısa vadeli anlık cazibelere ve dürtülere direnebilme gücü.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "volitional_stamina",
+        "constructNameEn": "Volitional Stamina",
+        "constructNameTr": "İrade ve Hedef Sürdürme"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bscs",
+        "instrumentName": "Brief Self-Control Scale (BSCS)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "CONSTRUCT_ALIGNED",
+        "factorStructureLevel": "SCALE_TOTAL",
+        "sourceIds": [
+          "src_duyan_2012_bscs",
+          "src_tangney_baumeister_2004"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "delay_discounting",
+      "canonicalNameEn": "Delayed Gratification",
+      "canonicalNameTr": "Gecikmiş Doyum / Ödül Tercihi",
+      "definition": "Küçük anlık bir kazanç yerine sabrederek gelecekteki çok daha büyük ödülleri seçebilme kapasitesi.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "volitional_stamina",
+        "constructNameEn": "Volitional Stamina",
+        "constructNameTr": "İrade ve Hedef Sürdürme"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bscs",
+        "instrumentName": "Brief Self-Control Scale (BSCS)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "long_term_grit",
+      "canonicalNameEn": "Long-Term Grit",
+      "canonicalNameTr": "Azim ve Tutku",
+      "definition": "Yıllara yayılan uzun vadeli vizyonlara tutku ve ısrarla bağlı kalma direnci.",
+      "parentHierarchy": {
+        "domainId": "self_regulation",
+        "domainNameEn": "Self-Regulation & Volition",
+        "domainNameTr": "Self-Regulation & Volition",
+        "constructId": "volitional_stamina",
+        "constructNameEn": "Volitional Stamina",
+        "constructNameTr": "İrade ve Hedef Sürdürme"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_grit_s",
+        "instrumentName": "Short Grit Scale (Grit-S)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "CONSTRUCT_ALIGNED",
+        "factorStructureLevel": "SCALE_TOTAL",
+        "sourceIds": [
+          "src_saricam_2016_grit",
+          "src_duckworth_quinn_2009"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "autonomy_need",
+      "canonicalNameEn": "Autonomy Need",
+      "canonicalNameTr": "Özerklik İhtiyacı",
+      "definition": "Davranışlarının kendi özgür iradesi, değerleri ve seçimleriyle uyumlu olma gereksinimi.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "basic_psychological_needs",
+        "constructNameEn": "Basic Psychological Needs",
+        "constructNameTr": "Temel Psikolojik İhtiyaçlar - SDT"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bpnsfs",
+        "instrumentName": "Basic Psychological Need Satisfaction and Frustration Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_ryan_deci_2000",
+          "src_kagitcibasi_2005_self"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "competence_need",
+      "canonicalNameEn": "Competence Need",
+      "canonicalNameTr": "Yeterlik / Ustalık İhtiyacı",
+      "definition": "Çevreyle etkili etkileşim kurma, becerilerini geliştirme ve yetkin hissetme ihtiyacı.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "basic_psychological_needs",
+        "constructNameEn": "Basic Psychological Needs",
+        "constructNameTr": "Temel Psikolojik İhtiyaçlar - SDT"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bpnsfs",
+        "instrumentName": "Basic Psychological Need Satisfaction and Frustration Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_ryan_deci_2000"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "relatedness_need",
+      "canonicalNameEn": "Relatedness Need",
+      "canonicalNameTr": "İlişkilenme / Ait Olma İhtiyacı",
+      "definition": "Başkaları tarafından önemsenme, derin bağlar kurma ve sıcak bir topluluğa ait hissetme ihtiyacı.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "basic_psychological_needs",
+        "constructNameEn": "Basic Psychological Needs",
+        "constructNameTr": "Temel Psikolojik İhtiyaçlar - SDT"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bpnsfs",
+        "instrumentName": "Basic Psychological Need Satisfaction and Frustration Scale",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_ryan_deci_2000",
+          "src_kagitcibasi_2005_self"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "values_openness_to_change",
+      "canonicalNameEn": "Openness to Change Values",
+      "canonicalNameTr": "Değişime Açıklık Değerleri",
+      "definition": "Özyönelim (bağımsız düşünce), uyarılma (yenilik arayışı) ve hazcılığa verilen önem.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "universal_values",
+        "constructNameEn": "Universal Human Values",
+        "constructNameTr": "Schwartz Değer Çemberi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_schwartz_values",
+        "instrumentName": "IPIP 50-Item Representation of Schwartz Value Framework",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_schwartz_2012_values"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "values_self_transcendence",
+      "canonicalNameEn": "Self-Transcendence Values",
+      "canonicalNameTr": "Öz-Aşkınlık Değerleri",
+      "definition": "Evrenselcilik (tüm insanlığın ve doğanın refahı) ve iyilikseverliğe (yakın çevrenin iyiliği) verilen değer.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "universal_values",
+        "constructNameEn": "Universal Human Values",
+        "constructNameTr": "Schwartz Değer Çemberi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_schwartz_values",
+        "instrumentName": "IPIP 50-Item Representation of Schwartz Value Framework",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_schwartz_2012_values"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "values_conservation",
+      "canonicalNameEn": "Conservation Values",
+      "canonicalNameTr": "Muhafaza Değerleri",
+      "definition": "Güvenlik, gelenek ve kurallara uyum (toplumsal istikrar ve aile düzeni) değerleri.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "universal_values",
+        "constructNameEn": "Universal Human Values",
+        "constructNameTr": "Schwartz Değer Çemberi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_schwartz_values",
+        "instrumentName": "IPIP 50-Item Representation of Schwartz Value Framework",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_schwartz_2012_values"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "values_self_enhancement",
+      "canonicalNameEn": "Self-Enhancement Values",
+      "canonicalNameTr": "Kendini Yüceltme Değerleri",
+      "definition": "Başarı, yetkinlik gösterisi ve sosyal güç/etki kurmaya verilen kişisel öncelik.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "universal_values",
+        "constructNameEn": "Universal Human Values",
+        "constructNameTr": "Schwartz Değer Çemberi"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ipip_schwartz_values",
+        "instrumentName": "IPIP 50-Item Representation of Schwartz Value Framework",
+        "licenseDecision": "APPROVED_PUBLIC"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_schwartz_2012_values"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "presence_of_meaning",
+      "canonicalNameEn": "Presence of Meaning",
+      "canonicalNameTr": "Anlamın Varlığı",
+      "definition": "Kişinin yaşamının bir anlamı, amacı ve değeri olduğunu hissetme derecesi.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "existential_meaning",
+        "constructNameEn": "Existential Meaning",
+        "constructNameTr": "Varoluşsal Anlam"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_mlq",
+        "instrumentName": "Meaning in Life Questionnaire (MLQ)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "SUBSCALE_ALIGNED",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_akin_tas_2015_mlq",
+          "src_steger_2006"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "search_for_meaning",
+      "canonicalNameEn": "Search for Meaning",
+      "canonicalNameTr": "Anlam Arayışı",
+      "definition": "Yaşamının amacını, yerini ve derin anlamını aktif olarak keşfetme ve sorgulama yönelimi.",
+      "parentHierarchy": {
+        "domainId": "motivation_values",
+        "domainNameEn": "Motivation, Needs & Values",
+        "domainNameTr": "Motivation, Needs & Values",
+        "constructId": "existential_meaning",
+        "constructNameEn": "Existential Meaning",
+        "constructNameTr": "Varoluşsal Anlam"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_mlq",
+        "instrumentName": "Meaning in Life Questionnaire (MLQ)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "SUBSCALE_ALIGNED",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_akin_tas_2015_mlq",
+          "src_steger_2006"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "attachment_anxiety",
+      "canonicalNameEn": "Attachment Anxiety",
+      "canonicalNameTr": "Bağlanma Kaygısı",
+      "definition": "Yakın ilişkilerde sevilmeme, terk edilme ve partnerinin ilgisini kaybetme endişesi.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "attachment_system",
+        "constructNameEn": "Adult Attachment Dimensions",
+        "constructNameTr": "Yetişkin Bağlanma Eksenleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ecr_r",
+        "instrumentName": "Experiences in Close Relationships - Revised (ECR-R)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "SUBSCALE_ALIGNED",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_sumer_2006_ecrr",
+          "src_fraley_2000_ecrr"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "attachment_avoidance",
+      "canonicalNameEn": "Attachment Avoidance",
+      "canonicalNameTr": "Bağlanma Kaçınması",
+      "definition": "Duygusal yakınlıktan, kırılganlıktan ve başkalarına bağımlı olmaktan rahatsızlık duyup mesafe koyma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "attachment_system",
+        "constructNameEn": "Adult Attachment Dimensions",
+        "constructNameTr": "Yetişkin Bağlanma Eksenleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_ecr_r",
+        "instrumentName": "Experiences in Close Relationships - Revised (ECR-R)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "DIRECT_FACET_VALIDATION",
+        "measurementAlignmentLevel": "SUBSCALE_ALIGNED",
+        "factorStructureLevel": "SUBSCALE",
+        "sourceIds": [
+          "src_sumer_2006_ecrr",
+          "src_fraley_2000_ecrr"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "cognitive_perspective_taking",
+      "canonicalNameEn": "Perspective Taking",
+      "canonicalNameTr": "Bilişsel Perspektif Alma",
+      "definition": "Olayları ve anlaşmazlıkları diğer insanın bakış açısından görebilme ve zihinselleştirme kapasitesi.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "multidimensional_empathy",
+        "constructNameEn": "Multidimensional Empathy",
+        "constructNameTr": "Çok Boyutlu Empati"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_iri",
+        "instrumentName": "Interpersonal Reactivity Index (IRI)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "empathic_concern",
+      "canonicalNameEn": "Empathic Concern",
+      "canonicalNameTr": "Empatik Şefkat ve İlgi",
+      "definition": "Zor durumda olan veya acı çeken bir başkası karşısında içten şefkat ve koruyucu ilgi hissetme.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "multidimensional_empathy",
+        "constructNameEn": "Multidimensional Empathy",
+        "constructNameTr": "Çok Boyutlu Empati"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_iri",
+        "instrumentName": "Interpersonal Reactivity Index (IRI)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_davis_1983"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "assertiveness",
+      "canonicalNameEn": "Assertiveness",
+      "canonicalNameTr": "Kendini Ortaya Koyma",
+      "definition": "Saldırganlaşmadan kendi haklarını, ihtiyaçlarını ve fikirlerini açıkça savunabilme.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "social_agency_boundaries",
+        "constructNameEn": "Social Agency & Boundaries",
+        "constructNameTr": "Sosyal İrade ve Sınırlar"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dutch",
+        "instrumentName": "De Dreu Conflict Management Package (DUTCH Test for Conflict Handling)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "boundary_setting",
+      "canonicalNameEn": "Boundary Setting",
+      "canonicalNameTr": "Kişilerarası Sınır Koyma",
+      "definition": "İstemediği taleplere suçluluk duymadan 'hayır' diyebilme ve kişisel sınırlarını koruma.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "social_agency_boundaries",
+        "constructNameEn": "Social Agency & Boundaries",
+        "constructNameTr": "Sosyal İrade ve Sınırlar"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dutch",
+        "instrumentName": "De Dreu Conflict Management Package (DUTCH Test for Conflict Handling)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "social_approval_dependence",
+      "canonicalNameEn": "Social Approval Dependence",
+      "canonicalNameTr": "Sosyal Onay Bağımlılığı",
+      "definition": "Kendi eylemlerini ve kararlarını sürekli başkalarının takdirine ve onayına bağlama zaafı.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "social_agency_boundaries",
+        "constructNameEn": "Social Agency & Boundaries",
+        "constructNameTr": "Sosyal İrade ve Sınırlar"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dutch",
+        "instrumentName": "De Dreu Conflict Management Package (DUTCH Test for Conflict Handling)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_aera_apa_ncme_2014"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "conflict_collaborating",
+      "canonicalNameEn": "Collaborating Conflict Style",
+      "canonicalNameTr": "İşbirlikçi Çözüm",
+      "definition": "Çatışma anında her iki tarafın da temel ihtiyaçlarını karşılayacak bütünleştirici çözümler arama.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "conflict_styles",
+        "constructNameEn": "Conflict Management Styles",
+        "constructNameTr": "Çatışma Yönetim Stilleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dutch",
+        "instrumentName": "De Dreu Conflict Management Package (DUTCH Test for Conflict Handling)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_dedreu_2001"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "conflict_avoiding",
+      "canonicalNameEn": "Avoiding Conflict Style",
+      "canonicalNameTr": "Çatışmadan Kaçınma",
+      "definition": "Gerginlik ve tartışma ihtimali belirdiğinde yüzleşmek yerine konuyu kapatma veya uzaklaşma.",
+      "parentHierarchy": {
+        "domainId": "social_relational",
+        "domainNameEn": "Interpersonal & Social Dynamics",
+        "domainNameTr": "Interpersonal & Social Dynamics",
+        "constructId": "conflict_styles",
+        "constructNameEn": "Conflict Management Styles",
+        "constructNameTr": "Çatışma Yönetim Stilleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_dutch",
+        "instrumentName": "De Dreu Conflict Management Package (DUTCH Test for Conflict Handling)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_dedreu_2001"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "response_time_analysis",
+      "canonicalNameEn": "Response Time Anomaly",
+      "canonicalNameTr": "Hızlı Tıklama Sinyali",
+      "definition": "Maddeyi okumadan saniyenin altında yanıt verme davranışı.",
+      "parentHierarchy": {
+        "domainId": "response_integrity",
+        "domainNameEn": "Response Integrity & Measurement Quality",
+        "domainNameTr": "Response Integrity & Measurement Quality",
+        "constructId": "attention_effort",
+        "constructNameEn": "Attention & Effort Detection",
+        "constructNameTr": "Dikkatsiz Yanıt İndeksleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bidr_6",
+        "instrumentName": "Balanced Inventory of Desirable Responding (BIDR-6)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_curran_2016_careless"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "longstring_index",
+      "canonicalNameEn": "Longstring Invariance",
+      "canonicalNameTr": "Tekdüze Yanıt Örüntüsü",
+      "definition": "Okumadan ardışık olarak aynı yanıt seçeneğine (örn: 10 kez üst üste 4) basma davranışı.",
+      "parentHierarchy": {
+        "domainId": "response_integrity",
+        "domainNameEn": "Response Integrity & Measurement Quality",
+        "domainNameTr": "Response Integrity & Measurement Quality",
+        "constructId": "attention_effort",
+        "constructNameEn": "Attention & Effort Detection",
+        "constructNameTr": "Dikkatsiz Yanıt İndeksleri"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bidr_6",
+        "instrumentName": "Balanced Inventory of Desirable Responding (BIDR-6)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_curran_2016_careless"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "impression_management",
+      "canonicalNameEn": "Impression Management",
+      "canonicalNameTr": "Bilinçli Sosyal Beğenirlik",
+      "definition": "Olumlu izlenim bırakmak amacıyla gerçek dışı kusursuzluk iddialarında bulunma eğilimi.",
+      "parentHierarchy": {
+        "domainId": "response_integrity",
+        "domainNameEn": "Response Integrity & Measurement Quality",
+        "domainNameTr": "Response Integrity & Measurement Quality",
+        "constructId": "response_bias",
+        "constructNameEn": "Response Bias & Self-Presentation",
+        "constructNameTr": "Yanıt Yanlılığı"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bidr_6",
+        "instrumentName": "Balanced Inventory of Desirable Responding (BIDR-6)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_paulhus_1991"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "semantic_pair_inconsistency",
+      "canonicalNameEn": "Semantic Pair Inconsistency",
+      "canonicalNameTr": "Anlamsal Eş/Zıt Tutarsızlığı",
+      "definition": "Aynı yapıyı ölçen doğrudan ve ters kodlanmış maddeler arasındaki mutlak uyuşmazlık derecesi.",
+      "parentHierarchy": {
+        "domainId": "response_integrity",
+        "domainNameEn": "Response Integrity & Measurement Quality",
+        "domainNameTr": "Response Integrity & Measurement Quality",
+        "constructId": "profile_coherence",
+        "constructNameEn": "Profile Coherence",
+        "constructNameTr": "Profil Tutarlılığı"
+      },
+      "measurementStatus": "CORE_BATTERY",
+      "liveStatus": "LIVE",
+      "epistemicTier": "A",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_bidr_6",
+        "instrumentName": "Balanced Inventory of Desirable Responding (BIDR-6)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "STRONG",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_curran_2016_careless"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "machiavellianism",
+      "canonicalNameEn": "Strategic Pragmatism",
+      "canonicalNameTr": "Makyavelist Yönelim",
+      "definition": "Hedefe ulaşmak için ahlaki kuralları ikincil sayarak stratejik ve çıkarcı ilişkiler kurma eğilimi. Subkliniktir; patoloji veya tanı değildir.",
+      "parentHierarchy": {
+        "domainId": "optional_dark_tetrad",
+        "domainNameEn": "Optional Advanced Module: Subclinical Tendencies",
+        "domainNameTr": "Optional Advanced Module: Subclinical Tendencies",
+        "constructId": "dark_tetrad_traits",
+        "constructNameEn": "Subclinical Relational Strategies",
+        "constructNameTr": "Kişilerarası Stratejiler"
+      },
+      "measurementStatus": "OPTIONAL_MODULE",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_sd4",
+        "instrumentName": "Short Dark Tetrad (SD4)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_paulhus_2021_sd4"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "grandiose_narcissism",
+      "canonicalNameEn": "Ego Striving & Status Need",
+      "canonicalNameTr": "Statü ve Hayranlık İhtiyacı",
+      "definition": "Başkalarının hayranlığını kazanma, üstün olduğunu hissetme ve merkezde olma arzusu. Subkliniktir; patoloji veya tanı değildir.",
+      "parentHierarchy": {
+        "domainId": "optional_dark_tetrad",
+        "domainNameEn": "Optional Advanced Module: Subclinical Tendencies",
+        "domainNameTr": "Optional Advanced Module: Subclinical Tendencies",
+        "constructId": "dark_tetrad_traits",
+        "constructNameEn": "Subclinical Relational Strategies",
+        "constructNameTr": "Kişilerarası Stratejiler"
+      },
+      "measurementStatus": "OPTIONAL_MODULE",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_sd4",
+        "instrumentName": "Short Dark Tetrad (SD4)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_paulhus_2021_sd4"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "subclinical_psychopathy",
+      "canonicalNameEn": "Impulsive Tough-Mindedness",
+      "canonicalNameTr": "Sert Mizaç ve Düşük Empati",
+      "definition": "Düşük suçluluk hissi, duygusal duyarsızlık ve riskli heyecan arayışı. Subkliniktir; patoloji veya tanı değildir.",
+      "parentHierarchy": {
+        "domainId": "optional_dark_tetrad",
+        "domainNameEn": "Optional Advanced Module: Subclinical Tendencies",
+        "domainNameTr": "Optional Advanced Module: Subclinical Tendencies",
+        "constructId": "dark_tetrad_traits",
+        "constructNameEn": "Subclinical Relational Strategies",
+        "constructNameTr": "Kişilerarası Stratejiler"
+      },
+      "measurementStatus": "OPTIONAL_MODULE",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_sd4",
+        "instrumentName": "Short Dark Tetrad (SD4)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_paulhus_2021_sd4"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    },
+    {
+      "facetId": "everyday_sadism",
+      "canonicalNameEn": "Antagonistic Assertion",
+      "canonicalNameTr": "Sert Rekabetçilik",
+      "definition": "Zorlu rekabette veya oyunlarda karşı tarafı ezmekten ve mahcup etmekten gizli bir keyif alma. Subkliniktir; patoloji veya tanı değildir.",
+      "parentHierarchy": {
+        "domainId": "optional_dark_tetrad",
+        "domainNameEn": "Optional Advanced Module: Subclinical Tendencies",
+        "domainNameTr": "Optional Advanced Module: Subclinical Tendencies",
+        "constructId": "dark_tetrad_traits",
+        "constructNameEn": "Subclinical Relational Strategies",
+        "constructNameTr": "Kişilerarası Stratejiler"
+      },
+      "measurementStatus": "OPTIONAL_MODULE",
+      "liveStatus": "RESEARCH_ONLY",
+      "epistemicTier": "B",
+      "currentInstrumentMapping": {
+        "instrumentId": "inst_sd4",
+        "instrumentName": "Short Dark Tetrad (SD4)",
+        "licenseDecision": "RESEARCH_ONLY"
+      },
+      "currentGlobalEvidenceLevel": "MODERATE",
+      "currentTurkishEvidence": {
+        "status": "NO_DIRECT_TURKISH_VALIDATION",
+        "measurementAlignmentLevel": "NOT_APPLICABLE",
+        "factorStructureLevel": "FACET",
+        "sourceIds": [
+          "src_paulhus_2021_sd4"
+        ]
+      },
+      "visualizationAvailability": [
+        "HEATMAP",
+        "FINGERPRINT",
+        "BAR_GRID"
+      ]
+    }
+  ]
+}
