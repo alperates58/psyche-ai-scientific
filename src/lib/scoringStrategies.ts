@@ -163,8 +163,8 @@ export const RSES_MEAN_STRATEGY: ScoringStrategyDefinition = {
 
     const facetScores = [{ facetId: first.facetId, rawMean, itemCount: validResponses.length }];
     const constructScores = [{ constructId: first.constructId, compositeScore: rawMean, facetCount: 1 }];
-    const domainScores = [{ domainId: first.domainId, compositeScore: rawMean, constructCount: 1 }];
 
+    // RSES measures self_evaluation construct, but does NOT claim the entire self_system domain.
     return {
       provisionalComposite: rawMean,
       scaleMin: 1.0,
@@ -172,7 +172,7 @@ export const RSES_MEAN_STRATEGY: ScoringStrategyDefinition = {
       scoreType: 'MEAN',
       facetScores,
       constructScores,
-      domainScores,
+      domainScores: [],
     };
   },
 };
@@ -213,8 +213,8 @@ export const GSE_MEAN_STRATEGY: ScoringStrategyDefinition = {
 
     const facetScores = [{ facetId: first.facetId, rawMean, itemCount: validResponses.length }];
     const constructScores = [{ constructId: first.constructId, compositeScore: rawMean, facetCount: 1 }];
-    const domainScores = [{ domainId: first.domainId, compositeScore: rawMean, constructCount: 1 }];
 
+    // GSE measures agency_mastery construct, but does NOT claim the entire self_system domain.
     return {
       provisionalComposite: rawMean,
       scaleMin: 1.0,
@@ -222,7 +222,7 @@ export const GSE_MEAN_STRATEGY: ScoringStrategyDefinition = {
       scoreType: 'MEAN',
       facetScores,
       constructScores,
-      domainScores,
+      domainScores: [],
     };
   },
 };

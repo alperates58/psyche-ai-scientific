@@ -140,9 +140,13 @@ describe('FAZ 2.10: RSES Scoring Calculation & Reverse-Coding Invariants', () =>
     expect(result.scaleMax).toBe(4.0);
     expect(result.scoreType).toBe('MEAN');
     expect(result.provisionalComposite).toBe(2.5);
+    expect(result.constructScores.length).toBeGreaterThan(0);
     expect(result.constructScores[0].compositeScore).toBe(2.5);
+    expect(result.facetScores.length).toBeGreaterThan(0);
     expect(result.facetScores[0].rawMean).toBe(2.5);
     expect(result.facetScores[0].itemCount).toBe(10);
+    // Strict Invariant: RSES measures self_evaluation construct, but does NOT emit a domain score for self_system
+    expect(result.domainScores).toEqual([]);
   });
 
   it('calculates maximum possible self-esteem (all positive=4, all reverse=1 -> scored values all 4)', () => {
@@ -325,8 +329,55 @@ describe('FAZ 2.12: GSE Scoring Calculation (Schwarzer & Jerusalem, 1995)', () =
     expect(result.scaleMin).toBe(1.0);
     expect(result.scaleMax).toBe(4.0);
     expect(result.provisionalComposite).toBe(3.5);
+    expect(result.constructScores.length).toBeGreaterThan(0);
+    expect(result.constructScores[0].compositeScore).toBe(3.5);
+    expect(result.facetScores.length).toBeGreaterThan(0);
     expect(result.facetScores[0].rawMean).toBe(3.5);
     expect(result.facetScores[0].itemCount).toBe(10);
+    // Strict Invariant: GSE measures agency_mastery construct, but does NOT emit a domain score for self_system
+    expect(result.domainScores).toEqual([]);
+  });
+});
+
+describe('FAZ 2.12: Strict Scientific Invariant — Narrow Instruments Must Not Emit Domain Scores', () => {
+  it('guarantees that narrow construct/subscale instruments (RSES, GSE, ERQ, ECR-R) do not emit domain composites', () => {
+    // 1. RSES
+    const rsesResponses: ScoredResponseItem[] = [
+      { itemId: 'RSES_01', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+    ];
+    const rsesResult = RSES_MEAN_STRATEGY.calculate(rsesResponses);
+    expect(rsesResult.facetScores.length).toBe(1);
+    expect(rsesResult.constructScores.length).toBe(1);
+    expect(rsesResult.domainScores).toEqual([]);
+
+    // 2. GSE
+    const gseResponses: ScoredResponseItem[] = [
+      { itemId: 'GSE_01', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+    ];
+    const gseResult = GSE_MEAN_STRATEGY.calculate(gseResponses);
+    expect(gseResult.facetScores.length).toBe(1);
+    expect(gseResult.constructScores.length).toBe(1);
+    expect(gseResult.domainScores).toEqual([]);
+
+    // 3. ERQ
+    const erqResponses: ScoredResponseItem[] = [
+      { itemId: 'ERQ_01', facetId: 'cognitive_reappraisal', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 5, scoredValue: 5, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_02', facetId: 'expressive_suppression', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+    ];
+    const erqResult = resolveScoringStrategy('ERQ_MEAN_V1').calculate(erqResponses);
+    expect(erqResult.facetScores.length).toBe(2);
+    expect(erqResult.constructScores).toEqual([]);
+    expect(erqResult.domainScores).toEqual([]);
+
+    // 4. ECR-R
+    const ecrrResponses: ScoredResponseItem[] = [
+      { itemId: 'ECRR_01', facetId: 'attachment_anxiety', constructId: 'attachment_patterns', domainId: 'relational_interpersonal', rawValue: 5, scoredValue: 5, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ECRR_02', facetId: 'attachment_avoidance', constructId: 'attachment_patterns', domainId: 'relational_interpersonal', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+    ];
+    const ecrrResult = resolveScoringStrategy('ECR_R_MEAN_V1').calculate(ecrrResponses);
+    expect(ecrrResult.facetScores.length).toBe(2);
+    expect(ecrrResult.constructScores).toEqual([]);
+    expect(ecrrResult.domainScores).toEqual([]);
   });
 });
 
