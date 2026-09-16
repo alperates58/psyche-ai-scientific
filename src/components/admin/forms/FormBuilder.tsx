@@ -9,6 +9,7 @@ import {
   updateAssessmentFormDraftMetadataAction,
 } from '@/actions/scientificAdminActions';
 import { QuestionPickerModal, EligibleQuestion } from './QuestionPickerModal';
+import { PublicationValidationPanel } from './PublicationValidationPanel';
 import { LifecycleBadge, LicenseBadge } from '@/components/admin/scientific/ScientificBadges';
 import { normalizeInstrumentLicensingDecision } from '@/lib/licenseNormalization';
 import {
@@ -242,6 +243,12 @@ export const FormBuilder: React.FC<FormBuilderProps> = ({
           </div>
         </div>
       )}
+
+      {/* Publication Validation & Safe Publish Control Plane */}
+      <PublicationValidationPanel
+        formVersionId={form.id}
+        versionCode={form.versionCode}
+      />
 
       {/* Metadata & Controls Bar */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

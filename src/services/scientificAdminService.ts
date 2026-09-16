@@ -6,6 +6,7 @@ import {
   assertItemMetadataMutable,
 } from '@/lib/scientificImmutability';
 import { logScientificAuditEventTx } from '@/lib/scientificAuditLog';
+import { validateAssessmentFormForPublication } from '@/lib/publicationValidator';
 import { normalizeInstrumentLicensingDecision, normalizeItemLicenseStatus } from '@/lib/licenseNormalization';
 
 /**
@@ -959,3 +960,129 @@ export async function updateItemMetadata(
     return updated;
   });
 }
+
+// ---------------------------------------------------------
+// 4. ATOMIC PUBLISH & VERSION REPLACEMENT
+// ---------------------------------------------------------
+
+export interface PublishFormVersionInput {
+  formVersionId: string;
+}
+
+export async function publishAssessmentFormVersion(
+  input: PublishFormVersionInput,
+  ctx?: AuditContext
+) {
+  return prisma.$transaction(async (tx) => {
+    // 1. Fetch form to get moduleId
+    const targetForm = await tx.assessmentFormVersion.findUnique({
+      where: { id: input.formVersionId },
+      include: { module: true },
+    });
+
+    if (!targetForm) {
+      throw new Error('NOT_FOUND: Yayınlanacak form bulunamadı.');
+    }
+
+    // 2. Concurrency control via PostgreSQL transaction advisory lock on moduleId (Fail Closed)
+    const lockKey = hashToBigInt(targetForm.moduleId);
+    try {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(${BigInt(lockKey)}::bigint)`;
+    } catch (err: any) {
+      throw new Error(`PUBLISH_LOCK_FAILED: Modül yayınlama kilidi alınamadı: ${err.message}`);
+    }
+
+    // 3. Re-run publication validation inside the transaction
+    const validation = await validateAssessmentFormForPublication(input.formVersionId, tx);
+    if (!validation.publishable) {
+      throw new Error(`PUBLICATION_BLOCKED: ${validation.blockers.join(' | ')}`);
+    }
+
+    const now = new Date();
+
+    // 4. Archive any existing PUBLISHED form in the same module
+    const existingPublished = await tx.assessmentFormVersion.findFirst({
+      where: {
+        moduleId: targetForm.moduleId,
+        status: 'PUBLISHED',
+        id: { not: targetForm.id },
+      },
+    });
+
+    if (existingPublished) {
+      await tx.assessmentFormVersion.update({
+        where: { id: existingPublished.id },
+        data: {
+          status: 'ARCHIVED',
+          isPublished: false,
+          archivedAt: now,
+        },
+      });
+
+      await logScientificAuditEventTx(tx, {
+        eventType: 'FORM_ARCHIVED',
+        actorUserId: ctx?.actorUserId,
+        targetEntityType: 'AssessmentFormVersion',
+        targetEntityId: existingPublished.id,
+        ip: ctx?.ip,
+        userAgent: ctx?.userAgent,
+        metadata: {
+          versionCode: existingPublished.versionCode,
+          replacedByFormVersionId: targetForm.id,
+          replacedByVersionCode: targetForm.versionCode,
+        },
+      });
+    }
+
+    // 5. Publish target form
+    const published = await tx.assessmentFormVersion.update({
+      where: { id: targetForm.id },
+      data: {
+        status: 'PUBLISHED',
+        isPublished: true,
+        publishedAt: now,
+      },
+    });
+
+    // 6. Activate all linked ItemVersions
+    const formItems = await tx.assessmentFormItem.findMany({
+      where: { formVersionId: targetForm.id },
+      select: { itemVersionId: true },
+    });
+    const itemVersionIds = formItems.map((fi) => fi.itemVersionId);
+
+    if (itemVersionIds.length > 0) {
+      await tx.itemVersion.updateMany({
+        where: { id: { in: itemVersionIds } },
+        data: {
+          status: 'ACTIVE',
+          isActive: true,
+        },
+      });
+    }
+
+    // 7. Transactional audit log for publication
+    await logScientificAuditEventTx(tx, {
+      eventType: 'FORM_PUBLISHED',
+      actorUserId: ctx?.actorUserId,
+      targetEntityType: 'AssessmentFormVersion',
+      targetEntityId: published.id,
+      ip: ctx?.ip,
+      userAgent: ctx?.userAgent,
+      metadata: {
+        moduleId: published.moduleId,
+        moduleCode: targetForm.module.code,
+        versionCode: published.versionCode,
+        itemCount: formItems.length,
+        archivedPreviousFormId: existingPublished?.id || null,
+        archivedPreviousVersionCode: existingPublished?.versionCode || null,
+      },
+    });
+
+    return {
+      publishedForm: published,
+      previousArchivedForm: existingPublished,
+    };
+  });
+}
+

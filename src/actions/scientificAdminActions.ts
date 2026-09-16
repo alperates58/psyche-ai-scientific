@@ -14,7 +14,12 @@ import {
   createNewItemVersion,
   updateDraftItemVersion,
   updateItemMetadata,
+  publishAssessmentFormVersion,
 } from '@/services/scientificAdminService';
+import {
+  validateAssessmentFormForPublication,
+  PublicationValidationResult,
+} from '@/lib/publicationValidator';
 
 function safeRevalidatePath(path: string) {
   try {
@@ -362,3 +367,42 @@ export async function updateItemMetadataAction(
     return { success: false, error: error.message || 'Madde üst verisi güncellenemedi.' };
   }
 }
+
+export const PublishFormVersionSchema = z
+  .object({
+    formVersionId: z.string().min(1, 'Form ID zorunludur'),
+  })
+  .strict();
+
+export async function validateAssessmentFormAction(
+  formVersionId: string
+): Promise<ActionResult<PublicationValidationResult>> {
+  try {
+    await requirePermission('SCIENTIFIC_VIEW');
+    const result = await validateAssessmentFormForPublication(formVersionId);
+    return { success: true, data: result };
+  } catch (error: any) {
+    return { success: false, error: error.message || 'Doğrulama gerçekleştirilemedi.' };
+  }
+}
+
+export async function publishAssessmentFormVersionAction(
+  input: z.infer<typeof PublishFormVersionSchema>
+): Promise<ActionResult> {
+  try {
+    const actor = await requirePermission('FORM_PUBLISH');
+    const parsed = PublishFormVersionSchema.parse(input);
+
+    const result = await publishAssessmentFormVersion(parsed, {
+      actorUserId: actor.id,
+    });
+
+    safeRevalidatePath('/admin/assessment-forms');
+    safeRevalidatePath(`/admin/assessment-forms/${input.formVersionId}`);
+
+    return { success: true, data: result };
+  } catch (error: any) {
+    return { success: false, error: error.message || 'Form yayına alınamadı.' };
+  }
+}
+

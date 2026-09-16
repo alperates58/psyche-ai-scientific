@@ -10,14 +10,18 @@ import {
   createNewItem,
   createNewItemVersion,
   updateDraftItemVersion,
+  publishAssessmentFormVersion,
 } from '../../src/services/scientificAdminService';
+import {
+  validateAssessmentFormForPublication,
+} from '../../src/lib/publicationValidator';
 import {
   assertFormVersionMutable,
   assertItemVersionMutable,
   assertItemMetadataMutable,
 } from '../../src/lib/scientificImmutability';
 
-describe('FAZ 2.7C-2: Scientific Authoring & Immutability Integration Tests', () => {
+describe('FAZ 2.7C: Scientific Authoring & Publication Lifecycle Integration Tests', () => {
   let prisma: PrismaClient;
 
   beforeAll(() => {
@@ -178,4 +182,88 @@ describe('FAZ 2.7C-2: Scientific Authoring & Immutability Integration Tests', ()
       /FORM_IMMUTABLE/
     );
   });
+
+  // =========================================================
+  // FAZ 2.7C-3: ATOMIC PUBLICATION & LIFECYCLE TESTS
+  // =========================================================
+  it('validates publication readiness of a cloned draft form', async () => {
+    const liveForm = await prisma.assessmentFormVersion.findFirst({
+      where: { status: 'PUBLISHED' },
+    });
+    expect(liveForm).toBeDefined();
+
+    const cloneCode = `v_test_val_${Date.now()}`;
+    const draft = await cloneAssessmentFormDraft(
+      {
+        sourceFormVersionId: liveForm!.id,
+        newVersionCode: cloneCode,
+      },
+      { actorUserId: 'test-admin-actor' }
+    );
+
+    const validation = await validateAssessmentFormForPublication(draft.id, prisma);
+    expect(validation.publishable).toBe(true);
+    expect(validation.blockers.length).toBe(0);
+    expect(validation.details.formVersionId).toBe(draft.id);
+    expect(validation.details.existingPublishedFormId).toBe(liveForm!.id);
+  });
+
+  it('atomically publishes a draft form, archiving the previous published form and activating item versions', async () => {
+    const liveForm = await prisma.assessmentFormVersion.findFirst({
+      where: { status: 'PUBLISHED' },
+      include: { module: true },
+    });
+    expect(liveForm).toBeDefined();
+
+    const newCode = `v_test_pub_${Date.now()}`;
+    const draft = await cloneAssessmentFormDraft(
+      {
+        sourceFormVersionId: liveForm!.id,
+        newVersionCode: newCode,
+        description: 'New published candidate',
+      },
+      { actorUserId: 'test-admin-actor' }
+    );
+
+    const result = await publishAssessmentFormVersion(
+      { formVersionId: draft.id },
+      { actorUserId: 'test-admin-actor' }
+    );
+
+    expect(result.publishedForm.id).toBe(draft.id);
+    expect(result.publishedForm.status).toBe('PUBLISHED');
+    expect(result.publishedForm.isPublished).toBe(true);
+    expect(result.publishedForm.publishedAt).toBeDefined();
+
+    // Verify previous form is archived
+    if (result.previousArchivedForm) {
+      const archived = await prisma.assessmentFormVersion.findUnique({
+        where: { id: result.previousArchivedForm.id },
+      });
+      expect(archived!.status).toBe('ARCHIVED');
+      expect(archived!.isPublished).toBe(false);
+      expect(archived!.archivedAt).toBeDefined();
+    }
+
+    // Verify linked item versions are ACTIVE
+    const formItems = await prisma.assessmentFormItem.findMany({
+      where: { formVersionId: draft.id },
+      include: { itemVersion: true },
+    });
+    expect(formItems.length).toBeGreaterThan(0);
+    for (const fi of formItems) {
+      expect(fi.itemVersion.status).toBe('ACTIVE');
+      expect(fi.itemVersion.isActive).toBe(true);
+    }
+
+    // Verify Audit Logs
+    const publishAudit = await prisma.scientificAuditEvent.findFirst({
+      where: {
+        eventType: 'FORM_PUBLISHED',
+        targetEntityId: draft.id,
+      },
+    });
+    expect(publishAudit).toBeDefined();
+  });
 });
+

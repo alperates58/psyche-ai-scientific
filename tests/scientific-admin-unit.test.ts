@@ -14,7 +14,11 @@ import {
   CreateNewItemVersionSchema,
   UpdateDraftItemVersionSchema,
   UpdateItemMetadataSchema,
+  PublishFormVersionSchema,
 } from '../src/actions/scientificAdminActions';
+import {
+  validateAssessmentFormForPublication,
+} from '../src/lib/publicationValidator';
 import {
   hasPermission,
   getUserPermissions,
@@ -402,4 +406,273 @@ describe('FAZ 2.7C-2: Scientific Admin Unit Tests', () => {
       expect(hasPermission(['USER'], 'ITEM_AUTHOR')).toBe(false);
     });
   });
+
+  // =========================================================
+  // 6. PUBLISH & VERSION SAFETY (FAZ 2.7C-3)
+  // =========================================================
+  describe('FAZ 2.7C-3: Publish Form Version Safety & RBAC', () => {
+    it('validates PublishFormVersionSchema and strictly rejects injection', () => {
+      const valid = PublishFormVersionSchema.safeParse({
+        formVersionId: 'form_123',
+      });
+      expect(valid.success).toBe(true);
+
+      const injected = PublishFormVersionSchema.safeParse({
+        formVersionId: 'form_123',
+        status: 'PUBLISHED', // Injected!
+        isPublished: true, // Injected!
+      });
+      expect(injected.success).toBe(false);
+    });
+
+    it('grants FORM_PUBLISH only to ADMIN and SUPER_ADMIN, denying USER, EXPERT_REVIEWER and RESEARCHER', () => {
+      expect(hasPermission(['ADMIN'], 'FORM_PUBLISH')).toBe(true);
+      expect(hasPermission(['SUPER_ADMIN'], 'FORM_PUBLISH')).toBe(true);
+      expect(hasPermission(['USER'], 'FORM_PUBLISH')).toBe(false);
+      expect(hasPermission(['EXPERT_REVIEWER'], 'FORM_PUBLISH')).toBe(false);
+      expect(hasPermission(['RESEARCHER'], 'FORM_PUBLISH')).toBe(false);
+    });
+  });
+
+  describe('FAZ 2.7C-3: Publication Validation Engine (validateAssessmentFormForPublication)', () => {
+    const createMockForm = (overrides?: Partial<any>) => ({
+      id: 'form_draft_1',
+      versionCode: 'v1.1.0',
+      status: 'DRAFT',
+      isPublished: false,
+      moduleId: 'mod_personality',
+      module: {
+        id: 'mod_personality',
+        code: 'PERSONALITY',
+        titleTr: 'Kişilik Değerlendirmesi',
+      },
+      items: [
+        {
+          id: 'fi_1',
+          sortOrder: 1,
+          itemVersionId: 'iv_1',
+          itemVersion: {
+            id: 'iv_1',
+            versionNumber: 1,
+            promptTr: 'Kendimi enerjik ve hayat dolu hissederim.',
+            promptEn: 'I feel energetic and full of life.',
+            status: 'DRAFT',
+            validationStatus: 'VALIDATED',
+            licenseStatus: 'PUBLIC_DOMAIN',
+            options: [
+              { value: 1, labelTr: 'Kesinlikle Katılmıyorum', sortOrder: 1 },
+              { value: 2, labelTr: 'Katılmıyorum', sortOrder: 2 },
+              { value: 3, labelTr: 'Kararsızım', sortOrder: 3 },
+              { value: 4, labelTr: 'Katılıyorum', sortOrder: 4 },
+              { value: 5, labelTr: 'Kesinlikle Katılıyorum', sortOrder: 5 },
+            ],
+            item: {
+              id: 'item_1',
+              itemCode: 'BIG5_E_01',
+              itemType: 'LIKERT_5',
+              isKeyed: true,
+              isAttentionCheck: false,
+              facet: {
+                id: 'facet_e1',
+                nameTr: 'Canlılık ve Coşku',
+                construct: {
+                  id: 'const_e',
+                  nameTr: 'Dışadönüklük',
+                  domain: {
+                    id: 'dom_big5',
+                    nameTr: 'Beş Faktör Kişilik',
+                  },
+                },
+                validationSummary: {
+                  overallTurkishEvidenceLevel: 'DIRECT',
+                },
+              },
+              instrument: {
+                id: 'inst_1',
+                name: 'IPIP-NEO-TR',
+                licensingDecision: 'verified',
+              },
+            },
+          },
+        },
+      ],
+      ...overrides,
+    });
+
+    it('returns publishable: true for a valid draft form', async () => {
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => createMockForm(),
+          findFirst: async () => ({
+            id: 'form_published_old',
+            versionCode: 'v1.0.0',
+          }),
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(true);
+      expect(result.blockers.length).toBe(0);
+      expect(result.details.existingPublishedFormId).toBe('form_published_old');
+      expect(result.details.existingPublishedVersionCode).toBe('v1.0.0');
+      expect(result.details.itemCount).toBe(1);
+    });
+
+    it('blocks publication if form is not found', async () => {
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => null,
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('non_existent', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('NOT_FOUND'))).toBe(true);
+    });
+
+    it('blocks publication if form is not DRAFT or already published', async () => {
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () =>
+            createMockForm({ status: 'PUBLISHED', isPublished: true }),
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('FORM_NOT_DRAFT'))).toBe(true);
+    });
+
+    it('blocks publication if form has 0 items', async () => {
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => createMockForm({ items: [] }),
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('EMPTY_FORM'))).toBe(true);
+    });
+
+    it('blocks publication if sortOrder is non-contiguous', async () => {
+      const form = createMockForm();
+      form.items.push({
+        id: 'fi_2',
+        sortOrder: 3, // Expected 2
+        itemVersionId: 'iv_2',
+        itemVersion: {
+          ...form.items[0].itemVersion,
+          id: 'iv_2',
+          item: { ...form.items[0].itemVersion.item, id: 'item_2', itemCode: 'BIG5_E_02' },
+        },
+      });
+
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => form,
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('SORT_ORDER_INCONSISTENCY'))).toBe(true);
+    });
+
+    it('blocks publication if duplicate item versions exist', async () => {
+      const form = createMockForm();
+      form.items.push({
+        id: 'fi_2',
+        sortOrder: 2,
+        itemVersionId: 'iv_1', // Duplicate iv_1
+        itemVersion: form.items[0].itemVersion,
+      });
+
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => form,
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('DUPLICATE_ITEM_VERSION'))).toBe(true);
+    });
+
+    it('blocks publication if item has REJECTED_PROPRIETARY license', async () => {
+      const form = createMockForm();
+      form.items[0].itemVersion.licenseStatus = 'REJECTED_PROPRIETARY';
+
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => form,
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('LICENSE_REJECTED'))).toBe(true);
+    });
+
+    it('blocks publication if item has invalid Likert option count', async () => {
+      const form = createMockForm();
+      form.items[0].itemVersion.options = [
+        { value: 1, labelTr: 'A', sortOrder: 1 },
+        { value: 2, labelTr: 'B', sortOrder: 2 },
+      ];
+
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => form,
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('INVALID_OPTION_COUNT'))).toBe(true);
+    });
+
+    it('blocks publication if ontology chain is broken', async () => {
+      const form = createMockForm();
+      form.items[0].itemVersion.item.facet = null as any;
+
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => form,
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(false);
+      expect(result.blockers.some((b) => b.includes('INVALID_ONTOLOGY_CHAIN'))).toBe(true);
+    });
+
+    it('generates non-blocking warnings for PRE_CALIBRATION status and NO_DIRECT evidence', async () => {
+      const form = createMockForm();
+      form.items[0].itemVersion.validationStatus = 'PRE_CALIBRATION';
+      form.items[0].itemVersion.item.facet.validationSummary.overallTurkishEvidenceLevel = 'NO_DIRECT';
+
+      const mockTx = {
+        assessmentFormVersion: {
+          findUnique: async () => form,
+          findFirst: async () => null,
+        },
+      } as any;
+
+      const result = await validateAssessmentFormForPublication('form_draft_1', mockTx);
+      expect(result.publishable).toBe(true);
+      expect(result.blockers.length).toBe(0);
+      expect(result.warnings.some((w) => w.includes('PRE_CALIBRATION'))).toBe(true);
+      expect(result.warnings.some((w) => w.includes('NO_DIRECT_EVIDENCE'))).toBe(true);
+    });
+  });
 });
+

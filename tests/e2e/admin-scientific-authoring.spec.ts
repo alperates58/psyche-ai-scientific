@@ -31,6 +31,26 @@ test.describe('FAZ 2.7C-2: Scientific Admin E2E Authoring & Form Management', ()
     await expect(page.locator('text=Puanlama Yönü')).toBeVisible();
   });
 
+  test('Admin can view Publication Validation Panel on draft form and open confirmation modal', async ({ page }) => {
+    // Navigate to a draft form if available or assessment forms index
+    await page.goto('/admin/assessment-forms');
+    const draftLink = page.locator('a:has-text("Düzenle / Taslak")').first();
+    if (await draftLink.count() > 0) {
+      await draftLink.click();
+      await page.waitForSelector('text=Yayınlama & Canlı Güvenlik Kontrolü');
+      await expect(page.locator('text=Yayınlama & Canlı Güvenlik Kontrolü')).toBeVisible();
+      await expect(page.locator('button:has-text("Yeniden Kontrol Et")')).toBeVisible();
+
+      // Check if publish button exists
+      const publishBtn = page.locator('button:has-text("Yayına Al (Canlı Yap)")');
+      if (await publishBtn.isEnabled()) {
+        await publishBtn.click();
+        await expect(page.locator('text=Formu Yayına Alma Onayı')).toBeVisible();
+        await page.click('button:has-text("Vazgeç")');
+      }
+    }
+  });
+
   test('Regular unauthenticated user cannot access scientific authoring routes', async ({ browser }) => {
     const context = await browser.newContext({ storageState: undefined });
     const page = await context.newPage();
@@ -43,3 +63,4 @@ test.describe('FAZ 2.7C-2: Scientific Admin E2E Authoring & Form Management', ()
     await context.close();
   });
 });
+
