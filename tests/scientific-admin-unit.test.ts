@@ -152,16 +152,24 @@ describe('FAZ 2.7C-2: Scientific Admin Unit Tests', () => {
   });
 
   // =========================================================
-  // 2. ZOD SCHEMAS & INJECTION RESISTANCE
+  // 2. STRICT ZOD SCHEMAS & INJECTION RESISTANCE
   // =========================================================
-  describe('Zod Validation Schemas', () => {
-    it('validates CreateFormDraftSchema successfully', () => {
+  describe('Strict Zod Validation Schemas', () => {
+    it('validates CreateFormDraftSchema successfully and rejects extra injected fields', () => {
       const valid = CreateFormDraftSchema.safeParse({
         moduleId: 'mod_123',
         versionCode: 'v1.1.0-draft',
         description: 'New personality draft',
       });
       expect(valid.success).toBe(true);
+
+      const injected = CreateFormDraftSchema.safeParse({
+        moduleId: 'mod_123',
+        versionCode: 'v1.1.0-draft',
+        status: 'PUBLISHED', // Injected!
+        isPublished: true, // Injected!
+      });
+      expect(injected.success).toBe(false);
     });
 
     it('rejects invalid characters in versionCode for CreateFormDraftSchema', () => {
@@ -172,16 +180,23 @@ describe('FAZ 2.7C-2: Scientific Admin Unit Tests', () => {
       expect(invalid.success).toBe(false);
     });
 
-    it('validates CloneFormDraftSchema successfully', () => {
+    it('validates CloneFormDraftSchema and rejects unknown fields', () => {
       const valid = CloneFormDraftSchema.safeParse({
         sourceFormVersionId: 'form_source_1',
         newVersionCode: 'v2.0.0-draft',
         description: 'Cloned form',
       });
       expect(valid.success).toBe(true);
+
+      const injected = CloneFormDraftSchema.safeParse({
+        sourceFormVersionId: 'form_source_1',
+        newVersionCode: 'v2.0.0-draft',
+        isPublished: true, // Injected!
+      });
+      expect(injected.success).toBe(false);
     });
 
-    it('validates CreateNewItemSchema with default authorType ADMIN_AUTHORED', () => {
+    it('validates CreateNewItemSchema and strictly rejects client-supplied authorType or lifecycle fields', () => {
       const valid = CreateNewItemSchema.safeParse({
         facetId: 'facet_n1',
         itemCode: 'BIG5_NEO_N_99',
@@ -192,10 +207,60 @@ describe('FAZ 2.7C-2: Scientific Admin Unit Tests', () => {
       });
       expect(valid.success).toBe(true);
       if (valid.success) {
-        expect(valid.data.authorType).toBe('ADMIN_AUTHORED');
+        expect((valid.data as any).authorType).toBeUndefined(); // Must NOT be in payload
         expect(valid.data.itemType).toBe('LIKERT_5');
         expect(valid.data.isKeyed).toBe(false);
       }
+
+      // Reject client authorType injection
+      const injectedAuthor = CreateNewItemSchema.safeParse({
+        facetId: 'facet_n1',
+        itemCode: 'BIG5_NEO_N_99',
+        isKeyed: false,
+        promptTr: 'Sık sık endişelenirim.',
+        promptEn: 'I worry often.',
+        authorType: 'HUMAN_EXPERT', // Injected!
+      });
+      expect(injectedAuthor.success).toBe(false);
+
+      // Reject lifecycle injection
+      const injectedStatus = CreateNewItemSchema.safeParse({
+        facetId: 'facet_n1',
+        itemCode: 'BIG5_NEO_N_99',
+        isKeyed: false,
+        promptTr: 'Sık sık endişelenirim.',
+        promptEn: 'I worry often.',
+        status: 'ACTIVE', // Injected!
+        validationStatus: 'VALIDATED', // Injected!
+      });
+      expect(injectedStatus.success).toBe(false);
+    });
+
+    it('validates CreateNewItemVersionSchema and strictly rejects client-supplied authorType or versionNumber', () => {
+      const valid = CreateNewItemVersionSchema.safeParse({
+        itemId: 'item_123',
+        promptTr: 'Revize Türkçe metin.',
+        promptEn: 'Revised English prompt.',
+      });
+      expect(valid.success).toBe(true);
+
+      // Reject authorType injection
+      const injectedAuthor = CreateNewItemVersionSchema.safeParse({
+        itemId: 'item_123',
+        promptTr: 'Revize Türkçe metin.',
+        promptEn: 'Revised English prompt.',
+        authorType: 'HUMAN_EXPERT', // Injected!
+      });
+      expect(injectedAuthor.success).toBe(false);
+
+      // Reject versionNumber injection
+      const injectedVerNum = CreateNewItemVersionSchema.safeParse({
+        itemId: 'item_123',
+        promptTr: 'Revize Türkçe metin.',
+        promptEn: 'Revised English prompt.',
+        versionNumber: 99, // Injected!
+      });
+      expect(injectedVerNum.success).toBe(false);
     });
 
     it('rejects CreateNewItemSchema with promptTr under 3 characters', () => {
@@ -209,7 +274,7 @@ describe('FAZ 2.7C-2: Scientific Admin Unit Tests', () => {
       expect(invalid.success).toBe(false);
     });
 
-    it('validates ReorderFormItemsSchema requires at least one ID', () => {
+    it('validates ReorderFormItemsSchema requires at least one ID and rejects unknown fields', () => {
       const invalid = ReorderFormItemsSchema.safeParse({
         formVersionId: 'form_123',
         orderedFormItemIds: [],
@@ -221,6 +286,13 @@ describe('FAZ 2.7C-2: Scientific Admin Unit Tests', () => {
         orderedFormItemIds: ['item_1', 'item_2'],
       });
       expect(valid.success).toBe(true);
+
+      const injected = ReorderFormItemsSchema.safeParse({
+        formVersionId: 'form_123',
+        orderedFormItemIds: ['item_1', 'item_2'],
+        sortOrder: 1, // Injected!
+      });
+      expect(injected.success).toBe(false);
     });
   });
 

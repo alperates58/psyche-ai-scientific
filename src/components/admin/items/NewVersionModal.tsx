@@ -56,7 +56,6 @@ export const NewVersionModal: React.FC<NewVersionModalProps> = ({
         promptEn: promptEn.trim(),
         notes: notes.trim() || undefined,
         cloneOptionsFromVersionId: latestVersion.id,
-        authorType: 'ADMIN_AUTHORED',
       });
 
       if (!res.success) {

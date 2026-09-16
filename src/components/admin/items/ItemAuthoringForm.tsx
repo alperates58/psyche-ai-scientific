@@ -132,7 +132,6 @@ export const ItemAuthoringForm: React.FC<ItemAuthoringFormProps> = ({
         promptTr: promptTr.trim(),
         promptEn: promptEn.trim(),
         notes: notes.trim() || undefined,
-        authorType: 'ADMIN_AUTHORED',
       });
 
       if (!res.success) {

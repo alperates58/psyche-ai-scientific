@@ -345,10 +345,18 @@ export async function addQuestionToFormDraft(
   ctx?: AuditContext
 ) {
   return prisma.$transaction(async (tx) => {
-    // 1. Assure form is mutable
+    // 1. Transaction-scoped advisory lock on formVersionId to serialize sortOrder increments (Fail Closed)
+    const lockKey = hashToBigInt(input.formVersionId);
+    try {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(${BigInt(lockKey)}::bigint)`;
+    } catch (err: any) {
+      throw new Error(`FORM_LOCK_FAILED: Form eşzamanlılık kilidi alınamadı: ${err.message}`);
+    }
+
+    // 2. Assure form is mutable
     await assertFormVersionMutable(input.formVersionId, tx);
 
-    // 2. Validate ItemVersion exists and is eligible
+    // 3. Validate ItemVersion exists and is eligible
     const itemVersion = await tx.itemVersion.findUnique({
       where: { id: input.itemVersionId },
       include: { item: true },
@@ -362,7 +370,7 @@ export async function addQuestionToFormDraft(
       throw new Error('ITEM_DEPRECATED: Kullanımdan kaldırılmış (DEPRECATED) madde sürümleri forma eklenemez.');
     }
 
-    // 3. Check if already in form
+    // 4. Check if already in form
     const existing = await tx.assessmentFormItem.findUnique({
       where: {
         formVersionId_itemVersionId: {
@@ -376,7 +384,7 @@ export async function addQuestionToFormDraft(
       throw new Error('DUPLICATE_FORM_ITEM: Bu madde sürümü zaten bu formda yer almaktadır.');
     }
 
-    // 4. Calculate next sortOrder
+    // 5. Calculate next sortOrder
     const maxSortItem = await tx.assessmentFormItem.findFirst({
       where: { formVersionId: input.formVersionId },
       orderBy: { sortOrder: 'desc' },
@@ -385,7 +393,7 @@ export async function addQuestionToFormDraft(
 
     const nextSortOrder = (maxSortItem?.sortOrder ?? 0) + 1;
 
-    // 5. Create AssessmentFormItem
+    // 6. Create AssessmentFormItem
     const formItem = await tx.assessmentFormItem.create({
       data: {
         formVersionId: input.formVersionId,
@@ -394,7 +402,7 @@ export async function addQuestionToFormDraft(
       },
     });
 
-    // 6. Update itemCount on form
+    // 7. Update itemCount on form
     const currentCount = await tx.assessmentFormItem.count({
       where: { formVersionId: input.formVersionId },
     });
@@ -404,7 +412,7 @@ export async function addQuestionToFormDraft(
       data: { itemCount: currentCount },
     });
 
-    // 7. Transactional audit log
+    // 8. Transactional audit log
     await logScientificAuditEventTx(tx, {
       eventType: 'FORM_ITEMS_UPDATED',
       actorUserId: ctx?.actorUserId,
@@ -569,7 +577,7 @@ export async function reorderFormDraftItems(
 }
 
 // ---------------------------------------------------------
-// 3. ITEM & VERSION AUTHORING MUTATIONS
+// 3. ITEM & VERSION AUTHORING MUTATIONS (Server-Controlled Provenance)
 // ---------------------------------------------------------
 
 export interface CreateNewItemInput {
@@ -582,7 +590,6 @@ export interface CreateNewItemInput {
   promptTr: string;
   promptEn: string;
   notes?: string;
-  authorType?: string; // defaults to 'ADMIN_AUTHORED'
 }
 
 export async function createNewItem(
@@ -630,7 +637,7 @@ export async function createNewItem(
       },
     });
 
-    // 5. Create initial ItemVersion (DRAFT, RESEARCH_DRAFT, authorType = ADMIN_AUTHORED)
+    // 5. Create initial ItemVersion (DRAFT, RESEARCH_DRAFT, strictly server-assigned authorType = ADMIN_AUTHORED)
     const initialVersion = await tx.itemVersion.create({
       data: {
         itemId: item.id,
@@ -641,7 +648,7 @@ export async function createNewItem(
         status: 'DRAFT',
         isActive: false,
         validationStatus: 'RESEARCH_DRAFT',
-        authorType: input.authorType || 'ADMIN_AUTHORED',
+        authorType: 'ADMIN_AUTHORED',
       },
     });
 
@@ -697,7 +704,6 @@ export interface CreateNewItemVersionInput {
   promptTr: string;
   promptEn: string;
   notes?: string;
-  authorType?: string; // defaults to 'ADMIN_AUTHORED'
   cloneOptionsFromVersionId?: string;
   customOptions?: { value: number; labelTr: string; labelEn: string; sortOrder: number }[];
 }
@@ -707,12 +713,12 @@ export async function createNewItemVersion(
   ctx?: AuditContext
 ) {
   return prisma.$transaction(async (tx) => {
-    // 1. Concurrency control via PostgreSQL transaction advisory lock
+    // 1. Concurrency control via PostgreSQL transaction advisory lock (Fail Closed)
     const lockKey = hashToBigInt(input.itemId);
     try {
-      await tx.$executeRawUnsafe(`SELECT pg_advisory_xact_lock(${lockKey})`);
-    } catch {
-      // In non-Postgres environments or unit mock, continue gracefully
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(${BigInt(lockKey)}::bigint)`;
+    } catch (err: any) {
+      throw new Error(`VERSION_LOCK_FAILED: Sürüm eşzamanlılık kilidi alınamadı: ${err.message}`);
     }
 
     // 2. Fetch item with all versions
@@ -738,7 +744,7 @@ export async function createNewItemVersion(
     const maxVersionNumber = item.versions[0]?.versionNumber ?? 0;
     const nextVersionNumber = maxVersionNumber + 1;
 
-    // 4. Create new ItemVersion (Starts DRAFT, isActive: false, validationStatus: RESEARCH_DRAFT)
+    // 4. Create new ItemVersion (Starts DRAFT, isActive: false, validationStatus: RESEARCH_DRAFT, authorType: ADMIN_AUTHORED)
     const newVersion = await tx.itemVersion.create({
       data: {
         itemId: item.id,
@@ -749,7 +755,7 @@ export async function createNewItemVersion(
         status: 'DRAFT',
         isActive: false,
         validationStatus: 'RESEARCH_DRAFT',
-        authorType: input.authorType || 'ADMIN_AUTHORED',
+        authorType: 'ADMIN_AUTHORED',
       },
     });
 

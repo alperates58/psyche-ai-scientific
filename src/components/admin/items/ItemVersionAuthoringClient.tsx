@@ -43,7 +43,6 @@ export const ItemVersionAuthoringClient: React.FC<ItemVersionAuthoringClientProp
         promptEn: promptEn.trim(),
         notes: notes.trim() || undefined,
         cloneOptionsFromVersionId: latestVersion.id,
-        authorType: 'ADMIN_AUTHORED',
       });
 
       if (!res.success) {

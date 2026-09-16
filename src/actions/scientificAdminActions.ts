@@ -29,115 +29,137 @@ export interface ActionResult<T = any> {
 }
 
 // =========================================================
-// ZOD VALIDATION SCHEMAS
+// STRICT ZOD VALIDATION SCHEMAS (.strict() to reject unknown/injected fields)
 // =========================================================
 
-export const CreateFormDraftSchema = z.object({
-  moduleId: z.string().min(1, 'Modül seçimi zorunludur'),
-  versionCode: z
-    .string()
-    .min(2, 'Sürüm kodu en az 2 karakter olmalıdır')
-    .max(50, 'Sürüm kodu en fazla 50 karakter olabilir')
-    .regex(/^[a-zA-Z0-9_.\-]+$/, 'Sürüm kodu yalnızca alfanumerik ve .-_ karakterleri içerebilir'),
-  description: z.string().max(1000, 'Açıklama 1000 karakterden uzun olamaz').optional(),
-});
+export const CreateFormDraftSchema = z
+  .object({
+    moduleId: z.string().min(1, 'Modül seçimi zorunludur'),
+    versionCode: z
+      .string()
+      .min(2, 'Sürüm kodu en az 2 karakter olmalıdır')
+      .max(50, 'Sürüm kodu en fazla 50 karakter olabilir')
+      .regex(/^[a-zA-Z0-9_.\-]+$/, 'Sürüm kodu yalnızca alfanumerik ve .-_ karakterleri içerebilir'),
+    description: z.string().max(1000, 'Açıklama 1000 karakterden uzun olamaz').optional(),
+  })
+  .strict();
 
-export const CloneFormDraftSchema = z.object({
-  sourceFormVersionId: z.string().min(1, 'Kaynak form ID zorunludur'),
-  newVersionCode: z
-    .string()
-    .min(2, 'Yeni sürüm kodu en az 2 karakter olmalıdır')
-    .max(50, 'Yeni sürüm kodu en fazla 50 karakter olabilir')
-    .regex(/^[a-zA-Z0-9_.\-]+$/, 'Sürüm kodu yalnızca alfanumerik ve .-_ karakterleri içerebilir'),
-  description: z.string().max(1000, 'Açıklama 1000 karakterden uzun olamaz').optional(),
-});
+export const CloneFormDraftSchema = z
+  .object({
+    sourceFormVersionId: z.string().min(1, 'Kaynak form ID zorunludur'),
+    newVersionCode: z
+      .string()
+      .min(2, 'Yeni sürüm kodu en az 2 karakter olmalıdır')
+      .max(50, 'Yeni sürüm kodu en fazla 50 karakter olabilir')
+      .regex(/^[a-zA-Z0-9_.\-]+$/, 'Sürüm kodu yalnızca alfanumerik ve .-_ karakterleri içerebilir'),
+    description: z.string().max(1000, 'Açıklama 1000 karakterden uzun olamaz').optional(),
+  })
+  .strict();
 
-export const UpdateFormMetadataSchema = z.object({
-  formVersionId: z.string().min(1, 'Form ID zorunludur'),
-  description: z.string().max(1000).optional(),
-  versionCode: z
-    .string()
-    .min(2)
-    .max(50)
-    .regex(/^[a-zA-Z0-9_.\-]+$/)
-    .optional(),
-});
+export const UpdateFormMetadataSchema = z
+  .object({
+    formVersionId: z.string().min(1, 'Form ID zorunludur'),
+    description: z.string().max(1000).optional(),
+    versionCode: z
+      .string()
+      .min(2)
+      .max(50)
+      .regex(/^[a-zA-Z0-9_.\-]+$/)
+      .optional(),
+  })
+  .strict();
 
-export const AddQuestionToFormSchema = z.object({
-  formVersionId: z.string().min(1, 'Form ID zorunludur'),
-  itemVersionId: z.string().min(1, 'Madde sürüm ID zorunludur'),
-});
+export const AddQuestionToFormSchema = z
+  .object({
+    formVersionId: z.string().min(1, 'Form ID zorunludur'),
+    itemVersionId: z.string().min(1, 'Madde sürüm ID zorunludur'),
+  })
+  .strict();
 
-export const RemoveQuestionFromFormSchema = z.object({
-  formVersionId: z.string().min(1, 'Form ID zorunludur'),
-  formItemId: z.string().min(1, 'Form madde ID zorunludur'),
-});
+export const RemoveQuestionFromFormSchema = z
+  .object({
+    formVersionId: z.string().min(1, 'Form ID zorunludur'),
+    formItemId: z.string().min(1, 'Form madde ID zorunludur'),
+  })
+  .strict();
 
-export const ReorderFormItemsSchema = z.object({
-  formVersionId: z.string().min(1, 'Form ID zorunludur'),
-  orderedFormItemIds: z.array(z.string().min(1)).min(1, 'En az bir madde ID gereklidir'),
-});
+export const ReorderFormItemsSchema = z
+  .object({
+    formVersionId: z.string().min(1, 'Form ID zorunludur'),
+    orderedFormItemIds: z.array(z.string().min(1)).min(1, 'En az bir madde ID gereklidir'),
+  })
+  .strict();
 
-export const CreateNewItemSchema = z.object({
-  facetId: z.string().min(1, 'Alt boyut (Facet) seçimi zorunludur'),
-  itemCode: z
-    .string()
-    .min(2, 'Madde kodu en az 2 karakter olmalıdır')
-    .max(60, 'Madde kodu en fazla 60 karakter olabilir')
-    .regex(/^[a-zA-Z0-9_\-]+$/, 'Madde kodu yalnızca alfanumerik, alt çizgi ve tire içerebilir'),
-  itemType: z.string().default('LIKERT_5'),
-  isKeyed: z.boolean(),
-  isAttentionCheck: z.boolean().default(false),
-  instrumentId: z.string().nullable().optional(),
-  promptTr: z.string().min(3, 'Türkçe önerme metni en az 3 karakter olmalıdır').max(1000),
-  promptEn: z.string().min(3, 'İngilizce önerme metni en az 3 karakter olmalıdır').max(1000),
-  notes: z.string().max(1000).optional(),
-  authorType: z.string().default('ADMIN_AUTHORED'),
-});
+export const CreateNewItemSchema = z
+  .object({
+    facetId: z.string().min(1, 'Alt boyut (Facet) seçimi zorunludur'),
+    itemCode: z
+      .string()
+      .min(2, 'Madde kodu en az 2 karakter olmalıdır')
+      .max(60, 'Madde kodu en fazla 60 karakter olabilir')
+      .regex(/^[a-zA-Z0-9_\-]+$/, 'Madde kodu yalnızca alfanumerik, alt çizgi ve tire içerebilir'),
+    itemType: z.string().default('LIKERT_5'),
+    isKeyed: z.boolean(),
+    isAttentionCheck: z.boolean().default(false),
+    instrumentId: z.string().nullable().optional(),
+    promptTr: z.string().min(3, 'Türkçe önerme metni en az 3 karakter olmalıdır').max(1000),
+    promptEn: z.string().min(3, 'İngilizce önerme metni en az 3 karakter olmalıdır').max(1000),
+    notes: z.string().max(1000).optional(),
+  })
+  .strict();
 
-export const CreateNewItemVersionSchema = z.object({
-  itemId: z.string().min(1, 'Madde ID zorunludur'),
-  promptTr: z.string().min(3, 'Türkçe önerme metni en az 3 karakter olmalıdır').max(1000),
-  promptEn: z.string().min(3, 'İngilizce önerme metni en az 3 karakter olmalıdır').max(1000),
-  notes: z.string().max(1000).optional(),
-  authorType: z.string().default('ADMIN_AUTHORED'),
-  cloneOptionsFromVersionId: z.string().optional(),
-  customOptions: z
-    .array(
-      z.object({
-        value: z.number().int(),
-        labelTr: z.string().min(1),
-        labelEn: z.string().min(1),
-        sortOrder: z.number().int(),
-      })
-    )
-    .optional(),
-});
+export const CreateNewItemVersionSchema = z
+  .object({
+    itemId: z.string().min(1, 'Madde ID zorunludur'),
+    promptTr: z.string().min(3, 'Türkçe önerme metni en az 3 karakter olmalıdır').max(1000),
+    promptEn: z.string().min(3, 'İngilizce önerme metni en az 3 karakter olmalıdır').max(1000),
+    notes: z.string().max(1000).optional(),
+    cloneOptionsFromVersionId: z.string().optional(),
+    customOptions: z
+      .array(
+        z
+          .object({
+            value: z.number().int(),
+            labelTr: z.string().min(1),
+            labelEn: z.string().min(1),
+            sortOrder: z.number().int(),
+          })
+          .strict()
+      )
+      .optional(),
+  })
+  .strict();
 
-export const UpdateDraftItemVersionSchema = z.object({
-  itemVersionId: z.string().min(1, 'Madde sürüm ID zorunludur'),
-  promptTr: z.string().min(3).max(1000).optional(),
-  promptEn: z.string().min(3).max(1000).optional(),
-  notes: z.string().max(1000).optional(),
-  options: z
-    .array(
-      z.object({
-        id: z.string().optional(),
-        value: z.number().int(),
-        labelTr: z.string().min(1),
-        labelEn: z.string().min(1),
-      })
-    )
-    .optional(),
-});
+export const UpdateDraftItemVersionSchema = z
+  .object({
+    itemVersionId: z.string().min(1, 'Madde sürüm ID zorunludur'),
+    promptTr: z.string().min(3).max(1000).optional(),
+    promptEn: z.string().min(3).max(1000).optional(),
+    notes: z.string().max(1000).optional(),
+    options: z
+      .array(
+        z
+          .object({
+            id: z.string().optional(),
+            value: z.number().int(),
+            labelTr: z.string().min(1),
+            labelEn: z.string().min(1),
+          })
+          .strict()
+      )
+      .optional(),
+  })
+  .strict();
 
-export const UpdateItemMetadataSchema = z.object({
-  itemId: z.string().min(1, 'Madde ID zorunludur'),
-  facetId: z.string().optional(),
-  isKeyed: z.boolean().optional(),
-  isAttentionCheck: z.boolean().optional(),
-  instrumentId: z.string().nullable().optional(),
-});
+export const UpdateItemMetadataSchema = z
+  .object({
+    itemId: z.string().min(1, 'Madde ID zorunludur'),
+    facetId: z.string().optional(),
+    isKeyed: z.boolean().optional(),
+    isAttentionCheck: z.boolean().optional(),
+    instrumentId: z.string().nullable().optional(),
+  })
+  .strict();
 
 // =========================================================
 // SERVER ACTIONS
