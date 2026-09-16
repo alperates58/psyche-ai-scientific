@@ -58,14 +58,14 @@ export default async function PersonalityProfilePage() {
       };
     });
 
-    personalityFacets = latestSnapshot.facetScores.map((fs: any) => {
+    personalityFacets = (latestSnapshot.facetScores || []).map((fs: any) => {
       const normalizedScore = Math.round(((fs.rawMean - 1) / 4) * 100);
       return {
         id: fs.facetId,
-        name: fs.facet.name,
-        name_tr: fs.facet.name_tr || fs.facet.name,
-        constructName: fs.facet.construct.name_tr || fs.facet.construct.name,
-        description: fs.facet.description_tr || fs.facet.description || '',
+        name: fs.facet?.nameTr || fs.facet?.nameEn || fs.facetId,
+        name_tr: fs.facet?.nameTr || fs.facet?.nameEn || fs.facetId,
+        constructName: fs.facet?.construct?.nameTr || fs.facet?.construct?.nameEn || '',
+        description: fs.facet?.descriptionTr || fs.facet?.descriptionEn || '',
         score: normalizedScore,
         standardError: null,
         ci95: null,

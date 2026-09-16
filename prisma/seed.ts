@@ -1,8 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
+import { seedExecutableAssessments } from '../scripts/seed-executable-assessments';
 
 const prisma = new PrismaClient();
+
 
 interface ConstructJsonEntry {
   domainId: string;
@@ -690,7 +692,10 @@ async function main() {
     }
   });
 
-  // 12. DYNAMIC TERMINAL OUTPUT CONFIRMING SOURCE-OF-TRUTH
+  // 12. SEED EXECUTABLE ASSESSMENTS (16 MODULES)
+  await seedExecutableAssessments();
+
+  // 13. DYNAMIC TERMINAL OUTPUT CONFIRMING SOURCE-OF-TRUTH
   console.log('\n==================================================');
   console.log('ONTOLOGY SEED VERIFICATION (SOURCE-OF-TRUTH)');
   console.log('==================================================');

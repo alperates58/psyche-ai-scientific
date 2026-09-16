@@ -231,7 +231,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
 
     // Find sessions for this module
     const sessionsForModule = userSessions.filter(
-      (s) => matchingDbMod && s.formVersion.moduleId === matchingDbMod.id
+      (s) => matchingDbMod && s.formVersion?.moduleId === matchingDbMod.id
     );
 
     const completedSession = sessionsForModule.find((s) => s.status === 'COMPLETED');
@@ -262,18 +262,19 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
       status = 'COMPLETED';
       progressPercentage = 100;
       answeredCount = formItemCount;
-      startedAt = completedSession.startedAt.toISOString();
-      completedAt = completedSession.completedAt ? completedSession.completedAt.toISOString() : null;
+      startedAt = completedSession.startedAt ? new Date(completedSession.startedAt).toISOString() : null;
+      completedAt = completedSession.completedAt ? new Date(completedSession.completedAt).toISOString() : null;
       completedSessionId = completedSession.id;
     } else if (activeSession) {
       status = 'IN_PROGRESS';
-      answeredCount = activeSession._count.responses;
+      answeredCount = activeSession._count?.responses || 0;
       progressPercentage = Math.min(100, Math.round((answeredCount / formItemCount) * 100));
-      startedAt = activeSession.startedAt.toISOString();
+      startedAt = activeSession.startedAt ? new Date(activeSession.startedAt).toISOString() : null;
       activeSessionId = activeSession.id;
     } else if (!isPlayable) {
       status = 'CONTENT_PENDING';
-    } else {
+    }
+ else {
       status = 'NOT_STARTED';
     }
 
@@ -392,10 +393,10 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
   }
 
   const legacySessions = userSessions.filter(
-    (s) => s.formVersion.versionCode === 'form_hexaco_v1_0_0' || s.formVersion.versionCode.includes('legacy')
+    (s) => s.formVersion?.versionCode === 'form_hexaco_v1_0_0' || s.formVersion?.versionCode?.includes('legacy')
   );
   const modernCompletedSessions = userSessions.filter(
-    (s) => s.formVersion.versionCode !== 'form_hexaco_v1_0_0' && !s.formVersion.versionCode.includes('legacy') && s.status === 'COMPLETED'
+    (s) => s.formVersion?.versionCode !== 'form_hexaco_v1_0_0' && !s.formVersion?.versionCode?.includes('legacy') && s.status === 'COMPLETED'
   );
   const hasLegacyFormsOnly = legacySessions.length > 0 && modernCompletedSessions.length === 0;
   const legacyNotice = hasLegacyFormsOnly
@@ -415,18 +416,19 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     completedQuestions: answeredQuestionsCount,
     targetQuestionsCount,
     totalQuestions: targetQuestionsCount,
-    constructCoverageCount: coverage.exploredFacetsCount > 0 ? Math.min(37, Math.max(1, Math.round((coverage.exploredFacetsCount / 91) * 37))) : 0,
+    constructCoverageCount: (coverage?.exploredFacetsCount || 0) > 0 ? Math.min(37, Math.max(1, Math.round(((coverage?.exploredFacetsCount || 0) / 91) * 37))) : 0,
     totalConstructsCount: 37,
-    domainCoverageCount: coverage.exploredFacetsCount > 0 ? Math.min(11, Math.max(1, Math.ceil(coverage.exploredFacetsCount / 8))) : 0,
+    domainCoverageCount: (coverage?.exploredFacetsCount || 0) > 0 ? Math.min(11, Math.max(1, Math.ceil((coverage?.exploredFacetsCount || 0) / 8))) : 0,
     totalDomainsCount: 11,
-    completedFacets: coverage.exploredFacetsCount,
-    totalFacets: coverage.totalOntologyFacets || 91,
+    completedFacets: coverage?.exploredFacetsCount || 0,
+    totalFacets: coverage?.totalOntologyFacets || 91,
     depthLevel,
     depthLevelTr: DEPTH_LEVEL_METADATA[depthLevel].nameTr,
     depthLevelDescriptionTr: DEPTH_LEVEL_METADATA[depthLevel].descTr,
     summaryTextTr,
     unlockedCapabilities,
   };
+
 
   // 9. Deterministic Next Best Action Selection
   let nextAction: NextActionDetails | null = null;

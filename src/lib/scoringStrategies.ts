@@ -513,7 +513,6 @@ export function resolveScoringStrategy(
     ) {
       return HEXACO_PRECALIBRATION_STRATEGY;
     }
-
     throw new Error(
       `UNKNOWN_SCORING_STRATEGY: '${moduleCode}' modül koduna ait puanlama stratejisi bulunamadı.`
     );
@@ -529,4 +528,6 @@ export function resolveScoringStrategy(
     'UNKNOWN_SCORING_STRATEGY: Puanlama stratejisi çözümlenemedi (modelCode ve moduleCode belirtilmedi).'
   );
 }
+
+
 

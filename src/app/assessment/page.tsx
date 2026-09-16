@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+
+export const dynamic = 'force-dynamic';
+
 import {
   ArrowLeft,
   Clock,

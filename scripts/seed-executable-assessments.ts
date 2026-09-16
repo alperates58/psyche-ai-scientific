@@ -495,15 +495,26 @@ export async function seedExecutableAssessments() {
       },
     });
 
-    // Delete existing form items and recreate sequentially
-    await prisma.assessmentFormItem.deleteMany({
-      where: { formVersionId: formVersion.id },
-    });
-
+    // Upsert form items sequentially by sortOrder (FK-safe)
     let sortOrder = 1;
     for (const iv of selectedItemVersions) {
-      await prisma.assessmentFormItem.create({
-        data: {
+      // Ensure itemVersion has ACTIVE status and isActive=true
+      await prisma.itemVersion.update({
+        where: { id: iv.id },
+        data: { status: 'ACTIVE', isActive: true },
+      });
+
+      await prisma.assessmentFormItem.upsert({
+        where: {
+          formVersionId_sortOrder: {
+            formVersionId: formVersion.id,
+            sortOrder,
+          },
+        },
+        update: {
+          itemVersionId: iv.id,
+        },
+        create: {
           id: `fitem_${conf.code}_${sortOrder}`,
           formVersionId: formVersion.id,
           itemVersionId: iv.id,

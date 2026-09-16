@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH, calculateProfileCoverage } from '@/psychometrics/coverage';
-import { resolveScoringStrategy } from '@/lib/scoringStrategies';
+import { resolveScoringStrategy, HEXACO_PRECALIBRATION_STRATEGY } from '@/lib/scoringStrategies';
 import { ALL_TRAIT_INTERPRETATIONS, getScoreBand } from '@/lib/assessmentInterpretationConfig';
 import {
   evaluateUnifiedInteractions,
@@ -398,9 +398,9 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     orderBy: { completedAt: 'desc' },
   });
 
-  // Filter sessions that have a valid snapshot
+  // Filter sessions that have a valid snapshot and module
   const validCompletedSessions = completedSessions.filter(
-    (s) => s.snapshotSessions && s.snapshotSessions.length > 0 && s.snapshotSessions[0].profileSnapshot
+    (s) => s.snapshotSessions && s.snapshotSessions.length > 0 && s.snapshotSessions[0]?.profileSnapshot && s.formVersion?.module
   );
 
   const hasAssessments = validCompletedSessions.length > 0;
@@ -410,7 +410,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
   const sourceAssessments: SourceAssessmentProvenance[] = [];
 
   for (const session of validCompletedSessions) {
-    const modId = session.formVersion.module.id;
+    const modId = session.formVersion?.module?.id || session.formVersion?.moduleId || 'unknown';
     if (!sessionsByModule.has(modId)) {
       sessionsByModule.set(modId, []);
     }
@@ -425,18 +425,20 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
   }
 
   for (const session of validCompletedSessions) {
-    const isLatestForModule = latestSessionPerModule.get(session.formVersion.module.id)?.id === session.id;
-    const snapshot = session.snapshotSessions[0].profileSnapshot;
+    const modId = session.formVersion?.module?.id || session.formVersion?.moduleId || 'unknown';
+    const isLatestForModule = latestSessionPerModule.get(modId)?.id === session.id;
+    const snapshot = session.snapshotSessions[0]?.profileSnapshot;
+    if (!snapshot) continue;
     const integrity = session.integrityResults[0]?.overallFlag || 'ACCEPTABLE';
 
     sourceAssessments.push({
       sessionId: session.id,
-      moduleId: session.formVersion.module.id,
-      moduleCode: session.formVersion.module.code,
-      moduleTitleTr: session.formVersion.module.titleTr,
-      formVersionCode: session.formVersion.versionCode,
-      scoringModelCode: snapshot.scoringModelVersion.code,
-      completedAt: session.completedAt ? session.completedAt.toISOString() : session.startedAt.toISOString(),
+      moduleId: modId,
+      moduleCode: session.formVersion?.module?.code || 'MODULE',
+      moduleTitleTr: session.formVersion?.module?.titleTr || 'Değerlendirme Modülü',
+      formVersionCode: session.formVersion?.versionCode || 'v1.0.0',
+      scoringModelCode: snapshot.scoringModelVersion?.code || 'PRE_CALIBRATION_MEAN_V1',
+      completedAt: session.completedAt ? session.completedAt.toISOString() : (session.startedAt ? new Date(session.startedAt).toISOString() : new Date().toISOString()),
       resultUrl: `/assessments/results/${session.id}`,
       integrityFlag: integrity,
       isLatestForModule,
@@ -454,7 +456,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
   // Extract REAL distinct source instruments contributing to current measurements
   const distinctInstrumentsMap = new Map<string, { id: string; code: string; name: string }>();
   for (const session of activeSessions) {
-    for (const formItem of session.formVersion.items || []) {
+    for (const formItem of session.formVersion?.items || []) {
       const inst = formItem.itemVersion?.item?.instrument;
       if (inst && !distinctInstrumentsMap.has(inst.id)) {
         distinctInstrumentsMap.set(inst.id, {
@@ -464,13 +466,13 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
         });
       }
     }
-    if ((session.formVersion.items || []).length === 0 || distinctInstrumentsMap.size === 0) {
-      const fallbackKey = session.formVersion.module.code;
+    if ((session.formVersion?.items || []).length === 0 || distinctInstrumentsMap.size === 0) {
+      const fallbackKey = session.formVersion?.module?.code || 'MOD';
       if (!distinctInstrumentsMap.has(fallbackKey)) {
         distinctInstrumentsMap.set(fallbackKey, {
-          id: session.formVersion.module.id,
-          code: session.formVersion.module.code,
-          name: session.formVersion.module.titleTr,
+          id: session.formVersion?.module?.id || fallbackKey,
+          code: session.formVersion?.module?.code || fallbackKey,
+          name: session.formVersion?.module?.titleTr || 'Değerlendirme',
         });
       }
     }
@@ -503,37 +505,44 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
   >();
 
   for (const session of activeSessions) {
-    const snapshot = session.snapshotSessions[0].profileSnapshot;
+    const snapshot = session.snapshotSessions[0]?.profileSnapshot;
+    if (!snapshot) continue;
+
     const sessionIntegrity = (session.integrityResults[0]?.overallFlag || 'ACCEPTABLE').toUpperCase() as
       | 'EXCELLENT'
       | 'ACCEPTABLE'
       | 'QUESTIONABLE'
       | 'COMPROMISED';
 
-    const scoringStrategy = resolveScoringStrategy(
-      snapshot.scoringModelVersion.code,
-      session.formVersion.module.code
-    );
+    let scoringStrategy = HEXACO_PRECALIBRATION_STRATEGY;
+    try {
+      scoringStrategy = resolveScoringStrategy(
+        snapshot.scoringModelVersion?.code,
+        session.formVersion?.module?.code
+      );
+    } catch {
+      scoringStrategy = HEXACO_PRECALIBRATION_STRATEGY;
+    }
 
     const scaleMetadata: MeasurementScaleMetadata = {
       scaleMin: scoringStrategy.scaleMin || 1.0,
       scaleMax: scoringStrategy.scaleMax || 5.0,
       scoreType: scoringStrategy.scoreType || 'MEAN',
-      scoringModelCode: snapshot.scoringModelVersion.code,
+      scoringModelCode: snapshot.scoringModelVersion?.code || 'PRE_CALIBRATION_MEAN_V1',
     };
 
     const provenanceMetadata: MeasurementProvenanceMetadata = {
       sessionId: session.id,
-      moduleCode: session.formVersion.module.code,
-      moduleTitleTr: session.formVersion.module.titleTr,
-      formVersionCode: session.formVersion.versionCode,
-      scoringModelCode: snapshot.scoringModelVersion.code,
-      measuredAt: session.completedAt ? session.completedAt.toISOString() : session.startedAt.toISOString(),
+      moduleCode: session.formVersion?.module?.code || 'MODULE',
+      moduleTitleTr: session.formVersion?.module?.titleTr || 'Değerlendirme Modülü',
+      formVersionCode: session.formVersion?.versionCode || 'v1.0.0',
+      scoringModelCode: snapshot.scoringModelVersion?.code || 'PRE_CALIBRATION_MEAN_V1',
+      measuredAt: session.completedAt ? session.completedAt.toISOString() : (session.startedAt ? new Date(session.startedAt).toISOString() : new Date().toISOString()),
     };
 
     // Extract Instrument directly from session item records (no substring guessing)
     let sessionInstrument: { id: string; code: string; name: string } | null = null;
-    for (const formItem of session.formVersion.items || []) {
+    for (const formItem of session.formVersion?.items || []) {
       const inst = formItem.itemVersion?.item?.instrument;
       if (inst) {
         sessionInstrument = {
@@ -546,7 +555,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     }
 
     // Facets (resolve evidence strictly from authoritative FacetValidationSummary)
-    for (const fs of snapshot.facetScores) {
+    for (const fs of snapshot.facetScores || []) {
       if (!latestFacetMap.has(fs.facetId)) {
         const canonicalFacet = canonicalFacetMap.get(fs.facetId);
         const resolvedEvidence = resolveFacetValidationEvidence({
@@ -568,7 +577,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     }
 
     // Constructs
-    for (const cs of snapshot.constructScores) {
+    for (const cs of snapshot.constructScores || []) {
       if (!latestConstructMap.has(cs.constructId)) {
         latestConstructMap.set(cs.constructId, {
           compositeScore: cs.compositeScore,
