@@ -1,0 +1,79 @@
+[
+  {
+    "constructId": "authenticity",
+    "domainId": "self_system",
+    "constructNameTr": "Özgünlük (Authenticity)",
+    "gapType": "RESEARCH_FORM_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "No unencumbered public-domain Turkish scale measuring Wood et al. authentic living exists.",
+    "proposedSolution": "Author PsycheAI native 8-item research form with EFA/CFA pilot calibration.",
+    "targetItemPoolSize": 16,
+    "validationRoadmapPhase": "FAZ_3_RESEARCH_FORMS"
+  },
+  {
+    "constructId": "locus_of_control",
+    "domainId": "self_system",
+    "constructNameTr": "Denetim Odağı (Locus of Control)",
+    "gapType": "RESEARCH_FORM_REQUIRED",
+    "severity": "LOW",
+    "description": "Rotter forced-choice scale has poor modern psychometric properties; Levenson scale has licensing barriers.",
+    "proposedSolution": "Develop brief 8-item Likert internal vs external locus research module.",
+    "targetItemPoolSize": 16,
+    "validationRoadmapPhase": "FAZ_3_RESEARCH_FORMS"
+  },
+  {
+    "constructId": "self_conscious_emotions",
+    "domainId": "emotion_regulation",
+    "constructNameTr": "Kendilik Bilinci Duyguları (Utanç ve Suçluluk)",
+    "gapType": "LICENSE_BLOCKED",
+    "severity": "MEDIUM",
+    "description": "TOSCA-3 is proprietary and scenario-based. Cannot be used in production SaaS.",
+    "proposedSolution": "Develop non-clinical scenario-free shame and guilt proneness brief scale (10 items).",
+    "targetItemPoolSize": 20,
+    "validationRoadmapPhase": "FAZ_3_RESEARCH_FORMS"
+  },
+  {
+    "constructId": "social_agency_boundaries",
+    "domainId": "social_relational",
+    "constructNameTr": "Sosyal Özerklik ve Kişilerarası Sınırlar",
+    "gapType": "RESEARCH_FORM_REQUIRED",
+    "severity": "LOW",
+    "description": "Relational boundary clarity and social assertiveness lack a unified open-source Turkish scale.",
+    "proposedSolution": "Author 10-item boundary clarity research scale.",
+    "targetItemPoolSize": 20,
+    "validationRoadmapPhase": "FAZ_3_RESEARCH_FORMS"
+  },
+  {
+    "constructId": "psychological_flourishing",
+    "domainId": "wellbeing_vitality",
+    "constructNameTr": "Psikolojik Gelişme ve Canlılık (Flourishing)",
+    "gapType": "RESEARCH_FORM_REQUIRED",
+    "severity": "LOW",
+    "description": "Diener Flourishing Scale requires commercial permission review.",
+    "proposedSolution": "Review Diener open-science policy or develop 8-item flourishing research form.",
+    "targetItemPoolSize": 16,
+    "validationRoadmapPhase": "FAZ_3_RESEARCH_FORMS"
+  },
+  {
+    "constructId": "psychological_resilience",
+    "domainId": "coping_resilience",
+    "constructNameTr": "Ego Sağlamlığı ve Stres İyileşmesi",
+    "gapType": "RESEARCH_FORM_REQUIRED",
+    "severity": "LOW",
+    "description": "Connor-Davidson (CD-RISC) and Brief Resilience Scale require publisher copyright clearance.",
+    "proposedSolution": "Develop PsycheAI 10-item ego-resilience research form.",
+    "targetItemPoolSize": 20,
+    "validationRoadmapPhase": "FAZ_3_RESEARCH_FORMS"
+  },
+  {
+    "constructId": "epistemic_curiosity",
+    "domainId": "creativity_curiosity",
+    "constructNameTr": "Epistemik Merak (5DCR)",
+    "gapType": "RESEARCH_FORM_REQUIRED",
+    "severity": "LOW",
+    "description": "Litman Epistemic Curiosity scale requires formal Turkish psychometric replication.",
+    "proposedSolution": "Develop 10-item epistemic curiosity and exploration module.",
+    "targetItemPoolSize": 20,
+    "validationRoadmapPhase": "FAZ_3_RESEARCH_FORMS"
+  }
+]

@@ -1,0 +1,596 @@
+[
+  {
+    "instrumentId": "inst_ipip_hexaco",
+    "instrumentName": "IPIP-HEXACO Equivalent Scales",
+    "copyrightHolder": "Goldberg, L. R.; International Personality Item Pool Collaborators",
+    "year": 2006,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Public Domain",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": true,
+    "itemReproductionVerified": true,
+    "translationRightsVerified": true,
+    "evidenceSourceIds": [
+      "doi:10.1016/j.jrp.2005.08.007"
+    ],
+    "licensingOutcome": "APPROVED_FOR_PRODUCT",
+    "blockerDescription": null,
+    "recommendedNextAction": "Maintain open-science attribution in application legal notices."
+  },
+  {
+    "instrumentId": "inst_hexaco_pi_r",
+    "instrumentName": "HEXACO Personality Inventory-Revised (Official)",
+    "copyrightHolder": "Lee, K.; Ashton, M. C.",
+    "year": 2004,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Academic Free / Commercial License Required",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1207/s15327906mbr3902_8"
+    ],
+    "licensingOutcome": "REQUIRES_PERMISSION",
+    "blockerDescription": "Commercial license required by copyright holder (Lee, K.).",
+    "recommendedNextAction": "Initiate formal publisher licensing agreement or author permission query."
+  },
+  {
+    "instrumentId": "inst_neo_pi_r",
+    "instrumentName": "Revised NEO Personality Inventory (NEO-PI-R / NEO-PI-3)",
+    "copyrightHolder": "Costa, P. T. Jr.; McCrae, R. R.",
+    "year": 1992,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Strictly Proprietary (PAR Inc.)",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/t03794-000"
+    ],
+    "licensingOutcome": "REJECTED",
+    "blockerDescription": "Proprietary instrument (Strictly Proprietary (PAR Inc.)). Strictly forbidden to store, host or reproduce items.",
+    "recommendedNextAction": "Use approved public domain or PsycheAI native research alternative."
+  },
+  {
+    "instrumentId": "inst_rses",
+    "instrumentName": "Rosenberg Self-Esteem Scale",
+    "copyrightHolder": "Rosenberg, M.",
+    "year": 1965,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Public Domain",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": true,
+    "itemReproductionVerified": true,
+    "translationRightsVerified": true,
+    "evidenceSourceIds": [
+      "doi:10.1515/9781400876136"
+    ],
+    "licensingOutcome": "APPROVED_FOR_PRODUCT",
+    "blockerDescription": null,
+    "recommendedNextAction": "Maintain open-science attribution in application legal notices."
+  },
+  {
+    "instrumentId": "inst_gses",
+    "instrumentName": "General Self-Efficacy Scale",
+    "copyrightHolder": "Schwarzer, R.; Jerusalem, M.",
+    "year": 1995,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/t00393-000"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_sccs",
+    "instrumentName": "Self-Concept Clarity Scale",
+    "copyrightHolder": "Campbell, J. D.; Trapnell, P. D.; Heine, S. J.; Katz, I. M.; Lavallee, L. F.; Lehman, D. R.",
+    "year": 1996,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/0022-3514.70.1.141"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_scs_sf",
+    "instrumentName": "Self-Compassion Scale - Short Form (SCS-SF)",
+    "copyrightHolder": "Raes, F.; Pommier, E.; Neff, K. D.; Van Gucht, D.",
+    "year": 2011,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Attribution",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1016/j.cpr.2011.03.003"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_erq",
+    "instrumentName": "Emotion Regulation Questionnaire (ERQ)",
+    "copyrightHolder": "Gross, J. J.; John, O. P.",
+    "year": 2003,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/0022-3514.85.2.348"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_dts",
+    "instrumentName": "Distress Tolerance Scale",
+    "copyrightHolder": "Simons, J. S.; Gaher, R. M.",
+    "year": 2005,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1016/j.addbeh.2004.08.022"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_panas",
+    "instrumentName": "Positive and Negative Affect Schedule (PANAS)",
+    "copyrightHolder": "Watson, D.; Clark, L. A.; Tellegen, A.",
+    "year": 1988,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/0022-3514.54.6.1063"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_upps_p_sf",
+    "instrumentName": "UPPS-P Impulsive Behavior Scale Short Form",
+    "copyrightHolder": "Cyders, M. A.; Littlefield, A. K.; Coffey, S.; Karyadi, K. A.",
+    "year": 2014,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1177/1073191114530207"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_bscs",
+    "instrumentName": "Brief Self-Control Scale (BSCS)",
+    "copyrightHolder": "Tangney, J. P.; Baumeister, R. F.; Boone, A. L.",
+    "year": 2004,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1111/j.0022-3506.2004.00263.x"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_bpnsfs",
+    "instrumentName": "Basic Psychological Need Satisfaction and Frustration Scale",
+    "copyrightHolder": "Chen, B.; Vansteenkiste, M.; Beyers, W.; Boone, L.; Deci, E. L.; Van der Kaap-Deeder, J.; et al.",
+    "year": 2015,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1007/s11031-014-9450-1"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_ipip_schwartz_values",
+    "instrumentName": "IPIP 50-Item Representation of Schwartz Value Framework",
+    "copyrightHolder": "Goldberg, L. R.",
+    "year": 2006,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Public Domain",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": true,
+    "itemReproductionVerified": true,
+    "translationRightsVerified": true,
+    "evidenceSourceIds": [
+      "doi:10.1016/j.jrp.2005.08.007"
+    ],
+    "licensingOutcome": "APPROVED_FOR_PRODUCT",
+    "blockerDescription": null,
+    "recommendedNextAction": "Maintain open-science attribution in application legal notices."
+  },
+  {
+    "instrumentId": "inst_pvq_rr",
+    "instrumentName": "Portrait Values Questionnaire - Revised (PVQ-RR)",
+    "copyrightHolder": "Schwartz, S. H.; Cieciuch, J.; Vecchio, G. M.; Davidov, E.; Fischer, R.; Beierlein, C.; et al.",
+    "year": 2012,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Academic Free / Commercial License Required",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/a0029393"
+    ],
+    "licensingOutcome": "REQUIRES_PERMISSION",
+    "blockerDescription": "Commercial license required by copyright holder (Schwartz, S. H.).",
+    "recommendedNextAction": "Initiate formal publisher licensing agreement or author permission query."
+  },
+  {
+    "instrumentId": "inst_ecr_r",
+    "instrumentName": "Experiences in Close Relationships - Revised (ECR-R)",
+    "copyrightHolder": "Fraley, R. C.; Waller, N. G.; Brennan, K. A.",
+    "year": 2000,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic / Public Research Domain",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/1528-3542.8.2.143"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_iri",
+    "instrumentName": "Interpersonal Reactivity Index (IRI)",
+    "copyrightHolder": "Davis, M. H.",
+    "year": 1983,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/0022-3514.44.1.113"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_dutch",
+    "instrumentName": "De Dreu Conflict Management Package (DUTCH Test for Conflict Handling)",
+    "copyrightHolder": "De Dreu, C. K. W.; Evers, A.; Beersma, B.; Kluwer, E. S.; Nauta, A.",
+    "year": 2001,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1002/job.107"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_tki",
+    "instrumentName": "Thomas-Kilmann Conflict Mode Instrument (TKI)",
+    "copyrightHolder": "Thomas, K. W.; Kilmann, R. H.",
+    "year": 1974,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Strictly Proprietary (The Myers-Briggs Company)",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1177/001316447703700213"
+    ],
+    "licensingOutcome": "REJECTED",
+    "blockerDescription": "Proprietary instrument (Strictly Proprietary (The Myers-Briggs Company)). Strictly forbidden to store, host or reproduce items.",
+    "recommendedNextAction": "Use approved public domain or PsycheAI native research alternative."
+  },
+  {
+    "instrumentId": "inst_mbti",
+    "instrumentName": "Myers-Briggs Type Indicator",
+    "copyrightHolder": "Myers, I. B.; Briggs, K. C.",
+    "year": 1962,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Strictly Proprietary (The Myers-Briggs Company)",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/t01428-000"
+    ],
+    "licensingOutcome": "REJECTED",
+    "blockerDescription": "Proprietary instrument (Strictly Proprietary (The Myers-Briggs Company)). Strictly forbidden to store, host or reproduce items.",
+    "recommendedNextAction": "Use approved public domain or PsycheAI native research alternative."
+  },
+  {
+    "instrumentId": "inst_sd4",
+    "instrumentName": "Short Dark Tetrad (SD4)",
+    "copyrightHolder": "Paulhus, D. L.; Buckels, E. E.; Trapnell, P. D.; Jones, D. N.",
+    "year": 2021,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1177/1073191120914656"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_bidr_6",
+    "instrumentName": "Balanced Inventory of Desirable Responding (BIDR-6)",
+    "copyrightHolder": "Paulhus, D. L.",
+    "year": 1991,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/t06501-000"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_nfcs_sf",
+    "instrumentName": "Need for Cognitive Closure Scale - Short Form",
+    "copyrightHolder": "Roets, A.; Van Hiel, A.",
+    "year": 2011,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1080/1047840X.2011.537415"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_ius_12",
+    "instrumentName": "Intolerance of Uncertainty Scale Short Form (IUS-12)",
+    "copyrightHolder": "Carleton, R. N.; Norton, M. A. P. J.; Asmundson, G. J. G.",
+    "year": 2007,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1016/j.janxdis.2006.03.014"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_rrs_sf",
+    "instrumentName": "Ruminative Responses Scale - Short Form",
+    "copyrightHolder": "Treynor, W.; Gonzalez, R.; Nolen-Hoeksema, S.",
+    "year": 2003,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1023/A:1025345917029"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_mlq",
+    "instrumentName": "Meaning in Life Questionnaire (MLQ)",
+    "copyrightHolder": "Steger, M. F.; Frazier, P.; Oishi, S.; Kaler, M.",
+    "year": 2006,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic / Non-commercial free",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/0022-0167.53.1.80"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_grit_s",
+    "instrumentName": "Short Grit Scale (Grit-S)",
+    "copyrightHolder": "Duckworth, A. L.; Quinn, P. D.",
+    "year": 2009,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1080/00223890802634290"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_nfc_sf",
+    "instrumentName": "Need for Cognition Scale (Short Form)",
+    "copyrightHolder": "Cacioppo, J. T.; Petty, R. E.; Kao, C. F.",
+    "year": 1984,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1207/s15327752jpa4803_13"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_cfi",
+    "instrumentName": "Cognitive Flexibility Inventory (CFI)",
+    "copyrightHolder": "Dennis, J. P.; Vander Wal, J. S.",
+    "year": 2010,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1007/s10608-009-9276-4"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_rei_40",
+    "instrumentName": "Rational-Experiential Inventory (REI-40)",
+    "copyrightHolder": "Pacini, R.; Epstein, S.",
+    "year": 1999,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/0022-3514.76.6.972"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_maximization_scale",
+    "instrumentName": "Maximization Scale",
+    "copyrightHolder": "Schwartz, B.; Ward, A.; Monterosso, J.; Lyubomirsky, S.; White, K.; Lehman, D. R.",
+    "year": 2002,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Open Academic with Citation",
+    "commercialUsePermitted": true,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/0022-3514.83.5.1178"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  },
+  {
+    "instrumentId": "inst_tosca_3",
+    "instrumentName": "Test of Self-Conscious Affect-3 (TOSCA-3)",
+    "copyrightHolder": "Tangney, J. P.; Dearing, R. L.; Wagner, P. E.; Gramzow, R.",
+    "year": 2000,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Academic Proprietary",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1037/t01893-000"
+    ],
+    "licensingOutcome": "REQUIRES_PERMISSION",
+    "blockerDescription": "Commercial license required by copyright holder (Tangney, J. P.).",
+    "recommendedNextAction": "Initiate formal publisher licensing agreement or author permission query."
+  },
+  {
+    "instrumentId": "inst_ders",
+    "instrumentName": "Difficulties in Emotion Regulation Scale (DERS)",
+    "copyrightHolder": "Gratz, K. L.; Roemer, L.",
+    "year": 2004,
+    "scientificStatus": "VALIDATED_SCIENTIFIC_STANDARD",
+    "licenseType": "Academic Research with Citation",
+    "commercialUsePermitted": false,
+    "commercialUseVerified": false,
+    "itemReproductionVerified": false,
+    "translationRightsVerified": false,
+    "evidenceSourceIds": [
+      "doi:10.1023/B:JOBA.0000007455.08539.94"
+    ],
+    "licensingOutcome": "RESEARCH_ONLY",
+    "blockerDescription": "Author permits academic / educational research; commercial product reproduction requires verification.",
+    "recommendedNextAction": "Review open academic license terms or author distribution policy."
+  }
+]

@@ -1,0 +1,160 @@
+{
+  "journeyMetadata": {
+    "modelName": "PsycheAI Adaptive Multi-Session Assessment Journey",
+    "primaryGoal": "Deliver immediate scientific value at each step without cognitive fatigue or straightlining.",
+    "surveyFatigueLimitMinutes": 25
+  },
+  "stages": [
+    {
+      "stageId": "ONBOARDING",
+      "stageNameTr": "Başlangıç ve Temel Profil (Core Onboarding)",
+      "stageNameEn": "Onboarding & First Meaningful Profile",
+      "entryCriteria": "User account created; no prior completed sessions.",
+      "targetSessionDurationMinutes": 22.5,
+      "requiredModules": [
+        "mod_core_hexaco_60",
+        "mod_self_agency",
+        "mod_emotion_regulation",
+        "mod_cognitive_epistemic"
+      ],
+      "recommendedNextModules": [
+        "mod_volition_impulse",
+        "mod_basic_needs_sdt"
+      ],
+      "optionalModules": [],
+      "completionCondition": "All 4 core modules completed (108 questions answered).",
+      "profileUnlocks": [
+        "Core Personality Hexagon/Radar (6 broad factors)",
+        "24 HEXACO Facet Baseline Scores",
+        "Self-Esteem & Generalized Agency Index",
+        "Emotion Regulation Quadrant (Reappraisal vs Suppression)",
+        "Epistemic Drive Baseline Score",
+        "First DeepSeek AI Psychological Synthesis"
+      ],
+      "nextBestAssessmentLogic": "Guide directly to Module 1 (HEXACO-60), followed sequentially by Self-Agency, ERQ, and NFC-SF."
+    },
+    {
+      "stageId": "FIRST_PROFILE_DELIVERY",
+      "stageNameTr": "Temel Profil Raporu ve İçgörü İnceleme",
+      "stageNameEn": "First Profile Delivery & Insight Exploration",
+      "entryCriteria": "Core Onboarding completed.",
+      "targetSessionDurationMinutes": 5,
+      "requiredModules": [],
+      "recommendedNextModules": [
+        "mod_volition_impulse",
+        "mod_basic_needs_sdt",
+        "mod_universal_values"
+      ],
+      "optionalModules": [],
+      "completionCondition": "User reviews initial personality atlas, trait radar, and AI synthesis report.",
+      "profileUnlocks": [
+        "Unified Profile Dashboard Access",
+        "Adlerian & Rogerian Core Lens Perspectives",
+        "Initial Confidence Indicators (Baseline Sample Size = 108)"
+      ],
+      "nextBestAssessmentLogic": "Recommend a 24-hour cognitive resting window before starting Stage 2 (Expansion)."
+    },
+    {
+      "stageId": "PROFILE_EXPANSION",
+      "stageNameTr": "Genişletilmiş Profil ve Değer Haritası",
+      "stageNameEn": "Profile Expansion & Motivation Mapping",
+      "entryCriteria": "First Profile reviewed; minimum 12 hours since Session 1.",
+      "targetSessionDurationMinutes": 32,
+      "requiredModules": [
+        "mod_volition_impulse",
+        "mod_basic_needs_sdt",
+        "mod_universal_values",
+        "mod_relational_attachment_empathy"
+      ],
+      "recommendedNextModules": [
+        "mod_cognitive_adaptability",
+        "mod_meaning_compassion_grit"
+      ],
+      "optionalModules": [],
+      "completionCondition": "All 4 expansion modules completed (cumulative 265 questions answered).",
+      "profileUnlocks": [
+        "Schwartz Universal Value Circumplex (10 basic values)",
+        "SDT Basic Needs Satisfaction & Frustration Balance",
+        "Adult Attachment 4-Quadrant Vector (Anxiety vs Avoidance)",
+        "UPPS-P 5-Factor Impulsivity Profile & General Self-Control",
+        "Theory Council Multi-Theorist Tension Analysis"
+      ],
+      "nextBestAssessmentLogic": "Recommend highest consumer-value unmeasured module: Basic Psychological Needs (SDT) followed by Schwartz Values."
+    },
+    {
+      "stageId": "DEEP_PROFILE",
+      "stageNameTr": "Kapsamlı Derin Haritalama (Master Consumer Tier)",
+      "stageNameEn": "Comprehensive Deep Mapping",
+      "entryCriteria": "Profile Expansion completed.",
+      "targetSessionDurationMinutes": 25,
+      "requiredModules": [
+        "mod_cognitive_adaptability",
+        "mod_meaning_compassion_grit",
+        "mod_conflict_boundaries",
+        "mod_affective_distress"
+      ],
+      "recommendedNextModules": [
+        "mod_dark_tetrad_advanced"
+      ],
+      "optionalModules": [
+        "mod_dark_tetrad_advanced"
+      ],
+      "completionCondition": "All 12 consumer modules completed (cumulative 382 questions answered).",
+      "profileUnlocks": [
+        "Full 66-Facet Master Psychological Profile",
+        "Cognitive Flexibility & Ambiguity Resilience Matrix",
+        "Frankl Existential Meaning Horizon & Grit Persistence Score",
+        "DUTCH 5-Mode Conflict Handling Pentagon",
+        "PANAS Affect Balance & Distress Tolerance Metric",
+        "Comprehensive 8-Theorist DeepSeek AI Integrative Analysis"
+      ],
+      "nextBestAssessmentLogic": "Offer user choice between Cognitive Adaptability, Meaning Dynamics, or Conflict Resolution based on user interest."
+    },
+    {
+      "stageId": "ADVANCED_EXPLORATION",
+      "stageNameTr": "İleri Araştırma ve Boylamsal Takip",
+      "stageNameEn": "Advanced Research & Longitudinal Tracking",
+      "entryCriteria": "Comprehensive Profile completed.",
+      "targetSessionDurationMinutes": 6,
+      "requiredModules": [],
+      "recommendedNextModules": [],
+      "optionalModules": [
+        "mod_dark_tetrad_advanced"
+      ],
+      "completionCondition": "Explicit opt-in research consent.",
+      "profileUnlocks": [
+        "Subclinical Dark Tetrad Exploration (Machiavellianism, Narcissism, Psychopathy, Sadism)",
+        "Longitudinal Trait Stability Tracking Engine"
+      ],
+      "nextBestAssessmentLogic": "Notify user of longitudinal micro-check-ins and state fluctuation tracking."
+    }
+  ],
+  "repeatTestPolicy": {
+    "stablePersonalityHEXACO": {
+      "minimumRetestIntervalDays": 180,
+      "scientificRationale": "Broad personality traits exhibit high 6-month test-retest stability (r > 0.80). Retesting before 6 months measures practice artifacts rather than true psychological change."
+    },
+    "relationalAttachment": {
+      "minimumRetestIntervalDays": 90,
+      "scientificRationale": "Attachment orientations can shift following major relational events, requiring at least 3-month observation windows."
+    },
+    "affectiveToneAndDistress": {
+      "minimumRetestIntervalDays": 14,
+      "scientificRationale": "Trait-state affect balances (PANAS) can be tracked at bi-weekly intervals to detect environmental mood shifts."
+    },
+    "defaultUnspecifiedInterval": "RETEST_INTERVAL_UNSPECIFIED"
+  },
+  "longitudinalOutputsSeparation": {
+    "definition": "Longitudinal outputs are derived mathematically across multi-wave snapshot histories. They do NOT add questionnaire items.",
+    "trackedMetrics": [
+      "idx_temporal_trait_stability",
+      "idx_stress_induced_profile_shift",
+      "idx_need_satisfaction_volatility",
+      "idx_affect_balance_trend"
+    ]
+  },
+  "observationalAiSeparation": {
+    "definition": "Observational AI prompts (e.g. self-reflection text, life story narratives) are qualitative grounding context only. They NEVER alter psychometric scores or scale metrics.",
+    "mode": "OBSERVATIONAL_PROMPT_ONLY"
+  }
+}

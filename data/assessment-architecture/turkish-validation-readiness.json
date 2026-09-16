@@ -1,0 +1,352 @@
+[
+  {
+    "instrumentId": "inst_ipip_hexaco",
+    "instrumentName": "IPIP-HEXACO 60-Item Equivalent Form",
+    "constructsCovered": [
+      "hexaco_honesty_humility",
+      "hexaco_emotionality",
+      "hexaco_extraversion",
+      "hexaco_agreeableness",
+      "hexaco_conscientiousness",
+      "hexaco_openness"
+    ],
+    "turkishEvidenceLevel": "STRONG_LEXICAL_AND_EMPIRICAL",
+    "appliesToLevel": "FACET_AND_BROAD_FACTOR",
+    "sampleEvidence": "Wasti et al. (2008) Turkish lexical study (N = 650); Göz (2018) HEXACO validation (N = 824).",
+    "factorEvidence": "6-factor structure confirmed via EFA and CFA with adequate fit (CFI > 0.90, RMSEA < 0.06).",
+    "reliabilityEvidence": "McDonald Omega >= 0.78 across all 6 broad domains; alpha >= 0.72 for 24 sub-facets.",
+    "sourceIds": [
+      "src_ashton_lee_2007",
+      "src_wasti_2008"
+    ],
+    "exactFormMatch": "EXACT_IPIP_60_ITEM_FORM",
+    "translationProvenance": "VERIFIED_AUTHORITATIVE_PUBLIC_TRANSLATION",
+    "readiness": "READY_FOR_PRODUCT_REVIEW"
+  },
+  {
+    "instrumentId": "inst_rses",
+    "instrumentName": "Rosenberg Self-Esteem Scale (RSES)",
+    "constructsCovered": [
+      "core_self_esteem"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "FULL_SCALE",
+    "sampleEvidence": "Çuhadaroğlu (1986) initial Turkish adaptation (N = 340); Çakar (2012) large university cohort (N = 1,120).",
+    "factorEvidence": "Unidimensional and two-method-factor structures verified with high construct validity.",
+    "reliabilityEvidence": "Cronbach alpha = 0.86; test-retest reliability r = 0.75.",
+    "sourceIds": [
+      "src_rosenberg_1965"
+    ],
+    "exactFormMatch": "EXACT_10_ITEM_STANDARD",
+    "translationProvenance": "VERIFIED_STANDARDIZED_TURKISH_FORM",
+    "readiness": "READY_FOR_PRODUCT_REVIEW"
+  },
+  {
+    "instrumentId": "inst_gses",
+    "instrumentName": "General Self-Efficacy Scale (GSES)",
+    "constructsCovered": [
+      "generalized_self_efficacy"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "FULL_SCALE",
+    "sampleEvidence": "Yeşilayaprak et al. (1999); Aygün & Akçamete (2000) (N = 480).",
+    "factorEvidence": "Single-factor structure confirmed with factor loadings between 0.45 and 0.78.",
+    "reliabilityEvidence": "Cronbach alpha = 0.83.",
+    "sourceIds": [
+      "src_schwarzer_1995"
+    ],
+    "exactFormMatch": "EXACT_10_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_erq",
+    "instrumentName": "Emotion Regulation Questionnaire (ERQ)",
+    "constructsCovered": [
+      "cognitive_reappraisal",
+      "expressive_suppression"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "SUBSCALE_LEVEL",
+    "sampleEvidence": "Yurtsever (2008) (N = 354); Uçanok (2012) (N = 512).",
+    "factorEvidence": "Two orthogonal factors (Cognitive Reappraisal: 6 items, Expressive Suppression: 4 items) replicated cleanly.",
+    "reliabilityEvidence": "Alpha = 0.85 (Reappraisal), Alpha = 0.78 (Suppression).",
+    "sourceIds": [
+      "src_gross_john_2003"
+    ],
+    "exactFormMatch": "EXACT_10_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_nfc_sf",
+    "instrumentName": "Need for Cognition Scale (Short Form)",
+    "constructsCovered": [
+      "epistemic_drive"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "FULL_SCALE",
+    "sampleEvidence": "Gülgöz & Sancar (2004) (N = 420); Güvenç (2011) (N = 615).",
+    "factorEvidence": "Unidimensional structure verified via CFA with acceptable indices.",
+    "reliabilityEvidence": "Cronbach alpha = 0.81.",
+    "sourceIds": [
+      "src_cacioppo_1982"
+    ],
+    "exactFormMatch": "EXACT_18_ITEM_SHORT_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_bscs",
+    "instrumentName": "Brief Self-Control Scale (BSCS)",
+    "constructsCovered": [
+      "volitional_stamina"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "FULL_SCALE",
+    "sampleEvidence": "Nebioğlu et al. (2012) (N = 450); Duru et al. (2018) (N = 820).",
+    "factorEvidence": "Bifactor model supporting general self-control score with high variance explained.",
+    "reliabilityEvidence": "Cronbach alpha = 0.83.",
+    "sourceIds": [
+      "src_tangney_2004"
+    ],
+    "exactFormMatch": "EXACT_13_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_upps_p_sf",
+    "instrumentName": "UPPS-P Impulsive Behavior Scale (Short Form)",
+    "constructsCovered": [
+      "impulsivity_uppsp"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "5_DISTINCT_FACETS",
+    "sampleEvidence": "Yargıç et al. (2016) validation study in Turkish clinical and healthy samples (N = 540).",
+    "factorEvidence": "5-factor structure replicated cleanly (Negative Urgency, Positive Urgency, Lack of Premeditation, Lack of Perseverance, Sensation Seeking).",
+    "reliabilityEvidence": "Alphas between 0.72 and 0.84 across all 5 subscales.",
+    "sourceIds": [
+      "src_cyders_2014"
+    ],
+    "exactFormMatch": "EXACT_20_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_bpnsfs",
+    "instrumentName": "Basic Psychological Need Satisfaction and Frustration Scale",
+    "constructsCovered": [
+      "basic_psychological_needs"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "6_SUB_DIMENSIONS",
+    "sampleEvidence": "Başyurt & Şahin (2018) (N = 680).",
+    "factorEvidence": "6-factor CFA confirmed distinguishing satisfaction and frustration for Autonomy, Competence, and Relatedness.",
+    "reliabilityEvidence": "Alphas range from 0.76 to 0.88 across subscales.",
+    "sourceIds": [
+      "src_chen_2015"
+    ],
+    "exactFormMatch": "EXACT_24_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_ipip_schwartz_values",
+    "instrumentName": "IPIP 50-Item Representation of Schwartz Values",
+    "constructsCovered": [
+      "universal_values"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "4_HIGHER_ORDER_QUADRANTS",
+    "sampleEvidence": "Kuşdil & Kağıtçıbaşı (2000) (N = 1,020); Demirutku (2007) (N = 750).",
+    "factorEvidence": "MDS circumplex structure replicates Schwartz circular continuum in Turkish population.",
+    "reliabilityEvidence": "Alphas >= 0.74 for the 4 higher-order dimensions.",
+    "sourceIds": [
+      "src_goldberg_2006",
+      "src_schwartz_1992"
+    ],
+    "exactFormMatch": "EXACT_50_ITEM_FORM",
+    "translationProvenance": "VERIFIED_AUTHORITATIVE_PUBLIC_TRANSLATION",
+    "readiness": "READY_FOR_PRODUCT_REVIEW"
+  },
+  {
+    "instrumentId": "inst_ecr_r",
+    "instrumentName": "Experiences in Close Relationships - Revised (ECR-R)",
+    "constructsCovered": [
+      "attachment_system"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "2_ORTHOGONAL_DIMENSIONS",
+    "sampleEvidence": "Selçuk et al. (2005) (N = 842); Sümer (2006) (N = 610).",
+    "factorEvidence": "Two-factor structure (Anxiety: 18 items, Avoidance: 18 items) confirmed via CFA and IRT.",
+    "reliabilityEvidence": "Anxiety alpha = 0.90; Avoidance alpha = 0.88.",
+    "sourceIds": [
+      "src_fraley_2000"
+    ],
+    "exactFormMatch": "EXACT_36_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_iri",
+    "instrumentName": "Interpersonal Reactivity Index (IRI)",
+    "constructsCovered": [
+      "multidimensional_empathy"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "SUBSCALE_LEVEL",
+    "sampleEvidence": "Engeler & Yücel (2009) (N = 480).",
+    "factorEvidence": "Perspective Taking (7 items) and Empathic Concern (7 items) factors confirmed.",
+    "reliabilityEvidence": "Alpha = 0.77 (Perspective Taking), Alpha = 0.79 (Empathic Concern).",
+    "sourceIds": [
+      "src_davis_1983"
+    ],
+    "exactFormMatch": "EXACT_14_ITEM_NORMAL_SUBSET",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_cfi",
+    "instrumentName": "Cognitive Flexibility Inventory (CFI)",
+    "constructsCovered": [
+      "cognitive_adaptability"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "2_SUB_DIMENSIONS",
+    "sampleEvidence": "Gülüm & Dağ (2012) (N = 515).",
+    "factorEvidence": "Alternatives (13 items) and Control (7 items) factors confirmed via CFA.",
+    "reliabilityEvidence": "Alternatives alpha = 0.88, Control alpha = 0.84.",
+    "sourceIds": [
+      "src_dennis_2010"
+    ],
+    "exactFormMatch": "EXACT_20_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_ius_12",
+    "instrumentName": "Intolerance of Uncertainty Scale Short Form (IUS-12)",
+    "constructsCovered": [
+      "cognitive_adaptability"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "FULL_SCALE",
+    "sampleEvidence": "Sarı & Dağ (2009) (N = 430).",
+    "factorEvidence": "Prospective and inhibitory anxiety factors replicate cleanly.",
+    "reliabilityEvidence": "Cronbach alpha = 0.88.",
+    "sourceIds": [
+      "src_carleton_2007"
+    ],
+    "exactFormMatch": "EXACT_12_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_mlq",
+    "instrumentName": "Meaning in Life Questionnaire (MLQ)",
+    "constructsCovered": [
+      "existential_meaning"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "2_ORTHOGONAL_DIMENSIONS",
+    "sampleEvidence": "Boyraz et al. (2013) (N = 612).",
+    "factorEvidence": "Presence of Meaning (5 items) and Search for Meaning (5 items) confirmed orthogonal.",
+    "reliabilityEvidence": "Presence alpha = 0.86, Search alpha = 0.87.",
+    "sourceIds": [
+      "src_steger_2006"
+    ],
+    "exactFormMatch": "EXACT_10_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_grit_s",
+    "instrumentName": "Short Grit Scale (Grit-S)",
+    "constructsCovered": [
+      "volitional_stamina"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "2_SUB_DIMENSIONS",
+    "sampleEvidence": "Sarısakaloğlu et al. (2014) (N = 420).",
+    "factorEvidence": "Consistency of Interest (4 items) and Perseverance of Effort (4 items) confirmed.",
+    "reliabilityEvidence": "Total Grit alpha = 0.80.",
+    "sourceIds": [
+      "src_duckworth_2009"
+    ],
+    "exactFormMatch": "EXACT_8_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_dutch",
+    "instrumentName": "DUTCH Conflict Management Package",
+    "constructsCovered": [
+      "conflict_styles"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "5_DISTINCT_MODES",
+    "sampleEvidence": "Arslan (2017) (N = 390); Kozan (1989) (N = 280).",
+    "factorEvidence": "5-factor structure (Problem Solving, Forcing, Yielding, Avoiding, Compromising) replicated with CFI = 0.92.",
+    "reliabilityEvidence": "Alphas range between 0.71 and 0.82 across all 5 subscales.",
+    "sourceIds": [
+      "src_dedreu_2001"
+    ],
+    "exactFormMatch": "EXACT_20_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_panas",
+    "instrumentName": "Positive and Negative Affect Schedule (PANAS)",
+    "constructsCovered": [
+      "affective_tone"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "2_ORTHOGONAL_DIMENSIONS",
+    "sampleEvidence": "Gençöz (2000) (N = 468).",
+    "factorEvidence": "Positive Affect (10 descriptors) and Negative Affect (10 descriptors) confirmed orthogonal.",
+    "reliabilityEvidence": "PA alpha = 0.86, NA alpha = 0.83.",
+    "sourceIds": [
+      "src_watson_1988"
+    ],
+    "exactFormMatch": "EXACT_20_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_dts",
+    "instrumentName": "Distress Tolerance Scale (DTS)",
+    "constructsCovered": [
+      "distress_tolerance"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "FULL_SCALE",
+    "sampleEvidence": "Sarı et al. (2017) (N = 510).",
+    "factorEvidence": "Higher-order general distress tolerance factor supported.",
+    "reliabilityEvidence": "Cronbach alpha = 0.89.",
+    "sourceIds": [
+      "src_simons_2005"
+    ],
+    "exactFormMatch": "EXACT_15_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "READY_BUT_NOT_PUBLISHED"
+  },
+  {
+    "instrumentId": "inst_sd4",
+    "instrumentName": "Short Dark Tetrad (SD4)",
+    "constructsCovered": [
+      "dark_tetrad_traits"
+    ],
+    "turkishEvidenceLevel": "STRONG_EMPIRICAL",
+    "appliesToLevel": "4_DISTINCT_FACTORS",
+    "sampleEvidence": "Özsoy et al. (2022) (N = 720).",
+    "factorEvidence": "4-factor structure (Machiavellianism, Narcissism, Psychopathy, Sadism - 7 items each) confirmed via CFA.",
+    "reliabilityEvidence": "Alphas range from 0.75 to 0.86.",
+    "sourceIds": [
+      "src_paulhus_2021"
+    ],
+    "exactFormMatch": "EXACT_28_ITEM_FORM",
+    "translationProvenance": "RESEARCH_DRAFT_VERIFICATION_PENDING",
+    "readiness": "RESEARCH_ONLY"
+  }
+]
