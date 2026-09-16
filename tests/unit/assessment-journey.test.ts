@@ -21,13 +21,21 @@ describe('FAZ 2.8: Assessment Journey Config & Metadata Rules', () => {
     expect(identity.classification).toBe('REQUIRED');
     expect(identity.priority).toBe(2);
 
+    const gse = getModuleJourneyMetadata('MODULE_5_GENERAL_SELF_EFFICACY');
+    expect(gse.classification).toBe('RECOMMENDED');
+    expect(gse.priority).toBe(3);
+
     const emotion = getModuleJourneyMetadata('MODULE_3_EMOTION_REGULATION');
     expect(emotion.classification).toBe('RECOMMENDED');
-    expect(emotion.priority).toBe(3);
+    expect(emotion.priority).toBe(4);
+
+    const attachment = getModuleJourneyMetadata('MODULE_6_ATTACHMENT_PATTERNS');
+    expect(attachment.classification).toBe('RECOMMENDED');
+    expect(attachment.priority).toBe(5);
 
     const volition = getModuleJourneyMetadata('MODULE_4_VOLITION_CONTROL');
     expect(volition.classification).toBe('RECOMMENDED');
-    expect(volition.priority).toBe(4);
+    expect(volition.priority).toBe(6);
   });
 
   it('resolves intelligent heuristics for custom or dynamic module codes', () => {

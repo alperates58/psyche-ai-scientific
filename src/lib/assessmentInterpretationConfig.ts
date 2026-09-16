@@ -23,8 +23,10 @@ export const ASSESSMENT_VISUAL_REGISTRY: Record<string, VisualRepresentationType
   MODULE_1_CORE_PERSONALITY: 'HEXACO_RADAR',
   CORE_INTAKE: 'HEXACO_RADAR',
   MODULE_2_SELF_IDENTITY: 'DIMENSION_SPECTRUM',
+  MODULE_5_GENERAL_SELF_EFFICACY: 'DIMENSION_SPECTRUM',
   MODULE_3_EMOTION_REGULATION: 'TRAIT_BREAKDOWN',
   MODULE_4_VOLITION_CONTROL: 'TRAIT_BREAKDOWN',
+  MODULE_6_ATTACHMENT_PATTERNS: 'GENERIC_DIMENSION_PROFILE',
 };
 
 /**
@@ -306,6 +308,132 @@ export const ALL_TRAIT_INTERPRETATIONS: Record<string, TraitInterpretationDefini
       HIGH: ['Sınırları aşırı zorlama'],
       BALANCED: ['Geçici tereddüt'],
       LOW: ['Erteleme eğilimi'],
+    },
+  },
+  // ---------------------------------------------------------
+  // 3. Emotion Regulation (ERQ - Gross & John, 2003)
+  // ---------------------------------------------------------
+  emotion_regulation: {
+    code: 'emotion_regulation',
+    nameTr: 'Duygu Düzenleme Stratejileri',
+    shortDescriptionTr: 'Duygusal durumları anlamlandırma, dönüştürme ve ifade etme yaklaşımları.',
+    interpretationByBand: {
+      HIGH: 'Duygusal deneyimlerinizi yönetmede aktif ve bilinçli düzenleme stratejileri kullanırsınız.',
+      BALANCED: 'Duygusal durumlarınıza göre durumsal ve esnek düzenleme tercihleri sergilersiniz.',
+      LOW: 'Duygusal tepkilerinizi doğrudan akışına bırakmayı tercih edersiniz.',
+    },
+    strengths: {
+      HIGH: ['Duygusal farkındalık ve esneklik', 'Stresli durumlarda içsel dengeyi yeniden kurabilme'],
+      BALANCED: ['Duruma göre esnek uyum', 'Doğal duygu akışı ile rasyonel kontrol dengesi'],
+      LOW: ['Duyguları filtresiz ve doğrudan yaşayabilme'],
+    },
+    risks: {
+      HIGH: ['Aşırı bilişsel kontrol nedeniyle spontane duygulanımı sınırlama'],
+      BALANCED: ['Aşırı yoğun kriz anlarında strateji seçmede duraksama'],
+      LOW: ['Zorlayıcı duygulanım anlarında toparlanma süresinin uzaması'],
+    },
+  },
+  cognitive_reappraisal: {
+    code: 'cognitive_reappraisal',
+    nameTr: 'Bilişsel Yeniden Değerlendirme (Reappraisal)',
+    shortDescriptionTr: 'Olaylara ve stres kaynaklarına bakış açısını değiştirerek duygusal etkiyi düzenleme becerisi.',
+    interpretationByBand: {
+      HIGH: 'Zorlayıcı durumlarda olayları farklı perspektiflerden ele alarak olumlu veya yapıcı yönleri görme eğiliminiz yüksektir.',
+      BALANCED: 'Duruma göre bakış açınızı esnetebilir veya olayları olduğu gibi kabullenerek ilerlersiniz.',
+      LOW: 'Olayları ilk algılandığı şekliyle deneyimlemeye odaklanırsınız.',
+    },
+    strengths: {
+      HIGH: ['Stres anında yapıcı anlamlandırma', 'Duygusal dayanıklılık', 'Çözüm odaklı bakış açısı'],
+      BALANCED: ['Gerçekçi durum değerlendirmesi', 'Dengeli bilişsel esneklik'],
+      LOW: ['Olayların duygusal etkisini doğrudan kabul etme'],
+    },
+    risks: {
+      HIGH: ['Gerçekten çözülmesi gereken somut problemleri yalnızca zihinsel olarak geçiştirme riski'],
+      BALANCED: ['Ani ve beklenmedik krizlerde anlamlandırmanın zaman alması'],
+      LOW: ['Olumsuz bakış açısında takılı kalma eğilimi'],
+    },
+  },
+  expressive_suppression: {
+    code: 'expressive_suppression',
+    nameTr: 'Duygusal Bastırma / Dışavurum Kontrolü (Suppression)',
+    shortDescriptionTr: 'Duyguların dışa yansımasını sınırlandırma ve içsel tutma eğilimi.',
+    interpretationByBand: {
+      HIGH: 'Duygularınızı başkalarına göstermeme ve dışavurumu kontrol altında tutma eğiliminiz belirgindir.',
+      BALANCED: 'Sosyal bağlama uygun olarak duygularınızı ne zaman paylaşacağınızı dengelersiniz.',
+      LOW: 'Duygusal durumlarınızı açıkça ve şeffaf biçimde dışa yansıtırsınız.',
+    },
+    strengths: {
+      HIGH: ['Resmi ve profesyonel ortamlarda duygusal kontrol', 'Dürtüsel tepkileri dizginleme'],
+      BALANCED: ['Bağlama duyarlı duygusal ifade', 'Sağlıklı paylaşım dengesi'],
+      LOW: ['Açık, şeffaf ve anlaşılır iletişim', 'Yakın ilişkilerde içtenlik'],
+    },
+    risks: {
+      HIGH: ['İçsel duygusal yük birikimi', 'Yakın ilişkilerde mesafe algısı oluşması'],
+      BALANCED: ['Belirsiz ortamlarda çekingenlik'],
+      LOW: ['Profesyonel sınırlarda istemeden fazla duygusal tepki verme'],
+    },
+  },
+  // ---------------------------------------------------------
+  // 4. Attachment & Relational Patterns (ECR-R)
+  // ---------------------------------------------------------
+  attachment_patterns: {
+    code: 'attachment_patterns',
+    nameTr: 'İlişkisel Bağlanma Örüntüleri',
+    shortDescriptionTr: 'Yakın ilişkilerde güven, özerklik ve yakınlık kurma dinamikleri.',
+    interpretationByBand: {
+      HIGH: 'Yakın ilişkilerde güven ve paylaşım dengesine dair belirgin tercihleriniz vardır.',
+      BALANCED: 'İlişkilerde yakınlık ile kişisel özerklik arasında dengeli bir uyum sergilersiniz.',
+      LOW: 'İlişkisel dinamiklerinizde esnek ve durumsal bir yaklaşım benimsersiniz.',
+    },
+    strengths: {
+      HIGH: ['İlişki ihtiyaçlarının farkındalığı', 'Özerklik ve yakınlık bilinci'],
+      BALANCED: ['Sağlıklı sınırlar koyabilme', 'Dengeli güven inşası'],
+      LOW: ['Farklı ilişki türlerine kolay uyum'],
+    },
+    risks: {
+      HIGH: ['İlişkisel beklentilerde katılık'],
+      BALANCED: ['Yeni ilişkilerde güven tesisinin zaman alması'],
+      LOW: ['Sınır belirlemede belirsizlik'],
+    },
+  },
+  attachment_anxiety: {
+    code: 'attachment_anxiety',
+    nameTr: 'Bağlanma Duyarlılığı (Anxiety Dimension)',
+    shortDescriptionTr: 'Yakın ilişkilerde onay, ilgi ve güvence arayışı duyarlılığı.',
+    interpretationByBand: {
+      HIGH: 'İlişkilerinizde duygusal yakınlık, netlik ve karşılıklı bağın sürekliliğine yüksek önem verirsiniz.',
+      BALANCED: 'Yakınlık ihtiyacınız ile bireysel alanınız arasında dengeli bir güven duygusu taşırsınız.',
+      LOW: 'İlişkilerdeki mesafelerden veya belirsizliklerden minimum düzeyde etkilenirsiniz.',
+    },
+    strengths: {
+      HIGH: ['İlişki dinamiklerine yüksek duyarlılık', 'Bağ kurma arzusu ve özen'],
+      BALANCED: ['Kendi kendine yetebilme ile bağ kurmayı dengeleme', 'Güvenli iletişim'],
+      LOW: ['Bireysel bağımsızlık ve rahatlık'],
+    },
+    risks: {
+      HIGH: ['İlişkilerde aşırı güvence arayışı ve kaygılanma eğilimi'],
+      BALANCED: ['İletişim kopukluklarında geçici huzursuzluk'],
+      LOW: ['Karşı tarafın duygusal ihtiyaçlarını gözden kaçırma riski'],
+    },
+  },
+  attachment_avoidance: {
+    code: 'attachment_avoidance',
+    nameTr: 'Bağlanma Mesafesi (Avoidance Dimension)',
+    shortDescriptionTr: 'Yakın ilişkilerde özerklik, bağımsızlık ve duygusal mesafe tercihi.',
+    interpretationByBand: {
+      HIGH: 'Kişisel bağımsızlığınıza ve özerkliğinize yüksek değer verir, duygusal mesafeyi korumayı tercih edersiniz.',
+      BALANCED: 'Gerektiğinde duygusal yakınlık kurabilir, gerektiğinde kendi alanınızı koruyabilirsiniz.',
+      LOW: 'Yakınlık kurmaktan, duygularınızı paylaşmaktan ve başkalarına güvenmekten rahatlık duyarsınız.',
+    },
+    strengths: {
+      HIGH: ['Yüksek bireysel özerklik ve kendi kendine yetebilme', 'Bağımsız problem çözme'],
+      BALANCED: ['Kişisel sınırları korurken yakın bağlar kurabilme'],
+      LOW: ['Derin duygusal yakınlık kurabilme', 'Açık ve savunmasız paylaşım'],
+    },
+    risks: {
+      HIGH: ['Duygusal desteğe ihtiyaç duyulduğunda yardım istemekten kaçınma'],
+      BALANCED: ['Aşırı yoğun duygusal beklentilerde geri çekilme'],
+      LOW: ['Aşırı bağımlı ilişki dinamiklerine açık olma riski'],
     },
   },
 };

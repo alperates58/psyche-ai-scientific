@@ -138,6 +138,8 @@ export async function importAssessmentLibrary(
     // ---------------------------------------------------------
     // 1. SCIENTIFIC SOURCES
     // ---------------------------------------------------------
+    // 1. SCIENTIFIC SOURCES (Audited & Exact Bibliographic Sources)
+    // ---------------------------------------------------------
     const sourcesToUpsert = [
       {
         id: 'src_rosenberg_1965',
@@ -161,11 +163,46 @@ export async function importAssessmentLibrary(
         url: 'https://userpage.fu-berlin.de/~health/engscal.htm',
       },
       {
-        id: 'src_gratz_roemer_2004_ders',
-        shortKey: 'src_gratz_roemer_2004_ders',
-        citation: 'Gratz, K. L., & Roemer, L. (2004). Multidimensional assessment of emotion regulation and dysregulation: Development, factor structure, and initial validation of the difficulties in emotion regulation scale. Journal of Psychopathology and Behavioral Assessment, 26(1), 41-54.',
-        year: 2004,
-        url: 'https://doi.org/10.1023/B:JOBA.0000007455.08539.94',
+        id: 'src_aypay_2010_gse',
+        shortKey: 'src_aypay_2010_gse',
+        citation: 'Aypay, A. (2010). Genel Öz-Yeterlik Ölçeği’nin (GÖYÖ) Türkçe uyarlaması. İnönü Üniversitesi Eğitim Fakültesi Dergisi, 11(2), 113-131.',
+        year: 2010,
+        url: null,
+      },
+      {
+        id: 'src_yildirim_ilhan_2010_gse',
+        shortKey: 'src_yildirim_ilhan_2010_gse',
+        citation: 'Yıldırım, F., & İlhan, İ. Ö. (2010). Genel Öz Yetkinlik Ölçeği Türkçe formunun geçerlik ve güvenilirlik çalışması. Türk Psikiyatri Dergisi, 21(4), 301-308.',
+        year: 2010,
+        url: null,
+      },
+      {
+        id: 'src_gross_john_2003_erq',
+        shortKey: 'src_gross_john_2003_erq',
+        citation: 'Gross, J. J., & John, O. P. (2003). Individual differences in two emotion regulation processes: Implications for affect, relationships, and well-being. Journal of Personality and Social Psychology, 85(2), 348-362.',
+        year: 2003,
+        url: 'https://doi.org/10.1037/0022-3514.85.2.348',
+      },
+      {
+        id: 'src_yurtsever_2008_erq',
+        shortKey: 'src_yurtsever_2008_erq',
+        citation: 'Yurtsever, G. (2008). Duygu düzenleme ölçeğinin Türkçe uyarlaması ve psikometrik özellikleri. Türk Psikoloji Bülteni.',
+        year: 2008,
+        url: null,
+      },
+      {
+        id: 'src_fraley_2000_ecrr',
+        shortKey: 'src_fraley_2000_ecrr',
+        citation: 'Fraley, R. C., Waller, N. G., & Brennan, K. A. (2000). An item response theory analysis of self-report measures of adult attachment. Journal of Personality and Social Psychology, 78(2), 350-365.',
+        year: 2000,
+        url: 'http://labs.psychology.illinois.edu/~rcfraley/measures/ecrr.htm',
+      },
+      {
+        id: 'src_selcuk_2005_ecrr',
+        shortKey: 'src_selcuk_2005_ecrr',
+        citation: 'Selçuk, E., Günaydın, G., Sümer, N., & Uysal, A. (2005). Yetişkin bağlanma boyutları için yeni bir ölçüm: Yakın İlişkilerde Yaşantılar Envanteri-II’nin Türkçeye uyarlanması ve psikometrik özellikleri. Türk Psikoloji Yazıları, 8(16), 1-11.',
+        year: 2005,
+        url: null,
       },
     ];
 
@@ -200,16 +237,25 @@ export async function importAssessmentLibrary(
         fullName: 'General Self-Efficacy Scale (GSE)',
         licenseType: 'Open Academic with Citation',
         licensingDecision: 'restricted',
-        citation: 'Schwarzer & Jerusalem (1995). Research draft only; formal commercial authorization required for production.',
+        citation: 'Schwarzer & Jerusalem (1995); Aypay (2010); Yıldırım & İlhan (2010). Research draft only; formal commercial authorization required for production.',
       },
       {
-        id: 'inst_ders',
-        code: 'INST_DERS',
-        name: 'Difficulties in Emotion Regulation Scale',
-        fullName: 'Difficulties in Emotion Regulation Scale (DERS)',
-        licenseType: 'Proprietary Academic',
+        id: 'inst_erq',
+        code: 'INST_ERQ',
+        name: 'Emotion Regulation Questionnaire',
+        fullName: 'Emotion Regulation Questionnaire (ERQ)',
+        licenseType: 'Open Academic with Citation',
         licensingDecision: 'restricted',
-        citation: 'Gratz & Roemer (2004). Research draft only; requires formal author license.',
+        citation: 'Gross & John (2003); Yurtsever (2008). Stanford SPL research license; commercial product reproduction requires formal author permission.',
+      },
+      {
+        id: 'inst_ecr_r',
+        code: 'INST_ECR_R',
+        name: 'Experiences in Close Relationships-Revised',
+        fullName: 'Experiences in Close Relationships - Revised (ECR-R)',
+        licenseType: 'Academic Research Only',
+        licensingDecision: 'restricted',
+        citation: 'Fraley et al. (2000); Selçuk et al. (2005). Commercial SaaS reproduction requires author license.',
       },
     ];
 
@@ -252,6 +298,15 @@ export async function importAssessmentLibrary(
         descriptionTr: 'Duygu düzenleme stratejileri ve duygulanım eğilimleri.',
         descriptionEn: 'Emotion regulation strategies and affective dispositions.',
         sortOrder: 3,
+      },
+      {
+        id: 'relational_interpersonal',
+        code: 'relational_interpersonal',
+        nameTr: 'Kişilerarası ve İlişkisel Dinamikler',
+        nameEn: 'Interpersonal & Relational Dynamics',
+        descriptionTr: 'Yakın ilişkilerde bağlanma, güven ve iletişim örüntüleri.',
+        descriptionEn: 'Attachment, trust, and communication patterns in close relationships.',
+        sortOrder: 4,
       },
     ];
 
@@ -304,6 +359,16 @@ export async function importAssessmentLibrary(
         descriptionEn: 'Emotional awareness, acceptance, and regulation.',
         sortOrder: 1,
       },
+      {
+        id: 'attachment_patterns',
+        code: 'attachment_patterns',
+        domainId: 'relational_interpersonal',
+        nameTr: 'Bağlanma Örüntüleri',
+        nameEn: 'Attachment Patterns',
+        descriptionTr: 'Yakın ilişkilerde kaygı ve kaçınma dinamikleri.',
+        descriptionEn: 'Anxiety and avoidance dynamics in close relationships.',
+        sortOrder: 1,
+      },
     ];
 
     for (const con of constructsToUpsert) {
@@ -352,9 +417,39 @@ export async function importAssessmentLibrary(
         constructId: 'emotion_regulation',
         nameTr: 'Bilişsel Yeniden Değerlendirme',
         nameEn: 'Cognitive Reappraisal',
-        descriptionTr: 'Duygusal durumları yeniden çerçeveleme becerisi.',
+        descriptionTr: 'Duygusal durumları zihinsel perspektif değiştirerek yeniden çerçeveleme becerisi.',
         descriptionEn: 'Ability to cognitively reframe emotional situations.',
         sortOrder: 1,
+      },
+      {
+        id: 'expressive_suppression',
+        code: 'expressive_suppression',
+        constructId: 'emotion_regulation',
+        nameTr: 'Duygusal Bastırma',
+        nameEn: 'Expressive Suppression',
+        descriptionTr: 'Duyguların dışa vurulmasını ve ifadesini kontrol altında tutma eğilimi.',
+        descriptionEn: 'Tendency to inhibit and suppress emotional expressions.',
+        sortOrder: 2,
+      },
+      {
+        id: 'attachment_anxiety',
+        code: 'attachment_anxiety',
+        constructId: 'attachment_patterns',
+        nameTr: 'Bağlanma Kaygısı',
+        nameEn: 'Attachment Anxiety',
+        descriptionTr: 'Yakın ilişkilerde onay, güvence ve ilgi ihtiyacı duyarlılığı.',
+        descriptionEn: 'Sensitivity to reassurance and closeness in relationships.',
+        sortOrder: 1,
+      },
+      {
+        id: 'attachment_avoidance',
+        code: 'attachment_avoidance',
+        constructId: 'attachment_patterns',
+        nameTr: 'Bağlanma Kaçınması',
+        nameEn: 'Attachment Avoidance',
+        descriptionTr: 'Yakın ilişkilerde duygusal mesafe ve bağımsızlık tercihi.',
+        descriptionEn: 'Preference for emotional distance and self-reliance in relationships.',
+        sortOrder: 2,
       },
     ];
 
@@ -402,6 +497,20 @@ export async function importAssessmentLibrary(
         algorithm: 'GSE_MEAN_1_4',
         isPreCalibration: true,
       },
+      {
+        id: 'model_erq_mean_v1',
+        code: 'ERQ_MEAN_V1',
+        description: 'Duygu Düzenleme Anketi Ortalama Puan Modeli (V1)',
+        algorithm: 'ERQ_MEAN_1_7',
+        isPreCalibration: true,
+      },
+      {
+        id: 'model_ecrr_mean_v1',
+        code: 'ECR_R_MEAN_V1',
+        description: 'Yakın İlişkilerde Yaşantılar (ECR-R) Ortalama Puan Modeli (V1)',
+        algorithm: 'ECR_R_MEAN_1_7',
+        isPreCalibration: true,
+      },
     ];
 
     for (const sm of scoringModelsToUpsert) {
@@ -426,20 +535,38 @@ export async function importAssessmentLibrary(
       {
         id: 'mod_self_identity',
         code: 'MODULE_2_SELF_IDENTITY',
-        titleTr: 'Benlik ve Kimlik Sistemi',
-        titleEn: 'Self-System and Identity Dynamics',
+        titleTr: 'Benlik ve Kimlik Sistemi (RSES)',
+        titleEn: 'Self-System and Identity Dynamics (RSES)',
         descriptionTr: 'Rosenberg Benlik Saygısı Ölçeği (RSES) doğrultusunda bireyin temel özsaygı ve benlik değerlendirmesini haritalandırır.',
         descriptionEn: 'Assesses core self-esteem and self-worth based on the Rosenberg Self-Esteem Scale (RSES).',
         estimatedMinutes: 5,
       },
       {
+        id: 'mod_general_self_efficacy',
+        code: 'MODULE_5_GENERAL_SELF_EFFICACY',
+        titleTr: 'Genel Öz-Yeterlilik (GSE)',
+        titleEn: 'General Self-Efficacy (GSE)',
+        descriptionTr: 'Schwarzer & Jerusalem Genel Öz-Yeterlik Ölçeği doğrultusunda zorlu durumlarla başa çıkma inancını haritalandırır.',
+        descriptionEn: 'Assesses generalized coping belief based on the General Self-Efficacy Scale (GSE).',
+        estimatedMinutes: 5,
+      },
+      {
         id: 'mod_emotion_regulation',
         code: 'MODULE_3_EMOTION_REGULATION',
-        titleTr: 'Duygu Düzenleme ve Esneklik',
-        titleEn: 'Emotion Regulation & Resilience',
-        descriptionTr: 'Zorlayıcı durumlarda duygusal farkındalık, kabul ve düzenleme stratejilerini haritalandırır.',
-        descriptionEn: 'Maps emotional awareness, acceptance, and regulation strategies under stress.',
-        estimatedMinutes: 8,
+        titleTr: 'Duygu Düzenleme ve Esneklik (ERQ)',
+        titleEn: 'Emotion Regulation & Resilience (ERQ)',
+        descriptionTr: 'Gross & John Duygu Düzenleme Anketi (ERQ) doğrultusunda bilişsel yeniden değerlendirme ve duygusal bastırma stratejilerini haritalandırır.',
+        descriptionEn: 'Maps cognitive reappraisal and expressive suppression strategies based on the Emotion Regulation Questionnaire (ERQ).',
+        estimatedMinutes: 6,
+      },
+      {
+        id: 'mod_attachment_patterns',
+        code: 'MODULE_6_ATTACHMENT_PATTERNS',
+        titleTr: 'İlişkisel Bağlanma Örüntüleri (ECR-R)',
+        titleEn: 'Attachment Patterns & Dynamics (ECR-R)',
+        descriptionTr: 'Yakın İlişkilerde Yaşantılar Envanteri (ECR-R) doğrultusunda bağlanma kaygısı ve kaçınması boyutlarını analiz eder.',
+        descriptionEn: 'Analyzes attachment anxiety and avoidance dimensions in close relationships based on ECR-R.',
+        estimatedMinutes: 10,
       },
     ];
 
@@ -644,52 +771,75 @@ export async function importAssessmentLibrary(
     }
 
     // ---------------------------------------------------------
-    // 8. DRAFT EMOTION REGULATION FORM (MODULE_3_EMOTION_REGULATION - NON-LIVE)
+    // 8. DRAFT SPECIALIZED MODULE FORMS (GSE, ERQ, ATTACHMENT - NON-LIVE)
     // ---------------------------------------------------------
-    const emotionModule = dryRun
-      ? { id: 'mod_emotion_regulation', code: 'MODULE_3_EMOTION_REGULATION', titleTr: 'Duygu Düzenleme ve Esneklik' }
-      : await prisma.assessmentModule.findUnique({ where: { code: 'MODULE_3_EMOTION_REGULATION' } });
+    const draftModulesToRegister = [
+      {
+        moduleId: 'mod_general_self_efficacy',
+        moduleCode: 'MODULE_5_GENERAL_SELF_EFFICACY',
+        versionCode: 'v1.0.0-draft',
+        description: 'Genel Öz-Yeterlik Ölçeği (GSE) Araştırma Taslağı. Ticari ürün lisans doğrulama aşamasındadır.',
+      },
+      {
+        moduleId: 'mod_emotion_regulation',
+        moduleCode: 'MODULE_3_EMOTION_REGULATION',
+        versionCode: 'v1.0.0-draft',
+        description: 'Duygu Düzenleme Anketi (ERQ) Araştırma Taslağı. Stanford SPL ticari ürün lisans onayı beklenmektedir.',
+      },
+      {
+        moduleId: 'mod_attachment_patterns',
+        moduleCode: 'MODULE_6_ATTACHMENT_PATTERNS',
+        versionCode: 'v1.0.0-draft',
+        description: 'Yakın İlişkilerde Yaşantılar (ECR-R) Araştırma Taslağı. Ticari SaaS kullanım izni beklenmektedir.',
+      },
+    ];
 
-    if (emotionModule) {
-      let draftForm = null;
+    for (const dm of draftModulesToRegister) {
+      const moduleRecord = dryRun
+        ? { id: dm.moduleId, code: dm.moduleCode }
+        : await prisma.assessmentModule.findUnique({ where: { code: dm.moduleCode } });
 
-      if (!dryRun) {
-        draftForm = await prisma.assessmentFormVersion.findUnique({
-          where: {
-            moduleId_versionCode: {
-              moduleId: emotionModule.id,
-              versionCode: 'v1.0.0-draft',
-            },
-          },
-        });
+      if (moduleRecord) {
+        let draftForm = null;
 
-        if (!draftForm) {
-          draftForm = await prisma.assessmentFormVersion.create({
-            data: {
-              moduleId: emotionModule.id,
-              versionCode: 'v1.0.0-draft',
-              status: 'DRAFT',
-              isPublished: false,
-              itemCount: 0,
-              description: 'Duygu Düzenleme Araştırma Taslağı (DERS/ERQ). Lisans onayı ve araştırma maddeleri beklenmektedir.',
+        if (!dryRun) {
+          draftForm = await prisma.assessmentFormVersion.findUnique({
+            where: {
+              moduleId_versionCode: {
+                moduleId: moduleRecord.id,
+                versionCode: dm.versionCode,
+              },
             },
           });
+
+          if (!draftForm) {
+            draftForm = await prisma.assessmentFormVersion.create({
+              data: {
+                moduleId: moduleRecord.id,
+                versionCode: dm.versionCode,
+                status: 'DRAFT',
+                isPublished: false,
+                itemCount: 0,
+                description: dm.description,
+              },
+            });
+          }
         }
-      }
 
-      result.formsCreatedOrUpdated++;
+        result.formsCreatedOrUpdated++;
 
-      if (draftForm) {
-        const validation = await validateAssessmentFormForPublication(draftForm.id);
-        result.publicationLogs.push({
-          formCode: 'v1.0.0-draft',
-          moduleCode: 'MODULE_3_EMOTION_REGULATION',
-          publishable: validation.publishable,
-          isPublished: false,
-          blockers: validation.blockers,
-          warnings: validation.warnings,
-          info: validation.info,
-        });
+        if (draftForm) {
+          const validation = await validateAssessmentFormForPublication(draftForm.id);
+          result.publicationLogs.push({
+            formCode: dm.versionCode,
+            moduleCode: dm.moduleCode,
+            publishable: validation.publishable,
+            isPublished: false,
+            blockers: validation.blockers,
+            warnings: validation.warnings,
+            info: validation.info,
+          });
+        }
       }
     }
   } catch (err: any) {

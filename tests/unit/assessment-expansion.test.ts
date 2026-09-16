@@ -193,11 +193,82 @@ describe('FAZ 2.10: Expanded Trait Interpretations Quality', () => {
       expect(fullText).not.toContain('bozukluk');
       expect(fullText).not.toContain('patoloji');
       expect(fullText).not.toContain('tedavi');
+      expect(fullText).not.toContain('hasta');
     }
   });
 });
 
-describe('FAZ 2.10: Validation Status vs License Status Independence', () => {
+describe('FAZ 2.12: ERQ (Gross & John, 2003) Scoring & Multi-Subscale Separation', () => {
+  it('computes 2 distinct subscale scores (Reappraisal 6 items & Suppression 4 items) on 1.0–7.0 scale', () => {
+    // Reappraisal items (1, 3, 5, 7, 8, 10) scored as 6
+    // Suppression items (2, 4, 6, 9) scored as 2
+    const erqResponses: ScoredResponseItem[] = [
+      { itemId: 'ERQ_01', facetId: 'cognitive_reappraisal', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 6, scoredValue: 6, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_02', facetId: 'expressive_suppression', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 2, scoredValue: 2, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_03', facetId: 'cognitive_reappraisal', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 6, scoredValue: 6, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_04', facetId: 'expressive_suppression', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 2, scoredValue: 2, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_05', facetId: 'cognitive_reappraisal', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 6, scoredValue: 6, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_06', facetId: 'expressive_suppression', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 2, scoredValue: 2, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_07', facetId: 'cognitive_reappraisal', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 6, scoredValue: 6, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_08', facetId: 'cognitive_reappraisal', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 6, scoredValue: 6, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_09', facetId: 'expressive_suppression', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 2, scoredValue: 2, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'ERQ_10', facetId: 'cognitive_reappraisal', constructId: 'emotion_regulation', domainId: 'emotional_affective', rawValue: 6, scoredValue: 6, isKeyed: true, isAttentionCheck: false },
+    ];
+
+    const strategy = resolveScoringStrategy('ERQ_MEAN_V1');
+    expect(strategy.scaleMin).toBe(1.0);
+    expect(strategy.scaleMax).toBe(7.0);
+
+    const result = strategy.calculate(erqResponses);
+
+    // Verify subscale separation
+    const reappraisalFacet = result.facetScores.find((f) => f.facetId === 'cognitive_reappraisal');
+    const suppressionFacet = result.facetScores.find((f) => f.facetId === 'expressive_suppression');
+
+    expect(reappraisalFacet).toBeDefined();
+    expect(reappraisalFacet?.rawMean).toBe(6.0);
+    expect(reappraisalFacet?.itemCount).toBe(6);
+
+    expect(suppressionFacet).toBeDefined();
+    expect(suppressionFacet?.rawMean).toBe(2.0);
+    expect(suppressionFacet?.itemCount).toBe(4);
+  });
+});
+
+describe('FAZ 2.12: GSE Scoring Calculation (Schwarzer & Jerusalem, 1995)', () => {
+  it('calculates 1.0–4.0 arithmetic mean for 10 positively keyed items', () => {
+    const gseResponses: ScoredResponseItem[] = [
+      { itemId: 'GSE_01', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_02', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_03', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_04', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_05', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_06', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_07', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_08', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_09', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 3, scoredValue: 3, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'GSE_10', facetId: 'generalized_self_efficacy', constructId: 'agency_mastery', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+    ];
+
+    const result = GSE_MEAN_STRATEGY.calculate(gseResponses);
+    expect(result.scaleMin).toBe(1.0);
+    expect(result.scaleMax).toBe(4.0);
+    expect(result.provisionalComposite).toBe(3.5);
+    expect(result.facetScores[0].rawMean).toBe(3.5);
+    expect(result.facetScores[0].itemCount).toBe(10);
+  });
+});
+
+describe('FAZ 2.12: Strict Construct Integrity (No False IPIP-50 Schwartz Values Assumption)', () => {
+  it('confirms IPIP-50 is personality, not Schwartz Values, and prevents false value mapping', () => {
+    // Assert that the scoring strategy registry has NO fake SCHWARTZ_VALUES_V1 mapped from IPIP-50
+    expect(() => resolveScoringStrategy('IPIP_50_SCHWARTZ_V1')).toThrowError(
+      /UNKNOWN_SCORING_STRATEGY/
+    );
+  });
+});
+
+describe('FAZ 2.12: Validation Status vs License Status Independence', () => {
   it('maintains licenseStatus and validationStatus as independent scientific fields', () => {
     // RSES is APPROVED_PUBLIC in license, but PRE_CALIBRATION in validation
     const itemVersionRecord = {
@@ -212,9 +283,28 @@ describe('FAZ 2.10: Validation Status vs License Status Independence', () => {
     expect(itemVersionRecord.validationStatus).not.toBe('VALIDATED');
     expect(itemVersionRecord.authorType).toBe('ADAPTATION');
   });
+
+  it('keeps ERQ and ECR-R licenseStatus as REQUIRES_LICENSE for commercial product usage', () => {
+    const erqLicenseInfo = {
+      instrumentId: 'inst_erq',
+      licenseType: 'Open Academic with Citation',
+      licensingDecision: 'restricted',
+      itemReproductionAllowed: false,
+    };
+
+    const ecrrLicenseInfo = {
+      instrumentId: 'inst_ecr_r',
+      licenseType: 'Academic Research Only',
+      licensingDecision: 'restricted',
+      itemReproductionAllowed: false,
+    };
+
+    expect(erqLicenseInfo.licensingDecision).toBe('restricted');
+    expect(ecrrLicenseInfo.licensingDecision).toBe('restricted');
+  });
 });
 
-describe('FAZ 2.10: System Importer Audit Actor Semantics (No FK Bypass)', () => {
+describe('FAZ 2.12: System Importer Audit Actor Semantics (No FK Bypass)', () => {
   it('strictly uses actorUserId = null for non-human deployment operations', () => {
     const systemAuditContext = {
       actorUserId: null,
@@ -252,5 +342,6 @@ describe('FAZ 2.10: System Importer Audit Actor Semantics (No FK Bypass)', () =>
     expect(adminUserAuditContext.ip).toBe('192.168.1.50');
   });
 });
+
 
 

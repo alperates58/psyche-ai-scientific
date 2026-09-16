@@ -224,6 +224,196 @@ export const GSE_MEAN_STRATEGY: ScoringStrategyDefinition = {
 
 export const GSE_SUM_STRATEGY = GSE_MEAN_STRATEGY; // Backward-compatibility alias
 
+/**
+ * Emotion Regulation Questionnaire (ERQ - Gross & John, 2003) scoring strategy.
+ * 10 items on 1.0–7.0 scale.
+ * 2 scientifically distinct subscales:
+ * - Cognitive Reappraisal (Bilişsel Yeniden Değerlendirme - 6 items)
+ * - Expressive Suppression (Duygusal Bastırma - 4 items)
+ * Strictly preserves both subscale scores separately without collapsing them into a fake total score.
+ */
+export const ERQ_MEAN_STRATEGY: ScoringStrategyDefinition = {
+  code: 'ERQ_MEAN_V1',
+  nameTr: 'Duygu Düzenleme Anketi Ortalama Puan Modeli (V1)',
+  descriptionTr: '10 maddelik Gross & John ERQ için 1.0–7.0 ölçeğinde 2 ayrı alt ölçek (Bilişsel Yeniden Değerlendirme & Duygusal Bastırma) ortalama hesaplaması.',
+  scaleMin: 1.0,
+  scaleMax: 7.0,
+  scoreType: 'MEAN',
+  isPreCalibration: true,
+  calculate: (responses: ScoredResponseItem[]): CalculatedScoresResult => {
+    const validResponses = responses.filter((r) => !r.isAttentionCheck);
+
+    if (validResponses.length === 0) {
+      return {
+        provisionalComposite: 0,
+        scaleMin: 1.0,
+        scaleMax: 7.0,
+        scoreType: 'MEAN',
+        facetScores: [],
+        constructScores: [],
+        domainScores: [],
+      };
+    }
+
+    const facetItemsMap = new Map<string, { constructId: string; domainId: string; scoredValues: number[] }>();
+    for (const resp of validResponses) {
+      if (!facetItemsMap.has(resp.facetId)) {
+        facetItemsMap.set(resp.facetId, {
+          constructId: resp.constructId,
+          domainId: resp.domainId,
+          scoredValues: [],
+        });
+      }
+      facetItemsMap.get(resp.facetId)!.scoredValues.push(resp.scoredValue);
+    }
+
+    // 1. Facet Scores (cognitive_reappraisal, expressive_suppression)
+    const facetScores: Array<{ facetId: string; rawMean: number; itemCount: number }> = [];
+    const constructFacetsMap = new Map<string, { domainId: string; facetMeans: number[] }>();
+
+    for (const [facetId, data] of facetItemsMap.entries()) {
+      const sum = data.scoredValues.reduce((acc, v) => acc + v, 0);
+      const rawMean = Number((sum / data.scoredValues.length).toFixed(4));
+      facetScores.push({ facetId, rawMean, itemCount: data.scoredValues.length });
+
+      if (!constructFacetsMap.has(data.constructId)) {
+        constructFacetsMap.set(data.constructId, { domainId: data.domainId, facetMeans: [] });
+      }
+      constructFacetsMap.get(data.constructId)!.facetMeans.push(rawMean);
+    }
+
+    // 2. Construct Scores
+    const constructScores: Array<{ constructId: string; compositeScore: number; facetCount: number }> = [];
+    const domainConstructsMap = new Map<string, number[]>();
+
+    for (const [constructId, data] of constructFacetsMap.entries()) {
+      const sum = data.facetMeans.reduce((acc, v) => acc + v, 0);
+      const compositeScore = Number((sum / data.facetMeans.length).toFixed(4));
+      constructScores.push({ constructId, compositeScore, facetCount: data.facetMeans.length });
+
+      if (!domainConstructsMap.has(data.domainId)) {
+        domainConstructsMap.set(data.domainId, []);
+      }
+      domainConstructsMap.get(data.domainId)!.push(compositeScore);
+    }
+
+    // 3. Domain Scores
+    const domainScores: Array<{ domainId: string; compositeScore: number; constructCount: number }> = [];
+    for (const [domainId, constructs] of domainConstructsMap.entries()) {
+      const sum = constructs.reduce((acc, v) => acc + v, 0);
+      const compositeScore = Number((sum / constructs.length).toFixed(4));
+      domainScores.push({ domainId, compositeScore, constructCount: constructs.length });
+    }
+
+    const totalFacetSum = facetScores.reduce((acc, f) => acc + f.rawMean, 0);
+    const provisionalComposite =
+      facetScores.length > 0 ? Number((totalFacetSum / facetScores.length).toFixed(4)) : 0;
+
+    return {
+      provisionalComposite,
+      scaleMin: 1.0,
+      scaleMax: 7.0,
+      scoreType: 'MEAN',
+      facetScores,
+      constructScores,
+      domainScores,
+    };
+  },
+};
+
+/**
+ * Experiences in Close Relationships - Revised (ECR-R - Fraley et al., 2000) scoring strategy.
+ * 36 items on 1.0–7.0 scale.
+ * 2 continuous dimensions:
+ * - Attachment Anxiety (18 items)
+ * - Attachment Avoidance (18 items)
+ */
+export const ECR_R_MEAN_STRATEGY: ScoringStrategyDefinition = {
+  code: 'ECR_R_MEAN_V1',
+  nameTr: 'Yakın İlişkilerde Yaşantılar (ECR-R) Ortalama Puan Modeli (V1)',
+  descriptionTr: '36 maddelik ECR-R için 1.0–7.0 ölçeğinde Bağlanma Kaygısı (18 madde) ve Bağlanma Kaçınması (18 madde) alt boyut hesaplaması.',
+  scaleMin: 1.0,
+  scaleMax: 7.0,
+  scoreType: 'MEAN',
+  isPreCalibration: true,
+  calculate: (responses: ScoredResponseItem[]): CalculatedScoresResult => {
+    const validResponses = responses.filter((r) => !r.isAttentionCheck);
+
+    if (validResponses.length === 0) {
+      return {
+        provisionalComposite: 0,
+        scaleMin: 1.0,
+        scaleMax: 7.0,
+        scoreType: 'MEAN',
+        facetScores: [],
+        constructScores: [],
+        domainScores: [],
+      };
+    }
+
+    const facetItemsMap = new Map<string, { constructId: string; domainId: string; scoredValues: number[] }>();
+    for (const resp of validResponses) {
+      if (!facetItemsMap.has(resp.facetId)) {
+        facetItemsMap.set(resp.facetId, {
+          constructId: resp.constructId,
+          domainId: resp.domainId,
+          scoredValues: [],
+        });
+      }
+      facetItemsMap.get(resp.facetId)!.scoredValues.push(resp.scoredValue);
+    }
+
+    const facetScores: Array<{ facetId: string; rawMean: number; itemCount: number }> = [];
+    const constructFacetsMap = new Map<string, { domainId: string; facetMeans: number[] }>();
+
+    for (const [facetId, data] of facetItemsMap.entries()) {
+      const sum = data.scoredValues.reduce((acc, v) => acc + v, 0);
+      const rawMean = Number((sum / data.scoredValues.length).toFixed(4));
+      facetScores.push({ facetId, rawMean, itemCount: data.scoredValues.length });
+
+      if (!constructFacetsMap.has(data.constructId)) {
+        constructFacetsMap.set(data.constructId, { domainId: data.domainId, facetMeans: [] });
+      }
+      constructFacetsMap.get(data.constructId)!.facetMeans.push(rawMean);
+    }
+
+    const constructScores: Array<{ constructId: string; compositeScore: number; facetCount: number }> = [];
+    const domainConstructsMap = new Map<string, number[]>();
+
+    for (const [constructId, data] of constructFacetsMap.entries()) {
+      const sum = data.facetMeans.reduce((acc, v) => acc + v, 0);
+      const compositeScore = Number((sum / data.facetMeans.length).toFixed(4));
+      constructScores.push({ constructId, compositeScore, facetCount: data.facetMeans.length });
+
+      if (!domainConstructsMap.has(data.domainId)) {
+        domainConstructsMap.set(data.domainId, []);
+      }
+      domainConstructsMap.get(data.domainId)!.push(compositeScore);
+    }
+
+    const domainScores: Array<{ domainId: string; compositeScore: number; constructCount: number }> = [];
+    for (const [domainId, constructs] of domainConstructsMap.entries()) {
+      const sum = constructs.reduce((acc, v) => acc + v, 0);
+      const compositeScore = Number((sum / constructs.length).toFixed(4));
+      domainScores.push({ domainId, compositeScore, constructCount: constructs.length });
+    }
+
+    const totalFacetSum = facetScores.reduce((acc, f) => acc + f.rawMean, 0);
+    const provisionalComposite =
+      facetScores.length > 0 ? Number((totalFacetSum / facetScores.length).toFixed(4)) : 0;
+
+    return {
+      provisionalComposite,
+      scaleMin: 1.0,
+      scaleMax: 7.0,
+      scoreType: 'MEAN',
+      facetScores,
+      constructScores,
+      domainScores,
+    };
+  },
+};
+
 export const SCORING_STRATEGIES: Record<string, ScoringStrategyDefinition> = {
   PRE_CALIBRATION_MEAN_V1: HEXACO_PRECALIBRATION_STRATEGY,
   HEXACO_PRECALIBRATION_V1: HEXACO_PRECALIBRATION_STRATEGY,
@@ -231,6 +421,8 @@ export const SCORING_STRATEGIES: Record<string, ScoringStrategyDefinition> = {
   RSES_SUM_V1: RSES_MEAN_STRATEGY, // Alias for historical snapshots
   GSE_MEAN_V1: GSE_MEAN_STRATEGY,
   GSE_SUM_V1: GSE_MEAN_STRATEGY, // Alias for historical snapshots
+  ERQ_MEAN_V1: ERQ_MEAN_STRATEGY,
+  ECR_R_MEAN_V1: ECR_R_MEAN_STRATEGY,
 };
 
 /**
@@ -252,9 +444,30 @@ export function resolveScoringStrategy(
   if (moduleCode) {
     const norm = moduleCode.toUpperCase().trim();
 
-    // Specific Rule 1: GSE / General Self Efficacy
+    // Specific Rule 1: ERQ / Emotion Regulation
+    if (
+      norm.includes('ERQ') ||
+      norm === 'MODULE_3_EMOTION_REGULATION' ||
+      norm.includes('EMOTION_REGULATION') ||
+      norm.includes('DUYGU_DUZENLEME')
+    ) {
+      return ERQ_MEAN_STRATEGY;
+    }
+
+    // Specific Rule 2: ECR-R / Attachment Patterns
+    if (
+      norm.includes('ECR') ||
+      norm.includes('ATTACHMENT') ||
+      norm === 'MODULE_6_ATTACHMENT_PATTERNS' ||
+      norm.includes('BAGLANMA')
+    ) {
+      return ECR_R_MEAN_STRATEGY;
+    }
+
+    // Specific Rule 3: GSE / General Self Efficacy
     if (
       norm.includes('GSE') ||
+      norm === 'MODULE_5_GENERAL_SELF_EFFICACY' ||
       norm.includes('GENERAL_SELF_EFFICACY') ||
       norm.includes('SELF_EFFICACY') ||
       norm.includes('OZ_YETERLILIK')
@@ -262,7 +475,7 @@ export function resolveScoringStrategy(
       return GSE_MEAN_STRATEGY;
     }
 
-    // Specific Rule 2: RSES / Rosenberg Self Esteem / MODULE_2_SELF_IDENTITY
+    // Specific Rule 4: RSES / Rosenberg Self Esteem / MODULE_2_SELF_IDENTITY
     if (
       norm.includes('RSES') ||
       norm.includes('ROSENBERG') ||
@@ -273,7 +486,7 @@ export function resolveScoringStrategy(
       return RSES_MEAN_STRATEGY;
     }
 
-    // Specific Rule 3: HEXACO / Core Personality
+    // Specific Rule 5: HEXACO / Core Personality
     if (
       norm.includes('HEXACO') ||
       norm === 'MODULE_1_CORE_PERSONALITY' ||
@@ -298,3 +511,4 @@ export function resolveScoringStrategy(
     'UNKNOWN_SCORING_STRATEGY: Puanlama stratejisi çözümlenemedi (modelCode ve moduleCode belirtilmedi).'
   );
 }
+
