@@ -1,0 +1,23 @@
+{
+  "mailIntegrationEnabled": false,
+  "requireEmailVerification": false,
+  "allowDirectLoginWithoutVerification": true,
+  "smtp": {
+    "host": "",
+    "port": 587,
+    "secure": false,
+    "user": "",
+    "password": "",
+    "fromEmail": "noreply@psyche.ai",
+    "fromName": "PsycheAI Scientific"
+  },
+  "imap": {
+    "host": "",
+    "port": 993,
+    "secure": true,
+    "user": "",
+    "password": ""
+  },
+  "updatedAt": "2026-09-16T19:07:36.079Z",
+  "updatedBy": "admin-user-id"
+}

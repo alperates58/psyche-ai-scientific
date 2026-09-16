@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { prisma } from './prisma';
 import { Role, Permission, getUserPermissions, hasRole, hasPermission } from './rbac';
 import { logAuthAuditEvent } from './auditLog';
+import { isEmailVerificationEnforced } from '@/services/systemSettingsService';
 
 export interface AuthUser {
   id: string;
@@ -106,6 +107,18 @@ export async function getCurrentUserOrNull(): Promise<AuthUser | null> {
     return null;
   }
 
+  // If email verification is disabled system-wide, auto-upgrade PENDING_VERIFICATION to ACTIVE
+  let userStatus = user.status;
+  if (userStatus === 'PENDING_VERIFICATION' && !isEmailVerificationEnforced()) {
+    userStatus = 'ACTIVE';
+    prisma.user
+      .update({
+        where: { id: user.id },
+        data: { status: 'ACTIVE', emailVerified: user.emailVerified || new Date() },
+      })
+      .catch((e) => console.error('Failed to auto-activate user status:', e));
+  }
+
   const roles = user.roles.map((r) => r.role as Role);
   if (roles.length === 0) {
     roles.push('USER');
@@ -116,7 +129,7 @@ export async function getCurrentUserOrNull(): Promise<AuthUser | null> {
     email: user.email,
     name: user.name,
     image: user.image,
-    status: user.status,
+    status: userStatus,
     isDemoUser: user.isDemoUser,
     roles,
     permissions: getUserPermissions(roles),
@@ -135,7 +148,7 @@ export async function requireUser(): Promise<AuthUser> {
     throw new Error('UNAUTHENTICATED: Giriş yapmanız gerekmektedir.');
   }
 
-  if (user.status === 'PENDING_VERIFICATION') {
+  if (user.status === 'PENDING_VERIFICATION' && isEmailVerificationEnforced()) {
     throw new Error('EMAIL_NOT_VERIFIED: Lütfen e-posta adresinizi doğrulayın.');
   }
 

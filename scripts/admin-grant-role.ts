@@ -52,6 +52,18 @@ async function main() {
     process.exit(1);
   }
 
+  // If user is PENDING_VERIFICATION, activate them as well
+  if (user.status === 'PENDING_VERIFICATION') {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        status: 'ACTIVE',
+        emailVerified: user.emailVerified || new Date(),
+      },
+    });
+    console.log(`✅ Kullanıcı durumu 'ACTIVE' olarak güncellendi ve e-postası doğrulandı.`);
+  }
+
   // Idempotent grant
   await prisma.userRole.upsert({
     where: {

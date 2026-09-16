@@ -1,11 +1,13 @@
 import React from 'react';
 import { requirePermission } from '@/lib/auth';
 import { getSystemHealthReport } from '@/services/adminUserService';
+import { getSystemMailSettings } from '@/services/systemSettingsService';
 import { SystemAppCard } from '@/components/admin/system/SystemAppCard';
 import { SystemDatabaseCard } from '@/components/admin/system/SystemDatabaseCard';
 import { SystemAuthServiceCard } from '@/components/admin/system/SystemAuthServiceCard';
 import { SystemIntegrationCard } from '@/components/admin/system/SystemIntegrationCard';
 import { SystemScientificStateCard } from '@/components/admin/system/SystemScientificStateCard';
+import { SystemMailSettingsCard } from '@/components/admin/system/SystemMailSettingsCard';
 import { Activity } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -19,7 +21,10 @@ export default async function AdminSystemPage() {
   // Authoritative server-side permission check (Requires SYSTEM_CONFIG)
   await requirePermission('SYSTEM_CONFIG');
 
-  const report = await getSystemHealthReport();
+  const [report, mailSettings] = await Promise.all([
+    getSystemHealthReport(),
+    getSystemMailSettings(),
+  ]);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
@@ -41,6 +46,9 @@ export default async function AdminSystemPage() {
           Son Güncelleme: <span className="font-mono">{report.application.timestamp.toLocaleTimeString('tr-TR')}</span>
         </div>
       </div>
+
+      {/* Interactive Mail & Verification Integration Settings */}
+      <SystemMailSettingsCard initialSettings={mailSettings} />
 
       {/* Grid of Diagnostic Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

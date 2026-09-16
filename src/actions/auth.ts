@@ -10,6 +10,7 @@ import { sendVerificationEmail, sendPasswordResetEmail, isSmtpConfigured } from 
 import { checkRateLimit, extractClientIp } from '@/lib/rateLimiter';
 import { logAuthAuditEvent } from '@/lib/auditLog';
 import { revokeAllSessions } from '@/lib/auth';
+import { isEmailVerificationEnforced } from '@/services/systemSettingsService';
 
 function getRequestClientIp(): string | null {
   try {
@@ -101,7 +102,11 @@ export async function registerAction(formData: unknown) {
     // 5. Hash password with scrypt
     const passwordHash = await hashPassword(validated.password);
 
-    // 6. Generate single-use verification token
+    // 6. Check if email verification is enforced system-wide
+    const requireVerification = isEmailVerificationEnforced();
+    const initialStatus = requireVerification ? 'PENDING_VERIFICATION' : 'ACTIVE';
+    const emailVerifiedDate = requireVerification ? null : new Date();
+
     const rawToken = generateRawToken();
     const tokenHash = hashToken(rawToken);
     const expiresAt = new Date(Date.now() + TOKEN_EXPIRY_MS.EMAIL_VERIFICATION);
@@ -113,7 +118,8 @@ export async function registerAction(formData: unknown) {
           name: validated.name,
           email: emailNormalized,
           emailNormalized,
-          status: 'PENDING_VERIFICATION',
+          status: initialStatus,
+          emailVerified: emailVerifiedDate,
         },
       });
 
@@ -131,32 +137,39 @@ export async function registerAction(formData: unknown) {
         },
       });
 
-      await tx.emailVerificationToken.create({
-        data: {
-          userId: user.id,
-          tokenHash,
-          expiresAt,
-        },
-      });
+      if (requireVerification) {
+        await tx.emailVerificationToken.create({
+          data: {
+            userId: user.id,
+            tokenHash,
+            expiresAt,
+          },
+        });
+      }
 
       return user;
     });
 
-    // 8. Dispatch verification email
-    await sendVerificationEmail(emailNormalized, rawToken);
+    // 8. Dispatch verification email only if verification is enforced
+    if (requireVerification) {
+      await sendVerificationEmail(emailNormalized, rawToken);
+    }
 
     await logAuthAuditEvent({
       eventType: 'REGISTER_SUCCESS',
       userId: newUser.id,
       success: true,
       ip: clientIp,
-      metadata: { status: 'PENDING_VERIFICATION' },
+      metadata: { status: initialStatus, requireVerification },
     });
 
     return {
       success: true,
       email: emailNormalized,
-      message: 'Kayıt başarılı! Lütfen e-posta adresinize gelen doğrulama bağlantısına tıklayın.',
+      directLogin: !requireVerification,
+      message: requireVerification
+        ? 'Kayıt başarılı! Lütfen e-posta adresinize gelen doğrulama bağlantısına tıklayın.'
+        : 'Kayıt başarılı! Hesabınız aktif edildi, giriş yapabilirsiniz.',
     };
   } catch (error: any) {
     if (error instanceof z.ZodError) {
@@ -456,6 +469,20 @@ export async function resendVerificationAction(rawEmail: string) {
     });
 
     if (user && user.status === 'PENDING_VERIFICATION') {
+      if (!isEmailVerificationEnforced()) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            status: 'ACTIVE',
+            emailVerified: user.emailVerified || new Date(),
+          },
+        });
+        return {
+          success: true,
+          message: 'E-posta doğrulaması şu anda zorunlu değildir. Hesabınız aktif edilmiştir, doğrudan giriş yapabilirsiniz.',
+        };
+      }
+
       // Invalidate prior unused tokens
       await prisma.emailVerificationToken.updateMany({
         where: {
@@ -486,4 +513,11 @@ export async function resendVerificationAction(rawEmail: string) {
   } catch {
     return { success: true, message: genericMessage };
   }
+}
+
+/**
+ * Checks if email verification is currently required system-wide.
+ */
+export async function checkVerificationEnforcedAction(): Promise<boolean> {
+  return isEmailVerificationEnforced();
 }

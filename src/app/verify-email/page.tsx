@@ -6,8 +6,8 @@ import { useSearchParams } from 'next/navigation';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { verifyEmailAction, resendVerificationAction } from '@/actions/auth';
-import { MailCheck, CheckCircle2, AlertCircle, ArrowRight, Loader2, RefreshCw } from 'lucide-react';
+import { verifyEmailAction, resendVerificationAction, checkVerificationEnforcedAction } from '@/actions/auth';
+import { MailCheck, CheckCircle2, AlertCircle, ArrowRight, Loader2, RefreshCw, Info } from 'lucide-react';
 
 function VerifyEmailContent() {
   const searchParams = useSearchParams();
@@ -20,6 +20,13 @@ function VerifyEmailContent() {
   const [resendEmail, setResendEmail] = useState('');
   const [resendLoading, setResendLoading] = useState(false);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
+  const [isVerificationEnforced, setIsVerificationEnforced] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    checkVerificationEnforcedAction().then((enforced) => {
+      setIsVerificationEnforced(enforced);
+    });
+  }, []);
 
   useEffect(() => {
     if (!token) return;
@@ -127,16 +134,35 @@ function VerifyEmailContent() {
 
           {!token && !successMessage && (
             <div className="space-y-6">
-              <div className="p-4 rounded-xl bg-bg-subtle border border-border-default text-xs text-text-secondary space-y-2">
-                <div className="flex items-center space-x-2 font-semibold text-text-primary">
-                  <MailCheck className="w-4 h-4 text-brand-primary" />
-                  <span>Doğrulama E-postası Bekleniyor</span>
+              {isVerificationEnforced === false ? (
+                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 space-y-3">
+                  <div className="flex items-center space-x-2 font-bold text-emerald-900">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>E-posta Doğrulaması Zorunlu Değildir</span>
+                  </div>
+                  <p className="text-emerald-800">
+                    Sistemimizde şu anda e-posta doğrulaması zorunluluğu bulunmamaktadır. Hesabınız aktiftir ve tüm psikolojik değerlendirmelere doğrudan erişebilirsiniz.
+                  </p>
+                  <Link
+                    href="/overview"
+                    className="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-semibold text-xs shadow-xs hover:bg-emerald-700 transition-colors"
+                  >
+                    Profilime ve Değerlendirmelere Git
+                    <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                  </Link>
                 </div>
-                <p>
-                  Kayıt olduğunuzda e-posta adresinize bir doğrulama bağlantısı gönderilmiştir.
-                  Hesabınız onaylanmadan psikolojik değerlendirmelere erişilemez.
-                </p>
-              </div>
+              ) : (
+                <div className="p-4 rounded-xl bg-bg-subtle border border-border-default text-xs text-text-secondary space-y-2">
+                  <div className="flex items-center space-x-2 font-semibold text-text-primary">
+                    <MailCheck className="w-4 h-4 text-brand-primary" />
+                    <span>Doğrulama E-postası Bekleniyor</span>
+                  </div>
+                  <p>
+                    Kayıt olduğunuzda e-posta adresinize bir doğrulama bağlantısı gönderilmiştir.
+                    Hesabınız onaylanmadan psikolojik değerlendirmelere erişilemez.
+                  </p>
+                </div>
+              )}
 
               {/* Resend Form */}
               <form onSubmit={handleResend} className="space-y-3 pt-2">

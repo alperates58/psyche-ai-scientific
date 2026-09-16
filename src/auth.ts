@@ -7,6 +7,7 @@ import { authConfig } from './auth.config';
 import { verifyPassword, dummyVerifyPassword } from '@/lib/password';
 import { logAuthAuditEvent } from '@/lib/auditLog';
 import { checkRateLimit, extractClientIp } from '@/lib/rateLimiter';
+import { isEmailVerificationEnforced } from '@/services/systemSettingsService';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -89,17 +90,30 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
-        // 5. Success: update lastLoginAt and audit
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { lastLoginAt: new Date() },
-        });
+        // 5. Check if email verification is disabled system-wide and auto-activate pending users
+        let finalStatus = user.status;
+        if (user.status === 'PENDING_VERIFICATION' && !isEmailVerificationEnforced()) {
+          finalStatus = 'ACTIVE';
+          await prisma.user.update({
+            where: { id: user.id },
+            data: {
+              status: 'ACTIVE',
+              emailVerified: user.emailVerified || new Date(),
+              lastLoginAt: new Date(),
+            },
+          });
+        } else {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { lastLoginAt: new Date() },
+          });
+        }
 
         await logAuthAuditEvent({
           eventType: 'LOGIN_SUCCESS',
           userId: user.id,
           success: true,
-          metadata: { method: 'credentials' },
+          metadata: { method: 'credentials', status: finalStatus },
         });
 
         return {
@@ -107,7 +121,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           name: user.name,
           email: user.email,
           image: user.image,
-          status: user.status,
+          status: finalStatus,
         };
       },
     }),

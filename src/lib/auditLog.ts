@@ -20,6 +20,8 @@ export type AuthEventType =
   | 'USER_REACTIVATED'
   | 'USER_DISABLED'
   | 'USER_SESSIONS_REVOKED'
+  | 'SYSTEM_SETTINGS_UPDATED'
+  | 'TEST_EMAIL_DISPATCHED'
   | 'ADMIN_SECURITY_ALERT';
 
 const IP_HASH_SALT = process.env.AUTH_RATE_LIMIT_SECRET || process.env.AUTH_SECRET || 'psyche_default_ip_anonymizer_salt';
