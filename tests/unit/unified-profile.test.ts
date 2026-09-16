@@ -191,33 +191,22 @@ describe('FAZ 2.13 — Unified Psychological Profile Unit Tests', () => {
   // ---------------------------------------------------------
   describe('Heatmap Scale-Relative Response Range Resolution', () => {
     it('resolves UNMEASURED for null/NaN scores', () => {
-      expect(getDescriptiveResponseRangeState(null, 1.0, 5.0, 'HEXACO_60_STRATEGY').state).toBe('UNMEASURED');
+      expect(getDescriptiveResponseRangeState(null, 1.0, 5.0, 'PRE_CALIBRATION_MEAN_V1').state).toBe('UNMEASURED');
     });
 
-    it('resolves policy-registered descriptive states for valid instruments (e.g. HEXACO)', () => {
-      // 1.8 on 1.0–5.0 scale -> (1.8 - 1.0)/4.0 = 0.20 ratio -> LOWER
-      const lowerRes = getDescriptiveResponseRangeState(1.8, 1.0, 5.0, 'HEXACO_60_STRATEGY');
-      expect(lowerRes.state).toBe('LOWER_RESPONSE_RANGE');
-      expect(lowerRes.labelTr).toBe('Ölçek Alt Yanıt Bölgesi');
-
-      // 3.0 on 1.0–5.0 scale -> (3.0 - 1.0)/4.0 = 0.50 ratio -> MID
-      const midRes = getDescriptiveResponseRangeState(3.0, 1.0, 5.0, 'HEXACO_60_STRATEGY');
-      expect(midRes.state).toBe('MID_RESPONSE_RANGE');
-      expect(midRes.labelTr).toBe('Ölçek Orta Yanıt Bölgesi');
-
-      // 4.2 on 1.0–5.0 scale -> (4.2 - 1.0)/4.0 = 0.80 ratio -> UPPER
-      const upperRes = getDescriptiveResponseRangeState(4.2, 1.0, 5.0, 'HEXACO_60_STRATEGY');
-      expect(upperRes.state).toBe('UPPER_RESPONSE_RANGE');
-      expect(upperRes.labelTr).toBe('Ölçek Üst Yanıt Bölgesi');
+    it('defaults pre-calibration models to DESCRIPTIVE_BAND_UNAVAILABLE preventing unvalidated thirds', () => {
+      const precalRes = getDescriptiveResponseRangeState(3.5, 1.0, 5.0, 'PRE_CALIBRATION_MEAN_V1');
+      expect(precalRes.state).toBe('DESCRIPTIVE_BAND_UNAVAILABLE');
+      expect(precalRes.labelTr).toBe('Betimsel Bant Tanımlanmamış');
     });
 
-    it('returns DESCRIPTIVE_BAND_UNAVAILABLE when scoring strategy has no registered policy', () => {
-      const unmappedRes = getDescriptiveResponseRangeState(3.5, 1.0, 5.0, 'UNMAPPED_CUSTOM_STRATEGY');
+    it('returns DESCRIPTIVE_BAND_UNAVAILABLE when scoring model code has no registered policy', () => {
+      const unmappedRes = getDescriptiveResponseRangeState(3.5, 1.0, 5.0, 'UNMAPPED_CUSTOM_MODEL');
       expect(unmappedRes.state).toBe('DESCRIPTIVE_BAND_UNAVAILABLE');
       expect(unmappedRes.labelTr).toBe('Betimsel Bant Tanımlanmamış');
     });
 
-    it('returns DESCRIPTIVE_BAND_UNAVAILABLE when no strategy code is supplied', () => {
+    it('returns DESCRIPTIVE_BAND_UNAVAILABLE when no scoring model code is supplied', () => {
       const noStrategyRes = getDescriptiveResponseRangeState(3.5, 1.0, 5.0, null);
       expect(noStrategyRes.state).toBe('DESCRIPTIVE_BAND_UNAVAILABLE');
     });

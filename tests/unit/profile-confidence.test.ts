@@ -26,7 +26,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       });
 
       expect(conf.level).toBe('HIGH');
-      expect(conf.levelLabelTr).toBe('Yüksek');
+      expect(conf.levelLabelTr).toBe('Güçlü Ölçüm Desteği');
       expect(conf.itemCount).toBe(10);
       expect(conf.calibrationState).toBe('PRE_CALIBRATION');
       expect(conf.positiveFactors.length).toBeGreaterThanOrEqual(3);
@@ -34,7 +34,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       expect(conf.positiveFactors.some((f) => f.includes('Türkçe psikometrik'))).toBe(true);
       expect(conf.positiveFactors.some((f) => f.includes('Doğrulanmış psikometrik envanter'))).toBe(true);
       expect(conf.uncertainties.some((u) => u.type === 'CALIBRATION_UNCERTAINTY')).toBe(true);
-      expect(conf.explanationTr).toContain('kanıt gücü yüksektir');
+      expect(conf.explanationTr).toContain('ampirik ölçüm desteği güçlüdür');
     });
 
     it('caps confidence at MODERATE when item count is high (10 items) but evidenceLevel is UNKNOWN', () => {
@@ -53,6 +53,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       // Must NOT be HIGH!
       expect(conf.level).not.toBe('HIGH');
       expect(conf.level).toBe('MODERATE');
+      expect(conf.levelLabelTr).toContain('Orta');
       expect(conf.uncertainties.some((u) => u.type === 'EVIDENCE_UNCERTAINTY')).toBe(true);
       expect(conf.missingSignals).toContain('Doğrulanmış psikometrik envanter kaydı');
     });
@@ -91,7 +92,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       });
 
       expect(conf.level).toBe('MODERATE');
-      expect(conf.levelLabelTr).toBe('Orta');
+      expect(conf.levelLabelTr).toBe('Orta Düzey Destek');
       expect(conf.itemCount).toBe(4);
       expect(conf.positiveFactors.some((f) => f.includes('4 madde'))).toBe(true);
     });
@@ -111,7 +112,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       });
 
       expect(conf.level).toBe('LOW');
-      expect(conf.levelLabelTr).toContain('Düşük');
+      expect(conf.levelLabelTr).toContain('Sınırlı');
       expect(conf.uncertainties.some((u) => u.type === 'MEASUREMENT_COVERAGE_UNCERTAINTY')).toBe(true);
     });
 
@@ -146,7 +147,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       });
 
       expect(conf.level).toBe('VERY_LOW');
-      expect(conf.levelLabelTr).toBe('Çok Düşük');
+      expect(conf.levelLabelTr).toBe('Yetersiz / Düşük Kalite');
     });
 
     it('assigns VERY_LOW when item count is 0 (unmeasured)', () => {
@@ -182,7 +183,50 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
   });
 
   // ---------------------------------------------------------
-  // 2. Separate Evidence from Calibration Tests
+  // 2. Source-Session Specific Telemetry Isolation
+  // ---------------------------------------------------------
+  describe('Source-Session Specific Telemetry Isolation', () => {
+    it('preserves HIGH confidence for clean session measurements when a different session has QUESTIONABLE telemetry', () => {
+      // Dimension from Session A (Clean HEXACO session)
+      const hexacoFacetConf = deriveDimensionConfidence({
+        dimensionId: 'facet-org',
+        dimensionCode: 'organization',
+        dimensionNameTr: 'Düzenlilik',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT', // Session A's clean telemetry
+        evidenceLevel: 'DIRECT',
+        hasTurkishEvidence: true,
+        instrumentName: 'HEXACO-60 TR',
+      });
+
+      // Dimension from Session B (Questionable speed in separate short assessment)
+      const rsesFacetConf = deriveDimensionConfidence({
+        dimensionId: 'facet-rses',
+        dimensionCode: 'self_evaluation',
+        dimensionNameTr: 'Benlik Değerlendirmesi',
+        domainCode: 'self_system',
+        domainNameTr: 'Benlik Sistemi',
+        itemCount: 10,
+        responseQuality: 'QUESTIONABLE', // Session B's flagged telemetry
+        evidenceLevel: 'DIRECT',
+        hasTurkishEvidence: true,
+        instrumentName: 'RSES-10',
+      });
+
+      // Invariant: Session A is unaffected by Session B's telemetry
+      expect(hexacoFacetConf.level).toBe('HIGH');
+      expect(hexacoFacetConf.levelLabelTr).toBe('Güçlü Ölçüm Desteği');
+
+      // Invariant: Session B reflects its own telemetry warning
+      expect(rsesFacetConf.level).toBe('LOW');
+      expect(rsesFacetConf.levelLabelTr).toContain('Telemetri Uyarısı');
+    });
+  });
+
+  // ---------------------------------------------------------
+  // 3. Separate Evidence from Calibration Tests
   // ---------------------------------------------------------
   describe('Separation of Validation Evidence from Calibration Status', () => {
     it('records pre-calibration uncertainty even when Turkish psychometric evidence is present', () => {
@@ -210,7 +254,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
   });
 
   // ---------------------------------------------------------
-  // 3. Repeated Measurement Signals Tests
+  // 4. Repeated Measurement Signals Tests
   // ---------------------------------------------------------
   describe('Repeated Measurement Temporal Stability', () => {
     it('notes single measurement without claiming longitudinal stability', () => {
@@ -253,7 +297,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
   });
 
   // ---------------------------------------------------------
-  // 4. Aggregated Confidence Map (NO Mathematical Average)
+  // 5. Aggregated Confidence Map (NO Mathematical Average)
   // ---------------------------------------------------------
   describe('Profile Confidence Map ViewModel Aggregation', () => {
     it('exposes distribution counts and NO mathematical average score', () => {
@@ -308,7 +352,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
   });
 
   // ---------------------------------------------------------
-  // 5. Central Completeness Denominator
+  // 6. Central Completeness Denominator
   // ---------------------------------------------------------
   describe('Profile Completeness Central Denominators', () => {
     it('derives central completeness summary dynamically with zero hardcoded 84', () => {

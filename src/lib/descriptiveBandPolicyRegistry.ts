@@ -1,9 +1,10 @@
 /**
  * PsycheAI Descriptive Band Policy Registry
  * 
- * Defines explicit, instrument-specific response range policies keyed by scoring strategy or instrument code.
- * Strictly prevents arbitrary universal thirds (e.g. 38/62 thresholds) across different psychometric tools.
- * If no policy is registered or enabled for an instrument, returns DESCRIPTIVE_BAND_UNAVAILABLE.
+ * Defines explicit, instrument-specific response range policies keyed by authoritative scoring model codes.
+ * In PRE_CALIBRATION mode, instruments default to enabled: false unless an explicit,
+ * empirically validated interpretive cutoff policy is verified in the repository.
+ * If no policy is enabled, returns DESCRIPTIVE_BAND_UNAVAILABLE, presenting raw scores without artificial colored bands.
  */
 
 import { HeatmapCellState } from '@/types/heatmap';
@@ -14,160 +15,81 @@ export interface DescriptiveBandThresholds {
 }
 
 export interface DescriptiveBandPolicy {
-  strategyCode: string;
-  instrumentCode?: string;
+  scoringModelCode: string;
   enabled: boolean;
   thresholds?: DescriptiveBandThresholds;
   rationale: string;
-  source: string;
+  source?: string;
   wording?: {
     lower: string;
     mid: string;
     upper: string;
-    unavailable?: string;
   };
 }
 
 /**
- * Authoritative registry of approved descriptive band policies for validated instruments.
+ * Registry of authoritative scoring models.
+ * In pre-calibration mode, generic thirds are strictly forbidden; policies default to enabled: false.
  */
 export const DESCRIPTIVE_BAND_POLICIES: Record<string, DescriptiveBandPolicy> = {
-  // HEXACO-60 & HEXACO-24 (1.0 - 5.0 Likert)
-  HEXACO_60_STRATEGY: {
-    strategyCode: 'HEXACO_60_STRATEGY',
-    instrumentCode: 'HEXACO_60',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'HEXACO 5\'li Likert ölçeğinde (1-5) 1.00-2.33 alt yanıt bölgesi, 2.34-3.66 orta yanıt bölgesi, 3.67-5.00 üst yanıt bölgesi olarak yapılandırılmıştır.',
+  PRE_CALIBRATION_MEAN_V1: {
+    scoringModelCode: 'PRE_CALIBRATION_MEAN_V1',
+    enabled: false,
+    rationale: 'Ön-kalibrasyon aşamasında yapay bantlandırma yapılmaz; doğrudan ham puan ve ölçek aralığı (1.0-5.0) sunulur.',
     source: 'Ashton & Lee (2007); Türk Uyarlaması: Wasti, Lee, Ashton & Somer (2008)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
   },
-  HEXACO_24_STRATEGY: {
-    strategyCode: 'HEXACO_24_STRATEGY',
-    instrumentCode: 'HEXACO_24',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'HEXACO Kısa Form 5\'li Likert ölçeğinde standart üçlü yanıt bölgesi dağılımı.',
+  HEXACO_PRECALIBRATION_V1: {
+    scoringModelCode: 'HEXACO_PRECALIBRATION_V1',
+    enabled: false,
+    rationale: 'HEXACO ön-kalibrasyon modeli; doğrudan ham puan ve ölçek aralığı (1.0-5.0) sunulur.',
     source: 'Ashton & Lee (2007); Türk Uyarlaması: Wasti vd. (2008)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
   },
-  HEXACO: {
-    strategyCode: 'HEXACO',
-    instrumentCode: 'HEXACO',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'HEXACO envanteri genel Likert yanıt bölgesi politikası.',
-    source: 'Ashton & Lee (2007)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
-  },
-
-  // Rosenberg Self-Esteem Scale (1.0 - 4.0 Likert)
-  RSES_10_STRATEGY: {
-    strategyCode: 'RSES_10_STRATEGY',
-    instrumentCode: 'RSES_10',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'Rosenberg Benlik Saygısı Ölçeği (1-4 Likert) yanıt aralığı.',
+  RSES_MEAN_V1: {
+    scoringModelCode: 'RSES_MEAN_V1',
+    enabled: false,
+    rationale: 'Rosenberg Benlik Saygısı Ölçeği ön-kalibrasyon modeli (1.0-4.0 ölçeği). Doğrudan ham puan sunulur.',
     source: 'Rosenberg (1965); Türk Uyarlaması: Çuhadaroğlu (1986)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
   },
-  RSES: {
-    strategyCode: 'RSES',
-    instrumentCode: 'RSES',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'Rosenberg Benlik Saygısı Ölçeği genel politikası.',
-    source: 'Rosenberg (1965)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
+  RSES_SUM_V1: {
+    scoringModelCode: 'RSES_SUM_V1',
+    enabled: false,
+    rationale: 'RSES puan modeli; doğrudan ham ölçek aralığı sunulur.',
+    source: 'Rosenberg (1965); Türk Uyarlaması: Çuhadaroğlu (1986)',
   },
-
-  // Generalized Self-Efficacy Scale (1.0 - 4.0 Likert)
-  GSE_10_STRATEGY: {
-    strategyCode: 'GSE_10_STRATEGY',
-    instrumentCode: 'GSE_10',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'Genel Öz-Yeterlik Ölçeği (1-4 Likert) yanıt aralığı.',
-    source: 'Schwarzer & Jerusalem (1995); Türk Uyarlaması: Yeşilay, Ogel & Eke (2012)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
+  GSE_MEAN_V1: {
+    scoringModelCode: 'GSE_MEAN_V1',
+    enabled: false,
+    rationale: 'Genel Öz-Yeterlik Ölçeği ön-kalibrasyon modeli (1.0-4.0 ölçeği). Doğrudan ham puan sunulur.',
+    source: 'Schwarzer & Jerusalem (1995); Türk Uyarlaması: Aypay (2010); Yıldırım & İlhan (2010)',
   },
-  GSE: {
-    strategyCode: 'GSE',
-    instrumentCode: 'GSE',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'Genel Öz-Yeterlik Ölçeği genel politikası.',
-    source: 'Schwarzer & Jerusalem (1995)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
+  GSE_SUM_V1: {
+    scoringModelCode: 'GSE_SUM_V1',
+    enabled: false,
+    rationale: 'GSE puan modeli; doğrudan ham ölçek aralığı sunulur.',
+    source: 'Schwarzer & Jerusalem (1995); Türk Uyarlaması: Aypay (2010); Yıldırım & İlhan (2010)',
   },
-
-  // Difficulties in Emotion Regulation Scale (1.0 - 5.0 Likert)
-  DERS_16_STRATEGY: {
-    strategyCode: 'DERS_16_STRATEGY',
-    instrumentCode: 'DERS_16',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'Duygu Düzenleme Güçlüğü Ölçeği (1-5 Likert) yanıt aralığı.',
-    source: 'Bjureberg et al. (2016); Türk Uyarlaması: Yiğit & Yiğit (2017)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
+  ERQ_MEAN_V1: {
+    scoringModelCode: 'ERQ_MEAN_V1',
+    enabled: false,
+    rationale: 'Duygu Düzenleme Anketi (ERQ) iki bağımsız alt ölçek (1.0-7.0) için ham ortalama sunulur.',
+    source: 'Gross & John (2003)',
   },
-
-  // Brief COPE (1.0 - 4.0 Likert)
-  BRIEF_COPE_28_STRATEGY: {
-    strategyCode: 'BRIEF_COPE_28_STRATEGY',
-    instrumentCode: 'BRIEF_COPE_28',
-    enabled: true,
-    thresholds: { lowerRatioThreshold: 0.333, upperRatioThreshold: 0.666 },
-    rationale: 'Başa Çıkma Tutumları Kısa Formu (1-4 Likert) yanıt aralığı.',
-    source: 'Carver (1997); Türk Uyarlaması: Bacanlı, Sürüm & İlhan (2013)',
-    wording: {
-      lower: 'Ölçek Alt Yanıt Bölgesi',
-      mid: 'Ölçek Orta Yanıt Bölgesi',
-      upper: 'Ölçek Üst Yanıt Bölgesi',
-    },
+  ECR_R_MEAN_V1: {
+    scoringModelCode: 'ECR_R_MEAN_V1',
+    enabled: false,
+    rationale: 'Yakın İlişkilerde Yaşantılar (ECR-R) sürekli boyutları (1.0-7.0) için ham ortalama sunulur.',
+    source: 'Fraley, Waller & Brennan (2000)',
   },
 };
 
 /**
- * Looks up the descriptive band policy for a scoring strategy or instrument code.
+ * Looks up the descriptive band policy for a scoring model code.
  */
 export function getDescriptiveBandPolicy(
-  strategyOrInstrumentCode?: string | null
+  scoringModelCode?: string | null
 ): DescriptiveBandPolicy | null {
-  if (!strategyOrInstrumentCode) return null;
-  const normalized = strategyOrInstrumentCode.toUpperCase().trim();
+  if (!scoringModelCode) return null;
+  const normalized = scoringModelCode.toUpperCase().trim();
   return DESCRIPTIVE_BAND_POLICIES[normalized] || null;
 }
 
@@ -181,13 +103,13 @@ export interface DescriptiveBandResult {
 
 /**
  * Evaluates scale-relative response range state strictly through the policy registry.
- * If no explicit enabled policy exists for the scoring strategy, returns DESCRIPTIVE_BAND_UNAVAILABLE.
+ * If no explicit enabled policy exists for the scoring model code, returns DESCRIPTIVE_BAND_UNAVAILABLE.
  */
 export function resolveDescriptiveBand(
   score: number | null,
   scaleMin: number,
   scaleMax: number,
-  strategyOrInstrumentCode?: string | null
+  scoringModelCode?: string | null
 ): DescriptiveBandResult {
   if (score === null || typeof score !== 'number' || isNaN(score)) {
     return {
@@ -206,12 +128,13 @@ export function resolveDescriptiveBand(
     };
   }
 
-  const policy = getDescriptiveBandPolicy(strategyOrInstrumentCode);
+  const policy = getDescriptiveBandPolicy(scoringModelCode);
   if (!policy || !policy.enabled || !policy.thresholds) {
     return {
       state: 'DESCRIPTIVE_BAND_UNAVAILABLE',
       labelTr: 'Betimsel Bant Tanımlanmamış',
-      rationale: 'Bu değerlendirme aracı için standartlaştırılmış betimsel bant politikası tanımlanmamıştır. Yalnızca ham ölçek puanı sunulur.',
+      rationale: policy?.rationale || 'Bu değerlendirme aracı için ön-kalibrasyon aşamasında standartlaştırılmış betimsel bant politikası tanımlanmamıştır. Yalnızca ham ölçek puanı sunulur.',
+      source: policy?.source,
       policyEnabled: false,
     };
   }

@@ -460,7 +460,10 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       itemCount: number;
       scale: MeasurementScaleMetadata;
       provenance: MeasurementProvenanceMetadata;
-      instrumentName?: string;
+      instrumentName?: string | null;
+      evidenceLevel: 'DIRECT' | 'UNKNOWN';
+      hasTurkishEvidence: boolean;
+      sourceSessionIntegrity: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED';
     }
   >();
 
@@ -471,12 +474,21 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       facetCount: number;
       scale: MeasurementScaleMetadata;
       provenance: MeasurementProvenanceMetadata;
-      instrumentName?: string;
+      instrumentName?: string | null;
+      evidenceLevel: 'DIRECT' | 'UNKNOWN';
+      hasTurkishEvidence: boolean;
+      sourceSessionIntegrity: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED';
     }
   >();
 
   for (const session of activeSessions) {
     const snapshot = session.snapshotSessions[0].profileSnapshot;
+    const sessionIntegrity = (session.integrityResults[0]?.overallFlag || 'ACCEPTABLE').toUpperCase() as
+      | 'EXCELLENT'
+      | 'ACCEPTABLE'
+      | 'QUESTIONABLE'
+      | 'COMPROMISED';
+
     const scoringStrategy = resolveScoringStrategy(
       snapshot.scoringModelVersion.code,
       session.formVersion.module.code
@@ -498,6 +510,32 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       measuredAt: session.completedAt ? session.completedAt.toISOString() : session.startedAt.toISOString(),
     };
 
+    // Extract Instrument and Citation directly from database records (no module name guessing)
+    let sessionInstrument: { id: string; code: string; name: string; citation: string | null } | null = null;
+    for (const formItem of session.formVersion.items || []) {
+      const inst = formItem.itemVersion?.item?.instrument;
+      if (inst) {
+        sessionInstrument = {
+          id: inst.id,
+          code: inst.code,
+          name: inst.fullName || inst.name,
+          citation: inst.citation,
+        };
+        break;
+      }
+    }
+
+    const hasDirectEvidence = Boolean(sessionInstrument && sessionInstrument.citation);
+    const hasTurkishEvidence = Boolean(
+      sessionInstrument?.citation &&
+        (sessionInstrument.citation.includes('Wasti') ||
+          sessionInstrument.citation.includes('Çuhadaroğlu') ||
+          sessionInstrument.citation.includes('Aypay') ||
+          sessionInstrument.citation.includes('Yıldırım') ||
+          sessionInstrument.citation.includes('Türk'))
+    );
+    const evidenceLevel: 'DIRECT' | 'UNKNOWN' = hasDirectEvidence ? 'DIRECT' : 'UNKNOWN';
+
     // Facets
     for (const fs of snapshot.facetScores) {
       if (!latestFacetMap.has(fs.facetId)) {
@@ -506,7 +544,10 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
           itemCount: fs.itemCount,
           scale: scaleMetadata,
           provenance: provenanceMetadata,
-          instrumentName: session.formVersion.module.titleTr,
+          instrumentName: sessionInstrument ? sessionInstrument.name : null,
+          evidenceLevel,
+          hasTurkishEvidence,
+          sourceSessionIntegrity: sessionIntegrity,
         });
       }
     }
@@ -519,7 +560,10 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
           facetCount: cs.facetCount,
           scale: scaleMetadata,
           provenance: provenanceMetadata,
-          instrumentName: session.formVersion.module.titleTr,
+          instrumentName: sessionInstrument ? sessionInstrument.name : null,
+          evidenceLevel,
+          hasTurkishEvidence,
+          sourceSessionIntegrity: sessionIntegrity,
         });
       }
     }
@@ -577,22 +621,17 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
             Math.max(0, Math.round(((measured.rawMean - measured.scale.scaleMin) / scaleRange) * 100))
           );
           const bandInfo = getScoreBand(measured.rawMean, measured.scale.scaleMax);
-          const isKnownDirectInstrument = Boolean(
-            measured.provenance.moduleCode?.toUpperCase().includes('HEXACO') ||
-            measured.provenance.moduleCode?.toUpperCase().includes('RSES') ||
-            measured.provenance.moduleCode?.toUpperCase().includes('GSE') ||
-            measured.provenance.moduleCode?.toUpperCase().includes('DERS') ||
-            measured.provenance.moduleCode?.toUpperCase().includes('COPE')
-          );
+          const measurementSupport: 'High' | 'Moderate' | 'Developing' =
+            measured.itemCount >= 6 ? 'High' : measured.itemCount >= 3 ? 'Moderate' : 'Developing';
 
           const responseRange = getDescriptiveResponseRangeState(
             measured.rawMean,
             measured.scale.scaleMin,
             measured.scale.scaleMax,
-            measured.scale.scoringModelCode || measured.provenance.moduleCode
+            measured.scale.scoringModelCode
           );
 
-          // Dimension Confidence derivation with conservative evidence provenance
+          // Dimension Confidence derivation with session-specific telemetry and real evidence provenance
           const confidenceObj = deriveDimensionConfidence({
             dimensionId: facet.id,
             dimensionCode: facet.code,
@@ -600,10 +639,10 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
             domainCode: domain.code,
             domainNameTr: domain.nameTr,
             itemCount: measured.itemCount,
-            responseQuality: responseQuality.overallFlag,
-            evidenceLevel: isKnownDirectInstrument ? 'DIRECT' : 'UNKNOWN',
-            hasTurkishEvidence: isKnownDirectInstrument,
-            instrumentName: measured.instrumentName || measured.provenance.moduleTitleTr,
+            responseQuality: measured.sourceSessionIntegrity, // Session-specific!
+            evidenceLevel: measured.evidenceLevel,
+            hasTurkishEvidence: measured.hasTurkishEvidence,
+            instrumentName: measured.instrumentName,
           });
 
           dimensionConfidenceList.push(confidenceObj);

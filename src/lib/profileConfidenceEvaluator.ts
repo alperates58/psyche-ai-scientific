@@ -85,26 +85,26 @@ export function deriveDimensionConfidence(
 
   if (responseQuality === 'COMPROMISED') {
     level = 'VERY_LOW';
-    levelLabelTr = 'Çok Düşük';
+    levelLabelTr = 'Yetersiz / Düşük Kalite';
   } else if (itemCount <= 0) {
     level = 'VERY_LOW';
     levelLabelTr = 'Ölçülmedi';
   } else if (responseQuality === 'QUESTIONABLE') {
     // Flagged response quality strictly caps confidence at LOW
     level = 'LOW';
-    levelLabelTr = 'Düşük (Telemetri Uyarısı)';
+    levelLabelTr = 'Sınırlı (Telemetri Uyarısı)';
   } else if (itemCount < 3) {
     // 1-2 items: sparse probe, strictly LOW
     level = 'LOW';
-    levelLabelTr = 'Düşük (Kısa Form / 1-2 Madde)';
+    levelLabelTr = 'Sınırlı (Kısa Form / 1-2 Madde)';
   } else if (itemCount >= 6 && isTelemetryClean && isFullyValidated) {
     // HIGH requires ALL: >=6 items, clean telemetry, direct evidence, Turkish evidence, verified provenance
     level = 'HIGH';
-    levelLabelTr = 'Yüksek';
+    levelLabelTr = 'Güçlü Ölçüm Desteği';
   } else if (itemCount >= 3 && isTelemetryClean) {
     if (isFullyValidated || hasDirectEvidence || hasTurkishEvidence) {
       level = 'MODERATE';
-      levelLabelTr = 'Orta';
+      levelLabelTr = 'Orta Düzey Destek';
     } else {
       // Missing both direct evidence and Turkish evidence: conservative capping
       if (itemCount >= 6) {
@@ -112,12 +112,12 @@ export function deriveDimensionConfidence(
         levelLabelTr = 'Orta (Kanıt Bilgisi Kısıtlı)';
       } else {
         level = 'LOW';
-        levelLabelTr = 'Düşük (Doğrulanmamış Kanıt)';
+        levelLabelTr = 'Sınırlı (Doğrulanmamış Kanıt)';
       }
     }
   } else {
     level = 'LOW';
-    levelLabelTr = 'Düşük';
+    levelLabelTr = 'Sınırlı Ölçüm Desteği';
   }
 
   // 2. Derive Transparent Positive Factors
@@ -218,17 +218,17 @@ export function deriveDimensionConfidence(
   // 4. Construct Clear Explanation
   let explanationTr = '';
   if (level === 'HIGH') {
-    explanationTr = `${itemCount} maddelik doğrudan ölçekleme, doğrulanmış Türkçe uyarlama ve tutarlı yanıt telemetrisi sayesinde ölçüm kanıt gücü yüksektir.`;
+    explanationTr = `${itemCount} maddelik doğrudan ölçekleme, doğrulanmış Türkçe uyarlama ve tutarlı oturum telemetrisi sayesinde ampirik ölçüm desteği güçlüdür.`;
   } else if (level === 'MODERATE') {
-    explanationTr = `${itemCount} maddelik ampirik ölçüm ve tutarlı yanıtlama deseni ile güvenilirdir.`;
+    explanationTr = `${itemCount} maddelik ampirik ölçüm ve tutarlı oturum deseni ile orta düzey ölçüm desteğine sahiptir.`;
   } else if (level === 'LOW') {
     explanationTr = itemCount < 3
-      ? `Az sayıda madde (${itemCount} md.) ile ölçüldüğünden kanıt gücü başlangıç düzeyindedir; ek değerlendirme önerilir.`
+      ? `Az sayıda madde (${itemCount} md.) ile ölçüldüğünden ölçüm desteği başlangıç düzeyindedir; ek değerlendirme önerilir.`
       : responseQuality === 'QUESTIONABLE'
-      ? 'Yanıt telemetrisindeki dikkat/hız uyarısı nedeniyle temkinli değerlendirilmelidir.'
-      : 'Psikometrik kanıt veya uyarlama bilgisi doğrulanmadığından temkinli değerlendirilmelidir.';
+      ? 'Oturum telemetrisindeki dikkat/hız uyarısı nedeniyle temkinli değerlendirilmelidir.'
+      : 'Psikometrik kanıt veya uyarlama bilgisi henüz doğrulanmadığından sınırlı ölçüm desteği sunar.';
   } else {
-    explanationTr = 'Veri kalitesi veya madde sayısı yetersiz olduğundan güven düzeyi düşüktür.';
+    explanationTr = 'Veri kalitesi veya madde sayısı yetersiz olduğundan ölçüm desteği düşüktür.';
   }
 
   return {
@@ -291,7 +291,7 @@ export function buildProfileConfidenceMap(
     dimensions: dimensionConfidences,
     headlineTr,
     overallNoteTr:
-      'Güven seviyeleri ölçümün kanıt gücünü (madde sayısı, telemetri tutarlılığı, geçerlik durumu) gösterir; nüfus kesinlik yüzdesi değildir.',
+      'Ölçüm desteği seviyeleri ampirik veri gücünü (madde sayısı, oturum telemetrisi, doğrulanmış envanter kanıtı) gösterir; istatistiksel güven aralığı (95% CI) veya kesinlik yüzdesi değildir.',
   };
 }
 
