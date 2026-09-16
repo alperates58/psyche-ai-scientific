@@ -7,12 +7,20 @@
 
 export type DimensionConfidenceLevel = 'VERY_LOW' | 'LOW' | 'MODERATE' | 'HIGH';
 
+export type AuthoritativeEvidenceLevel =
+  | 'DIRECT'
+  | 'LEXICAL'
+  | 'RELATED'
+  | 'NO_DIRECT'
+  | 'UNKNOWN';
+
 export type UncertaintyType =
   | 'MEASUREMENT_COVERAGE_UNCERTAINTY'
   | 'RESPONSE_QUALITY_UNCERTAINTY'
   | 'CALIBRATION_UNCERTAINTY'
   | 'PROVENANCE_UNCERTAINTY'
-  | 'TEMPORAL_UNCERTAINTY';
+  | 'TEMPORAL_UNCERTAINTY'
+  | 'EVIDENCE_UNCERTAINTY';
 
 export type TemporalStabilitySignal =
   | 'SINGLE_MEASUREMENT'
@@ -36,7 +44,7 @@ export interface DimensionConfidence {
   levelLabelTr: string;
   itemCount: number;
   responseQuality: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED';
-  evidenceLevel: string;
+  evidenceLevel: AuthoritativeEvidenceLevel | string;
   calibrationState: 'PRE_CALIBRATION' | 'CALIBRATED';
   temporalSignal: TemporalStabilitySignal;
   measurementCount: number;
@@ -45,6 +53,12 @@ export interface DimensionConfidence {
   uncertainties: DimensionUncertaintyItem[];
   missingSignals: string[];
   explanationTr: string;
+  // Authoritative scientific fields
+  overallTurkishEvidenceLevel?: AuthoritativeEvidenceLevel | string;
+  measurementAlignmentLevel?: string;
+  appliesToLevel?: string;
+  instrumentMatch?: boolean;
+  humanVerified?: boolean;
 }
 
 export interface ProfileConfidenceMapViewModel {

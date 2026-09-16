@@ -14,6 +14,10 @@ import {
   STANDARD_USER_PROFILE_DOMAIN_CODES,
 } from '@/lib/profileConfidenceEvaluator';
 import { resolveDescriptiveBand } from '@/lib/descriptiveBandPolicyRegistry';
+import {
+  resolveFacetValidationEvidence,
+  ResolvedFacetEvidence,
+} from '@/lib/facetEvidenceResolver';
 import { getUserAssessmentJourney } from './assessmentJourneyService';
 import {
   UnifiedProfileViewModel,
@@ -295,7 +299,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
 
   const userName = user?.name || 'Kullanıcı';
 
-  // 2. Fetch canonical ontology (Domains -> Constructs -> Facets)
+  // 2. Fetch canonical ontology (Domains -> Constructs -> Facets) with validation summaries
   const canonicalDomains = await prisma.domain.findMany({
     orderBy: { sortOrder: 'asc' },
     include: {
@@ -304,11 +308,31 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
         include: {
           facets: {
             orderBy: { sortOrder: 'asc' },
+            include: {
+              validationSummary: {
+                include: {
+                  studyEvidences: true,
+                  reliabilityEvidences: true,
+                },
+              },
+            },
           },
         },
       },
     },
   });
+
+  const canonicalFacetMap = new Map<
+    string,
+    (typeof canonicalDomains)[0]['constructs'][0]['facets'][0]
+  >();
+  for (const domain of canonicalDomains) {
+    for (const construct of domain.constructs) {
+      for (const facet of construct.facets) {
+        canonicalFacetMap.set(facet.id, facet);
+      }
+    }
+  }
 
   const totalOntologyFacets = canonicalDomains.reduce(
     (acc, d) => acc + d.constructs.reduce((cAcc, c) => cAcc + c.facets.length, 0),
@@ -461,8 +485,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       scale: MeasurementScaleMetadata;
       provenance: MeasurementProvenanceMetadata;
       instrumentName?: string | null;
-      evidenceLevel: 'DIRECT' | 'UNKNOWN';
-      hasTurkishEvidence: boolean;
+      evidence: ResolvedFacetEvidence;
       sourceSessionIntegrity: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED';
     }
   >();
@@ -475,8 +498,6 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       scale: MeasurementScaleMetadata;
       provenance: MeasurementProvenanceMetadata;
       instrumentName?: string | null;
-      evidenceLevel: 'DIRECT' | 'UNKNOWN';
-      hasTurkishEvidence: boolean;
       sourceSessionIntegrity: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED';
     }
   >();
@@ -510,8 +531,8 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       measuredAt: session.completedAt ? session.completedAt.toISOString() : session.startedAt.toISOString(),
     };
 
-    // Extract Instrument and Citation directly from database records (no module name guessing)
-    let sessionInstrument: { id: string; code: string; name: string; citation: string | null } | null = null;
+    // Extract Instrument directly from session item records (no substring guessing)
+    let sessionInstrument: { id: string; code: string; name: string } | null = null;
     for (const formItem of session.formVersion.items || []) {
       const inst = formItem.itemVersion?.item?.instrument;
       if (inst) {
@@ -519,34 +540,28 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
           id: inst.id,
           code: inst.code,
           name: inst.fullName || inst.name,
-          citation: inst.citation,
         };
         break;
       }
     }
 
-    const hasDirectEvidence = Boolean(sessionInstrument && sessionInstrument.citation);
-    const hasTurkishEvidence = Boolean(
-      sessionInstrument?.citation &&
-        (sessionInstrument.citation.includes('Wasti') ||
-          sessionInstrument.citation.includes('Çuhadaroğlu') ||
-          sessionInstrument.citation.includes('Aypay') ||
-          sessionInstrument.citation.includes('Yıldırım') ||
-          sessionInstrument.citation.includes('Türk'))
-    );
-    const evidenceLevel: 'DIRECT' | 'UNKNOWN' = hasDirectEvidence ? 'DIRECT' : 'UNKNOWN';
-
-    // Facets
+    // Facets (resolve evidence strictly from authoritative FacetValidationSummary)
     for (const fs of snapshot.facetScores) {
       if (!latestFacetMap.has(fs.facetId)) {
+        const canonicalFacet = canonicalFacetMap.get(fs.facetId);
+        const resolvedEvidence = resolveFacetValidationEvidence({
+          validationSummary: canonicalFacet?.validationSummary,
+          sessionInstrumentId: sessionInstrument ? sessionInstrument.id : null,
+          sessionInstrumentName: sessionInstrument ? sessionInstrument.name : null,
+        });
+
         latestFacetMap.set(fs.facetId, {
           rawMean: fs.rawMean,
           itemCount: fs.itemCount,
           scale: scaleMetadata,
           provenance: provenanceMetadata,
           instrumentName: sessionInstrument ? sessionInstrument.name : null,
-          evidenceLevel,
-          hasTurkishEvidence,
+          evidence: resolvedEvidence,
           sourceSessionIntegrity: sessionIntegrity,
         });
       }
@@ -561,8 +576,6 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
           scale: scaleMetadata,
           provenance: provenanceMetadata,
           instrumentName: sessionInstrument ? sessionInstrument.name : null,
-          evidenceLevel,
-          hasTurkishEvidence,
           sourceSessionIntegrity: sessionIntegrity,
         });
       }
@@ -631,7 +644,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
             measured.scale.scoringModelCode
           );
 
-          // Dimension Confidence derivation with session-specific telemetry and real evidence provenance
+          // Dimension Confidence derivation with session-specific telemetry and authoritative validation evidence
           const confidenceObj = deriveDimensionConfidence({
             dimensionId: facet.id,
             dimensionCode: facet.code,
@@ -640,8 +653,14 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
             domainNameTr: domain.nameTr,
             itemCount: measured.itemCount,
             responseQuality: measured.sourceSessionIntegrity, // Session-specific!
-            evidenceLevel: measured.evidenceLevel,
-            hasTurkishEvidence: measured.hasTurkishEvidence,
+            evidenceLevel: measured.evidence.evidenceLevel,
+            overallTurkishEvidenceLevel: measured.evidence.overallTurkishEvidenceLevel,
+            measurementAlignmentLevel: measured.evidence.measurementAlignmentLevel,
+            appliesToLevel: measured.evidence.appliesToLevel,
+            instrumentValidationEstablished: measured.evidence.instrumentValidationEstablished,
+            instrumentMatch: measured.evidence.instrumentMatch,
+            humanVerified: measured.evidence.humanVerified,
+            hasTurkishEvidence: measured.evidence.hasTurkishEvidence,
             instrumentName: measured.instrumentName,
           });
 

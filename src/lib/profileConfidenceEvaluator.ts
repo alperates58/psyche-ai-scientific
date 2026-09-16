@@ -8,6 +8,7 @@
  */
 
 import {
+  AuthoritativeEvidenceLevel,
   DimensionConfidence,
   DimensionConfidenceLevel,
   DimensionUncertaintyItem,
@@ -40,7 +41,13 @@ export interface EvaluateDimensionConfidenceParams {
   domainNameTr: string;
   itemCount: number;
   responseQuality: 'EXCELLENT' | 'ACCEPTABLE' | 'QUESTIONABLE' | 'COMPROMISED';
-  evidenceLevel?: 'DIRECT' | 'INDIRECT' | 'PROVISIONAL' | 'UNKNOWN';
+  evidenceLevel?: AuthoritativeEvidenceLevel;
+  overallTurkishEvidenceLevel?: AuthoritativeEvidenceLevel;
+  measurementAlignmentLevel?: string;
+  appliesToLevel?: string;
+  instrumentValidationEstablished?: boolean;
+  instrumentMatch?: boolean;
+  humanVerified?: boolean;
   hasTurkishEvidence?: boolean;
   instrumentName?: string | null;
   measurementCount?: number;
@@ -53,8 +60,10 @@ export interface EvaluateDimensionConfidenceParams {
  * HIGH confidence requires ALL of:
  * - Adequate item coverage (>= 6 items or scale full form)
  * - Clean response quality (EXCELLENT or ACCEPTABLE)
- * - Verified direct instrument provenance (evidenceLevel === 'DIRECT')
- * - Documented Turkish adaptation evidence (hasTurkishEvidence === true)
+ * - Authoritative direct instrument evidence (evidenceLevel === 'DIRECT')
+ * - Direct Turkish adaptation evidence (overallTurkishEvidenceLevel === 'DIRECT' || hasTurkishEvidence === true)
+ * - Exact instrument match with validated inventory (instrumentMatch !== false)
+ * - Facet/subscale level alignment (appliesToLevel !== 'BROAD_FACTOR' && measurementAlignmentLevel !== 'NOT_APPLICABLE')
  * - Known instrument identifier
  */
 export function deriveDimensionConfidence(
@@ -69,19 +78,39 @@ export function deriveDimensionConfidence(
     itemCount,
     responseQuality,
     evidenceLevel = 'UNKNOWN',
+    overallTurkishEvidenceLevel = 'NO_DIRECT',
+    measurementAlignmentLevel = 'EXACT_FACET',
+    appliesToLevel = 'FACET',
+    instrumentValidationEstablished = true,
+    instrumentMatch = true,
+    humanVerified = false,
     hasTurkishEvidence = false,
     instrumentName = null,
     measurementCount = 1,
     temporalSignal = measurementCount > 1 ? 'REPEATED_CONSISTENT' : 'SINGLE_MEASUREMENT',
   } = params;
 
-  // 1. Explicit Conservative Ordinal Decision Table
-  let level: DimensionConfidenceLevel = 'LOW';
-  let levelLabelTr = 'Düşük';
-
+  // 1. Evaluate Scientific Evidence Gates
   const isTelemetryClean = responseQuality === 'EXCELLENT' || responseQuality === 'ACCEPTABLE';
-  const hasDirectEvidence = evidenceLevel === 'DIRECT' && Boolean(instrumentName);
-  const isFullyValidated = hasDirectEvidence && hasTurkishEvidence;
+  const isAuthoritativeDirect = evidenceLevel === 'DIRECT';
+  const isTurkishDirect = overallTurkishEvidenceLevel === 'DIRECT' || hasTurkishEvidence === true;
+  const isInstrumentMatched = instrumentMatch !== false && Boolean(instrumentName);
+  const isFacetAligned =
+    (appliesToLevel === 'FACET' || appliesToLevel === 'SUBSCALE') &&
+    (measurementAlignmentLevel === 'EXACT_FACET' || measurementAlignmentLevel === 'SUBSCALE_ALIGNED');
+  const isBroadFactor = appliesToLevel === 'BROAD_FACTOR' || evidenceLevel === 'LEXICAL';
+
+  const isFullyDirectValidated =
+    isAuthoritativeDirect &&
+    isTurkishDirect &&
+    isInstrumentMatched &&
+    isFacetAligned &&
+    instrumentValidationEstablished &&
+    !isBroadFactor;
+
+  // 2. Explicit Conservative Ordinal Decision Table
+  let level: DimensionConfidenceLevel = 'LOW';
+  let levelLabelTr = 'Sınırlı Ölçüm Desteği';
 
   if (responseQuality === 'COMPROMISED') {
     level = 'VERY_LOW';
@@ -97,30 +126,35 @@ export function deriveDimensionConfidence(
     // 1-2 items: sparse probe, strictly LOW
     level = 'LOW';
     levelLabelTr = 'Sınırlı (Kısa Form / 1-2 Madde)';
-  } else if (itemCount >= 6 && isTelemetryClean && isFullyValidated) {
-    // HIGH requires ALL: >=6 items, clean telemetry, direct evidence, Turkish evidence, verified provenance
+  } else if (itemCount >= 6 && isTelemetryClean && isFullyDirectValidated) {
+    // HIGH requires ALL: >=6 items, clean telemetry, direct evidence, Turkish direct adaptation, instrument match, facet alignment
     level = 'HIGH';
     levelLabelTr = 'Güçlü Ölçüm Desteği';
   } else if (itemCount >= 3 && isTelemetryClean) {
-    if (isFullyValidated || hasDirectEvidence || hasTurkishEvidence) {
+    if (isFullyDirectValidated) {
       level = 'MODERATE';
       levelLabelTr = 'Orta Düzey Destek';
+    } else if (isInstrumentMatched && (isAuthoritativeDirect || isTurkishDirect)) {
+      level = 'MODERATE';
+      levelLabelTr = 'Orta Düzey Destek';
+    } else if (isInstrumentMatched && isBroadFactor && itemCount >= 6) {
+      level = 'MODERATE';
+      levelLabelTr = 'Orta (Geniş Faktör/Leksikal Kanıt)';
+    } else if (isInstrumentMatched && evidenceLevel === 'RELATED' && itemCount >= 6) {
+      level = 'MODERATE';
+      levelLabelTr = 'Orta (İlişkili Envanter Kanıtı)';
     } else {
-      // Missing both direct evidence and Turkish evidence: conservative capping
-      if (itemCount >= 6) {
-        level = 'MODERATE';
-        levelLabelTr = 'Orta (Kanıt Bilgisi Kısıtlı)';
-      } else {
-        level = 'LOW';
-        levelLabelTr = 'Sınırlı (Doğrulanmamış Kanıt)';
-      }
+      level = 'LOW';
+      levelLabelTr = !isInstrumentMatched
+        ? 'Sınırlı (Eşleşmeyen Envanter)'
+        : 'Sınırlı (Doğrulanmamış Kanıt)';
     }
   } else {
     level = 'LOW';
     levelLabelTr = 'Sınırlı Ölçüm Desteği';
   }
 
-  // 2. Derive Transparent Positive Factors
+  // 3. Derive Transparent Positive Factors
   const positiveFactors: string[] = [];
 
   if (itemCount >= 6) {
@@ -137,19 +171,23 @@ export function deriveDimensionConfidence(
     positiveFactors.push('Kabul edilebilir ve tutarlı yanıt deseni');
   }
 
-  if (hasTurkishEvidence) {
-    positiveFactors.push('Türkçe psikometrik uyarlama ve literatür dayanağı mevcut');
+  if (isTurkishDirect && isInstrumentMatched) {
+    positiveFactors.push('Türkçe doğrudan psikometrik uyarlama kaydı mevcut');
   }
 
-  if (hasDirectEvidence) {
+  if (isAuthoritativeDirect && isInstrumentMatched) {
     positiveFactors.push(`Doğrulanmış psikometrik envanter kaynağı (${instrumentName})`);
+  }
+
+  if (humanVerified === true) {
+    positiveFactors.push('Uzman denetiminden geçmiş (human-verified) bilimsel kanıt');
   }
 
   if (temporalSignal === 'REPEATED_CONSISTENT') {
     positiveFactors.push('Tekrarlı ölçümlerde tutarlı puanlama deseni gözlendi');
   }
 
-  // 3. Derive Explicit Uncertainties & Limiting Signals
+  // 4. Derive Explicit Uncertainties & Limiting Signals
   const uncertainties: DimensionUncertaintyItem[] = [];
   const missingSignals: string[] = [];
 
@@ -161,23 +199,61 @@ export function deriveDimensionConfidence(
   });
   missingSignals.push('Temsili ulusal norm kıyaslaması');
 
-  // Evidence / Adaptation uncertainty
-  if (evidenceLevel === 'UNKNOWN' || !instrumentName) {
+  // Provenance & Instrument match uncertainty
+  if (!isInstrumentMatched) {
+    uncertainties.push({
+      type: 'PROVENANCE_UNCERTAINTY',
+      labelTr: 'Envanter Eşleşme Uyarısı',
+      descriptionTr: 'Mevcut oturum envanteri ile bu boyutun doğrulanmış geçerlik veritabanı kayıtları eşleşmemektedir.',
+    });
+    missingSignals.push('Doğrulanmış envanter ile doğrudan eşleşme');
+  } else if (evidenceLevel === 'UNKNOWN' || !instrumentName) {
     uncertainties.push({
       type: 'EVIDENCE_UNCERTAINTY',
       labelTr: 'Doğrulanmamış Envanter Kanıtı',
       descriptionTr: 'Bu boyut için literatür geçerlik kaydı veya envanter kaynağı doğrulanmamıştır.',
     });
     missingSignals.push('Doğrulanmış psikometrik envanter kaydı');
+  } else if (isBroadFactor) {
+    uncertainties.push({
+      type: 'EVIDENCE_UNCERTAINTY',
+      labelTr: 'Yalnızca Leksikal / Geniş Faktör Kanıtı',
+      descriptionTr: 'Bu boyut için doğrudan alt ölçek ampirik uyarlaması yerine geniş faktör leksikal desteği mevcuttur.',
+    });
+    missingSignals.push('Doğrudan alt ölçek ampirik geçerlik çalışması');
+  } else if (evidenceLevel === 'RELATED') {
+    uncertainties.push({
+      type: 'EVIDENCE_UNCERTAINTY',
+      labelTr: 'İlişkili Ölçek Kanıtı',
+      descriptionTr: 'Bu boyut doğrudan değil, ilişkili bir envanter üzerinden dolaylı olarak desteklenmektedir.',
+    });
+    missingSignals.push('Özgün envanter doğrudan geçerlik çalışması');
+  } else if (evidenceLevel === 'NO_DIRECT') {
+    uncertainties.push({
+      type: 'EVIDENCE_UNCERTAINTY',
+      labelTr: 'Doğrudan Kanıt Bulunmuyor',
+      descriptionTr: 'Bu boyut için literatürde doğrudan Türkçe geçerlik kanıtı doğrulanmamıştır.',
+    });
+    missingSignals.push('Doğrudan ampirik geçerlik kaydı');
   }
 
-  if (!hasTurkishEvidence) {
+  if (!isTurkishDirect) {
     uncertainties.push({
       type: 'EVIDENCE_UNCERTAINTY',
       labelTr: 'Türkçe Uyarlama Kanıtı Eksik',
       descriptionTr: 'Bu ölçeğin Türkçe psikometrik uyarlama ve geçerlik kanıtı doğrulanmamıştır.',
     });
     missingSignals.push('Türkçe psikometrik geçerlik kanıtı');
+  }
+
+  // Human verification signal (honest representation - never invent)
+  if (humanVerified === false) {
+    uncertainties.push({
+      type: 'PROVENANCE_UNCERTAINTY',
+      labelTr: 'Uzman Onayı Bekleniyor',
+      descriptionTr: 'Bu boyutun psikometrik kanıt kaydı henüz bağımsız uzman incelemesinden (human review) geçmemiştir.',
+    });
+    missingSignals.push('Bağımsız uzman denetimi (human verification)');
   }
 
   // Temporal uncertainty
@@ -215,7 +291,7 @@ export function deriveDimensionConfidence(
     });
   }
 
-  // 4. Construct Clear Explanation
+  // 5. Construct Clear Explanation
   let explanationTr = '';
   if (level === 'HIGH') {
     explanationTr = `${itemCount} maddelik doğrudan ölçekleme, doğrulanmış Türkçe uyarlama ve tutarlı oturum telemetrisi sayesinde ampirik ölçüm desteği güçlüdür.`;
@@ -226,7 +302,9 @@ export function deriveDimensionConfidence(
       ? `Az sayıda madde (${itemCount} md.) ile ölçüldüğünden ölçüm desteği başlangıç düzeyindedir; ek değerlendirme önerilir.`
       : responseQuality === 'QUESTIONABLE'
       ? 'Oturum telemetrisindeki dikkat/hız uyarısı nedeniyle temkinli değerlendirilmelidir.'
-      : 'Psikometrik kanıt veya uyarlama bilgisi henüz doğrulanmadığından sınırlı ölçüm desteği sunar.';
+      : !isInstrumentMatched
+      ? 'Uygulanan envanter ile geçerlik veritabanı eşleşmediğinden temkinli değerlendirilmelidir.'
+      : 'Psikometrik kanıt veya uyarlama bilgisi henüz doğrudan doğrulanmadığından sınırlı ölçüm desteği sunar.';
   } else {
     explanationTr = 'Veri kalitesi veya madde sayısı yetersiz olduğundan ölçüm desteği düşüktür.';
   }
@@ -245,11 +323,16 @@ export function deriveDimensionConfidence(
     calibrationState: 'PRE_CALIBRATION',
     temporalSignal,
     measurementCount,
-    provenanceCompleteness: Boolean(instrumentName) && hasDirectEvidence,
+    provenanceCompleteness: Boolean(instrumentName) && isFullyDirectValidated,
     positiveFactors,
     uncertainties,
     missingSignals,
     explanationTr,
+    overallTurkishEvidenceLevel,
+    measurementAlignmentLevel,
+    appliesToLevel,
+    instrumentMatch: isInstrumentMatched,
+    humanVerified,
   };
 }
 

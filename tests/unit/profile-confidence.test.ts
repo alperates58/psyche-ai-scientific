@@ -226,7 +226,149 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
   });
 
   // ---------------------------------------------------------
-  // 3. Separate Evidence from Calibration Tests
+  // 3. Authoritative Scientific Evidence & Scope Alignment Tests
+  // ---------------------------------------------------------
+  describe('Authoritative Validation Evidence & Scope Alignment Guardrails', () => {
+    it('does NOT assign DIRECT or HIGH when only citation text is present without validation summary', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-cit-only',
+        dimensionCode: 'cit_trait',
+        dimensionNameTr: 'Yalnızca Alıntı',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT',
+        evidenceLevel: 'UNKNOWN',
+        hasTurkishEvidence: false,
+        instrumentName: 'Instrument With Citation Only (Ashton & Lee, 2007)',
+      });
+
+      // Must NOT be HIGH
+      expect(conf.level).not.toBe('HIGH');
+      expect(conf.level).toBe('LOW');
+      expect(conf.levelLabelTr).toContain('Sınırlı');
+      expect(conf.provenanceCompleteness).toBe(false);
+    });
+
+    it('does NOT create Turkish evidence from author name substrings (e.g. Wasti, Aypay)', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-author-check',
+        dimensionCode: 'author_trait',
+        dimensionNameTr: 'Yazar İsimli Boyut',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT',
+        evidenceLevel: 'NO_DIRECT',
+        overallTurkishEvidenceLevel: 'NO_DIRECT',
+        hasTurkishEvidence: false,
+        instrumentName: 'Inventory (Wasti, Aypay, Yildirim)',
+      });
+
+      expect(conf.level).toBe('LOW');
+      expect(conf.uncertainties.some((u) => u.labelTr.includes('Türkçe Uyarlama Kanıtı Eksik'))).toBe(true);
+    });
+
+    it('downgrades BROAD_FACTOR lexical evidence so it does NOT become facet DIRECT', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-broad-lex',
+        dimensionCode: 'broad_trait',
+        dimensionNameTr: 'Geniş Leksikal Faktör',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT',
+        evidenceLevel: 'LEXICAL',
+        overallTurkishEvidenceLevel: 'LEXICAL',
+        appliesToLevel: 'BROAD_FACTOR',
+        measurementAlignmentLevel: 'CONSTRUCT_ALIGNED',
+        instrumentMatch: true,
+        instrumentName: 'HEXACO-60 TR',
+      });
+
+      // Broad factor lexical support must NOT grant HIGH
+      expect(conf.level).not.toBe('HIGH');
+      expect(conf.level).toBe('MODERATE');
+      expect(conf.levelLabelTr).toContain('Geniş Faktör/Leksikal');
+      expect(conf.uncertainties.some((u) => u.labelTr.includes('Yalnızca Leksikal'))).toBe(true);
+    });
+
+    it('assigns HIGH when DIRECT + exact facet alignment + matching instrument + clean telemetry are met', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-perfect',
+        dimensionCode: 'exact_facet',
+        dimensionNameTr: 'Tam Uyumlu Alt Boyut',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT',
+        evidenceLevel: 'DIRECT',
+        overallTurkishEvidenceLevel: 'DIRECT',
+        appliesToLevel: 'FACET',
+        measurementAlignmentLevel: 'EXACT_FACET',
+        instrumentMatch: true,
+        instrumentValidationEstablished: true,
+        hasTurkishEvidence: true,
+        instrumentName: 'HEXACO-60 TR',
+        humanVerified: false,
+      });
+
+      expect(conf.level).toBe('HIGH');
+      expect(conf.levelLabelTr).toBe('Güçlü Ölçüm Desteği');
+      expect(conf.positiveFactors.some((f) => f.includes('Doğrulanmış psikometrik envanter'))).toBe(true);
+      // Invariant: humanVerified: false remains honestly represented
+      expect(conf.humanVerified).toBe(false);
+      expect(conf.uncertainties.some((u) => u.labelTr.includes('Uzman Onayı Bekleniyor'))).toBe(true);
+    });
+
+    it('honestly includes human-verified positive factor only when humanVerified is explicitly true', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-human-verified',
+        dimensionCode: 'verified_trait',
+        dimensionNameTr: 'Uzman Onaylı Boyut',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT',
+        evidenceLevel: 'DIRECT',
+        overallTurkishEvidenceLevel: 'DIRECT',
+        appliesToLevel: 'FACET',
+        measurementAlignmentLevel: 'EXACT_FACET',
+        instrumentMatch: true,
+        instrumentValidationEstablished: true,
+        hasTurkishEvidence: true,
+        instrumentName: 'HEXACO-60 TR',
+        humanVerified: true,
+      });
+
+      expect(conf.humanVerified).toBe(true);
+      expect(conf.positiveFactors.some((f) => f.includes('human-verified'))).toBe(true);
+      expect(conf.uncertainties.some((u) => u.labelTr.includes('Uzman Onayı Bekleniyor'))).toBe(false);
+    });
+
+    it('caps at LOW when session instrument does NOT match validation record instrument', () => {
+      const conf = deriveDimensionConfidence({
+        dimensionId: 'facet-mismatched',
+        dimensionCode: 'mismatched_trait',
+        dimensionNameTr: 'Eşleşmeyen Boyut',
+        domainCode: 'core_personality',
+        domainNameTr: 'Temel Kişilik',
+        itemCount: 10,
+        responseQuality: 'EXCELLENT',
+        evidenceLevel: 'NO_DIRECT',
+        overallTurkishEvidenceLevel: 'NO_DIRECT',
+        instrumentMatch: false,
+        instrumentName: 'Different Unknown Instrument',
+      });
+
+      expect(conf.level).toBe('LOW');
+      expect(conf.levelLabelTr).toContain('Eşleşmeyen');
+      expect(conf.uncertainties.some((u) => u.labelTr.includes('Envanter Eşleşme Uyarısı'))).toBe(true);
+    });
+  });
+
+  // ---------------------------------------------------------
+  // 4. Separate Evidence from Calibration Tests
   // ---------------------------------------------------------
   describe('Separation of Validation Evidence from Calibration Status', () => {
     it('records pre-calibration uncertainty even when Turkish psychometric evidence is present', () => {
@@ -244,7 +386,7 @@ describe('FAZ 2.13 — Profile Confidence Evaluator & Completeness Unit Tests', 
       });
 
       // Positive factor for evidence
-      expect(conf.positiveFactors.some((f) => f.includes('Türkçe psikometrik uyarlama'))).toBe(true);
+      expect(conf.positiveFactors.some((f) => f.includes('Türkçe doğrudan psikometrik uyarlama'))).toBe(true);
 
       // Limiting factor for calibration
       expect(conf.calibrationState).toBe('PRE_CALIBRATION');
