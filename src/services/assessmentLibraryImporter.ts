@@ -615,9 +615,15 @@ export async function importAssessmentLibrary(
           const publishedResult = await publishAssessmentFormVersion(
             { formVersionId: rsesFormVersion.id },
             {
-              actorUserId: 'system_importer',
-              ip: '127.0.0.1',
+              actorUserId: null, // STRICT: System operations must not write fake strings to User.id foreign key
+              actorType: 'SYSTEM_IMPORTER',
+              ip: null, // STRICT: No fabricated IP address
               userAgent: 'PsycheAI-Assessment-Importer/1.0',
+              metadata: {
+                actorType: 'SYSTEM_IMPORTER',
+                operation: 'ASSESSMENT_LIBRARY_IMPORT',
+                source: 'FAZ_2_10_IMPORTER',
+              },
             }
           );
 

@@ -28,8 +28,10 @@ const DEFAULT_LIKERT_5_OPTIONS = [
 
 export interface AuditContext {
   actorUserId?: string | null;
+  actorType?: 'USER' | 'SYSTEM_IMPORTER' | 'SYSTEM';
   ip?: string | null;
   userAgent?: string | null;
+  metadata?: Record<string, any> | null;
 }
 
 // ---------------------------------------------------------
@@ -1021,15 +1023,17 @@ export async function publishAssessmentFormVersion(
 
       await logScientificAuditEventTx(tx, {
         eventType: 'FORM_ARCHIVED',
-        actorUserId: ctx?.actorUserId,
+        actorUserId: ctx?.actorUserId || null,
         targetEntityType: 'AssessmentFormVersion',
         targetEntityId: existingPublished.id,
-        ip: ctx?.ip,
-        userAgent: ctx?.userAgent,
+        ip: ctx?.ip || null,
+        userAgent: ctx?.userAgent || null,
         metadata: {
+          actorType: ctx?.actorType ?? (ctx?.actorUserId ? 'USER' : 'SYSTEM'),
           versionCode: existingPublished.versionCode,
           replacedByFormVersionId: targetForm.id,
           replacedByVersionCode: targetForm.versionCode,
+          ...ctx?.metadata,
         },
       });
     }
@@ -1064,18 +1068,20 @@ export async function publishAssessmentFormVersion(
     // 7. Transactional audit log for publication
     await logScientificAuditEventTx(tx, {
       eventType: 'FORM_PUBLISHED',
-      actorUserId: ctx?.actorUserId,
+      actorUserId: ctx?.actorUserId || null,
       targetEntityType: 'AssessmentFormVersion',
       targetEntityId: published.id,
-      ip: ctx?.ip,
-      userAgent: ctx?.userAgent,
+      ip: ctx?.ip || null,
+      userAgent: ctx?.userAgent || null,
       metadata: {
+        actorType: ctx?.actorType ?? (ctx?.actorUserId ? 'USER' : 'SYSTEM'),
         moduleId: published.moduleId,
         moduleCode: targetForm.module.code,
         versionCode: published.versionCode,
         itemCount: formItems.length,
         archivedPreviousFormId: existingPublished?.id || null,
         archivedPreviousVersionCode: existingPublished?.versionCode || null,
+        ...ctx?.metadata,
       },
     });
 

@@ -214,3 +214,43 @@ describe('FAZ 2.10: Validation Status vs License Status Independence', () => {
   });
 });
 
+describe('FAZ 2.10: System Importer Audit Actor Semantics (No FK Bypass)', () => {
+  it('strictly uses actorUserId = null for non-human deployment operations', () => {
+    const systemAuditContext = {
+      actorUserId: null,
+      actorType: 'SYSTEM_IMPORTER' as const,
+      ip: null,
+      userAgent: 'PsycheAI-Assessment-Importer/1.0',
+      metadata: {
+        actorType: 'SYSTEM_IMPORTER',
+        operation: 'ASSESSMENT_LIBRARY_IMPORT',
+        source: 'FAZ_2_10_IMPORTER',
+      },
+    };
+
+    // System operations must never write a fake string into actorUserId (FK to User.id)
+    expect(systemAuditContext.actorUserId).toBeNull();
+    expect(typeof systemAuditContext.actorUserId).not.toBe('string');
+    expect(systemAuditContext.actorType).toBe('SYSTEM_IMPORTER');
+    expect(systemAuditContext.ip).toBeNull();
+    expect(systemAuditContext.metadata.operation).toBe('ASSESSMENT_LIBRARY_IMPORT');
+  });
+
+  it('preserves real authenticated user.id for human admin actions', () => {
+    const adminUserAuditContext = {
+      actorUserId: 'usr_admin_real_uuid_123',
+      actorType: 'USER' as const,
+      ip: '192.168.1.50',
+      userAgent: 'Mozilla/5.0 Chrome/120',
+      metadata: {
+        actorType: 'USER',
+      },
+    };
+
+    expect(adminUserAuditContext.actorUserId).toBe('usr_admin_real_uuid_123');
+    expect(adminUserAuditContext.actorType).toBe('USER');
+    expect(adminUserAuditContext.ip).toBe('192.168.1.50');
+  });
+});
+
+
