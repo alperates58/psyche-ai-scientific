@@ -20,7 +20,7 @@ import {
 } from '@/types/profile';
 
 /**
- * Deterministic Profile Maturity Evaluator (Product Progress Concept only).
+ * Deterministic Profile Maturity Evaluator (Product Measurement Coverage Concept only).
  * Base it purely on actual measurement coverage (completed assessments, measured domains, measured facets).
  * NEVER base on psychological score magnitude or clinical completeness.
  */
@@ -35,7 +35,10 @@ export function deriveProfileMaturity(params: {
   descriptionTr: string;
   progressPercentage: number;
 } {
-  const { completedAssessmentsCount, measuredDomainsCount, measuredFacetsCount } = params;
+  const { completedAssessmentsCount, measuredDomainsCount, measuredFacetsCount, totalOntologyFacets } = params;
+
+  const total = totalOntologyFacets > 0 ? totalOntologyFacets : 84;
+  const progressPercentage = Math.min(100, Math.max(0, Math.round((measuredFacetsCount / total) * 100)));
 
   if (completedAssessmentsCount === 0 || measuredFacetsCount === 0) {
     return {
@@ -46,47 +49,47 @@ export function deriveProfileMaturity(params: {
     };
   }
 
-  // 1 assessment or 1 domain
-  if (completedAssessmentsCount === 1 || measuredDomainsCount === 1) {
+  // KAPSAMLI: requires high ontology facet coverage (>= 60/84, ~71%+) AND broad domain coverage (>= 6 domains)
+  if (measuredFacetsCount >= 60 && measuredDomainsCount >= 6) {
     return {
-      stage: 'BAŞLANGIÇ',
-      labelTr: 'Başlangıç Profili',
-      descriptionTr: 'Temel profil oluşturuldu. Farklı alanları keşfederek profilinizi zenginleştirebilirsiniz.',
-      progressPercentage: 25,
+      stage: 'KAPSAMLI',
+      labelTr: 'Kapsamlı Profil',
+      descriptionTr: `Ontolojideki alt boyutların büyük çoğunluğu (%${progressPercentage}) ${measuredDomainsCount} alanda taranmıştır.`,
+      progressPercentage,
     };
   }
 
-  // 2 assessments or 2 domains
-  if (completedAssessmentsCount === 2 || measuredDomainsCount === 2) {
-    return {
-      stage: 'GELİŞEN',
-      labelTr: 'Gelişen Profil',
-      descriptionTr: 'Çoklu psikolojik alan ölçümü devrede. Boyutlar arası etkileşimler haritalandırılıyor.',
-      progressPercentage: 50,
-    };
-  }
-
-  // 3+ assessments or 3-4 domains
-  if (completedAssessmentsCount >= 3 && measuredDomainsCount >= 3 && measuredDomainsCount < 5) {
+  // GENİŞLEYEN: requires substantial facet coverage (>= 35/84, ~41%+) AND multiple domains (>= 4 domains)
+  if (measuredFacetsCount >= 35 && measuredDomainsCount >= 4) {
     return {
       stage: 'GENİŞLEYEN',
       labelTr: 'Genişleyen Profil',
-      descriptionTr: 'Geniş ontolojik kapsama ulaşıldı. Davranışsal, duygusal ve bilişsel örüntüler belirginleşti.',
-      progressPercentage: 75,
+      descriptionTr: `Geniş ontolojik kapsama (%${progressPercentage}) ulaşıldı. ${measuredDomainsCount} alanda psikolojik dinamikler analiz edilmektedir.`,
+      progressPercentage,
     };
   }
 
-  // 4+ assessments or 5+ domains
+  // GELİŞEN: requires meaningful facet coverage (>= 15/84) AND at least 2 domains
+  if (measuredFacetsCount >= 15 && measuredDomainsCount >= 2) {
+    return {
+      stage: 'GELİŞEN',
+      labelTr: 'Gelişen Profil',
+      descriptionTr: `Temel psikolojik boyutlar (%${progressPercentage} kapsam) ${measuredDomainsCount} alanda haritalandırılmıştır.`,
+      progressPercentage,
+    };
+  }
+
+  // BAŞLANGIÇ: narrow/initial coverage (<15 facets or <2 domains)
   return {
-    stage: 'KAPSAMLI',
-    labelTr: 'Kapsamlı Profil',
-    descriptionTr: 'Kapsamlı ürün ölçüm seviyesi. Ontolojinin büyük çoğunluğu ampirik olarak taranmıştır.',
-    progressPercentage: 100,
+    stage: 'BAŞLANGIÇ',
+    labelTr: 'Başlangıç Profili',
+    descriptionTr: `Başlangıç seviyesinde ölçüm yapılmıştır (%${progressPercentage} kapsam). Yeni modüllerle profilinizi zenginleştirebilirsiniz.`,
+    progressPercentage,
   };
 }
 
 /**
- * Aggregates response-quality signals across all completed assessments.
+ * Aggregates response-quality signals across assessments contributing to the active profile.
  * Strictly avoids generating a fake master confidence percentage.
  */
 export function deriveUnifiedResponseQuality(
@@ -155,7 +158,7 @@ export function deriveUnifiedResponseQuality(
 
   if (overallFlag === 'EXCELLENT') {
     headlineTr = `${totalAudited} değerlendirmenin tümünde yanıt kalitesi yüksek`;
-    explanationTr = 'Tüm değerlendirmelerde yanıtlama hızı, dikkat kontrolleri ve yanıt çeşitliliği mükemmel standarttadır.';
+    explanationTr = 'Tüm değerlendirmelerde yanıtlama hızı, dikkat kontrolleri ve yanıt çeşitliliği yüksek güvenilirlikle karşılanmıştır.';
   } else if (overallFlag === 'ACCEPTABLE') {
     headlineTr = `${totalAudited} değerlendirmenin ${acceptableOrBetter}'sinde yanıt kalitesi yeterli`;
     explanationTr = 'Yanıtlama deseniniz tutarlı ve ölçüm kriterlerine uygundur; belirgin bir veri anomalisi saptanmamıştır.';
@@ -229,13 +232,13 @@ export function deriveUnifiedQualityDimensions(params: {
     methodDiversity: {
       instrumentCount: instrumentsUsed.length,
       instrumentsUsed,
-      labelTr: `${instrumentsUsed.length} Değerlendirme Ölçeği`,
+      labelTr: `${instrumentsUsed.length} Değerlendirme Aracı`,
       detailTr:
         instrumentsUsed.length > 1
-          ? 'Farklı psikometrik ölçeklerle çoklu ölçüm sağlanmıştır.'
+          ? 'Farklı değerlendirme araçları ile çoklu ölçek ölçümü sağlanmıştır.'
           : instrumentsUsed.length === 1
-          ? 'Tek bir değerlendirme ölçeği tamamlanmıştır.'
-          : 'Henüz tamamlanmış ölçek bulunmuyor.',
+          ? 'Tek bir değerlendirme aracı tamamlanmıştır.'
+          : 'Henüz tamamlanmış değerlendirme aracı bulunmuyor.',
     },
     calibrationStatus: {
       status: 'PRE_CALIBRATION',
@@ -280,7 +283,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     0
   ) || TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH;
 
-  // 3. Fetch all completed assessment sessions with linked snapshots & integrity results
+  // 3. Fetch all completed assessment sessions with linked snapshots & items
   const completedSessions = await prisma.assessmentSession.findMany({
     where: {
       userId,
@@ -290,6 +293,19 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       formVersion: {
         include: {
           module: true,
+          items: {
+            include: {
+              itemVersion: {
+                include: {
+                  item: {
+                    include: {
+                      instrument: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
       integrityResults: {
@@ -336,7 +352,6 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
   // 4. Group valid sessions by module to identify latest per module and build historical provenance
   const sessionsByModule = new Map<string, typeof validCompletedSessions>();
   const sourceAssessments: SourceAssessmentProvenance[] = [];
-  const instrumentsUsedSet = new Set<string>();
 
   for (const session of validCompletedSessions) {
     const modId = session.formVersion.module.id;
@@ -344,8 +359,6 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       sessionsByModule.set(modId, []);
     }
     sessionsByModule.get(modId)!.push(session);
-
-    instrumentsUsedSet.add(session.formVersion.module.titleTr);
   }
 
   // Identify latest valid session per module and populate provenance timeline
@@ -375,8 +388,41 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     });
   }
 
-  // 5. Multi-Assessment Read-Time Aggregation (Latest valid measurement per facet/construct/domain)
-  // Maps: ID -> Measured Data with Scale Provenance
+  // 5. Identify active sessions contributing to CURRENT profile
+  const activeSessions = Array.from(latestSessionPerModule.values());
+  activeSessions.sort((a, b) => {
+    const timeA = a.completedAt ? new Date(a.completedAt).getTime() : 0;
+    const timeB = b.completedAt ? new Date(b.completedAt).getTime() : 0;
+    return timeB - timeA;
+  });
+
+  // Extract REAL distinct source instruments contributing to current measurements
+  const distinctInstrumentsMap = new Map<string, { id: string; code: string; name: string }>();
+  for (const session of activeSessions) {
+    for (const formItem of session.formVersion.items || []) {
+      const inst = formItem.itemVersion?.item?.instrument;
+      if (inst && !distinctInstrumentsMap.has(inst.id)) {
+        distinctInstrumentsMap.set(inst.id, {
+          id: inst.id,
+          code: inst.code,
+          name: inst.fullName || inst.name,
+        });
+      }
+    }
+    // Fallback if form items lack direct instrument relation: use module title as instrument identifier
+    if ((session.formVersion.items || []).length === 0 || distinctInstrumentsMap.size === 0) {
+      const fallbackKey = session.formVersion.module.code;
+      if (!distinctInstrumentsMap.has(fallbackKey)) {
+        distinctInstrumentsMap.set(fallbackKey, {
+          id: session.formVersion.module.id,
+          code: session.formVersion.module.code,
+          name: session.formVersion.module.titleTr,
+        });
+      }
+    }
+  }
+
+  // 6. Multi-Assessment Read-Time Aggregation (Latest valid measurement per facet/construct)
   const latestFacetMap = new Map<
     string,
     {
@@ -396,24 +442,6 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       provenance: MeasurementProvenanceMetadata;
     }
   >();
-
-  const latestDomainMap = new Map<
-    string,
-    {
-      compositeScore: number;
-      constructCount: number;
-      scale: MeasurementScaleMetadata;
-      provenance: MeasurementProvenanceMetadata;
-    }
-  >();
-
-  // Iterate over latest valid sessions per module (newest first)
-  const activeSessions = Array.from(latestSessionPerModule.values());
-  activeSessions.sort((a, b) => {
-    const timeA = a.completedAt ? new Date(a.completedAt).getTime() : 0;
-    const timeB = b.completedAt ? new Date(b.completedAt).getTime() : 0;
-    return timeB - timeA;
-  });
 
   for (const session of activeSessions) {
     const snapshot = session.snapshotSessions[0].profileSnapshot;
@@ -461,21 +489,9 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
         });
       }
     }
-
-    // Domains
-    for (const ds of snapshot.domainScores) {
-      if (!latestDomainMap.has(ds.domainId)) {
-        latestDomainMap.set(ds.domainId, {
-          compositeScore: ds.compositeScore,
-          constructCount: ds.constructCount,
-          scale: scaleMetadata,
-          provenance: provenanceMetadata,
-        });
-      }
-    }
   }
 
-  // 6. Build the Complete 84-Facet List & Hierarchical Domain/Construct Trees
+  // 7. Build the Complete 84-Facet List & Hierarchical Domain/Construct Trees
   const allFacets84: UnifiedFacetViewModel[] = [];
   const domainViewModels: UnifiedDomainViewModel[] = [];
   let totalMeasuredFacetsCount = 0;
@@ -645,23 +661,27 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       }
     }
 
-    // Determine Domain Status
+    // Determine Domain Status based strictly on canonical facet coverage
     const totalFacetsInDomain = domain.constructs.reduce((acc, c) => acc + c.facets.length, 0);
     const totalConstructsInDomain = domain.constructs.length;
 
     let domainStatus: 'MEASURED' | 'PARTIAL' | 'UNMEASURED' = 'UNMEASURED';
-    if (domainMeasuredConstructsCount === totalConstructsInDomain && totalConstructsInDomain > 0) {
-      domainStatus = 'MEASURED';
-      totalMeasuredDomainsCount++;
-    } else if (domainMeasuredConstructsCount > 0) {
-      domainStatus = 'PARTIAL';
-      totalMeasuredDomainsCount++;
+    if (totalFacetsInDomain > 0) {
+      if (domainMeasuredFacetsCount === 0) {
+        domainStatus = 'UNMEASURED';
+      } else if (domainMeasuredFacetsCount === totalFacetsInDomain) {
+        domainStatus = 'MEASURED';
+        totalMeasuredDomainsCount++;
+      } else {
+        domainStatus = 'PARTIAL';
+        totalMeasuredDomainsCount++;
+      }
     }
 
     const coveragePercentage =
       totalFacetsInDomain > 0 ? Math.round((domainMeasuredFacetsCount / totalFacetsInDomain) * 100) : 0;
 
-    // Conservative Domain Score: ONLY display if an explicit authoritative scientific aggregation exists.
+    // Conservative Domain Score: ONLY display if an explicit authoritative scientific completeness exists.
     // For core_personality when fully measured, use unweighted mean of broad factors.
     // For partial domains, NEVER synthesize a domain composite score.
     let domainCompositeScore: number | null = null;
@@ -702,15 +722,15 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     });
   }
 
-  // 7. Calculate Exploration Coverage & Measurement Depth
+  // 8. Calculate Exploration Coverage & Measurement Depth
   const facetItemCounts: Record<string, number> = {};
   for (const [fId, data] of latestFacetMap.entries()) {
     facetItemCounts[fId] = data.itemCount;
   }
   const coverageMetrics = calculateProfileCoverage(facetItemCounts, totalOntologyFacets, 6);
 
-  // 8. Response Quality Telemetry Summary
-  const sessionsWithIntegrity = validCompletedSessions.map((s) => {
+  // 9. Response Quality Telemetry Summary from ACTIVE sessions contributing to the CURRENT profile
+  const activeSessionsWithIntegrity = activeSessions.map((s) => {
     const ir = s.integrityResults[0];
     return {
       moduleTitleTr: s.formVersion.module.titleTr,
@@ -720,9 +740,9 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       attentionCheckPassed: ir?.attentionCheckPassed ?? true,
     };
   });
-  const responseQuality = deriveUnifiedResponseQuality(sessionsWithIntegrity);
+  const responseQuality = deriveUnifiedResponseQuality(activeSessionsWithIntegrity);
 
-  // 9. 4-Dimensional Quality Breakdown
+  // 10. 4-Dimensional Quality Breakdown
   const qualityDimensions = deriveUnifiedQualityDimensions({
     measuredDomainsCount: totalMeasuredDomainsCount,
     totalDomainsCount: canonicalDomains.length,
@@ -731,18 +751,18 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     explorationPercentage: coverageMetrics.explorationPercentage,
     depthPercentage: coverageMetrics.measurementDepthPercentage,
     responseQuality,
-    instrumentsUsed: Array.from(instrumentsUsedSet),
+    instrumentsUsed: Array.from(distinctInstrumentsMap.values()).map((i) => i.name),
   });
 
-  // 10. Profile Maturity Stage
+  // 11. Profile Maturity Stage
   const maturity = deriveProfileMaturity({
-    completedAssessmentsCount: latestSessionPerModule.size,
+    completedAssessmentsCount: activeSessions.length,
     measuredDomainsCount: totalMeasuredDomainsCount,
     measuredFacetsCount: totalMeasuredFacetsCount,
     totalOntologyFacets,
   });
 
-  // 11. Profile Fingerprint Visual Dimensions (Measured constructs across domains)
+  // 12. Profile Fingerprint Visual Dimensions (Measured constructs across domains)
   const fingerprintDimensions: ProfileFingerprintDimension[] = [];
   for (const domain of domainViewModels) {
     for (const construct of domain.constructs) {
@@ -781,7 +801,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
         : 'Henüz ölçülen bir boyut bulunmuyor.',
   };
 
-  // 12. Specialized Modular Sections
+  // 13. Specialized Modular Sections
   // A) HEXACO Profile Section
   const coreDomain = domainViewModels.find((d) => d.code === 'core_personality');
   let hexacoSection = null;
@@ -861,7 +881,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     }
   }
 
-  // 13. Strengths & Attention Points (Deterministic, deduplicated, 4-6 concise items)
+  // 14. Strengths & Attention Points (Deterministic, deduplicated, 4-6 concise items)
   const strengths: Array<{ traitName: string; point: string; sourceConstruct: string }> = [];
   const attentionPoints: Array<{ traitName: string; point: string; sourceConstruct: string }> = [];
   const seenStrengthTexts = new Set<string>();
@@ -895,10 +915,10 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     }
   }
 
-  // 14. Cross-Domain Interactions (Evaluated strictly against measured constructs)
+  // 15. Cross-Domain Interactions (Evaluated strictly against measured constructs)
   const interactions = evaluateUnifiedInteractions(interactionConstructsMap);
 
-  // 15. Unmeasured Domains Catalogue ("Profilinde Henüz Eksik Olan Alanlar")
+  // 16. Unmeasured Domains Catalogue ("Profilinde Henüz Eksik Olan Alanlar")
   const DOMAIN_WHY_IT_MATTERS: Record<string, string> = {
     emotional_affective:
       'Duygusal dayanıklılık, stres toleransı ve duygulanım düzenleme stratejilerinizi haritalandırır.',
@@ -944,7 +964,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
       };
     });
 
-  // 16. Last updated timestamp
+  // 17. Last updated timestamp
   const latestCompletedDate = validCompletedSessions[0]?.completedAt || null;
 
   return {
@@ -953,7 +973,7 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
     hasAssessments,
     maturity,
     lastUpdatedAt: latestCompletedDate ? latestCompletedDate.toISOString() : null,
-    completedAssessmentCount: latestSessionPerModule.size,
+    completedAssessmentCount: activeSessions.length,
     qualityDimensions,
     responseQuality,
     domains: domainViewModels,

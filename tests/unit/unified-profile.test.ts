@@ -27,7 +27,7 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       expect(maturity.labelTr).toContain('Başlangıç');
     });
 
-    it('returns BAŞLANGIÇ (25%) for single completed assessment (1 domain)', () => {
+    it('returns BAŞLANGIÇ (20%) for single completed assessment with 17/84 facets', () => {
       const maturity = deriveProfileMaturity({
         completedAssessmentsCount: 1,
         measuredDomainsCount: 1,
@@ -36,10 +36,34 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       });
 
       expect(maturity.stage).toBe('BAŞLANGIÇ');
-      expect(maturity.progressPercentage).toBe(25);
+      expect(maturity.progressPercentage).toBe(20); // Math.round(17/84 * 100) = 20
     });
 
-    it('returns GELİŞEN (50%) for 2 completed assessments across 2 domains', () => {
+    it('returns BAŞLANGIÇ (6%) even if 5 domains have shallow measurements (5/84 facets) — strictly avoids premature KAPSAMLI', () => {
+      const maturity = deriveProfileMaturity({
+        completedAssessmentsCount: 5,
+        measuredDomainsCount: 5,
+        measuredFacetsCount: 5,
+        totalOntologyFacets: 84,
+      });
+
+      expect(maturity.stage).toBe('BAŞLANGIÇ');
+      expect(maturity.progressPercentage).toBe(6); // Math.round(5/84 * 100) = 6
+    });
+
+    it('returns BAŞLANGIÇ (12%) for 4 assessments with only 10/84 facets', () => {
+      const maturity = deriveProfileMaturity({
+        completedAssessmentsCount: 4,
+        measuredDomainsCount: 3,
+        measuredFacetsCount: 10,
+        totalOntologyFacets: 84,
+      });
+
+      expect(maturity.stage).toBe('BAŞLANGIÇ');
+      expect(maturity.progressPercentage).toBe(12);
+    });
+
+    it('returns GELİŞEN (23%) for 2 completed assessments across 2 domains with 19/84 facets', () => {
       const maturity = deriveProfileMaturity({
         completedAssessmentsCount: 2,
         measuredDomainsCount: 2,
@@ -48,23 +72,23 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       });
 
       expect(maturity.stage).toBe('GELİŞEN');
-      expect(maturity.progressPercentage).toBe(50);
+      expect(maturity.progressPercentage).toBe(23); // Math.round(19/84 * 100) = 23
       expect(maturity.labelTr).toContain('Gelişen');
     });
 
-    it('returns GENİŞLEYEN (75%) for 3 assessments across 3-4 domains', () => {
+    it('returns GENİŞLEYEN (45%) for 38/84 facets across 4 domains', () => {
       const maturity = deriveProfileMaturity({
         completedAssessmentsCount: 3,
-        measuredDomainsCount: 3,
-        measuredFacetsCount: 35,
+        measuredDomainsCount: 4,
+        measuredFacetsCount: 38,
         totalOntologyFacets: 84,
       });
 
       expect(maturity.stage).toBe('GENİŞLEYEN');
-      expect(maturity.progressPercentage).toBe(75);
+      expect(maturity.progressPercentage).toBe(45); // Math.round(38/84 * 100) = 45
     });
 
-    it('returns KAPSAMLI (100%) for 4+ assessments or 5+ domains', () => {
+    it('returns KAPSAMLI (77%) only when substantial facet coverage (65/84) AND broad domains (6) are met', () => {
       const maturity = deriveProfileMaturity({
         completedAssessmentsCount: 5,
         measuredDomainsCount: 6,
@@ -73,7 +97,7 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       });
 
       expect(maturity.stage).toBe('KAPSAMLI');
-      expect(maturity.progressPercentage).toBe(100);
+      expect(maturity.progressPercentage).toBe(77); // Math.round(65/84 * 100) = 77
       expect(maturity.labelTr).toContain('Kapsamlı');
     });
 
@@ -159,12 +183,31 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       expect(res.straightliningDetected).toBe(true);
       expect(res.headlineTr).toContain('1 değerlendirmede dikkat/hız uyarısı saptandı');
     });
+
+    it('derives active profile response quality strictly from active sessions (latest per module)', () => {
+      // Historical session 1 had QUESTIONABLE, but latest active re-test session 2 is ACCEPTABLE
+      const activeSessionsTelemetry = [
+        {
+          moduleTitleTr: 'Temel Kişilik Yapısı',
+          overallFlag: 'ACCEPTABLE',
+          speedViolations: 0,
+          straightliningDetected: false,
+          attentionCheckPassed: true,
+        },
+      ];
+
+      const res = deriveUnifiedResponseQuality(activeSessionsTelemetry);
+      expect(res.overallFlag).toBe('ACCEPTABLE');
+      expect(res.isClean).toBe(true);
+      expect(res.speedViolationsCount).toBe(0);
+      expect(res.statusCounts.questionable).toBe(0);
+    });
   });
 
   // ---------------------------------------------------------
-  // 3. 4-Dimensional Quality Breakdown
+  // 3. 4-Dimensional Quality Breakdown & Method Diversity
   // ---------------------------------------------------------
-  describe('Quality Dimensions Breakdown', () => {
+  describe('Quality Dimensions Breakdown & Method Diversity', () => {
     it('produces 4 distinct indicators with method diversity and pre-calibration notices', () => {
       const responseQuality = deriveUnifiedResponseQuality([
         {
@@ -191,7 +234,7 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
         explorationPercentage: 21,
         depthPercentage: 35,
         responseQuality,
-        instrumentsUsed: ['HEXACO Kişilik Envanteri', 'Rosenberg Benlik Saygısı Ölçeği'],
+        instrumentsUsed: ['HEXACO-60 TR', 'Rosenberg Self-Esteem Scale TR'],
       });
 
       // 1. Coverage
@@ -203,13 +246,42 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       // 2. Response Quality
       expect(dimensions.responseQuality.status).toBe('ACCEPTABLE');
 
-      // 3. Method Diversity
+      // 3. Method Diversity (evaluation instruments)
       expect(dimensions.methodDiversity.instrumentCount).toBe(2);
       expect(dimensions.methodDiversity.instrumentsUsed).toHaveLength(2);
+      expect(dimensions.methodDiversity.labelTr).toBe('2 Değerlendirme Aracı');
+      expect(dimensions.methodDiversity.detailTr).toContain('Farklı değerlendirme araçları');
 
       // 4. Calibration Status
       expect(dimensions.calibrationStatus.status).toBe('PRE_CALIBRATION');
       expect(dimensions.calibrationStatus.disclaimerTr).toContain('yüzdelik dilimler');
+    });
+
+    it('formats single instrument diversity properly', () => {
+      const responseQuality = deriveUnifiedResponseQuality([
+        {
+          moduleTitleTr: 'HEXACO Kişilik Envanteri',
+          overallFlag: 'EXCELLENT',
+          speedViolations: 0,
+          straightliningDetected: false,
+          attentionCheckPassed: true,
+        },
+      ]);
+
+      const dimensions = deriveUnifiedQualityDimensions({
+        measuredDomainsCount: 1,
+        totalDomainsCount: 9,
+        exploredFacetsCount: 17,
+        totalFacetsCount: 84,
+        explorationPercentage: 20,
+        depthPercentage: 25,
+        responseQuality,
+        instrumentsUsed: ['HEXACO-PI-R 60 Item'],
+      });
+
+      expect(dimensions.methodDiversity.instrumentCount).toBe(1);
+      expect(dimensions.methodDiversity.labelTr).toBe('1 Değerlendirme Aracı');
+      expect(dimensions.methodDiversity.detailTr).toContain('Tek bir değerlendirme aracı tamamlanmıştır');
     });
   });
 
@@ -328,4 +400,32 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       expect(TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH).toBe(84);
     });
   });
+
+  // ---------------------------------------------------------
+  // 7. Domain Status & Composite Invariants
+  // ---------------------------------------------------------
+  describe('Domain Status & Conservative Composite Invariants', () => {
+    function deriveDomainStatusHelper(measuredFacets: number, totalFacets: number): 'MEASURED' | 'PARTIAL' | 'UNMEASURED' {
+      if (totalFacets <= 0 || measuredFacets === 0) return 'UNMEASURED';
+      if (measuredFacets === totalFacets) return 'MEASURED';
+      return 'PARTIAL';
+    }
+
+    it('classifies 0/10 facets as UNMEASURED', () => {
+      expect(deriveDomainStatusHelper(0, 10)).toBe('UNMEASURED');
+    });
+
+    it('classifies 1/10 facets as PARTIAL', () => {
+      expect(deriveDomainStatusHelper(1, 10)).toBe('PARTIAL');
+    });
+
+    it('classifies 9/10 facets as PARTIAL (strictly not MEASURED)', () => {
+      expect(deriveDomainStatusHelper(9, 10)).toBe('PARTIAL');
+    });
+
+    it('classifies 10/10 facets as MEASURED', () => {
+      expect(deriveDomainStatusHelper(10, 10)).toBe('MEASURED');
+    });
+  });
 });
+
