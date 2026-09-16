@@ -60,6 +60,30 @@ export interface ProfileVisualizationDefinition {
   }) => boolean;
 }
 
+/**
+ * Pure JSON-serializable Data Transfer Object for client presentation across React Server Component boundaries.
+ * Explicitly excludes server-only function predicates (e.g. conditionalPredicate).
+ */
+export interface ProfileVisualizationDto {
+  id: string;
+  titleTr: string;
+  descriptionTr: string;
+  dataRequirements: string[];
+  scientificStatus: ScientificStatus;
+  epistemicStatus: string;
+  allowedWhen: string;
+  blockedWhen: string;
+  visualType: VisualType;
+  sourceDimensions: string[];
+  isNormDependent: boolean;
+  isCalibrationDependent: boolean;
+  isLongitudinalDependent: boolean;
+  isDirectMeasurement: boolean;
+  isDerived: boolean;
+  userFacingDisclaimer: string;
+  status: VisualStatus;
+}
+
 export const MASTER_VISUALIZATION_REGISTRY: ProfileVisualizationDefinition[] = [
   // ---------------------------------------------------------
   // 1. ACTIVE NOW
@@ -548,7 +572,45 @@ export function evaluateVisualizationStatus(
 }
 
 /**
- * Returns all visualizations categorized by status for the current profile context.
+ * Converts a ProfileVisualizationDefinition into a strictly JSON-serializable DTO,
+ * stripping any server-only execution functions (e.g. conditionalPredicate)
+ * and assigning the resolved effective runtime status.
+ */
+export function toProfileVisualizationDto(
+  def: ProfileVisualizationDefinition,
+  effectiveStatus?: VisualStatus
+): ProfileVisualizationDto {
+  return {
+    id: def.id,
+    titleTr: def.titleTr,
+    descriptionTr: def.descriptionTr,
+    dataRequirements: [...def.dataRequirements],
+    scientificStatus: def.scientificStatus,
+    epistemicStatus: def.epistemicStatus,
+    allowedWhen: def.allowedWhen,
+    blockedWhen: def.blockedWhen,
+    visualType: def.visualType,
+    sourceDimensions: [...def.sourceDimensions],
+    isNormDependent: def.isNormDependent,
+    isCalibrationDependent: def.isCalibrationDependent,
+    isLongitudinalDependent: def.isLongitudinalDependent,
+    isDirectMeasurement: def.isDirectMeasurement,
+    isDerived: def.isDerived,
+    userFacingDisclaimer: def.userFacingDisclaimer,
+    status: effectiveStatus ?? def.status,
+  };
+}
+
+export interface CategorizedProfileVisualizations {
+  active: ProfileVisualizationDto[];
+  conditional: ProfileVisualizationDto[];
+  blocked: ProfileVisualizationDto[];
+  future: ProfileVisualizationDto[];
+}
+
+/**
+ * Returns all visualizations categorized by status for the current profile context,
+ * fully resolved and mapped to JSON-serializable DTOs for safe Server -> Client RSC boundary transit.
  */
 export function getCategorizedVisualizations(context: {
   measuredConstructCodes: string[];
@@ -557,27 +619,23 @@ export function getCategorizedVisualizations(context: {
   hasErqData: boolean;
   hasRsesData: boolean;
   hasGseData: boolean;
-}): {
-  active: ProfileVisualizationDefinition[];
-  conditional: ProfileVisualizationDefinition[];
-  blocked: ProfileVisualizationDefinition[];
-  future: ProfileVisualizationDefinition[];
-} {
-  const active: ProfileVisualizationDefinition[] = [];
-  const conditional: ProfileVisualizationDefinition[] = [];
-  const blocked: ProfileVisualizationDefinition[] = [];
-  const future: ProfileVisualizationDefinition[] = [];
+}): CategorizedProfileVisualizations {
+  const active: ProfileVisualizationDto[] = [];
+  const conditional: ProfileVisualizationDto[] = [];
+  const blocked: ProfileVisualizationDto[] = [];
+  const future: ProfileVisualizationDto[] = [];
 
   for (const def of MASTER_VISUALIZATION_REGISTRY) {
     const effectiveStatus = evaluateVisualizationStatus(def, context);
+    const dto = toProfileVisualizationDto(def, effectiveStatus);
     if (effectiveStatus === 'ACTIVE') {
-      active.push(def);
+      active.push(dto);
     } else if (effectiveStatus === 'CONDITIONAL') {
-      conditional.push(def);
+      conditional.push(dto);
     } else if (effectiveStatus === 'BLOCKED') {
-      blocked.push(def);
+      blocked.push(dto);
     } else {
-      future.push(def);
+      future.push(dto);
     }
   }
 

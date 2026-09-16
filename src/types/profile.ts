@@ -8,7 +8,10 @@ import {
 } from './confidence';
 import { HeatmapMatrixViewModel, HeatmapCellState } from './heatmap';
 import { ProfileTensionItem, InteractionType } from '@/lib/unifiedInteractionRegistry';
-import { ProfileVisualizationDefinition } from '@/lib/profileVisualizationRegistry';
+import {
+  ProfileVisualizationDefinition,
+  ProfileVisualizationDto,
+} from '@/lib/profileVisualizationRegistry';
 
 export type NormStatus = 'unavailable' | 'provisional' | 'validated';
 
@@ -385,12 +388,12 @@ export interface UnifiedProfileViewModel {
   tensionMatrix: ProfileTensionItem[];
   interactions: UnifiedInteractionViewModel[];
 
-  // FAZ 2.13 Master Visual Registry Statuses
+  // FAZ 2.13 Master Visual Registry Statuses (Strictly JSON-serializable DTOs)
   visualRegistry: {
-    active: ProfileVisualizationDefinition[];
-    conditional: ProfileVisualizationDefinition[];
-    blocked: ProfileVisualizationDefinition[];
-    future: ProfileVisualizationDefinition[];
+    active: ProfileVisualizationDto[];
+    conditional: ProfileVisualizationDto[];
+    blocked: ProfileVisualizationDto[];
+    future: ProfileVisualizationDto[];
   };
 
   // Visual Fingerprint V2 (measured dimensions only)

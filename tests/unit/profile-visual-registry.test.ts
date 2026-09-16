@@ -140,4 +140,137 @@ describe('FAZ 2.13 — Master Psychological Profile Visualization Registry Unit 
     expect(categorized.blocked.length).toBeGreaterThanOrEqual(5);
     expect(categorized.future.length).toBeGreaterThanOrEqual(4);
   });
+
+  // ---------------------------------------------------------
+  // REGRESSION TESTS: Server Component -> Client Component Serialization Boundary
+  // ---------------------------------------------------------
+  describe('Regression: RSC Boundary JSON-Serializability (No Functions in Payload)', () => {
+    it('ensures getCategorizedVisualizations produces strictly JSON-serializable DTOs with ZERO functions', () => {
+      const context = {
+        measuredConstructCodes: ['extraversion', 'conscientiousness'],
+        measuredFacetCodes: ['liveliness', 'organization'],
+        hasAttachmentData: true,
+        hasErqData: true,
+        hasRsesData: true,
+        hasGseData: true,
+      };
+
+      const categorized = getCategorizedVisualizations(context);
+
+      const allBuckets = [
+        ...categorized.active,
+        ...categorized.conditional,
+        ...categorized.blocked,
+        ...categorized.future,
+      ];
+
+      expect(allBuckets.length).toBe(MASTER_VISUALIZATION_REGISTRY.length);
+
+      for (const item of allBuckets) {
+        // Assert no function properties exist
+        for (const [key, value] of Object.entries(item)) {
+          expect(
+            typeof value,
+            `Property "${key}" on visualization "${item.id}" must NOT be a function`
+          ).not.toBe('function');
+        }
+
+        // Specifically assert conditionalPredicate is undefined on the DTO
+        expect((item as any).conditionalPredicate).toBeUndefined();
+
+        // Assert all required serializable metadata fields are preserved
+        expect(typeof item.id).toBe('string');
+        expect(typeof item.titleTr).toBe('string');
+        expect(typeof item.descriptionTr).toBe('string');
+        expect(Array.isArray(item.dataRequirements)).toBe(true);
+        expect(typeof item.scientificStatus).toBe('string');
+        expect(typeof item.epistemicStatus).toBe('string');
+        expect(typeof item.allowedWhen).toBe('string');
+        expect(typeof item.blockedWhen).toBe('string');
+        expect(typeof item.visualType).toBe('string');
+        expect(Array.isArray(item.sourceDimensions)).toBe(true);
+        expect(typeof item.isNormDependent).toBe('boolean');
+        expect(typeof item.isCalibrationDependent).toBe('boolean');
+        expect(typeof item.isLongitudinalDependent).toBe('boolean');
+        expect(typeof item.isDirectMeasurement).toBe('boolean');
+        expect(typeof item.isDerived).toBe('boolean');
+        expect(typeof item.userFacingDisclaimer).toBe('string');
+        expect(typeof item.status).toBe('string');
+      }
+
+      // Assert perfect JSON serialization round-trip without stripping any keys
+      const jsonString = JSON.stringify(categorized);
+      const deserialized = JSON.parse(jsonString);
+      expect(deserialized).toEqual(categorized);
+    });
+
+    it('preserves server-side conditionalPredicate execution in MASTER_VISUALIZATION_REGISTRY', () => {
+      const conditionalDefs = MASTER_VISUALIZATION_REGISTRY.filter((v) => v.status === 'CONDITIONAL');
+      expect(conditionalDefs.length).toBeGreaterThanOrEqual(4);
+
+      for (const def of conditionalDefs) {
+        expect(typeof def.conditionalPredicate).toBe('function');
+      }
+    });
+
+    it('correctly maps status to ACTIVE in active bucket when conditional predicate evaluates to true', () => {
+      const activeCtx = {
+        measuredConstructCodes: ['honesty_humility', 'emotionality', 'extraversion'],
+        measuredFacetCodes: ['fairness', 'fearfulness', 'expressiveness'],
+        hasAttachmentData: true,
+        hasErqData: true,
+        hasRsesData: true,
+        hasGseData: true,
+      };
+
+      const categorized = getCategorizedVisualizations(activeCtx);
+
+      const attachmentDto = categorized.active.find((v) => v.id === 'attachment_matrix');
+      const erqDto = categorized.active.find((v) => v.id === 'emotion_regulation_profile');
+      const selfDto = categorized.active.find((v) => v.id === 'self_system_profile');
+      const behavioralDto = categorized.active.find((v) => v.id === 'behavioral_style_summary');
+
+      expect(attachmentDto).toBeDefined();
+      expect(attachmentDto?.status).toBe('ACTIVE');
+
+      expect(erqDto).toBeDefined();
+      expect(erqDto?.status).toBe('ACTIVE');
+
+      expect(selfDto).toBeDefined();
+      expect(selfDto?.status).toBe('ACTIVE');
+
+      expect(behavioralDto).toBeDefined();
+      expect(behavioralDto?.status).toBe('ACTIVE');
+    });
+
+    it('correctly maps status to CONDITIONAL in conditional bucket when predicate evaluates to false', () => {
+      const inactiveCtx = {
+        measuredConstructCodes: ['honesty_humility'], // < 3 constructs
+        measuredFacetCodes: ['fairness'],
+        hasAttachmentData: false,
+        hasErqData: false,
+        hasRsesData: false,
+        hasGseData: false,
+      };
+
+      const categorized = getCategorizedVisualizations(inactiveCtx);
+
+      const attachmentDto = categorized.conditional.find((v) => v.id === 'attachment_matrix');
+      const erqDto = categorized.conditional.find((v) => v.id === 'emotion_regulation_profile');
+      const selfDto = categorized.conditional.find((v) => v.id === 'self_system_profile');
+      const behavioralDto = categorized.conditional.find((v) => v.id === 'behavioral_style_summary');
+
+      expect(attachmentDto).toBeDefined();
+      expect(attachmentDto?.status).toBe('CONDITIONAL');
+
+      expect(erqDto).toBeDefined();
+      expect(erqDto?.status).toBe('CONDITIONAL');
+
+      expect(selfDto).toBeDefined();
+      expect(selfDto?.status).toBe('CONDITIONAL');
+
+      expect(behavioralDto).toBeDefined();
+      expect(behavioralDto?.status).toBe('CONDITIONAL');
+    });
+  });
 });
