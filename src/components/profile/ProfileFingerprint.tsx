@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Fingerprint, Info, Eye, Table } from 'lucide-react';
+import { Fingerprint, Info, Eye, Table, Layers, Calendar, FileText } from 'lucide-react';
 import { ProfileFingerprintDimension } from '@/types/profile';
 
 interface ProfileFingerprintProps {
@@ -18,10 +18,28 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
   summaryText,
 }) => {
   const [showTableView, setShowTableView] = useState(false);
+  const [selectedDomainFilter, setSelectedDomainFilter] = useState<string>('ALL');
 
   if (measuredCount === 0) {
     return null;
   }
+
+  // Group dimensions by domain
+  const domainGroups = new Map<string, ProfileFingerprintDimension[]>();
+  for (const dim of dimensions) {
+    const key = dim.domainNameTr || 'Diğer';
+    if (!domainGroups.has(key)) {
+      domainGroups.set(key, []);
+    }
+    domainGroups.get(key)!.push(dim);
+  }
+
+  const distinctDomainNames = Array.from(domainGroups.keys());
+
+  const filteredDimensions =
+    selectedDomainFilter === 'ALL'
+      ? dimensions
+      : dimensions.filter((d) => d.domainNameTr === selectedDomainFilter);
 
   return (
     <div className="bg-surface-1 p-5 sm:p-6 rounded-panel border border-border-subtle shadow-xs space-y-5">
@@ -33,18 +51,18 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h2 className="text-base font-bold text-text-primary">Profil Parmak İzin</h2>
+              <h2 className="text-base sm:text-lg font-bold text-text-primary">
+                Profil Parmak İzi V2
+              </h2>
               <span className="text-[10px] font-semibold bg-brand-50 text-brand-700 border border-brand-200 px-2 py-0.5 rounded-full">
-                {measuredCount} Boyut Ölçüldü
+                {measuredCount} Boyut Haritalandı
               </span>
             </div>
-            <p className="text-xs text-text-secondary mt-0.5">
-              {summaryText}
-            </p>
+            <p className="text-xs text-text-secondary mt-0.5">{summaryText}</p>
           </div>
         </div>
 
-        {/* View Switcher & Disclaimer */}
+        {/* View Switcher */}
         <div className="flex items-center space-x-2 self-start sm:self-auto shrink-0">
           <button
             type="button"
@@ -66,20 +84,51 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
         </div>
       </div>
 
+      {/* Domain Filters */}
+      {distinctDomainNames.length > 1 && (
+        <div className="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-thin">
+          <button
+            type="button"
+            onClick={() => setSelectedDomainFilter('ALL')}
+            className={`px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+              selectedDomainFilter === 'ALL'
+                ? 'bg-brand-600 text-white shadow-xs'
+                : 'bg-surface-2/60 border border-border-subtle text-text-secondary hover:bg-surface-2'
+            }`}
+          >
+            Tüm Alanlar ({dimensions.length})
+          </button>
+
+          {distinctDomainNames.map((dom) => (
+            <button
+              key={dom}
+              type="button"
+              onClick={() => setSelectedDomainFilter(dom)}
+              className={`px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+                selectedDomainFilter === dom
+                  ? 'bg-brand-600 text-white shadow-xs'
+                  : 'bg-surface-2/60 border border-border-subtle text-text-secondary hover:bg-surface-2'
+              }`}
+            >
+              {dom} ({domainGroups.get(dom)?.length})
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Main Visual or Accessible Table */}
       {!showTableView ? (
-        <div className="space-y-4">
-          {/* Multi-Bar Deterministic Signature */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {dimensions.map((dim) => {
-              const band = dim.bandInfo;
-              const normalizedValue = dim.normalizedCoordinate ?? 50;
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {filteredDimensions.map((dim) => {
+            const band = dim.bandInfo;
+            const normalizedValue = dim.normalizedCoordinate ?? 50;
 
-              return (
-                <div
-                  key={dim.id}
-                  className="p-3.5 rounded-xl bg-surface-2/60 border border-border-subtle space-y-2"
-                >
+            return (
+              <div
+                key={dim.id}
+                className="p-3.5 rounded-xl bg-surface-2/50 border border-border-subtle space-y-2.5 flex flex-col justify-between"
+              >
+                <div>
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <span className="text-[10px] text-text-tertiary block font-medium">
@@ -91,12 +140,12 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
                     </div>
 
                     <span className="font-mono text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200/50 shrink-0">
-                      {dim.nativeScore !== null ? dim.nativeScore.toFixed(1) : '—'} / {dim.scaleMax.toFixed(1)}
+                      {dim.nativeScore !== null ? dim.nativeScore.toFixed(2) : '—'} / {dim.scaleMax.toFixed(1)}
                     </span>
                   </div>
 
-                  {/* Visual Bar Signature (Visual rendering coordinate only) */}
-                  <div className="space-y-1">
+                  {/* Visual Bar Signature (Visual coordinate only) */}
+                  <div className="space-y-1 mt-2">
                     <div className="w-full bg-bg-subtle h-2 rounded-full overflow-hidden border border-border-subtle">
                       <div
                         className="bg-brand-600 h-full rounded-full transition-all duration-500"
@@ -115,9 +164,19 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Metadata Footer */}
+                <div className="pt-2 border-t border-border-subtle/80 flex items-center justify-between text-[10px] text-text-tertiary">
+                  <span className="truncate max-w-[140px]">
+                    {dim.instrumentName || 'Ölçüm Formu'}
+                  </span>
+                  <span className="font-medium text-brand-700">
+                    {dim.measurementSupport ? `${dim.measurementSupport} Kanıt` : ''}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       ) : (
         /* Accessible Table Alternative */
@@ -129,11 +188,12 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
                 <th className="p-2.5 font-semibold">Alan</th>
                 <th className="p-2.5 font-semibold font-mono">Ölçülen Değer</th>
                 <th className="p-2.5 font-semibold">Ölçek Aralığı</th>
-                <th className="p-2.5 font-semibold">Eğilim Aralığı</th>
+                <th className="p-2.5 font-semibold">Yanıt Bölgesi</th>
+                <th className="p-2.5 font-semibold">Kaynak Envanter</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-subtle">
-              {dimensions.map((dim) => (
+              {filteredDimensions.map((dim) => (
                 <tr key={dim.id} className="hover:bg-surface-2/40">
                   <td className="p-2.5 font-bold text-text-primary">{dim.nameTr}</td>
                   <td className="p-2.5 text-text-secondary">{dim.domainNameTr}</td>
@@ -152,6 +212,9 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
                       '—'
                     )}
                   </td>
+                  <td className="p-2.5 text-text-tertiary truncate max-w-[150px]">
+                    {dim.instrumentName || 'Ölçek Formu'}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -159,11 +222,11 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
         </div>
       )}
 
-      {/* Transparency Callout */}
+      {/* Epistemic Disclaimer */}
       <div className="flex items-center space-x-2 text-[11px] text-text-tertiary pt-1 border-t border-border-subtle">
         <Info className="w-3.5 h-3.5 text-brand-600 shrink-0" />
         <span>
-          Profil parmak izi, tamamlanan ampirik ölçeklerin yalnızca ölçülen boyutlarını özetleyen ürün görselidir. Temsili nüfus normları veya yüzdelik dilim iddiası taşımaz.
+          Profil parmak izi, tamamlanan ampirik ölçeklerin görsel imzasıdır (visual signature). Biyometrik kimlik veya tanısal profil iddiası taşımaz.
         </span>
       </div>
     </div>

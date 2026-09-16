@@ -1,6 +1,14 @@
 import { EpistemicTier, EpistemicStatus } from './construct';
 import { ValidationStatus } from './item';
 import { TheoryCouncilInterpretation } from './theory';
+import {
+  ProfileConfidenceMapViewModel,
+  ProfileCompletenessSummary,
+  DimensionConfidence,
+} from './confidence';
+import { HeatmapMatrixViewModel, HeatmapCellState } from './heatmap';
+import { ProfileTensionItem, InteractionType } from '@/lib/unifiedInteractionRegistry';
+import { ProfileVisualizationDefinition } from '@/lib/profileVisualizationRegistry';
 
 export type NormStatus = 'unavailable' | 'provisional' | 'validated';
 
@@ -159,7 +167,7 @@ export interface ProfileOutput {
 }
 
 // ---------------------------------------------------------
-// FAZ 2.11 UNIFIED PSYCHOLOGICAL PROFILE VIEW MODELS
+// FAZ 2.13 UNIFIED PSYCHOLOGICAL PROFILE VIEW MODELS
 // ---------------------------------------------------------
 
 export type ProfileMaturityStage = 'BAŞLANGIÇ' | 'GELİŞEN' | 'GENİŞLEYEN' | 'KAPSAMLI';
@@ -167,7 +175,7 @@ export type ProfileMaturityStage = 'BAŞLANGIÇ' | 'GELİŞEN' | 'GENİŞLEYEN' 
 export type UnifiedDomainStatus = 'MEASURED' | 'PARTIAL' | 'UNMEASURED';
 
 export interface ScoreBandDetails {
-  band: 'LOW' | 'BALANCED' | 'HIGH';
+  band: 'LOW' | 'BALANCED' | 'HIGH' | 'LOWER_RANGE' | 'MID_RANGE' | 'UPPER_RANGE';
   labelTr: string;
   shortLabelTr: string;
   colorClass: string;
@@ -211,7 +219,10 @@ export interface UnifiedFacetViewModel {
   bandInfo: ScoreBandDetails | null;
   provenance: MeasurementProvenanceMetadata | null;
   epistemicStatus: string;
-  precision: 'High' | 'Moderate' | 'Developing' | 'Unmeasured';
+  precision: 'High' | 'Moderate' | 'Developing' | 'Unmeasured'; // Backwards compatible alias
+  measurementSupport: 'High' | 'Moderate' | 'Developing' | 'Unmeasured';
+  confidenceLevel?: 'VERY_LOW' | 'LOW' | 'MODERATE' | 'HIGH';
+  responseRangeState?: HeatmapCellState;
 }
 
 export interface UnifiedConstructViewModel {
@@ -309,18 +320,22 @@ export interface ProfileFingerprintDimension {
   code: string;
   nameTr: string;
   domainNameTr: string;
+  domainCode?: string;
   nativeScore: number | null;
   scaleMin: number;
   scaleMax: number;
   normalizedCoordinate: number | null; // 0-100 visual rendering coordinate only
   isMeasured: boolean;
   bandInfo: ScoreBandDetails | null;
+  measurementSupport?: 'High' | 'Moderate' | 'Developing' | 'Unmeasured';
+  instrumentName?: string | null;
+  measuredAt?: string | null;
 }
 
 export interface UnifiedInteractionViewModel {
   id: string;
   titleTr: string;
-  type: 'SYNERGY' | 'TENSION';
+  type: InteractionType;
   descriptionTr: string;
   epistemicStatus: string;
   sourceDimensions: string[];
@@ -358,7 +373,26 @@ export interface UnifiedProfileViewModel {
   domains: UnifiedDomainViewModel[];
   allFacets84: UnifiedFacetViewModel[];
 
-  // Visual Fingerprint (measured dimensions only)
+  // FAZ 2.13 Confidence Map & Completeness Summary
+  confidenceMap: ProfileConfidenceMapViewModel;
+  completenessSummary: ProfileCompletenessSummary;
+
+  // FAZ 2.13 High-Density Trait Heatmap Matrix
+  traitHeatmap: HeatmapMatrixViewModel;
+
+  // FAZ 2.13 Profile Tension Matrix & Interactions
+  tensionMatrix: ProfileTensionItem[];
+  interactions: UnifiedInteractionViewModel[];
+
+  // FAZ 2.13 Master Visual Registry Statuses
+  visualRegistry: {
+    active: ProfileVisualizationDefinition[];
+    conditional: ProfileVisualizationDefinition[];
+    blocked: ProfileVisualizationDefinition[];
+    future: ProfileVisualizationDefinition[];
+  };
+
+  // Visual Fingerprint V2 (measured dimensions only)
   fingerprint: {
     dimensions: ProfileFingerprintDimension[];
     measuredCount: number;
@@ -408,11 +442,8 @@ export interface UnifiedProfileViewModel {
   } | null;
 
   // Strengths & Attention Points (deterministic config)
-  strengths: Array<{ traitName: string; point: string; sourceConstruct: string }>;
-  attentionPoints: Array<{ traitName: string; point: string; sourceConstruct: string }>;
-
-  // Cross-Domain Interactions
-  interactions: UnifiedInteractionViewModel[];
+  strengths: Array<{ traitName: string; point: string; sourceConstruct: string; sourceInstrument?: string; epistemicStatus?: string }>;
+  attentionPoints: Array<{ traitName: string; point: string; sourceConstruct: string; sourceInstrument?: string; epistemicStatus?: string }>;
 
   // What is not yet known
   unmeasuredDomains: Array<{
@@ -439,4 +470,3 @@ export interface UnifiedProfileViewModel {
     status: string;
   } | null;
 }
-

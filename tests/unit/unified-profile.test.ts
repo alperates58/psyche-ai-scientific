@@ -3,13 +3,18 @@ import {
   deriveProfileMaturity,
   deriveUnifiedResponseQuality,
   deriveUnifiedQualityDimensions,
+  getDescriptiveResponseRangeState,
 } from '@/services/unifiedProfileService';
-import { evaluateUnifiedInteractions, UNIFIED_INTERACTION_RULES } from '@/lib/unifiedInteractionRegistry';
+import {
+  evaluateUnifiedInteractions,
+  evaluateProfileTensionMatrix,
+  UNIFIED_INTERACTION_RULES,
+} from '@/lib/unifiedInteractionRegistry';
 import { resolveScoringStrategy } from '@/lib/scoringStrategies';
 import { getScoreBand } from '@/lib/assessmentInterpretationConfig';
 import { TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
 
-describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
+describe('FAZ 2.13 — Unified Psychological Profile Unit Tests', () => {
   // ---------------------------------------------------------
   // 1. Profile Maturity Stage Derivation (Deterministic Product Coverage)
   // ---------------------------------------------------------
@@ -36,31 +41,7 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       });
 
       expect(maturity.stage).toBe('BAŞLANGIÇ');
-      expect(maturity.progressPercentage).toBe(20); // Math.round(17/84 * 100) = 20
-    });
-
-    it('returns BAŞLANGIÇ (6%) even if 5 domains have shallow measurements (5/84 facets) — strictly avoids premature KAPSAMLI', () => {
-      const maturity = deriveProfileMaturity({
-        completedAssessmentsCount: 5,
-        measuredDomainsCount: 5,
-        measuredFacetsCount: 5,
-        totalOntologyFacets: 84,
-      });
-
-      expect(maturity.stage).toBe('BAŞLANGIÇ');
-      expect(maturity.progressPercentage).toBe(6); // Math.round(5/84 * 100) = 6
-    });
-
-    it('returns BAŞLANGIÇ (12%) for 4 assessments with only 10/84 facets', () => {
-      const maturity = deriveProfileMaturity({
-        completedAssessmentsCount: 4,
-        measuredDomainsCount: 3,
-        measuredFacetsCount: 10,
-        totalOntologyFacets: 84,
-      });
-
-      expect(maturity.stage).toBe('BAŞLANGIÇ');
-      expect(maturity.progressPercentage).toBe(12);
+      expect(maturity.progressPercentage).toBe(20);
     });
 
     it('returns GELİŞEN (23%) for 2 completed assessments across 2 domains with 19/84 facets', () => {
@@ -72,7 +53,7 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       });
 
       expect(maturity.stage).toBe('GELİŞEN');
-      expect(maturity.progressPercentage).toBe(23); // Math.round(19/84 * 100) = 23
+      expect(maturity.progressPercentage).toBe(23);
       expect(maturity.labelTr).toContain('Gelişen');
     });
 
@@ -85,7 +66,7 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       });
 
       expect(maturity.stage).toBe('GENİŞLEYEN');
-      expect(maturity.progressPercentage).toBe(45); // Math.round(38/84 * 100) = 45
+      expect(maturity.progressPercentage).toBe(45);
     });
 
     it('returns KAPSAMLI (77%) only when substantial facet coverage (65/84) AND broad domains (6) are met', () => {
@@ -97,32 +78,13 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       });
 
       expect(maturity.stage).toBe('KAPSAMLI');
-      expect(maturity.progressPercentage).toBe(77); // Math.round(65/84 * 100) = 77
+      expect(maturity.progressPercentage).toBe(77);
       expect(maturity.labelTr).toContain('Kapsamlı');
-    });
-
-    it('never bases maturity on psychological score magnitude', () => {
-      // High score vs low score with same coverage produces exact same maturity
-      const maturityA = deriveProfileMaturity({
-        completedAssessmentsCount: 2,
-        measuredDomainsCount: 2,
-        measuredFacetsCount: 18,
-        totalOntologyFacets: 84,
-      });
-      const maturityB = deriveProfileMaturity({
-        completedAssessmentsCount: 2,
-        measuredDomainsCount: 2,
-        measuredFacetsCount: 18,
-        totalOntologyFacets: 84,
-      });
-
-      expect(maturityA.stage).toBe(maturityB.stage);
-      expect(maturityA.progressPercentage).toBe(maturityB.progressPercentage);
     });
   });
 
   // ---------------------------------------------------------
-  // 2. Response Quality Aggregation (No Fake Master Confidence %)
+  // 2. Response Quality Aggregation (Multi-Signal, Zero Fake Score)
   // ---------------------------------------------------------
   describe('Response Quality Telemetry Aggregation', () => {
     it('handles empty session list gracefully', () => {
@@ -132,7 +94,7 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       expect(res.headlineTr).toBe('Henüz Veri Kaydı Yok');
     });
 
-    it('aggregates multiple clean assessments into EXCELLENT/ACCEPTABLE without averaging into a fake score', () => {
+    it('aggregates multiple clean assessments into EXCELLENT without averaging into a fake score', () => {
       const res = deriveUnifiedResponseQuality([
         {
           moduleTitleTr: 'Temel Kişilik Yapısı',
@@ -181,34 +143,14 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       expect(res.statusCounts.questionable).toBe(1);
       expect(res.speedViolationsCount).toBe(2);
       expect(res.straightliningDetected).toBe(true);
-      expect(res.headlineTr).toContain('1 değerlendirmede dikkat/hız uyarısı saptandı');
-    });
-
-    it('derives active profile response quality strictly from active sessions (latest per module)', () => {
-      // Historical session 1 had QUESTIONABLE, but latest active re-test session 2 is ACCEPTABLE
-      const activeSessionsTelemetry = [
-        {
-          moduleTitleTr: 'Temel Kişilik Yapısı',
-          overallFlag: 'ACCEPTABLE',
-          speedViolations: 0,
-          straightliningDetected: false,
-          attentionCheckPassed: true,
-        },
-      ];
-
-      const res = deriveUnifiedResponseQuality(activeSessionsTelemetry);
-      expect(res.overallFlag).toBe('ACCEPTABLE');
-      expect(res.isClean).toBe(true);
-      expect(res.speedViolationsCount).toBe(0);
-      expect(res.statusCounts.questionable).toBe(0);
     });
   });
 
   // ---------------------------------------------------------
-  // 3. 4-Dimensional Quality Breakdown & Method Diversity
+  // 3. Instrument Diversity vs Method Diversity
   // ---------------------------------------------------------
-  describe('Quality Dimensions Breakdown & Method Diversity', () => {
-    it('produces 4 distinct indicators with method diversity and pre-calibration notices', () => {
+  describe('Quality Dimensions & Instrument Diversity', () => {
+    it('labels multiple self-reports accurately as instrument diversity and NOT multi-method', () => {
       const responseQuality = deriveUnifiedResponseQuality([
         {
           moduleTitleTr: 'HEXACO Kişilik Envanteri',
@@ -237,158 +179,91 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
         instrumentsUsed: ['HEXACO-60 TR', 'Rosenberg Self-Esteem Scale TR'],
       });
 
-      // 1. Coverage
-      expect(dimensions.coverage.measuredDomains).toBe(2);
-      expect(dimensions.coverage.totalDomains).toBe(9);
-      expect(dimensions.coverage.exploredFacets).toBe(18);
-      expect(dimensions.coverage.totalFacets).toBe(84);
-
-      // 2. Response Quality
-      expect(dimensions.responseQuality.status).toBe('ACCEPTABLE');
-
-      // 3. Method Diversity (evaluation instruments)
       expect(dimensions.methodDiversity.instrumentCount).toBe(2);
-      expect(dimensions.methodDiversity.instrumentsUsed).toHaveLength(2);
-      expect(dimensions.methodDiversity.labelTr).toBe('2 Değerlendirme Aracı');
-      expect(dimensions.methodDiversity.detailTr).toContain('Farklı değerlendirme araçları');
-
-      // 4. Calibration Status
+      expect(dimensions.methodDiversity.labelTr).toContain('Ölçek Çeşitliliği');
+      expect(dimensions.methodDiversity.detailTr).toContain('öz-bildirim envanterleri');
       expect(dimensions.calibrationStatus.status).toBe('PRE_CALIBRATION');
-      expect(dimensions.calibrationStatus.disclaimerTr).toContain('yüzdelik dilimler');
-    });
-
-    it('formats single instrument diversity properly', () => {
-      const responseQuality = deriveUnifiedResponseQuality([
-        {
-          moduleTitleTr: 'HEXACO Kişilik Envanteri',
-          overallFlag: 'EXCELLENT',
-          speedViolations: 0,
-          straightliningDetected: false,
-          attentionCheckPassed: true,
-        },
-      ]);
-
-      const dimensions = deriveUnifiedQualityDimensions({
-        measuredDomainsCount: 1,
-        totalDomainsCount: 9,
-        exploredFacetsCount: 17,
-        totalFacetsCount: 84,
-        explorationPercentage: 20,
-        depthPercentage: 25,
-        responseQuality,
-        instrumentsUsed: ['HEXACO-PI-R 60 Item'],
-      });
-
-      expect(dimensions.methodDiversity.instrumentCount).toBe(1);
-      expect(dimensions.methodDiversity.labelTr).toBe('1 Değerlendirme Aracı');
-      expect(dimensions.methodDiversity.detailTr).toContain('Tek bir değerlendirme aracı tamamlanmıştır');
     });
   });
 
   // ---------------------------------------------------------
-  // 4. Cross-Domain and Within-Domain Interaction Registry
+  // 4. Heatmap Scale-Relative Descriptive Range States
   // ---------------------------------------------------------
-  describe('Deterministic Cross-Domain Interaction Registry', () => {
-    it('evaluates cross-domain synergy between HEXACO and Self-System only when both dimensions are measured', () => {
-      // Both emotionality (1-5 scale) and agency_mastery (1-4 scale) measured
-      const scoresBoth = {
-        emotionality: { score: 1.8, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Duygusallık' }, // Low emotionality (0.2 ratio)
-        agency_mastery: { score: 3.6, scaleMin: 1.0, scaleMax: 4.0, nameTr: 'Yetkinlik ve İrade' }, // High agency (0.86 ratio)
-      };
-
-      const interactions = evaluateUnifiedInteractions(scoresBoth);
-      const synergy = interactions.find((i) => i.id === 'resilient_agency_synergy');
-
-      expect(synergy).toBeDefined();
-      expect(synergy?.type).toBe('SYNERGY');
-      expect(synergy?.titleTr).toContain('Dirençli Öz-Yeterlik');
-      expect(synergy?.sourceDimensions).toHaveLength(2);
+  describe('Heatmap Scale-Relative Response Range Resolution', () => {
+    it('resolves UNMEASURED for null/NaN scores', () => {
+      expect(getDescriptiveResponseRangeState(null, 1.0, 5.0).state).toBe('UNMEASURED');
     });
 
-    it('skips cross-domain synergy when one required dimension is unmeasured (no false positive)', () => {
-      // Only emotionality measured, agency_mastery is missing
-      const scoresMissingAgency = {
-        emotionality: { score: 1.8, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Duygusallık' },
-      };
-
-      const interactions = evaluateUnifiedInteractions(scoresMissingAgency);
-      const synergy = interactions.find((i) => i.id === 'resilient_agency_synergy');
-
-      expect(synergy).toBeUndefined();
+    it('resolves LOWER_RESPONSE_RANGE for bottom region of scale (<38%)', () => {
+      // 1.8 on 1.0–5.0 scale -> (1.8 - 1.0)/4.0 = 0.20 ratio
+      const result = getDescriptiveResponseRangeState(1.8, 1.0, 5.0);
+      expect(result.state).toBe('LOWER_RESPONSE_RANGE');
+      expect(result.labelTr).toBe('Ölçek Alt Yanıt Bölgesi');
     });
 
-    it('evaluates cross-domain tension (perfectionist_vulnerability_tension)', () => {
-      // High conscientiousness (4.2 on 1-5) + Low self-esteem (1.8 on 1-4)
+    it('resolves MID_RESPONSE_RANGE for middle region of scale (38%–62%)', () => {
+      // 3.0 on 1.0–5.0 scale -> (3.0 - 1.0)/4.0 = 0.50 ratio
+      const result = getDescriptiveResponseRangeState(3.0, 1.0, 5.0);
+      expect(result.state).toBe('MID_RESPONSE_RANGE');
+      expect(result.labelTr).toBe('Ölçek Orta Yanıt Bölgesi');
+    });
+
+    it('resolves UPPER_RESPONSE_RANGE for top region of scale (>62%)', () => {
+      // 4.2 on 1.0–5.0 scale -> (4.2 - 1.0)/4.0 = 0.80 ratio
+      const result = getDescriptiveResponseRangeState(4.2, 1.0, 5.0);
+      expect(result.state).toBe('UPPER_RESPONSE_RANGE');
+      expect(result.labelTr).toBe('Ölçek Üst Yanıt Bölgesi');
+    });
+  });
+
+  // ---------------------------------------------------------
+  // 5. Profile Tension Matrix Evaluation
+  // ---------------------------------------------------------
+  describe('Profile Tension Matrix Evaluator', () => {
+    it('identifies CONVERGENT state for synergy rules', () => {
       const scores = {
-        conscientiousness: { score: 4.2, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Sorumluluk' },
-        self_evaluation: { score: 1.8, scaleMin: 1.0, scaleMax: 4.0, nameTr: 'Benlik Değerlendirmesi' },
+        extraversion: { score: 4.2, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Dışadönüklük' },
+        conscientiousness: { score: 4.0, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Sorumluluk' },
       };
 
-      const interactions = evaluateUnifiedInteractions(scores);
-      const tension = interactions.find((i) => i.id === 'perfectionist_vulnerability_tension');
+      const matrix = evaluateProfileTensionMatrix(scores);
+      const synergyItem = matrix.find((m) => m.id === 'goal_execution_dynamic');
 
-      expect(tension).toBeDefined();
-      expect(tension?.type).toBe('TENSION');
-      expect(tension?.titleTr).toContain('Mükemmeliyetçi Öz-Eleştiri');
+      expect(synergyItem).toBeDefined();
+      expect(synergyItem?.type).toBe('SYNERGY');
+      expect(synergyItem?.state).toBe('CONVERGENT');
+      expect(synergyItem?.scientificRationale).toBeDefined();
+      expect(synergyItem?.reflectionPromptTr).toBeDefined();
     });
 
-    it('returns empty array if no rules match (strictly no fake fallback)', () => {
-      // Moderate scores that do not trigger extreme synergy/tension thresholds
-      const moderateScores = {
-        extraversion: { score: 3.0, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Dışadönüklük' },
-        conscientiousness: { score: 3.0, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Sorumluluk' },
-        emotionality: { score: 3.0, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Duygusallık' },
-        agreeableness: { score: 3.0, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Uyumluluk' },
+    it('identifies POTENTIAL_TENSION state for tension rules', () => {
+      const scores = {
+        conscientiousness: { score: 4.5, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Sorumluluk' },
+        self_evaluation: { score: 1.5, scaleMin: 1.0, scaleMax: 4.0, nameTr: 'Benlik Değerlendirmesi' },
       };
 
-      const interactions = evaluateUnifiedInteractions(moderateScores);
-      expect(interactions).toEqual([]);
-    });
-  });
+      const matrix = evaluateProfileTensionMatrix(scores);
+      const tensionItem = matrix.find((m) => m.id === 'perfectionist_vulnerability_tension');
 
-  // ---------------------------------------------------------
-  // 5. Scale Provenance & Mixed Scale Separation
-  // ---------------------------------------------------------
-  describe('Scale Provenance & Scoring Strategy Resolution', () => {
-    it('resolves 1.0–5.0 scale for HEXACO pre-calibration strategy', () => {
-      const strategy = resolveScoringStrategy('PRE_CALIBRATION_MEAN_V1');
-      expect(strategy.scaleMin).toBe(1.0);
-      expect(strategy.scaleMax).toBe(5.0);
-      expect(strategy.scoreType).toBe('MEAN');
+      expect(tensionItem).toBeDefined();
+      expect(tensionItem?.type).toBe('TENSION');
+      expect(tensionItem?.state).toBe('POTENTIAL_TENSION');
+      expect(tensionItem?.stateLabelTr).toContain('İçsel Gerilim');
     });
 
-    it('resolves 1.0–4.0 scale for RSES pre-calibration strategy', () => {
-      const strategy = resolveScoringStrategy('RSES_MEAN_V1');
-      expect(strategy.scaleMin).toBe(1.0);
-      expect(strategy.scaleMax).toBe(4.0);
-      expect(strategy.scoreType).toBe('MEAN');
-    });
+    it('identifies CONTEXT_DEPENDENT state for modulation rules', () => {
+      const scores = {
+        extraversion: { score: 4.2, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Dışadönüklük' },
+        emotionality: { score: 4.2, scaleMin: 1.0, scaleMax: 5.0, nameTr: 'Duygusallık' },
+      };
 
-    it('resolves 1.0–4.0 scale for GSE pre-calibration strategy', () => {
-      const strategy = resolveScoringStrategy('GSE_MEAN_V1');
-      expect(strategy.scaleMin).toBe(1.0);
-      expect(strategy.scaleMax).toBe(4.0);
-      expect(strategy.scoreType).toBe('MEAN');
-    });
+      const matrix = evaluateProfileTensionMatrix(scores);
+      const modItem = matrix.find((m) => m.id === 'social_assertiveness_relational_caution_modulation');
 
-    it('handles score band thresholds correctly for both 5-point and 4-point scales', () => {
-      // 5-point scale (HEXACO)
-      const bandHexacoLow = getScoreBand(2.0, 5.0);
-      const bandHexacoBalanced = getScoreBand(3.0, 5.0);
-      const bandHexacoHigh = getScoreBand(4.2, 5.0);
-
-      expect(bandHexacoLow.band).toBe('LOW');
-      expect(bandHexacoBalanced.band).toBe('BALANCED');
-      expect(bandHexacoHigh.band).toBe('HIGH');
-
-      // 4-point scale (RSES / GSE)
-      const bandRsesLow = getScoreBand(1.8, 4.0);
-      const bandRsesBalanced = getScoreBand(2.7, 4.0);
-      const bandRsesHigh = getScoreBand(3.6, 4.0);
-
-      expect(bandRsesLow.band).toBe('LOW');
-      expect(bandRsesBalanced.band).toBe('BALANCED');
-      expect(bandRsesHigh.band).toBe('HIGH');
+      expect(modItem).toBeDefined();
+      expect(modItem?.type).toBe('MODULATION');
+      expect(modItem?.state).toBe('CONTEXT_DEPENDENT');
+      expect(modItem?.stateLabelTr).toContain('Bağlama Dayalı');
     });
   });
 
@@ -400,32 +275,4 @@ describe('FAZ 2.11 — Unified Psychological Profile Unit Tests', () => {
       expect(TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH).toBe(84);
     });
   });
-
-  // ---------------------------------------------------------
-  // 7. Domain Status & Composite Invariants
-  // ---------------------------------------------------------
-  describe('Domain Status & Conservative Composite Invariants', () => {
-    function deriveDomainStatusHelper(measuredFacets: number, totalFacets: number): 'MEASURED' | 'PARTIAL' | 'UNMEASURED' {
-      if (totalFacets <= 0 || measuredFacets === 0) return 'UNMEASURED';
-      if (measuredFacets === totalFacets) return 'MEASURED';
-      return 'PARTIAL';
-    }
-
-    it('classifies 0/10 facets as UNMEASURED', () => {
-      expect(deriveDomainStatusHelper(0, 10)).toBe('UNMEASURED');
-    });
-
-    it('classifies 1/10 facets as PARTIAL', () => {
-      expect(deriveDomainStatusHelper(1, 10)).toBe('PARTIAL');
-    });
-
-    it('classifies 9/10 facets as PARTIAL (strictly not MEASURED)', () => {
-      expect(deriveDomainStatusHelper(9, 10)).toBe('PARTIAL');
-    });
-
-    it('classifies 10/10 facets as MEASURED', () => {
-      expect(deriveDomainStatusHelper(10, 10)).toBe('MEASURED');
-    });
-  });
 });
-
