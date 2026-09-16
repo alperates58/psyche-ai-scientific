@@ -121,7 +121,7 @@ export default async function AssessmentsCatalogPage() {
           <div>
             {isCompleted ? (
               <Link
-                href={item.resultUrl || '/profile/personality'}
+                href={item.resultUrl || (item.completedSessionId ? `/assessments/results/${item.completedSessionId}` : '/assessments')}
                 className="inline-flex items-center px-4 py-2 rounded-xl bg-surface-2 hover:bg-bg-subtle text-text-primary text-xs font-semibold border border-border-subtle transition-colors"
               >
                 <span>Sonuçları İncele</span>

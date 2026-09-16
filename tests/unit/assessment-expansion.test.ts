@@ -1,0 +1,155 @@
+import { describe, it, expect } from 'vitest';
+import {
+  resolveVisualArchetype,
+  getScoreBand,
+  ALL_TRAIT_INTERPRETATIONS,
+  TRAIT_DYNAMIC_RULES,
+  deriveKeyObservations,
+} from '../../src/lib/assessmentInterpretationConfig';
+import {
+  resolveScoringStrategy,
+  RSES_SUM_STRATEGY,
+  GSE_SUM_STRATEGY,
+  HEXACO_PRECALIBRATION_STRATEGY,
+  ScoredResponseItem,
+} from '../../src/lib/scoringStrategies';
+
+describe('FAZ 2.10: Visual Archetype Resolution & Fallback Safety', () => {
+  it('maps core personality module to HEXACO_RADAR', () => {
+    expect(resolveVisualArchetype('MODULE_1_CORE_PERSONALITY')).toBe('HEXACO_RADAR');
+    expect(resolveVisualArchetype('CORE_INTAKE')).toBe('HEXACO_RADAR');
+  });
+
+  it('maps self identity to DIMENSION_SPECTRUM', () => {
+    expect(resolveVisualArchetype('MODULE_2_SELF_IDENTITY')).toBe('DIMENSION_SPECTRUM');
+  });
+
+  it('maps emotion regulation to TRAIT_BREAKDOWN', () => {
+    expect(resolveVisualArchetype('MODULE_3_EMOTION_REGULATION')).toBe('TRAIT_BREAKDOWN');
+  });
+
+  it('NEVER falls back to HEXACO_RADAR for unknown or unspecified modules', () => {
+    expect(resolveVisualArchetype('UNKNOWN_CUSTOM_MODULE')).toBe('GENERIC_DIMENSION_PROFILE');
+    expect(resolveVisualArchetype('ANOTHER_SURVEY')).toBe('GENERIC_DIMENSION_PROFILE');
+    expect(resolveVisualArchetype('')).toBe('GENERIC_DIMENSION_PROFILE');
+    expect(resolveVisualArchetype(null)).toBe('GENERIC_DIMENSION_PROFILE');
+    expect(resolveVisualArchetype(undefined)).toBe('GENERIC_DIMENSION_PROFILE');
+  });
+});
+
+describe('FAZ 2.10: 4-Point Likert vs 5-Point Likert Score Band Thresholds', () => {
+  it('classifies 5-point scale (HEXACO standard)', () => {
+    // 5-point: Low < 2.50, Balanced 2.50..3.50, High > 3.50
+    expect(getScoreBand(2.4, 5.0).band).toBe('LOW');
+    expect(getScoreBand(2.5, 5.0).band).toBe('BALANCED');
+    expect(getScoreBand(3.5, 5.0).band).toBe('BALANCED');
+    expect(getScoreBand(3.6, 5.0).band).toBe('HIGH');
+  });
+
+  it('classifies 4-point scale (RSES / GSE standard)', () => {
+    // 4-point: Low < 2.25, Balanced 2.25..3.25, High > 3.25
+    expect(getScoreBand(2.0, 4.0).band).toBe('LOW');
+    expect(getScoreBand(2.24, 4.0).band).toBe('LOW');
+    expect(getScoreBand(2.25, 4.0).band).toBe('BALANCED');
+    expect(getScoreBand(3.0, 4.0).band).toBe('BALANCED');
+    expect(getScoreBand(3.25, 4.0).band).toBe('BALANCED');
+    expect(getScoreBand(3.3, 4.0).band).toBe('HIGH');
+    expect(getScoreBand(4.0, 4.0).band).toBe('HIGH');
+  });
+});
+
+describe('FAZ 2.10: Scoring Strategy Registry & Resolution', () => {
+  it('resolves strategies by model code', () => {
+    expect(resolveScoringStrategy('RSES_SUM_V1').code).toBe('RSES_SUM_V1');
+    expect(resolveScoringStrategy('GSE_SUM_V1').code).toBe('GSE_SUM_V1');
+    expect(resolveScoringStrategy('PRE_CALIBRATION_MEAN_V1').code).toBe('PRE_CALIBRATION_MEAN_V1');
+  });
+
+  it('resolves strategies by module code heuristics', () => {
+    expect(resolveScoringStrategy(null, 'MODULE_2_SELF_IDENTITY').code).toBe('RSES_SUM_V1');
+    expect(resolveScoringStrategy(null, 'RSES_ASSESSMENT').code).toBe('RSES_SUM_V1');
+    expect(resolveScoringStrategy(null, 'GSE_SCALE').code).toBe('GSE_SUM_V1');
+    expect(resolveScoringStrategy(null, 'MODULE_1_CORE_PERSONALITY').code).toBe('PRE_CALIBRATION_MEAN_V1');
+  });
+});
+
+describe('FAZ 2.10: RSES Scoring Calculation & Reverse-Coding Invariants', () => {
+  it('correctly reverse-scores negative items (2, 5, 6, 8, 9) and preserves positive items (1, 3, 4, 7, 10)', () => {
+    // Setup test responses:
+    // If user answered all items with '4' (Kesinlikle Katılıyorum):
+    // Positive items (1, 3, 4, 7, 10): 4 * 5 = 20
+    // Reversed items (2, 5, 6, 8, 9): reversed 4 -> 1. 1 * 5 = 5
+    // Total sum = 25 / 10 = 2.5 rawMean
+    const allFourResponses: ScoredResponseItem[] = [
+      { itemId: 'RSES_01', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_02', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 1, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_03', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_04', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_05', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 1, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_06', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 1, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_07', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_08', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 1, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_09', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 1, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_10', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+    ];
+
+    const result = RSES_SUM_STRATEGY.calculate(allFourResponses);
+    expect(result.scaleMin).toBe(1.0);
+    expect(result.scaleMax).toBe(4.0);
+    expect(result.provisionalComposite).toBe(2.5);
+    expect(result.constructScores[0].compositeScore).toBe(2.5);
+    expect(result.facetScores[0].rawMean).toBe(2.5);
+    expect(result.facetScores[0].itemCount).toBe(10);
+  });
+
+  it('calculates maximum possible self-esteem (all positive=4, all reverse=1 -> scored values all 4)', () => {
+    const perfectResponses: ScoredResponseItem[] = [
+      { itemId: 'RSES_01', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_02', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 1, scoredValue: 4, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_03', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_04', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_05', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 1, scoredValue: 4, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_06', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 1, scoredValue: 4, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_07', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+      { itemId: 'RSES_08', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 1, scoredValue: 4, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_09', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 1, scoredValue: 4, isKeyed: false, isAttentionCheck: false },
+      { itemId: 'RSES_10', facetId: 'core_self_esteem', constructId: 'self_evaluation', domainId: 'self_system', rawValue: 4, scoredValue: 4, isKeyed: true, isAttentionCheck: false },
+    ];
+
+    const result = RSES_SUM_STRATEGY.calculate(perfectResponses);
+    expect(result.provisionalComposite).toBe(4.0);
+  });
+});
+
+describe('FAZ 2.10: Expanded Trait Interpretations Quality', () => {
+  const newConstructKeys = ['self_evaluation', 'core_self_esteem', 'agency_mastery', 'generalized_self_efficacy'];
+
+  it('contains non-clinical, descriptive interpretations for newly added constructs', () => {
+    for (const key of newConstructKeys) {
+      const interp = ALL_TRAIT_INTERPRETATIONS[key];
+      expect(interp).toBeDefined();
+      expect(interp.nameTr).toBeDefined();
+      expect(interp.shortDescriptionTr).toBeDefined();
+
+      // Band narratives
+      expect(interp.interpretationByBand.HIGH).toBeDefined();
+      expect(interp.interpretationByBand.BALANCED).toBeDefined();
+      expect(interp.interpretationByBand.LOW).toBeDefined();
+
+      // Strengths & Risks
+      expect(interp.strengths.HIGH.length).toBeGreaterThanOrEqual(1);
+      expect(interp.strengths.BALANCED.length).toBeGreaterThanOrEqual(1);
+      expect(interp.strengths.LOW.length).toBeGreaterThanOrEqual(1);
+      expect(interp.risks.HIGH.length).toBeGreaterThanOrEqual(1);
+      expect(interp.risks.BALANCED.length).toBeGreaterThanOrEqual(1);
+      expect(interp.risks.LOW.length).toBeGreaterThanOrEqual(1);
+
+      // Verify no clinical diagnostic words
+      const fullText = JSON.stringify(interp).toLowerCase();
+      expect(fullText).not.toContain('hastalık');
+      expect(fullText).not.toContain('bozukluk');
+      expect(fullText).not.toContain('patoloji');
+      expect(fullText).not.toContain('tedavi');
+    }
+  });
+});

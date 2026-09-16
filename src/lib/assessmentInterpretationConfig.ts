@@ -1,4 +1,8 @@
-export type VisualRepresentationType = 'HEXACO_RADAR' | 'TRAIT_BREAKDOWN' | 'MULTIDIMENSIONAL_BAR';
+export type VisualRepresentationType =
+  | 'HEXACO_RADAR'
+  | 'TRAIT_BREAKDOWN'
+  | 'DIMENSION_SPECTRUM'
+  | 'GENERIC_DIMENSION_PROFILE';
 
 export type ScoreBand = 'LOW' | 'BALANCED' | 'HIGH';
 
@@ -13,23 +17,39 @@ export interface ScoreBandDetails {
 
 /**
  * Maps module codes to their primary visual representation archetype.
+ * Strictly controlled: only explicit HEXACO modules map to HEXACO_RADAR.
  */
 export const ASSESSMENT_VISUAL_REGISTRY: Record<string, VisualRepresentationType> = {
   MODULE_1_CORE_PERSONALITY: 'HEXACO_RADAR',
   CORE_INTAKE: 'HEXACO_RADAR',
-  MODULE_2_SELF_IDENTITY: 'TRAIT_BREAKDOWN',
+  MODULE_2_SELF_IDENTITY: 'DIMENSION_SPECTRUM',
   MODULE_3_EMOTION_REGULATION: 'TRAIT_BREAKDOWN',
   MODULE_4_VOLITION_CONTROL: 'TRAIT_BREAKDOWN',
 };
 
 /**
- * Deterministic score band threshold evaluator (1.0 to 5.0 Likert scale).
- * Low: < 2.50
- * Balanced: 2.50 to 3.50
- * High: > 3.50
+ * Resolves visual representation archetype for any module code safely.
+ * Never falls back to HEXACO_RADAR for unknown or non-personality modules.
  */
-export function getScoreBand(score: number): ScoreBandDetails {
-  if (score < 2.5) {
+export function resolveVisualArchetype(moduleCode?: string | null): VisualRepresentationType {
+  if (!moduleCode) return 'GENERIC_DIMENSION_PROFILE';
+  const norm = moduleCode.toUpperCase().trim();
+  if (ASSESSMENT_VISUAL_REGISTRY[norm]) {
+    return ASSESSMENT_VISUAL_REGISTRY[norm];
+  }
+  return 'GENERIC_DIMENSION_PROFILE';
+}
+
+/**
+ * Deterministic score band threshold evaluator.
+ * Supports both 1.0–5.0 Likert (HEXACO) and 1.0–4.0 Likert (RSES/GSE) scales.
+ */
+export function getScoreBand(score: number, maxScale: number = 5.0): ScoreBandDetails {
+  const isFourPoint = maxScale <= 4.0;
+  const lowThreshold = isFourPoint ? 2.25 : 2.50;
+  const highThreshold = isFourPoint ? 3.25 : 3.50;
+
+  if (score < lowThreshold) {
     return {
       band: 'LOW',
       labelTr: 'Daha Düşük Eğilim',
@@ -39,7 +59,7 @@ export function getScoreBand(score: number): ScoreBandDetails {
       borderClass: 'border-sky-200',
     };
   }
-  if (score <= 3.5) {
+  if (score <= highThreshold) {
     return {
       band: 'BALANCED',
       labelTr: 'Dengeli / Orta Düzey Eğilim',
@@ -80,7 +100,10 @@ export interface TraitInterpretationDefinition {
   };
 }
 
-export const HEXACO_CONSTRUCT_INTERPRETATIONS: Record<string, TraitInterpretationDefinition> = {
+export const ALL_TRAIT_INTERPRETATIONS: Record<string, TraitInterpretationDefinition> = {
+  // ---------------------------------------------------------
+  // 1. HEXACO Core Personality Dimensions
+  // ---------------------------------------------------------
   honesty_humility: {
     code: 'honesty_humility',
     nameTr: 'Dürüstlük-Alçakgönüllülük',
@@ -201,7 +224,93 @@ export const HEXACO_CONSTRUCT_INTERPRETATIONS: Record<string, TraitInterpretatio
       LOW: ['Yenilikçi yöntemlere karşı mesafeli durma', 'Farklı alternatifleri değerlendirmeyi erken sonlandırma'],
     },
   },
+
+  // ---------------------------------------------------------
+  // 2. Self-System & Identity (RSES / GSE)
+  // ---------------------------------------------------------
+  self_evaluation: {
+    code: 'self_evaluation',
+    nameTr: 'Benlik Değerlendirmesi (Özsaygı)',
+    shortDescriptionTr: 'Rosenberg Benlik Saygısı Ölçeği (RSES) doğrultusunda genel öz-değer algısı.',
+    interpretationByBand: {
+      HIGH: 'Bu değerlendirmedeki yanıtlarınız, ölçeğin yanıt aralığında daha yüksek bir genel benlik saygısı ve öz-değer algısına işaret ediyor. Kişisel niteliklerinizi takdir etme ve zorluklar karşısında varoluşsal değerinizi koruma eğilimindesiniz.',
+      BALANCED: 'Bu değerlendirmedeki yanıtlarınız, genel benlik saygısı düzeyinizin dengeli bir aralıkta olduğunu gösteriyor. Güçlü yönlerinizi farkında olmakla birlikte, zorlayıcı dönemlerde durumsal öz-eleştiriler geliştirebilirsiniz.',
+      LOW: 'Bu değerlendirmedeki yanıtlarınız, ölçeğin yanıt aralığında daha temkinli veya düşük bir benlik saygısı eğilimine işaret ediyor. Zaman zaman kendi yeterliliğinize veya değerinize dair şüpheler deneyimliyor olabilirsiniz.',
+    },
+    strengths: {
+      HIGH: ['Güçlü öz-değer ve içsel güven', 'Hataları felaketleştirmeden öğrenme fırsatı olarak görme', 'Sosyal karşılaştırmalardan minimum düzeyde etkilenme'],
+      BALANCED: ['Gerçekçi ve dengeli öz-farkındalık', 'Kişisel sınırları koruma kapasitesi', 'Geri bildirimlere yapıcı yaklaşım'],
+      LOW: ['Yüksek alçakgönüllülük ve derin öz-eleştiri kapasitesi', 'Gelişime açık olma', 'Kendi sınırlarını dikkatle tartma'],
+    },
+    risks: {
+      HIGH: ['Gelişime açık zayıf noktaları gözden kaçırma riski'],
+      BALANCED: ['Aşırı stresli dönemlerde geçici öz-güven dalgalanmaları'],
+      LOW: ['Kişisel başarıları şansa bağlama eğilimi', 'Hatalar karşısında aşırı özeleştirel tutum'],
+    },
+  },
+  core_self_esteem: {
+    code: 'core_self_esteem',
+    nameTr: 'Temel Benlik Saygısı (RSES)',
+    shortDescriptionTr: 'Rosenberg Benlik Saygısı Ölçeği üzerinden ölçülen temel özsaygı.',
+    interpretationByBand: {
+      HIGH: 'Kendinizi değerli, yetkin ve olumlu niteliklere sahip bir birey olarak değerlendirme eğilimindesiniz.',
+      BALANCED: 'Kendinize dair değerlendirmeleriniz duruma göre esneyebilen dengeli bir düzeydedir.',
+      LOW: 'Kendinize dair algınızda zaman zaman yetersizlik veya değer şüphesi öne çıkabilmektedir.',
+    },
+    strengths: {
+      HIGH: ['İçsel öz-değer hissi', 'Dirençlilik'],
+      BALANCED: ['Dengeli öz-saygı'],
+      LOW: ['Alçakgönüllülük'],
+    },
+    risks: {
+      HIGH: ['Eleştirilere karşı aşırı rahatlık'],
+      BALANCED: ['Dönemsel şüphe'],
+      LOW: ['Öz-şefkat eksikliği'],
+    },
+  },
+  agency_mastery: {
+    code: 'agency_mastery',
+    nameTr: 'Yetkinlik ve İrade (Genel Öz-Yeterlik)',
+    shortDescriptionTr: 'Schwarzer & Jerusalem Genel Öz-Yeterlik Ölçeği (GSE) doğrultusunda başa çıkma inancı.',
+    interpretationByBand: {
+      HIGH: 'Bu değerlendirmede yeni veya zorlayıcı durumlarla karşılaştığınızda gerekli adımları başarıyla organize edip yürütebileceğinize dair inancınız yüksek düzeydedir.',
+      BALANCED: 'Zorluklar karşısında kendi başa çıkma kapasitenize dair inancınız dengeli bir düzeydedir; tanıdık durumlarda kendinize güvenirken yeni belirsizliklerde durumsal hazırlık ihtiyacı duyarsınız.',
+      LOW: 'Beklenmedik veya karmaşık zorluklar karşısında kendi başa çıkma kaynaklarınıza dair algınız daha temkinli ve tereddütlü bir eğilim sergilemektedir.',
+    },
+    strengths: {
+      HIGH: ['Engeller karşısında sebat ve ısrar', 'Hedef odaklı eylem organizasyonu', 'Çözüm üretme odaklılık'],
+      BALANCED: ['Gerçekçi kapasite değerlendirmesi', 'Riskleri tartarak adım atma', 'Gerektiğinde destek arayışı'],
+      LOW: ['Tedbirli ve hazırlıklı yaklaşım', 'Kapasiteyi aşan risklere girmeme', 'Detaylı durum analizi'],
+    },
+    risks: {
+      HIGH: ['Kapasiteyi aşan durumlarda aşırı yüklenme ve yardımı reddetme'],
+      BALANCED: ['Belirsizlik anlarında karar alma sürecinin uzaması'],
+      LOW: ['Zorlu fırsatları denemekten erken vazgeçme riski'],
+    },
+  },
+  generalized_self_efficacy: {
+    code: 'generalized_self_efficacy',
+    nameTr: 'Genel Öz-Yeterlilik (GSE)',
+    shortDescriptionTr: 'Zorlu durumlarla başa çıkabilme ve hedeflere ulaşabilme inancı.',
+    interpretationByBand: {
+      HIGH: 'Karmaşık engeller karşısında çözüm üretebilme inancınız güçlüdür.',
+      BALANCED: 'Başa çıkma kapasitenize dair dengeli bir güven duyarsınız.',
+      LOW: 'Beklenmedik zorluklarda daha temkinli bir başa çıkma algısına sahipsiniz.',
+    },
+    strengths: {
+      HIGH: ['Yüksek başa çıkma direnci', 'Hedef odaklılık'],
+      BALANCED: ['Gerçekçi planlama'],
+      LOW: ['Riskten kaçınma'],
+    },
+    risks: {
+      HIGH: ['Sınırları aşırı zorlama'],
+      BALANCED: ['Geçici tereddüt'],
+      LOW: ['Erteleme eğilimi'],
+    },
+  },
 };
+
+export const HEXACO_CONSTRUCT_INTERPRETATIONS = ALL_TRAIT_INTERPRETATIONS;
 
 export interface TraitDynamicRule {
   id: string;
@@ -282,7 +391,7 @@ export const TRAIT_DYNAMIC_RULES: TraitDynamicRule[] = [
  * Deterministically derives 2 to 4 key observations from measured traits.
  */
 export function deriveKeyObservations(
-  constructScores: Array<{ code: string; nameTr: string; compositeScore: number }>
+  constructScores: Array<{ code: string; nameTr: string; compositeScore: number; scaleMax?: number }>
 ): string[] {
   if (!constructScores || constructScores.length === 0) {
     return ['Değerlendirme sonucunda temel yanıt profili kaydedilmiştir.'];
@@ -290,36 +399,41 @@ export function deriveKeyObservations(
 
   const observations: string[] = [];
 
-  // Sort constructs by deviation from scale center (3.0)
-  const sortedBySalience = [...constructScores].sort(
-    (a, b) => Math.abs(b.compositeScore - 3.0) - Math.abs(a.compositeScore - 3.0)
-  );
+  // Sort constructs by deviation from scale center
+  const sortedBySalience = [...constructScores].sort((a, b) => {
+    const centerA = (a.scaleMax || 5.0) / 2.0 + 0.5;
+    const centerB = (b.scaleMax || 5.0) / 2.0 + 0.5;
+    return Math.abs(b.compositeScore - centerB) - Math.abs(a.compositeScore - centerA);
+  });
 
   for (const item of sortedBySalience) {
     if (observations.length >= 4) break;
 
-    const interp = HEXACO_CONSTRUCT_INTERPRETATIONS[item.code];
-    const bandInfo = getScoreBand(item.compositeScore);
+    const maxScale = item.scaleMax || 5.0;
+    const interp = ALL_TRAIT_INTERPRETATIONS[item.code];
+    const bandInfo = getScoreBand(item.compositeScore, maxScale);
 
     if (bandInfo.band === 'HIGH') {
       const text = interp
-        ? `${item.nameTr} boyutunda yüksek eğilim (${item.compositeScore.toFixed(1)} / 5.0) belirginleşmektedir. ${interp.interpretationByBand.HIGH}`
-        : `${item.nameTr} boyutunda ortalamanın üzerinde bir eğilim (${item.compositeScore.toFixed(1)} / 5.0) gözlemlenmiştir.`;
+        ? `${item.nameTr} boyutunda yüksek eğilim (${item.compositeScore.toFixed(1)} / ${maxScale.toFixed(1)}) belirginleşmektedir. ${interp.interpretationByBand.HIGH}`
+        : `${item.nameTr} boyutunda ortalamanın üzerinde bir eğilim (${item.compositeScore.toFixed(1)} / ${maxScale.toFixed(1)}) gözlemlenmiştir.`;
       observations.push(text);
     } else if (bandInfo.band === 'LOW') {
       const text = interp
-        ? `${item.nameTr} boyutunda daha düşük eğilim (${item.compositeScore.toFixed(1)} / 5.0) öne çıkmaktadır. ${interp.interpretationByBand.LOW}`
-        : `${item.nameTr} boyutunda daha düşük bir eğilim (${item.compositeScore.toFixed(1)} / 5.0) kaydedilmiştir.`;
+        ? `${item.nameTr} boyutunda daha düşük eğilim (${item.compositeScore.toFixed(1)} / ${maxScale.toFixed(1)}) öne çıkmaktadır. ${interp.interpretationByBand.LOW}`
+        : `${item.nameTr} boyutunda daha düşük bir eğilim (${item.compositeScore.toFixed(1)} / ${maxScale.toFixed(1)}) kaydedilmiştir.`;
       observations.push(text);
     }
   }
 
   // If mostly balanced traits, add a stabilizing observation
   if (observations.length < 2) {
-    const balancedCount = constructScores.filter((c) => getScoreBand(c.compositeScore).band === 'BALANCED').length;
+    const balancedCount = constructScores.filter(
+      (c) => getScoreBand(c.compositeScore, c.scaleMax || 5.0).band === 'BALANCED'
+    ).length;
     if (balancedCount > 0) {
       observations.push(
-        'Ölçülen kişilik boyutlarınız genel olarak dengeli bir dağılım sergilemekte olup, durumsal esnekliğinizin yüksek olduğunu göstermektedir.'
+        'Ölçülen psikolojik boyutlarınız genel olarak dengeli bir dağılım sergilemekte olup, durumsal esnekliğinizin yüksek olduğunu göstermektedir.'
       );
     }
   }

@@ -8,6 +8,7 @@ import { ResultSummaryHero } from '@/components/results/ResultSummaryHero';
 import { HexacoRadarSection } from '@/components/results/HexacoRadarSection';
 import { HexacoFacetProfile } from '@/components/results/HexacoFacetProfile';
 import { TraitHeatmapSection } from '@/components/results/TraitHeatmapSection';
+import { DimensionSpectrumView } from '@/components/results/DimensionSpectrumView';
 import { StrengthsRisksPanel } from '@/components/results/StrengthsRisksPanel';
 import { TensionsSynergiesPanel } from '@/components/results/TensionsSynergiesPanel';
 import { ResponseQualityPanel } from '@/components/results/ResponseQualityPanel';
@@ -63,47 +64,60 @@ export default async function AssessmentResultPage({
       {/* 1. Hero & Key Observations */}
       <ResultSummaryHero result={resultData} />
 
-      {/* 2. Visual Archetype Section (HEXACO Radar for Core Personality) */}
-      {resultData.visualType === 'HEXACO_RADAR' && (
-        <HexacoRadarSection
-          radarData={resultData.radarData}
-          totalDimensions={6}
+      {/* 2. Visual Archetype Section */}
+      {resultData.visualType === 'HEXACO_RADAR' ? (
+        <>
+          {/* HEXACO Radar for Core Personality */}
+          <HexacoRadarSection
+            radarData={resultData.radarData}
+            totalDimensions={6}
+          />
+
+          {/* Deep Facet Breakdown */}
+          <HexacoFacetProfile constructs={resultData.constructs} />
+
+          {/* Measurement Heatmap & Unmeasured Matrix */}
+          <TraitHeatmapSection
+            constructs={resultData.constructs}
+            unmeasuredDomains={resultData.unmeasuredDomains}
+          />
+        </>
+      ) : (
+        /* Dimension Spectrum / Trait Breakdown for other modules (RSES, GSE, etc.) */
+        <DimensionSpectrumView
+          constructs={resultData.constructs}
+          moduleTitle={resultData.module.titleTr}
         />
       )}
 
-      {/* 3. Deep Facet Breakdown */}
-      <HexacoFacetProfile constructs={resultData.constructs} />
+      {/* 3. Strengths & Potential Overuse Areas */}
+      {(resultData.strengths.length > 0 || resultData.growthAndRisks.length > 0) && (
+        <StrengthsRisksPanel
+          strengths={resultData.strengths}
+          growthAndRisks={resultData.growthAndRisks}
+        />
+      )}
 
-      {/* 4. Measurement Heatmap & Unmeasured Matrix */}
-      <TraitHeatmapSection
-        constructs={resultData.constructs}
-        unmeasuredDomains={resultData.unmeasuredDomains}
-      />
+      {/* 4. Synergies & Tensions Dynamic Interactions (Only rendered if evidence-based dynamics exist) */}
+      {resultData.dynamics && resultData.dynamics.length > 0 && (
+        <TensionsSynergiesPanel dynamics={resultData.dynamics} />
+      )}
 
-      {/* 5. Strengths & Potential Overuse Areas */}
-      <StrengthsRisksPanel
-        strengths={resultData.strengths}
-        growthAndRisks={resultData.growthAndRisks}
-      />
-
-      {/* 6. Synergies & Tensions Dynamic Interactions */}
-      <TensionsSynergiesPanel dynamics={resultData.dynamics} />
-
-      {/* 7. Psychometric Integrity & Response Quality Telemetry */}
+      {/* 5. Psychometric Integrity & Response Quality Telemetry */}
       <ResponseQualityPanel
         integrity={resultData.integrity}
         durationFormatted={resultData.timestamps.durationFormatted}
         scoringModelCode={resultData.snapshot.scoringModelCode}
       />
 
-      {/* 8. Ontological Coverage Map */}
+      {/* 6. Ontological Coverage Map */}
       <MeasurementCoveragePanel
         measuredModuleName={resultData.module.titleTr}
         constructs={resultData.constructs}
         unmeasuredDomains={resultData.unmeasuredDomains}
       />
 
-      {/* 9. Next Assessment Handoff */}
+      {/* 7. Next Assessment Handoff */}
       <NextAssessmentHandoff nextAction={resultData.nextAction} />
     </PageContainer>
   );

@@ -39,14 +39,14 @@ describe('FAZ 2.9: Score Band Classification Logic', () => {
   });
 });
 
-describe('FAZ 2.9: Assessment Visual Registry', () => {
+describe('FAZ 2.9 & 2.10: Assessment Visual Registry & Fallback Safety', () => {
   it('maps core personality module to HEXACO_RADAR', () => {
     expect(ASSESSMENT_VISUAL_REGISTRY['MODULE_1_CORE_PERSONALITY']).toBe('HEXACO_RADAR');
     expect(ASSESSMENT_VISUAL_REGISTRY['CORE_INTAKE']).toBe('HEXACO_RADAR');
   });
 
-  it('maps modular deep dives to TRAIT_BREAKDOWN', () => {
-    expect(ASSESSMENT_VISUAL_REGISTRY['MODULE_2_SELF_IDENTITY']).toBe('TRAIT_BREAKDOWN');
+  it('maps self identity to DIMENSION_SPECTRUM and others to TRAIT_BREAKDOWN', () => {
+    expect(ASSESSMENT_VISUAL_REGISTRY['MODULE_2_SELF_IDENTITY']).toBe('DIMENSION_SPECTRUM');
     expect(ASSESSMENT_VISUAL_REGISTRY['MODULE_3_EMOTION_REGULATION']).toBe('TRAIT_BREAKDOWN');
     expect(ASSESSMENT_VISUAL_REGISTRY['MODULE_4_VOLITION_CONTROL']).toBe('TRAIT_BREAKDOWN');
   });

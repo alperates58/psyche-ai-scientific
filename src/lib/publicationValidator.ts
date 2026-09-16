@@ -179,7 +179,7 @@ export async function validateAssessmentFormForPublication(
       );
     }
 
-    // Blocker: LIKERT_5 scale options validation
+    // Blocker: LIKERT_5 and LIKERT_4 scale options validation
     if (itm.itemType === 'LIKERT_5') {
       if (iv.options.length !== 5) {
         blockers.push(
@@ -190,6 +190,27 @@ export async function validateAssessmentFormForPublication(
         if (JSON.stringify(optionValues) !== JSON.stringify([1, 2, 3, 4, 5])) {
           blockers.push(
             `INVALID_OPTION_VALUES: Soru #${itemNum} (${itm.itemCode}) seçenek değerleri 1, 2, 3, 4, 5 olmalıdır.`
+          );
+        }
+        for (const opt of iv.options) {
+          if (!opt.labelTr || opt.labelTr.trim() === '') {
+            blockers.push(
+              `MISSING_OPTION_LABEL: Soru #${itemNum} (${itm.itemCode}) ${opt.value} puan seçeneğinin Türkçe etiketi boş.`
+            );
+            break;
+          }
+        }
+      }
+    } else if (itm.itemType === 'LIKERT_4') {
+      if (iv.options.length !== 4) {
+        blockers.push(
+          `INVALID_OPTION_COUNT: Soru #${itemNum} (${itm.itemCode}) LIKERT_4 ölçeğinde tam olarak 4 cevap seçeneğine sahip olmalıdır (Mevcut: ${iv.options.length}).`
+        );
+      } else {
+        const optionValues = iv.options.map((o) => o.value).sort((a, b) => a - b);
+        if (JSON.stringify(optionValues) !== JSON.stringify([1, 2, 3, 4])) {
+          blockers.push(
+            `INVALID_OPTION_VALUES: Soru #${itemNum} (${itm.itemCode}) seçenek değerleri 1, 2, 3, 4 olmalıdır.`
           );
         }
         for (const opt of iv.options) {

@@ -1,14 +1,16 @@
 import { prisma } from '@/lib/prisma';
 import {
   ASSESSMENT_VISUAL_REGISTRY,
-  HEXACO_CONSTRUCT_INTERPRETATIONS,
+  ALL_TRAIT_INTERPRETATIONS,
   TRAIT_DYNAMIC_RULES,
   deriveKeyObservations,
   getScoreBand,
+  resolveVisualArchetype,
   ScoreBandDetails,
   VisualRepresentationType,
   TraitInterpretationDefinition,
 } from '@/lib/assessmentInterpretationConfig';
+import { resolveScoringStrategy } from '@/lib/scoringStrategies';
 import { getUserAssessmentJourney, NextActionDetails } from './assessmentJourneyService';
 
 export interface MeasuredFacetViewModel {
@@ -244,14 +246,23 @@ export async function getAssessmentResultView(
   const endMs = session.completedAt ? new Date(session.completedAt).getTime() : startMs;
   const durationMs = session.totalDurationMs > 0 ? session.totalDurationMs : Math.max(0, endMs - startMs);
 
-  // 5. Build measured constructs and facets
+  // 5. Resolve scoring strategy & scale configuration
+  const strategy = resolveScoringStrategy(
+    linkedSnapshot.scoringModelVersion?.code,
+    session.formVersion?.module?.code
+  );
+  const scaleMin = strategy.scaleMin || 1.0;
+  const scaleMax = strategy.scaleMax || 5.0;
+  const scaleRange = Math.max(0.1, scaleMax - scaleMin);
+
+  // 6. Build measured constructs and facets
   const constructScoresMap: Record<string, number> = {};
   const constructs: MeasuredConstructViewModel[] = [];
 
   for (const cs of linkedSnapshot.constructScores) {
     constructScoresMap[cs.construct.code] = cs.compositeScore;
-    const bandInfo = getScoreBand(cs.compositeScore);
-    const interp = HEXACO_CONSTRUCT_INTERPRETATIONS[cs.construct.code];
+    const bandInfo = getScoreBand(cs.compositeScore, scaleMax);
+    const interp = ALL_TRAIT_INTERPRETATIONS[cs.construct.code];
 
     // Find facets for this construct in this snapshot
     const matchingFacets = linkedSnapshot.facetScores
@@ -263,7 +274,7 @@ export async function getAssessmentResultView(
         definitionTr: fs.facet.descriptionTr,
         rawMean: fs.rawMean,
         itemCount: fs.itemCount,
-        bandInfo: getScoreBand(fs.rawMean),
+        bandInfo: getScoreBand(fs.rawMean, scaleMax),
       }));
 
     constructs.push({
@@ -272,7 +283,7 @@ export async function getAssessmentResultView(
       nameTr: cs.construct.nameTr,
       descriptionTr: cs.construct.descriptionTr,
       compositeScore: cs.compositeScore,
-      scorePercentage: Math.round(((cs.compositeScore - 1.0) / 4.0) * 100),
+      scorePercentage: Math.min(100, Math.max(0, Math.round(((cs.compositeScore - scaleMin) / scaleRange) * 100))),
       bandInfo,
       facetCount: cs.facetCount,
       interpretation: interp,
@@ -280,25 +291,26 @@ export async function getAssessmentResultView(
     });
   }
 
-  // 6. Build Radar Data
+  // 7. Build Radar Data
   const radarData = constructs.map((c) => ({
     name: c.code,
     name_tr: c.nameTr,
-    score: Number((c.compositeScore * 20).toFixed(1)), // convert 1-5 scale to 0-100 for radar rendering
+    score: Number((((c.compositeScore - scaleMin) / scaleRange) * 100).toFixed(1)), // normalized 0-100 for radar rendering
     scaleMin: 0,
     scaleMax: 100,
   }));
 
-  // 7. Derive Key Observations
+  // 8. Derive Key Observations
   const keyObservations = deriveKeyObservations(
     constructs.map((c) => ({
       code: c.code,
       nameTr: c.nameTr,
       compositeScore: c.compositeScore,
+      scaleMax,
     }))
   );
 
-  // 8. Derive Strengths & Growth Areas
+  // 9. Derive Strengths & Growth Areas
   const strengths: Array<{ traitName: string; point: string }> = [];
   const growthAndRisks: Array<{ traitName: string; point: string }> = [];
 
@@ -321,7 +333,7 @@ export async function getAssessmentResultView(
     }
   }
 
-  // 9. Evaluate Dynamics (Synergies & Tensions)
+  // 10. Evaluate Dynamics (Synergies & Tensions) - Strictly evidence-based, no fake fallback
   const dynamics: DynamicInsightViewModel[] = [];
   for (const rule of TRAIT_DYNAMIC_RULES) {
     if (rule.condition(constructScoresMap)) {
@@ -334,18 +346,7 @@ export async function getAssessmentResultView(
     }
   }
 
-  // Fallback dynamic if none matched
-  if (dynamics.length === 0) {
-    dynamics.push({
-      id: 'balanced_integration',
-      titleTr: 'Dengeli Profil Dinamiği',
-      type: 'SYNERGY',
-      descriptionTr:
-        'Kişilik boyutlarınız arasında belirgin bir aşırılık veya sürtüşme bulunmamakta, farklı sosyal ve profesyonel bağlamlara dengeli bir adaptasyon sergilemektedir.',
-    });
-  }
-
-  // 10. Query Unmeasured Domains
+  // 11. Query Unmeasured Domains
   const measuredDomainIds = new Set(linkedSnapshot.domainScores.map((d) => d.domainId));
   const allDomains = await prisma.domain.findMany({
     orderBy: { sortOrder: 'asc' },
@@ -361,13 +362,12 @@ export async function getAssessmentResultView(
       status: 'UNMEASURED',
     }));
 
-  // 11. Next Action Recommendation
+  // 12. Next Action Recommendation
   const journey = await getUserAssessmentJourney(userId);
   const nextAction = journey.nextAction;
 
-  // 12. Visual Representation Archetype
-  const visualType =
-    ASSESSMENT_VISUAL_REGISTRY[session.formVersion.module.code] || 'HEXACO_RADAR';
+  // 13. Visual Representation Archetype
+  const visualType = resolveVisualArchetype(session.formVersion.module.code);
 
   return {
     sessionId: session.id,
@@ -413,7 +413,7 @@ export async function getAssessmentResultView(
     },
     visualType,
     compositeScore: linkedSnapshot.provisionalComposite,
-    compositeScoreFormatted: `${linkedSnapshot.provisionalComposite.toFixed(1)} / 5.0`,
+    compositeScoreFormatted: `${linkedSnapshot.provisionalComposite.toFixed(1)} / ${scaleMax.toFixed(1)}`,
     keyObservations,
     constructs,
     radarData,

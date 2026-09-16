@@ -9,6 +9,10 @@ interface TensionsSynergiesPanelProps {
 }
 
 export const TensionsSynergiesPanel: React.FC<TensionsSynergiesPanelProps> = ({ dynamics }) => {
+  if (!dynamics || dynamics.length === 0) {
+    return null;
+  }
+
   return (
     <div className="bg-surface-1 p-6 sm:p-8 rounded-panel border border-border-subtle shadow-sm space-y-6">
       <div className="space-y-1 border-b border-border-subtle pb-4">
