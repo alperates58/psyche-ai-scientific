@@ -1,7 +1,8 @@
 {
   "journeyMetadata": {
     "modelName": "PsycheAI Adaptive Multi-Session Assessment Journey",
-    "primaryGoal": "Deliver immediate scientific value at each step without cognitive fatigue or straightlining.",
+    "primaryGoal": "Deliver maximum scientifically meaningful psychological coverage across 37 constructs without cognitive fatigue or straightlining.",
+    "corePhilosophy": "Assessment burden is solved through multi-session scheduling, save/resume state management, progressive profile unlocks, and modular flows—never through arbitrary item reduction.",
     "surveyFatigueLimitMinutes": 25
   },
   "stages": [

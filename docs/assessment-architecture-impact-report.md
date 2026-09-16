@@ -15,6 +15,31 @@ Bu doküman, **FAZ 2.14 Konsolide Master Psikolojik Model**'in bilimsel temeller
 
 ---
 
+## 1.1 Kritik Ürün İlkesi: Kapsamdan Ödün Vermeden Çoklu Oturum Mimarisi
+
+> [!IMPORTANT]
+> **Temel Ürün Felsefesi & Psikometrik Derinlik İlkesi**:
+> 1. **Soru Sayısı Kısıt Değil, Bilimsel Kapsamın Çıktısıdır**: PsycheAI, minimum soru sayısına göre optimize edilmez. Temel hedef, 37 yapı ve 91 fasetin bilimsel olarak savunulabilir maksimum psikolojik derinlikle ölçülmesidir.
+> 2. **Derinlikten ve Fasetlerden Ödün Verilmez**: Tam kapsamlı psikolojik profil (~400 soru) gerektiriyorsa, ~400 soru korunur. Tamamlama süresini suni olarak düşürmek uğruna yapılar, alt boyutlar veya geçerliği kanıtlanmış ölçüm derinliği asla budanmaz.
+> 3. **Değerlendirme Yükü (Assessment Burden) Çözüm Stratejisi**:
+>    - Çoklu oturum mimarisi (*Multi-Session Completion*)
+>    - Kaydet / Devam Et (*Save / Resume State Management*)
+>    - Aşamalı profil kilidi açma (*Progressive Profile Unlocking*)
+>    - Modüler değerlendirme akışı (*Modular Flow*)
+>    - Oturum planlama ve bildirimler (*Session Scheduling*)
+>    - İlerleme takibi (*Progress Tracking*)
+>    *Bu yük kesinlikle keyfi madde eksiltmeyle çözülmez.*
+> 4. **Yapı Kapsamını Koruma Kuralı (Coverage Preservation Rule)**:
+>    - Tercih edilen bir envanter telifli, engelli veya erişilemez olduğunda Master Model küçültülmez.
+>    - Kapsam şu 3 yoldan biriyle korunur: (a) Bilimsel olarak savunulabilir başka bir envanter seçilmesi, (b) Açık bilim eşdeğerinin kullanılması, (c) PsycheAI araştırma formunun geliştirilmesi.
+> 5. **Referans Kademeler (Üst Tavan Değil, Dinamik Çıktı)**:
+>    - **Core Onboarding**: ~108 soru (Tek oturum, $<25$ dk)
+>    - **Expanded Profile**: ~265 kümülatif soru (2 oturum)
+>    - **Comprehensive Profile**: ~382 kümülatif soru (3 oturum)
+>    - **Advanced / Research**: 410+ soru mümkün
+
+---
+
 ## 2. Dört Aşamalı Ürün Kapısı (Four-Way Product Gate) Denetim Sonuçları
 
 PsycheAI platformunda hiçbir envanter yalnızca "popüler" veya "ünlü" olduğu için ürün sürümüne dahil edilmez. Her aday envanter 4 bağımsız kapıdan geçirilmiştir:

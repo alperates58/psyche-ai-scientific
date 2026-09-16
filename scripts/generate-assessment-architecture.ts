@@ -1441,7 +1441,9 @@ const questionBudget = {
   budgetMetadata: {
     averageItemReadingSeconds: 12.0,
     fatigueThresholdMinutesPerSession: 25.0,
-    governanceRule: 'Target question counts derived from verified scientific scale lengths. Clear distinction between TARGET architecture and PRODUCT_READY_NOW.'
+    corePhilosophy: 'PsycheAI is strictly designed for maximum scientifically meaningful psychological coverage across 37 constructs and 91 facets, not minimum question count. Question count is an output of scientific coverage, not an artificial ceiling. Assessment burden is solved via multi-session completion, save/resume, progressive profile unlocking, modular assessment flow, and session scheduling, never through arbitrary item reduction.',
+    coveragePreservationRule: 'If an instrument is unavailable or blocked, construct coverage is preserved through defensible alternatives, open equivalents, or PsycheAI research forms without reducing the Master Model.',
+    governanceRule: 'Target question counts derived from verified scientific scale lengths. Clear distinction between TARGET architecture (~382+ items) and PRODUCT_READY_NOW.'
   },
   tiers: {
     FIRST_MEANINGFUL_PROFILE: {
@@ -1544,7 +1546,8 @@ console.log('✅ Generated assessment-question-budget.json');
 const journeyPlan = {
   journeyMetadata: {
     modelName: 'PsycheAI Adaptive Multi-Session Assessment Journey',
-    primaryGoal: 'Deliver immediate scientific value at each step without cognitive fatigue or straightlining.',
+    primaryGoal: 'Deliver maximum scientifically meaningful psychological coverage across 37 constructs without cognitive fatigue or straightlining.',
+    corePhilosophy: 'Assessment burden is solved through multi-session scheduling, save/resume state management, progressive profile unlocks, and modular flows—never through arbitrary item reduction.',
     surveyFatigueLimitMinutes: 25.0
   },
   stages: [
