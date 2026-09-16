@@ -5,11 +5,8 @@ import { recordResponse } from '@/services/responseService';
 import { finalizeAssessmentAndCreateSnapshot } from '@/services/profileService';
 import { getUserAssessmentJourney } from '@/services/assessmentJourneyService';
 
-const VALIDATED_EXECUTABLE_MODULE_CODES = [
+const ALL_EXECUTABLE_MODULE_CODES = [
   'mod_core_hexaco_60',
-];
-
-const CONTENT_PENDING_MODULE_CODES = [
   'mod_self_agency',
   'mod_emotion_regulation',
   'mod_cognitive_epistemic',
@@ -27,7 +24,7 @@ const CONTENT_PENDING_MODULE_CODES = [
   'mod_dark_tetrad_advanced',
 ];
 
-describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification (Item Provenance Lock)', () => {
+describe('FAZ 2.16.1 Executable Assessment Lifecycle & User Journey Verification (PsycheAI Native Battery)', () => {
   let testUserId: string;
 
   beforeAll(async () => {
@@ -59,103 +56,97 @@ describe('FAZ 2.16 Executable Assessment Lifecycle & User Journey Verification (
   });
 
   describe('1. Content Availability and Catalog State Integrity', () => {
-    it('correctly classifies executable vs content-pending modules in user journey', async () => {
+    it('correctly classifies all 16 modules as playable and ready in user journey', async () => {
       const journey = await getUserAssessmentJourney(testUserId);
       expect(journey.allAssessments.length).toBe(16);
 
       for (const item of journey.allAssessments) {
-        if (VALIDATED_EXECUTABLE_MODULE_CODES.includes(item.moduleCode) || VALIDATED_EXECUTABLE_MODULE_CODES.includes(item.assessmentId)) {
-          expect(item.isPlayable).toBe(true);
-          expect(item.status).toBe('NOT_STARTED');
-          expect(item.itemCount).toBe(17);
-        } else if (CONTENT_PENDING_MODULE_CODES.includes(item.assessmentId) || CONTENT_PENDING_MODULE_CODES.includes(item.moduleCode)) {
-          expect(item.isPlayable).toBe(false);
-          expect(item.status).toBe('CONTENT_PENDING');
-        }
+        expect(item.isPlayable).toBe(true);
+        expect(item.status).toBe('NOT_STARTED');
+        expect(item.contentAvailability).toBe('READY');
+        expect(item.itemCount).toBeGreaterThan(0);
       }
     });
 
-    it('rejects session initialization on all content-pending unverified modules gracefully without crashing', async () => {
-      for (const pendingCode of CONTENT_PENDING_MODULE_CODES) {
-        await expect(getOrCreateAssessmentSession(testUserId, pendingCode)).rejects.toThrow(
-          /Bu değerlendirme modülünün içerik formu henüz hazırlanma aşamasındadır/
-        );
+    it('successfully initializes sessions for all 16 native modules', async () => {
+      for (const moduleCode of ALL_EXECUTABLE_MODULE_CODES) {
+        const session = await getOrCreateAssessmentSession(testUserId, moduleCode);
+        expect(session).toBeDefined();
+        expect(session.formVersion.items.length).toBeGreaterThan(0);
       }
     });
   });
 
-  describe('2. Full Assessment Execution Flow for Verified Validated Module', () => {
-    for (const moduleCode of VALIDATED_EXECUTABLE_MODULE_CODES) {
-      it(`successfully completes start -> render -> respond -> pause -> resume -> finalize for ${moduleCode}`, async () => {
-        // Step A: Start session
-        const session = await getOrCreateAssessmentSession(testUserId, moduleCode);
-        expect(session).toBeDefined();
-        expect(session.id).toBeDefined();
-        expect(session.status).toBe('IN_PROGRESS');
-        expect(session.formVersion).toBeDefined();
+  describe('2. Full Assessment Execution Flow for Verified Native Battery Module', () => {
+    it('successfully completes start -> render -> respond -> pause -> resume -> finalize for mod_core_hexaco_60', async () => {
+      // Step A: Start session
+      const session = await getOrCreateAssessmentSession(testUserId, 'mod_core_hexaco_60');
+      expect(session).toBeDefined();
+      expect(session.id).toBeDefined();
+      expect(session.status).toBe('IN_PROGRESS');
+      expect(session.formVersion).toBeDefined();
 
-        const items = session.formVersion.items;
-        expect(items.length).toBe(17);
+      const items = session.formVersion.items;
+      expect(items.length).toBe(124);
 
-        // Step B: Verify first item rendering
-        const firstItem = items[0];
-        expect(firstItem.itemVersion.promptTr).toBeTruthy();
-        expect(firstItem.itemVersion.options.length).toBeGreaterThanOrEqual(2);
+      // Step B: Verify first item rendering
+      const firstItem = items[0];
+      expect(firstItem.itemVersion.promptTr).toBeTruthy();
+      expect(firstItem.itemVersion.options.length).toBe(5);
 
-        // Step C: Record first response
-        const option = firstItem.itemVersion.options[0];
-        const res1 = await recordResponse({
+      // Step C: Record first response
+      const option = firstItem.itemVersion.options[0];
+      const res1 = await recordResponse({
+        userId: testUserId,
+        sessionId: session.id,
+        formItemId: firstItem.id,
+        selectedOptionVersionId: option.id,
+        rawValue: option.value,
+        durationMs: 1200,
+        focusLostCount: 0,
+      });
+      expect(res1).toBeDefined();
+      expect(res1.recordId).toBeDefined();
+
+      // Step D: Pause session
+      const paused = await pauseAssessmentSession(session.id, testUserId, 2);
+      expect(paused.status).toBe('PAUSED');
+      expect(paused.currentStep).toBe(2);
+
+      // Step E: Resume session
+      const resumed = await getOrCreateAssessmentSession(testUserId, 'mod_core_hexaco_60');
+      expect(resumed.id).toBe(session.id);
+      expect(resumed.status).toBe('IN_PROGRESS');
+
+      // Step F: Complete all remaining responses
+      for (let i = 1; i < items.length; i++) {
+        const item = items[i];
+        const opt = item.itemVersion.options[2];
+        await recordResponse({
           userId: testUserId,
           sessionId: session.id,
-          formItemId: firstItem.id,
-          selectedOptionVersionId: option.id,
-          rawValue: option.value,
-          durationMs: 1200,
+          formItemId: item.id,
+          selectedOptionVersionId: opt.id,
+          rawValue: opt.value,
+          durationMs: 800,
           focusLostCount: 0,
         });
-        expect(res1).toBeDefined();
-        expect(res1.recordId).toBeDefined();
+      }
 
-        // Step D: Pause session
-        const paused = await pauseAssessmentSession(session.id, testUserId, 2);
-        expect(paused.status).toBe('PAUSED');
-        expect(paused.currentStep).toBe(2);
+      // Step G: Finalize Assessment and create deterministic Profile Snapshot
+      const snapshot = await finalizeAssessmentAndCreateSnapshot(session.id, testUserId);
+      expect(snapshot).toBeDefined();
+      expect(snapshot.id).toBeDefined();
+      expect(snapshot.facetScores.length).toBe(24);
+      expect(snapshot.domainScores.length).toBeGreaterThan(0);
 
-        // Step E: Resume session
-        const resumed = await getOrCreateAssessmentSession(testUserId, moduleCode);
-        expect(resumed.id).toBe(session.id);
-        expect(resumed.status).toBe('IN_PROGRESS');
-
-        // Step F: Complete all remaining responses
-        for (let i = 1; i < items.length; i++) {
-          const item = items[i];
-          const opt = item.itemVersion.options[0];
-          await recordResponse({
-            userId: testUserId,
-            sessionId: session.id,
-            formItemId: item.id,
-            selectedOptionVersionId: opt.id,
-            rawValue: opt.value,
-            durationMs: 800,
-            focusLostCount: 0,
-          });
-        }
-
-        // Step G: Finalize Assessment and create deterministic Profile Snapshot
-        const snapshot = await finalizeAssessmentAndCreateSnapshot(session.id, testUserId);
-        expect(snapshot).toBeDefined();
-        expect(snapshot.id).toBeDefined();
-        expect(snapshot.facetScores.length).toBeGreaterThan(0);
-        expect(snapshot.domainScores.length).toBeGreaterThan(0);
-
-        // Verify session status transitioned to COMPLETED
-        const completedSessionInDb = await prisma.assessmentSession.findUnique({
-          where: { id: session.id },
-        });
-        expect(completedSessionInDb?.status).toBe('COMPLETED');
-        expect(completedSessionInDb?.completedAt).toBeInstanceOf(Date);
+      // Verify session status transitioned to COMPLETED
+      const completedSessionInDb = await prisma.assessmentSession.findUnique({
+        where: { id: session.id },
       });
-    }
+      expect(completedSessionInDb?.status).toBe('COMPLETED');
+      expect(completedSessionInDb?.completedAt).toBeInstanceOf(Date);
+    });
   });
 
   describe('3. User Journey State Transition after Assessment Completion', () => {

@@ -95,17 +95,26 @@ export async function calculatePreCalibrationScores(sessionId: string): Promise<
     throw new Error(`Puanlama modeli (${strategy.code}) veritabanında bulunamadı.`);
   }
 
-  // Transform responses into ScoredResponseItem format
-  const scoredItems: ScoredResponseItem[] = session.responses.map((resp) => ({
-    itemId: resp.itemId,
-    facetId: resp.item.facet.id,
-    constructId: resp.item.facet.construct.id,
-    domainId: resp.item.facet.construct.domain.id,
-    rawValue: resp.rawValue,
-    scoredValue: resp.scoredValue,
-    isKeyed: resp.item.isKeyed,
-    isAttentionCheck: resp.item.isAttentionCheck,
-  }));
+  // Transform responses into ScoredResponseItem format (excluding attention checks and response quality items)
+  const scoredItems: ScoredResponseItem[] = session.responses
+    .filter((resp) => {
+      const isQuality =
+        resp.item.isAttentionCheck ||
+        resp.item.facet.construct.domain.id === 'response_integrity' ||
+        resp.item.facet.construct.id === 'response_quality' ||
+        ['attention_check', 'paired_consistency', 'infrequency_check'].includes(resp.item.facet.id);
+      return !isQuality;
+    })
+    .map((resp) => ({
+      itemId: resp.itemId,
+      facetId: resp.item.facet.id,
+      constructId: resp.item.facet.construct.id,
+      domainId: resp.item.facet.construct.domain.id,
+      rawValue: resp.rawValue,
+      scoredValue: resp.scoredValue,
+      isKeyed: resp.item.isKeyed,
+      isAttentionCheck: resp.item.isAttentionCheck,
+    }));
 
   const calculated = strategy.calculate(scoredItems);
 

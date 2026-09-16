@@ -434,11 +434,16 @@ export function resolveScoringStrategy(
   if (moduleCode) {
     const norm = moduleCode.toUpperCase().trim();
 
+    // All PsycheAI Native Assessment Modules use the deterministic Pre-Calibration Mean Scoring Engine
+    if (norm.startsWith('MOD_')) {
+      return HEXACO_PRECALIBRATION_STRATEGY;
+    }
+
+    // Legacy Form Heuristics (for backward compatibility)
     // ERQ / Emotion Regulation
     if (
       norm.includes('ERQ') ||
       norm === 'MODULE_3_EMOTION_REGULATION' ||
-      norm.includes('EMOTION_REGULATION') ||
       norm.includes('DUYGU_DUZENLEME')
     ) {
       return ERQ_MEAN_STRATEGY;
@@ -447,7 +452,6 @@ export function resolveScoringStrategy(
     // ECR-R / Attachment Patterns
     if (
       norm.includes('ECR') ||
-      norm.includes('ATTACHMENT') ||
       norm === 'MODULE_6_ATTACHMENT_PATTERNS' ||
       norm.includes('BAGLANMA')
     ) {
@@ -457,8 +461,7 @@ export function resolveScoringStrategy(
     // Self Agency / RSES + GSE Container
     if (
       norm.includes('SELF_AGENCY') ||
-      norm.includes('BENLIK_SISTEMI') ||
-      norm === 'MOD_SELF_AGENCY'
+      norm.includes('BENLIK_SISTEMI')
     ) {
       return SELF_AGENCY_PRECALIBRATION_STRATEGY;
     }
@@ -489,15 +492,13 @@ export function resolveScoringStrategy(
     if (
       norm.includes('HEXACO') ||
       norm === 'MODULE_1_CORE_PERSONALITY' ||
-      norm === 'CORE_INTAKE' ||
-      norm.includes('MOD_CORE_HEXACO_60')
+      norm === 'CORE_INTAKE'
     ) {
       return HEXACO_PRECALIBRATION_STRATEGY;
     }
 
-    // Default Pre-Calibration Mean Strategy for all scientific modules (e.g. Cognitive, Volition, Needs, Values, Adaptability, Meaning, Conflict, Affective, Dark Tetrad)
+    // Default Pre-Calibration Mean Strategy for other scientific modules
     if (
-      norm.startsWith('MOD_') ||
       norm.startsWith('MODULE_') ||
       norm.includes('COGNITIVE') ||
       norm.includes('VOLITION') ||

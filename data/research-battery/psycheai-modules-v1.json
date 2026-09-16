@@ -1,18 +1,18 @@
 {
   "meta": {
     "version": "1.0.0",
-    "generatedAt": "2026-09-16T20:01:31.713Z",
+    "generatedAt": "2026-09-16T20:14:30.963Z",
     "title": "PsycheAI Native Research Battery Assessment Modules",
     "description": "Complete module specifications mapping to the assessment journey and master model facets.",
-    "totalModules": 13
+    "totalModules": 16
   },
   "modules": [
     {
       "moduleId": "mod_core_hexaco_60",
-      "moduleCode": "CORE_HEXACO",
-      "titleTr": "Temel Kişilik Yapısı (HEXACO Genişletilmiş Araştırma Bataryası)",
-      "titleEn": "Core Personality Structure (HEXACO Extended Battery)",
-      "stage": "ONBOARDING",
+      "moduleCode": "mod_core_hexaco_60",
+      "titleTr": "Temel Kişilik Yapısı",
+      "titleEn": "Core Personality Structure",
+      "stage": "CORE",
       "priority": "P0",
       "estimatedMinutes": 18,
       "domainIds": [
@@ -185,34 +185,29 @@
     },
     {
       "moduleId": "mod_self_agency",
-      "moduleCode": "SELF_AGENCY",
-      "titleTr": "Benlik Sistemi, Öz-Saygı ve Fail Olma",
-      "titleEn": "Self-System, Self-Esteem & Personal Agency",
-      "stage": "ONBOARDING",
+      "moduleCode": "mod_self_agency",
+      "titleTr": "Benlik Sistemi ve Öz-Yetkinlik",
+      "titleEn": "Self-System & Agency",
+      "stage": "CORE",
       "priority": "P0",
-      "estimatedMinutes": 8,
+      "estimatedMinutes": 5,
       "domainIds": [
         "self_system"
       ],
       "constructIds": [
-        "self_evaluation_agency",
-        "self_structure"
+        "self_evaluation_agency"
       ],
       "facetIds": [
         "core_self_esteem",
         "contingent_self_worth",
-        "self_compassion",
         "generalized_self_efficacy",
-        "locus_of_control_internal",
-        "locus_of_control_external",
-        "self_concept_clarity",
         "authenticity"
       ],
       "responseQualityItemIds": [
         "psi_rq_attn_02",
         "psi_rq_infreq_02"
       ],
-      "totalItemsCount": 42,
+      "totalItemsCount": 22,
       "psychologicalItemIds": [
         "psi_ss_rse_01",
         "psi_ss_rse_02",
@@ -224,31 +219,11 @@
         "psi_ss_csw_03",
         "psi_ss_csw_04",
         "psi_ss_csw_05",
-        "psi_ss_scp_01",
-        "psi_ss_scp_02",
-        "psi_ss_scp_03",
-        "psi_ss_scp_04",
-        "psi_ss_scp_05",
         "psi_ss_gse_01",
         "psi_ss_gse_02",
         "psi_ss_gse_03",
         "psi_ss_gse_04",
         "psi_ss_gse_05",
-        "psi_ss_loc_in_01",
-        "psi_ss_loc_in_02",
-        "psi_ss_loc_in_03",
-        "psi_ss_loc_in_04",
-        "psi_ss_loc_in_05",
-        "psi_ss_loc_ex_01",
-        "psi_ss_loc_ex_02",
-        "psi_ss_loc_ex_03",
-        "psi_ss_loc_ex_04",
-        "psi_ss_loc_ex_05",
-        "psi_ss_scc_01",
-        "psi_ss_scc_02",
-        "psi_ss_scc_03",
-        "psi_ss_scc_04",
-        "psi_ss_scc_05",
         "psi_ss_aut_01",
         "psi_ss_aut_02",
         "psi_ss_aut_03",
@@ -259,34 +234,28 @@
     },
     {
       "moduleId": "mod_emotion_regulation",
-      "moduleCode": "EMOTION_REGULATION",
-      "titleTr": "Duygu Düzenleme, Affekt ve Beden Farkındalığı",
-      "titleEn": "Emotion Regulation, Affect & Somatic Awareness",
-      "stage": "ONBOARDING",
+      "moduleCode": "mod_emotion_regulation",
+      "titleTr": "Duygu Düzenleme Stratejileri",
+      "titleEn": "Emotion Regulation Strategies",
+      "stage": "CORE",
       "priority": "P0",
-      "estimatedMinutes": 9,
+      "estimatedMinutes": 5,
       "domainIds": [
         "emotion_regulation"
       ],
       "constructIds": [
-        "emotion_regulation_strategies",
-        "affective_style_awareness"
+        "emotion_regulation_strategies"
       ],
       "facetIds": [
         "cognitive_reappraisal",
         "expressive_suppression",
-        "positive_affect_trait",
-        "negative_affect_trait",
-        "affect_intensity",
         "distress_tolerance",
-        "experiential_avoidance",
-        "shame_proneness",
-        "guilt_proneness"
+        "experiential_avoidance"
       ],
       "responseQualityItemIds": [
         "psi_rq_attn_03"
       ],
-      "totalItemsCount": 46,
+      "totalItemsCount": 21,
       "psychologicalItemIds": [
         "psi_er_reap_01",
         "psi_er_reap_02",
@@ -298,21 +267,6 @@
         "psi_er_sup_03",
         "psi_er_sup_04",
         "psi_er_sup_05",
-        "psi_er_pa_01",
-        "psi_er_pa_02",
-        "psi_er_pa_03",
-        "psi_er_pa_04",
-        "psi_er_pa_05",
-        "psi_er_na_01",
-        "psi_er_na_02",
-        "psi_er_na_03",
-        "psi_er_na_04",
-        "psi_er_na_05",
-        "psi_er_int_01",
-        "psi_er_int_02",
-        "psi_er_int_03",
-        "psi_er_int_04",
-        "psi_er_int_05",
         "psi_er_dt_01",
         "psi_er_dt_02",
         "psi_er_dt_03",
@@ -322,51 +276,35 @@
         "psi_er_ea_02",
         "psi_er_ea_03",
         "psi_er_ea_04",
-        "psi_er_ea_05",
-        "psi_er_shm_01",
-        "psi_er_shm_02",
-        "psi_er_shm_03",
-        "psi_er_shm_04",
-        "psi_er_shm_05",
-        "psi_er_glt_01",
-        "psi_er_glt_02",
-        "psi_er_glt_03",
-        "psi_er_glt_04",
-        "psi_er_glt_05"
+        "psi_er_ea_05"
       ],
       "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
     },
     {
       "moduleId": "mod_cognitive_epistemic",
-      "moduleCode": "COGNITIVE_EPISTEMIC",
-      "titleTr": "Bilişsel Tarz, Karar Verme ve Zihinsel İhtiyaçlar",
-      "titleEn": "Cognitive Style, Decision Making & Epistemic Needs",
-      "stage": "ONBOARDING",
+      "moduleCode": "mod_cognitive_epistemic",
+      "titleTr": "Bilişsel Tarz ve Zihinsel Yönelim",
+      "titleEn": "Cognitive Style & Epistemic Orientation",
+      "stage": "CORE",
       "priority": "P0",
-      "estimatedMinutes": 9,
+      "estimatedMinutes": 5,
       "domainIds": [
         "cognition_decision"
       ],
       "constructIds": [
-        "epistemic_cognitive_style",
-        "decision_making_approach"
+        "epistemic_cognitive_style"
       ],
       "facetIds": [
         "need_for_cognition",
         "need_for_cognitive_closure",
         "rational_analytical_thinking",
-        "intuitive_experiential_thinking",
-        "cognitive_flexibility",
-        "intolerance_of_uncertainty",
-        "rumination_brooding",
-        "decision_style_maximizing",
-        "procrastination_tendency"
+        "intuitive_experiential_thinking"
       ],
       "responseQualityItemIds": [
         "psi_rq_pair_02a",
         "psi_rq_pair_02b"
       ],
-      "totalItemsCount": 47,
+      "totalItemsCount": 22,
       "psychologicalItemIds": [
         "psi_cd_nfc_01",
         "psi_cd_nfc_02",
@@ -387,41 +325,16 @@
         "psi_cd_int_02",
         "psi_cd_int_03",
         "psi_cd_int_04",
-        "psi_cd_int_05",
-        "psi_cd_cfx_01",
-        "psi_cd_cfx_02",
-        "psi_cd_cfx_03",
-        "psi_cd_cfx_04",
-        "psi_cd_cfx_05",
-        "psi_cd_iu_01",
-        "psi_cd_iu_02",
-        "psi_cd_iu_03",
-        "psi_cd_iu_04",
-        "psi_cd_iu_05",
-        "psi_cd_rum_01",
-        "psi_cd_rum_02",
-        "psi_cd_rum_03",
-        "psi_cd_rum_04",
-        "psi_cd_rum_05",
-        "psi_cd_max_01",
-        "psi_cd_max_02",
-        "psi_cd_max_03",
-        "psi_cd_max_04",
-        "psi_cd_max_05",
-        "psi_cd_prc_01",
-        "psi_cd_prc_02",
-        "psi_cd_prc_03",
-        "psi_cd_prc_04",
-        "psi_cd_prc_05"
+        "psi_cd_int_05"
       ],
       "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
     },
     {
       "moduleId": "mod_volition_impulse",
-      "moduleCode": "VOLITION_IMPULSE",
-      "titleTr": "Öz-Düzenleme, İrade ve Dürtüsellik",
-      "titleEn": "Self-Regulation, Volition & Impulse Control",
-      "stage": "PROFILE_EXPANSION",
+      "moduleCode": "mod_volition_impulse",
+      "titleTr": "İrade, Öz-Kontrol ve Dürtüsellik",
+      "titleEn": "Volition, Self-Control & Impulsivity",
+      "stage": "EXPANSION",
       "priority": "P1",
       "estimatedMinutes": 8,
       "domainIds": [
@@ -493,10 +406,10 @@
     },
     {
       "moduleId": "mod_basic_needs_sdt",
-      "moduleCode": "BASIC_NEEDS",
-      "titleTr": "Temel Psikolojik İhtiyaçlar (Öz-Belirleme)",
-      "titleEn": "Basic Psychological Needs (Self-Determination Theory)",
-      "stage": "PROFILE_EXPANSION",
+      "moduleCode": "mod_basic_needs_sdt",
+      "titleTr": "Temel Psikolojik İhtiyaçlar",
+      "titleEn": "Basic Psychological Needs",
+      "stage": "EXPANSION",
       "priority": "P1",
       "estimatedMinutes": 4,
       "domainIds": [
@@ -533,10 +446,10 @@
     },
     {
       "moduleId": "mod_universal_values",
-      "moduleCode": "UNIVERSAL_VALUES",
-      "titleTr": "Evrensel İnsani Değerler ve Motivasyonel Yönelim",
-      "titleEn": "Universal Human Values & Motivational Orientation",
-      "stage": "PROFILE_EXPANSION",
+      "moduleCode": "mod_universal_values",
+      "titleTr": "Evrensel İnsani Değerler ve Motivasyon",
+      "titleEn": "Universal Human Values & Motivation",
+      "stage": "EXPANSION",
       "priority": "P1",
       "estimatedMinutes": 6,
       "domainIds": [
@@ -547,40 +460,74 @@
         "achievement_striving"
       ],
       "facetIds": [
-        "self_transcendence_values",
-        "self_enhancement_values",
-        "openness_to_change_values",
-        "conservation_values",
-        "achievement_motivation",
-        "hope_for_success"
+        "schwartz_openness_to_change",
+        "schwartz_self_transcendence",
+        "schwartz_conservation",
+        "schwartz_self_enhancement",
+        "presence_of_meaning",
+        "search_for_meaning"
       ],
       "responseQualityItemIds": [
         "psi_rq_infreq_03"
       ],
-      "totalItemsCount": 1,
-      "psychologicalItemIds": [],
+      "totalItemsCount": 31,
+      "psychologicalItemIds": [
+        "psi_mv_opc_01",
+        "psi_mv_opc_02",
+        "psi_mv_opc_03",
+        "psi_mv_opc_04",
+        "psi_mv_opc_05",
+        "psi_mv_st_01",
+        "psi_mv_st_02",
+        "psi_mv_st_03",
+        "psi_mv_st_04",
+        "psi_mv_st_05",
+        "psi_mv_con_01",
+        "psi_mv_con_02",
+        "psi_mv_con_03",
+        "psi_mv_con_04",
+        "psi_mv_con_05",
+        "psi_mv_se_01",
+        "psi_mv_se_02",
+        "psi_mv_se_03",
+        "psi_mv_se_04",
+        "psi_mv_se_05",
+        "psi_mv_pom_01",
+        "psi_mv_pom_02",
+        "psi_mv_pom_03",
+        "psi_mv_pom_04",
+        "psi_mv_pom_05",
+        "psi_mv_sfm_01",
+        "psi_mv_sfm_02",
+        "psi_mv_sfm_03",
+        "psi_mv_sfm_04",
+        "psi_mv_sfm_05"
+      ],
       "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
     },
     {
-      "moduleId": "mod_adult_attachment",
-      "moduleCode": "ADULT_ATTACHMENT",
-      "titleTr": "Yetişkin Bağlanma Stilleri",
-      "titleEn": "Adult Attachment Dimensions",
-      "stage": "SPECIALIZED_DEEP_DIVES",
-      "priority": "P2",
-      "estimatedMinutes": 3,
+      "moduleId": "mod_relational_attachment_empathy",
+      "moduleCode": "mod_relational_attachment_empathy",
+      "titleTr": "İlişkisel Bağlanma ve Empati",
+      "titleEn": "Relational Attachment & Empathy",
+      "stage": "EXPANSION",
+      "priority": "P1",
+      "estimatedMinutes": 5,
       "domainIds": [
         "social_relational"
       ],
       "constructIds": [
-        "adult_attachment"
+        "adult_attachment",
+        "interpersonal_competence"
       ],
       "facetIds": [
         "attachment_anxiety",
-        "attachment_avoidance"
+        "attachment_avoidance",
+        "cognitive_perspective_taking",
+        "empathic_concern"
       ],
       "responseQualityItemIds": [],
-      "totalItemsCount": 10,
+      "totalItemsCount": 20,
       "psychologicalItemIds": [
         "psi_sr_anx_01",
         "psi_sr_anx_02",
@@ -591,36 +538,7 @@
         "psi_sr_avd_02",
         "psi_sr_avd_03",
         "psi_sr_avd_04",
-        "psi_sr_avd_05"
-      ],
-      "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
-    },
-    {
-      "moduleId": "mod_interpersonal_dynamics",
-      "moduleCode": "INTERPERSONAL_DYNAMICS",
-      "titleTr": "Kişilerarası Yetkinlik ve Sosyal Dinamikler",
-      "titleEn": "Interpersonal Competence & Social Dynamics",
-      "stage": "SPECIALIZED_DEEP_DIVES",
-      "priority": "P2",
-      "estimatedMinutes": 7,
-      "domainIds": [
-        "social_relational"
-      ],
-      "constructIds": [
-        "interpersonal_competence"
-      ],
-      "facetIds": [
-        "cognitive_perspective_taking",
-        "empathic_concern",
-        "assertiveness",
-        "social_connectedness",
-        "rejection_sensitivity_nonclinical",
-        "cooperation_orientation",
-        "conflict_avoidance"
-      ],
-      "responseQualityItemIds": [],
-      "totalItemsCount": 35,
-      "psychologicalItemIds": [
+        "psi_sr_avd_05",
         "psi_sr_cpt_01",
         "psi_sr_cpt_02",
         "psi_sr_cpt_03",
@@ -630,56 +548,230 @@
         "psi_sr_emp_02",
         "psi_sr_emp_03",
         "psi_sr_emp_04",
-        "psi_sr_emp_05",
+        "psi_sr_emp_05"
+      ],
+      "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
+    },
+    {
+      "moduleId": "mod_cognitive_adaptability",
+      "moduleCode": "mod_cognitive_adaptability",
+      "titleTr": "Bilişsel Esneklik ve Karar Verme",
+      "titleEn": "Cognitive Adaptability & Decision Making",
+      "stage": "DEEP",
+      "priority": "P2",
+      "estimatedMinutes": 5,
+      "domainIds": [
+        "cognition_decision"
+      ],
+      "constructIds": [
+        "decision_making_approach"
+      ],
+      "facetIds": [
+        "cognitive_flexibility",
+        "intolerance_of_uncertainty",
+        "rumination_brooding",
+        "decision_style_maximizing",
+        "procrastination_tendency"
+      ],
+      "responseQualityItemIds": [],
+      "totalItemsCount": 25,
+      "psychologicalItemIds": [
+        "psi_cd_cfx_01",
+        "psi_cd_cfx_02",
+        "psi_cd_cfx_03",
+        "psi_cd_cfx_04",
+        "psi_cd_cfx_05",
+        "psi_cd_iu_01",
+        "psi_cd_iu_02",
+        "psi_cd_iu_03",
+        "psi_cd_iu_04",
+        "psi_cd_iu_05",
+        "psi_cd_rum_01",
+        "psi_cd_rum_02",
+        "psi_cd_rum_03",
+        "psi_cd_rum_04",
+        "psi_cd_rum_05",
+        "psi_cd_max_01",
+        "psi_cd_max_02",
+        "psi_cd_max_03",
+        "psi_cd_max_04",
+        "psi_cd_max_05",
+        "psi_cd_prc_01",
+        "psi_cd_prc_02",
+        "psi_cd_prc_03",
+        "psi_cd_prc_04",
+        "psi_cd_prc_05"
+      ],
+      "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
+    },
+    {
+      "moduleId": "mod_meaning_compassion_grit",
+      "moduleCode": "mod_meaning_compassion_grit",
+      "titleTr": "Benlik Bütünlüğü ve Öz-Şefkat",
+      "titleEn": "Self-Clarity, Continuity & Self-Compassion",
+      "stage": "DEEP",
+      "priority": "P2",
+      "estimatedMinutes": 5,
+      "domainIds": [
+        "self_system"
+      ],
+      "constructIds": [
+        "self_structure"
+      ],
+      "facetIds": [
+        "self_compassion",
+        "locus_of_control_internal",
+        "locus_of_control_external",
+        "self_concept_clarity"
+      ],
+      "responseQualityItemIds": [],
+      "totalItemsCount": 20,
+      "psychologicalItemIds": [
+        "psi_ss_scp_01",
+        "psi_ss_scp_02",
+        "psi_ss_scp_03",
+        "psi_ss_scp_04",
+        "psi_ss_scp_05",
+        "psi_ss_loc_in_01",
+        "psi_ss_loc_in_02",
+        "psi_ss_loc_in_03",
+        "psi_ss_loc_in_04",
+        "psi_ss_loc_in_05",
+        "psi_ss_loc_ex_01",
+        "psi_ss_loc_ex_02",
+        "psi_ss_loc_ex_03",
+        "psi_ss_loc_ex_04",
+        "psi_ss_loc_ex_05",
+        "psi_ss_scc_01",
+        "psi_ss_scc_02",
+        "psi_ss_scc_03",
+        "psi_ss_scc_04",
+        "psi_ss_scc_05"
+      ],
+      "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
+    },
+    {
+      "moduleId": "mod_conflict_boundaries",
+      "moduleCode": "mod_conflict_boundaries",
+      "titleTr": "Kişilerarası İletişim ve Sınır Yönetimi",
+      "titleEn": "Interpersonal Boundaries & Assertiveness",
+      "stage": "DEEP",
+      "priority": "P2",
+      "estimatedMinutes": 4,
+      "domainIds": [
+        "social_relational"
+      ],
+      "constructIds": [
+        "interpersonal_competence"
+      ],
+      "facetIds": [
+        "assertiveness",
+        "rejection_sensitivity_nonclinical",
+        "conflict_avoidance",
+        "social_connectedness"
+      ],
+      "responseQualityItemIds": [],
+      "totalItemsCount": 20,
+      "psychologicalItemIds": [
         "psi_sr_asr_01",
         "psi_sr_asr_02",
         "psi_sr_asr_03",
         "psi_sr_asr_04",
         "psi_sr_asr_05",
-        "psi_sr_sct_01",
-        "psi_sr_sct_02",
-        "psi_sr_sct_03",
-        "psi_sr_sct_04",
-        "psi_sr_sct_05",
         "psi_sr_rsn_01",
         "psi_sr_rsn_02",
         "psi_sr_rsn_03",
         "psi_sr_rsn_04",
         "psi_sr_rsn_05",
-        "psi_sr_coo_01",
-        "psi_sr_coo_02",
-        "psi_sr_coo_03",
-        "psi_sr_coo_04",
-        "psi_sr_coo_05",
         "psi_sr_cav_01",
         "psi_sr_cav_02",
         "psi_sr_cav_03",
         "psi_sr_cav_04",
-        "psi_sr_cav_05"
+        "psi_sr_cav_05",
+        "psi_sr_sct_01",
+        "psi_sr_sct_02",
+        "psi_sr_sct_03",
+        "psi_sr_sct_04",
+        "psi_sr_sct_05"
       ],
       "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
     },
     {
-      "moduleId": "mod_wellbeing_vitality",
-      "moduleCode": "WELLBEING_VITALITY",
-      "titleTr": "İyilik Hali, Gelişme ve Yaşam Canlılığı",
-      "titleEn": "Subjective Wellbeing, Flourishing & Vitality",
-      "stage": "SPECIALIZED_DEEP_DIVES",
+      "moduleId": "mod_affective_distress",
+      "moduleCode": "mod_affective_distress",
+      "titleTr": "Duygusal Tepkisellik ve Beden Farkındalığı",
+      "titleEn": "Affective Tone & Somatic Awareness",
+      "stage": "DEEP",
       "priority": "P2",
-      "estimatedMinutes": 3,
+      "estimatedMinutes": 5,
       "domainIds": [
-        "wellbeing_vitality"
+        "emotion_regulation"
       ],
       "constructIds": [
-        "subjective_wellbeing"
+        "affective_style_awareness"
+      ],
+      "facetIds": [
+        "positive_affect_trait",
+        "negative_affect_trait",
+        "affect_intensity",
+        "shame_proneness",
+        "guilt_proneness"
+      ],
+      "responseQualityItemIds": [],
+      "totalItemsCount": 25,
+      "psychologicalItemIds": [
+        "psi_er_pa_01",
+        "psi_er_pa_02",
+        "psi_er_pa_03",
+        "psi_er_pa_04",
+        "psi_er_pa_05",
+        "psi_er_na_01",
+        "psi_er_na_02",
+        "psi_er_na_03",
+        "psi_er_na_04",
+        "psi_er_na_05",
+        "psi_er_int_01",
+        "psi_er_int_02",
+        "psi_er_int_03",
+        "psi_er_int_04",
+        "psi_er_int_05",
+        "psi_er_shm_01",
+        "psi_er_shm_02",
+        "psi_er_shm_03",
+        "psi_er_shm_04",
+        "psi_er_shm_05",
+        "psi_er_glt_01",
+        "psi_er_glt_02",
+        "psi_er_glt_03",
+        "psi_er_glt_04",
+        "psi_er_glt_05"
+      ],
+      "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
+    },
+    {
+      "moduleId": "mod_flourishing_vitality",
+      "moduleCode": "mod_flourishing_vitality",
+      "titleTr": "İyilik Hali, Canlılık ve İş Birliği",
+      "titleEn": "Psychological Flourishing & Vitality",
+      "stage": "DEEP",
+      "priority": "P2",
+      "estimatedMinutes": 4,
+      "domainIds": [
+        "wellbeing_vitality",
+        "social_relational"
+      ],
+      "constructIds": [
+        "subjective_wellbeing",
+        "interpersonal_competence"
       ],
       "facetIds": [
         "flourishing_scale",
         "subjective_vitality",
-        "satisfaction_with_life"
+        "satisfaction_with_life",
+        "cooperation_orientation"
       ],
       "responseQualityItemIds": [],
-      "totalItemsCount": 15,
+      "totalItemsCount": 20,
       "psychologicalItemIds": [
         "psi_wv_flr_01",
         "psi_wv_flr_02",
@@ -695,16 +787,21 @@
         "psi_wv_swl_02",
         "psi_wv_swl_03",
         "psi_wv_swl_04",
-        "psi_wv_swl_05"
+        "psi_wv_swl_05",
+        "psi_sr_coo_01",
+        "psi_sr_coo_02",
+        "psi_sr_coo_03",
+        "psi_sr_coo_04",
+        "psi_sr_coo_05"
       ],
       "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
     },
     {
       "moduleId": "mod_coping_resilience",
-      "moduleCode": "COPING_RESILIENCE",
-      "titleTr": "Başa Çıkma, Uyum ve Psikolojik Dayanıklılık",
-      "titleEn": "Coping Strategies & Psychological Resilience",
-      "stage": "SPECIALIZED_DEEP_DIVES",
+      "moduleCode": "mod_coping_resilience",
+      "titleTr": "Stresle Başa Çıkma ve Psikolojik Dayanıklılık",
+      "titleEn": "Coping Strategies & Resilience",
+      "stage": "DEEP",
       "priority": "P2",
       "estimatedMinutes": 4,
       "domainIds": [
@@ -747,11 +844,11 @@
       "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
     },
     {
-      "moduleId": "mod_creativity_curiosity",
-      "moduleCode": "CREATIVITY_CURIOSITY",
-      "titleTr": "Yaratıcılık, Merak ve Entelektüel Açıklık",
-      "titleEn": "Creativity, Epistemic Curiosity & Growth Mindset",
-      "stage": "SPECIALIZED_DEEP_DIVES",
+      "moduleId": "mod_creativity_growth",
+      "moduleCode": "mod_creativity_growth",
+      "titleTr": "Yaratıcılık, Merak ve Gelişim Zihniyeti",
+      "titleEn": "Creativity, Curiosity & Growth Mindset",
+      "stage": "DEEP",
       "priority": "P2",
       "estimatedMinutes": 4,
       "domainIds": [
@@ -794,11 +891,11 @@
       "scoringMethod": "PRE_CALIBRATION_UNWEIGHTED_FACET_MEAN_V1"
     },
     {
-      "moduleId": "mod_optional_dark_tetrad",
-      "moduleCode": "DARK_TETRAD_RESEARCH",
-      "titleTr": "Kişilik Araştırmaları Özel Modülü: Subklinik Karanlık Dörtlü (Opsiyonel)",
-      "titleEn": "Subclinical Dark Tetrad Research Module (Optional)",
-      "stage": "RESEARCH_OPTIONAL",
+      "moduleId": "mod_dark_tetrad_advanced",
+      "moduleCode": "mod_dark_tetrad_advanced",
+      "titleTr": "Subklinik Kişilik Dinamikleri (Opsiyonel)",
+      "titleEn": "Subclinical Dark Tetrad Dynamics (Optional)",
+      "stage": "ADVANCED",
       "priority": "P3",
       "estimatedMinutes": 4,
       "isOptional": true,

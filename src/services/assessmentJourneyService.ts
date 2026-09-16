@@ -210,24 +210,32 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
   const allItems: AssessmentJourneyItem[] = [];
 
   for (const arch of architectureModules) {
-    // Find matching module in DB
-    const matchingDbMod = dbModules.find(
-      (m) =>
-        m.code.toLowerCase() === arch.assessmentId.toLowerCase() ||
-        m.code.toLowerCase() === arch.moduleCode.toLowerCase() ||
-        (arch.assessmentId === 'mod_core_hexaco_60' && (m.code === 'MODULE_1_CORE_PERSONALITY' || m.code === 'CORE_INTAKE')) ||
-        (arch.assessmentId === 'mod_self_agency' && m.code === 'MODULE_2_SELF_IDENTITY') ||
-        (arch.assessmentId === 'mod_emotion_regulation' && m.code === 'MODULE_3_EMOTION_REGULATION') ||
-        (arch.assessmentId === 'mod_cognitive_epistemic' && m.code === 'MODULE_4_COGNITIVE_EPISTEMIC') ||
-        (arch.assessmentId === 'mod_volition_impulse' && m.code === 'MODULE_5_VOLITION_IMPULSE') ||
-        (arch.assessmentId === 'mod_basic_needs_sdt' && m.code === 'MODULE_6_BASIC_NEEDS_SDT') ||
-        (arch.assessmentId === 'mod_universal_values' && m.code === 'MODULE_7_UNIVERSAL_VALUES') ||
-        (arch.assessmentId === 'mod_relational_attachment_empathy' && (m.code === 'MODULE_8_RELATIONAL_ATTACHMENT_EMPATHY' || m.code === 'MODULE_6_ATTACHMENT_PATTERNS'))
-    );
+    // Find matching module in DB (exact code match prioritized)
+    const matchingDbMod =
+      dbModules.find(
+        (m) =>
+          m.code.toLowerCase() === arch.assessmentId.toLowerCase() ||
+          m.code.toLowerCase() === arch.moduleCode.toLowerCase()
+      ) ||
+      dbModules.find(
+        (m) =>
+          (arch.assessmentId === 'mod_core_hexaco_60' && (m.code === 'MODULE_1_CORE_PERSONALITY' || m.code === 'CORE_INTAKE')) ||
+          (arch.assessmentId === 'mod_self_agency' && m.code === 'MODULE_2_SELF_IDENTITY') ||
+          (arch.assessmentId === 'mod_emotion_regulation' && m.code === 'MODULE_3_EMOTION_REGULATION') ||
+          (arch.assessmentId === 'mod_cognitive_epistemic' && m.code === 'MODULE_4_COGNITIVE_EPISTEMIC') ||
+          (arch.assessmentId === 'mod_volition_impulse' && m.code === 'MODULE_5_VOLITION_IMPULSE') ||
+          (arch.assessmentId === 'mod_basic_needs_sdt' && m.code === 'MODULE_6_BASIC_NEEDS_SDT') ||
+          (arch.assessmentId === 'mod_universal_values' && m.code === 'MODULE_7_UNIVERSAL_VALUES') ||
+          (arch.assessmentId === 'mod_relational_attachment_empathy' && (m.code === 'MODULE_8_RELATIONAL_ATTACHMENT_EMPATHY' || m.code === 'MODULE_6_ATTACHMENT_PATTERNS'))
+      );
 
-    const publishedForm = matchingDbMod?.formVersions?.find(
-      (f) => f.isPublished && f.status === 'PUBLISHED'
-    );
+    const publishedForm =
+      matchingDbMod?.formVersions?.find(
+        (f) => f.isPublished && f.status === 'PUBLISHED' && f.versionCode === 'v1.0.0-psycheai-native'
+      ) ||
+      matchingDbMod?.formVersions?.find(
+        (f) => f.isPublished && f.status === 'PUBLISHED'
+      );
 
     // Find sessions for this module
     const sessionsForModule = userSessions.filter(

@@ -21,6 +21,8 @@
     "audit:item-provenance": "tsx scripts/audit-item-provenance.ts",
     "audit:research-battery": "tsx scripts/audit-research-battery.ts",
     "audit:research-sources": "tsx scripts/audit-research-sources.ts",
+    "audit:native-battery-runtime": "tsx scripts/audit-native-battery-runtime.ts",
+    "seed:native-battery": "tsx scripts/seed-psycheai-native-battery.ts",
     "admin:grant-role": "tsx scripts/admin-grant-role.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",

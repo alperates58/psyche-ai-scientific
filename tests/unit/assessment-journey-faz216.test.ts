@@ -67,21 +67,21 @@ describe('FAZ 2.16: Dynamic Question Budgets (No Hardcoded Ceiling)', () => {
   it('calculates stage question budgets dynamically from portfolio', () => {
     const budget = calculateCumulativeQuestionBudget(ASSESSMENT_MODULE_PORTFOLIO);
 
-    expect(budget.coreQuestions).toBe(108);
-    expect(budget.expansionQuestions).toBe(157);
-    expect(budget.expansionCumulativeQuestions).toBe(265);
-    expect(budget.deepQuestions).toBe(166);
-    expect(budget.comprehensiveCumulativeQuestions).toBe(431);
-    expect(budget.advancedQuestions).toBe(28);
-    expect(budget.advancedTotalQuestions).toBe(459);
+    expect(budget.coreQuestions).toBe(189);
+    expect(budget.expansionQuestions).toBe(109);
+    expect(budget.expansionCumulativeQuestions).toBe(298);
+    expect(budget.deepQuestions).toBe(150);
+    expect(budget.comprehensiveCumulativeQuestions).toBe(448);
+    expect(budget.advancedQuestions).toBe(21);
+    expect(budget.advancedTotalQuestions).toBe(469);
   });
 
   it('resolves active module budget on-demand', () => {
-    expect(resolveActiveModuleBudget('mod_core_hexaco_60')).toBe(60);
-    expect(resolveActiveModuleBudget('mod_self_agency')).toBe(20);
-    expect(resolveActiveModuleBudget('mod_emotion_regulation')).toBe(10);
-    expect(resolveActiveModuleBudget('mod_cognitive_epistemic')).toBe(18);
-    expect(resolveActiveModuleBudget('mod_dark_tetrad_advanced')).toBe(28);
+    expect(resolveActiveModuleBudget('mod_core_hexaco_60')).toBe(124);
+    expect(resolveActiveModuleBudget('mod_self_agency')).toBe(22);
+    expect(resolveActiveModuleBudget('mod_emotion_regulation')).toBe(21);
+    expect(resolveActiveModuleBudget('mod_cognitive_epistemic')).toBe(22);
+    expect(resolveActiveModuleBudget('mod_dark_tetrad_advanced')).toBe(21);
   });
 });
 

@@ -122,36 +122,36 @@ for (const key of categoryKeys) {
 console.log('\n3. Checking Dynamic Stage Question Budgets...');
 const budget = calculateCumulativeQuestionBudget(ASSESSMENT_MODULE_PORTFOLIO);
 
-console.log(`  - Core Profile (4 modules): ${budget.coreQuestions} questions (expected 108)`);
-console.log(`  - Expansion Profile (8 modules): ${budget.expansionCumulativeQuestions} cumulative questions (expected 265)`);
-console.log(`  - Comprehensive Profile (15 modules): ${budget.comprehensiveCumulativeQuestions} cumulative questions (expected 431)`);
-console.log(`  - Advanced Total (16 modules): ${budget.advancedTotalQuestions} cumulative questions (expected 459)`);
+console.log(`  - Core Profile (4 modules): ${budget.coreQuestions} questions (expected 189)`);
+console.log(`  - Expansion Profile (8 modules): ${budget.expansionCumulativeQuestions} cumulative questions (expected 298)`);
+console.log(`  - Comprehensive Profile (15 modules): ${budget.comprehensiveCumulativeQuestions} cumulative questions (expected 448)`);
+console.log(`  - Advanced Total (16 modules): ${budget.advancedTotalQuestions} cumulative questions (expected 469)`);
 
-if (budget.coreQuestions !== 108) {
+if (budget.coreQuestions !== 189) {
   errors.push({
     type: 'BUDGET_MISMATCH',
-    message: `Core question budget mismatch: expected 108, got ${budget.coreQuestions}`,
+    message: `Core question budget mismatch: expected 189, got ${budget.coreQuestions}`,
   });
 }
 
-if (budget.expansionCumulativeQuestions !== 265) {
+if (budget.expansionCumulativeQuestions !== 298) {
   errors.push({
     type: 'BUDGET_MISMATCH',
-    message: `Expansion question budget mismatch: expected 265, got ${budget.expansionCumulativeQuestions}`,
+    message: `Expansion question budget mismatch: expected 298, got ${budget.expansionCumulativeQuestions}`,
   });
 }
 
-if (budget.comprehensiveCumulativeQuestions !== 431) {
+if (budget.comprehensiveCumulativeQuestions !== 448) {
   errors.push({
     type: 'BUDGET_MISMATCH',
-    message: `Comprehensive question budget mismatch: expected 431, got ${budget.comprehensiveCumulativeQuestions}`,
+    message: `Comprehensive question budget mismatch: expected 448, got ${budget.comprehensiveCumulativeQuestions}`,
   });
 }
 
-if (budget.advancedTotalQuestions !== 459) {
+if (budget.advancedTotalQuestions !== 469) {
   errors.push({
     type: 'BUDGET_MISMATCH',
-    message: `Advanced total question budget mismatch: expected 459, got ${budget.advancedTotalQuestions}`,
+    message: `Advanced total question budget mismatch: expected 469, got ${budget.advancedTotalQuestions}`,
   });
 }
 
@@ -159,26 +159,26 @@ if (errors.length === 0) {
   console.log('  ✓ Question budgets match dynamic calculations perfectly across all stages.');
 }
 
-// 4. Multi-Instrument Container Independence Audit
-console.log('\n4. Checking Multi-Instrument Containers...');
+// 4. Native Battery Multi-Facet Container & Subscale Audit
+console.log('\n4. Checking Native Multi-Facet Assessment Containers...');
 const selfAgencyMod = ASSESSMENT_MODULE_PORTFOLIO.find(m => m.moduleCode === 'mod_self_agency');
-if (!selfAgencyMod || selfAgencyMod.instruments.length < 2) {
+if (!selfAgencyMod || selfAgencyMod.estimatedItemCount < 20) {
   errors.push({
     type: 'MULTI_INSTRUMENT_CONTAINER_ERROR',
-    message: 'mod_self_agency must contain both RSES and GSES instruments.',
+    message: 'mod_self_agency must contain at least 20 items across self-system facets.',
   });
 } else {
-  console.log(`  ✓ mod_self_agency contains: ${selfAgencyMod.instruments.join(', ')}`);
+  console.log(`  ✓ mod_self_agency configured with ${selfAgencyMod.estimatedItemCount} items across self-system facets.`);
 }
 
 const emotionMod = ASSESSMENT_MODULE_PORTFOLIO.find(m => m.moduleCode === 'mod_emotion_regulation');
-if (!emotionMod || !emotionMod.scoringModelCode.includes('ERQ')) {
+if (!emotionMod || emotionMod.estimatedItemCount < 20) {
   errors.push({
     type: 'MULTI_SUBSCALE_ERROR',
-    message: 'mod_emotion_regulation must use ERQ independent subscale scoring.',
+    message: 'mod_emotion_regulation must contain at least 20 items across emotion regulation facets.',
   });
 } else {
-  console.log(`  ✓ mod_emotion_regulation uses independent subscale scoring: ${emotionMod.scoringModelCode}`);
+  console.log(`  ✓ mod_emotion_regulation configured with ${emotionMod.estimatedItemCount} items: ${emotionMod.scoringModelCode}`);
 }
 
 // 5. Legacy Form Isolation Audit

@@ -9,22 +9,23 @@ export async function getOrCreateAssessmentSession(
 
   if (moduleCode) {
     // 1. Direct search by code or id
+    const cleanCode = moduleCode.trim();
     moduleRecord = await prisma.assessmentModule.findFirst({
       where: {
         OR: [
-          { code: moduleCode },
-          { id: moduleCode },
-          { code: moduleCode.toLowerCase() },
-          { code: moduleCode.toUpperCase() },
-          ...(moduleCode === 'mod_core_hexaco_60' ? [{ code: 'MODULE_1_CORE_PERSONALITY' }] : []),
-          ...(moduleCode === 'MODULE_1_CORE_PERSONALITY' ? [{ code: 'mod_core_hexaco_60' }] : []),
+          { code: cleanCode },
+          { id: cleanCode },
+          { code: cleanCode.toLowerCase() },
+          { code: cleanCode.toUpperCase() },
         ],
       },
       include: {
         formVersions: {
           where: { isPublished: true, status: 'PUBLISHED' },
-          orderBy: { publishedAt: 'desc' },
-          take: 1,
+          orderBy: [
+            { versionCode: 'desc' },
+            { publishedAt: 'desc' },
+          ],
         },
       },
     });
@@ -42,7 +43,7 @@ export async function getOrCreateAssessmentSession(
 
     moduleRecord = await prisma.assessmentModule.findFirst({
       where: {
-        OR: [{ code: 'mod_core_hexaco_60' }, { code: 'MODULE_1_CORE_PERSONALITY' }],
+        code: 'mod_core_hexaco_60',
         formVersions: {
           some: { isPublished: true, status: 'PUBLISHED' },
         },
@@ -50,8 +51,10 @@ export async function getOrCreateAssessmentSession(
       include: {
         formVersions: {
           where: { isPublished: true, status: 'PUBLISHED' },
-          orderBy: { publishedAt: 'desc' },
-          take: 1,
+          orderBy: [
+            { versionCode: 'desc' },
+            { publishedAt: 'desc' },
+          ],
         },
       },
     });
@@ -61,7 +64,10 @@ export async function getOrCreateAssessmentSession(
     throw new Error(`Aktif bir değerlendirme formu bulunamadı (${moduleCode || 'Genel'})`);
   }
 
-  const activeFormVersion = moduleRecord.formVersions[0];
+  // Prefer native form version if available
+  const activeFormVersion =
+    moduleRecord.formVersions.find((f) => f.versionCode === 'v1.0.0-psycheai-native') ||
+    moduleRecord.formVersions[0];
 
   // Check if there is an in-progress or paused session for this user and form version
   const existingSession = await prisma.assessmentSession.findFirst({
@@ -111,6 +117,7 @@ export async function getSessionWithDetails(sessionId: string, userId: string) {
                 include: {
                   item: {
                     include: {
+                      instrument: true,
                       facet: {
                         include: {
                           construct: {
