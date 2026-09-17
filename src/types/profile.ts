@@ -12,6 +12,8 @@ import {
   ProfileVisualizationDefinition,
   ProfileVisualizationDto,
 } from '@/lib/profileVisualizationRegistry';
+import { UnifiedPsychologicalProfileV2 } from './unifiedProfileV2';
+export * from './unifiedProfileV2';
 
 export type NormStatus = 'unavailable' | 'provisional' | 'validated';
 
@@ -373,9 +375,11 @@ export interface UnifiedProfileViewModel {
   qualityDimensions: UnifiedQualityDimensions;
   responseQuality: UnifiedResponseQualitySummary;
 
-  // Complete 84-facet ontology map & domains
+  // Complete 91-facet Master Model & domains
   domains: UnifiedDomainViewModel[];
   allFacets84: UnifiedFacetViewModel[];
+  allFacets91?: UnifiedFacetViewModel[];
+  profileV2?: UnifiedPsychologicalProfileV2;
 
   // FAZ 2.13 Confidence Map & Completeness Summary
   confidenceMap: ProfileConfidenceMapViewModel;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import { getCurrentUserOrNull } from '@/lib/auth';
-import { getUnifiedPsychologicalProfile } from '@/services/unifiedProfileService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { UnifiedProfileEmptyState } from '@/components/profile/UnifiedProfileEmptyState';
-import { UnifiedProfileClientView } from '@/components/profile/UnifiedProfileClientView';
+import { UnifiedProfileClientViewV2 } from '@/components/profile/UnifiedProfileClientViewV2';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,8 +18,8 @@ export default async function UnifiedProfilePage() {
     redirect('/verify-email');
   }
 
-  // 2. Fetch authoritative unified psychological profile
-  const profile = await getUnifiedPsychologicalProfile(user.id);
+  // 2. Fetch authoritative Master Model Unified Psychological Profile V2
+  const profile = await resolveUnifiedPsychologicalProfileV2(user.id);
 
   // 3. Render Zero-Assessment Empty State if no completed assessments
   if (!profile.hasAssessments) {
@@ -27,17 +27,17 @@ export default async function UnifiedProfilePage() {
       <PageContainer variant="wide" className="space-y-8 pb-16">
         <UnifiedProfileEmptyState
           userName={profile.userName}
-          nextAssessmentUrl={profile.nextAction?.url}
-          nextAssessmentTitle={profile.nextAction?.title}
+          nextAssessmentUrl={profile.nextBestAssessment?.url}
+          nextAssessmentTitle={profile.nextBestAssessment?.titleTr}
         />
       </PageContainer>
     );
   }
 
-  // 4. Render Multi-Layered Unified Profile Client View
+  // 4. Render 11-Domain Master Model Unified Profile V2 View
   return (
     <PageContainer variant="wide" className="pb-16">
-      <UnifiedProfileClientView profile={profile} />
+      <UnifiedProfileClientViewV2 profile={profile} />
     </PageContainer>
   );
 }

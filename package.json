@@ -22,6 +22,7 @@
     "audit:research-battery": "tsx scripts/audit-research-battery.ts",
     "audit:research-sources": "tsx scripts/audit-research-sources.ts",
     "audit:native-battery-runtime": "tsx scripts/audit-native-battery-runtime.ts",
+    "audit:unified-profile-v2": "tsx scripts/audit-unified-profile-v2.ts",
     "seed:native-battery": "tsx scripts/seed-psycheai-native-battery.ts",
     "admin:grant-role": "tsx scripts/admin-grant-role.ts",
     "prisma:generate": "prisma generate",

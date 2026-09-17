@@ -19,6 +19,8 @@ import {
   ResolvedFacetEvidence,
 } from '@/lib/facetEvidenceResolver';
 import { getUserAssessmentJourney } from './assessmentJourneyService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
+export { resolveUnifiedPsychologicalProfileV2 };
 import {
   UnifiedProfileViewModel,
   UnifiedDomainViewModel,
@@ -1283,5 +1285,6 @@ export async function getUnifiedPsychologicalProfile(userId: string): Promise<Un
           status: journey.nextAction.status,
         }
       : null,
+    profileV2: await resolveUnifiedPsychologicalProfileV2(userId),
   };
 }
