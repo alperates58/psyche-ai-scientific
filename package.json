@@ -24,6 +24,8 @@
     "audit:native-battery-runtime": "tsx scripts/audit-native-battery-runtime.ts",
     "audit:unified-profile-v2": "tsx scripts/audit-unified-profile-v2.ts",
     "audit:ai-insight-v2": "tsx scripts/audit-ai-insight-v2.ts",
+    "audit:theory-sources": "tsx scripts/audit-theory-sources.ts",
+    "audit:theory-lens-engine": "tsx scripts/audit-theory-lens-engine.ts",
     "audit:profile-runtime-consistency": "tsx scripts/audit-profile-runtime-consistency.ts",
     "audit:profile-source-of-truth": "tsx scripts/audit-profile-source-of-truth.ts",
     "reconcile:profile-runtime": "tsx scripts/reconcile-profile-runtime.ts",

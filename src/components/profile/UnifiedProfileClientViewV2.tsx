@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { UnifiedPsychologicalProfileV2 } from '@/types/unifiedProfileV2';
 import { UnifiedProfileAISectionData } from '@/types/aiInsightV2';
 import { ProfileEvidenceBundleV2 } from '@/lib/profile/profileEvidenceBundle';
@@ -27,6 +28,8 @@ import {
   Users,
   Smile,
   Activity,
+  BookOpen,
+  ArrowRight,
 } from 'lucide-react';
 
 export type ProfileTabId =
@@ -235,6 +238,29 @@ export const UnifiedProfileClientViewV2: React.FC<UnifiedProfileClientViewV2Prop
               bundle={evidenceBundle}
             />
           )}
+
+          {/* Kuramsal Konsil CTA Banner */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-linear-to-br from-indigo-900 via-slate-900 to-purple-950 text-white shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/30 border border-indigo-400/30 text-indigo-200 text-xs font-semibold">
+                <BookOpen className="w-3.5 h-3.5" />
+                FAZ 2.19 — Kuramsal Konsil
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold">
+                Profilinizi 10 Büyük Psikoloji Merceğinden İnceleyin
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Deterministik Master Model ile ölçülen profilinizi Freud, Jung, Adler, Rogers, Maslow, Skinner, Frankl, Beck ve diğer tarihsel ekollerin kavramsal gözlükleriyle keşfedin.
+              </p>
+            </div>
+            <Link
+              href="/theory-council"
+              className="shrink-0 px-6 py-3 rounded-2xl bg-white text-slate-900 hover:bg-slate-100 font-bold text-sm shadow-md transition-all flex items-center gap-2"
+            >
+              <span>Kuramsal Konsil&apos;e Git</span>
+              <ArrowRight className="w-4 h-4 text-indigo-600" />
+            </Link>
+          </div>
           <ProfileDomainMapV2
             domains={profile.domains}
             selectedDomainId={selectedDomainId}

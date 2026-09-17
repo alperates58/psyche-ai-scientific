@@ -1,0 +1,703 @@
+[
+  {
+    "lensId": "FREUD",
+    "displayNameTr": "Freud Merceği — Klasik Psikanalitik Dinamikler",
+    "displayNameEn": "Freud Lens — Classical Psychoanalytic Dynamics",
+    "theoristName": "Sigmund Freud",
+    "shortDescriptionTr": "İçsel dürtüler, savunma mekanizmaları ve yapısal kişilik katmanları (İd, Ego, Süperego) arasındaki dinamik dengeleri inceler.",
+    "historicalContextTr": "19. yüzyıl sonu ve 20. yüzyıl başında Viyana'da geliştirilen psikanaliz, insan davranışlarının bilinçli farkındalık dışındaki çatışmalar ve savunma düzenekleriyle şekillendiğini öne süren tarihsel bir kuramdır.",
+    "historicalPeriod": "1895–1939",
+    "theoreticalTradition": "Klasik Psikanaliz & Yapısal Dürtü Modeli",
+    "epistemicStatus": "HISTORICAL_FRAMEWORK",
+    "coreConcepts": [
+      {
+        "conceptId": "id_ego_superego",
+        "nameTr": "Yapısal Kişilik Modeli (İd, Ego, Süperego)",
+        "nameEn": "Tripartite Structural Model (Id, Ego, Superego)",
+        "definitionTr": "Temel arzular (İd), gerçeklik uyumu (Ego) ve ahlaki/toplumsal idealler (Süperego) arasındaki dengeleyici etkileşim.",
+        "sourceRefs": ["src_freud_1923"]
+      },
+      {
+        "conceptId": "defense_mechanisms",
+        "nameTr": "Savunma Mekanizmaları ve Uyum",
+        "nameEn": "Defense Mechanisms & Adaptation",
+        "definitionTr": "Egonun içsel kaygı, çatışma veya tehdit karşısında geliştirdiği telafi, yüceltme veya rasyonelleştirme stratejileri.",
+        "sourceRefs": ["src_freud_1923", "src_freud_1915"]
+      },
+      {
+        "conceptId": "sublimation",
+        "nameTr": "Yüceltme (Süblimasyon)",
+        "nameEn": "Sublimation",
+        "definitionTr": "Ham dürtüsel veya duygusal enerjinin toplumsal ve üretken amaçlara (sanat, bilim, sorumluluk) yönlendirilmesi.",
+        "sourceRefs": ["src_freud_1915"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "id_ego_superego",
+        "targetDomainCodes": ["core_personality", "self_regulation"],
+        "targetConstructCodes": ["hexaco_conscientiousness", "hexaco_emotionality", "volitional_stamina"],
+        "targetFacetIds": ["prudence", "organization", "general_self_control", "anxiety"],
+        "mappingRationaleTr": "Sorumluluk ve öz-kontrol özellikleri, kuramsal olarak egonun gerçeklik ilkesi ve süperego idealleriyle paralellik gösterir."
+      },
+      {
+        "conceptId": "defense_mechanisms",
+        "targetDomainCodes": ["emotion_regulation"],
+        "targetConstructCodes": ["cognitive_reappraisal", "expressive_suppression"],
+        "targetFacetIds": ["cognitive_reappraisal", "expressive_suppression"],
+        "mappingRationaleTr": "Duygusal baskılama ve yeniden değerlendirme, kuramsal savunma ve adaptasyon biçimleriyle kavramsal olarak kıyaslanabilir."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Kullanıcının çocukluk çağı olaylarını veya ebeveyn ilişkilerini kesin gerçek gibi iddia etmek",
+      "Kullanıcının bastırılmış travması veya gizli cinsel çatışmaları olduğunu ileri sürmek",
+      "Kişilik özelliklerini nevroz, histeri veya klinik psikopatoloji olarak etiketlemek",
+      "Bilinçdışı güdüleri ampirik ölçülmüş mutlak veriler gibi sunmak"
+    ],
+    "clinicalRiskNotes": [
+      "Freudcu kavramlar tanısal değerlendirme veya psikiyatrik teşhis amacıyla kullanılamaz.",
+      "İçsel savunmalar patoloji olarak değil, insanın çevresel kaygıyla başa çıkma yönelimleri olarak tartışılmalıdır."
+    ],
+    "historicalLimitations": [
+      "Klasik psikanaliz büyük ölçüde 19. yüzyıl sonu Viyana orta sınıf klinik vaka gözlemlerine dayanır; kültürlerarası genellenebilirliği sınırlıdır.",
+      "Kavramların birçoğu Karl Popper'ın belirttiği üzere standart deneysel yöntemlerle doğrudan yanlışlanamaz."
+    ],
+    "modernEvidenceLimitations": [
+      "Modern psikometri kişilik özelliklerini kategorik dürtü savaşları olarak değil, boyutsal spektrumlar (HEXACO / Big Five) olarak modeller."
+    ],
+    "reflectionPrompts": [
+      "Günlük yaşamınızda katı ahlaki idealleriniz ile anlık istekleriniz karşı karşıya geldiğinde dengeyi nasıl kuruyorsunuz?",
+      "Yoğun stres veya kaygı hissettiğinizde en sık başvurduğunuz zihinsel rahatlama veya yeniden çerçeveleme yöntemi nedir?"
+    ],
+    "sourceIds": ["src_freud_1923", "src_freud_1915"]
+  },
+  {
+    "lensId": "JUNG",
+    "displayNameTr": "Jung Merceği — Analitik Psikoloji ve Bireyleşme",
+    "displayNameEn": "Jung Lens — Analytical Psychology & Individuation",
+    "theoristName": "Carl Gustav Jung",
+    "shortDescriptionTr": "Kişiliğin zıt kutupları, persona, gölge metaforu ve yaşam boyu bütünleşme (bireyleşme) yolculuğunu inceler.",
+    "historicalContextTr": "Carl Gustav Jung tarafından 20. yüzyılın ilk yarısında Zürih'te kurulan Analitik Psikoloji, bilinç ile bilinçdışının simgesel diyaloğunu ve zıt kutupların dengelenmesini merkeze alır.",
+    "historicalPeriod": "1912–1961",
+    "theoreticalTradition": "Analitik Psikoloji & Bireyleşme Kuramı",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "coreConcepts": [
+      {
+        "conceptId": "individuation_process",
+        "nameTr": "Bireyleşme Süreci (Individuation)",
+        "nameEn": "Individuation Process",
+        "definitionTr": "Kişinin parçalı eğilimlerini, bastırılmış yönlerini ve potansiyellerini bütünsel bir 'Öz' (Self) etrafında birleştirme yolculuğu.",
+        "sourceRefs": ["src_jung_1921", "src_jung_1928"]
+      },
+      {
+        "conceptId": "persona",
+        "nameTr": "Persona (Toplumsal Maske)",
+        "nameEn": "Persona (Social Mask)",
+        "definitionTr": "Bireyin toplumsal beklentilere uyum sağlamak ve sosyal rollerini yürütmek için geliştirdiği dışa dönük kimlik yüzü.",
+        "sourceRefs": ["src_jung_1928"]
+      },
+      {
+        "conceptId": "shadow_metaphor",
+        "nameTr": "Gölge Metaforu (The Shadow)",
+        "nameEn": "The Shadow Metaphor",
+        "definitionTr": "Bilinçli benliğin henüz tanımadığı, geri plana ittiği veya geliştirmeye ihtiyaç duyduğu tamamlayıcı içsel potansiyeller.",
+        "sourceRefs": ["src_jung_1928"]
+      },
+      {
+        "conceptId": "psychological_opposites",
+        "nameTr": "Psikolojik Karşıtların Gerilimi",
+        "nameEn": "Tension of Psychological Opposites",
+        "definitionTr": "Rasyonellik ve sezgisellik, içedönüklük ve dışadönüklük gibi zıt yönelimlerin zenginleştirici sürtünmesi.",
+        "sourceRefs": ["src_jung_1921"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "psychological_opposites",
+        "targetDomainCodes": ["core_personality", "cognition_decision"],
+        "targetConstructCodes": ["hexaco_extraversion", "thinking_styles", "epistemic_drive"],
+        "targetFacetIds": ["sociability", "social_boldness", "rational_analytical_thinking", "intuitive_experiential_thinking"],
+        "mappingRationaleTr": "Dışadönüklük ve düşünme tarzları puanları, Jung'un tutum ve işlev kutupları ile zengin bir kuramsal paralellik taşır."
+      },
+      {
+        "conceptId": "individuation_process",
+        "targetDomainCodes": ["existential_meaning", "self_system"],
+        "targetConstructCodes": ["authenticity", "meaning_purpose"],
+        "targetFacetIds": ["authenticity", "presence_of_meaning"],
+        "mappingRationaleTr": "Otantiklik ve anlam algısı, bireyleşme sürecindeki içsel uyumun ampirik göstergeleriyle örtüşür."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Arketipleri veya kolektif bilinçdışını ampirik genetik veya biyolojik bir gerçek olarak sunmak",
+      "Kullanıcının 'gizli bir gölgesi' olduğunu iddia edip bilinmeyen karanlık arzular uydurmak",
+      "Mizaç puanlarını kaderci veya astroloji benzeri katı tiplemelere indirgemek",
+      "Jungçu simgeleri tanısal ölçüm aracı gibi kullanmak"
+    ],
+    "clinicalRiskNotes": [
+      "Bireyleşme kavramı ahlaki bir üstünlük veya yarış değildir; her profilin kendi içsel denge dinamiğini temsil eder."
+    ],
+    "historicalLimitations": [
+      "Jung'un mitolojik ve simgesel dili şiirsel ve felsefi açıdan derindir ancak niceliksel psikometrik test standartlarına tam uyarlanamaz."
+    ],
+    "modernEvidenceLimitations": [
+      "Modern kişilik bilimi tipolojilerden (tip) ziyade sürekli boyutsal dağılımları doğrulamıştır."
+    ],
+    "reflectionPrompts": [
+      "Toplumsal ortamlarda takındığınız kimlik (persona) ile tek başınızayken hissettiğiniz benliğiniz arasında ne kadarlık bir mesafe görüyorsunuz?",
+      "Geliştirmekte en çok zorlandığınız veya ertelediğiniz içsel potansiyeliniz hangisi olabilir?"
+    ],
+    "sourceIds": ["src_jung_1921", "src_jung_1928"]
+  },
+  {
+    "lensId": "ADLER",
+    "displayNameTr": "Adler Merceği — Bireysel Psikoloji ve Toplumsal İlgi",
+    "displayNameEn": "Adler Lens — Individual Psychology & Social Interest",
+    "theoristName": "Alfred Adler",
+    "shortDescriptionTr": "Yetkinlik çabası, amaç odaklılık (teleoloji), aidiyet ihtiyacı ve toplumsal ilgi (Gemeinschaftsgefühl) dinamiklerini ele alır.",
+    "historicalContextTr": "Alfred Adler'in geliştirdiği Bireysel Psikoloji, insanı geçmişin ittiği bir varlık değil, gelecekteki hedeflerinin ve aidiyet arzusunun çektiği bütünsel bir özne olarak kabul eder.",
+    "historicalPeriod": "1911–1937",
+    "theoreticalTradition": "Bireysel Psikoloji & Teleolojik Kişilik Kuramı",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "coreConcepts": [
+      {
+        "conceptId": "striving_for_superiority",
+        "nameTr": "Üstünlük ve Yetkinlik Çabası",
+        "nameEn": "Striving for Competence & Mastery",
+        "definitionTr": "Yetersizlik duygularını aşarak ustalığa, yetkinliğe ve kendini gerçekleştirmeye doğru yönelen temel yaşam gücü.",
+        "sourceRefs": ["src_adler_1912"]
+      },
+      {
+        "conceptId": "social_interest_gemeinschaftsgefuehl",
+        "nameTr": "Toplumsal İlgi (Gemeinschaftsgefühl)",
+        "nameEn": "Social Interest (Community Feeling)",
+        "definitionTr": "Topluma, başkalarına ve ortak insanlık refahına içtenlikle katkı verme ve aidiyet hissetme yönelimi.",
+        "sourceRefs": ["src_adler_1938"]
+      },
+      {
+        "conceptId": "teleology_goal_orientation",
+        "nameTr": "Gaye Yönelimi (Teleoloji)",
+        "nameEn": "Goal Orientation (Teleology)",
+        "definitionTr": "Davranışların geçmişteki travmalar tarafından belirlenmek yerine geleceğe dönük hedefler doğrultusunda organize edilmesi.",
+        "sourceRefs": ["src_adler_1912", "src_adler_1938"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "social_interest_gemeinschaftsgefuehl",
+        "targetDomainCodes": ["core_personality", "motivation_values"],
+        "targetConstructCodes": ["hexaco_agreeableness", "hexaco_honesty_humility", "universal_values"],
+        "targetFacetIds": ["gentleness", "forgivingness", "sincerity", "schwartz_self_transcendence"],
+        "mappingRationaleTr": "Uyumluluk, alçakgönüllülük ve evrensel değerler, Adler'in toplumsal ilgi kuramıyla güçlü ampirik paralellik gösterir."
+      },
+      {
+        "conceptId": "striving_for_superiority",
+        "targetDomainCodes": ["self_system", "self_regulation"],
+        "targetConstructCodes": ["generalized_self_efficacy", "volitional_stamina"],
+        "targetFacetIds": ["generalized_self_efficacy", "long_term_grit"],
+        "mappingRationaleTr": "Öz-yeterlik ve azim puanları, Adler'in yetkinlik ve ustalık çabası kavramıyla uyumludur."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Kullanıcıya 'aşağılık kompleksi' veya 'patolojik kibir' teşhisi koymak",
+      "Kardeş sırası veya çocukluk anıları hakkında ampirik veri olmadan spekülasyon yapmak",
+      "Kullanıcının hedeflerini bencil ya da kusurlu olarak yargılamak"
+    ],
+    "clinicalRiskNotes": [
+      "Adlerci perspektif kişisel gelişim ve sorumluluk odaklıdır; yargılayıcı ahlakçılık içermez."
+    ],
+    "historicalLimitations": [
+      "Kardeş sırası gibi erken dönem hipotezleri modern çok merkezli araştırmalarda zayıf etki büyüklükleri sergilemiştir."
+    ],
+    "modernEvidenceLimitations": [
+      "Toplumsal ilgi kavramı modern psikometride prososyal eğilimler, empati ve özgecilik ölçekleriyle ampirik olarak doğrulanmaktadır."
+    ],
+    "reflectionPrompts": [
+      "Kişisel başarı hedefleriniz ile çevrenizdeki insanlara sağladığınız fayda arasındaki dengeyi nasıl tanımlarsınız?",
+      "Gelecekte ulaşmak istediğiniz en temel gaye şu anki günlük kararlarınızı nasıl şekillendiriyor?"
+    ],
+    "sourceIds": ["src_adler_1912", "src_adler_1938"]
+  },
+  {
+    "lensId": "ROGERS",
+    "displayNameTr": "Rogers Merceği — İnsancıl Yaklaşım ve Benlik Uyumu",
+    "displayNameEn": "Rogers Lens — Person-Centered & Self-Congruence",
+    "theoristName": "Carl R. Rogers",
+    "shortDescriptionTr": "Gerçek benlik ile deneyim uyumu (congruence), koşulsuz olumlu kabul ve kendini gerçekleştirme eğilimini inceler.",
+    "historicalContextTr": "Carl Rogers tarafından 1950'lerde geliştirilen Danışan Merkezli (Birey Merkezli) kuram, insanın doğuştan gelen yapıcı büyüme potansiyeline ve benlik saygısının koşulsuz kabulle geliştiğine inanır.",
+    "historicalPeriod": "1940–1987",
+    "theoreticalTradition": "İnsancıl & Danışan Merkezli Psikoloji",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "coreConcepts": [
+      {
+        "conceptId": "congruence_incongruence",
+        "nameTr": "Benlik Uyumu ve Tutarlılık (Congruence)",
+        "nameEn": "Self-Congruence vs. Incongruence",
+        "definitionTr": "Kişinin içsel öznel deneyimleri ile kendi benlik kavramı (self-concept) arasındaki dürüst örtüşme düzeyi.",
+        "sourceRefs": ["src_rogers_1951", "src_rogers_1961"]
+      },
+      {
+        "conceptId": "unconditional_positive_regard",
+        "nameTr": "Koşulsuz Öz-Kabul",
+        "nameEn": "Unconditional Self-Regard",
+        "definitionTr": "Kişinin kendi değerini dış başarı, statü veya onay koşullarına bağlamaksızın içsel olarak kabul edebilmesi.",
+        "sourceRefs": ["src_rogers_1961"]
+      },
+      {
+        "conceptId": "actualizing_tendency",
+        "nameTr": "Kendini Gerçekleştirme Eğilimi",
+        "nameEn": "Actualizing Tendency",
+        "definitionTr": "Tüm canlılarda var olan, kapasitelerini koruma ve geliştirme yönündeki içsel yapıcı eğilim.",
+        "sourceRefs": ["src_rogers_1951"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "congruence_incongruence",
+        "targetDomainCodes": ["self_system"],
+        "targetConstructCodes": ["authenticity", "core_self_esteem", "self_concept_clarity"],
+        "targetFacetIds": ["authenticity", "core_self_esteem", "self_concept_clarity", "contingent_self_worth"],
+        "mappingRationaleTr": "Otantiklik, benlik belirginliği ve koşullu öz-değer puanları Rogers'ın benlik uyumu ve koşulsuz kabul kavramlarıyla doğrudan ilgilidir."
+      },
+      {
+        "conceptId": "unconditional_positive_regard",
+        "targetDomainCodes": ["self_system"],
+        "targetConstructCodes": ["self_compassion"],
+        "targetFacetIds": ["self_compassion"],
+        "mappingRationaleTr": "Öz-şefkat boyutu, bireyin kendisine yönelik yargısız ve şefkatli tutumunu Rogersçı kabul çerçevesinde yansıtır."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Kullanıcıya 'tam uyumsuz' veya 'sahte benlik' gibi klinik ya da aşağılayıcı etiketler yapıştırmak",
+      "Kullanıcının ebeveynlerinin koşullu sevgi verdiğini ampirik veri olmadan kesinmiş gibi ifade etmek",
+      "Psikoterapi seansı yürütüyormuş gibi rol yapmak"
+    ],
+    "clinicalRiskNotes": [
+      "Rogersçı yorumlama danışmanlık tonunda ve destekleyicidir; kişiyi eksiklik üzerinden değil potansiyel üzerinden okur."
+    ],
+    "historicalLimitations": [
+      "Fenomenolojik benlik raporları bireyin kendi algısına dayanır ve bilinçdışı örtük önyargıları tek başına yakalayamayabilir."
+    ],
+    "modernEvidenceLimitations": [
+      "Öz-Belirleme Kuramı (SDT) ve modern benlik psikolojisi, Rogers'ın temel ilkelerini deneysel ve psikometrik olarak desteklemiştir."
+    ],
+    "reflectionPrompts": [
+      "Kendi değerinizi hissederken dışsal başarılarınıza veya başkalarının onayına ne kadar bağımlı hissediyorsunuz?",
+      "Olduğunuz kişi ile olmak istediğiniz ideal benliğiniz arasında nasıl bir ilişki ve yakınlık var?"
+    ],
+    "sourceIds": ["src_rogers_1951", "src_rogers_1961"]
+  },
+  {
+    "lensId": "MASLOW",
+    "displayNameTr": "Maslow Merceği — İhtiyaç Hiyerarşisi ve Kendini Gerçekleştirme",
+    "displayNameEn": "Maslow Lens — Needs Hierarchy & Self-Actualization",
+    "theoristName": "Abraham H. Maslow",
+    "shortDescriptionTr": "Temel psikolojik ihtiyaçlardan kendini gerçekleştirmeye, B-değerlerine ve zirve deneyimlere uzanan gelişimsel dinamikleri irdeler.",
+    "historicalContextTr": "Hümanistik psikolojinin öncülerinden Abraham Maslow, psikopatolojiye odaklanmak yerine en sağlıklı ve yaratıcı insanların özelliklerini inceleyerek gelişimsel ihtiyaç modelini oluşturmuştur.",
+    "historicalPeriod": "1943–1970",
+    "theoreticalTradition": "Hümanistik & Bütüncül Dinamikler",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "coreConcepts": [
+      {
+        "conceptId": "hierarchy_of_needs_framework",
+        "nameTr": "İhtiyaç Hiyerarşisi Çerçevesi",
+        "nameEn": "Needs Hierarchy Framework",
+        "definitionTr": "Güvenlik ve aidiyet gibi temel gereksinimlerden anlam, estetik ve kendini gerçekleştirmeye uzanan gelişim basamakları.",
+        "sourceRefs": ["src_maslow_1943"]
+      },
+      {
+        "conceptId": "self_actualization",
+        "nameTr": "Kendini Gerçekleştirme (Self-Actualization)",
+        "nameEn": "Self-Actualization",
+        "definitionTr": "Bireyin kendi özgün potansiyelini, yaratıcılığını ve yeteneklerini tam olarak hayata geçirme yönelimi.",
+        "sourceRefs": ["src_maslow_1943", "src_maslow_1968"]
+      },
+      {
+        "conceptId": "b_values_being_values",
+        "nameTr": "Varlık Değerleri (B-Values)",
+        "nameEn": "Being Values (B-Values)",
+        "definitionTr": "Hakikat, güzellik, adalet, bütünlük ve sadelik gibi üst düzey varoluşsal yönelimler.",
+        "sourceRefs": ["src_maslow_1968"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "self_actualization",
+        "targetDomainCodes": ["core_personality", "motivation_values"],
+        "targetConstructCodes": ["hexaco_openness", "basic_psychological_needs", "universal_values"],
+        "targetFacetIds": ["creativity", "inquisitiveness", "aesthetic_appreciation", "autonomy_need_satisfaction"],
+        "mappingRationaleTr": "Deneyime açıklık, yaratıcılık ve özerklik doyumları Maslow'un kendini gerçekleştirme örüntüsüyle yakından ilişkilidir."
+      },
+      {
+        "conceptId": "hierarchy_of_needs_framework",
+        "targetDomainCodes": ["motivation_values"],
+        "targetConstructCodes": ["basic_psychological_needs"],
+        "targetFacetIds": ["competence_need_satisfaction", "relatedness_need_satisfaction"],
+        "mappingRationaleTr": "Yetkinlik ve ilişkisellik ihtiyaç doyumu, Maslow'un aidiyet ve saygınlık ihtiyaç basamaklarıyla kuramsal uyum gösterir."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Kullanıcıyı '3. basamakta takılı kalmış' gibi sahte katı seviyelere puanlamak",
+      "Temel ihtiyaçları eksik olan birinin yüksek değerlere odaklanamayacağını katı bir kural gibi dayatmak",
+      "Kendini gerçekleştirmiş olmayı elitist bir üstünlük gibi sunmak"
+    ],
+    "clinicalRiskNotes": [
+      "Maslowcu bakış açısı insanı eksiklik üzerinden değil, gelişmeye hazır olan dinamik ihtiyaçları üzerinden tanımlar."
+    ],
+    "historicalLimitations": [
+      "Katı basamak piramidi popüler kültür tarafından basitleştirilmiştir; Maslow piramidin dinamik ve eşzamanlı olduğunu belirtmiştir."
+    ],
+    "modernEvidenceLimitations": [
+      "Modern araştırmalar ihtiyaçların katı hiyerarşik değil, eşzamanlı ve esnek olduğunu göstermiştir (örn. SDT kuramı)."
+    ],
+    "reflectionPrompts": [
+      "Hayatınızın bu döneminde hangi temel ihtiyacınız (güvenlik, aidiyet, yetkinlik, yaratıcılık) en çok ilgi ve doyum bekliyor?",
+      "Yaratıcı potansiyelinizi ve özgün fikirlerinizi sergilemek için kendinize ne kadar alan tanıyorsunuz?"
+    ],
+    "sourceIds": ["src_maslow_1943", "src_maslow_1968"]
+  },
+  {
+    "lensId": "SKINNER",
+    "displayNameTr": "Skinner Merceği — Davranışsal Analiz ve Pekiştirme",
+    "displayNameEn": "Skinner Lens — Behavioral Analysis & Contingencies",
+    "theoristName": "B. F. Skinner",
+    "shortDescriptionTr": "Gözlemlenebilir davranışlar, çevresel pekiştirme tarifeleri, alışkanlık kalıpları ve durumsal tetikleyicileri inceler.",
+    "historicalContextTr": "Radikal Davranışçılığın kurucusu B.F. Skinner, davranışların içsel varsayımsal yapılardan ziyade çevresel pekiştirme geçmişi ve sonuçları ile şekillendiğini savunmuştur.",
+    "historicalPeriod": "1930–1990",
+    "theoreticalTradition": "Radikal Davranışçılık & İşlevsel Analiz",
+    "epistemicStatus": "HISTORICAL_FRAMEWORK",
+    "coreConcepts": [
+      {
+        "conceptId": "reinforcement_contingencies",
+        "nameTr": "Pekiştirme Tarifeleri ve Koşulları",
+        "nameEn": "Reinforcement Contingencies",
+        "definitionTr": "Bir davranışın sıklığını artıran veya azaltan çevresel sonuçlar ve geri bildirim döngüleri.",
+        "sourceRefs": ["src_skinner_1953"]
+      },
+      {
+        "conceptId": "environmental_shaping",
+        "nameTr": "Çevresel Biçimlendirme ve Tetikleyiciler",
+        "nameEn": "Environmental Shaping & Stimulus Control",
+        "definitionTr": "Fiziksel ve sosyal çevrenin belirli davranış kalıplarını kolaylaştırması veya engellemesi.",
+        "sourceRefs": ["src_skinner_1953", "src_skinner_1974"]
+      },
+      {
+        "conceptId": "behavioral_repertoire",
+        "nameTr": "Davranışsal Repertuar ve Alışkanlıklar",
+        "nameEn": "Behavioral Repertoire",
+        "definitionTr": "Bireyin belirli çevresel koşullarda sergilediği tutarlı ve öğrenilmiş eylem kalıpları toplamı.",
+        "sourceRefs": ["src_skinner_1974"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "reinforcement_contingencies",
+        "targetDomainCodes": ["self_regulation"],
+        "targetConstructCodes": ["volitional_stamina", "impulsivity_uppsp"],
+        "targetFacetIds": ["general_self_control", "delay_discounting_preference", "uppsp_lack_of_premeditation"],
+        "mappingRationaleTr": "Öz-kontrol ve gecikmeli doyum tercihleri, pekiştirme gecikmesi ve uyaran kontrolü kuramıyla doğrudan ilişkilidir."
+      },
+      {
+        "conceptId": "environmental_shaping",
+        "targetDomainCodes": ["core_personality"],
+        "targetConstructCodes": ["hexaco_conscientiousness"],
+        "targetFacetIds": ["organization", "diligence"],
+        "mappingRationaleTr": "Düzenlilik ve çalışkanlık, yapılandırılmış çevresel uyaranlar ve alışkanlık pekiştirmeleri üzerinden analiz edilebilir."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Kullanıcının geçmiş pekiştirme geçmişini veya ailesel ceza/ödül geçmişini uydurmak",
+      "Kişiliği mekanik bir robot ya da tamamen iradesiz bir nesne gibi küçümsemek",
+      "Öznel iç dünyayı ve duyguları tamamen yok sayarak kişiyi değersiz hissettirmek"
+    ],
+    "clinicalRiskNotes": [
+      "Davranışsal bakış, öz-yönetim ve çevreyi akıllıca tasarlama (habitus mimarisi) gücü sunmalıdır."
+    ],
+    "historicalLimitations": [
+      "Klasik radikal davranışçılık bilişsel ara süreçleri (düşünce, atıf, inanç) analize dahil etmekte yetersiz kalmıştır."
+    ],
+    "modernEvidenceLimitations": [
+      "Modern bilişsel-davranışçı modeller ve nörobilim, çevresel pekiştirme ile içsel yürütücü işlevlerin etkileşimini kabul eder."
+    ],
+    "reflectionPrompts": [
+      "Geliştirmek istediğiniz bir alışkanlığı desteklemek için fiziksel ve dijital çevrenizde nasıl küçük düzenlemeler yapabilirsiniz?",
+      "İstemediğiniz bir davranışı tetikleyen en belirgin çevresel veya durumsal ipucu nedir?"
+    ],
+    "sourceIds": ["src_skinner_1953", "src_skinner_1974"]
+  },
+  {
+    "lensId": "WILLIAM_JAMES",
+    "displayNameTr": "William James Merceği — İşlevselcilik, Alışkanlık ve Bilinç Akışı",
+    "displayNameEn": "William James Lens — Functionalism, Habit & Stream of Consciousness",
+    "theoristName": "William James",
+    "shortDescriptionTr": "Çok katmanlı ampirik benlik (Me ve I), alışkanlıkların adaptif işlevi, seçici dikkat ve pragmatik eylem yönelimini inceler.",
+    "historicalContextTr": "Amerikan psikolojisinin kurucu figürü William James, zihinsel süreçlerin ve alışkanlıkların bireyin çevreye biyolojik ve pratik uyumundaki canlı işlevine odaklanmıştır.",
+    "historicalPeriod": "1875–1910",
+    "theoreticalTradition": "İşlevselcilik & Pragmatizm",
+    "epistemicStatus": "HISTORICAL_FRAMEWORK",
+    "coreConcepts": [
+      {
+        "conceptId": "empirical_self_me_vs_i",
+        "nameTr": "Ampirik Benlik (Materyal, Sosyal, Ruhsal Benlik)",
+        "nameEn": "The Empirical Self (Material, Social, Spiritual)",
+        "definitionTr": "Kişinin 'benim' dediği tüm unsurların (beden, ilişkiler, zihinsel eğilimler) oluşturduğu zengin benlik haritası.",
+        "sourceRefs": ["src_james_1890"]
+      },
+      {
+        "conceptId": "habit_formation",
+        "nameTr": "Alışkanlıkların Koruyucu Gücü",
+        "nameEn": "Habit Formation & Plasticity",
+        "definitionTr": "Bilinçli iradeyi tüketen kararları otomatikleştirerek zihinsel enerjiyi yeni hedeflere serbest bırakan sinirsel ve davranışsal yollar.",
+        "sourceRefs": ["src_james_1890"]
+      },
+      {
+        "conceptId": "selective_attention",
+        "nameTr": "Seçici Dikkat ve İrade",
+        "nameEn": "Selective Attention & Will",
+        "definitionTr": "Sayısız uyaran arasından belirli bir düşünce veya amaca odaklanabilme yeteneği.",
+        "sourceRefs": ["src_james_1890", "src_james_1907"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "empirical_self_me_vs_i",
+        "targetDomainCodes": ["self_system"],
+        "targetConstructCodes": ["core_self_esteem", "self_concept_clarity", "authenticity"],
+        "targetFacetIds": ["core_self_esteem", "self_concept_clarity", "authenticity"],
+        "mappingRationaleTr": "James'in benlik bileşenleri (Me), benlik saygısı ve berraklığı ölçekleriyle kuramsal olarak birebir örtüşür."
+      },
+      {
+        "conceptId": "selective_attention",
+        "targetDomainCodes": ["cognition_decision", "self_regulation"],
+        "targetConstructCodes": ["epistemic_drive", "volitional_stamina"],
+        "targetFacetIds": ["need_for_cognition", "general_self_control", "long_term_grit"],
+        "mappingRationaleTr": "Biliş ihtiyacı ve irade dayanıklılığı, James'in seçici dikkat ve çaba odaklı irade kuramıyla uyumludur."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Pragmatizmi salt ilkesiz çıkarcılık olarak yanlış yorumlamak",
+      "Kullanıcının manevi veya zihinsel değerlerini küçümsemek",
+      "Alışkanlıkları değiştirilemez katı kader olarak tanımlamak"
+    ],
+    "clinicalRiskNotes": [
+      "James felsefesi umutlu, eylem odaklı ve zihinsel plastisiteye inanan bir tonu benimser."
+    ],
+    "historicalLimitations": [
+      "19. yüzyıl sonu içebakış (introspeksiyon) yöntemi modern laboratuvar deneyleri kadar katı kontrollü değildi."
+    ],
+    "modernEvidenceLimitations": [
+      "James'in duygu kuramı (James-Lange) ve alışkanlık modelleri modern nörobilim tarafından revize edilerek geliştirilmiştir."
+    ],
+    "reflectionPrompts": [
+      "Gününüzü yöneten alışkanlıklarınız hayat gayenize hizmet ediyor mu, yoksa enerjinizi gereksizce tüketiyor mu?",
+      "Dikkatinizi en çok verdiğiniz konular gerçekten olmak istediğiniz kişiyi mi yansıtıyor?"
+    ],
+    "sourceIds": ["src_james_1890", "src_james_1907"]
+  },
+  {
+    "lensId": "GESTALT",
+    "displayNameTr": "Gestalt Merceği — Bütünsel Örüntüler, Şekil-Zemin ve Temas",
+    "displayNameEn": "Gestalt Lens — Holistic Patterns, Figure-Ground & Contact",
+    "theoristName": "Fritz Perls / Gestalt Ekolü",
+    "shortDescriptionTr": "Bütünün parçaların toplamından farklı olduğu ilkesi, şekil-zemin ayrışması, bitmemiş işler ve şimdi-burada farkındalığını inceler.",
+    "historicalContextTr": "Gestalt psikolojisi algı yasalarından yola çıkarak insan deneyimini parçalara ayrılmış mekanik öğeler olarak değil, organize olmuş bütünsel bir alan (field) olarak anlamlandırır.",
+    "historicalPeriod": "1912–1970",
+    "theoreticalTradition": "Gestalt Psikolojisi & Alan Kuramı",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "coreConcepts": [
+      {
+        "conceptId": "figure_ground_formation",
+        "nameTr": "Şekil-Zemin Ayrışması (Figure-Ground)",
+        "nameEn": "Figure-Ground Formation",
+        "definitionTr": "Kişinin o andaki en baskın ihtiyacının (şekil) arka plandaki diğer deneyimlerden (zemin) net olarak ayrışması.",
+        "sourceRefs": ["src_perls_1951", "src_wertheimer_1923"]
+      },
+      {
+        "conceptId": "holistic_organization",
+        "nameTr": "Bütünsel Örgütlenme İlkesi",
+        "nameEn": "Holistic Organization (The Whole is Greater)",
+        "definitionTr": "Kişilik özelliklerinin birbirinden bağımsız tekil skorlar değil, birbiriyle etkileşen tek bir yaşayan örüntü olması.",
+        "sourceRefs": ["src_wertheimer_1923"]
+      },
+      {
+        "conceptId": "unfinished_situations",
+        "nameTr": "Bitmemiş Durumlar ve Kapanma İhtiyacı",
+        "nameEn": "Unfinished Business & Closure",
+        "definitionTr": "Doyurulmamış ihtiyaçların veya yarım kalmış deneyimlerin zihinsel enerjiyi arka planda meşgul etmesi.",
+        "sourceRefs": ["src_perls_1951"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "holistic_organization",
+        "targetDomainCodes": ["core_personality", "emotion_regulation", "self_system"],
+        "targetConstructCodes": ["hexaco_emotionality", "hexaco_extraversion", "affective_tone"],
+        "targetFacetIds": ["anxiety", "sentimentality", "liveliness", "affect_intensity"],
+        "mappingRationaleTr": "Kişilik ve duygu boyutları arasındaki etkileşim örüntüleri Gestalt'ın bütüncül alan kuramıyla incelenir."
+      },
+      {
+        "conceptId": "unfinished_situations",
+        "targetDomainCodes": ["cognition_decision"],
+        "targetConstructCodes": ["cognitive_adaptability", "epistemic_drive"],
+        "targetFacetIds": ["rumination_brooding", "need_for_cognitive_closure"],
+        "mappingRationaleTr": "Ruminasyon ve kapanma ihtiyacı, Gestalt ekolünün bitmemiş işler ve tamamlama arzusu metaforuyla paraleldir."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Gestalt terapi tekniklerini (boş sandalye vb.) kullanıcı üzerinde tıbbi müdahale gibi uygulamak",
+      "Kullanıcının geçmişte çözülmemiş travması olduğunu ampirik veri olmadan kesinleştirmek",
+      "Bütüncül bakışı bilimsel psikometrik ayrıştırmanın zıddıymış gibi sunup ölçümleri geçersiz kılmak"
+    ],
+    "clinicalRiskNotes": [
+      "Gestalt analizi kişinin şu anki farkındalığını ve örüntülerini görmesini hedefler; manipülatif yüzleştirmelerden kaçınır."
+    ],
+    "historicalLimitations": [
+      "Gestalt terapisinin bazı dramatik yüzleştirme teknikleri ampirik etkililik çalışmalarında karışık sonuçlar vermiştir."
+    ],
+    "modernEvidenceLimitations": [
+      "Algısal Gestalt yasaları modern bilişsel psikolojide kabul görürken, klinik gestalt metaforları kuramsal çerçeve niteliğindedir."
+    ],
+    "reflectionPrompts": [
+      "Şu anda zihninizi en çok meşgul eden ve zemin yerine 'şekil' haline gelen öncelikli ihtiyaç veya konu nedir?",
+      "Zihninizde tamamlanmayı bekleyen ve enerjinizi tüketen yarım kalmış bir döngü var mı?"
+    ],
+    "sourceIds": ["src_perls_1951", "src_wertheimer_1923"]
+  },
+  {
+    "lensId": "FRANKL",
+    "displayNameTr": "Frankl Merceği — Logoterapi ve Anlam İstenci",
+    "displayNameEn": "Frankl Lens — Logotherapy & Will to Meaning",
+    "theoristName": "Viktor E. Frankl",
+    "shortDescriptionTr": "Anlam arayışı, tutumsal değerler, trajik iyimserlik, öz-aşkınlık ve varoluşsal sorumluluk dinamiklerini inceler.",
+    "historicalContextTr": "Viktor Frankl'ın kurduğu Logoterapi (Viyana Üçüncü Psikoterapi Ekolü), insanın en temel motivasyonunun haz (Freud) veya güç (Adler) değil, yaşamda özgün bir anlam bulma arzusu olduğunu savunur.",
+    "historicalPeriod": "1940–1997",
+    "theoreticalTradition": "Logoterapi & Varoluşsal Analiz",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "coreConcepts": [
+      {
+        "conceptId": "will_to_meaning",
+        "nameTr": "Anlam İstenci (Will to Meaning)",
+        "nameEn": "Will to Meaning",
+        "definitionTr": "Bireyin zorlayıcı yaşam koşullarında bile varoluşuna değer katan özgün bir amaç ve anlam keşfetme arzusu.",
+        "sourceRefs": ["src_frankl_1946", "src_frankl_1959"]
+      },
+      {
+        "conceptId": "attitudinal_values",
+        "nameTr": "Tutumsal Değerler ve Tavır Alma Özgürlüğü",
+        "nameEn": "Attitudinal Values & Stance",
+        "definitionTr": "Değiştirilemeyen koşullar karşısında kişinin sergilediği haysiyetli ve cesur duruş.",
+        "sourceRefs": ["src_frankl_1946"]
+      },
+      {
+        "conceptId": "self_transcendence",
+        "nameTr": "Öz-Aşkınlık (Self-Transcendence)",
+        "nameEn": "Self-Transcendence",
+        "definitionTr": "Kişinin kendi bencil kaygılarının ötesine geçerek bir davaya, bir ideale veya sevdiği bir insana adanması.",
+        "sourceRefs": ["src_frankl_1959"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "will_to_meaning",
+        "targetDomainCodes": ["existential_meaning", "motivation_values"],
+        "targetConstructCodes": ["meaning_purpose", "universal_values"],
+        "targetFacetIds": ["presence_of_meaning", "search_for_meaning", "schwartz_self_transcendence"],
+        "mappingRationaleTr": "Anlam algısı ve evrensel değerler Frankl'ın anlam istenci ve öz-aşkınlık modellerinin doğrudan ampirik izdüşümüdür."
+      },
+      {
+        "conceptId": "attitudinal_values",
+        "targetDomainCodes": ["self_regulation", "emotion_regulation"],
+        "targetConstructCodes": ["volitional_stamina", "distress_tolerance"],
+        "targetFacetIds": ["long_term_grit", "distress_tolerance"],
+        "mappingRationaleTr": "Azim ve sıkıntı toleransı, Frankl'ın zorluklar karşısında tavır alma kapasitesi kuramıyla uyumludur."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Acıyı ve ıstırabı romantize etmek veya kullanıcıya 'acı çekmelisin' mesajı vermek",
+      "Kullanıcının travmatik geçmişi olduğunu varsaymak",
+      "Dini veya ideolojik bir dünya görüşünü zorunlu tek anlam kaynağı gibi dayatmak"
+    ],
+    "clinicalRiskNotes": [
+      "Logoterapi çerçevesi varoluşsal boşluk yaşayan bireye yapay teselliler yerine sorumluluk ve özgürlük perspektifi sunar."
+    ],
+    "historicalLimitations": [
+      "Frankl'ın yaklaşımı derin felsefi ve ahlaki temellere dayanır; nörobiyolojik parametreleri açıklamakta sınırlıdır."
+    ],
+    "modernEvidenceLimitations": [
+      "Pozitif psikoloji ve modern anlam araştırmaları (Steger vb.) Frankl'ın öngörülerini yüksek refah göstergeleri olarak doğrulamıştır."
+    ],
+    "reflectionPrompts": [
+      "Zorlandığınız bir süreçte dahi sürdürmeye değer bulduğunuz en güçlü içsel değeriniz veya gayeniz nedir?",
+      "Kendinizi yalnızca kendi başarınız için değil, başkalarına veya bir amaca adanmış hissettiğiniz anlar size nasıl bir güç veriyor?"
+    ],
+    "sourceIds": ["src_frankl_1946", "src_frankl_1959"]
+  },
+  {
+    "lensId": "BECK",
+    "displayNameTr": "Beck Merceği — Bilişsel Model ve Şemalar",
+    "displayNameEn": "Beck Lens — Cognitive Model & Schemas",
+    "theoristName": "Aaron T. Beck",
+    "shortDescriptionTr": "Bilişsel şemalar, durumsal bilgi işleme tarzları, otomatik düşünce kalıpları ve kanıta dayalı gerçeklik testini inceler.",
+    "historicalContextTr": "Bilişsel Terapinin öncüsü Aaron T. Beck, duygusal ve davranışsal tepkilerin doğrudan olaylardan değil, olaylara yüklenen bilişsel yorumlardan ve temel şemalardan kaynaklandığını ortaya koymuştur.",
+    "historicalPeriod": "1960–2021",
+    "theoreticalTradition": "Bilişsel Model & Bilgi İşleme Kuramı",
+    "epistemicStatus": "THEORETICAL_INTERPRETATION",
+    "coreConcepts": [
+      {
+        "conceptId": "cognitive_schemas",
+        "nameTr": "Temel İnançlar ve Bilişsel Şemalar",
+        "nameEn": "Core Beliefs & Schemas",
+        "definitionTr": "Kişinin kendisi, başkaları ve dünya hakkındaki deneyimlerini organize eden köklü zihinsel şablonlar.",
+        "sourceRefs": ["src_beck_1967", "src_beck_1976"]
+      },
+      {
+        "conceptId": "automatic_thoughts",
+        "nameTr": "Durumsal Değerlendirme ve Otomatik Düşünceler",
+        "nameEn": "Automatic Thoughts & Cognitive Appraisal",
+        "definitionTr": "Belirli olaylar karşısında zihne hızla ve kendiliğinden gelen, duyguyu tetikleyen ilk yorumlar.",
+        "sourceRefs": ["src_beck_1976"]
+      },
+      {
+        "conceptId": "collaborative_empiricism",
+        "nameTr": "Bilişsel Esneklik ve Kanıta Dayalı Değerlendirme",
+        "nameEn": "Cognitive Flexibility & Empirical Testing",
+        "definitionTr": "Düşünceleri mutlak gerçekler olarak değil, kanıtlarla test edilebilecek hipotezler olarak görebilme esnekliği.",
+        "sourceRefs": ["src_beck_1976"]
+      }
+    ],
+    "allowedConceptMappings": [
+      {
+        "conceptId": "collaborative_empiricism",
+        "targetDomainCodes": ["cognition_decision", "emotion_regulation"],
+        "targetConstructCodes": ["cognitive_adaptability", "thinking_styles", "cognitive_reappraisal"],
+        "targetFacetIds": ["cognitive_flexibility", "rational_analytical_thinking", "cognitive_reappraisal"],
+        "mappingRationaleTr": "Bilişsel esneklik, rasyonel düşünme ve yeniden değerlendirme Beck'in bilişsel modelinin doğrudan psikometrik karşılıklarıdır."
+      },
+      {
+        "conceptId": "cognitive_schemas",
+        "targetDomainCodes": ["cognition_decision", "self_system"],
+        "targetConstructCodes": ["cognitive_adaptability", "core_self_esteem"],
+        "targetFacetIds": ["intolerance_of_uncertainty", "rumination_brooding", "core_self_esteem"],
+        "mappingRationaleTr": "Belirsizlik tahammülsüzlüğü, ruminasyon ve benlik saygısı, bilişsel şema esnekliği çerçevesinde değerlendirilebilir."
+      }
+    ],
+    "forbiddenInterpretations": [
+      "Kullanıcıya majör depresyon, anksiyete bozukluğu veya kişilik bozukluğu tanısı koymak",
+      "Kullanıcının düşüncelerini 'çarpık, kusurlu veya hasta' şeklinde yargılayıcı bir dille damgalamak",
+      "Terapist kimliğine bürünerek klinik seans simülasyonu yapmak"
+    ],
+    "clinicalRiskNotes": [
+      "Beck yaklaşımı ampirik ve nesneldir; düşünceleri hipotez olarak ele alır ve kişiyi güçlendirir."
+    ],
+    "historicalLimitations": [
+      "Erken dönem bilişsel modeller duygulanım ve örtük süreçlerin otonom gücünü başlangıçta hafife almıştır."
+    ],
+    "modernEvidenceLimitations": [
+      "Modern BDT ve bilişsel bilim, bilişsel şemaları duygu düzenleme ve biyolojik mizacın bir parçası olarak bütünleştirmiştir."
+    ],
+    "reflectionPrompts": [
+      "Belirsiz veya kaygı verici bir durumla karşılaştığınızda aklınızdan geçen ilk otomatik senaryo nedir?",
+      "Bu ilk yoruma alternatif, daha dengeli ve kanıtlara dayanan ikinci bir bakış açısı ne olabilir?"
+    ],
+    "sourceIds": ["src_beck_1967", "src_beck_1976"]
+  }
+]
