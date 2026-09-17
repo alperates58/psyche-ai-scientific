@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import { UnifiedPsychologicalProfileV2 } from '@/types/unifiedProfileV2';
+import { UnifiedProfileAISectionData } from '@/types/aiInsightV2';
+import { ProfileEvidenceBundleV2 } from '@/lib/profile/profileEvidenceBundle';
+import { UnifiedProfileAISectionV2 } from './ai/UnifiedProfileAISectionV2';
 import { ProfileOverviewCardV2 } from './ProfileOverviewCardV2';
 import { ProfileDomainMapV2 } from './ProfileDomainMapV2';
 import { ConstructMatrixV2 } from './ConstructMatrixV2';
@@ -41,10 +44,14 @@ export type ProfileTabId =
 
 interface UnifiedProfileClientViewV2Props {
   profile: UnifiedPsychologicalProfileV2;
+  aiSectionData?: UnifiedProfileAISectionData;
+  evidenceBundle?: ProfileEvidenceBundleV2;
 }
 
 export const UnifiedProfileClientViewV2: React.FC<UnifiedProfileClientViewV2Props> = ({
   profile,
+  aiSectionData,
+  evidenceBundle,
 }) => {
   const [activeTab, setActiveTab] = useState<ProfileTabId>('overview');
   const [selectedDomainId, setSelectedDomainId] = useState<string | null>(null);
@@ -222,6 +229,12 @@ export const UnifiedProfileClientViewV2: React.FC<UnifiedProfileClientViewV2Prop
       {/* Tab Content Views */}
       {activeTab === 'overview' && (
         <div className="space-y-8">
+          {aiSectionData && evidenceBundle && (
+            <UnifiedProfileAISectionV2
+              data={aiSectionData}
+              bundle={evidenceBundle}
+            />
+          )}
           <ProfileDomainMapV2
             domains={profile.domains}
             selectedDomainId={selectedDomainId}

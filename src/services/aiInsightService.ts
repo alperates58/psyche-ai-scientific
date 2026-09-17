@@ -1,31 +1,274 @@
 /**
- * PsycheAI AI Insight Service
- * 
- * Generates grounded psychological profile insights.
+ * PsycheAI AI Insight Service V2
+ *
+ * Authoritative orchestrator for Evidence-Grounded Psychological Interpretation Engine.
+ *
  * Enforces:
- * - Feature flag control (ENABLE_EXTERNAL_AI_INSIGHTS)
- * - Safe deterministic synthesis by default
- * - Structured Zod schema output
- * - Policy validation and fail-closed architecture
- * - Real confidence & item count data (zero fabrication)
- * - Exact source dimension grounding for interactions (no unrelated fallbacks)
- * - Bounded timeouts and strict privacy (zero profile payload logging)
+ * - Deterministic interpretation planning before AI invocation.
+ * - Minimum Necessary Data Principle (zero PII, zero raw item responses sent).
+ * - Centralized DeepSeek configuration resolution with AES-256-GCM secret store.
+ * - DeepSeek V4 Flash primary provider with safe deterministic fallback.
+ * - Post-generation anti-hallucination and claim verification pass.
+ * - Caching bound to profile snapshots and evidence hashes.
+ * - User-facing evidence transparency ("Bu yorum neye dayanıyor?").
+ * - Backward compatibility with legacy callers.
  */
 
 import { UnifiedProfileViewModel } from '@/types/profile';
+import { UnifiedPsychologicalProfileV2 } from '@/types/unifiedProfileV2';
+import {
+  ProfileEvidenceBundleV2,
+  buildProfileEvidenceBundleV2,
+} from '@/lib/profile/profileEvidenceBundle';
+import {
+  AIInsightV2,
+  InterpretationPlanV2,
+  InsightType,
+  UnifiedProfileAISectionData,
+  EvidenceTransparencyInfo,
+} from '@/types/aiInsightV2';
 import {
   AIInsightInput,
   AIInsightOutput,
   AIInsightOutputSchema,
 } from '@/types/aiInsight';
+import {
+  EvidenceSelectionRequest,
+} from '@/lib/ai/evidence/evidenceSelector';
+import { buildInterpretationPlanV2 } from '@/lib/ai/planning/interpretationPlanner';
+import { getAIConfig } from '@/lib/ai/config/aiConfigResolver';
+import { deepSeekProvider } from '@/lib/ai/providers/deepseekProvider';
+import { deterministicFallbackProvider } from '@/lib/ai/providers/fallbackProvider';
+import { verifyAIInsightClaims } from '@/lib/ai/verification/claimVerifier';
+import {
+  computeEvidenceHash,
+  getCachedInsight,
+  setCachedInsight,
+} from '@/lib/ai/cache/insightCache';
+import { PROMPT_VERSION_ID, PROMPT_ENGINE_VERSION } from '@/lib/ai/prompts/promptTemplatesV2';
 import { validateAIInsightPolicy } from '@/lib/aiInsightPolicy';
 import { resolveDescriptiveBand } from '@/lib/descriptiveBandPolicyRegistry';
 import { UNIFIED_INTERACTION_RULES } from '@/lib/unifiedInteractionRegistry';
 
+// =========================================================================
+// 1. FAZ 2.18 CORE INSIGHT ENGINE V2 ORCHESTRATOR
+// =========================================================================
+
+export async function generateProfileInsightV2(
+  bundle: ProfileEvidenceBundleV2,
+  request: EvidenceSelectionRequest,
+  snapshotId?: string
+): Promise<AIInsightV2> {
+  // 1. Deterministic Planning
+  const plan = buildInterpretationPlanV2(bundle, request);
+  const evidenceHash = computeEvidenceHash(plan);
+  const resolvedSnapshotId = snapshotId || `snap_${bundle.userId}_${bundle.generatedAt}`;
+
+  // 2. Cache Lookup
+  const cached = getCachedInsight(
+    resolvedSnapshotId,
+    request.requestType,
+    evidenceHash,
+    PROMPT_VERSION_ID
+  );
+  if (cached) {
+    return cached;
+  }
+
+  // 3. Resolve AI Configuration
+  const config = await getAIConfig();
+
+  let generatedInsight: AIInsightV2 | null = null;
+
+  // 4. Try External Provider if Enabled and Available
+  if (config.isAvailable && config.apiKey) {
+    try {
+      const externalOutput = await deepSeekProvider.generateStructuredInsight(plan, config);
+
+      // 5. Anti-Hallucination Claim Verification Pass
+      const verification = verifyAIInsightClaims(externalOutput, plan);
+      if (verification.isValid && verification.metrics.unsupportedClaims === 0) {
+        generatedInsight = externalOutput;
+      } else {
+        console.warn(
+          'DeepSeek output failed grounding verification, falling back to deterministic:',
+          verification.errors
+        );
+      }
+    } catch (err: any) {
+      console.warn('DeepSeek provider call failed, falling back to deterministic:', err.message);
+    }
+  }
+
+  // 6. Safe Deterministic Fallback if External AI is Disabled or Failed
+  if (!generatedInsight) {
+    const fallbackOutput = await deterministicFallbackProvider.generateStructuredInsight(
+      plan,
+      config
+    );
+    const fallbackVerification = verifyAIInsightClaims(fallbackOutput, plan);
+    if (!fallbackVerification.isValid) {
+      console.error(
+        'Critical: Deterministic fallback failed claim verification:',
+        fallbackVerification.errors
+      );
+    }
+    generatedInsight = fallbackOutput;
+  }
+
+  // 7. Store in Cache Bound to Snapshot
+  setCachedInsight(
+    resolvedSnapshotId,
+    request.requestType,
+    evidenceHash,
+    PROMPT_VERSION_ID,
+    PROMPT_ENGINE_VERSION,
+    generatedInsight
+  );
+
+  return generatedInsight;
+}
+
 /**
- * Builds the structured, private, server-sanitized input payload for AI synthesis.
- * Strictly uses real confidence data and exact item counts from the UnifiedProfileViewModel.
+ * Builds the complete "Profilinin Anlamı" section data for the Master Unified Profile V2.
  */
+export async function getUnifiedProfileAISectionData(
+  profile: UnifiedPsychologicalProfileV2,
+  snapshotId?: string
+): Promise<UnifiedProfileAISectionData> {
+  const bundle = buildProfileEvidenceBundleV2(profile);
+  const resolvedSnapshotId = snapshotId || `snap_${profile.userId}_${profile.generatedAt}`;
+
+  // 1. Profile Overview
+  const overviewInsight = await generateProfileInsightV2(
+    bundle,
+    { requestType: 'PROFILE_OVERVIEW' },
+    resolvedSnapshotId
+  );
+
+  // 2. Prominent Patterns (from active cross-domain patterns)
+  const prominentPatternInsights: AIInsightV2[] = [];
+  for (const pattern of bundle.crossDomainPatterns.slice(0, 3)) {
+    const insight = await generateProfileInsightV2(
+      bundle,
+      {
+        requestType: 'CROSS_DOMAIN_PATTERN',
+        targetFacetIds: pattern.sourceFacetIds,
+      },
+      resolvedSnapshotId
+    );
+    prominentPatternInsights.push(insight);
+  }
+
+  // 3. Counterbalancing Traits Insights
+  const counterbalancingInsights: AIInsightV2[] = [];
+  // Generate insights for top measured traits that have balancing factors
+  const plan = buildInterpretationPlanV2(bundle, { requestType: 'PROFILE_OVERVIEW' });
+  for (const counter of plan.counterbalancingEvidence.slice(0, 2)) {
+    const insight = await generateProfileInsightV2(
+      bundle,
+      {
+        requestType: 'FACET_INTERPRETATION',
+        targetFacetIds: [counter.targetId],
+      },
+      resolvedSnapshotId
+    );
+    counterbalancingInsights.push(insight);
+  }
+
+  // 4. Tension Insights
+  const tensionInsights: AIInsightV2[] = [];
+  for (const tension of bundle.tensions.slice(0, 3)) {
+    const insight = await generateProfileInsightV2(
+      bundle,
+      {
+        requestType: 'TENSION_INTERPRETATION',
+        targetFacetIds: tension.sourceFacetIds,
+      },
+      resolvedSnapshotId
+    );
+    tensionInsights.push(insight);
+  }
+
+  // 5. Synergy Insights
+  const synergyInsights: AIInsightV2[] = [];
+  for (const synergy of bundle.synergies.slice(0, 3)) {
+    const insight = await generateProfileInsightV2(
+      bundle,
+      {
+        requestType: 'SYNERGY_INTERPRETATION',
+        targetFacetIds: synergy.sourceFacetIds,
+      },
+      resolvedSnapshotId
+    );
+    synergyInsights.push(insight);
+  }
+
+  // 6. Unmeasured Areas Guidance
+  const unmeasuredAreaInsights: AIInsightV2[] = [];
+  const unmeasuredDomains = profile.domains.filter((d) => d.coverageRatio === 0);
+  for (const ud of unmeasuredDomains.slice(0, 2)) {
+    const insight = await generateProfileInsightV2(
+      bundle,
+      {
+        requestType: 'DOMAIN_INTERPRETATION',
+        targetDomainIds: [ud.domainId],
+      },
+      resolvedSnapshotId
+    );
+    unmeasuredAreaInsights.push(insight);
+  }
+
+  // 7. Next Assessment Recommendation
+  let nextAssessmentPrompt: AIInsightV2 | null = null;
+  if (profile.nextBestAssessment) {
+    nextAssessmentPrompt = await generateProfileInsightV2(
+      bundle,
+      {
+        requestType: 'NEXT_EXPLORATION',
+        targetModuleCode: profile.nextBestAssessment.moduleCode,
+      },
+      resolvedSnapshotId
+    );
+  }
+
+  return {
+    overviewInsight,
+    prominentPatternInsights,
+    counterbalancingInsights,
+    tensionInsights,
+    synergyInsights,
+    unmeasuredAreaInsights,
+    nextAssessmentPrompt,
+    generatedAt: new Date().toISOString(),
+    isFallback: overviewInsight.isFallback,
+  };
+}
+
+/**
+ * Builds module-level AI insight for Assessment Results page.
+ */
+export async function getAssessmentResultAIInsight(
+  bundle: ProfileEvidenceBundleV2,
+  moduleCode: string,
+  snapshotId?: string
+): Promise<AIInsightV2> {
+  return generateProfileInsightV2(
+    bundle,
+    {
+      requestType: 'ASSESSMENT_RESULT',
+      targetModuleCode: moduleCode,
+    },
+    snapshotId
+  );
+}
+
+export { getEvidenceTransparencyInfo } from '@/lib/ai/evidence/evidenceTransparency';
+
+// =========================================================================
+// 2. BACKWARD COMPATIBILITY ADAPTERS (LEGACY CALLERS)
+// =========================================================================
+
 export function buildAIInsightInputPayload(
   profile: UnifiedProfileViewModel
 ): AIInsightInput {
@@ -40,8 +283,14 @@ export function buildAIInsightInputPayload(
       const conf = confidenceByDimId.get(d.id);
       const facet = facetById.get(d.id);
 
-      const confidenceLevel = conf?.level || (facet?.confidenceLevel as 'VERY_LOW' | 'LOW' | 'MODERATE' | 'HIGH') || 'LOW';
-      const itemCount = conf?.itemCount !== undefined ? conf.itemCount : (facet?.itemCount !== undefined ? facet.itemCount : null);
+      const confidenceLevel =
+        conf?.level || (facet?.confidenceLevel as 'VERY_LOW' | 'LOW' | 'MODERATE' | 'HIGH') || 'LOW';
+      const itemCount =
+        conf?.itemCount !== undefined
+          ? conf.itemCount
+          : facet?.itemCount !== undefined
+          ? facet.itemCount
+          : null;
       const scoringStrategyCode = facet?.scale?.scoringModelCode || undefined;
       const epistemicStatus = facet?.epistemicStatus || 'PROVISIONAL_POINT_ESTIMATE';
       const instrumentProvenance = d.instrumentName || facet?.provenance?.moduleTitleTr || null;
@@ -108,17 +357,11 @@ export function buildAIInsightInputPayload(
   };
 }
 
-/**
- * Deterministic Synthesis Fallback Engine
- * Generates rich, scientific Turkish profile insights without transmitting data to external APIs.
- * Consumes the exact descriptiveBandPolicy and enforces strict dimension grounding.
- */
 export function generateDeterministicAIInsights(
   input: AIInsightInput
 ): AIInsightOutput {
   const measuredCount = input.measuredDimensions.length;
 
-  // 1. Headline & Summary
   let headline = 'Psikolojik Ölçüm ve Dinamikler Özeti';
   let summary = '';
 
@@ -131,7 +374,6 @@ export function generateDeterministicAIInsights(
     summary = `Tamamlanan değerlendirmeleriniz, ${measuredCount} ampirik psikolojik boyut üzerinden belirgin eğilimlerinizi, içsel sinerjilerinizi ve bağlamsal etkileşimlerinizi ortaya koymaktadır. Bu analizler tanısal değil, öz-farkındalık ve gelişim odaklıdır.`;
   }
 
-  // 2. Grounded Observations
   const observations = input.measuredDimensions.slice(0, 5).map((dim) => {
     const band = resolveDescriptiveBand(
       dim.rawScore,
@@ -141,7 +383,11 @@ export function generateDeterministicAIInsights(
     );
 
     let observationTr = '';
-    if (band.policyEnabled && band.state !== 'DESCRIPTIVE_BAND_UNAVAILABLE' && band.state !== 'UNMEASURED') {
+    if (
+      band.policyEnabled &&
+      band.state !== 'DESCRIPTIVE_BAND_UNAVAILABLE' &&
+      band.state !== 'UNMEASURED'
+    ) {
       observationTr = `${dim.nameTr} boyutu ${dim.rawScore.toFixed(2)} (${dim.scaleMin}–${dim.scaleMax}) puanıyla ${band.labelTr.toLowerCase()} konumlanmaktadır.`;
     } else {
       observationTr = `${dim.nameTr} puanı ${dim.rawScore.toFixed(2)}, ölçek aralığı ${dim.scaleMin}–${dim.scaleMax}.`;
@@ -160,15 +406,11 @@ export function generateDeterministicAIInsights(
     };
   });
 
-  // 3. Tensions & Synergies with Exact Grounding (no arbitrary fallbacks)
   const dimByCode = new Map(input.measuredDimensions.map((d) => [d.code, d]));
-  const dimById = new Map(input.measuredDimensions.map((d) => [d.dimensionId, d]));
-
   const tensions: AIInsightOutput['tensions'] = [];
   const synergies: AIInsightOutput['synergies'] = [];
 
   for (const inter of input.registeredInteractions) {
-    // Map required construct codes to exact measured dimension IDs
     let resolvedDimensionIds: string[] = [];
 
     if (inter.sourceDimensionCodes && inter.sourceDimensionCodes.length > 0) {
@@ -179,10 +421,11 @@ export function generateDeterministicAIInsights(
         );
       }
     } else {
-      // Try matching by nameTr
       const matched = input.measuredDimensions.filter((d) =>
         inter.sourceDimensions.some(
-          (sd) => sd.toLowerCase().includes(d.nameTr.toLowerCase()) || d.nameTr.toLowerCase().includes(sd.toLowerCase())
+          (sd) =>
+            sd.toLowerCase().includes(d.nameTr.toLowerCase()) ||
+            d.nameTr.toLowerCase().includes(sd.toLowerCase())
         )
       );
       if (matched.length >= 2) {
@@ -190,7 +433,6 @@ export function generateDeterministicAIInsights(
       }
     }
 
-    // Strict Grounding Invariant: If not all source dimensions could be authoritatively resolved, OMIT!
     if (resolvedDimensionIds.length === 0) {
       continue;
     }
@@ -212,7 +454,6 @@ export function generateDeterministicAIInsights(
     }
   }
 
-  // 4. Profile Gaps
   const profileGaps = input.unmeasuredGaps.slice(0, 3).map((g) => ({
     domainCode: g.domainCode,
     domainNameTr: g.domainNameTr,
@@ -220,20 +461,17 @@ export function generateDeterministicAIInsights(
     recommendedAssessmentTitleTr: g.availableAssessmentTitleTr,
   }));
 
-  // 5. Reflection Questions
   const reflectionQuestions = [
     'Günlük iş veya sosyal yaşamınızda hangi güçlü özellikleriniz en çok destek oluyor?',
     'Karar alma anlarında rasyonel planlama ile içsel sezgileriniz nasıl etkileşime giriyor?',
     'Stresli anlarda tepkilerinizi yönetmek için hangi başa çıkma stratejilerini kullanıyorsunuz?',
   ];
 
-  // 6. Provenance references
   const provenanceReferences = input.sourceInstruments.map((s) => ({
     instrumentName: s.instrumentName,
     formVersion: s.formVersion,
   }));
 
-  // 7. Limitations
   const limitations = [
     'Ön-kalibrasyon aşaması: Puanlar yerel ölçek ortalamalarını yansıtır, temsili nüfus yüzdeliği içermez.',
     'Tanısal değildir: Kişilik ve benlik özellikleri klinik tanı veya psikopatoloji değerlendirmesi amacı taşımaz.',
@@ -253,32 +491,20 @@ export function generateDeterministicAIInsights(
   };
 }
 
-/**
- * Main Service Entry Point for Profile AI Insights.
- * Executes LLM synthesis when feature flag is enabled, falling back safely to deterministic synthesis.
- */
 export async function getProfileAIInsights(
   profile: UnifiedProfileViewModel
 ): Promise<AIInsightOutput> {
   const inputPayload = buildAIInsightInputPayload(profile);
+  const config = await getAIConfig();
 
-  // Check if external AI is explicitly enabled via environment variable
-  const isExternalAiEnabled = process.env.ENABLE_EXTERNAL_AI_INSIGHTS === 'true';
-  const apiKey = process.env.DEEPSEEK_API_KEY || process.env.AI_INSIGHT_API_KEY;
-
-  if (!isExternalAiEnabled || !apiKey) {
-    // Return deterministic fallback
+  if (!config.isAvailable || !config.apiKey) {
     return generateDeterministicAIInsights(inputPayload);
   }
 
-  const timeoutMs = Number(process.env.AI_INSIGHT_TIMEOUT_MS) || 8000;
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  const timeoutId = setTimeout(() => controller.abort(), config.timeoutMs || 8000);
 
   try {
-    const baseUrl = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com';
-    const model = process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash';
-
     const systemPrompt = `You are the PsycheAI Scientific Synthesis Engine.
 Your SOLE responsibility is to articulate structured, deterministic psychometric data into clear, compassionate Turkish profile insights.
 
@@ -290,15 +516,15 @@ STRICT INVIOLABLE RULES:
 5. Every tension and synergy MUST reference valid sourceDimensionIds and a valid registeredInteractionId.
 6. Output MUST strictly conform to the requested JSON schema.`;
 
-    const response = await fetch(`${baseUrl}/chat/completions`, {
+    const response = await fetch(`${config.baseUrl}/chat/completions`, {
       method: 'POST',
       signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${config.apiKey}`,
       },
       body: JSON.stringify({
-        model,
+        model: config.model || 'deepseek-v4-flash',
         max_tokens: 1500,
         response_format: { type: 'json_object' },
         messages: [
@@ -311,7 +537,7 @@ STRICT INVIOLABLE RULES:
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      console.warn(`External AI API returned HTTP ${response.status}. Using deterministic fallback.`);
+      console.warn(`DeepSeek API returned HTTP ${response.status}. Using deterministic fallback.`);
       return generateDeterministicAIInsights(inputPayload);
     }
 
@@ -324,7 +550,6 @@ STRICT INVIOLABLE RULES:
     const parsedJson = JSON.parse(content);
     const validatedOutput = AIInsightOutputSchema.parse(parsedJson);
 
-    // Validate PsycheAI grounding & safety policy
     const policyCheck = validateAIInsightPolicy(validatedOutput, inputPayload);
     if (!policyCheck.isValid) {
       console.warn('AI output failed PsycheAI policy check category:', policyCheck.errors.length);
@@ -334,11 +559,6 @@ STRICT INVIOLABLE RULES:
     return validatedOutput;
   } catch (err: any) {
     clearTimeout(timeoutId);
-    if (err?.name === 'AbortError') {
-      console.warn(`External AI insight synthesis timed out after ${timeoutMs}ms, falling back to deterministic.`);
-    } else {
-      console.warn('External AI insight synthesis failed, falling back to deterministic.');
-    }
     return generateDeterministicAIInsights(inputPayload);
   }
 }

@@ -119,9 +119,8 @@ const ADMIN_NAVIGATION: NavCategory[] = [
     items: [
       {
         label: 'Yapay Zekâ Konfigürasyonu',
+        href: '/admin/ai-config',
         icon: Bot,
-        disabled: true,
-        phaseBadge: 'FAZ 2.7D',
       },
       {
         label: 'Özellik Bayrakları',

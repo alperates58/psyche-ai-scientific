@@ -3,8 +3,12 @@ import Link from 'next/link';
 import { redirect, notFound } from 'next/navigation';
 import { getCurrentUserOrNull } from '@/lib/auth';
 import { getAssessmentResultView } from '@/services/assessmentResultService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
+import { buildProfileEvidenceBundleV2 } from '@/lib/profile/profileEvidenceBundle';
+import { getAssessmentResultAIInsight } from '@/services/aiInsightService';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { ResultSummaryHero } from '@/components/results/ResultSummaryHero';
+import { AssessmentResultAISection } from '@/components/profile/ai/AssessmentResultAISection';
 import { HexacoRadarSection } from '@/components/results/HexacoRadarSection';
 import { HexacoFacetProfile } from '@/components/results/HexacoFacetProfile';
 import { TraitHeatmapSection } from '@/components/results/TraitHeatmapSection';
@@ -59,10 +63,23 @@ export default async function AssessmentResultPage({
     );
   }
 
+  // Resolve module-level evidence-grounded AI insight
+  let aiInsight = null;
+  try {
+    const profile = await resolveUnifiedPsychologicalProfileV2(user.id);
+    const evidenceBundle = buildProfileEvidenceBundleV2(profile);
+    aiInsight = await getAssessmentResultAIInsight(evidenceBundle, resultData.module.code, sessionId);
+  } catch (e) {
+    console.warn('Could not generate module AI insight:', e);
+  }
+
   return (
     <PageContainer variant="standard" className="space-y-8 pb-20">
       {/* 1. Hero & Key Observations */}
       <ResultSummaryHero result={resultData} />
+
+      {/* AI Module Interpretation */}
+      {aiInsight && <AssessmentResultAISection insight={aiInsight} />}
 
       {/* 2. Visual Archetype Section */}
       {resultData.visualType === 'HEXACO_RADAR' ? (

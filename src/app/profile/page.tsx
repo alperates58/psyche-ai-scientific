@@ -2,6 +2,8 @@ import React from 'react';
 import { redirect } from 'next/navigation';
 import { getCurrentUserOrNull } from '@/lib/auth';
 import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
+import { buildProfileEvidenceBundleV2 } from '@/lib/profile/profileEvidenceBundle';
+import { getUnifiedProfileAISectionData } from '@/services/aiInsightService';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { UnifiedProfileEmptyState } from '@/components/profile/UnifiedProfileEmptyState';
 import { UnifiedProfileClientViewV2 } from '@/components/profile/UnifiedProfileClientViewV2';
@@ -34,10 +36,18 @@ export default async function UnifiedProfilePage() {
     );
   }
 
-  // 4. Render 11-Domain Master Model Unified Profile V2 View
+  // 4. Resolve AI Insights and Evidence Bundle
+  const evidenceBundle = buildProfileEvidenceBundleV2(profile);
+  const aiSectionData = await getUnifiedProfileAISectionData(profile);
+
+  // 5. Render 11-Domain Master Model Unified Profile V2 View
   return (
     <PageContainer variant="wide" className="pb-16">
-      <UnifiedProfileClientViewV2 profile={profile} />
+      <UnifiedProfileClientViewV2
+        profile={profile}
+        aiSectionData={aiSectionData}
+        evidenceBundle={evidenceBundle}
+      />
     </PageContainer>
   );
 }

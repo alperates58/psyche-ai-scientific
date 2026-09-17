@@ -29,6 +29,31 @@ export interface SystemMailSettings {
   updatedBy?: string;
 }
 
+export interface SystemAISettings {
+  aiEnabled: boolean; // default: false (KAPALI)
+  provider: 'DeepSeek';
+  baseUrl: string; // default: https://api.deepseek.com
+  model: string; // default: deepseek-v4-flash
+  temperature: number; // default: 0.15
+  maxTokens: number; // default: 4096
+  timeoutMs: number; // default: 10000
+  consentEnforcement: boolean; // default: true
+  deterministicFallback: boolean; // default: true
+  lastConnectionTestAt?: string;
+  lastConnectionTestStatus?: 'SUCCESS' | 'FAILED';
+  lastConnectionTestLatencyMs?: number;
+  lastConnectionTestMessage?: string;
+  updatedAt: string;
+  updatedBy?: string;
+}
+
+export interface FullSystemSettings {
+  mail: SystemMailSettings;
+  ai: SystemAISettings;
+  updatedAt: string;
+  updatedBy?: string;
+}
+
 const SETTINGS_FILE_PATH = path.join(process.cwd(), 'data/system-settings.json');
 
 const DEFAULT_MAIL_SETTINGS: SystemMailSettings = {
@@ -54,29 +79,77 @@ const DEFAULT_MAIL_SETTINGS: SystemMailSettings = {
   updatedAt: new Date().toISOString(),
 };
 
-let cachedSettings: SystemMailSettings | null = null;
+const DEFAULT_AI_SETTINGS: SystemAISettings = {
+  aiEnabled: process.env.ENABLE_EXTERNAL_AI_INSIGHTS === 'true',
+  provider: 'DeepSeek',
+  baseUrl: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
+  model: process.env.DEEPSEEK_MODEL_ID || process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash',
+  temperature: 0.15,
+  maxTokens: 4096,
+  timeoutMs: Number(process.env.AI_INSIGHT_TIMEOUT_MS) || 10000,
+  consentEnforcement: true,
+  deterministicFallback: true,
+  updatedAt: new Date().toISOString(),
+};
 
-export function getSystemMailSettingsSync(): SystemMailSettings {
-  if (cachedSettings) return cachedSettings;
+let cachedFullSettings: FullSystemSettings | null = null;
+
+function readFullSettingsSync(): FullSystemSettings {
+  if (cachedFullSettings) return cachedFullSettings;
 
   try {
     if (fs.existsSync(SETTINGS_FILE_PATH)) {
       const raw = fs.readFileSync(SETTINGS_FILE_PATH, 'utf-8');
       const parsed = JSON.parse(raw);
-      cachedSettings = {
-        ...DEFAULT_MAIL_SETTINGS,
-        ...parsed,
-        smtp: { ...DEFAULT_MAIL_SETTINGS.smtp, ...(parsed.smtp || {}) },
-        imap: { ...DEFAULT_MAIL_SETTINGS.imap, ...(parsed.imap || {}) },
+
+      // Handle both legacy flat mail schema and structured full schema
+      const mailParsed = parsed.mail ? parsed.mail : parsed;
+      const aiParsed = parsed.ai || {};
+
+      cachedFullSettings = {
+        mail: {
+          ...DEFAULT_MAIL_SETTINGS,
+          ...mailParsed,
+          smtp: { ...DEFAULT_MAIL_SETTINGS.smtp, ...(mailParsed.smtp || {}) },
+          imap: { ...DEFAULT_MAIL_SETTINGS.imap, ...(mailParsed.imap || {}) },
+        },
+        ai: {
+          ...DEFAULT_AI_SETTINGS,
+          ...aiParsed,
+          provider: 'DeepSeek',
+          model: aiParsed.model || DEFAULT_AI_SETTINGS.model,
+          baseUrl: aiParsed.baseUrl || DEFAULT_AI_SETTINGS.baseUrl,
+        },
+        updatedAt: parsed.updatedAt || new Date().toISOString(),
+        updatedBy: parsed.updatedBy,
       };
-      return cachedSettings!;
+      return cachedFullSettings!;
     }
   } catch (err) {
     console.error('Error reading system-settings.json, using defaults:', err);
   }
 
-  cachedSettings = { ...DEFAULT_MAIL_SETTINGS };
-  return cachedSettings;
+  cachedFullSettings = {
+    mail: { ...DEFAULT_MAIL_SETTINGS },
+    ai: { ...DEFAULT_AI_SETTINGS },
+    updatedAt: new Date().toISOString(),
+  };
+  return cachedFullSettings;
+}
+
+function writeFullSettingsSync(settings: FullSystemSettings): void {
+  try {
+    fs.writeFileSync(SETTINGS_FILE_PATH, JSON.stringify(settings, null, 2), 'utf-8');
+    cachedFullSettings = settings;
+  } catch (err) {
+    console.error('Failed to write system-settings.json:', err);
+    throw new Error('Sistem ayarları kaydedilemedi.');
+  }
+}
+
+// Mail Settings Accessors
+export function getSystemMailSettingsSync(): SystemMailSettings {
+  return readFullSettingsSync().mail;
 }
 
 export async function getSystemMailSettings(): Promise<SystemMailSettings> {
@@ -87,35 +160,67 @@ export async function updateSystemMailSettings(
   updates: Partial<SystemMailSettings>,
   actorUserId?: string
 ): Promise<SystemMailSettings> {
-  const current = getSystemMailSettingsSync();
-  const next: SystemMailSettings = {
-    ...current,
+  const current = readFullSettingsSync();
+  const nextMail: SystemMailSettings = {
+    ...current.mail,
     ...updates,
     smtp: {
-      ...current.smtp,
+      ...current.mail.smtp,
       ...(updates.smtp || {}),
     },
     imap: {
-      ...current.imap,
+      ...current.mail.imap,
       ...(updates.imap || {}),
     },
+    updatedAt: new Date().toISOString(),
+    updatedBy: actorUserId || current.mail.updatedBy,
+  };
+
+  const nextFull: FullSystemSettings = {
+    ...current,
+    mail: nextMail,
     updatedAt: new Date().toISOString(),
     updatedBy: actorUserId || current.updatedBy,
   };
 
-  try {
-    fs.writeFileSync(SETTINGS_FILE_PATH, JSON.stringify(next, null, 2), 'utf-8');
-    cachedSettings = next;
-  } catch (err) {
-    console.error('Failed to write system-settings.json:', err);
-    throw new Error('Sistem ayarları kaydedilemedi.');
-  }
+  writeFullSettingsSync(nextFull);
+  return nextMail;
+}
 
-  return next;
+// AI Settings Accessors (Non-secret only)
+export function getSystemAISettingsSync(): SystemAISettings {
+  return readFullSettingsSync().ai;
+}
+
+export async function getSystemAISettings(): Promise<SystemAISettings> {
+  return getSystemAISettingsSync();
+}
+
+export async function updateSystemAISettings(
+  updates: Partial<SystemAISettings>,
+  actorUserId?: string
+): Promise<SystemAISettings> {
+  const current = readFullSettingsSync();
+  const nextAI: SystemAISettings = {
+    ...current.ai,
+    ...updates,
+    provider: 'DeepSeek', // strictly locked to DeepSeek
+    updatedAt: new Date().toISOString(),
+    updatedBy: actorUserId || current.ai.updatedBy,
+  };
+
+  const nextFull: FullSystemSettings = {
+    ...current,
+    ai: nextAI,
+    updatedAt: new Date().toISOString(),
+    updatedBy: actorUserId || current.updatedBy,
+  };
+
+  writeFullSettingsSync(nextFull);
+  return nextAI;
 }
 
 export function isEmailVerificationEnforced(): boolean {
-  const settings = getSystemMailSettingsSync();
-  // Strictly enforced ONLY if mail integration is enabled AND requireEmailVerification is true
-  return Boolean(settings.mailIntegrationEnabled && settings.requireEmailVerification);
+  const mail = getSystemMailSettingsSync();
+  return Boolean(mail.mailIntegrationEnabled && mail.requireEmailVerification);
 }

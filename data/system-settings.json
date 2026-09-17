@@ -1,23 +1,39 @@
 {
-  "mailIntegrationEnabled": false,
-  "requireEmailVerification": false,
-  "allowDirectLoginWithoutVerification": true,
-  "smtp": {
-    "host": "",
-    "port": 587,
-    "secure": false,
-    "user": "",
-    "password": "",
-    "fromEmail": "noreply@psyche.ai",
-    "fromName": "PsycheAI Scientific"
+  "mail": {
+    "mailIntegrationEnabled": false,
+    "requireEmailVerification": false,
+    "allowDirectLoginWithoutVerification": true,
+    "smtp": {
+      "host": "",
+      "port": 587,
+      "secure": false,
+      "user": "",
+      "password": "",
+      "fromEmail": "noreply@psyche.ai",
+      "fromName": "PsycheAI Scientific"
+    },
+    "imap": {
+      "host": "",
+      "port": 993,
+      "secure": true,
+      "user": "",
+      "password": ""
+    },
+    "updatedAt": "2026-09-17T08:28:47.015Z",
+    "updatedBy": "admin-user-id"
   },
-  "imap": {
-    "host": "",
-    "port": 993,
-    "secure": true,
-    "user": "",
-    "password": ""
+  "ai": {
+    "aiEnabled": false,
+    "provider": "DeepSeek",
+    "baseUrl": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "temperature": 0.15,
+    "maxTokens": 4096,
+    "timeoutMs": 10000,
+    "consentEnforcement": true,
+    "deterministicFallback": true,
+    "updatedAt": "2026-09-17T08:28:46.969Z"
   },
-  "updatedAt": "2026-09-17T07:47:06.159Z",
+  "updatedAt": "2026-09-17T08:28:47.015Z",
   "updatedBy": "admin-user-id"
 }
