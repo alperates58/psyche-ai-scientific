@@ -190,7 +190,7 @@ export const TheoryLensDetailClient: React.FC<TheoryLensDetailClientProps> = ({
             {lens.coreConcepts.map((concept) => (
               <div
                 key={concept.conceptId}
-                className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850/50 space-y-1"
+                className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 space-y-1"
               >
                 <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
                   {concept.nameTr}
@@ -318,7 +318,7 @@ export const TheoryLensDetailClient: React.FC<TheoryLensDetailClientProps> = ({
                 type="button"
                 onClick={() => handleSendMessage(prompt)}
                 disabled={isChatLoading}
-                className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-850 hover:bg-indigo-50 dark:hover:bg-indigo-950 text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-300 transition-all text-left"
+                className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-300 transition-all text-left"
               >
                 &ldquo;{prompt}&rdquo;
               </button>
@@ -335,7 +335,7 @@ export const TheoryLensDetailClient: React.FC<TheoryLensDetailClientProps> = ({
                 className={`p-4 rounded-2xl space-y-2 text-sm ${
                   msg.role === 'user'
                     ? 'bg-indigo-600 text-white ml-8 sm:ml-16 rounded-br-none'
-                    : 'bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 mr-8 sm:mr-16 rounded-bl-none'
+                    : 'bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 mr-8 sm:mr-16 rounded-bl-none'
                 }`}
               >
                 <div className="flex items-center justify-between text-xs font-bold opacity-80 mb-1">
@@ -373,7 +373,7 @@ export const TheoryLensDetailClient: React.FC<TheoryLensDetailClientProps> = ({
               onChange={(e) => setInputText(e.target.value)}
               placeholder={`${lens.theoristName} merceğinden sormak istediğiniz bir konu veya durum yazın...`}
               disabled={isChatLoading}
-              className="flex-1 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:border-indigo-500 transition-colors"
+              className="flex-1 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition-colors"
             />
             <button
               type="submit"

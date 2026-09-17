@@ -70,7 +70,7 @@ export const TheoryEvidenceDrawer: React.FC<TheoryEvidenceDrawerProps> = ({ face
             ))}
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
+          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
             <CheckCircle className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
             <span>
               <strong>Deterministik Güvence:</strong> Kuramsal ekoller psikometrik puanları değiştiremez, puan hesaplayamaz veya eksik boyutları tahmin edemez. Yorumlar salt yukarıdaki ölçülmüş verilere dayanır.

@@ -106,15 +106,15 @@ export const TheoryComparisonClient: React.FC<TheoryComparisonClientProps> = ({
       </div>
 
       {/* Header */}
-      <div className="p-8 rounded-3xl bg-linear-to-br from-indigo-900 via-slate-900 to-purple-950 text-white shadow-xl space-y-3">
+      <div className="p-8 rounded-3xl bg-slate-900 bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 text-white shadow-xl space-y-3 border border-indigo-900/50">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
           <Scale className="w-3.5 h-3.5" />
           Kuramsal Karşılaştırma Masası
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
           Aynı Ölçülen Kanıtlar, Farklı Büyük Kuramlar
         </h1>
-        <p className="text-slate-300 text-sm max-w-3xl leading-relaxed">
+        <p className="text-slate-200 text-sm max-w-3xl leading-relaxed">
           Deterministik Master Model ile ölçülmüş tek bir profil kanıt setini 2 veya 3 farklı psikolojik kuram açısından yan yana koyun; uzlaşma ve ayrışma noktalarını keşfedin.
         </p>
       </div>
@@ -143,7 +143,7 @@ export const TheoryComparisonClient: React.FC<TheoryComparisonClientProps> = ({
                   className={`p-3.5 rounded-2xl border text-left transition-all space-y-1 ${
                     isSelected
                       ? 'border-indigo-600 bg-indigo-50/70 dark:bg-indigo-950/60 dark:border-indigo-500 shadow-xs'
-                      : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850/50 hover:border-slate-300'
+                      : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-center justify-between">

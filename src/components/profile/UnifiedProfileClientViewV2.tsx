@@ -240,16 +240,16 @@ export const UnifiedProfileClientViewV2: React.FC<UnifiedProfileClientViewV2Prop
           )}
 
           {/* Kuramsal Konsil CTA Banner */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-linear-to-br from-indigo-900 via-slate-900 to-purple-950 text-white shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="p-6 sm:p-8 rounded-3xl bg-slate-900 bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 text-white shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-indigo-900/50">
             <div className="space-y-2 max-w-2xl">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/30 border border-indigo-400/30 text-indigo-200 text-xs font-semibold">
                 <BookOpen className="w-3.5 h-3.5" />
                 FAZ 2.19 — Kuramsal Konsil
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold">
+              <h3 className="text-xl sm:text-2xl font-bold text-white">
                 Profilinizi 10 Büyük Psikoloji Merceğinden İnceleyin
               </h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-200 leading-relaxed">
                 Deterministik Master Model ile ölçülen profilinizi Freud, Jung, Adler, Rogers, Maslow, Skinner, Frankl, Beck ve diğer tarihsel ekollerin kavramsal gözlükleriyle keşfedin.
               </p>
             </div>

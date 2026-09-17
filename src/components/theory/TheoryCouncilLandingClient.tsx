@@ -59,16 +59,16 @@ export const TheoryCouncilLandingClient: React.FC<TheoryCouncilLandingClientProp
   return (
     <div className="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-indigo-900 via-slate-900 to-purple-950 p-8 sm:p-12 text-white shadow-xl">
+      <div className="relative overflow-hidden rounded-3xl bg-slate-900 bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 p-8 sm:p-12 text-white shadow-xl border border-indigo-900/50">
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
             FAZ 2.19 — Kanıta Dayalı Kuramsal Konsil
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Kuramsal Konsil: Psikolojinin 10 Büyük Merceği
           </h1>
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-200 text-sm sm:text-base leading-relaxed">
             Deterministik Master Model (11 Alan, 37 Boyut, 91 Alt Boyut) ile ölçülmüş psikolojik profilinizi, psikoloji tarihinin en etkili 10 kuramsal çerçevesi üzerinden inceleyin ve yansıtıcı diyaloglar yürütün.
           </p>
 
@@ -81,7 +81,7 @@ export const TheoryCouncilLandingClient: React.FC<TheoryCouncilLandingClientProp
               Kuramları Karşılaştır (2-3 Ekol)
             </Link>
             <Link
-              href="/profile/overview"
+              href="/profile"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm transition-all"
             >
               <Compass className="w-4 h-4 text-indigo-300" />
