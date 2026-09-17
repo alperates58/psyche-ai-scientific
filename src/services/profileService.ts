@@ -2,8 +2,10 @@ import { prisma } from '@/lib/prisma';
 import { evaluateSessionIntegrity } from './integrityService';
 import { calculatePreCalibrationScores } from './scoringService';
 import { calculateProfileCoverage, TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH } from '@/psychometrics/coverage';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
+import { TOTAL_MASTER_FACETS_COUNT } from '@/lib/profile/masterModelConstants';
 import { getUnifiedPsychologicalProfile } from './unifiedProfileService';
-export { getUnifiedPsychologicalProfile };
+export { getUnifiedPsychologicalProfile, resolveUnifiedPsychologicalProfileV2 };
 
 
 export async function finalizeAssessmentAndCreateSnapshot(
@@ -192,37 +194,18 @@ export interface UserProfileCoverageSummary {
 
 export async function getUserProfileCoverage(userId: string): Promise<UserProfileCoverageSummary> {
   try {
-    const dbFacetCount = await prisma.facet.count().catch(() => TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH);
-    const totalOntologyFacets = dbFacetCount > 0 ? dbFacetCount : TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH;
-
-    const latestSnapshot = await getLatestProfileSnapshotForUser(userId).catch(() => null);
-    if (!latestSnapshot || !latestSnapshot.facetScores || latestSnapshot.facetScores.length === 0) {
-      return {
-        exploredFacetsCount: 0,
-        totalOntologyFacets,
-        explorationPercentage: 0,
-        measurementDepthPercentage: 0,
-        isAssessed: false,
-      };
-    }
-
-    const facetItemCounts: Record<string, number> = {};
-    for (const fs of latestSnapshot.facetScores) {
-      facetItemCounts[fs.facetId] = fs.itemCount;
-    }
-
-    const coverage = calculateProfileCoverage(facetItemCounts, totalOntologyFacets, 6);
+    const profile = await resolveUnifiedPsychologicalProfileV2(userId);
     return {
-      exploredFacetsCount: coverage.exploredFacetsCount,
-      totalOntologyFacets: coverage.totalOntologyFacets,
-      explorationPercentage: coverage.explorationPercentage,
-      measurementDepthPercentage: coverage.measurementDepthPercentage,
-      isAssessed: coverage.exploredFacetsCount > 0,
+      exploredFacetsCount: profile.coverage.facetCoverage.measuredCount,
+      totalOntologyFacets: TOTAL_MASTER_FACETS_COUNT, // 91 active master facets
+      explorationPercentage: profile.coverage.facetCoverage.percentage,
+      measurementDepthPercentage: profile.coverage.questionCoverage.percentage,
+      isAssessed: profile.hasAssessments,
     };
-  } catch {
+  } catch (error) {
     return {
       exploredFacetsCount: 0,
-      totalOntologyFacets: TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH,
+      totalOntologyFacets: TOTAL_MASTER_FACETS_COUNT, // 91
       explorationPercentage: 0,
       measurementDepthPercentage: 0,
       isAssessed: false,

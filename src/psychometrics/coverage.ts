@@ -14,7 +14,10 @@
  *    - SUFFICIENT_FOR_RESEARCH: >= 6 items answered (Meets standard form design target)
  */
 
-export const TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH = 84;
+import { TOTAL_MASTER_FACETS_COUNT } from '@/lib/profile/masterModelConstants';
+
+export const TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH = TOTAL_MASTER_FACETS_COUNT; // 91 active master facets
+export const TOTAL_MASTER_FACETS_DENOMINATOR = TOTAL_MASTER_FACETS_COUNT; // 91
 
 export type FacetMeasurementStage =
   | 'UNTOUCHED'

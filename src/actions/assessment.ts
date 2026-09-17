@@ -1,6 +1,7 @@
 'use server';
 
 import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
 import { getCurrentUser } from '@/lib/auth';
 import {
   getOrCreateAssessmentSession,
@@ -112,6 +113,13 @@ export async function finalizeAssessmentAction(input: z.infer<typeof FinalizeAss
     const user = await getCurrentUser();
 
     const snapshot = await finalizeAssessmentAndCreateSnapshot(validated.sessionId, user.id);
+    
+    // Invalidate caches across journey, profile and overview
+    revalidatePath('/assessments');
+    revalidatePath('/profile');
+    revalidatePath('/overview');
+    revalidatePath(`/assessments/results/${validated.sessionId}`);
+
     return { success: true, data: snapshot };
   } catch (error: any) {
     return { success: false, error: error.message || 'Değerlendirme tamamlanamadı.' };

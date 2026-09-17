@@ -12,6 +12,12 @@ import {
   ModuleJourneyRule,
 } from '@/lib/assessmentJourneyConfig';
 import { getUserProfileCoverage, UserProfileCoverageSummary } from './profileService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
+import {
+  TOTAL_MASTER_DOMAINS_COUNT,
+  TOTAL_MASTER_CONSTRUCTS_COUNT,
+  TOTAL_MASTER_FACETS_COUNT,
+} from '@/lib/profile/masterModelConstants';
 
 export interface AssessmentJourneyItem {
   assessmentId: string;
@@ -203,8 +209,17 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     orderBy: { startedAt: 'desc' },
   });
 
-  // 3. Fetch profile coverage
-  const coverage = await getUserProfileCoverage(userId);
+  // 3. Fetch authoritative Unified Profile V2 coverage
+  let profile = await resolveUnifiedPsychologicalProfileV2(userId).catch(() => null);
+  const coverage: UserProfileCoverageSummary = profile
+    ? {
+        exploredFacetsCount: profile.coverage.facetCoverage.measuredCount,
+        totalOntologyFacets: TOTAL_MASTER_FACETS_COUNT,
+        explorationPercentage: profile.coverage.facetCoverage.percentage,
+        measurementDepthPercentage: profile.coverage.questionCoverage.percentage,
+        isAssessed: profile.hasAssessments,
+      }
+    : await getUserProfileCoverage(userId);
 
   // 4. Map each architecture module into AssessmentJourneyItem
   const allItems: AssessmentJourneyItem[] = [];
@@ -266,22 +281,21 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
 
     const isPlayable = !!publishedForm;
 
-    if (activeSession) {
-      status = 'IN_PROGRESS';
-      answeredCount = activeSession._count?.responses || 0;
-      progressPercentage = Math.min(100, Math.round((answeredCount / formItemCount) * 100));
-      startedAt = activeSession.startedAt ? new Date(activeSession.startedAt).toISOString() : null;
-      activeSessionId = activeSession.id;
-      if (completedSession) {
-        completedSessionId = completedSession.id;
-      }
-    } else if (completedSession) {
+    // CRITICAL COMPLETION PRECEDENCE: COMPLETED > IN_PROGRESS > PAUSED > NOT_STARTED
+    // A stale incomplete session must NEVER override a valid completed native session.
+    if (completedSession) {
       status = 'COMPLETED';
       progressPercentage = 100;
       answeredCount = formItemCount;
       startedAt = completedSession.startedAt ? new Date(completedSession.startedAt).toISOString() : null;
       completedAt = completedSession.completedAt ? new Date(completedSession.completedAt).toISOString() : null;
       completedSessionId = completedSession.id;
+    } else if (activeSession) {
+      status = 'IN_PROGRESS';
+      answeredCount = activeSession._count?.responses || 0;
+      progressPercentage = Math.min(100, Math.round((answeredCount / formItemCount) * 100));
+      startedAt = activeSession.startedAt ? new Date(activeSession.startedAt).toISOString() : null;
+      activeSessionId = activeSession.id;
     } else if (!isPlayable) {
       status = 'CONTENT_PENDING';
     } else {
@@ -426,12 +440,16 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     completedQuestions: answeredQuestionsCount,
     targetQuestionsCount,
     totalQuestions: targetQuestionsCount,
-    constructCoverageCount: (coverage?.exploredFacetsCount || 0) > 0 ? Math.min(37, Math.max(1, Math.round(((coverage?.exploredFacetsCount || 0) / 91) * 37))) : 0,
-    totalConstructsCount: 37,
-    domainCoverageCount: (coverage?.exploredFacetsCount || 0) > 0 ? Math.min(11, Math.max(1, Math.ceil((coverage?.exploredFacetsCount || 0) / 8))) : 0,
-    totalDomainsCount: 11,
+    constructCoverageCount: profile
+      ? profile.coverage.constructCoverage.measuredCount
+      : ((coverage?.exploredFacetsCount || 0) > 0 ? Math.min(TOTAL_MASTER_CONSTRUCTS_COUNT, Math.max(1, Math.round(((coverage?.exploredFacetsCount || 0) / TOTAL_MASTER_FACETS_COUNT) * TOTAL_MASTER_CONSTRUCTS_COUNT))) : 0),
+    totalConstructsCount: TOTAL_MASTER_CONSTRUCTS_COUNT, // 37
+    domainCoverageCount: profile
+      ? profile.coverage.domainCoverage.measuredCount
+      : ((coverage?.exploredFacetsCount || 0) > 0 ? Math.min(TOTAL_MASTER_DOMAINS_COUNT, Math.max(1, Math.ceil((coverage?.exploredFacetsCount || 0) / 8))) : 0),
+    totalDomainsCount: TOTAL_MASTER_DOMAINS_COUNT, // 11
     completedFacets: coverage?.exploredFacetsCount || 0,
-    totalFacets: coverage?.totalOntologyFacets || 91,
+    totalFacets: TOTAL_MASTER_FACETS_COUNT, // 91
     depthLevel,
     depthLevelTr: DEPTH_LEVEL_METADATA[depthLevel].nameTr,
     depthLevelDescriptionTr: DEPTH_LEVEL_METADATA[depthLevel].descTr,

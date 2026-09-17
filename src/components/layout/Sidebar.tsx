@@ -33,7 +33,7 @@ interface CoverageState {
 
 const ZERO_COVERAGE: CoverageState = {
   exploredFacetsCount: 0,
-  totalOntologyFacets: 84,
+  totalOntologyFacets: 91,
   explorationPercentage: 0,
   measurementDepthPercentage: 0,
   isAssessed: false,
@@ -75,7 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
         if (!abortController.signal.aborted) {
           setCoverage({
             exploredFacetsCount: Number(data.exploredFacetsCount) || 0,
-            totalOntologyFacets: Number(data.totalOntologyFacets) || 84,
+            totalOntologyFacets: Number(data.totalOntologyFacets) || 91,
             explorationPercentage: Number(data.explorationPercentage) || 0,
             measurementDepthPercentage: Number(data.measurementDepthPercentage) || 0,
             isAssessed: Boolean(data.isAssessed),
