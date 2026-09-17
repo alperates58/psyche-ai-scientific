@@ -21,6 +21,14 @@ import {
 import { getUserAssessmentJourney } from './assessmentJourneyService';
 import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
 export { resolveUnifiedPsychologicalProfileV2 };
+
+/**
+ * Authoritative Master Model Current Unified Profile Getter (FAZ 2.17+ / FAZ 2.18+).
+ * 11 Domains, 37 Constructs, 91 Active Master Facets.
+ */
+export async function getCurrentUnifiedProfile(userId: string) {
+  return resolveUnifiedPsychologicalProfileV2(userId);
+}
 import {
   UnifiedProfileViewModel,
   UnifiedDomainViewModel,
@@ -288,9 +296,8 @@ export function getDescriptiveResponseRangeState(
 }
 
 /**
- * Centralized Server-Side Unified Psychological Profile Service.
- * Resolves the user's complete psychological profile by aggregating authoritative persisted measurements
- * across completed assessment sessions at read-time.
+ * @deprecated LEGACY_ONLY: Use resolveUnifiedPsychologicalProfileV2 (or getCurrentUnifiedProfile) for all current profile surfaces.
+ * This function resolves the legacy 84-facet model and is kept only for historical/snapshot compatibility.
  */
 export async function getUnifiedPsychologicalProfile(userId: string): Promise<UnifiedProfileViewModel> {
   // 1. Fetch user identity

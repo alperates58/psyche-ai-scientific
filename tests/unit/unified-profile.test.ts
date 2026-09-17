@@ -264,11 +264,11 @@ describe('FAZ 2.13 — Unified Psychological Profile Unit Tests', () => {
   });
 
   // ---------------------------------------------------------
-  // 6. Complete 84-Facet Map Invariant Assertion
+  // 6. Complete 91-Facet Map Invariant Assertion
   // ---------------------------------------------------------
-  describe('84-Facet Progressive Map Invariant', () => {
-    it('source of truth facet count is strictly 84', () => {
-      expect(TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH).toBe(84);
+  describe('91-Facet Master Model Map Invariant', () => {
+    it('source of truth facet count is strictly 91', () => {
+      expect(TOTAL_ONTOLOGY_FACETS_SOURCE_OF_TRUTH).toBe(91);
     });
   });
 });

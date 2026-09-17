@@ -25,6 +25,7 @@
     "audit:unified-profile-v2": "tsx scripts/audit-unified-profile-v2.ts",
     "audit:ai-insight-v2": "tsx scripts/audit-ai-insight-v2.ts",
     "audit:profile-runtime-consistency": "tsx scripts/audit-profile-runtime-consistency.ts",
+    "audit:profile-source-of-truth": "tsx scripts/audit-profile-source-of-truth.ts",
     "reconcile:profile-runtime": "tsx scripts/reconcile-profile-runtime.ts",
     "seed:native-battery": "tsx scripts/seed-psycheai-native-battery.ts",
     "admin:grant-role": "tsx scripts/admin-grant-role.ts",

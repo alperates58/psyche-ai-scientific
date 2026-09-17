@@ -7,7 +7,7 @@ import { EpistemicBadge } from '@/components/shared/EpistemicBadge';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { getCurrentUserOrNull } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { getLatestProfileSnapshotForUser } from '@/services/profileService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,60 +20,53 @@ export default async function PersonalityProfilePage() {
     redirect('/verify-email');
   }
 
-  const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
-  const isLiveProfile = !!latestSnapshot && latestSnapshot.facetScores.length > 0;
-
-  const traitMapping = [
-    { id: 'honesty_humility', name: 'Honesty-Humility', name_tr: 'Dürüstlük-Alçakgönüllülük' },
-    { id: 'emotionality', name: 'Emotionality', name_tr: 'Duygusallık' },
-    { id: 'extraversion', name: 'Extraversion', name_tr: 'Dışadönüklük' },
-    { id: 'agreeableness', name: 'Agreeableness', name_tr: 'Uyumluluk' },
-    { id: 'conscientiousness', name: 'Conscientiousness', name_tr: 'Sorumluluk' },
-    { id: 'openness', name: 'Openness to Experience', name_tr: 'Deneyime Açıklık' },
-  ];
+  // 1. Fetch authoritative Master Model Unified Psychological Profile V2
+  const profile = await resolveUnifiedPsychologicalProfileV2(user.id);
+  const personalityDomain = profile.domains.find((d) => d.code === 'core_personality');
+  const isLiveProfile = profile.hasAssessments && (personalityDomain?.measuredFacetCount ?? 0) > 0;
 
   let coreTraits: HexacoTraitData[] = [];
   let personalityFacets: FacetDetailItem[] = [];
 
-  if (isLiveProfile) {
-    const constructMap = new Map<string, number>();
-    for (const cs of latestSnapshot.constructScores) {
-      constructMap.set(cs.constructId, cs.compositeScore);
-    }
+  if (isLiveProfile && personalityDomain) {
+    // 6 Core Constructs (Honesty-Humility, Emotionality, Extraversion, Agreeableness, Conscientiousness, Openness)
+    coreTraits = personalityDomain.constructs.map((c) => ({
+      name: c.nameEn,
+      name_tr: c.nameTr,
+      score: c.normalizedVisualCoordinate,
+      standardError: null,
+      ci95: null,
+      facetCount: c.totalFacetCount,
+      coverage: Math.round(c.coverageRatio * 100),
+    }));
 
-    coreTraits = traitMapping.map((t) => {
-      const rawScore = constructMap.get(t.id);
-      const normalizedScore = typeof rawScore === 'number'
-        ? Math.round(((rawScore - 1) / 4) * 100)
-        : null;
-
-      return {
-        name: t.name,
-        name_tr: t.name_tr,
-        score: normalizedScore,
+    // 24 Master Facets in Personality Domain
+    personalityFacets = personalityDomain.constructs
+      .flatMap((c) =>
+        c.facets.map((f) => ({
+          ...f,
+          constructNameTr: c.nameTr,
+        }))
+      )
+      .filter((f) => f.measurementStatus !== 'NOT_MEASURED' && f.score !== null)
+      .map((f) => ({
+        id: f.facetId,
+        name: f.nameEn,
+        name_tr: f.nameTr,
+        constructName: f.constructNameTr,
+        description: f.scientificDefinitionTr || '',
+        score: f.normalizedVisualCoordinate ?? Math.round(((f.score! - 1) / 4) * 100),
         standardError: null,
         ci95: null,
-        facetCount: 4,
-        coverage: typeof rawScore === 'number' ? 100 : 0,
-      };
-    });
-
-    personalityFacets = (latestSnapshot.facetScores || []).map((fs: any) => {
-      const normalizedScore = Math.round(((fs.rawMean - 1) / 4) * 100);
-      return {
-        id: fs.facetId,
-        name: fs.facet?.nameTr || fs.facet?.nameEn || fs.facetId,
-        name_tr: fs.facet?.nameTr || fs.facet?.nameEn || fs.facetId,
-        constructName: fs.facet?.construct?.nameTr || fs.facet?.construct?.nameEn || '',
-        description: fs.facet?.descriptionTr || fs.facet?.descriptionEn || '',
-        score: normalizedScore,
-        standardError: null,
-        ci95: null,
-        measurementPrecision: fs.itemCount >= 6 ? 'High' : fs.itemCount >= 3 ? 'Moderate' : 'Developing',
-        observedItems: fs.itemCount,
-        epistemicStatus: 'PROVISIONAL_POINT_ESTIMATE',
-      };
-    });
+        measurementPrecision:
+          f.itemCountAnswered >= 6
+            ? 'High'
+            : f.itemCountAnswered >= 3
+            ? 'Moderate'
+            : 'Developing',
+        observedItems: f.itemCountAnswered,
+        epistemicStatus: f.epistemicStatus,
+      }));
   }
 
   return (
@@ -126,7 +119,7 @@ export default async function PersonalityProfilePage() {
             </p>
           </div>
           <Link
-            href="/assessment"
+            href="/assessments"
             className="inline-flex items-center px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors duration-150"
           >
             <span>Değerlendirmeye Başla</span>

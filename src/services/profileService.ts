@@ -440,41 +440,41 @@ export async function getUserLayerUnlocks(userId: string): Promise<UserLayerUnlo
 }
 
 export async function getStructuredProfileEvidence(userId: string): Promise<StructuredProfileEvidence> {
-  const unifiedProfile = await getUnifiedPsychologicalProfile(userId);
+  const profile = await resolveUnifiedPsychologicalProfileV2(userId);
   const layerUnlocks = await getUserLayerUnlocks(userId);
 
   const measuredFacets: StructuredProfileEvidence['measuredFacets'] = [];
   const measuredConstructs: StructuredProfileEvidence['measuredConstructs'] = [];
 
-  for (const domain of unifiedProfile.domains) {
+  for (const domain of profile.domains) {
     for (const construct of domain.constructs) {
-      if (construct.isMeasured && construct.compositeScore !== null && construct.scale) {
+      if (construct.aggregationStatus === 'DIRECT_CONSTRUCT_SCORE' && construct.constructScore !== null) {
         measuredConstructs.push({
           constructId: construct.constructId,
           code: construct.code,
           nameTr: construct.nameTr,
-          compositeScore: construct.compositeScore,
-          scaleMin: construct.scale.scaleMin,
-          scaleMax: construct.scale.scaleMax,
-          facetCount: construct.facetCount,
+          compositeScore: construct.constructScore,
+          scaleMin: 1.0,
+          scaleMax: 5.0,
+          facetCount: construct.totalFacetCount,
           domainCode: domain.code,
         });
       }
 
       for (const facet of construct.facets) {
-        if (facet.isMeasured && facet.rawMean !== null && facet.scale) {
+        if (facet.measurementStatus !== 'NOT_MEASURED' && facet.score !== null) {
           measuredFacets.push({
             facetId: facet.facetId,
             code: facet.code,
             nameTr: facet.nameTr,
-            rawMean: facet.rawMean,
-            scaleMin: facet.scale.scaleMin,
-            scaleMax: facet.scale.scaleMax,
-            itemCount: facet.itemCount,
+            rawMean: facet.score,
+            scaleMin: 1.0,
+            scaleMax: 5.0,
+            itemCount: facet.itemCountAnswered,
             constructCode: construct.code,
             domainCode: domain.code,
-            instrumentName: facet.provenance?.moduleTitleTr || null,
-            confidenceLevel: facet.confidenceLevel || 'MODERATE',
+            instrumentName: facet.sourceAssessmentModules[0]?.moduleTitleTr || null,
+            confidenceLevel: facet.confidenceComponents.coverage === 'HIGH' ? 'HIGH' : 'MODERATE',
             epistemicStatus: facet.epistemicStatus,
           });
         }
@@ -484,7 +484,7 @@ export async function getStructuredProfileEvidence(userId: string): Promise<Stru
 
   // Determine Unlocked Theory Lenses for FAZ 2.18 / 2.19
   const domainCodesMeasured = new Set(
-    unifiedProfile.domains.filter((d: { status: string; code: string }) => d.status !== 'UNMEASURED').map((d: { code: string }) => d.code)
+    profile.domains.filter((d) => d.coveragePercentage > 0).map((d) => d.code)
   );
 
   const theoryLensDefinitions = [
@@ -534,24 +534,33 @@ export async function getStructuredProfileEvidence(userId: string): Promise<Stru
     };
   });
 
+  const isClean =
+    profile.responseQuality.overallFlag === 'EXCELLENT' ||
+    profile.responseQuality.overallFlag === 'ACCEPTABLE';
+
   return {
     userId,
     generatedAt: new Date().toISOString(),
-    journeyStage: unifiedProfile.maturity.stage,
-    depthLevel: unifiedProfile.maturity.labelTr,
-    depthPercentage: unifiedProfile.qualityDimensions.coverage.depthPercentage,
+    journeyStage: profile.hasAssessments ? 'ACTIVE_MEASUREMENT' : 'ONBOARDING',
+    depthLevel:
+      profile.coverage.facetCoverage.percentage >= 70
+        ? 'Kapsamlı Profil'
+        : profile.coverage.facetCoverage.percentage >= 35
+        ? 'Genişleyen Profil'
+        : 'Başlangıç Profili',
+    depthPercentage: profile.coverage.questionCoverage.percentage,
     unlockedLayers: layerUnlocks,
     unlockedTheoryLenses,
     measuredFacets,
     measuredConstructs,
     qualitySummary: {
-      overallFlag: unifiedProfile.responseQuality.overallFlag,
-      isClean: unifiedProfile.responseQuality.isClean,
-      instrumentCount: unifiedProfile.qualityDimensions.methodDiversity.instrumentCount,
-      measuredDomainsCount: unifiedProfile.qualityDimensions.coverage.measuredDomains,
-      totalDomainsCount: unifiedProfile.qualityDimensions.coverage.totalDomains,
-      exploredFacetsCount: unifiedProfile.qualityDimensions.coverage.exploredFacets,
-      totalFacetsCount: unifiedProfile.qualityDimensions.coverage.totalFacets,
+      overallFlag: profile.responseQuality.overallFlag,
+      isClean,
+      instrumentCount: profile.recentAssessments.length,
+      measuredDomainsCount: profile.coverage.domainCoverage.measuredCount,
+      totalDomainsCount: profile.coverage.domainCoverage.totalCount,
+      exploredFacetsCount: profile.coverage.facetCoverage.measuredCount,
+      totalFacetsCount: profile.coverage.facetCoverage.totalCount,
     },
   };
 }

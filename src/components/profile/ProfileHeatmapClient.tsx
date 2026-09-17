@@ -159,7 +159,7 @@ export const ProfileHeatmapClient: React.FC<ProfileHeatmapClientProps> = ({
             </div>
           </div>
           <Link
-            href="/assessment"
+            href="/assessments"
             className="inline-flex items-center px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors shrink-0"
           >
             <span>Değerlendirmeye Başla</span>

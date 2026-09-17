@@ -1,8 +1,7 @@
 import React from 'react';
-import { prisma } from '@/lib/prisma';
 import { getCurrentUserOrNull } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { getLatestProfileSnapshotForUser } from '@/services/profileService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
 import {
   ProfileHeatmapClient,
   HeatmapDomainRow,
@@ -20,62 +19,35 @@ export default async function ProfileHeatmapPage() {
     redirect('/verify-email');
   }
 
-  const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
-  const isAssessed = !!latestSnapshot && latestSnapshot.facetScores.length > 0;
+  // 1. Fetch authoritative Master Model Unified Psychological Profile V2 (11 Domains, 37 Constructs, 91 Facets)
+  const profile = await resolveUnifiedPsychologicalProfileV2(user.id);
+  const isAssessed = profile.hasAssessments;
 
-  const domains = await prisma.domain.findMany({
-    orderBy: { sortOrder: 'asc' },
-    include: {
-      constructs: {
-        orderBy: { sortOrder: 'asc' },
-        include: {
-          facets: {
-            orderBy: { sortOrder: 'asc' },
-          },
-        },
-      },
-    },
-  });
-
-  const snapshotFacetMap = new Map<string, { rawMean: number; itemCount: number }>();
-  if (latestSnapshot) {
-    for (const fs of latestSnapshot.facetScores) {
-      snapshotFacetMap.set(fs.facetId, { rawMean: fs.rawMean, itemCount: fs.itemCount });
-    }
-  }
-
-  let measuredFacetCount = 0;
-  let totalFacetCount = 0;
-
-  const heatmapRows: HeatmapDomainRow[] = domains.map((domain) => {
+  // 2. Build 11-Domain Master Model Heatmap Rows
+  const heatmapRows: HeatmapDomainRow[] = profile.domains.map((domain) => {
     const allFacetsInDomain = domain.constructs.flatMap((c) => c.facets);
-    totalFacetCount += allFacetsInDomain.length;
 
     const cells: HeatmapCell[] = allFacetsInDomain.map((f) => {
-      const recorded = snapshotFacetMap.get(f.id);
-      if (recorded) {
-        measuredFacetCount++;
-        const normalized = Math.round(((recorded.rawMean - 1) / 4) * 100);
-        return {
-          facetId: f.id,
-          name: f.nameTr || f.nameEn,
-          score: normalized,
-          precision: recorded.itemCount >= 6 ? 'High' : recorded.itemCount >= 3 ? 'Moderate' : 'Developing',
-          items: recorded.itemCount,
-        };
-      }
+      const isMeasured = f.measurementStatus !== 'NOT_MEASURED' && f.score !== null;
+      const precision: 'High' | 'Moderate' | 'Developing' | 'Unmeasured' = !isMeasured
+        ? 'Unmeasured'
+        : f.itemCountAnswered >= 6
+        ? 'High'
+        : f.itemCountAnswered >= 3
+        ? 'Moderate'
+        : 'Developing';
 
       return {
-        facetId: f.id,
+        facetId: f.facetId,
         name: f.nameTr || f.nameEn,
-        score: null,
-        precision: 'Unmeasured',
-        items: 0,
+        score: isMeasured ? f.normalizedVisualCoordinate : null,
+        precision,
+        items: f.itemCountAnswered,
       };
     });
 
     return {
-      domainId: domain.id,
+      domainId: domain.domainId,
       domainName: domain.nameTr || domain.nameEn,
       facets: cells,
     };
@@ -85,8 +57,8 @@ export default async function ProfileHeatmapPage() {
     <ProfileHeatmapClient
       initialData={heatmapRows}
       isAssessed={isAssessed}
-      measuredFacetCount={measuredFacetCount}
-      totalFacetCount={totalFacetCount}
+      measuredFacetCount={profile.coverage.facetCoverage.measuredCount}
+      totalFacetCount={profile.coverage.facetCoverage.totalCount}
     />
   );
 }

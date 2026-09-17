@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { HexacoRadarChart, HexacoTraitData } from '@/components/charts/HexacoRadarChart';
 import { getCurrentUserOrNull } from '@/lib/auth';
-import { getLatestProfileSnapshotForUser } from '@/services/profileService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
 import { getUserAssessmentJourney } from '@/services/assessmentJourneyService';
 import { PageContainer } from '@/components/ui/PageContainer';
 
@@ -38,67 +38,38 @@ export default async function OverviewPage() {
     redirect('/onboarding');
   }
 
-  const latestSnapshot = await getLatestProfileSnapshotForUser(user.id);
-  const isLiveProfile = !!latestSnapshot;
+  // 3. Fetch authoritative Master Model Unified Psychological Profile V2
+  const profile = await resolveUnifiedPsychologicalProfileV2(user.id);
+  const isLiveProfile = profile.hasAssessments;
 
-  const traitMapping = [
-    { id: 'honesty_humility', name: 'Honesty-Humility', name_tr: 'Dürüstlük-Alçakgönüllülük' },
-    { id: 'emotionality', name: 'Emotionality', name_tr: 'Duygusallık' },
-    { id: 'extraversion', name: 'Extraversion', name_tr: 'Dışadönüklük' },
-    { id: 'agreeableness', name: 'Agreeableness', name_tr: 'Uyumluluk' },
-    { id: 'conscientiousness', name: 'Conscientiousness', name_tr: 'Sorumluluk' },
-    { id: 'openness', name: 'Openness to Experience', name_tr: 'Deneyime Açıklık' },
-  ];
+  const personalityDomain = profile.domains.find((d) => d.code === 'core_personality');
+  const displayTraits: HexacoTraitData[] = (personalityDomain?.constructs || []).map((c) => ({
+    name: c.nameEn,
+    name_tr: c.nameTr,
+    score: c.normalizedVisualCoordinate,
+    standardError: null,
+    ci95: null,
+    facetCount: c.totalFacetCount,
+    coverage: Math.round(c.coverageRatio * 100),
+  }));
 
-  let displayTraits: HexacoTraitData[] = [];
   let overallIntegrityLabel = 'Henüz Değerlendirme Yapılmadı';
   let isIntegrityGood = false;
 
-  if (latestSnapshot && latestSnapshot.constructScores.length > 0) {
-    const constructMap = new Map<string, number>();
-    for (const cs of latestSnapshot.constructScores) {
-      constructMap.set(cs.constructId, cs.compositeScore);
-    }
-
-    displayTraits = traitMapping.map((t) => {
-      const rawScore = constructMap.get(t.id);
-      // Strictly handle missing constructs as null: NEVER use midpoint imputation (?? 3.0)
-      const normalizedScore =
-        typeof rawScore === 'number' ? Math.round(((rawScore - 1) / 4) * 100) : null;
-
-      return {
-        name: t.name,
-        name_tr: t.name_tr,
-        score: normalizedScore,
-        standardError: null,
-        ci95: null,
-        facetCount: 4,
-        coverage: typeof rawScore === 'number' ? 100 : 0,
-      };
-    });
-
+  if (isLiveProfile) {
+    const flag = profile.responseQuality.overallFlag;
     overallIntegrityLabel =
-      latestSnapshot.overallIntegrity === 'EXCELLENT'
+      flag === 'EXCELLENT'
         ? 'Yanıt Bütünlüğü: Temiz'
-        : latestSnapshot.overallIntegrity === 'ACCEPTABLE'
+        : flag === 'ACCEPTABLE'
         ? 'Belirgin Kalite Sorunu Saptanmadı'
-        : latestSnapshot.overallIntegrity === 'QUESTIONABLE'
+        : flag === 'QUESTIONABLE'
         ? 'İncelenmesi Önerilir'
-        : 'Düşük Veri Kalitesi';
+        : flag === 'COMPROMISED'
+        ? 'Düşük Veri Kalitesi'
+        : 'Henüz Değerlendirme Yapılmadı';
 
-    isIntegrityGood =
-      latestSnapshot.overallIntegrity === 'EXCELLENT' ||
-      latestSnapshot.overallIntegrity === 'ACCEPTABLE';
-  } else {
-    displayTraits = traitMapping.map((t) => ({
-      name: t.name,
-      name_tr: t.name_tr,
-      score: null,
-      standardError: null,
-      ci95: null,
-      facetCount: 4,
-      coverage: 0,
-    }));
+    isIntegrityGood = flag === 'EXCELLENT' || flag === 'ACCEPTABLE';
   }
 
   const coverageMetrics = journey.coverage;
@@ -316,7 +287,7 @@ export default async function OverviewPage() {
           </div>
           <p className="text-xs text-text-secondary leading-relaxed">
             {isLiveProfile
-              ? `Ön kalibrasyon formundaki ${latestSnapshot.facetScores.length} alt boyut başlangıç seviyesinde taranmıştır. Tek maddeli tarama yüksek ölçüm hassasiyeti taşımaz; boylamsal modüllerle geliştirilmektedir.`
+              ? `Ön kalibrasyon formundaki ${profile.coverage.facetCoverage.measuredCount} alt boyut başlangıç seviyesinde taranmıştır. Tek maddeli tarama yüksek ölçüm hassasiyeti taşımaz; boylamsal modüllerle geliştirilmektedir.`
               : 'Henüz tamamlanmış alt boyut bulunmuyor. Profilinizi oluşturmak için değerlendirme modülüne başlayın.'}
           </p>
         </div>

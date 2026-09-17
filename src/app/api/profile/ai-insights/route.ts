@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUserOrNull } from '@/lib/auth';
-import { getUnifiedPsychologicalProfile } from '@/services/unifiedProfileService';
-import { getProfileAIInsights } from '@/services/aiInsightService';
+import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
+import { getUnifiedProfileAISectionData } from '@/services/aiInsightService';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,11 +23,11 @@ export async function GET() {
       );
     }
 
-    // 2. Fetch authoritative profile for authenticated user
-    const profile = await getUnifiedPsychologicalProfile(user.id);
+    // 2. Fetch authoritative Master Model profile for authenticated user
+    const profile = await resolveUnifiedPsychologicalProfileV2(user.id);
 
     // 3. Synthesize grounded AI insights
-    const insights = await getProfileAIInsights(profile);
+    const insights = await getUnifiedProfileAISectionData(profile);
 
     return NextResponse.json(insights);
   } catch (error) {
