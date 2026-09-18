@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { EpistemicSegment, EpistemicClaimType } from '@/types/theoryLens';
+import { MASTER_FACETS } from '@/lib/profile/masterModelConstants';
 import { CheckCircle2, BookOpen, User, HelpCircle } from 'lucide-react';
 
 interface EpistemicSegmentBadgeProps {
@@ -75,14 +76,18 @@ export const EpistemicSegmentBadge: React.FC<EpistemicSegmentBadgeProps> = ({ se
         </span>
         {segment.evidenceRefs && segment.evidenceRefs.length > 0 && (
           <div className="flex items-center gap-1 flex-wrap">
-            {segment.evidenceRefs.map((ref) => (
-              <span
-                key={ref}
-                className="px-2 py-0.5 bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-md text-[11px] font-mono text-slate-600 dark:text-slate-400"
-              >
-                #{ref}
-              </span>
-            ))}
+            {segment.evidenceRefs.map((ref) => {
+              const facet = MASTER_FACETS.find((f) => f.code === ref || f.facetId === ref);
+              const label = facet ? facet.nameTr : ref;
+              return (
+                <span
+                  key={ref}
+                  className="px-2 py-0.5 bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-md text-[11px] font-medium text-slate-700 dark:text-slate-300"
+                >
+                  {label}
+                </span>
+              );
+            })}
           </div>
         )}
       </div>

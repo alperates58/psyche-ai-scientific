@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { GroundedFacetDetail } from '@/types/theoryLens';
+import { resolveConsumerScalePosition } from '@/lib/consumerLanguage';
 import { ShieldCheck, ChevronDown, ChevronUp, Layers, CheckCircle } from 'lucide-react';
 
 interface TheoryEvidenceDrawerProps {
@@ -40,34 +41,32 @@ export const TheoryEvidenceDrawer: React.FC<TheoryEvidenceDrawerProps> = ({ face
       {isOpen && (
         <div className="p-5 border-t border-indigo-100 dark:border-indigo-900/40 bg-white/70 dark:bg-slate-900/70 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {facets.map((facet) => (
-              <div
-                key={facet.code}
-                className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs flex items-center justify-between gap-3"
-              >
-                <div className="space-y-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                      [{facet.code}]
-                    </span>
-                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
+            {facets.map((facet) => {
+              const pos = resolveConsumerScalePosition(facet.score);
+              return (
+                <div
+                  key={facet.code}
+                  className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs flex items-center justify-between gap-3"
+                >
+                  <div className="space-y-0.5 min-w-0">
+                    <div className="text-sm font-bold text-slate-800 dark:text-slate-200 truncate">
                       {facet.nameTr}
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                      {facet.domainNameTr}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                      {facet.score.toFixed(2)}
+                    </div>
+                    <span className="inline-block px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                      {pos.labelTr}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                    {facet.domainNameTr}
-                  </p>
                 </div>
-                <div className="text-right shrink-0">
-                  <div className="text-base font-bold text-slate-900 dark:text-white">
-                    {facet.score.toFixed(2)}
-                  </div>
-                  <span className="inline-block px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                    {facet.bandLabelTr}
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">

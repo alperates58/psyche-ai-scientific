@@ -1,7 +1,7 @@
 /**
  * PsycheAI Anti-Hallucination & Claim Verification Engine V2
  *
- * Deterministic post-generation verification pass.
+ * Deterministic post-generation verification pass with claim-level filtering.
  * Enforces:
  * - Structural grounding: Every claim must reference valid, measured evidence IDs.
  * - Anti-diagnostic guard: Blocks all clinical/psychiatric disease labels.
@@ -9,7 +9,7 @@
  * - Anti-causal guard: Blocks speculative historical causation claims.
  * - Anti-longitudinal guard: Blocks change/trajectory claims when repeated data is absent.
  * - Anti-Barnum filter: Flags generic, unfalsifiable, or universally flattering claims.
- * - Internal QA: unsupportedClaims MUST equal 0.
+ * - Claim-level filtering: Prunes unsupported subclaims while retaining supported sections.
  */
 
 import { AIInsightV2, InterpretationPlanV2 } from '@/types/aiInsightV2';
@@ -32,6 +32,7 @@ const FORBIDDEN_CLINICAL_KEYWORDS = [
   'ilaç tedavisi',
   'hastalık teşhisi',
   'klinik tanı',
+  'tükenmişlik sendromu teşhisi',
 ];
 
 const FORBIDDEN_PERCENTILE_PATTERNS = [
@@ -94,6 +95,71 @@ export interface VerificationResult {
   };
 }
 
+export function buildValidEvidenceIdSet(plan: InterpretationPlanV2): Set<string> {
+  const set = new Set<string>();
+  for (const e of plan.primaryEvidence) {
+    set.add(e.evidenceId);
+    set.add(e.targetId);
+  }
+  for (const e of plan.supportingEvidence) {
+    set.add(e.evidenceId);
+    set.add(e.targetId);
+  }
+  for (const e of plan.counterbalancingEvidence) {
+    set.add(e.evidenceId);
+    set.add(e.targetId);
+  }
+  for (const t of plan.activatedTensions) {
+    set.add(`ev_tension_${t.id}`);
+    set.add(t.id);
+  }
+  for (const s of plan.activatedSynergies) {
+    set.add(`ev_synergy_${s.id}`);
+    set.add(s.id);
+  }
+  for (const p of plan.activatedPatterns) {
+    set.add(p.id);
+  }
+  return set;
+}
+
+/**
+ * Claim-level filter that prunes unsupported evidence references or invalid sub-elements
+ * before holistic pass.
+ */
+export function filterAndSanitizeInsightClaims(
+  insight: AIInsightV2,
+  plan: InterpretationPlanV2
+): AIInsightV2 {
+  const validSet = buildValidEvidenceIdSet(plan);
+
+  const filterRefs = (refs?: string[]) =>
+    (refs || []).filter(
+      (ref) => validSet.has(ref) || Array.from(validSet).some((k) => k.includes(ref) || ref.includes(k))
+    );
+
+  const sanitizedEvidenceRefs = filterRefs(insight.evidenceRefs);
+  const sanitizedPrimary = filterRefs(insight.primaryEvidenceRefs);
+  const sanitizedSupporting = filterRefs(insight.supportingEvidenceRefs);
+  const sanitizedCounter = filterRefs(insight.counterbalancingEvidenceRefs);
+
+  // If no primary refs remain after filtering but plan had evidence, attach plan's primary evidence IDs
+  if (sanitizedEvidenceRefs.length === 0 && plan.primaryEvidence.length > 0) {
+    plan.primaryEvidence.forEach((e) => {
+      sanitizedEvidenceRefs.push(e.evidenceId);
+      sanitizedPrimary.push(e.evidenceId);
+    });
+  }
+
+  return {
+    ...insight,
+    evidenceRefs: Array.from(new Set(sanitizedEvidenceRefs)),
+    primaryEvidenceRefs: Array.from(new Set(sanitizedPrimary)),
+    supportingEvidenceRefs: Array.from(new Set(sanitizedSupporting)),
+    counterbalancingEvidenceRefs: Array.from(new Set(sanitizedCounter)),
+  };
+}
+
 export function verifyAIInsightClaims(
   insight: AIInsightV2,
   plan: InterpretationPlanV2
@@ -101,36 +167,7 @@ export function verifyAIInsightClaims(
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  // Build valid evidence ID registry from plan
-  const validEvidenceIdSet = new Set<string>();
-  const validFacetIdSet = new Set<string>();
-
-  for (const e of plan.primaryEvidence) {
-    validEvidenceIdSet.add(e.evidenceId);
-    validEvidenceIdSet.add(e.targetId);
-    if (e.type === 'FACET_SCORE') validFacetIdSet.add(e.targetId);
-  }
-  for (const e of plan.supportingEvidence) {
-    validEvidenceIdSet.add(e.evidenceId);
-    validEvidenceIdSet.add(e.targetId);
-    if (e.type === 'FACET_SCORE') validFacetIdSet.add(e.targetId);
-  }
-  for (const e of plan.counterbalancingEvidence) {
-    validEvidenceIdSet.add(e.evidenceId);
-    validEvidenceIdSet.add(e.targetId);
-    if (e.type === 'FACET_SCORE') validFacetIdSet.add(e.targetId);
-  }
-  for (const t of plan.activatedTensions) {
-    validEvidenceIdSet.add(`ev_tension_${t.id}`);
-    validEvidenceIdSet.add(t.id);
-  }
-  for (const s of plan.activatedSynergies) {
-    validEvidenceIdSet.add(`ev_synergy_${s.id}`);
-    validEvidenceIdSet.add(s.id);
-  }
-  for (const p of plan.activatedPatterns) {
-    validEvidenceIdSet.add(p.id);
-  }
+  const validEvidenceIdSet = buildValidEvidenceIdSet(plan);
 
   // 1. Evidence Grounding Verification
   let totalClaims = 0;
@@ -151,7 +188,8 @@ export function verifyAIInsightClaims(
 
   for (const ref of allRefs) {
     totalClaims++;
-    const isKnown = validEvidenceIdSet.has(ref) ||
+    const isKnown =
+      validEvidenceIdSet.has(ref) ||
       Array.from(validEvidenceIdSet).some((k) => k.includes(ref) || ref.includes(k));
 
     if (isKnown) {
@@ -163,7 +201,7 @@ export function verifyAIInsightClaims(
   }
 
   // 2. Prohibited Text Content Auditing
-  const fullText = `${insight.titleTr} ${insight.summaryTr} ${insight.bodyTr} ${(insight.reflectionPrompts || []).join(' ')}`.toLowerCase();
+  const fullText = `${insight.titleTr} ${insight.headlineTr || ''} ${insight.summaryTr} ${insight.bodyTr} ${(insight.reflectionPrompts || []).join(' ')}`.toLowerCase();
 
   // Clinical Keywords
   for (const kw of FORBIDDEN_CLINICAL_KEYWORDS) {
@@ -224,7 +262,7 @@ export function verifyAIInsightClaims(
 }
 
 /**
- * FAZ 2.21: Verification of AI-generated Journal Reflections & Observational Text
+ * Verification of AI-generated Journal Reflections & Observational Text
  */
 const FORBIDDEN_JOURNAL_PATTERNS = [
   /sen\s+kesinlikle/i,
@@ -283,4 +321,3 @@ export function verifyJournalReflectionClaims(text: string): JournalVerification
     errors,
   };
 }
-

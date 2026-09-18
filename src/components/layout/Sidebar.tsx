@@ -12,11 +12,12 @@ import {
   LayoutGrid,
   Clock,
   Layers,
-  GitFork,
-  Database,
   PenLine,
+  Settings,
+  Database,
   LogOut,
-  X
+  X,
+  Sparkles,
 } from 'lucide-react';
 
 export interface SidebarProps {
@@ -49,7 +50,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
   const [coverage, setCoverage] = React.useState<CoverageState>(ZERO_COVERAGE);
   const currentUserId = session?.user?.id;
 
-  // Safe authenticated coverage fetcher with abort-on-unmount/user-switch
+  // Safe authenticated coverage fetcher
   React.useEffect(() => {
     if (status === 'unauthenticated') {
       setCoverage(ZERO_COVERAGE);
@@ -108,8 +109,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
   }, [pathname]);
 
   const isActive = (path: string) => {
-    if (path === '/overview' && (pathname === '/' || pathname === '/overview')) return true;
-    if (path === '/profile') return pathname === '/profile';
+    if (path === '/overview' && pathname === '/overview') return true;
+    if (path === '/profile') return pathname === '/profile' || pathname === '/profile/heatmap' || pathname === '/profile/personality';
     return pathname.startsWith(path);
   };
 
@@ -120,29 +121,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
   };
 
   const navItemClass = (active: boolean) =>
-    `flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-150 touch-manipulation ${
+    `flex items-center px-3 py-2.5 text-xs font-semibold rounded-xl transition-all duration-150 touch-manipulation ${
       active
-        ? 'bg-brand-50 text-brand-700 font-semibold shadow-xs'
+        ? 'bg-brand-primary/10 text-brand-primary font-bold shadow-2xs'
         : 'text-text-secondary hover:text-text-primary hover:bg-bg-subtle'
     }`;
 
   const containerClass = isMobile
     ? 'w-full h-full bg-surface-1 flex flex-col select-none'
-    : 'w-64 bg-surface-1 border-r border-border-subtle flex flex-col h-screen sticky top-0 select-none z-30';
+    : 'w-64 bg-surface-1 border-r border-border-default flex flex-col h-screen sticky top-0 select-none z-30';
 
   return (
     <aside className={containerClass} aria-label="Sol Gezinme Menüsü">
       {/* Brand logo & Mobile Close */}
-      <div className="h-16 flex items-center justify-between px-6 border-b border-border-subtle shrink-0">
+      <div className="h-16 flex items-center justify-between px-6 border-b border-border-default shrink-0">
         <Link href="/overview" onClick={handleLinkClick} className="flex items-center space-x-2.5">
-          <div className="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-sm shadow-xs">
+          <div className="w-8 h-8 rounded-xl bg-brand-primary flex items-center justify-center text-white font-bold text-sm shadow-xs">
             Ψ
           </div>
           <div>
-            <span className="font-bold text-base text-text-primary tracking-tight">PsycheAI</span>
-            <span className="ml-1.5 text-[10px] font-semibold text-brand-600 uppercase tracking-widest bg-brand-50 px-1.5 py-0.5 rounded-md border border-brand-200/50">
-              BİLİMSEL
-            </span>
+            <span className="font-extrabold text-base text-text-primary tracking-tight">PsycheAI</span>
           </div>
         </Link>
 
@@ -151,82 +149,83 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
             type="button"
             onClick={onClose}
             aria-label="Menüyü Kapat"
-            className="p-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-bg-subtle transition-colors touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="p-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-bg-subtle transition-colors touch-manipulation"
           >
             <X className="w-5 h-5" />
           </button>
         )}
       </div>
 
-      {/* Main Navigation */}
+      {/* Main Grouped Navigation */}
       <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
+        {/* GROUP 1: ANA SAYFA */}
         <div>
-          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            YOLCULUK & PROFİL
+          <div className="px-3 mb-2 text-[10px] font-bold text-text-tertiary uppercase tracking-wider">
+            ANA SAYFA
           </div>
           <nav className="space-y-1">
             <Link href="/overview" onClick={handleLinkClick} className={navItemClass(isActive('/overview'))}>
-              <Compass className="w-4 h-4 mr-3 opacity-80 shrink-0" />
+              <Compass className="w-4 h-4 mr-3 opacity-80 shrink-0 text-brand-primary" />
               Genel Bakış
             </Link>
-            <Link href="/profile" onClick={handleLinkClick} className={navItemClass(isActive('/profile'))}>
-              <User className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Profilim
-            </Link>
+          </nav>
+        </div>
+
+        {/* GROUP 2: KEŞFET */}
+        <div>
+          <div className="px-3 mb-2 text-[10px] font-bold text-text-tertiary uppercase tracking-wider">
+            KEŞFET
+          </div>
+          <nav className="space-y-1">
             <Link href="/assessments" onClick={handleLinkClick} className={navItemClass(isActive('/assessments'))}>
-              <FileCheck2 className="w-4 h-4 mr-3 opacity-80 shrink-0" />
+              <FileCheck2 className="w-4 h-4 mr-3 opacity-80 shrink-0 text-brand-primary" />
               Değerlendirmeler
             </Link>
-          </nav>
-        </div>
-
-        <div>
-          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            ÖZEL GÖRÜNÜMLER
-          </div>
-          <nav className="space-y-1">
-            <Link href="/profile/personality" onClick={handleLinkClick} className={navItemClass(pathname === '/profile/personality')}>
-              <User className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Temel Kişilik
-            </Link>
-            <Link href="/profile/heatmap" onClick={handleLinkClick} className={navItemClass(pathname === '/profile/heatmap')}>
-              <LayoutGrid className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Psikolojik Profil Haritası
-            </Link>
-            <Link href="/profile/timeline" onClick={handleLinkClick} className={navItemClass(isActive('/profile/timeline'))}>
-              <Clock className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Zaman Çizelgesi
+            <Link href="/profile" onClick={handleLinkClick} className={navItemClass(isActive('/profile'))}>
+              <User className="w-4 h-4 mr-3 opacity-80 shrink-0 text-brand-primary" />
+              Psikolojik Profilim
             </Link>
           </nav>
         </div>
 
+        {/* GROUP 3: DERİNLEŞ */}
         <div>
-          <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            İÇGÖRÜLER & YANSIMALAR
+          <div className="px-3 mb-2 text-[10px] font-bold text-text-tertiary uppercase tracking-wider">
+            DERİNLEŞ
           </div>
           <nav className="space-y-1">
-            <Link href="/journal" onClick={handleLinkClick} className={navItemClass(isActive('/journal'))}>
-              <PenLine className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Yansımalarım
-            </Link>
-            <Link href="/insights/context" onClick={handleLinkClick} className={navItemClass(isActive('/insights/context'))}>
-              <GitFork className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Bağlamsal Değişimler
-            </Link>
-            <Link href="/insights/patterns" onClick={handleLinkClick} className={navItemClass(isActive('/insights/patterns'))}>
-              <Layers className="w-4 h-4 mr-3 opacity-80 shrink-0" />
-              Gerilimler & Sinerjiler
-            </Link>
             <Link href="/theory-council" onClick={handleLinkClick} className={navItemClass(isActive('/theory-council'))}>
-              <BookOpen className="w-4 h-4 mr-3 opacity-80 shrink-0" />
+              <BookOpen className="w-4 h-4 mr-3 opacity-80 shrink-0 text-brand-primary" />
               Kuramlar Konseyi
             </Link>
+            <Link href="/profile/timeline" onClick={handleLinkClick} className={navItemClass(isActive('/profile/timeline'))}>
+              <Clock className="w-4 h-4 mr-3 opacity-80 shrink-0 text-brand-primary" />
+              Zaman İçinde Ben
+            </Link>
+            <Link href="/journal" onClick={handleLinkClick} className={navItemClass(isActive('/journal'))}>
+              <PenLine className="w-4 h-4 mr-3 opacity-80 shrink-0 text-brand-primary" />
+              Yansımalarım
+            </Link>
           </nav>
         </div>
 
+        {/* GROUP 4: HESAP */}
+        <div>
+          <div className="px-3 mb-2 text-[10px] font-bold text-text-tertiary uppercase tracking-wider">
+            HESAP
+          </div>
+          <nav className="space-y-1">
+            <Link href="/settings" onClick={handleLinkClick} className={navItemClass(isActive('/settings'))}>
+              <Settings className="w-4 h-4 mr-3 opacity-80 shrink-0 text-brand-primary" />
+              Ayarlar & Gizlilik
+            </Link>
+          </nav>
+        </div>
+
+        {/* RESEARCH (Only if enabled) */}
         {showResearchNav && (
           <div>
-            <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
+            <div className="px-3 mb-2 text-[10px] font-bold text-text-tertiary uppercase tracking-wider">
               BİLİMSEL ARAŞTIRMA
             </div>
             <nav className="space-y-1">
@@ -240,34 +239,28 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
       </div>
 
       {/* Progress Footer Card */}
-      <div className="p-4 border-t border-border-subtle bg-surface-2/60 shrink-0 space-y-3">
-        <div className="bg-surface-1 p-3.5 rounded-xl border border-border-subtle shadow-xs">
+      <div className="p-4 border-t border-border-default bg-bg-subtle shrink-0 space-y-3">
+        <div className="bg-surface-1 p-3 rounded-2xl border border-border-default shadow-2xs">
           <div className="flex items-center justify-between text-xs font-semibold text-text-primary mb-1.5">
-            <span>Keşif Kapsamı</span>
-            <span className="text-brand-600 font-bold">{coverage.explorationPercentage}%</span>
+            <span>Keşif İlerlemesi</span>
+            <span className="text-brand-primary font-bold">%{coverage.explorationPercentage}</span>
           </div>
           <div className="w-full bg-bg-subtle h-2 rounded-full overflow-hidden mb-2 border border-border-subtle">
             <div
-              className="bg-brand-500 h-full rounded-full transition-all duration-500"
+              className="bg-brand-primary h-full rounded-full transition-all duration-500"
               style={{ width: `${coverage.explorationPercentage}%` }}
             />
           </div>
           <div className="flex items-center text-[11px] text-text-tertiary justify-between">
             <span>
-              {coverage.exploredFacetsCount} / {coverage.totalOntologyFacets} Alt Boyut
+              {coverage.exploredFacetsCount} / {coverage.totalOntologyFacets} Boyut
             </span>
-            {coverage.isAssessed && coverage.exploredFacetsCount > 0 ? (
-              <span className="inline-flex items-center text-amber-700 font-medium">
-                <Clock className="w-3 h-3 mr-0.5" /> Ön Kalibrasyon
-              </span>
-            ) : (
-              <span className="text-text-tertiary">Henüz Veri Yok</span>
-            )}
+            <span className="text-brand-primary font-medium">11 Alan</span>
           </div>
         </div>
 
         {isMobile && session?.user && (
-          <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
+          <div className="pt-2 border-t border-border-default flex items-center justify-between">
             <div className="min-w-0 pr-2">
               <div className="text-xs font-semibold text-text-primary truncate">
                 {session.user.name || 'Kullanıcı'}

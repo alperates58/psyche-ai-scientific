@@ -15,7 +15,6 @@ import { TraitHeatmapSection } from '@/components/results/TraitHeatmapSection';
 import { DimensionSpectrumView } from '@/components/results/DimensionSpectrumView';
 import { StrengthsRisksPanel } from '@/components/results/StrengthsRisksPanel';
 import { TensionsSynergiesPanel } from '@/components/results/TensionsSynergiesPanel';
-import { ResponseQualityPanel } from '@/components/results/ResponseQualityPanel';
 import { MeasurementCoveragePanel } from '@/components/results/MeasurementCoveragePanel';
 import { NextAssessmentHandoff } from '@/components/results/NextAssessmentHandoff';
 import { ModuleRepeatComparisonPanel } from '@/components/results/ModuleRepeatComparisonPanel';
@@ -135,13 +134,6 @@ export default async function AssessmentResultPage({
       {resultData.dynamics && resultData.dynamics.length > 0 && (
         <TensionsSynergiesPanel dynamics={resultData.dynamics} />
       )}
-
-      {/* 5. Psychometric Integrity & Response Quality Telemetry */}
-      <ResponseQualityPanel
-        integrity={resultData.integrity}
-        durationFormatted={resultData.timestamps.durationFormatted}
-        scoringModelCode={resultData.snapshot.scoringModelCode}
-      />
 
       {/* 6. Ontological Coverage Map */}
       <MeasurementCoveragePanel

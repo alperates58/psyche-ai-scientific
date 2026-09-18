@@ -500,13 +500,6 @@ function AssessmentRunnerInner() {
                 {itemModel?.facet?.construct?.nameTr || 'Temel Boyut'} &rsaquo;{' '}
                 {itemModel?.facet?.nameTr || 'Alt Boyut'}
               </span>
-
-              {itemModel?.isAttentionCheck && (
-                <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
-                  <ShieldCheck className="w-3 h-3 mr-1" />
-                  Doğrulama Sorusu
-                </span>
-              )}
             </div>
 
             <h2 className="text-xl md:text-2xl font-semibold text-text-primary leading-snug">

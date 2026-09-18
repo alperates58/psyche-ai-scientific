@@ -65,8 +65,18 @@ export default auth(async function middleware(request) {
     pathname.startsWith('/overview/') ||
     pathname === '/assessment' ||
     pathname.startsWith('/assessment/') ||
+    pathname === '/assessments' ||
+    pathname.startsWith('/assessments/') ||
     pathname.startsWith('/profile') ||
-    pathname.startsWith('/insights');
+    pathname.startsWith('/insights') ||
+    pathname === '/journal' ||
+    pathname.startsWith('/journal/') ||
+    pathname === '/theory-council' ||
+    pathname.startsWith('/theory-council/') ||
+    pathname === '/settings' ||
+    pathname.startsWith('/settings/') ||
+    pathname === '/onboarding' ||
+    pathname.startsWith('/onboarding/');
 
   if (isProtectedAppRoute && !isLoggedIn) {
     // Open redirect prevention: sanitize callbackUrl (must start with single slash)

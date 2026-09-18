@@ -102,8 +102,11 @@ export interface InterpretationPlanV2 {
   } | null;
 }
 
+export type InterpretationDepthMode = 'GLANCE' | 'NARRATIVE' | 'DEEP_ANALYSIS';
+
 export const AIInsightV2Schema = z.object({
   insightId: z.string(),
+  depthMode: z.enum(['GLANCE', 'NARRATIVE', 'DEEP_ANALYSIS']).default('NARRATIVE'),
   type: z.enum([
     'PROFILE_OVERVIEW',
     'DOMAIN_INTERPRETATION',
@@ -119,8 +122,17 @@ export const AIInsightV2Schema = z.object({
     'THEORY_READY_SUMMARY',
   ]),
   titleTr: z.string().min(3).max(180),
-  summaryTr: z.string().min(10).max(600),
-  bodyTr: z.string().min(20).max(2500),
+  headlineTr: z.string().max(250).optional(),
+  summaryTr: z.string().min(10).max(1000),
+  bodyTr: z.string().min(20).max(6000),
+  whatStandsOut: z.array(z.string()).optional(),
+  dailyLifePatterns: z.array(z.string()).optional(),
+  situationalStrengths: z.array(z.string()).optional(),
+  possibleFrictionPoints: z.array(z.string()).optional(),
+  traitInteractions: z.array(z.string()).optional(),
+  decisionImplications: z.array(z.string()).optional(),
+  relationshipImplications: z.array(z.string()).optional(),
+  workGoalImplications: z.array(z.string()).optional(),
   claimStrength: z.enum([
     'DIRECT_MEASUREMENT',
     'MULTI_EVIDENCE_INTERPRETATION',
@@ -135,7 +147,7 @@ export const AIInsightV2Schema = z.object({
   measurementStatus: z.string(),
   coverageStatus: z.string(),
   responseQualityStatus: z.string(),
-  reflectionPrompts: z.array(z.string().min(5).max(300)).max(6),
+  reflectionPrompts: z.array(z.string().min(5).max(300)).max(10),
   limitations: z.array(z.string().min(5).max(300)),
   generatedAt: z.string(),
   modelProvider: z.string(),

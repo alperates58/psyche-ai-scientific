@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import { SessionProvider } from 'next-auth/react';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
+import { PublicNavbar } from '@/components/layout/PublicNavbar';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 
 interface AppShellContextType {
   isMobileMenuOpen: boolean;
@@ -116,6 +118,32 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
     return (
       <SessionProvider>
         {children}
+      </SessionProvider>
+    );
+  }
+
+  // Public routes: render public navbar + page + footer without app sidebar
+  const isPublicRoute =
+    pathname === '/' ||
+    pathname === '/login' ||
+    pathname === '/register' ||
+    pathname === '/forgot-password' ||
+    pathname === '/reset-password' ||
+    pathname === '/science' ||
+    pathname === '/how-it-works' ||
+    pathname === '/privacy' ||
+    pathname === '/terms';
+
+  if (isPublicRoute) {
+    return (
+      <SessionProvider>
+        <div className="min-h-screen flex flex-col bg-bg-app text-text-primary antialiased w-full">
+          <PublicNavbar />
+          <main className="flex-1 w-full">
+            {children}
+          </main>
+          <PublicFooter />
+        </div>
       </SessionProvider>
     );
   }

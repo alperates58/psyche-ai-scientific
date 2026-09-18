@@ -12,6 +12,7 @@ import { AIInsightProvider } from './providerInterface';
 import { InterpretationPlanV2, AIInsightV2, InsightType } from '@/types/aiInsightV2';
 import { ResolvedAIConfig } from '@/lib/ai/config/aiConfigResolver';
 import { PROMPT_VERSION_ID, PROMPT_ENGINE_VERSION } from '@/lib/ai/prompts/promptTemplatesV2';
+import { resolveConsumerScalePosition } from '@/lib/consumerLanguage';
 
 export class DeterministicFallbackProvider implements AIInsightProvider {
   readonly name = 'DeterministicFallback';
@@ -38,8 +39,16 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
     );
 
     let titleTr = 'Psikolojik Ölçüm ve Profil Analizi';
+    let headlineTr = '';
     let summaryTr = '';
     let bodyTr = '';
+    const whatStandsOut: string[] = [];
+    const dailyLifePatterns: string[] = [];
+    const situationalStrengths: string[] = [];
+    const possibleFrictionPoints: string[] = [];
+    const traitInteractions: string[] = [];
+    const decisionImplications: string[] = [];
+    const relationshipImplications: string[] = [];
     const reflectionPrompts: string[] = [];
     const limitations: string[] = [
       'Ön-kalibrasyon aşaması: Puanlar yerel ölçek ortalamalarını yansıtır, temsili nüfus yüzdeliği içermez.',
@@ -56,6 +65,7 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
       const measuredCount = plan.primaryEvidence.length;
       if (measuredCount === 0) {
         titleTr = 'Henüz Tamamlanmış Psikolojik Ölçüm Bulunmuyor';
+        headlineTr = 'İlk değerlendirmenizle profilinizi keşfetmeye başlayabilirsiniz.';
         summaryTr =
           'Profilinizi oluşturmak ve güçlü yönlerinizi bilimsel olarak keşfetmek için ilk değerlendirme modülünü tamamlayabilirsiniz.';
         bodyTr =
@@ -63,7 +73,23 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
         reflectionPrompts.push('Hangi yaşam veya kişilik alanınızı ilk olarak keşfetmek istersiniz?');
       } else {
         titleTr = `${measuredCount} Psikolojik Boyut Üzerinden Bütünsel Profil Özeti`;
+        headlineTr = 'Ölçülen ampirik boyutlarınız, dengeli ve çok yönlü bir psikolojik yapıya işaret ediyor.';
         summaryTr = `Profilinizde şu ana kadar tamamlanan değerlendirmeler ${measuredCount} boyutta belirgin eğilimleri ve içsel dinamikleri ortaya koymaktadır.`;
+
+        for (const e of plan.primaryEvidence.slice(0, 4)) {
+          const pos = resolveConsumerScalePosition(e.numericValue);
+          whatStandsOut.push(`${e.titleTr}: Ölçüm ölçeğinde ${pos.labelTr.toLowerCase()} konumdadır.`);
+          dailyLifePatterns.push(`${e.titleTr} eğiliminiz, günlük kararlarda ve odaklanma süreçlerinde belirleyici bir rol oynar.`);
+          situationalStrengths.push(`${e.titleTr} özelliğiniz, zorlayıcı projelerde doğal bir kaynak sağlar.`);
+        }
+
+        for (const syn of plan.activatedSynergies.slice(0, 2)) {
+          traitInteractions.push(`${syn.titleTr}: ${syn.descriptionTr}`);
+        }
+
+        for (const ten of plan.activatedTensions.slice(0, 2)) {
+          possibleFrictionPoints.push(`${ten.titleTr}: ${ten.descriptionTr}`);
+        }
 
         const prominentSnippets = plan.primaryEvidence
           .slice(0, 4)
@@ -72,18 +98,6 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
             return `• ${e.titleTr} ${scoreStr}: ${e.scientificRationaleTr || 'Profilinizde ölçülen temel eğilimlerden biridir.'}`;
           });
 
-        const balancingSnippets = plan.counterbalancingEvidence.map(
-          (e) => `• ${e.titleTr}: ${e.scientificRationaleTr || 'Dengeleyici bir rol oynamaktadır.'}`
-        );
-
-        const tensionSnippets = plan.activatedTensions.map(
-          (t) => `• ${t.titleTr}: ${t.descriptionTr}`
-        );
-
-        const synergySnippets = plan.activatedSynergies.map(
-          (s) => `• ${s.titleTr}: ${s.descriptionTr}`
-        );
-
         bodyTr = [
           '1. ÖLÇÜM KAPSAMI & GENEL YAPI:',
           `Profiliniz 11 psikolojik alanın %${plan.coverageState.coverageRatio ? (plan.coverageState.coverageRatio * 100).toFixed(0) : '0'}'ini kapsamaktadır.`,
@@ -91,18 +105,9 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
           '2. DİKKAT ÇEKEN ÖRÜNTÜLER:',
           ...prominentSnippets,
           '',
-          balancingSnippets.length > 0
-            ? ['3. DENGELEYİCİ ÖZELLİKLER:', ...balancingSnippets, ''].join('\n')
-            : '',
-          tensionSnippets.length > 0
-            ? ['4. AKTİF İÇSEL GERLİMLER:', ...tensionSnippets, ''].join('\n')
-            : '',
-          synergySnippets.length > 0
-            ? ['5. GÜÇLENDİRİCİ SİNERJİLER:', ...synergySnippets, ''].join('\n')
-            : '',
-          '6. GELİŞİM VE ÖZ-FARKINDALIK:',
+          '3. GELİŞİM VE ÖZ-FARKINDALIK:',
           'Bu ampirik eğilimler değişmez birer etiket değil, farklı yaşam bağlamlarında nasıl hareket etmeyi tercih ettiğinizi gösteren eğilimlerdir.',
-        ].filter(Boolean).join('\n');
+        ].join('\n');
 
         reflectionPrompts.push(
           'Günlük yaşamınızda bu eğilimlerin en çok hangi durumlarda size avantaj sağladığını düşünüyorsunuz?',
@@ -112,8 +117,10 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
     } else if (plan.requestType === 'TENSION_INTERPRETATION') {
       const tension = plan.activatedTensions[0];
       if (tension) {
-        titleTr = `Gerilim Açıklaması: ${tension.titleTr}`;
+        titleTr = `Denge Alanı: ${tension.titleTr}`;
+        headlineTr = 'Farklı iki eğiliminizin birlikte oluşturduğu durumsal denge noktası.';
         summaryTr = tension.descriptionTr;
+        possibleFrictionPoints.push(tension.descriptionTr);
         bodyTr = [
           'Bir yandan profilinizde belirli bir alanda güçlü bir eğilim gözlenirken, diğer yandan ilişkili başka bir boyutta farklı bir yönelim dikkat çekmektedir.',
           '',
@@ -132,8 +139,11 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
     } else if (plan.requestType === 'SYNERGY_INTERPRETATION') {
       const synergy = plan.activatedSynergies[0];
       if (synergy) {
-        titleTr = `Sinerji Açıklaması: ${synergy.titleTr}`;
+        titleTr = `Sinerji: ${synergy.titleTr}`;
+        headlineTr = 'Birbirini besleyen iki güçlü psikolojik eğilim kombinasyonu.';
         summaryTr = synergy.descriptionTr;
+        situationalStrengths.push(synergy.descriptionTr);
+        traitInteractions.push(synergy.descriptionTr);
         bodyTr = [
           'Profilinizde birlikte yüksek düzeyde ölçülen bu iki eğilim birbirini desteklemekte ve pekiştirmektedir.',
           '',
@@ -152,12 +162,16 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
     } else if (plan.requestType === 'DOMAIN_INTERPRETATION' || plan.requestType === 'CONSTRUCT_INTERPRETATION' || plan.requestType === 'FACET_INTERPRETATION') {
       const targetFacet = plan.primaryEvidence[0];
       if (targetFacet) {
+        const pos = resolveConsumerScalePosition(targetFacet.numericValue);
         titleTr = `${targetFacet.titleTr} Boyut Analizi`;
+        headlineTr = `${targetFacet.titleTr} ölçüm ölçeğinde ${pos.labelTr.toLowerCase()} yer almaktadır.`;
         summaryTr = `${targetFacet.titleTr} boyutu profilinizde ${targetFacet.numericValue !== null ? targetFacet.numericValue.toFixed(2) + '/5.00 puanıyla' : ''} yer almaktadır.`;
+        whatStandsOut.push(`${targetFacet.titleTr}: ${pos.labelTr}`);
+        dailyLifePatterns.push(`${targetFacet.titleTr} eğiliminiz karar süreçlerinizde kendini gösterir.`);
         bodyTr = [
           `Tanım: ${targetFacet.scientificRationaleTr || 'Bu boyut temel psikolojik eğilimlerinizi tanımlar.'}`,
           '',
-          `Gözlenen Eğilim: Ölçüm sonuçlarınız bu alanda belirgin bir tutarlılık sergilediğinizi göstermektedir.`,
+          `Gözlenen Eğilim: Ölçüm sonuçlarınız bu alanda ${pos.labelTr.toLowerCase()} bir tutarlılık sergilediğinizi göstermektedir.`,
           plan.counterbalancingEvidence.length > 0
             ? `Dengeleyici Faktör: ${plan.counterbalancingEvidence.map((c) => c.titleTr).join(', ')} özellikleri bu eğilimin tek yönlü bir aşırılığa dönüşmesini dengeler.`
             : '',
@@ -173,7 +187,12 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
       }
     } else if (plan.requestType === 'ASSESSMENT_RESULT') {
       titleTr = 'Değerlendirme Sonuç Özeti ve Profil Anlamı';
+      headlineTr = `Bu değerlendirme profilinize ${plan.primaryEvidence.length} yeni ölçülmüş boyut kazandırdı.`;
       summaryTr = `Tamamladığınız bu değerlendirme profilinize ${plan.primaryEvidence.length} yeni ölçülmüş boyut kazandırmıştır.`;
+      for (const e of plan.primaryEvidence) {
+        const pos = resolveConsumerScalePosition(e.numericValue);
+        whatStandsOut.push(`${e.titleTr}: ${pos.labelTr} (${e.numericValue?.toFixed(2)}/5.00)`);
+      }
       bodyTr = [
         'Bu değerlendirmede elde ettiğiniz sonuçlar, öz-farkındalığınızı derinleştirmek için profilinizin diğer alanlarıyla birlikte analiz edilmektedir.',
         '',
@@ -186,6 +205,7 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
       );
     } else if (plan.requestType === 'LONGITUDINAL_INTERPRETATION') {
       titleTr = 'Boylamsal Profil ve Zaman İçi Gözlemler';
+      headlineTr = 'Tekrarlanan ölçümler üzerinden zaman içindeki eğilim kararlılığı analiz edilmiştir.';
       summaryTr = 'Farklı ölçüm dönemlerinde tekrarlanan değerlendirmeler üzerinden zaman içi değişim ve kararlılık dinamikleri incelenmiştir.';
       bodyTr = [
         '1. ZAMAN İÇİ KARARLILIK VE DEĞİŞİM DİNAMİKLERİ:',
@@ -210,10 +230,19 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
 
     return {
       insightId,
+      depthMode: 'NARRATIVE',
       type: plan.requestType,
       titleTr,
+      headlineTr: headlineTr || undefined,
       summaryTr,
       bodyTr,
+      whatStandsOut: whatStandsOut.length > 0 ? whatStandsOut : undefined,
+      dailyLifePatterns: dailyLifePatterns.length > 0 ? dailyLifePatterns : undefined,
+      situationalStrengths: situationalStrengths.length > 0 ? situationalStrengths : undefined,
+      possibleFrictionPoints: possibleFrictionPoints.length > 0 ? possibleFrictionPoints : undefined,
+      traitInteractions: traitInteractions.length > 0 ? traitInteractions : undefined,
+      decisionImplications: decisionImplications.length > 0 ? decisionImplications : undefined,
+      relationshipImplications: relationshipImplications.length > 0 ? relationshipImplications : undefined,
       claimStrength: plan.primaryEvidence.length > 1
         ? 'MULTI_EVIDENCE_INTERPRETATION'
         : 'DIRECT_MEASUREMENT',
