@@ -18,6 +18,8 @@ import { TensionsSynergiesPanel } from '@/components/results/TensionsSynergiesPa
 import { ResponseQualityPanel } from '@/components/results/ResponseQualityPanel';
 import { MeasurementCoveragePanel } from '@/components/results/MeasurementCoveragePanel';
 import { NextAssessmentHandoff } from '@/components/results/NextAssessmentHandoff';
+import { ModuleRepeatComparisonPanel } from '@/components/results/ModuleRepeatComparisonPanel';
+import { getModuleRepeatComparison } from '@/services/longitudinalService';
 import { AlertCircle, ArrowLeft } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -73,10 +75,23 @@ export default async function AssessmentResultPage({
     console.warn('Could not generate module AI insight:', e);
   }
 
+  // Resolve repeat measurement comparison if module has prior completions
+  let repeatComparison = null;
+  if (resultData.historicalSessions && resultData.historicalSessions.length > 1) {
+    try {
+      repeatComparison = await getModuleRepeatComparison(user.id, resultData.module.id);
+    } catch (e) {
+      console.warn('Could not generate repeat comparison:', e);
+    }
+  }
+
   return (
     <PageContainer variant="standard" className="space-y-8 pb-20">
       {/* 1. Hero & Key Observations */}
       <ResultSummaryHero result={resultData} />
+
+      {/* Repeat Measurement Comparison (If multiple completions exist) */}
+      {repeatComparison && <ModuleRepeatComparisonPanel comparison={repeatComparison} />}
 
       {/* AI Module Interpretation */}
       {aiInsight && <AssessmentResultAISection insight={aiInsight} />}

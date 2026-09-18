@@ -63,6 +63,19 @@ const FORBIDDEN_LONGITUDINAL_PATTERNS = [
   /ilerleme\s*kaydetti/i,
 ];
 
+const FORBIDDEN_UNGROUNDED_LONGITUDINAL_PATTERNS = [
+  /sürekli\s+art(ıyor|maktadır|tı)/i,
+  /sürekli\s+azal(ıyor|maktadır|dı)/i,
+  /kalıcı\s+olarak\s+değiş(ti|miştir)/i,
+  /kişiliğiniz\s+değiş(ti|miştir)/i,
+  /kişilik\s+gelişimi/i,
+  /significant\s+improvement/i,
+  /istatistiksel\s+olarak\s+anlamlı\s+değişim/i,
+  /klinik\s+olarak\s+anlamlı\s+değişim/i,
+  /kişiliğiniz\s+dönüştü/i,
+  /tamamen\s+değişti/i,
+];
+
 const BARNUM_GENERIC_PATTERNS = [
   /bazen\s*böyle\s*bazen\s*şöyle/i,
   /her\s*insan\s*gibi\s*siz\s*de/i,
@@ -179,6 +192,13 @@ export function verifyAIInsightClaims(
       if (pat.test(fullText)) {
         errors.push('Tekil ölçüm aşamasında boylamsal değişim/gelişim ("arttı", "azaldı") iddiası tespit edildi.');
       }
+    }
+  }
+
+  // Ungrounded / Overly Bold Longitudinal Expressions
+  for (const pat of FORBIDDEN_UNGROUNDED_LONGITUDINAL_PATTERNS) {
+    if (pat.test(fullText)) {
+      errors.push('Kanıta dayanmayan veya aşırı iddialı boylamsal değişim ifadesi ("sürekli artıyor", "kalıcı olarak değişti", "significant improvement", "kişilik gelişimi") tespit edildi.');
     }
   }
 

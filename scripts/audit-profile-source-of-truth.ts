@@ -60,10 +60,14 @@ const currentProfileRoutes = [
   path.join(srcAppDir, 'profile', 'page.tsx'),
   path.join(srcAppDir, 'profile', 'heatmap', 'page.tsx'),
   path.join(srcAppDir, 'profile', 'personality', 'page.tsx'),
+  path.join(srcAppDir, 'profile', 'timeline', 'page.tsx'),
   path.join(srcAppDir, 'overview', 'page.tsx'),
   path.join(srcAppDir, 'insights', 'patterns', 'page.tsx'),
   path.join(srcAppDir, 'api', 'profile', 'coverage', 'route.ts'),
   path.join(srcAppDir, 'api', 'profile', 'ai-insights', 'route.ts'),
+  path.join(srcAppDir, 'api', 'profile', 'longitudinal', 'route.ts'),
+  path.join(srcAppDir, 'api', 'profile', 'timeline', 'route.ts'),
+  path.join(srcAppDir, 'api', 'assessment', 'reassessment', 'route.ts'),
 ];
 
 for (const routePath of currentProfileRoutes) {

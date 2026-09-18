@@ -250,7 +250,7 @@ export async function resolveUnifiedPsychologicalProfileV2(
         : 'Değerlendirmeler tamamlandıkça yanıt kalitesi ve veri bütünlüğü burada raporlanacaktır.',
   };
 
-  // 5. Build Facet Measurement Map (Authoritative aggregation per facet)
+  // 5. Build Facet Measurement Map (Authoritative aggregation per facet using latest session per module)
   interface FacetAccumulator {
     rawScoresSum: number;
     answeredItemCount: number;
@@ -262,7 +262,28 @@ export async function resolveUnifiedPsychologicalProfileV2(
 
   const facetAccumulators = new Map<string, FacetAccumulator>();
 
-  for (const session of nativeSessions) {
+  // Identify latest valid session per module for current profile resolution
+  const latestSessionByModule = new Map<string, any>();
+  const sortedNativeSessions = [...nativeSessions].sort((a, b) => {
+    const timeA = new Date(a.completedAt || a.startedAt || 0).getTime();
+    const timeB = new Date(b.completedAt || b.startedAt || 0).getTime();
+    return timeB - timeA;
+  });
+
+  for (const session of sortedNativeSessions) {
+    const modKey =
+      session.formVersion?.module?.id ||
+      session.formVersion?.module?.code ||
+      session.formVersion?.moduleId ||
+      session.id;
+    if (!latestSessionByModule.has(modKey)) {
+      latestSessionByModule.set(modKey, session);
+    }
+  }
+
+  const activeNativeSessions = Array.from(latestSessionByModule.values());
+
+  for (const session of activeNativeSessions) {
     const sessionDateStr = session.completedAt
       ? session.completedAt.toISOString()
       : (session.startedAt ? new Date(session.startedAt).toISOString() : new Date().toISOString());

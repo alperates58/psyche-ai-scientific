@@ -184,6 +184,24 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
       reflectionPrompts.push(
         'Bu değerlendirmedeki soruları yanıtlarken kendinizle ilgili en çok dikkatinizi çeken farkındalık ne oldu?'
       );
+    } else if (plan.requestType === 'LONGITUDINAL_INTERPRETATION') {
+      titleTr = 'Boylamsal Profil ve Zaman İçi Gözlemler';
+      summaryTr = 'Farklı ölçüm dönemlerinde tekrarlanan değerlendirmeler üzerinden zaman içi değişim ve kararlılık dinamikleri incelenmiştir.';
+      bodyTr = [
+        '1. ZAMAN İÇİ KARARLILIK VE DEĞİŞİM DİNAMİKLERİ:',
+        'Ölçümler zaman içinde benzer düzeyde kalan alanlar ile farklı dönemlerde gözlenen puan farkı gösteren alanları belirlemektedir.',
+        '',
+        '2. GÖZLENEN EĞİLİMLER:',
+        ...plan.primaryEvidence.map(
+          (e) => `• ${e.titleTr}: ${e.scientificRationaleTr || 'Zaman içindeki gözlem noktası kaydedilmiştir.'}`
+        ),
+        '',
+        '3. BİLİMSEL İHTİYAT VE YORUM:',
+        'Ön kalibrasyon aşamasındaki testlerde gözlenen puan farkları kalıcı bir kişilik dönüşümü veya mutlak klinik değişim olarak yorumlanmamalı; belirli dönemlerdeki durum ve bağlam farklılıkları olarak ele alınmalıdır.',
+      ].join('\n');
+      reflectionPrompts.push(
+        'Farklı ölçüm dönemleri arasındaki yaşam koşullarınızın veya hedeflerinizin bu sonuçlarla örtüştüğünü hissediyor musunuz?'
+      );
     } else {
       titleTr = 'Psikolojik Değerlendirme İçgörüsü';
       summaryTr = 'Ölçülen kanıtlar üzerinden yapılandırılmış psikolojik analiz.';
