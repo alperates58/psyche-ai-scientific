@@ -37,7 +37,7 @@ Kullanıcı güvenini ve bilimsel bütünlüğü en üst düzeye çıkarmak içi
   - Katman 2: Profilimi Keşfet (Etkileşimler ve kuramlar).
   - Katman 3: Bilimsel Detaylar (Ölçüm sayısı ve ölçek konumları).
 - **`/privacy` (Gizlilik & Veri Güvenliği):**
-  - AES-256 şifreleme ile veri saklama.
+  - Sistem anahtarlarını AES-256-GCM ile koruma ve güvenli veritabanı altyapısı.
   - Yapay zeka servislerine hiçbir kişisel kimlik (PII) gönderilmeme garantisi.
   - Kullanıcıya ait tüm verileri dilediği an silme ve dışa aktarma hakkı.
 - **`/terms` (Kullanım Şartları & Araştırma Beyanı):**

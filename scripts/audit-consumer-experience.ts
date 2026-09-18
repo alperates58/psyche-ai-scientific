@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { MASTER_DOMAINS, MASTER_CONSTRUCTS, MASTER_FACETS } from '../src/lib/profile/masterModelConstants';
-import { THEORY_LENSES } from '../src/lib/theoryCouncil/theoryRegistry';
+import { getAllTheoryLenses } from '../src/lib/ai/theoryLens/theoryLensRegistry';
 import { resolveConsumerScalePosition, sanitizeMeasurementStatus, sanitizeEpistemicClaimType } from '../src/lib/consumerLanguage';
 
 export interface ConsumerExperienceAuditResult {
@@ -131,7 +131,7 @@ export async function runConsumerExperienceAudit(): Promise<ConsumerExperienceAu
   }
 
   // =========================================================================
-  // 4. Consumer Language & Scale Position System
+  // 4. Consumer Language & Value-Neutral Scale Position System
   // =========================================================================
   console.log('\n[4/6] Verifying Scale Positions & Epistemic Sanitizers...');
   const testScores = [1.2, 2.1, 3.0, 3.8, 4.7];
@@ -145,7 +145,24 @@ export async function runConsumerExperienceAudit(): Promise<ConsumerExperienceAu
     } else {
       errors.push(`Scale position resolution failed for score ${score}: expected ${expectedBands[idx]}, got ${pos.bandCode}`);
     }
+
+    // Check value-neutrality: NO "dengeli", "güçlü", "iyi", "ideal" in scale-location descriptions
+    if (/dengeli/i.test(pos.descriptionTr)) {
+      errors.push(`Scale position description contains non-neutral word "dengeli": "${pos.descriptionTr}"`);
+    }
+    if (/güçlü eğilim/i.test(pos.descriptionTr)) {
+      errors.push(`Scale position description contains non-neutral word "güçlü eğilim": "${pos.descriptionTr}"`);
+    }
+    if (/çok belirgin eğilim/i.test(pos.descriptionTr)) {
+      errors.push(`Scale position description contains non-neutral word "çok belirgin eğilim": "${pos.descriptionTr}"`);
+    }
   });
+
+  // Unknown measurement status must NEVER fall back to "Ölçüldü"
+  const unknownStatus = sanitizeMeasurementStatus('FUTURE_UNKNOWN_STATUS_CODE');
+  if (unknownStatus === 'Ölçüldü') {
+    errors.push('Unknown measurement status fell back to "Ölçüldü"; must return "Durum belirlenemedi"');
+  }
 
   const sanitizedStatus = sanitizeMeasurementStatus('MEASURED_PRECALIBRATION');
   if (sanitizedStatus !== 'Ölçüldü') {
@@ -161,7 +178,8 @@ export async function runConsumerExperienceAudit(): Promise<ConsumerExperienceAu
   // 5. Theory Council Invariants (Exact 10 Lenses)
   // =========================================================================
   console.log('\n[5/6] Verifying Theory Council Governance & Lenses...');
-  const theoryCouncilLensesCount = THEORY_LENSES.length;
+  const theoryLenses = getAllTheoryLenses();
+  const theoryCouncilLensesCount = theoryLenses.length;
   if (theoryCouncilLensesCount !== 10) {
     errors.push(`Theory Council must have exactly 10 authoritative lenses; found ${theoryCouncilLensesCount}`);
   }
@@ -180,7 +198,7 @@ export async function runConsumerExperienceAudit(): Promise<ConsumerExperienceAu
   ];
 
   for (const id of expectedLensIds) {
-    if (!THEORY_LENSES.some((l) => l.lensId === id)) {
+    if (!theoryLenses.some((l) => l.lensId === id)) {
       errors.push(`Theory Council registry missing required lens: ${id}`);
     }
   }
@@ -200,12 +218,15 @@ export async function runConsumerExperienceAudit(): Promise<ConsumerExperienceAu
     }
   }
 
-  // Static check on consumer-facing files to ensure no forbidden clinical/fake norm jargon
+  // Static check on consumer-facing files to ensure no forbidden clinical/fake norm jargon or overclaims
   const filesToScanForJargon = [
     'src/components/results/ResultSummaryHero.tsx',
     'src/components/profile/ProfileSummarySection.tsx',
     'src/components/profile/FacetExplorerV2.tsx',
     'src/app/overview/page.tsx',
+    'src/app/page.tsx',
+    'src/app/privacy/page.tsx',
+    'src/app/science/page.tsx',
   ];
 
   let forbiddenTermsClean = true;
@@ -214,6 +235,9 @@ export async function runConsumerExperienceAudit(): Promise<ConsumerExperienceAu
     { pattern: /türkiye ortalamasından yüksek/gi, label: 'fake Turkish population norm' },
     { pattern: /tükenmişlik riski/gi, label: 'un-neutralized clinical risk phrasing' },
     { pattern: /depresyon riski/gi, label: 'clinical diagnosis / depression risk' },
+    { pattern: /ölçülen 11 alanın yapısal dağılımı/gi, label: 'implication of domain composite scores' },
+    { pattern: /tüm kullanıcı verileri.*aes-256 şifreleme ile/gi, label: 'unsupported encryption overclaim' },
+    { pattern: /dengeli orta/gi, label: 'non-neutral scale position language' },
   ];
 
   for (const rel of filesToScanForJargon) {

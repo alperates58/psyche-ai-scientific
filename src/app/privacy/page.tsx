@@ -4,7 +4,7 @@ import { ShieldCheck, Lock, EyeOff, Key } from 'lucide-react';
 
 export const metadata = {
   title: 'Gizlilik ve Veri Güvenliği — PsycheAI',
-  description: 'PsycheAI kullanıcı verisi mahremiyeti, AES-256 şifreleme ve sıfır PII yapay zeka aktarımı politikası.',
+  description: 'PsycheAI kullanıcı verisi mahremiyeti, güvenli altyapı ve sıfır PII yapay zeka aktarımı politikası.',
 };
 
 export default function PrivacyPage() {
@@ -27,10 +27,10 @@ export default function PrivacyPage() {
         <section className="space-y-2">
           <h2 className="text-base font-bold text-text-primary flex items-center gap-2">
             <Lock className="w-4 h-4 text-brand-primary" />
-            1. Veri Şifreleme ve Saklama
+            1. Veri Güvenliği ve Saklama
           </h2>
           <p>
-            Tüm kullanıcı verileri, oturum anahtarları ve değerlendirme kayıtları endüstri standardı AES-256 şifreleme ile veritabanında saklanır.
+            Sistem anahtarları ve hassas yapılandırmalar AES-256-GCM ile şifrelenir; kullanıcı profilleri ve değerlendirme kayıtları güvenli veritabanı altyapısında saklanır.
             Verileriniz asla üçüncü taraflarla reklam veya ticari amaçlarla paylaşılmaz.
           </p>
         </section>

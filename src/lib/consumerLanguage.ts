@@ -43,7 +43,7 @@ export function resolveConsumerScalePosition(score: number | null | undefined): 
     return {
       bandCode: 'VERY_LOW',
       labelTr: 'Düşük uca yakın',
-      descriptionTr: 'Bu özellikte ölçüm ölçeğinin alt sınırına yakın bir eğilim göstermektesiniz.',
+      descriptionTr: 'Ölçüm ölçeğinin düşük ucuna yakın bir konum.',
       scoreRangeTr: '1.00 – 1.79',
       explanationNoteTr: SCALE_POSITION_EXPLANATION_NOTE,
     };
@@ -53,7 +53,7 @@ export function resolveConsumerScalePosition(score: number | null | undefined): 
     return {
       bandCode: 'LOW_MID',
       labelTr: 'Orta-alt bölge',
-      descriptionTr: 'Ölçüm ölçeğinde dengeli orta hattın biraz altında bir eğilim sergiliyorsunuz.',
+      descriptionTr: 'Ölçüm ölçeğinin orta bölgesinin altında bir konum.',
       scoreRangeTr: '1.80 – 2.59',
       explanationNoteTr: SCALE_POSITION_EXPLANATION_NOTE,
     };
@@ -63,7 +63,7 @@ export function resolveConsumerScalePosition(score: number | null | undefined): 
     return {
       bandCode: 'MID',
       labelTr: 'Orta bölge',
-      descriptionTr: 'Ölçüm ölçeğinde her iki kutba da esneklikle kayabilen dengeli bir orta konumdasınız.',
+      descriptionTr: 'Ölçüm ölçeğinin orta bölgesinde bir konum.',
       scoreRangeTr: '2.60 – 3.40',
       explanationNoteTr: SCALE_POSITION_EXPLANATION_NOTE,
     };
@@ -73,7 +73,7 @@ export function resolveConsumerScalePosition(score: number | null | undefined): 
     return {
       bandCode: 'MID_HIGH',
       labelTr: 'Orta-üst bölge',
-      descriptionTr: 'Ölçüm ölçeğinde belirginleşen, orta hattın üzerinde güçlü bir eğilim göstermektesiniz.',
+      descriptionTr: 'Ölçüm ölçeğinin orta bölgesinin üzerinde bir konum.',
       scoreRangeTr: '3.41 – 4.20',
       explanationNoteTr: SCALE_POSITION_EXPLANATION_NOTE,
     };
@@ -82,7 +82,7 @@ export function resolveConsumerScalePosition(score: number | null | undefined): 
   return {
     bandCode: 'HIGH',
     labelTr: 'Yüksek uca yakın',
-    descriptionTr: 'Bu boyutta ölçüm ölçeğinin en üst bölgesinde çok belirgin bir eğilimdesiniz.',
+    descriptionTr: 'Ölçüm ölçeğinin yüksek ucuna yakın bir konum.',
     scoreRangeTr: '4.21 – 5.00',
     explanationNoteTr: SCALE_POSITION_EXPLANATION_NOTE,
   };
@@ -90,6 +90,8 @@ export function resolveConsumerScalePosition(score: number | null | undefined): 
 
 /**
  * Translates internal measurement status enums into clean consumer language.
+ * Scientific rule: UNKNOWN > INVENTED CERTAINTY.
+ * Unknown or unsupported statuses must never fall back to "Ölçüldü".
  */
 export function sanitizeMeasurementStatus(status: string | undefined): string {
   if (!status) return 'Henüz keşfedilmedi';
@@ -110,7 +112,7 @@ export function sanitizeMeasurementStatus(status: string | undefined): string {
     case 'QUALITY_LIMITED':
       return 'Bu karşılaştırmayı daha temkinli yorumlamak gerekiyor';
     default:
-      return 'Ölçüldü';
+      return 'Durum belirlenemedi';
   }
 }
 
@@ -136,7 +138,8 @@ export function sanitizeEpistemicClaimType(claimType: string | undefined): strin
 }
 
 /**
- * Safe neutral tension & balance phrasing (replaces pathologizing or clinical risk words).
+ * Safe neutral tension & balance phrasing for AI/system descriptions.
+ * Does NOT globally replace user text or source terms like 'travma' or 'risk'.
  */
 export function neutralizeTensionDescription(text: string): string {
   if (!text) return '';
@@ -144,9 +147,7 @@ export function neutralizeTensionDescription(text: string): string {
     .replace(/tükenmişlik riski/gi, 'zorlayıcı olabilecek denge noktası')
     .replace(/depresyon riski/gi, 'duygusal yük oluşturabilecek alan')
     .replace(/kişilik problemi/gi, 'daha fazla dikkat gerektiren eğilim')
-    .replace(/travma/gi, 'zorlayıcı yaşam deneyimi')
-    .replace(/klinik risk/gi, 'hassas denge alanı')
-    .replace(/risk/gi, 'denge noktası');
+    .replace(/klinik risk/gi, 'hassas denge alanı');
 }
 
 /**

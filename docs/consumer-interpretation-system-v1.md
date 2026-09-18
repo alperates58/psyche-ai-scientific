@@ -28,11 +28,11 @@ Popülasyon normu veya yüzdelik dilim uydurulmasını engellemek amacıyla merk
 
 | Skor Aralığı | Bant Kodu | Tüketici Etiketi | Tüketici Açıklaması |
 | :--- | :--- | :--- | :--- |
-| **1.00 – 1.79** | `VERY_LOW` | Düşük uca yakın | Bu özellikte ölçüm ölçeğinin alt sınırına yakın bir eğilim göstermektesiniz. |
-| **1.80 – 2.59** | `LOW_MID` | Orta-alt bölge | Ölçüm ölçeğinde dengeli orta hattın biraz altında bir eğilim sergiliyorsunuz. |
-| **2.60 – 3.40** | `MID` | Orta bölge | Ölçüm ölçeğinde her iki kutba da esneklikle kayabilen dengeli bir orta konumdasınız. |
-| **3.41 – 4.20** | `MID_HIGH` | Orta-üst bölge | Ölçüm ölçeğinde belirginleşen, orta hattın üzerinde güçlü bir eğilim göstermektesiniz. |
-| **4.21 – 5.00** | `HIGH` | Yüksek uca yakın | Bu boyutta ölçüm ölçeğinin en üst bölgesinde çok belirgin bir eğilimdesiniz. |
+| **1.00 – 1.79** | `VERY_LOW` | Düşük uca yakın | Ölçüm ölçeğinin düşük ucuna yakın bir konum. |
+| **1.80 – 2.59** | `LOW_MID` | Orta-alt bölge | Ölçüm ölçeğinin orta bölgesinin altında bir konum. |
+| **2.60 – 3.40** | `MID` | Orta bölge | Ölçüm ölçeğinin orta bölgesinde bir konum. |
+| **3.41 – 4.20** | `MID_HIGH` | Orta-üst bölge | Ölçüm ölçeğinin orta bölgesinin üzerinde bir konum. |
+| **4.21 – 5.00** | `HIGH` | Yüksek uca yakın | Ölçüm ölçeğinin yüksek ucuna yakın bir konum. |
 
 > [!NOTE]
 > Her ölçek konumunun altında şu açık bilgilendirme yer alır:

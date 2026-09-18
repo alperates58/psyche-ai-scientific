@@ -172,7 +172,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between border-b border-border-subtle pb-3">
                   <div>
                     <h3 className="text-base font-bold text-text-primary">Psikolojik İmzanız (Örnek Profil)</h3>
-                    <p className="text-xs text-text-secondary">Ölçülen 11 alanın yapısal dağılımı</p>
+                    <p className="text-xs text-text-secondary">11 psikolojik alanda ölçülen alt boyutların görsel özeti</p>
                   </div>
                   <span className="text-[11px] font-semibold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
                     Kişisel Koordinat Haritası
@@ -398,8 +398,8 @@ export default function HomePage() {
             <div className="flex items-start space-x-3">
               <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
               <div>
-                <div className="text-xs font-bold text-text-primary">AES-256 Şifreli Veri Depolama</div>
-                <div className="text-[11px] text-text-secondary">Tüm verileriniz şifrelenmiş altyapıda güvenle saklanır.</div>
+                <div className="text-xs font-bold text-text-primary">Güvenli & Sıfır PII Altyapı</div>
+                <div className="text-[11px] text-text-secondary">Sistem anahtarları AES-256-GCM ile korunur; yapay zekâya kişisel kimlik iletilmez.</div>
               </div>
             </div>
           </div>
