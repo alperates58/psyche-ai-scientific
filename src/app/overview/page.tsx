@@ -244,13 +244,13 @@ export default async function OverviewPage() {
                 {journey.completedAssessmentsCount > 0 ? `${journey.completedAssessmentsCount} Tamamlandı` : 'Başlanmadı'}
               </span>
             </div>
-            {journey.recentAssessments && journey.recentAssessments.length > 0 ? (
+            {profile.recentAssessments && profile.recentAssessments.length > 0 ? (
               <div className="space-y-1">
                 <h4 className="text-sm font-bold text-text-primary">
-                  {journey.recentAssessments[0].moduleTitleTr}
+                  {profile.recentAssessments[0].moduleTitleTr}
                 </h4>
                 <p className="text-xs text-text-secondary">
-                  Tamamlanma: {new Date(journey.recentAssessments[0].completedAt).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  Tamamlanma: {new Date(profile.recentAssessments[0].completedAt).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </p>
               </div>
             ) : (
@@ -262,10 +262,10 @@ export default async function OverviewPage() {
 
           <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
             <Link
-              href={journey.recentAssessments && journey.recentAssessments.length > 0 ? `/assessments/results/${journey.recentAssessments[0].sessionId}` : '/assessments'}
+              href={profile.recentAssessments && profile.recentAssessments.length > 0 ? (profile.recentAssessments[0].resultUrl || `/assessments/results/${profile.recentAssessments[0].sessionId}`) : '/assessments'}
               className="text-xs font-bold text-brand-primary hover:underline inline-flex items-center"
             >
-              <span>{journey.recentAssessments && journey.recentAssessments.length > 0 ? 'Sonucu İncele' : 'Tüm Değerlendirmeler'}</span>
+              <span>{profile.recentAssessments && profile.recentAssessments.length > 0 ? 'Sonucu İncele' : 'Tüm Değerlendirmeler'}</span>
               <ArrowRight className="w-3 h-3 ml-1" />
             </Link>
             <Link
