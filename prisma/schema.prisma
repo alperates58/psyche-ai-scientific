@@ -42,6 +42,10 @@ model User {
   scientificAuditEvents       ScientificAuditEvent[]   @relation("ScientificAuditActor")
   verifiedValidationSummaries FacetValidationSummary[] @relation("ValidationSummaryVerifier")
 
+  // FAZ 2.21 User Reflection & Journal Relations
+  journalEntries  JournalEntry[]
+  journalInsights JournalInsight[]
+
   @@map("users")
 }
 
@@ -764,4 +768,151 @@ model FacetReliabilityEvidence {
 
   @@index([validationSummaryId])
   @@map("facet_reliability_evidences")
+}
+
+// ---------------------------------------------------------
+// FAZ 2.21 USER REFLECTION & OBSERVATIONAL JOURNAL LAYER
+// ---------------------------------------------------------
+
+enum JournalEntryType {
+  FREE_REFLECTION
+  EVENT
+  EMOTION
+  DECISION
+  RELATIONSHIP
+  WORK
+  GOAL
+  STRESS
+  SUCCESS
+  CHALLENGE
+  OTHER
+}
+
+enum JournalInsightType {
+  ENTRY_REFLECTION
+  REPEATED_THEME
+  PROFILE_ALIGNMENT
+  CONTEXTUAL_VARIATION
+  DECISION_REFLECTION
+  EMOTIONAL_PATTERN_REFLECTION
+  GOAL_REFLECTION
+  LONGITUDINAL_CONTEXT_LINK
+  OPEN_QUESTION
+}
+
+enum JournalEvidenceClass {
+  USER_REPORTED_CONTEXT
+  OBSERVATIONAL_DATA
+  AI_REFLECTIVE_HYPOTHESIS
+  THEORETICAL_INTERPRETATION
+}
+
+enum JournalRelationshipType {
+  ALIGNED_WITH_MEASUREMENT
+  DIFFERS_FROM_MEASUREMENT
+  CONTEXTUAL_VARIATION
+  UNMEASURED_RELEVANT_AREA
+  NO_CLEAR_RELATION
+}
+
+enum JournalRelationshipStrength {
+  WEAK
+  MODERATE
+  STRONG
+}
+
+enum JournalLifeEventType {
+  JOB_CHANGE
+  RELOCATION
+  RELATIONSHIP_TRANSITION
+  MAJOR_GOAL
+  HIGH_STRESS_PERIOD
+  OTHER
+}
+
+model JournalEntry {
+  id               String                @id @default(cuid())
+  userId           String
+  user             User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title            String?               @db.VarChar(255)
+  body             String                @db.Text
+  entryType        JournalEntryType      @default(FREE_REFLECTION)
+
+  // Subjective self-report ratings (1-5 scale, strictly non-psychometric)
+  moodSelfReport   Int?
+  energySelfReport Int?
+  stressSelfReport Int?
+
+  // Context & user tags
+  contextTags      String[]
+  userTags         String[]
+
+  // Explicit user-reported life events (never auto-inferred)
+  isLifeEvent      Boolean               @default(false)
+  lifeEventType    JournalLifeEventType?
+
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  deletedAt        DateTime?
+
+  // Relations
+  insights         JournalInsight[]
+  relationships    JournalProfileRelationship[]
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([userId, entryType])
+  @@index([userId, isLifeEvent])
+  @@index([userId, deletedAt, createdAt(sort: Desc)])
+  @@map("journal_entries")
+}
+
+model JournalInsight {
+  id                String               @id @default(cuid())
+  entryId           String
+  entry             JournalEntry         @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  userId            String
+  user              User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  insightType       JournalInsightType
+  evidenceClass     JournalEvidenceClass @default(USER_REPORTED_CONTEXT)
+
+  summaryTr         String               @db.Text
+  reflectivePrompt  String?              @db.Text
+  isFallback        Boolean              @default(false)
+
+  // Provenance & versioning
+  engineVersion     String               @default("v1.0.0")
+  promptVersion     String?
+  provider          String?
+  modelId           String?
+  sourceContentHash String?
+
+  createdAt         DateTime             @default(now())
+
+  @@index([entryId])
+  @@index([userId, createdAt(sort: Desc)])
+  @@map("journal_insights")
+}
+
+model JournalProfileRelationship {
+  id                  String                      @id @default(cuid())
+  entryId             String
+  entry               JournalEntry                @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+  relationshipType    JournalRelationshipType
+  evidenceType        JournalEvidenceClass        @default(OBSERVATIONAL_DATA)
+  strength            JournalRelationshipStrength @default(WEAK)
+
+  // Canonical Master Model identifiers (11 domains, 37 constructs, 91 facets)
+  relatedFacetIds     String[]
+  relatedConstructIds String[]
+  relatedDomainIds    String[]
+
+  narrativeTr         String?                     @db.Text
+  createdAt           DateTime                    @default(now())
+
+  @@index([entryId])
+  @@index([relationshipType])
+  @@map("journal_profile_relationships")
 }

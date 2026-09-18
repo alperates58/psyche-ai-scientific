@@ -222,3 +222,65 @@ export function verifyAIInsightClaims(
     },
   };
 }
+
+/**
+ * FAZ 2.21: Verification of AI-generated Journal Reflections & Observational Text
+ */
+const FORBIDDEN_JOURNAL_PATTERNS = [
+  /sen\s+kesinlikle/i,
+  /bu\s+senin\s+gerçek\s+kişiliğin/i,
+  /profiliniz\s+bunu\s+kanıtlıyor/i,
+  /günlükleriniz\s+gösteriyor\s+ki\s+siz/i,
+  /kesin\s+olarak\s+kanıtlı/i,
+  /neden\s+oluyor/i,
+  /neden\s+olmuştur/i,
+  /terapi\s+seansı/i,
+  /terapötik\s+müdahale/i,
+  /travmanızı\s+işley/i,
+  /tedavi\s+uygul/i,
+  /depresyon\s+belirtisi/i,
+  /depresyon\s+tanısı/i,
+  /depresif\s+bozukluk/i,
+  /anksiyete\s+bozukluğu/i,
+  /kaygı\s+bozukluğu/i,
+  /bipolar/i,
+  /borderline/i,
+  /şizofren/i,
+  /okb/i,
+  /obsesif/i,
+  /dehb\s+tanısı/i,
+  /adhd/i,
+  /travmanız\s+var/i,
+  /çocukluk\s+travmanız/i,
+  /travmanızın\s+sonucu/i,
+  /kişilik\s+bozukluğu/i,
+  /narsisistik\s+kişilik/i,
+];
+
+export interface JournalVerificationResult {
+  isValid: boolean;
+  errors: string[];
+}
+
+export function verifyJournalReflectionClaims(text: string): JournalVerificationResult {
+  const errors: string[] = [];
+  const clean = text.toLowerCase();
+
+  for (const pat of FORBIDDEN_JOURNAL_PATTERNS) {
+    if (pat.test(clean)) {
+      errors.push(`Yasaklı veya aşırı iddialı yansıma ifadesi tespit edildi: ${pat.toString()}`);
+    }
+  }
+
+  for (const kw of FORBIDDEN_CLINICAL_KEYWORDS) {
+    if (clean.includes(kw)) {
+      errors.push(`Yasaklı klinik/psikiyatrik tanı kelimesi tespit edildi: "${kw}"`);
+    }
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+  };
+}
+

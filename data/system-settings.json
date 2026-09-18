@@ -19,7 +19,7 @@
       "user": "",
       "password": ""
     },
-    "updatedAt": "2026-09-18T07:17:25.293Z",
+    "updatedAt": "2026-09-18T08:16:43.882Z",
     "updatedBy": "admin-user-id"
   },
   "ai": {
@@ -34,6 +34,6 @@
     "deterministicFallback": true,
     "updatedAt": "2026-09-17T08:28:46.969Z"
   },
-  "updatedAt": "2026-09-18T07:17:25.293Z",
+  "updatedAt": "2026-09-18T08:16:43.882Z",
   "updatedBy": "admin-user-id"
 }

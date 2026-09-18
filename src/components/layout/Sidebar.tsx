@@ -14,6 +14,7 @@ import {
   Layers,
   GitFork,
   Database,
+  PenLine,
   LogOut,
   X
 } from 'lucide-react';
@@ -192,14 +193,22 @@ export const Sidebar: React.FC<SidebarProps> = ({ isMobile = false, onClose }) =
               <LayoutGrid className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Psikolojik Profil Haritası
             </Link>
+            <Link href="/profile/timeline" onClick={handleLinkClick} className={navItemClass(isActive('/profile/timeline'))}>
+              <Clock className="w-4 h-4 mr-3 opacity-80 shrink-0" />
+              Zaman Çizelgesi
+            </Link>
           </nav>
         </div>
 
         <div>
           <div className="px-3 mb-2 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            İÇGÖRÜLER & KURAMLAR
+            İÇGÖRÜLER & YANSIMALAR
           </div>
           <nav className="space-y-1">
+            <Link href="/journal" onClick={handleLinkClick} className={navItemClass(isActive('/journal'))}>
+              <PenLine className="w-4 h-4 mr-3 opacity-80 shrink-0" />
+              Yansımalarım
+            </Link>
             <Link href="/insights/context" onClick={handleLinkClick} className={navItemClass(isActive('/insights/context'))}>
               <GitFork className="w-4 h-4 mr-3 opacity-80 shrink-0" />
               Bağlamsal Değişimler
