@@ -5,6 +5,8 @@ import { Fingerprint, Info, Eye, Table, Layers, Sparkles, Scale, Compass } from 
 import { resolveConsumerScalePosition, SCALE_POSITION_EXPLANATION_NOTE } from '@/lib/consumerLanguage';
 import { getDomainIcon, getFacetIcon } from '@/lib/facetIcons';
 
+import { ProfileFingerprintDimension } from '@/types/profile';
+
 export interface FingerprintCoordinate {
   id: string;
   nameTr: string;
@@ -16,19 +18,46 @@ export interface FingerprintCoordinate {
   scaleMax: number;
 }
 
-interface ProfileFingerprintProps {
-  coordinates: FingerprintCoordinate[];
+export interface ProfileFingerprintProps {
+  coordinates?: FingerprintCoordinate[];
+  dimensions?: ProfileFingerprintDimension[];
+  measuredCount?: number;
+  totalCount?: number;
   summaryText?: string;
 }
 
 export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
   coordinates,
+  dimensions,
+  measuredCount,
+  totalCount,
   summaryText,
 }) => {
   const [showTableView, setShowTableView] = useState(false);
   const [activeHoverId, setActiveHoverId] = useState<string | null>(null);
 
-  if (!coordinates || coordinates.length === 0) {
+  const resolvedCoordinates: FingerprintCoordinate[] = React.useMemo(() => {
+    if (coordinates && coordinates.length > 0) {
+      return coordinates;
+    }
+    if (dimensions && dimensions.length > 0) {
+      return dimensions
+        .filter((d) => d.isMeasured && d.nativeScore !== null)
+        .map((d) => ({
+          id: d.id,
+          nameTr: d.nameTr,
+          domainId: d.domainCode || d.domainNameTr,
+          domainNameTr: d.domainNameTr,
+          normalizedScore: d.normalizedCoordinate ?? 50,
+          rawScore: d.nativeScore,
+          scaleMin: d.scaleMin,
+          scaleMax: d.scaleMax,
+        }));
+    }
+    return [];
+  }, [coordinates, dimensions]);
+
+  if (!resolvedCoordinates || resolvedCoordinates.length === 0) {
     return (
       <div className="p-8 rounded-3xl bg-surface-1 border border-border-default text-center space-y-3">
         <Compass className="w-10 h-10 text-brand-primary mx-auto opacity-70" />
@@ -44,10 +73,10 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
   const size = 340;
   const center = size / 2;
   const radius = 120;
-  const totalPoints = coordinates.length;
+  const totalPoints = resolvedCoordinates.length;
 
   // Compute SVG polygon points
-  const points = coordinates.map((coord, idx) => {
+  const points = resolvedCoordinates.map((coord, idx) => {
     const angle = (idx / totalPoints) * 2 * Math.PI - Math.PI / 2;
     const r = (Math.max(10, Math.min(100, coord.normalizedScore)) / 100) * radius;
     const x = center + r * Math.cos(angle);
@@ -71,7 +100,7 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
                 Psikolojik İmzanız
               </h3>
               <span className="text-[10px] font-semibold bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2 py-0.5 rounded-full">
-                {coordinates.length} Boyut Haritalandı
+                {resolvedCoordinates.length} Boyut Haritalandı
               </span>
             </div>
             <p className="text-xs text-text-secondary mt-0.5">
@@ -172,7 +201,7 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
               Haritalanan Boyut Koordinatları
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[280px] overflow-y-auto pr-1">
-              {coordinates.map((coord) => {
+              {resolvedCoordinates.map((coord) => {
                 const pos = resolveConsumerScalePosition(coord.rawScore);
                 const isHovered = activeHoverId === coord.id;
                 const Icon = getDomainIcon(coord.domainId);
@@ -216,7 +245,7 @@ export const ProfileFingerprint: React.FC<ProfileFingerprintProps> = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-border-subtle">
-              {coordinates.map((coord) => {
+              {resolvedCoordinates.map((coord) => {
                 const pos = resolveConsumerScalePosition(coord.rawScore);
                 return (
                   <tr key={coord.id} className="hover:bg-bg-subtle/50">
