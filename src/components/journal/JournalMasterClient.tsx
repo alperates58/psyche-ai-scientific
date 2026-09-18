@@ -233,6 +233,7 @@ export const JournalMasterClient: React.FC = () => {
 
       {activeTab === 'themes' && (
         <JournalRepeatedThemesPanel
+          contextFrequencies={summary?.contextFrequencies || []}
           repeatedThemes={summary?.repeatedThemes || []}
           multiContextThemes={summary?.multiContextThemes || []}
         />

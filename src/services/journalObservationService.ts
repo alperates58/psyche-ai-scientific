@@ -1,11 +1,16 @@
 /**
- * FAZ 2.21: Journal Observation & Dynamic Pattern Service
- * Dynamic Repeated-Theme Computation, Contextual Variation & Evidence Grounding
+ * FAZ 2.21 Scientific Hardening: Journal Observation & Semantic Pattern Service
+ * Separates Context Frequency (life domain recurrence) from Semantic Psychological Themes.
+ * Enforces:
+ * - >= 3 semantically related entries AND >= 2 distinct calendar dates for Repeated Themes.
+ * - Directional observational signals for Profile Alignment and Contextual Variation.
+ * - Strict non-diagnostic, non-psychometric boundaries (USER_REPORTED_CONTEXT, OBSERVATIONAL_DATA).
  */
 
 import {
   JournalEntryV1,
   JournalObservationSummaryV1,
+  ContextFrequencyV1,
   RepeatedThemeV1,
   MultiContextThemeV1,
   JournalObservationBundleV1,
@@ -13,6 +18,11 @@ import {
   VALID_JOURNAL_CONTEXT_TAGS,
   JournalRelationshipType,
   JournalProfileRelationshipV1,
+  ObservationalTopicKey,
+  ThemeExtractionMethod,
+  RepeatedThemeStatus,
+  GrowthCandidateAreaV1,
+  JournalEntryType,
 } from '@/types/journal';
 import { UnifiedPsychologicalProfileV2, FacetProfileV2 } from '@/types/unifiedProfileV2';
 import { MASTER_FACETS, MASTER_DOMAINS, MASTER_CONSTRUCTS } from '@/lib/profile/masterModelConstants';
@@ -21,22 +31,25 @@ import { getCurrentUnifiedProfile } from './unifiedProfileService';
 
 /**
  * Common emotion dictionary for descriptive self-expression extraction
- * Strictly non-diagnostic (USER_EXPRESSED_EMOTION)
+ * Strictly non-diagnostic (USER_EXPRESSED_EMOTION).
+ * Everyday language expressions (e.g. 'panik', 'tükenmişlik') are NEVER translated into clinical diagnoses.
  */
 const EMOTION_LEXICON: Record<string, string[]> = {
   öfke: ['öfke', 'kızgın', 'sinirli', 'öfkelendim', 'çıldırdım'],
-  kaygı: ['kaygı', 'endişe', 'tedirgin', 'korku', 'panik', 'endişeliyim'],
+  kaygı: ['kaygı', 'endişe', 'tedirgin', 'korku', 'endişeliyim'],
   üzüntü: ['üzüntü', 'üzgün', 'kırgın', 'mutsuz', 'hüzün', 'moralim bozuk'],
   rahatlama: ['rahatlama', 'hafifleme', 'ferahlama', 'huzurlu', 'dingin'],
   heyecan: ['heyecan', 'coşku', 'istekli', 'hevesli', 'motive'],
   hayal_kırıklığı: ['hayal kırıklığı', 'beklenti', 'boşa gitti', 'yenilgi'],
-  yorgunluk: ['tükenmişlik', 'yorgunluk', 'bitkin', 'yorgunum', 'aşırı stres'],
+  yorgunluk: ['tükenmişlik', 'yorgunluk', 'bitkin', 'yorgunum', 'aşırı yorgun'],
 };
 
 /**
- * Context-to-Facet relevance mapping for observational alignment
+ * Potentially relevant Master Model measurement areas per context
+ * INVARIANT: Context alone only scopes POTENTIALLY relevant facets for inquiry.
+ * It NEVER automatically constitutes evidence about that facet.
  */
-const CONTEXT_FACET_MAP: Record<JournalContextTag, string[]> = {
+export const POTENTIALLY_RELEVANT_FACET_MAP: Record<JournalContextTag, string[]> = {
   WORK: [
     'diligence',
     'perfectionism',
@@ -124,6 +137,705 @@ const CONTEXT_FACET_MAP: Record<JournalContextTag, string[]> = {
   ],
 };
 
+// Backward-compatibility alias
+export const CONTEXT_FACET_MAP = POTENTIALLY_RELEVANT_FACET_MAP;
+
+/**
+ * Controlled Observational Topic Definition Interface
+ */
+export interface ObservationalTopicDefinition {
+  key: ObservationalTopicKey;
+  labelTr: string;
+  keywords: string[];
+  entryTypes?: JournalEntryType[];
+  relevantFacetIds: string[];
+  descriptionTemplateTr: (count: number, datesCount: number, contexts: string[]) => string;
+}
+
+/**
+ * Authoritative Observational Topic Registry (17 Controlled Topics)
+ * Strictly descriptive observational categories; NOT facets, constructs, or diagnoses.
+ */
+export const OBSERVATIONAL_TOPIC_REGISTRY: ObservationalTopicDefinition[] = [
+  {
+    key: 'SOCIAL_EXPRESSION',
+    labelTr: 'Toplantılarda ve Sosyal Ortamlarda Kendini İfade Etme',
+    keywords: [
+      'fikrimi söyle',
+      'fikirlerimi ifade',
+      'çekindim',
+      'çekingen',
+      'konuşmak iste',
+      'konuşamadım',
+      'paylaşmadan önce',
+      'söz almak',
+      'toplantıda çekin',
+      'fikrimi belirt',
+      'sesimi çıkar',
+      'kendimi ifade',
+      'topluluk önünde',
+      'toplantıda konuş',
+      'sunum yaparken çekin',
+      'fikrimi aç',
+    ],
+    relevantFacetIds: ['social_boldness', 'social_self_esteem', 'assertiveness'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada, ${contexts.join(', ')} ortamında fikir beyan etme ve kendini ifade etme deneyimi tekrar eden bir gözlem olarak kaydedildi.`,
+  },
+  {
+    key: 'WORK_STRESS',
+    labelTr: 'İş ve Çalışma Ortamında Yüksek Baskı ve Stres',
+    keywords: [
+      'iş stresi',
+      'yoğun iş temposu',
+      'iş yetiştirme',
+      'iş baskısı',
+      'iş yerinde bunal',
+      'mesai',
+      'deadline',
+      'yetişmeyecek',
+      'iş yerinde stres',
+      'iş yükü',
+      'iş stresi çok',
+      'aşırı iş yükü',
+      'yetiştiremedim',
+    ],
+    entryTypes: ['STRESS', 'CHALLENGE'],
+    relevantFacetIds: ['stress_recovery', 'anxiety', 'distress_tolerance', 'ego_resilience'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada iş süreçlerindeki yüksek tempo ve stres deneyimi öne çıktı.`,
+  },
+  {
+    key: 'DECISION_DIFFICULTY',
+    labelTr: 'Karar Alma ve Seçim Süreçlerinde Tereddüt',
+    keywords: [
+      'karar verem',
+      'kararsız',
+      'seçim yapmak',
+      'arada kaldım',
+      'netleştiremedim',
+      'tereddüt',
+      'ikilem',
+      'karar anı',
+      'karar vermekte zorlan',
+      'seçim yapmakta',
+    ],
+    entryTypes: ['DECISION'],
+    relevantFacetIds: ['rational_analytical_thinking', 'need_for_cognitive_closure', 'decision_style_maximizing', 'prudence'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada karar verme aşamalarındaki ikilem ve değerlendirme süreçleri paylaşıldı.`,
+  },
+  {
+    key: 'UNCERTAINTY',
+    labelTr: 'Belirsizlik ve Öngörülemeyen Durumlar Karşısında Temkinlilik',
+    keywords: [
+      'belirsizlik',
+      'öngöremiyorum',
+      'belirsiz',
+      'net değil',
+      'kontrol edem',
+      'ne olacağı belli değil',
+      'gelecek kaygısı',
+      'belirsiz durum',
+      'bilinmezlik',
+    ],
+    relevantFacetIds: ['intolerance_of_uncertainty', 'cognitive_flexibility', 'fearfulness'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada belirsizlik içeren süreçlere dair gözlemler tekrar etti.`,
+  },
+  {
+    key: 'CONFLICT_AVOIDANCE',
+    labelTr: 'İletişimde Uyuşmazlık ve Çatışmadan Kaçınma',
+    keywords: [
+      'çatışmadan kaç',
+      'tartışmak isteme',
+      'tartışmaya girme',
+      'uyumsuz görünme',
+      'kavga etme',
+      'huzursuzluk çıkmasın',
+      'alttan aldım',
+      'itiraz etmedim',
+      'karşı çıkmadım',
+      'sesimi çıkarmadım',
+    ],
+    relevantFacetIds: ['conflict_avoidance', 'cooperation_orientation', 'forgivingness', 'gentleness'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada ilişkisel uyuşmazlıklardan ve çatışmalardan kaçınma eğilimi gözlendi.`,
+  },
+  {
+    key: 'RELATIONSHIP_DISTANCE',
+    labelTr: 'İlişkilerde Mesafe ve İçe Çekilme',
+    keywords: [
+      'mesafe koydum',
+      'uzaklaştım',
+      'soğukluk',
+      'iletişimi kestim',
+      'bağlantıyı kopardım',
+      'yalnız kalmak iste',
+      'kendimi geri çektim',
+      'mesafeli dur',
+      'içe kapandım',
+    ],
+    relevantFacetIds: ['attachment_avoidance', 'social_connectedness'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada sosyal/ilişkisel mesafelenme ve geri çekilme teması gözlendi.`,
+  },
+  {
+    key: 'RELATIONSHIP_CLOSENESS',
+    labelTr: 'İlişkisel Bağ Kurma ve Destek Paylaşımı',
+    keywords: [
+      'yakın hisset',
+      'bağ kurdum',
+      'samimiyet',
+      'destek aldım',
+      'paylaşımda bulun',
+      'içten sohbet',
+      'derin bağ',
+      'yakınlık kur',
+      'birlikte vakit',
+      'omuz omuza',
+    ],
+    relevantFacetIds: ['relatedness_need_satisfaction', 'empathic_concern', 'social_connectedness'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada yakın ilişkiler ve dayanışma deneyimleri paylaşıldı.`,
+  },
+  {
+    key: 'SELF_CRITICISM',
+    labelTr: 'Kendine Yönelik Eleştirel Tutum ve Öz-Yargılama',
+    keywords: [
+      'kendime kızdım',
+      'yetersiz hisset',
+      'hata yaptım',
+      'kendimi suçla',
+      'suçluluk',
+      'daha iyi olmalıydım',
+      'öz eleştiri',
+      'kendimi yargıla',
+      'beceremedim',
+    ],
+    relevantFacetIds: ['self_compassion', 'core_self_esteem', 'contingent_self_worth', 'guilt_proneness'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada öz-eleştirel düşünce kalıpları ve yüksek beklentiler öne çıktı.`,
+  },
+  {
+    key: 'GOAL_PERSISTENCE',
+    labelTr: 'Hedefe Yönelik Kararlılık, Azim ve İlerleme',
+    keywords: [
+      'vazgeçmedim',
+      'ısrarla devam',
+      'hedefe odaklan',
+      'disiplinle çalış',
+      'azim',
+      'kararlılıkla',
+      'planıma sadık',
+      'pes etme',
+      'hedefime doğru',
+      'istikrar',
+    ],
+    entryTypes: ['GOAL', 'SUCCESS'],
+    relevantFacetIds: ['long_term_grit', 'diligence', 'general_self_control', 'competence_need_satisfaction'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada hedeflere bağlılık ve uzun vadeli azim vurgulandı.`,
+  },
+  {
+    key: 'PROCRASTINATION',
+    labelTr: 'Görev ve Sorumlulukları Erteleme Eğilimi',
+    keywords: [
+      'erteledim',
+      'öteledim',
+      'son dakikaya bırak',
+      'oyalandım',
+      'başlayamadım',
+      'erteleyip dur',
+      'kaçındım çalışmaktan',
+    ],
+    relevantFacetIds: ['procrastination_tendency', 'general_self_control', 'diligence'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada işleri başlatma ve erteleme süreçleri gözlendi.`,
+  },
+  {
+    key: 'EMOTIONAL_SUPPRESSION',
+    labelTr: 'Duyguları Belli Etmeme ve İçe Atma',
+    keywords: [
+      'içime attım',
+      'belli etmedim',
+      'gizledim',
+      'duygularımı sakla',
+      'yansıtmamaya çalış',
+      'maske tak',
+      'yutkundum',
+      'içimde tuttum',
+    ],
+    relevantFacetIds: ['expressive_suppression', 'affect_intensity'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada duygusal tepkileri bastırma veya gizleme teması kaydedildi.`,
+  },
+  {
+    key: 'EMOTIONAL_REAPPRAISAL',
+    labelTr: 'Duygusal Durumları Bilişsel Olarak Yeniden Anlamlandırma',
+    keywords: [
+      'farklı açıdan bak',
+      'olumlu tarafından',
+      'anlamlandırmaya çalış',
+      'sakinleşip düşün',
+      'yeniden değerlendir',
+      'bakış açımı değiş',
+      'ders çıkardım',
+    ],
+    relevantFacetIds: ['cognitive_reappraisal', 'cognitive_flexibility', 'stress_recovery'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada olayları yapıcı bir çerçevede yeniden değerlendirme eğilimi görüldü.`,
+  },
+  {
+    key: 'BOUNDARY_SETTING',
+    labelTr: 'Kişisel Sınır Çizme ve Koruma',
+    keywords: [
+      'hayır dedim',
+      'hayır diyebil',
+      'sınır koydum',
+      'sınırlarımı koru',
+      'kabul etmedim',
+      'kendi alanımı',
+      'taviz vermedim',
+      'sınırlarımı net',
+    ],
+    relevantFacetIds: ['assertiveness', 'autonomy_need_satisfaction'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada kişisel sınırları belirleme ve koruma çabası öne çıktı.`,
+  },
+  {
+    key: 'NEED_FOR_APPROVAL',
+    labelTr: 'Başkalarının Onay ve Takdirine İhtiyaç Duyma',
+    keywords: [
+      'onay bekledim',
+      'onaylanma',
+      'ne düşünürler',
+      'beğenilme',
+      'başkalarının görüşü',
+      'takdir edilmek',
+      'kabul görmek iste',
+      'eleştirilmekten kork',
+    ],
+    relevantFacetIds: ['rejection_sensitivity_nonclinical', 'contingent_self_worth'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada dışsal onay ve beğeni arayışı teması gözlendi.`,
+  },
+  {
+    key: 'PERCEIVED_COMPETENCE',
+    labelTr: 'Yetkinlik, Başarı ve Öz-Güven Hissi',
+    keywords: [
+      'başardım',
+      'üstesinden geldim',
+      'iyi yaptım',
+      'yeterliyim',
+      'becerdim',
+      'güvenim yerine geldi',
+      'yeteneklerime inan',
+      'kendimle gurur',
+      'başarıyla tamamla',
+    ],
+    entryTypes: ['SUCCESS'],
+    relevantFacetIds: ['generalized_self_efficacy', 'competence_need_satisfaction'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada yetkinlik ve başarı deneyimleri paylaşıldı.`,
+  },
+  {
+    key: 'MEANING_PURPOSE',
+    labelTr: 'Yaşam Anlamı ve Kişisel Amaç Arayışı',
+    keywords: [
+      'yaşam amacı',
+      'hayatın anlamı',
+      'anlamlı hisset',
+      'değerlerime uygun',
+      'neden buradayım',
+      'varoluşsal',
+      'bana iyi gelen',
+      'anlam arayışı',
+      'hayattaki yolum',
+    ],
+    relevantFacetIds: ['presence_of_meaning', 'search_for_meaning'],
+    descriptionTemplateTr: (count, datesCount, contexts) =>
+      `Farklı ${datesCount} günde kaydedilen ${count} yansımada varoluşsal anlam ve amaç arayışı teması öne çıktı.`,
+  },
+];
+
+/**
+ * Detects observational topics for an individual journal entry
+ * Non-diagnostic keyword & topic matching.
+ */
+export function detectTopicsForEntry(
+  entry: JournalEntryV1
+): { topicKey: ObservationalTopicKey; labelTr: string; method: ThemeExtractionMethod; matchedTerms: string[] }[] {
+  const text = ((entry.title || '') + ' ' + (entry.body || '')).toLowerCase();
+  const detected: { topicKey: ObservationalTopicKey; labelTr: string; method: ThemeExtractionMethod; matchedTerms: string[] }[] = [];
+
+  // 1. Check userTags matching
+  if (entry.userTags && entry.userTags.length > 0) {
+    for (const tag of entry.userTags) {
+      const normTag = tag.toLowerCase().trim();
+      for (const def of OBSERVATIONAL_TOPIC_REGISTRY) {
+        if (normTag.includes(def.key.toLowerCase()) || def.keywords.some((kw) => kw.includes(normTag) || normTag.includes(kw))) {
+          if (!detected.some((d) => d.topicKey === def.key)) {
+            detected.push({
+              topicKey: def.key,
+              labelTr: def.labelTr,
+              method: 'USER_TAG_DERIVED',
+              matchedTerms: [tag],
+            });
+          }
+        }
+      }
+    }
+  }
+
+  // 2. Deterministic keyword matching
+  for (const def of OBSERVATIONAL_TOPIC_REGISTRY) {
+    const matched = def.keywords.filter((kw) => text.includes(kw));
+
+    // Special condition for WORK_STRESS: WORK context + high stress rating (>=4) or entryType STRESS
+    let matchesSpecialCondition = false;
+    if (def.key === 'WORK_STRESS' && entry.contextTags.includes('WORK')) {
+      if ((entry.stressSelfReport !== null && entry.stressSelfReport !== undefined && entry.stressSelfReport >= 4) || entry.entryType === 'STRESS') {
+        matchesSpecialCondition = true;
+      }
+    }
+
+    // Special condition for DECISION_DIFFICULTY: DECISION entryType + relevant text
+    if (def.key === 'DECISION_DIFFICULTY' && (entry.entryType === 'DECISION' || entry.contextTags.includes('DECISION_MAKING'))) {
+      if (text.includes('karar') || text.includes('seçim') || text.includes('tereddüt') || text.includes('zor')) {
+        matchesSpecialCondition = true;
+      }
+    }
+
+    if (matched.length > 0 || matchesSpecialCondition) {
+      if (!detected.some((d) => d.topicKey === def.key)) {
+        detected.push({
+          topicKey: def.key,
+          labelTr: def.labelTr,
+          method: 'DETERMINISTIC_KEYWORD',
+          matchedTerms: matched.length > 0 ? matched : [def.key],
+        });
+      }
+    }
+  }
+
+  return detected;
+}
+
+/**
+ * Computes pure context frequency distribution across life domains
+ * INVARIANT: Independent of semantic themes.
+ */
+export function computeContextFrequencies(entries: JournalEntryV1[]): ContextFrequencyV1[] {
+  const contextMap = new Map<JournalContextTag, { count: number; dates: Set<string> }>();
+  for (const tag of VALID_JOURNAL_CONTEXT_TAGS) {
+    contextMap.set(tag, { count: 0, dates: new Set() });
+  }
+
+  for (const entry of entries) {
+    const dateStr = entry.createdAt.split('T')[0];
+    for (const tag of entry.contextTags) {
+      const data = contextMap.get(tag);
+      if (data) {
+        data.count++;
+        data.dates.add(dateStr);
+      }
+    }
+  }
+
+  const total = Array.from(contextMap.values()).reduce((sum, item) => sum + item.count, 0);
+
+  return Array.from(contextMap.entries())
+    .filter(([_, data]) => data.count > 0)
+    .map(([context, data]) => ({
+      context,
+      contextLabelTr: getContextLabelTr(context),
+      entryCount: data.count,
+      distinctDatesCount: data.dates.size,
+      percentage: total > 0 ? Math.round((data.count / total) * 100) : 0,
+    }))
+    .sort((a, b) => b.entryCount - a.entryCount);
+}
+
+/**
+ * Computes semantic repeated themes requiring content relationship
+ * INVARIANT: >= 3 semantically related entries AND >= 2 distinct calendar dates.
+ * Unrelated entries with same context tag DO NOT form a theme.
+ */
+export function computeRepeatedThemes(entries: JournalEntryV1[]): RepeatedThemeV1[] {
+  const topicEntriesMap = new Map<
+    ObservationalTopicKey,
+    { entries: JournalEntryV1[]; methods: Set<ThemeExtractionMethod> }
+  >();
+
+  for (const entry of entries) {
+    const detected = detectTopicsForEntry(entry);
+    for (const d of detected) {
+      if (!topicEntriesMap.has(d.topicKey)) {
+        topicEntriesMap.set(d.topicKey, { entries: [], methods: new Set() });
+      }
+      const item = topicEntriesMap.get(d.topicKey)!;
+      if (!item.entries.some((e) => e.id === entry.id)) {
+        item.entries.push(entry);
+      }
+      item.methods.add(d.method);
+    }
+  }
+
+  const repeated: RepeatedThemeV1[] = [];
+
+  for (const [topicKey, data] of Array.from(topicEntriesMap.entries())) {
+    const matchingEntries = data.entries;
+    // Hard Invariant: >= 3 entries AND >= 2 distinct dates
+    if (matchingEntries.length < 3) continue;
+
+    const distinctDates = new Set(matchingEntries.map((e) => e.createdAt.split('T')[0]));
+    if (distinctDates.size < 2) continue;
+
+    const topicDef = OBSERVATIONAL_TOPIC_REGISTRY.find((d) => d.key === topicKey);
+    const labelTr = topicDef?.labelTr || topicKey;
+    const allContexts = new Set<JournalContextTag>();
+    matchingEntries.forEach((e) => e.contextTags.forEach((t) => allContexts.add(t)));
+    const contextsList = Array.from(allContexts);
+
+    const sortedDates = matchingEntries.map((e) => e.createdAt).sort();
+    const isMultiContext = contextsList.length >= 2;
+    const status: RepeatedThemeStatus = isMultiContext ? 'MULTI_CONTEXT_REPEATED_REPORT' : 'REPEATED_SELF_REPORT';
+
+    let extractionMethod: ThemeExtractionMethod = 'DETERMINISTIC_KEYWORD';
+    if (data.methods.has('USER_TAG_DERIVED')) extractionMethod = 'USER_TAG_DERIVED';
+    else if (data.methods.has('DETERMINISTIC_TOPIC')) extractionMethod = 'DETERMINISTIC_TOPIC';
+
+    const relatedFacets = topicDef?.relevantFacetIds || [];
+    const summaryTr = topicDef
+      ? topicDef.descriptionTemplateTr(matchingEntries.length, distinctDates.size, contextsList.map(getContextLabelTr))
+      : `Farklı ${distinctDates.size} günde kaydedilen ${matchingEntries.length} yansımada ${labelTr} konusu tekrar eden bir gözlem olarak kaydedildi.`;
+
+    repeated.push({
+      themeId: `theme_${topicKey.toLowerCase()}_${matchingEntries.length}`,
+      labelTr,
+      normalizedThemeKey: topicKey,
+      topicCategory: topicKey,
+      evidenceEntryIds: matchingEntries.map((e) => e.id),
+      entryCount: matchingEntries.length,
+      distinctDatesCount: distinctDates.size,
+      contexts: contextsList,
+      status,
+      extractionMethod,
+      dateRange: { start: sortedDates[0], end: sortedDates[sortedDates.length - 1] },
+      summaryTr,
+      relatedFacetIds: relatedFacets,
+      // Compatibility aliases
+      themeKey: `theme_${topicKey.toLowerCase()}`,
+      themeTitleTr: labelTr,
+      context: contextsList[0] || 'GENERAL',
+      sampleEntryIds: matchingEntries.slice(0, 5).map((e) => e.id),
+    });
+  }
+
+  return repeated.sort((a, b) => b.entryCount - a.entryCount);
+}
+
+/**
+ * Computes Multi-Context Themes
+ * Invariant: >= 3 semantically related entries spanning >= 2 distinct contexts across >= 2 distinct dates.
+ */
+export function computeMultiContextThemes(repeatedThemes: RepeatedThemeV1[]): MultiContextThemeV1[] {
+  return repeatedThemes
+    .filter((t) => t.contexts.length >= 2)
+    .map((t) => ({
+      themeId: `mc_${t.themeId}`,
+      themeKey: t.themeKey || `mc_${t.normalizedThemeKey.toLowerCase()}`,
+      themeTitleTr: `Çoklu Bağlamda: ${t.labelTr}`,
+      topicKey: t.normalizedThemeKey,
+      contexts: t.contexts,
+      entryCount: t.entryCount,
+      distinctDatesCount: t.distinctDatesCount,
+      evidenceEntryIds: t.evidenceEntryIds,
+      sampleEntryIds: t.evidenceEntryIds.slice(0, 5),
+      status: 'MULTI_CONTEXT_REPEATED_REPORT',
+      extractionMethod: t.extractionMethod,
+      summaryTr: `Bu tema hem ${t.contexts.slice(0, 2).map(getContextLabelTr).join(' hem de ')} bağlamında (${t.distinctDatesCount} farklı günde) kendini göstermektedir.`,
+      relatedFacetIds: t.relatedFacetIds,
+    }));
+}
+
+/**
+ * Extract descriptive emotions
+ * Invariant: Descriptive USER_EXPRESSED_EMOTION only; no clinical diagnostic conclusions.
+ */
+export function extractEmotions(entries: JournalEntryV1[]): { emotion: string; count: number }[] {
+  const counts: Record<string, number> = {};
+
+  for (const entry of entries) {
+    const text = ((entry.title || '') + ' ' + (entry.body || '')).toLowerCase();
+    for (const [emotion, keywords] of Object.entries(EMOTION_LEXICON)) {
+      const match = keywords.some((kw) => text.includes(kw));
+      if (match) {
+        counts[emotion] = (counts[emotion] || 0) + 1;
+      }
+    }
+  }
+
+  return Object.entries(counts)
+    .map(([emotion, count]) => ({ emotion, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+/**
+ * Evaluates observational profile links & contextual variations
+ * INVARIANT: Context alone does not create profile alignment or variation.
+ * Requires directional semantic topic signals.
+ */
+export function evaluateProfileObservationalLinks(
+  entries: JournalEntryV1[],
+  profile: UnifiedPsychologicalProfileV2
+) {
+  const profileAlignedThemes: JournalObservationSummaryV1['profileAlignedThemes'] = [];
+  const contextualVariations: JournalObservationSummaryV1['contextualVariations'] = [];
+  const unmeasuredRelevantAreas: JournalObservationSummaryV1['unmeasuredRelevantAreas'] = [];
+
+  const measuredFacetsMap = new Map<string, FacetProfileV2>();
+  if (Array.isArray(profile.facets)) {
+    for (const f of profile.facets) {
+      if (f.measurementStatus !== 'NOT_MEASURED' && f.score !== null) {
+        measuredFacetsMap.set(f.facetId, f);
+      }
+    }
+  }
+
+  // Detect topics across all active entries
+  const entryTopicsList = entries.map((e) => ({ entry: e, topics: detectTopicsForEntry(e) }));
+
+  // Collect topics that have at least one explicit signal
+  const detectedTopicKeys = new Set<ObservationalTopicKey>();
+  entryTopicsList.forEach(({ topics }) => topics.forEach((t) => detectedTopicKeys.add(t.topicKey)));
+
+  for (const topicKey of Array.from(detectedTopicKeys)) {
+    const topicDef = OBSERVATIONAL_TOPIC_REGISTRY.find((d) => d.key === topicKey);
+    if (!topicDef) continue;
+
+    const matchingEntries = entryTopicsList.filter(({ topics }) => topics.some((t) => t.topicKey === topicKey));
+    if (matchingEntries.length === 0) continue;
+
+    for (const facetId of topicDef.relevantFacetIds) {
+      const facetMeta = MASTER_FACETS.find((f) => f.facetId === facetId);
+      if (!facetMeta) continue;
+
+      const profileFacet = measuredFacetsMap.get(facetId);
+      if (profileFacet && profileFacet.score !== null) {
+        const score = profileFacet.score;
+
+        // Contextual Variation Check: Explicit directional divergence
+        if (topicKey === 'WORK_STRESS' && facetId === 'anxiety' && score <= 2.5) {
+          const hasWorkContext = matchingEntries.some(({ entry }) => entry.contextTags.includes('WORK'));
+          if (hasWorkContext && !contextualVariations.some((v) => v.facetId === 'anxiety' && v.context === 'WORK')) {
+            contextualVariations.push({
+              context: 'WORK',
+              facetId,
+              facetNameTr: facetMeta.nameTr,
+              measuredScore: score,
+              topicKey,
+              userReportedTendencyTr: 'İş ortamında yoğun baskı ve stres bildirimleri',
+              narrativeTr: `Genel profilinizde sakinlik ve düşük kaygı düzeyi (${score.toFixed(2)}) ölçülmüşken, iş bağlamında daha yüksek stres bildirdiğiniz gözleniyor. Bu durum bağlamsal bir farklılaşmaya işaret eder.`,
+            });
+          }
+        } else if (topicKey === 'SOCIAL_EXPRESSION' && facetId === 'social_boldness' && score >= 3.8) {
+          const hasHesitation = matchingEntries.some(({ entry }) =>
+            (entry.body + ' ' + (entry.title || '')).toLowerCase().includes('çekin')
+          );
+          if (hasHesitation && !contextualVariations.some((v) => v.facetId === 'social_boldness')) {
+            contextualVariations.push({
+              context: matchingEntries[0]?.entry.contextTags[0] || 'WORK',
+              facetId,
+              facetNameTr: facetMeta.nameTr,
+              measuredScore: score,
+              topicKey,
+              userReportedTendencyTr: 'Toplantılarda ve sosyal ortamlarda ifade çekingenliği',
+              narrativeTr: `Ölçülen sosyal cesaret ve girişkenlik düzeyiniz (${score.toFixed(2)}) yüksek olmasına karşın, belirli sosyal/iş ortamlarında çekingenlik bildirdiğiniz görülüyor.`,
+            });
+          }
+        } else if (score >= 3.5 || score <= 2.2) {
+          if (!profileAlignedThemes.some((a) => a.facetId === facetId)) {
+            profileAlignedThemes.push({
+              relationshipType: 'ALIGNED_WITH_MEASUREMENT',
+              facetId,
+              facetNameTr: facetMeta.nameTr,
+              constructId: facetMeta.constructId,
+              topicKey,
+              summaryTr: `Yansımalarınızdaki '${topicDef.labelTr}' gözlemleri, ölçülen ${facetMeta.nameTr} (${score.toFixed(2)}) alanı ile aynı yönde deneyimler içermektedir.`,
+            });
+          }
+        }
+      } else {
+        // Unmeasured relevant area
+        if (matchingEntries.length >= 2) {
+          if (!unmeasuredRelevantAreas.some((a) => a.areaNameTr === facetMeta.nameTr)) {
+            unmeasuredRelevantAreas.push({
+              areaNameTr: facetMeta.nameTr,
+              context: matchingEntries[0]?.entry.contextTags[0] || 'GENERAL',
+              topicKey,
+              entryCount: matchingEntries.length,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return { profileAlignedThemes, contextualVariations, unmeasuredRelevantAreas };
+}
+
+/**
+ * Computes Growth Candidate Areas
+ * INVARIANT: Consumes ONLY validated repeated semantic themes or verified contextual variations.
+ * NEVER consumes context-frequency-only tags.
+ */
+export function computeGrowthCandidateAreas(
+  repeatedThemes: RepeatedThemeV1[],
+  contextualVariations: JournalObservationSummaryV1['contextualVariations']
+): GrowthCandidateAreaV1[] {
+  const candidates: GrowthCandidateAreaV1[] = [];
+
+  // ONLY consumes validated repeated themes (>=3 entries, >=2 dates)
+  for (const theme of repeatedThemes) {
+    candidates.push({
+      candidateId: `growth_theme_${theme.normalizedThemeKey.toLowerCase()}`,
+      sourceType: 'JOURNAL_OBSERVATION',
+      topicKey: theme.normalizedThemeKey,
+      labelTr: theme.labelTr,
+      relatedFacetIds: theme.relatedFacetIds,
+      relatedJournalThemes: [theme.labelTr],
+      userPriority: theme.entryCount >= 5 ? 'HIGH' : 'MEDIUM',
+      repeatEvidenceCount: theme.entryCount,
+      distinctDatesCount: theme.distinctDatesCount,
+      contexts: theme.contexts,
+      notesTr: `Kullanıcının yansımalarında ${theme.distinctDatesCount} farklı günde ${theme.entryCount} kez gözlenen '${theme.labelTr}' teması potansiyel gelişim ve farkındalık alanı olarak yapılandırılmıştır.`,
+    });
+  }
+
+  // Also include significant contextual variations
+  for (const variation of contextualVariations) {
+    if (!candidates.some((c) => c.relatedFacetIds.includes(variation.facetId))) {
+      candidates.push({
+        candidateId: `growth_var_${variation.facetId}_${variation.context.toLowerCase()}`,
+        sourceType: 'LONGITUDINAL_VARIATION',
+        topicKey: variation.topicKey,
+        labelTr: `${variation.facetNameTr} — ${getContextLabelTr(variation.context)} Bağlamı Farklılaşması`,
+        relatedFacetIds: [variation.facetId],
+        relatedJournalThemes: [variation.userReportedTendencyTr],
+        userPriority: 'MEDIUM',
+        repeatEvidenceCount: 1,
+        distinctDatesCount: 1,
+        contexts: [variation.context],
+        notesTr: variation.narrativeTr,
+      });
+    }
+  }
+
+  return candidates;
+}
+
 /**
  * Computes dynamic observation summary from active user journal entries
  * Invariant: Never modifies psychometric scores or profile coverage
@@ -146,39 +858,24 @@ export async function computeDynamicObservationSummary(
     dateRange = { start: dates[0], end: dates[dates.length - 1] };
   }
 
-  // 2. Dominant Context Distribution
-  const contextCounts: Record<JournalContextTag, number> = {} as any;
-  for (const t of VALID_JOURNAL_CONTEXT_TAGS) contextCounts[t] = 0;
+  // 2. Context Frequencies (Independent life domain recurrence)
+  const contextFrequencies = computeContextFrequencies(activeEntries);
+  const dominantContexts = contextFrequencies.map((f) => ({
+    context: f.context,
+    count: f.entryCount,
+    percentage: f.percentage,
+  }));
 
-  for (const entry of activeEntries) {
-    for (const tag of entry.contextTags) {
-      if (contextCounts[tag] !== undefined) {
-        contextCounts[tag]++;
-      }
-    }
-  }
-
-  const totalContextOccurrences = Object.values(contextCounts).reduce((a, b) => a + b, 0);
-  const dominantContexts = Object.entries(contextCounts)
-    .filter(([_, count]) => count > 0)
-    .map(([context, count]) => ({
-      context: context as JournalContextTag,
-      count,
-      percentage:
-        totalContextOccurrences > 0 ? Math.round((count / totalContextOccurrences) * 100) : 0,
-    }))
-    .sort((a, b) => b.count - a.count);
-
-  // 3. Repeated Themes (Rule: >= 3 entries, >= 2 distinct calendar dates)
+  // 3. Repeated Semantic Themes (Rule: >= 3 semantically related entries, >= 2 distinct dates)
   const repeatedThemes = computeRepeatedThemes(activeEntries);
 
-  // 4. Multi-Context Themes (Rule: >= 3 entries, >= 2 contexts, >= 2 distinct dates)
-  const multiContextThemes = computeMultiContextThemes(activeEntries);
+  // 4. Multi-Context Themes
+  const multiContextThemes = computeMultiContextThemes(repeatedThemes);
 
   // 5. Emotion Extraction (Descriptive)
   const repeatedEmotions = extractEmotions(activeEntries);
 
-  // 6. Profile Alignment & Contextual Variations
+  // 6. Profile Alignment & Directional Contextual Variations
   const { profileAlignedThemes, contextualVariations, unmeasuredRelevantAreas } =
     evaluateProfileObservationalLinks(activeEntries, profile);
 
@@ -192,11 +889,15 @@ export async function computeDynamicObservationSummary(
       title: e.title || null,
     }));
 
+  // 8. Growth Candidate Areas (Strictly consumes validated repeated themes/variations, NEVER raw context count)
+  const growthCandidateAreas = computeGrowthCandidateAreas(repeatedThemes, contextualVariations);
+
   return {
     userId,
     entryCount,
     activeEntriesCount: entryCount,
     dateRange,
+    contextFrequencies,
     dominantContexts,
     repeatedThemes,
     multiContextThemes,
@@ -205,215 +906,14 @@ export async function computeDynamicObservationSummary(
     contextualVariations,
     unmeasuredRelevantAreas,
     lifeEvents,
+    growthCandidateAreas,
     limitations: [
       'Günlük kayıtları kişisel öz-bildirimlerdir; psikometrik ölçüm yerine geçmez.',
-      'Tekrarlanan temalar operasyonel gözlemlerdir; psikolojik tanı teşkil etmez.',
+      'Tekrarlanan temalar semantik içerik benzerliğine dayalı operasyonel gözlemlerdir; psikolojik tanı teşkil etmez.',
+      'Yaşam alanı sıklığı (bağlam frekansı), psikolojik bir tema tekrarı ile eşdeğer değildir.',
       'Bağlamsal farklılıklar genel kişiliği geçersiz kılmaz, durumsal dinamikleri betimler.',
     ],
   };
-}
-
-/**
- * Compute Repeated Themes
- * Invariant: >= 3 entries AND >= 2 distinct calendar dates
- */
-function computeRepeatedThemes(entries: JournalEntryV1[]): RepeatedThemeV1[] {
-  const contextGroups: Record<JournalContextTag, JournalEntryV1[]> = {} as any;
-  for (const tag of VALID_JOURNAL_CONTEXT_TAGS) contextGroups[tag] = [];
-
-  for (const entry of entries) {
-    for (const tag of entry.contextTags) {
-      if (contextGroups[tag]) {
-        contextGroups[tag].push(entry);
-      }
-    }
-  }
-
-  const repeated: RepeatedThemeV1[] = [];
-
-  for (const tag of VALID_JOURNAL_CONTEXT_TAGS) {
-    const group = contextGroups[tag];
-    if (!group || group.length < 3) continue;
-
-    // Check distinct calendar dates (YYYY-MM-DD)
-    const distinctDates = new Set(group.map((e) => e.createdAt.split('T')[0]));
-    if (distinctDates.size < 2) continue;
-
-    const dates = group.map((e) => e.createdAt).sort();
-    const relatedFacets = (CONTEXT_FACET_MAP[tag] || []).slice(0, 3);
-
-    repeated.push({
-      themeKey: `theme_${tag.toLowerCase()}_repeated`,
-      themeTitleTr: getContextThemeTitle(tag),
-      context: tag,
-      entryCount: group.length,
-      distinctDatesCount: distinctDates.size,
-      dateRange: { start: dates[0], end: dates[dates.length - 1] },
-      sampleEntryIds: group.slice(0, 5).map((e) => e.id),
-      status: 'REPEATED_SELF_REPORT',
-      relatedFacetIds: relatedFacets,
-      summaryTr: `Farklı ${distinctDates.size} günde kaydedilen ${group.length} yansımada ${getContextLabelTr(tag)} bağlamı belirgin şekilde tekrar etti.`,
-    });
-  }
-
-  return repeated;
-}
-
-/**
- * Compute Multi-Context Themes
- * Invariant: >= 3 entries, >= 2 distinct contexts, >= 2 distinct dates
- */
-function computeMultiContextThemes(entries: JournalEntryV1[]): MultiContextThemeV1[] {
-  // Check decision or stress across multiple contexts
-  const multiThemes: MultiContextThemeV1[] = [];
-
-  // Theme 1: Cross-context stress / challenge
-  const stressEntries = entries.filter(
-    (e) =>
-      e.entryType === 'STRESS' ||
-      e.entryType === 'CHALLENGE' ||
-      e.contextTags.includes('STRESS') ||
-      (e.stressSelfReport !== null && e.stressSelfReport !== undefined && e.stressSelfReport >= 4)
-  );
-
-  if (stressEntries.length >= 3) {
-    const distinctDates = new Set(stressEntries.map((e) => e.createdAt.split('T')[0]));
-    const allContexts = new Set<JournalContextTag>();
-    stressEntries.forEach((e) => e.contextTags.forEach((t) => allContexts.add(t)));
-
-    if (distinctDates.size >= 2 && allContexts.size >= 2) {
-      multiThemes.push({
-        themeKey: 'multi_context_stress_demand',
-        themeTitleTr: 'Çoklu Bağlamda Stres ve Zorlanma Deneyimi',
-        contexts: Array.from(allContexts),
-        entryCount: stressEntries.length,
-        distinctDatesCount: distinctDates.size,
-        sampleEntryIds: stressEntries.slice(0, 5).map((e) => e.id),
-        summaryTr: `Hem ${Array.from(allContexts).slice(0, 2).map(getContextLabelTr).join(' hem de ')} bağlamında stres ve zorlanma teması gözlendi.`,
-      });
-    }
-  }
-
-  // Theme 2: Cross-context decision making
-  const decisionEntries = entries.filter(
-    (e) => e.entryType === 'DECISION' || e.contextTags.includes('DECISION_MAKING')
-  );
-
-  if (decisionEntries.length >= 3) {
-    const distinctDates = new Set(decisionEntries.map((e) => e.createdAt.split('T')[0]));
-    const allContexts = new Set<JournalContextTag>();
-    decisionEntries.forEach((e) => e.contextTags.forEach((t) => allContexts.add(t)));
-
-    if (distinctDates.size >= 2 && allContexts.size >= 2) {
-      multiThemes.push({
-        themeKey: 'multi_context_deliberation',
-        themeTitleTr: 'Farklı Alanlarda Karar Verme Süreçleri',
-        contexts: Array.from(allContexts),
-        entryCount: decisionEntries.length,
-        distinctDatesCount: distinctDates.size,
-        sampleEntryIds: decisionEntries.slice(0, 5).map((e) => e.id),
-        summaryTr: `Farklı yaşam alanlarında (${Array.from(allContexts).slice(0, 2).map(getContextLabelTr).join(', ')}) karar alma süreçleri üzerine odaklanma görüldü.`,
-      });
-    }
-  }
-
-  return multiThemes;
-}
-
-/**
- * Extract descriptive emotions
- */
-function extractEmotions(entries: JournalEntryV1[]): { emotion: string; count: number }[] {
-  const counts: Record<string, number> = {};
-
-  for (const entry of entries) {
-    const text = (entry.title + ' ' + entry.body).toLowerCase();
-    for (const [emotion, keywords] of Object.entries(EMOTION_LEXICON)) {
-      const match = keywords.some((kw) => text.includes(kw));
-      if (match) {
-        counts[emotion] = (counts[emotion] || 0) + 1;
-      }
-    }
-  }
-
-  return Object.entries(counts)
-    .map(([emotion, count]) => ({ emotion, count }))
-    .sort((a, b) => b.count - a.count);
-}
-
-/**
- * Evaluates observational profile links & contextual variations
- */
-function evaluateProfileObservationalLinks(
-  entries: JournalEntryV1[],
-  profile: UnifiedPsychologicalProfileV2
-) {
-  const profileAlignedThemes: JournalObservationSummaryV1['profileAlignedThemes'] = [];
-  const contextualVariations: JournalObservationSummaryV1['contextualVariations'] = [];
-  const unmeasuredRelevantAreas: JournalObservationSummaryV1['unmeasuredRelevantAreas'] = [];
-
-  const measuredFacetsMap = new Map<string, FacetProfileV2>();
-  if (Array.isArray(profile.facets)) {
-    for (const f of profile.facets) {
-      if (f.measurementStatus !== 'NOT_MEASURED' && f.score !== null) {
-        measuredFacetsMap.set(f.facetId, f);
-      }
-    }
-  }
-
-  // Evaluate each context tag
-  for (const tag of VALID_JOURNAL_CONTEXT_TAGS) {
-    const relevantFacets = CONTEXT_FACET_MAP[tag] || [];
-    const entriesInContext = entries.filter((e) => e.contextTags.includes(tag));
-    if (entriesInContext.length === 0) continue;
-
-    for (const facetId of relevantFacets) {
-      const facetMeta = MASTER_FACETS.find((f) => f.facetId === facetId);
-      if (!facetMeta) continue;
-
-      const profileFacet = measuredFacetsMap.get(facetId);
-      if (profileFacet && profileFacet.score !== null) {
-        const score = profileFacet.score;
-
-        // Contextual Variation Check (e.g. Work stress high while measured anxiety is low, or social avoidance at work while extraversion is high)
-        const hasHighStressInContext = entriesInContext.some(
-          (e) => (e.stressSelfReport !== null && e.stressSelfReport !== undefined && e.stressSelfReport >= 4) || e.entryType === 'STRESS'
-        );
-
-        if (tag === 'WORK' && facetId === 'anxiety' && score <= 2.5 && hasHighStressInContext) {
-          contextualVariations.push({
-            context: 'WORK',
-            facetId,
-            facetNameTr: facetMeta.nameTr,
-            measuredScore: score,
-            userReportedTendencyTr: 'İş ortamında yoğun baskı ve stres bildirimleri',
-            narrativeTr: `Genel profilinizde sakinlik ve düşük kaygı düzeyi (${score.toFixed(2)}) ölçülmüşken, iş bağlamında daha yüksek stres bildirdiğiniz gözleniyor. Bu durum bağlamsal bir farklılaşmaya işaret eder.`,
-          });
-        } else if (score >= 3.5 || score <= 2.2) {
-          profileAlignedThemes.push({
-            relationshipType: 'ALIGNED_WITH_MEASUREMENT',
-            facetId,
-            facetNameTr: facetMeta.nameTr,
-            constructId: facetMeta.constructId,
-            summaryTr: `${getContextLabelTr(tag)} bağlamındaki yansımalarınız, ölçülen ${facetMeta.nameTr} (${score.toFixed(2)}) alanı ile aynı yönde betimlemeler içeriyor.`,
-          });
-        }
-      } else {
-        // Unmeasured relevant area
-        if (entriesInContext.length >= 2) {
-          if (!unmeasuredRelevantAreas.some((a) => a.areaNameTr === facetMeta.nameTr)) {
-            unmeasuredRelevantAreas.push({
-              areaNameTr: facetMeta.nameTr,
-              context: tag,
-              entryCount: entriesInContext.length,
-            });
-          }
-        }
-      }
-    }
-  }
-
-  return { profileAlignedThemes, contextualVariations, unmeasuredRelevantAreas };
 }
 
 /**
@@ -456,7 +956,7 @@ export async function buildJournalObservationBundle(
   // Scoped profile evidence relevant to entry's context tags
   const relevantFacetIds = new Set<string>();
   for (const tag of entry.contextTags) {
-    (CONTEXT_FACET_MAP[tag] || []).forEach((id) => relevantFacetIds.add(id));
+    (POTENTIALLY_RELEVANT_FACET_MAP[tag] || []).forEach((id) => relevantFacetIds.add(id));
   }
 
   const scopedProfileEvidence: JournalObservationBundleV1['scopedProfileEvidence'] = [];
@@ -505,8 +1005,8 @@ export async function buildJournalObservationBundle(
     },
     recentContextDistribution,
     activeRepeatedThemes: repeated.map((r) => ({
-      titleTr: r.themeTitleTr,
-      context: r.context,
+      titleTr: r.labelTr,
+      context: r.contexts[0],
       entryCount: r.entryCount,
       summaryTr: r.summaryTr,
     })),
@@ -520,6 +1020,8 @@ export async function buildJournalObservationBundle(
 
 /**
  * Resolves observational relationships between entry and Master Model
+ * INVARIANT: Context alone does not establish alignment or variation.
+ * A directional observational topic signal is required.
  */
 export function resolveJournalProfileRelationships(
   entry: JournalEntryV1,
@@ -535,27 +1037,72 @@ export function resolveJournalProfileRelationships(
     }
   }
 
-  for (const tag of entry.contextTags) {
-    const relevantFacets = CONTEXT_FACET_MAP[tag] || [];
-    for (const facetId of relevantFacets) {
+  const detectedTopics = detectTopicsForEntry(entry);
+
+  // If entry contains NO matching semantic topic signals, return NO_CLEAR_RELATION
+  if (detectedTopics.length === 0) {
+    for (const tag of entry.contextTags) {
+      const potentiallyRelevant = (POTENTIALLY_RELEVANT_FACET_MAP[tag] || []).slice(0, 2);
+      for (const facetId of potentiallyRelevant) {
+        const facetMeta = MASTER_FACETS.find((f) => f.facetId === facetId);
+        if (!facetMeta) continue;
+
+        relationships.push({
+          id: `rel_${entry.id}_${facetId}_noclear`,
+          entryId: entry.id,
+          relationshipType: 'NO_CLEAR_RELATION',
+          evidenceType: 'USER_REPORTED_CONTEXT',
+          strength: 'WEAK',
+          relatedFacetIds: [facetId],
+          relatedConstructIds: [facetMeta.constructId],
+          relatedDomainIds: [facetMeta.domainId],
+          narrativeTr: `Bu kayıttaki deneyim, genel ${getContextLabelTr(tag)} bağlamına aittir ancak ölçülen ${facetMeta.nameTr} boyutuyla doğrudan bir örtüşme veya ayrışma sinyali içermemektedir.`,
+          createdAt: new Date().toISOString(),
+        });
+      }
+    }
+    return relationships;
+  }
+
+  // Evaluate each detected topic against relevant facets
+  for (const topic of detectedTopics) {
+    const topicDef = OBSERVATIONAL_TOPIC_REGISTRY.find((d) => d.key === topic.topicKey);
+    if (!topicDef) continue;
+
+    for (const facetId of topicDef.relevantFacetIds) {
       const facetMeta = MASTER_FACETS.find((f) => f.facetId === facetId);
       if (!facetMeta) continue;
 
       const profileFacet = measuredFacetsMap.get(facetId);
       if (profileFacet && profileFacet.score !== null) {
+        const score = profileFacet.score;
+
+        let relType: JournalRelationshipType = 'ALIGNED_WITH_MEASUREMENT';
+        let narrative = `Bu kayıtta gözlenen ${topic.labelTr} teması, profilinizdeki ${facetMeta.nameTr} (${score.toFixed(2)}) ölçümüyle anlamlı bir paralellik taşımaktadır.`;
+
+        // Check for specific directional variation
+        if (topic.topicKey === 'SOCIAL_EXPRESSION' && facetId === 'social_boldness' && score >= 3.5) {
+          relType = 'CONTEXTUAL_VARIATION';
+          narrative = `Ölçülen sosyal cesaret ve girişkenlik düzeyiniz (${score.toFixed(2)}) yüksek olmasına karşın, bu yansımada sosyal/iş ortamında çekingenlik deneyimi paylaşıldı.`;
+        } else if (topic.topicKey === 'WORK_STRESS' && facetId === 'anxiety' && score <= 2.5) {
+          relType = 'CONTEXTUAL_VARIATION';
+          narrative = `Genel profilinizde düşük kaygı (${score.toFixed(2)}) ölçülmüşken, bu yansımada iş ortamında yoğun stres ve baskı bildirilmektedir.`;
+        }
+
         relationships.push({
           id: `rel_${entry.id}_${facetId}`,
           entryId: entry.id,
-          relationshipType: 'ALIGNED_WITH_MEASUREMENT',
+          relationshipType: relType,
           evidenceType: 'OBSERVATIONAL_DATA',
-          strength: entry.body.length > 200 ? 'MODERATE' : 'WEAK',
+          strength: entry.body.length > 150 ? 'MODERATE' : 'WEAK',
           relatedFacetIds: [facetId],
           relatedConstructIds: [facetMeta.constructId],
           relatedDomainIds: [facetMeta.domainId],
-          narrativeTr: `Bu yansımada belirtilen durum, profilinizdeki ${facetMeta.nameTr} (${profileFacet.score.toFixed(2)}) ölçümü ile paralellik taşımaktadır.`,
+          narrativeTr: narrative,
           createdAt: new Date().toISOString(),
         });
       } else {
+        // Unmeasured relevant area
         relationships.push({
           id: `rel_${entry.id}_${facetId}_unmeasured`,
           entryId: entry.id,
@@ -565,7 +1112,7 @@ export function resolveJournalProfileRelationships(
           relatedFacetIds: [facetId],
           relatedConstructIds: [facetMeta.constructId],
           relatedDomainIds: [facetMeta.domainId],
-          narrativeTr: `Bu alandaki deneyiminiz (${facetMeta.nameTr}), profilinizde henüz doğrudan bir modül ile ölçülmemiştir.`,
+          narrativeTr: `Bu yansımada gözlenen ${topic.labelTr} alanı (${facetMeta.nameTr}), profilinizde henüz doğrudan bir modül ile ölçülmemiştir.`,
           createdAt: new Date().toISOString(),
         });
       }
@@ -575,7 +1122,7 @@ export function resolveJournalProfileRelationships(
   return relationships;
 }
 
-function getContextLabelTr(tag: JournalContextTag): string {
+export function getContextLabelTr(tag: JournalContextTag): string {
   switch (tag) {
     case 'WORK':
       return 'İş ve Çalışma';
@@ -600,33 +1147,5 @@ function getContextLabelTr(tag: JournalContextTag): string {
     case 'GENERAL':
     default:
       return 'Genel Yansıma';
-  }
-}
-
-function getContextThemeTitle(tag: JournalContextTag): string {
-  switch (tag) {
-    case 'WORK':
-      return 'İş Odaklı Süreçler ve Deneyimler';
-    case 'RELATIONSHIPS':
-      return 'İlişkisel Dinamikler ve İletişim';
-    case 'FAMILY':
-      return 'Aile İçi Dinamikler';
-    case 'DECISION_MAKING':
-      return 'Karar Alma ve Değerlendirme Süreçleri';
-    case 'STRESS':
-      return 'Stres, Baskı ve Başa Çıkma';
-    case 'SOCIAL':
-      return 'Sosyal Etkileşim ve İfade';
-    case 'SELF_IMAGE':
-      return 'Benlik Algısı ve İçsel Değerlendirme';
-    case 'GOALS':
-      return 'Hedef Takibi ve Kararlılık';
-    case 'HEALTH':
-      return 'Bedensel ve Zihinsel İyilik Hali';
-    case 'LIFE_EVENT':
-      return 'Geçiş Dönemi ve Yaşam Değişiklikleri';
-    case 'GENERAL':
-    default:
-      return 'Genel Farkındalık ve Düşünceler';
   }
 }

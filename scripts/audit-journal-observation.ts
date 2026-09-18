@@ -257,67 +257,103 @@ async function runJournalObservationAudit() {
   assert(summarySingle.entryCount === 1, 'Entry count is 1');
   assert(summarySingle.repeatedThemes.length === 0, 'Single entry does NOT produce repeated theme');
 
-  // [Test 4] Three Same-Day Entries -> Distinct Date Rule Enforced:
-  console.log('\n[Test 4] Three Same-Day Entries -> Distinct Date Rule Enforced:');
-  const sameDayEntries: JournalEntryV1[] = [
-    { ...singleEntry, id: 'entry_1a', createdAt: '2026-09-15T09:00:00.000Z' },
-    { ...singleEntry, id: 'entry_1b', createdAt: '2026-09-15T14:00:00.000Z' },
-    { ...singleEntry, id: 'entry_1c', createdAt: '2026-09-15T18:00:00.000Z' },
+  // [Hardening Check: Case A] 3 entries with context WORK but unrelated topics
+  console.log('\n[Hardening Check: Case A] Context Recurrence != Semantic Theme Recurrence:');
+  const unrelatedWorkEntries: JournalEntryV1[] = [
+    { ...singleEntry, id: 'unrel_1', title: 'Masa siparişi', body: 'Ofis için yeni bir masa siparişi verdik.', entryType: 'WORK', contextTags: ['WORK'], stressSelfReport: 2, createdAt: '2026-09-10T10:00:00.000Z' },
+    { ...singleEntry, id: 'unrel_2', title: 'Öğle yemeği', body: 'Öğle yemeğinde arkadaşlarla lokantaya gittik.', entryType: 'WORK', contextTags: ['WORK'], stressSelfReport: 2, createdAt: '2026-09-11T12:00:00.000Z' },
+    { ...singleEntry, id: 'unrel_3', title: 'Arşiv', body: 'Geçen senenin evraklarını arşiv odasına kaldırdık.', entryType: 'WORK', contextTags: ['WORK'], stressSelfReport: 2, createdAt: '2026-09-12T09:00:00.000Z' },
   ];
-  const summarySameDay = await computeDynamicObservationSummary('test_user_journal', sameDayEntries, mockProfile);
-  assert(summarySameDay.entryCount === 3, 'Entry count is 3');
-  assert(summarySameDay.repeatedThemes.length === 0, '3 same-day entries do NOT satisfy >= 2 distinct dates rule');
+  const summaryCaseA = await computeDynamicObservationSummary('test_user_journal', unrelatedWorkEntries, mockProfile);
+  const workFreqCaseA = summaryCaseA.contextFrequencies.find((cf) => cf.context === 'WORK');
+  assert(workFreqCaseA !== undefined && workFreqCaseA.entryCount === 3, 'Context frequency records WORK count = 3');
+  assert(workFreqCaseA?.percentage === 100, 'Context frequency records WORK percentage = 100%');
+  assert(summaryCaseA.repeatedThemes.length === 0, 'ZERO repeated themes created when 3 entries share context but describe unrelated topics');
+  assert(summaryCaseA.growthCandidateAreas.length === 0, 'ZERO growth candidate areas generated from pure context recurrence');
 
-  // [Test 5] Repeated Theme Calculation (>= 3 entries, >= 2 dates):
-  console.log('\n[Test 5] Repeated Theme Calculation (>= 3 entries, >= 2 dates):');
-  const distinctDateEntries: JournalEntryV1[] = [
-    { ...singleEntry, id: 'entry_2a', createdAt: '2026-09-15T10:00:00.000Z' },
-    { ...singleEntry, id: 'entry_2b', createdAt: '2026-09-15T16:00:00.000Z' },
-    { ...singleEntry, id: 'entry_2c', createdAt: '2026-09-17T11:00:00.000Z' },
+  // [Hardening Check: Case B] 3 entries sharing topic WORK_STRESS across 2 dates
+  console.log('\n[Hardening Check: Case B] Validated Semantic Theme Recurrence:');
+  const sharedTopicEntries: JournalEntryV1[] = [
+    { ...singleEntry, id: 'stress_1', title: 'Baskı', body: 'İş yerinde teslim tarihleri nedeniyle yoğun stres ve baskı hissediyorum.', entryType: 'STRESS', contextTags: ['WORK'], stressSelfReport: 5, createdAt: '2026-09-15T10:00:00.000Z' },
+    { ...singleEntry, id: 'stress_2', title: 'Yük', body: 'Aşırı iş yükü ve bitmeyen talepler beni çok bunalttı, stres seviyem yüksek.', entryType: 'STRESS', contextTags: ['WORK'], stressSelfReport: 4, createdAt: '2026-09-15T16:00:00.000Z' },
+    { ...singleEntry, id: 'stress_3', title: 'Gerginlik', body: 'Müdürün beklentileri ve iş ortamındaki stres zorluyor.', entryType: 'WORK', contextTags: ['WORK'], stressSelfReport: 4, createdAt: '2026-09-17T11:00:00.000Z' },
   ];
-  const summaryDistinct = await computeDynamicObservationSummary('test_user_journal', distinctDateEntries, mockProfile);
-  assert(summaryDistinct.repeatedThemes.length >= 1, 'Repeated theme identified');
-  assert(summaryDistinct.repeatedThemes[0].status === 'REPEATED_SELF_REPORT', 'Status is strictly REPEATED_SELF_REPORT');
-  assert(summaryDistinct.repeatedThemes[0].distinctDatesCount === 2, 'Distinct dates count is 2');
+  const summaryCaseB = await computeDynamicObservationSummary('test_user_journal', sharedTopicEntries, mockProfile);
+  assert(summaryCaseB.repeatedThemes.length >= 1, 'Repeated theme identified for shared semantic topic');
+  const workStressTheme = summaryCaseB.repeatedThemes.find((t) => t.normalizedThemeKey === 'WORK_STRESS' || t.topicCategory === 'WORK_STRESS');
+  assert(workStressTheme !== undefined, 'WORK_STRESS theme found in repeated themes');
+  assert(workStressTheme?.status === 'REPEATED_SELF_REPORT', 'Theme status is REPEATED_SELF_REPORT');
+  assert(workStressTheme?.distinctDatesCount === 2, 'Distinct dates count is 2');
+  assert(summaryCaseB.growthCandidateAreas.length >= 1, 'Growth candidate area generated for validated repeated theme');
 
-  // [Test 6] Multi-Context Theme
-  console.log('\n[Test 6] Multi-Context Theme (>= 3 entries, >= 2 contexts, >= 2 dates):');
+  // [Hardening Check: Case C] 3 same-day entries sharing topic
+  console.log('\n[Hardening Check: Case C] Three Same-Day Entries Sharing Topic -> Distinct Date Rule:');
+  const sameDayStressEntries: JournalEntryV1[] = [
+    { ...singleEntry, id: 'same_1', body: 'İş yerinde stresliyim.', entryType: 'STRESS', contextTags: ['WORK'], stressSelfReport: 5, createdAt: '2026-09-15T09:00:00.000Z' },
+    { ...singleEntry, id: 'same_2', body: 'İş stresi devam ediyor.', entryType: 'STRESS', contextTags: ['WORK'], stressSelfReport: 4, createdAt: '2026-09-15T14:00:00.000Z' },
+    { ...singleEntry, id: 'same_3', body: 'Akşam da iş stresi hissettim.', entryType: 'STRESS', contextTags: ['WORK'], stressSelfReport: 4, createdAt: '2026-09-15T18:00:00.000Z' },
+  ];
+  const summaryCaseC = await computeDynamicObservationSummary('test_user_journal', sameDayStressEntries, mockProfile);
+  assert(summaryCaseC.entryCount === 3, 'Entry count is 3');
+  assert(summaryCaseC.repeatedThemes.length === 0, '3 same-day entries do NOT satisfy >= 2 distinct dates rule');
+
+  // [Hardening Check: Case D] Multi-Context Theme
+  console.log('\n[Hardening Check: Case D] Multi-Context Theme (>= 3 entries, >= 2 contexts, >= 2 dates):');
   const multiContextEntries: JournalEntryV1[] = [
-    { ...singleEntry, id: 'mc_1', contextTags: ['WORK'], entryType: 'STRESS', stressSelfReport: 5, createdAt: '2026-09-15T10:00:00.000Z' },
-    { ...singleEntry, id: 'mc_2', contextTags: ['RELATIONSHIPS'], entryType: 'STRESS', stressSelfReport: 4, createdAt: '2026-09-16T12:00:00.000Z' },
-    { ...singleEntry, id: 'mc_3', contextTags: ['FAMILY'], entryType: 'CHALLENGE', stressSelfReport: 4, createdAt: '2026-09-17T09:00:00.000Z' },
+    { ...singleEntry, id: 'mc_1', body: 'Kariyer konusunda karar vermekte ve yolumu seçmekte zorlanıyorum.', entryType: 'DECISION', contextTags: ['WORK'], createdAt: '2026-09-15T10:00:00.000Z' },
+    { ...singleEntry, id: 'mc_2', body: 'İlişkimle ilgili net bir karar almakta güçlük çekiyorum, kararsızlık var.', entryType: 'DECISION', contextTags: ['RELATIONSHIPS'], createdAt: '2026-09-16T12:00:00.000Z' },
+    { ...singleEntry, id: 'mc_3', body: 'Ailevi konularda da iki seçenek arasında kaldım, karar veremiyorum.', entryType: 'DECISION', contextTags: ['FAMILY'], createdAt: '2026-09-17T09:00:00.000Z' },
   ];
   const summaryMulti = await computeDynamicObservationSummary('test_user_journal', multiContextEntries, mockProfile);
   assert(summaryMulti.multiContextThemes.length >= 1, 'Multi-context theme identified');
   assert(summaryMulti.multiContextThemes[0].contexts.length >= 2, 'Multi-context theme spans >= 2 contexts');
+  assert(summaryMulti.multiContextThemes[0].topicKey === 'DECISION_DIFFICULTY', 'Multi-context theme topic is DECISION_DIFFICULTY');
 
-  // [Test 7] Psychometric Immutability: Profile Unchanged Before and After Journal
-  console.log('\n[Test 7] Hard Invariant: Profile State Immutability:');
+  // [Test 7 / Case I] Psychometric Immutability: Profile Unchanged Before and After Journal
+  console.log('\n[Test 7 / Case I] Hard Invariant: Profile State Immutability:');
   const initialFacetCount = mockProfile.coverage.facetCoverage.measuredCount;
   const initialExploration = mockProfile.coverage.facetCoverage.percentage;
   const initialAnxietyScore = mockProfile.facets.find((f) => f.facetId === 'anxiety')?.score;
   const initialUnmeasuredStatus = mockProfile.facets.find((f) => f.facetId === 'fearfulness')?.measurementStatus;
 
   // Simulate heavy journal activity
-  await computeDynamicObservationSummary('test_user_journal', [...distinctDateEntries, ...multiContextEntries], mockProfile);
+  await computeDynamicObservationSummary('test_user_journal', [...sharedTopicEntries, ...multiContextEntries], mockProfile);
 
   assert(mockProfile.coverage.facetCoverage.measuredCount === initialFacetCount, 'Measured facet count remains exactly unchanged (3)');
   assert(mockProfile.coverage.facetCoverage.percentage === initialExploration, 'Exploration percentage remains exactly unchanged (3%)');
   assert(mockProfile.facets.find((f) => f.facetId === 'anxiety')?.score === initialAnxietyScore, 'Facet score remains exactly unchanged');
   assert(mockProfile.facets.find((f) => f.facetId === 'fearfulness')?.measurementStatus === initialUnmeasuredStatus, 'Unmeasured facet remains NOT_MEASURED');
 
-  // [Test 8] Contextual Variation Logic
-  console.log('\n[Test 8] Contextual Variation Detection:');
+  // [Test 8 / Case F] Contextual Variation Logic
+  console.log('\n[Test 8 / Case F] Contextual Variation Detection:');
   const workStressEntry: JournalEntryV1 = {
     ...singleEntry,
     id: 'ws_1',
     contextTags: ['WORK'],
     entryType: 'STRESS',
     stressSelfReport: 5,
+    body: 'İş yerinde yoğun kaygı ve stres yaşıyorum.',
   };
   const summaryVariation = await computeDynamicObservationSummary('test_user_journal', [workStressEntry], mockProfile);
   assert(summaryVariation.contextualVariations.length >= 1, 'Contextual variation detected between low measured anxiety and high work stress');
   assert(summaryVariation.contextualVariations[0].facetId === 'anxiety', 'Contextual variation correctly references anxiety');
+
+  // [Hardening Check: Case G] Neutral Entry yields NO_CLEAR_RELATION
+  console.log('\n[Hardening Check: Case G] Neutral Entry -> NO_CLEAR_RELATION:');
+  const neutralEntry: JournalEntryV1 = {
+    ...singleEntry,
+    id: 'neutral_1',
+    title: 'Rutin',
+    body: 'Bugün ofiste normal bir gündü, rutin raporları düzenledim.',
+    entryType: 'WORK',
+    contextTags: ['WORK'],
+    stressSelfReport: 2,
+    moodSelfReport: 3,
+    energySelfReport: 3,
+  };
+  const neutralRelationships = resolveJournalProfileRelationships(neutralEntry, mockProfile);
+  assert(neutralRelationships.length === 1, 'Neutral entry produces single relationship');
+  assert(neutralRelationships[0].relationshipType === 'NO_CLEAR_RELATION', 'Neutral entry produces NO_CLEAR_RELATION (no forced variation or alignment)');
 
   // [Test 9] Non-Diagnostic Claim Verification
   console.log('\n[Test 9] Anti-Diagnosis & Anti-Trauma Claim Verification:');
