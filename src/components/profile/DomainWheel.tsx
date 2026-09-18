@@ -108,7 +108,7 @@ export const DomainWheel: React.FC<DomainWheelProps> = ({
                       {domain.nameTr}
                     </h4>
                     <span className="text-[10px] text-text-tertiary truncate block">
-                      {domain.constructs.length} Yapı • {domain.totalFacetCount} Alt Boyut
+                      {domain.constructs.length} Yapı • {domain.facetCount} Alt Boyut
                     </span>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ export const DomainWheel: React.FC<DomainWheelProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between text-[10px] text-text-tertiary pt-0.5">
-                  <span>{domain.measuredFacetCount} / {domain.totalFacetCount} Boyut Ölçüldü</span>
+                  <span>{domain.measuredFacetCount} / {domain.facetCount} Boyut Ölçüldü</span>
                   <span className="font-semibold text-brand-primary flex items-center">
                     İncele <ChevronRight className="w-3 h-3 ml-0.5" />
                   </span>
