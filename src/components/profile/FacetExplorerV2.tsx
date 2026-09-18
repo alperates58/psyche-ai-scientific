@@ -196,7 +196,7 @@ export const FacetExplorerV2: React.FC<FacetExplorerV2Props> = ({
                     </div>
                     <div className="space-y-0.5">
                       <div className="text-[10px] font-semibold text-text-tertiary uppercase tracking-wider">
-                        {facet.domainNameTr}
+                        {domains.find((d) => d.domainId === facet.domainId)?.nameTr || facet.domainId}
                       </div>
                       <h4 className="text-sm font-bold text-text-primary leading-tight">
                         {facet.nameTr}

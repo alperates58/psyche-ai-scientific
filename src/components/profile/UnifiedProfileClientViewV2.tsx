@@ -112,16 +112,19 @@ export const UnifiedProfileClientViewV2: React.FC<UnifiedProfileClientViewV2Prop
   // Convert measured constructs/facets to fingerprint coordinates
   const fingerprintCoordinates = profile.facets
     .filter((f) => f.measurementStatus === 'MEASURED_PRECALIBRATION' && f.score !== null)
-    .map((f) => ({
-      id: f.facetId,
-      nameTr: f.nameTr,
-      domainId: f.domainId,
-      domainNameTr: f.domainNameTr,
-      normalizedScore: f.normalizedVisualCoordinate ?? 50,
-      rawScore: f.score,
-      scaleMin: 1.0,
-      scaleMax: 5.0,
-    }));
+    .map((f) => {
+      const domain = profile.domains.find((d) => d.domainId === f.domainId);
+      return {
+        id: f.facetId,
+        nameTr: f.nameTr,
+        domainId: f.domainId,
+        domainNameTr: domain?.nameTr || f.domainId,
+        normalizedScore: f.normalizedVisualCoordinate ?? 50,
+        rawScore: f.score,
+        scaleMin: 1.0,
+        scaleMax: 5.0,
+      };
+    });
 
   return (
     <div className="space-y-8">

@@ -341,6 +341,7 @@ export default async function OverviewPage() {
             <div className="space-y-3">
               {measuredFacets.slice(0, 4).map((f) => {
                 const pos = resolveConsumerScalePosition(f.score);
+                const domain = profile.domains.find((d) => d.domainId === f.domainId);
                 return (
                   <div
                     key={f.facetId}
@@ -353,7 +354,7 @@ export default async function OverviewPage() {
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-text-secondary">{f.domainNameTr}</span>
+                      <span className="text-text-secondary">{domain?.nameTr || f.domainId}</span>
                       <span className="font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md border border-teal-200">
                         {pos.labelTr}
                       </span>

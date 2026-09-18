@@ -102,7 +102,9 @@ export const ProfileSummarySection: React.FC<ProfileSummarySectionProps> = ({ pr
                   <div key={f.facetId} className="p-3 rounded-xl bg-surface-1 border border-border-subtle flex items-center justify-between">
                     <div>
                       <div className="text-xs font-bold text-text-primary">{f.nameTr}</div>
-                      <div className="text-[10px] text-text-tertiary">{f.domainNameTr}</div>
+                      <div className="text-[10px] text-text-tertiary">
+                        {profile.domains.find((d) => d.domainId === f.domainId)?.nameTr || f.domainId}
+                      </div>
                     </div>
                     <span className="text-[10px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md border border-teal-200">
                       {pos.labelTr} ({f.score?.toFixed(2)})
