@@ -8,22 +8,22 @@ import {
   Sparkles,
   CheckCircle2,
   Clock,
-  RotateCcw,
   Layers,
-  ChevronRight,
   Activity,
-  Heart,
   Brain,
   BookOpen,
   PenLine,
-  SlidersHorizontal,
-  Target,
-  FileCheck2,
+  Lightbulb,
+  History,
+  TrendingUp,
+  MapPin,
+  Calendar,
 } from 'lucide-react';
 import { HexacoRadarChart, HexacoTraitData } from '@/components/charts/HexacoRadarChart';
 import { getCurrentUserOrNull } from '@/lib/auth';
 import { resolveUnifiedPsychologicalProfileV2 } from '@/lib/profile/masterProfileResolver';
 import { getUserAssessmentJourney } from '@/services/assessmentJourneyService';
+import { getJournalEntries } from '@/services/journalService';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { resolveConsumerScalePosition } from '@/lib/consumerLanguage';
 
@@ -54,6 +54,17 @@ export default async function OverviewPage() {
   const profile = await resolveUnifiedPsychologicalProfileV2(user.id);
   const isLiveProfile = profile.hasAssessments;
 
+  // 4. Fetch recent journal reflection if available
+  let latestJournal = null;
+  try {
+    const entries = await getJournalEntries(user.id, { limit: 1 });
+    if (entries && entries.length > 0) {
+      latestJournal = entries[0];
+    }
+  } catch (err) {
+    // Graceful fallback if journal table is empty
+  }
+
   const personalityDomain = profile.domains.find((d) => d.code === 'core_personality');
   const displayTraits: HexacoTraitData[] = (personalityDomain?.constructs || []).map((c) => ({
     name: c.nameEn,
@@ -73,146 +84,194 @@ export default async function OverviewPage() {
     (f) => f.measurementStatus === 'MEASURED_PRECALIBRATION' && f.score !== null
   );
 
+  // Salient facet for "Son Eklenen İçgörü"
+  const standoutFacet = measuredFacets.find(
+    (f) => f.bandInfo?.band === 'HIGH' || f.bandInfo?.band === 'LOW'
+  ) || measuredFacets[0];
+
   return (
     <PageContainer variant="wide" className="space-y-8 pb-16">
-      {/* 1. TOP BANNER / WELCOME & JOURNEY STAGE */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-border-subtle pb-6">
-        <div>
-          <div className="flex items-center space-x-2 text-xs text-brand-primary font-semibold tracking-wide uppercase mb-1">
-            <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
-            <span>Kişisel Psikolojik Haritam</span>
+      {/* ========================================================================= */}
+      {/* 1. BUGÜNKÜ PROFİL ÖZETİ & GREETING                                        */}
+      {/* ========================================================================= */}
+      <div className="relative overflow-hidden rounded-3xl bg-slate-900 bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 p-6 sm:p-10 text-white shadow-xl border border-indigo-900/50">
+        <div className="relative z-10 space-y-4 max-w-3xl">
+          <div className="flex items-center space-x-2 text-xs text-indigo-300 font-semibold tracking-wide uppercase">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Kişisel Psikolojik Alanın</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-text-primary tracking-tight">
+
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
             Hoş geldin, {user.name || 'Gezgin'}
           </h1>
-          <p className="text-xs sm:text-sm text-text-secondary mt-1">
-            Psikolojik profiliniz, tamamladığınız her yapılandırılmış değerlendirmeyle derinleşir ve netleşir.
-          </p>
-        </div>
 
-        <div className="flex items-center space-x-3">
-          <Link
-            href="/profile"
-            className="inline-flex items-center px-4 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white text-xs font-bold rounded-xl shadow-xs transition-colors"
-          >
-            <span>Profilimi İncele</span>
-            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-          </Link>
-          <Link
-            href="/assessments"
-            className="inline-flex items-center px-4 py-2.5 bg-surface-1 hover:bg-bg-subtle text-text-primary text-xs font-semibold rounded-xl border border-border-default shadow-xs transition-colors"
-          >
-            <span>Değerlendirmeler ({journey.totalAvailableAssessments})</span>
-          </Link>
+          <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
+            {isLiveProfile
+              ? `Profilinde 11 psikolojik alandan ${profile.domains.filter(d => d.coverageRatio > 0).length} tanesi aktif olarak haritalanmış durumda. Ölçülen örüntülerin sana dair tutarlı bir resim çiziyor.`
+              : 'Psikolojik profiliniz, tamamladığınız her yapılandırılmış değerlendirmeyle derinleşir ve netleşir.'}
+          </p>
+
+          <div className="pt-2 flex items-center gap-3 flex-wrap">
+            <Link
+              href="/profile"
+              className="inline-flex items-center px-5 py-2.5 bg-white text-slate-900 text-xs font-bold rounded-xl shadow-md hover:bg-slate-100 transition-colors"
+            >
+              <Compass className="w-4 h-4 mr-2 text-indigo-600" />
+              <span>Birleşik Profilimi İncele</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-2" />
+            </Link>
+
+            <Link
+              href="/profile/map"
+              className="inline-flex items-center px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold rounded-xl transition-colors"
+            >
+              <MapPin className="w-3.5 h-3.5 mr-1.5 text-indigo-300" />
+              <span>Profil Haritası</span>
+            </Link>
+
+            <Link
+              href="/assessments"
+              className="inline-flex items-center px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold rounded-xl transition-colors"
+            >
+              <span>Değerlendirmeler ({journey.totalAvailableAssessments})</span>
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* 2. HERO: "ŞİMDİ NE YAPMALIYIM?" / NEXT BEST STEP */}
-      <div className="space-y-4">
-        {journey.coreProfileReady && journey.milestoneMessage && (
-          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-start space-x-3 text-xs text-emerald-900 shadow-xs">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-            <div className="space-y-0.5">
-              <p className="font-bold text-emerald-950 text-sm">
-                Temel Psikolojik Profiliniz Oluştu!
-              </p>
-              <p className="text-emerald-800 leading-relaxed">
-                {journey.milestoneMessage}
-              </p>
+      {/* ========================================================================= */}
+      {/* 2. SON EKLENEN İÇGÖRÜ & SIRADAKİ DEĞERLENDİRME                             */}
+      {/* ========================================================================= */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        {/* Son Eklenen İçgörü */}
+        <div className="lg:col-span-5 rounded-3xl bg-surface-1 border border-border-default p-6 shadow-xs flex flex-col justify-between space-y-4">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                Son Eklenen İçgörü
+              </span>
+              <span className="text-[11px] text-text-tertiary">Ölçüm Özeti</span>
             </div>
-          </div>
-        )}
 
-        {nextAction ? (
-          <div className="p-6 sm:p-8 rounded-3xl bg-surface-1 border border-brand-primary/30 shadow-sm relative overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="space-y-3 max-w-2xl">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center space-x-1.5 text-xs font-bold text-brand-primary bg-brand-primary/10 px-2.5 py-0.5 rounded-full border border-brand-primary/20">
-                  <Sparkles className="w-3.5 h-3.5 text-brand-primary" />
-                  <span>Sıradaki Önerilen Adım</span>
-                </span>
-
-                <span className="text-xs font-medium text-text-tertiary">
-                  {nextAction.assessment.classification === 'REQUIRED'
-                    ? 'Temel Başlangıç'
-                    : 'Önerilen Modül'}
-                </span>
-
-                {nextAction.status === 'IN_PROGRESS' && (
-                  <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                    %{nextAction.assessment.progressPercentage} Tamamlandı
+            {standoutFacet ? (
+              <div className="space-y-2">
+                <h3 className="text-base font-bold text-text-primary">
+                  {standoutFacet.nameTr}
+                </h3>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  {standoutFacet.scientificDefinitionTr ||
+                    'Bu alt boyuttaki ölçümünüz, durumlara yaklaşımınızda karakteristik bir eğilimi yansıtmaktadır.'}
+                </p>
+                <div className="flex items-center gap-2 pt-1">
+                  <span className="text-xs font-bold text-text-primary">
+                    Puan: {standoutFacet.score?.toFixed(2)} / 5.0
                   </span>
-                )}
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-surface-2 text-text-secondary border border-border-subtle">
+                    {standoutFacet.bandInfo?.band === 'HIGH'
+                      ? 'Ölçeğin Yüksek Ucu'
+                      : standoutFacet.bandInfo?.band === 'LOW'
+                      ? 'Ölçeğin Düşük Ucu'
+                      : 'Dengeli Bölge'}
+                  </span>
+                </div>
               </div>
+            ) : (
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Henüz tamamlanmış bir değerlendirmeniz bulunmuyor. İlk değerlendirmenizi tamamladığınızda öne çıkan içgörüler burada görüntülenecektir.
+              </p>
+            )}
+          </div>
 
+          <div className="pt-3 border-t border-border-subtle">
+            <Link
+              href="/profile/facets"
+              className="text-xs font-bold text-brand-primary hover:underline inline-flex items-center"
+            >
+              <span>Tüm 91 Alt Boyutu Keşfet</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Sıradaki Değerlendirme (Next Best Step) */}
+        <div className="lg:col-span-7 rounded-3xl bg-surface-1 border border-brand-primary/30 p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-4 relative overflow-hidden">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
+                <Compass className="w-3.5 h-3.5 text-brand-primary" />
+                Sıradaki Önerilen Değerlendirme
+              </span>
+
+              {nextAction?.status === 'IN_PROGRESS' && (
+                <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                  %{nextAction.assessment.progressPercentage} Tamamlandı
+                </span>
+              )}
+            </div>
+
+            {nextAction ? (
               <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+                <h3 className="text-xl font-bold text-text-primary tracking-tight">
                   {nextAction.title}
-                </h2>
+                </h3>
                 <p className="text-xs sm:text-sm text-text-secondary mt-1 leading-relaxed">
                   {nextAction.reason}
                 </p>
-              </div>
 
-              <div className="flex items-center space-x-4 text-xs text-text-tertiary pt-1">
-                <span className="inline-flex items-center">
-                  <Clock className="w-3.5 h-3.5 mr-1 text-brand-primary" />
-                  Tahmini Süre: ~{nextAction.estimatedMinutes} dk
-                </span>
-                <span>•</span>
-                <span>{nextAction.assessment.itemCount} Maddeli Değerlendirme</span>
+                <div className="flex items-center space-x-3 text-xs text-text-tertiary pt-2">
+                  <span className="inline-flex items-center">
+                    <Clock className="w-3.5 h-3.5 mr-1 text-brand-primary" />
+                    ~{nextAction.estimatedMinutes} dk
+                  </span>
+                  <span>•</span>
+                  <span>{nextAction.assessment.itemCount} Soru</span>
+                </div>
               </div>
-            </div>
-
-            {/* CTA Button */}
-            <div className="flex items-center shrink-0">
-              <Link
-                href={nextAction.url}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 rounded-2xl bg-brand-primary hover:bg-brand-primary/90 text-white text-sm font-bold shadow-md shadow-brand-primary/20 transition-all hover:scale-[1.01] active:scale-[0.99] min-h-[50px]"
-              >
-                <span>{nextAction.ctaText}</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </div>
+            ) : (
+              <div>
+                <h3 className="text-lg font-bold text-emerald-700">
+                  Tüm Değerlendirmeler Tamamlandı
+                </h3>
+                <p className="text-xs text-text-secondary mt-1">
+                  Şu an için katalogdaki tüm psikometrik değerlendirmeleri tamamladınız.
+                </p>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="p-6 rounded-3xl bg-surface-1 border border-emerald-200 shadow-xs flex items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center space-x-2 text-emerald-800 font-bold text-sm">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                <span>Tüm Mevcut Değerlendirmeler Tamamlandı</span>
-              </div>
-              <p className="text-xs text-text-secondary">
-                Şu anda erişilebilir olan tüm psikometrik modülleri tamamladınız. Profilinizi aşağıdan detaylı inceleyebilirsiniz.
-              </p>
-            </div>
+
+          <div className="pt-4 border-t border-border-subtle flex items-center justify-between">
             <Link
-              href="/profile"
-              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary/90 text-white text-xs font-bold shadow-xs transition-colors shrink-0"
+              href={nextAction?.url || '/assessments'}
+              className="inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-brand-primary hover:bg-brand-primary/90 text-white text-xs font-bold shadow-md shadow-brand-primary/20 transition-all"
             >
-              <span>Profilimi Gör</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+              <span>{nextAction?.ctaText || 'Değerlendirmelere Git'}</span>
+              <ArrowRight className="w-4 h-4 ml-1.5" />
             </Link>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* 3. PROFILE DISCOVERY & COVERAGE PROGRESS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* Coverage Progress Card */}
-        <div className="bg-surface-1 p-5 rounded-2xl border border-border-default shadow-xs space-y-3">
+      {/* ========================================================================= */}
+      {/* 3. PROFİL KEŞİF İLERLEMESİ & SON TAMAMLANAN SONUÇ                         */}
+      {/* ========================================================================= */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Profil Keşif İlerlemesi */}
+        <div className="bg-surface-1 p-6 rounded-3xl border border-border-default shadow-xs space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-text-tertiary uppercase tracking-wider">
-              Profil Keşif İlerlemesi
-            </span>
+            <div className="flex items-center gap-2 text-xs font-bold text-text-secondary uppercase tracking-wider">
+              <Layers className="w-4 h-4 text-brand-primary" />
+              <span>Profil Keşif İlerlemesi</span>
+            </div>
             <span className="text-xs font-bold text-brand-primary bg-brand-primary/10 px-2 py-0.5 rounded-md border border-brand-primary/20">
-              %{coverageMetrics.explorationPercentage} Keşfedildi
+              %{coverageMetrics.explorationPercentage}
             </span>
           </div>
+
           <div className="flex items-baseline space-x-3">
-            <div className="text-2xl font-bold text-text-primary">
-              {coverageMetrics.exploredFacetsCount}{' '}
-              <span className="text-xs font-normal text-text-tertiary">
+            <div className="text-3xl font-extrabold text-text-primary">
+              {coverageMetrics.exploredFacetsCount}
+              <span className="text-xs font-normal text-text-tertiary ml-1.5">
                 / {coverageMetrics.totalOntologyFacets} Alt Boyut
               </span>
             </div>
@@ -220,42 +279,65 @@ export default async function OverviewPage() {
               11 Temel Psikoloji Alanı
             </div>
           </div>
-          <div className="w-full bg-bg-subtle h-2.5 rounded-full overflow-hidden border border-border-subtle">
+
+          <div className="w-full bg-surface-2 h-2.5 rounded-full overflow-hidden border border-border-subtle">
             <div
               className="bg-brand-primary h-full rounded-full transition-all duration-700"
-              style={{ width: `${coverageMetrics.explorationPercentage}%` }}
+              style={{ width: `${Math.max(5, coverageMetrics.explorationPercentage)}%` }}
             />
           </div>
+
           <p className="text-xs text-text-secondary leading-relaxed">
             {isLiveProfile
-              ? `Profilinizde ${coverageMetrics.exploredFacetsCount} alt boyut ampirik olarak haritalanmıştır. Yeni modüller tamamlandıkça profilinizin derinliği artacaktır.`
+              ? `Profilinde 91 alt boyuttan ${coverageMetrics.exploredFacetsCount} tanesi ampirik olarak haritalandı. Yeni değerlendirmeler çözdükçe haritan derinleşir.`
               : 'Henüz tamamlanmış alt boyut bulunmuyor. Profilinizi oluşturmak için yukarıdaki ilk değerlendirmeye başlayabilirsiniz.'}
           </p>
+
+          <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
+            <Link
+              href="/profile/map"
+              className="text-xs font-bold text-brand-primary hover:underline inline-flex items-center"
+            >
+              <span>Profil Haritasını Gör</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
+            </Link>
+            <Link
+              href="/profile/facets"
+              className="text-xs font-semibold text-text-tertiary hover:text-text-primary"
+            >
+              91 Alt Boyut Rehberi &rsaquo;
+            </Link>
+          </div>
         </div>
 
-        {/* Recently Completed Result or Quick Links */}
-        <div className="bg-surface-1 p-5 rounded-2xl border border-border-default shadow-xs flex flex-col justify-between space-y-3">
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-text-tertiary uppercase tracking-wider">
-                Son Tamamlanan Değerlendirme
-              </span>
-              <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md border border-teal-200">
+        {/* Son Tamamlanan Değerlendirme */}
+        <div className="bg-surface-1 p-6 rounded-3xl border border-border-default shadow-xs flex flex-col justify-between space-y-4">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs font-bold text-text-secondary uppercase tracking-wider">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Son Tamamlanan Değerlendirme</span>
+              </div>
+              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-800">
                 {journey.completedAssessmentsCount > 0 ? `${journey.completedAssessmentsCount} Tamamlandı` : 'Başlanmadı'}
               </span>
             </div>
+
             {profile.recentAssessments && profile.recentAssessments.length > 0 ? (
-              <div className="space-y-1">
-                <h4 className="text-sm font-bold text-text-primary">
+              <div className="space-y-1.5">
+                <h4 className="text-base font-bold text-text-primary">
                   {profile.recentAssessments[0].moduleTitleTr}
                 </h4>
                 <p className="text-xs text-text-secondary">
                   Tamamlanma: <span suppressHydrationWarning>{new Date(profile.recentAssessments[0].completedAt).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Istanbul' })}</span>
                 </p>
+                <p className="text-xs text-text-tertiary leading-relaxed">
+                  Bu testin sonuçları ve profiline eklediği boyutlar için sonuç raporunu görüntüleyebilirsin.
+                </p>
               </div>
             ) : (
-              <p className="text-xs text-text-secondary">
-                Henüz tamamlanmış bir değerlendirmeniz bulunmuyor.
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Henüz tamamlanmış bir değerlendirmeniz bulunmuyor. İlk değerlendirmenizi tamamladığınızda sonuç karnesi burada listelenecektir.
               </p>
             )}
           </div>
@@ -265,8 +347,8 @@ export default async function OverviewPage() {
               href={profile.recentAssessments && profile.recentAssessments.length > 0 ? (profile.recentAssessments[0].resultUrl || `/assessments/results/${profile.recentAssessments[0].sessionId}`) : '/assessments'}
               className="text-xs font-bold text-brand-primary hover:underline inline-flex items-center"
             >
-              <span>{profile.recentAssessments && profile.recentAssessments.length > 0 ? 'Sonucu İncele' : 'Tüm Değerlendirmeler'}</span>
-              <ArrowRight className="w-3 h-3 ml-1" />
+              <span>{profile.recentAssessments && profile.recentAssessments.length > 0 ? 'Sonuç Raporunu Aç' : 'Değerlendirmelere Başla'}</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
             <Link
               href="/profile/timeline"
@@ -278,130 +360,130 @@ export default async function OverviewPage() {
         </div>
       </div>
 
-      {/* 4. MAIN PROFILE SNAPSHOT: HEXACO RADAR & STANDOUT TRAITS */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left: HEXACO Radar Profile */}
-        <div className="lg:col-span-7 bg-surface-1 p-6 rounded-3xl border border-border-default shadow-xs space-y-4">
+      {/* ========================================================================= */}
+      {/* 4. KURAMSAL MERCEK ÖNERİSİ & YANSIMALARDAN SON TEMA                        */}
+      {/* ========================================================================= */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Kuramsal Mercek Önerisi */}
+        <div className="bg-surface-1 p-6 rounded-3xl border border-border-default shadow-xs space-y-4 flex flex-col justify-between">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                <BookOpen className="w-3.5 h-3.5" />
+                Kuramsal Mercek Önerisi
+              </span>
+              <span className="text-[11px] text-text-tertiary">Konsil</span>
+            </div>
+
+            <div>
+              <h4 className="text-base font-bold text-text-primary">
+                Carl Rogers: Benlik Bütünlüğü ve İçsel Tutarlılık
+              </h4>
+              <p className="text-xs text-text-secondary leading-relaxed mt-1">
+                Ölçülen kişilik ve benlik boyutların, Rogers&apos;ın organizmik değerlendirme sürecinde zengin bir yansıma buluyor. Kendi deneyimlerine ne kadar güvendiğini kuramın gözünden keşfet.
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
+            <Link
+              href="/theory-council/rogers"
+              className="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline inline-flex items-center"
+            >
+              <span>Rogers ile İncele</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
+            </Link>
+            <Link
+              href="/theory-council"
+              className="text-xs font-semibold text-text-tertiary hover:text-text-primary"
+            >
+              Tüm 10 Kuram &rsaquo;
+            </Link>
+          </div>
+        </div>
+
+        {/* Yansımalardan Son Tema / Günlük Farkındalık */}
+        <div className="bg-surface-1 p-6 rounded-3xl border border-border-default shadow-xs space-y-4 flex flex-col justify-between">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
+                <PenLine className="w-3.5 h-3.5" />
+                Yansımalardan Son Tema
+              </span>
+              <span className="text-[11px] text-text-tertiary">Farkındalık</span>
+            </div>
+
+            {latestJournal ? (
+              <div className="space-y-1">
+                <h4 className="text-sm font-bold text-text-primary line-clamp-1">
+                  {latestJournal.title || 'Son Günlük Notun'}
+                </h4>
+                <p className="text-xs text-text-secondary leading-relaxed line-clamp-3">
+                  &ldquo;{latestJournal.body}&rdquo;
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                <h4 className="text-sm font-bold text-text-primary">
+                  Günün Yansıtıcı Sorusu
+                </h4>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  &ldquo;Bugün stresli ya da belirsiz bir anla karşılaştığında ilk otomatik tepkin ne oldu? Bu tepkiyi profilindeki hangi boyutla ilişkilendirirsin?&rdquo;
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
+            <Link
+              href="/journal"
+              className="text-xs font-bold text-teal-600 dark:text-teal-400 hover:underline inline-flex items-center"
+            >
+              <span>{latestJournal ? 'Tüm Yansımalarını Gör' : 'Yeni Not Ekle'}</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
+            </Link>
+            <Link
+              href="/profile/timeline"
+              className="text-xs font-semibold text-text-tertiary hover:text-text-primary"
+            >
+              Zaman Çizelgesi &rsaquo;
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 5. HEXACO RADAR PREVIEW                                                   */}
+      {/* ========================================================================= */}
+      {isLiveProfile && (
+        <div className="bg-surface-1 p-6 sm:p-8 rounded-3xl border border-border-default shadow-xs space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
             <div>
-              <h3 className="text-base font-bold text-text-primary">Temel Kişilik Yapısı (HEXACO)</h3>
-              <p className="text-xs text-text-secondary">Ölçülen 6 ana kişilik ekseninin genel dağılımı</p>
+              <h3 className="text-base font-bold text-text-primary">
+                Temel Kişilik Radarı (HEXACO 6 Boyut)
+              </h3>
+              <p className="text-xs text-text-secondary">
+                Ölçülen 6 ana kişilik ekseninin genel dağılımı
+              </p>
             </div>
             <Link
               href="/profile/personality"
-              className="text-xs font-semibold text-brand-primary hover:underline inline-flex items-center"
+              className="text-xs font-bold text-brand-primary hover:underline inline-flex items-center"
             >
-              <span>Ayrıntılar</span>
+              <span>Kişilik Alanını Gör</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </div>
 
-          {!isLiveProfile ? (
-            <div className="py-10 px-4 text-center space-y-3 bg-bg-subtle rounded-2xl border border-dashed border-border-default">
-              <Compass className="w-10 h-10 text-brand-primary mx-auto opacity-70" />
-              <div className="text-sm font-bold text-text-primary">Kişilik radarı ölçüm bekliyor</div>
-              <p className="text-xs text-text-secondary max-w-sm mx-auto">
-                İlk değerlendirmenizi tamamladığınızda 6 boyutlu kişilik yapınız burada görselleştirilir.
-              </p>
-            </div>
-          ) : (
-            <div className="py-2">
-              <HexacoRadarChart data={displayTraits} />
-            </div>
-          )}
-
-          {/* Construct scale positions */}
-          <div className="pt-3 border-t border-border-subtle grid grid-cols-2 sm:grid-cols-3 gap-2 text-center">
-            {displayTraits.map((t) => {
-              const pos = resolveConsumerScalePosition(t.score);
-              return (
-                <div key={t.name} className="p-2.5 rounded-xl bg-bg-subtle border border-border-subtle space-y-0.5">
-                  <div className="text-[11px] font-bold text-text-primary truncate">{t.name_tr || t.name}</div>
-                  <div className="text-sm font-extrabold text-brand-primary">{t.score ? t.score.toFixed(2) : '—'}</div>
-                  <div className="text-[10px] text-text-tertiary">{pos.labelTr}</div>
-                </div>
-              );
-            })}
+          <div className="py-2">
+            <HexacoRadarChart data={displayTraits} />
           </div>
         </div>
+      )}
 
-        {/* Right: Prominent Measured Traits / Insights */}
-        <div className="lg:col-span-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-brand-primary" />
-              <span>Öne Çıkan Eğilimleriniz</span>
-            </h3>
-            <Link href="/profile" className="text-xs font-semibold text-brand-primary hover:underline">
-              Tümünü Gör
-            </Link>
-          </div>
-
-          {measuredFacets.length > 0 ? (
-            <div className="space-y-3">
-              {measuredFacets.slice(0, 4).map((f) => {
-                const pos = resolveConsumerScalePosition(f.score);
-                const domain = profile.domains.find((d) => d.domainId === f.domainId);
-                return (
-                  <div
-                    key={f.facetId}
-                    className="p-4 rounded-2xl bg-surface-1 border border-border-default shadow-xs space-y-1.5"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-xs font-bold text-text-primary">{f.nameTr}</h4>
-                      <span className="text-xs font-extrabold text-brand-primary">
-                        {f.score?.toFixed(2)} <span className="text-[10px] font-normal text-text-tertiary">/ 5</span>
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-text-secondary">{domain?.nameTr || f.domainId}</span>
-                      <span className="font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md border border-teal-200">
-                        {pos.labelTr}
-                      </span>
-                    </div>
-                    {f.scientificDefinitionTr && (
-                      <p className="text-[11px] text-text-tertiary leading-relaxed pt-1 line-clamp-2">
-                        {f.scientificDefinitionTr}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="p-6 rounded-2xl bg-surface-1 border border-border-default text-center space-y-2">
-              <Brain className="w-8 h-8 text-text-tertiary mx-auto" />
-              <p className="text-xs text-text-secondary">
-                Henüz tamamlanmış bir alt boyut bulunmuyor. Değerlendirmeleri tamamladıkça öne çıkan eğilimleriniz burada listelenecektir.
-              </p>
-            </div>
-          )}
-
-          {/* Theory Council Quick CTA */}
-          {isLiveProfile && (
-            <div className="p-5 rounded-2xl bg-purple-900/10 border border-purple-200 shadow-xs space-y-2">
-              <div className="flex items-center space-x-2 text-purple-900 font-bold text-xs">
-                <BookOpen className="w-4 h-4 text-purple-700" />
-                <span>Kuramlar Konseyi ile Derinleş</span>
-              </div>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                Ölçülen profilinizi Freud, Jung, Adler, Rogers, Maslow ve Beck'in kuramsal pencerelerinden inceleyebilirsiniz.
-              </p>
-              <div className="pt-1">
-                <Link
-                  href="/theory-council"
-                  className="inline-flex items-center text-xs font-bold text-purple-700 hover:underline"
-                >
-                  <span>Konseyi Ziyaret Et</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* 5. EPISTEMIC TRANSPARENCY NOTICE */}
+      {/* ========================================================================= */}
+      {/* 6. EPISTEMIC TRANSPARENCY NOTICE                                          */}
+      {/* ========================================================================= */}
       <div className="bg-surface-1 p-5 rounded-2xl border border-border-default shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-start space-x-3">
           <div className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0 mt-0.5">
@@ -409,15 +491,15 @@ export default async function OverviewPage() {
           </div>
           <div>
             <h4 className="text-xs font-bold text-text-primary uppercase tracking-wider">
-              Epistemik Güven ve Ölçüm Şeffaflığı
+              Epistemik Güven ve Bilimsel Metodoloji
             </h4>
             <p className="text-xs text-text-secondary mt-0.5 leading-relaxed max-w-3xl">
-              Skorlarınız psikometrik algoritmalarla deterministik olarak hesaplanır; yapay zekâ puanlarınızı değiştiremez veya sahte yüzdelikler üretemez.
+              Skorlarınız deterministik psikometrik modellerle hesaplanır; yapay zeka puan üretmez veya tanı koymaz. Toplum normlarıyla karşılaştırma henüz sunulmamaktadır.
             </p>
           </div>
         </div>
         <Link
-          href="/science"
+          href="/profile/science"
           className="text-xs font-bold text-brand-primary hover:underline whitespace-nowrap"
         >
           Bilimsel Standartlar &rsaquo;

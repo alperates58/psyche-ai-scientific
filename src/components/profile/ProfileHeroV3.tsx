@@ -29,27 +29,26 @@ export const ProfileHeroV3: React.FC<ProfileHeroV3Props> = ({ profile, onExplore
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5 text-indigo-300" />
-            <span>Kişiselleştirilmiş Psikolojik Rapor</span>
+            <span>{synthesis.headlineTr}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            {synthesis.headlineTr}
+            Psikolojik Profilin
           </h1>
           <p className="text-sm text-indigo-200/80 mt-1 max-w-xl">
             Tamamladığın bilimsel envanterlerin ortak sentezi ve öne çıkan psikolojik dinamiklerin.
           </p>
         </div>
 
-        {/* Action Button */}
+        {/* Action Button: Profil Haritamı İncele */}
         <div className="flex items-center gap-3">
-          {profile.nextBestAssessment && (
-            <Link
-              href={profile.nextBestAssessment.url}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md hover:shadow-indigo-500/20 transition-all shrink-0"
-            >
-              <span>Yeni Boyut Keşfet</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          )}
+          <Link
+            href="/profile/map"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-slate-900 hover:bg-slate-100 text-xs font-bold shadow-md hover:shadow-white/20 transition-all shrink-0"
+          >
+            <Compass className="w-4 h-4 text-indigo-600" />
+            <span>Profil Haritamı İncele</span>
+            <ArrowRight className="w-3.5 h-3.5 ml-0.5" />
+          </Link>
         </div>
       </div>
 
@@ -85,7 +84,7 @@ export const ProfileHeroV3: React.FC<ProfileHeroV3Props> = ({ profile, onExplore
           </div>
         </div>
 
-        {/* Right: Compact Discovery Progress Strip (Secondary, Not Dominating) */}
+        {/* Right: Small Discovery Progress Indicator (Psychological, Not Dominated by Raw Technical Counts) */}
         <div className="lg:col-span-4 bg-slate-900/80 border border-indigo-900/60 rounded-2xl p-5 space-y-4 backdrop-blur-md">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-300">Profil Keşif İlerlemesi</span>
@@ -102,35 +101,14 @@ export const ProfileHeroV3: React.FC<ProfileHeroV3Props> = ({ profile, onExplore
             />
           </div>
 
-          {/* Secondary Counts Grid */}
-          <div className="grid grid-cols-3 gap-2 text-center pt-1">
-            <div className="p-2 rounded-xl bg-slate-800/60 border border-slate-700/50">
-              <div className="text-base font-bold text-white">
-                {coverage.facetCoverage.measuredCount}
-                <span className="text-[10px] text-slate-400 font-normal">/{coverage.facetCoverage.totalCount}</span>
-              </div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Alt Boyut</div>
+          <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/50 space-y-1">
+            <div className="flex items-center justify-between text-xs font-bold text-indigo-200">
+              <span>{coverage.domainCoverage.measuredCount} / 11 Alan Ölçüldü</span>
+              <span className="text-[11px] font-normal text-slate-400">({coverage.facetCoverage.measuredCount} Alt Boyut)</span>
             </div>
-
-            <div className="p-2 rounded-xl bg-slate-800/60 border border-slate-700/50">
-              <div className="text-base font-bold text-white">
-                {coverage.constructCoverage.measuredCount}
-                <span className="text-[10px] text-slate-400 font-normal">/{coverage.constructCoverage.totalCount}</span>
-              </div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Psikolojik Boyut</div>
-            </div>
-
-            <div className="p-2 rounded-xl bg-slate-800/60 border border-slate-700/50">
-              <div className="text-base font-bold text-white">
-                {coverage.domainCoverage.measuredCount}
-                <span className="text-[10px] text-slate-400 font-normal">/{coverage.domainCoverage.totalCount}</span>
-              </div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Alan</div>
-            </div>
-          </div>
-
-          <div className="text-[11px] text-slate-400 text-center leading-tight">
-            Yanıtlanan Soru: {coverage.questionCoverage.answeredCount} / {coverage.questionCoverage.totalCount}
+            <p className="text-[11px] text-slate-400 leading-relaxed pt-0.5">
+              Tamamladığın her değerlendirmeyle profilinin psikolojik derinliği ve açıklığı zenginleşir.
+            </p>
           </div>
         </div>
       </div>

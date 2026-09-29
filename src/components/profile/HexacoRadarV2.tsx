@@ -201,6 +201,84 @@ export const HexacoRadarV2: React.FC<HexacoRadarV2Props> = ({ profile, onFactorS
           )}
         </div>
       </div>
+
+      {/* Profilinde Ne Dikkat Çekiyor? (3-5 Evidence-Grounded Bullets) */}
+      <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+          <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+            Profilinde Ne Dikkat Çekiyor?
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {radarData
+            .filter((d) => d.score !== null)
+            .sort((a, b) => Math.abs((b.score ?? 3.0) - 3.0) - Math.abs((a.score ?? 3.0) - 3.0))
+            .slice(0, 3)
+            .map((factor) => {
+              const score = factor.score!;
+              const isHigh = score >= 3.5;
+              const isLow = score <= 2.5;
+              let interpretation = '';
+
+              if (factor.id === 'hexaco_honesty_humility') {
+                interpretation = isHigh
+                  ? 'Samimiyet, hakkaniyet ve adalet beklentin ölçeğin yüksek ucunda yer alarak sosyal etkileşimlerde dürüstlüğü birincil ilke kılıyor.'
+                  : isLow
+                  ? 'Stratejik esneklik ve çıkarları koruma eğilimi ön planda; durumlara pragmatik yaklaşabiliyorsun.'
+                  : 'Sosyal ilişkilerinde dürüstlük ve pragmatizmi dengeli bir eksende yönetiyorsun.';
+              } else if (factor.id === 'hexaco_emotionality') {
+                interpretation = isHigh
+                  ? 'Duygusal duyarlılık ve empati kapasiten yüksek; yakın bağlarda koruyucu ve içten bir yaklaşım sergiliyorsun.'
+                  : isLow
+                  ? 'Zorlu durumlar karşısında duygusal dayanıklılık ve soğukkanlılık göstererek sakin kalabiliyorsun.'
+                  : 'Stresli anlarda duygusal uyarılma ile sakinliği dengeli bir aralıkta deneyimliyorsun.';
+              } else if (factor.id === 'hexaco_extraversion') {
+                interpretation = isHigh
+                  ? 'Sosyal ortamlarda canlılık, enerji ve girişkenlik sergileyerek grup dinamiklerini canlandırıyorsun.'
+                  : isLow
+                  ? 'Sosyal enerjini seçici kullanıyor; derinlemesine bire bir veya sakin ortamlarda daha rahat üretiyorsun.'
+                  : 'Sosyal ortamlarda duruma göre hem aktif katılım hem de gözlemci bir duruş sergileyebiliyorsun.';
+              } else if (factor.id === 'hexaco_agreeableness') {
+                interpretation = isHigh
+                  ? 'Uyum, sabır ve bağışlayıcılık eğilimin yüksek; çatışmaları yatıştırma ve işbirliğini sürdürme gücün belirgin.'
+                  : isLow
+                  ? 'Eleştirel bakış açın ve sınır koyma kararlılığın güçlü; gerektiğinde doğrudan fikir ayrılığı ifade edebiliyorsun.'
+                  : 'Farklı görüşler karşısında yapıcı bir uzlaşı ararken kendi sınırlarını da koruyabiliyorsun.';
+              } else if (factor.id === 'hexaco_conscientiousness') {
+                interpretation = isHigh
+                  ? 'Planlılık, düzen ve mükemmeliyet standartların yüksek; sorumluluklarını disiplinle yerine getirme eğilimindesin.'
+                  : isLow
+                  ? 'Katı kurallar yerine durumsal esnekliği ve anlık uyum yeteneğini önceleyen bir çalışma tarzına sahipsin.'
+                  : 'Planlı çalışma ile durumsal esnekliği bir arada tutarak dengeli bir tempo yakalayabiliyorsun.';
+              } else {
+                interpretation = isHigh
+                  ? 'Entelektüel merak, sanatsal duyarlılık ve yenilikçi fikirlere açıklığın profilinde belirgin biçimde öne çıkıyor.'
+                  : isLow
+                  ? 'Kanıtlanmış pratik yöntemleri ve somut uygulamaları soyut kuramlara tercih eden bir yaklaşımın var.'
+                  : 'Yenilikçi fikirlerle denenmiş pratik yöntemleri harmanlayabilen dengeli bir bilişsel açıklığa sahipsin.';
+              }
+
+              return (
+                <div
+                  key={factor.id}
+                  className="p-3.5 rounded-2xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100 dark:border-violet-900/40 space-y-1"
+                >
+                  <div className="flex items-center justify-between text-xs font-bold text-violet-900 dark:text-violet-200">
+                    <span>{factor.nameTr}</span>
+                    <span className="text-[11px] font-mono font-semibold text-violet-700 dark:text-violet-300">
+                      {factor.bandLabelTr}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {interpretation}
+                  </p>
+                </div>
+              );
+            })}
+        </div>
+      </div>
     </div>
   );
 };

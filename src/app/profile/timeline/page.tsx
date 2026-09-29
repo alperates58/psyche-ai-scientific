@@ -4,6 +4,7 @@ import { getCurrentUserOrNull } from '@/lib/auth';
 import { getUserLongitudinalProfile } from '@/services/longitudinalService';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { ProfileTimelineClient } from '@/components/profile/timeline/ProfileTimelineClient';
+import { ProfileTabNav } from '@/components/profile/ProfileTabNav';
 import { Calendar, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -24,6 +25,9 @@ export default async function ProfileTimelinePage() {
 
   return (
     <PageContainer variant="wide" className="space-y-6 pb-16">
+      {/* 6 Top-Level Profile Navigation Tabs */}
+      <ProfileTabNav />
+
       {/* Header & Back Navigation */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-5">
         <div>

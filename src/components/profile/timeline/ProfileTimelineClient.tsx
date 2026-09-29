@@ -143,21 +143,86 @@ export function ProfileTimelineClient({ longitudinalProfile }: ProfileTimelineCl
           {/* Section 1: Measurement Epochs */}
           <EpochsTimelineSection epochs={measurementEpochs} />
 
-          {/* Section 2 & 3: Stable and Shifted Facets */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <StableFacetsSection
-              stabilitySummary={stabilitySummary}
-              facetTrajectories={facetTrajectories}
-              onSelectFacet={(fId) => setSelectedFacetId(fId)}
-              selectedFacetId={selectedFacetId}
-            />
-            <ShiftedFacetsSection
-              changeSummary={changeSummary}
-              facetTrajectories={facetTrajectories}
-              onSelectFacet={(fId) => setSelectedFacetId(fId)}
-              selectedFacetId={selectedFacetId}
-            />
-          </div>
+          {/* Section 2 & 3: Stable and Shifted Facets OR Meaningful Actionable Empty State */}
+          {measurementEpochs.length <= 1 ? (
+            <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xs space-y-6 text-center max-w-2xl mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center mx-auto">
+                <RotateCcw className="w-6 h-6" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                  Zaman içindeki değişimleri görebilmek için bazı değerlendirmeleri yeniden tamamlaman gerekiyor.
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Henüz aynı modül için birden fazla zaman noktasında ölçüm bulunmuyor. İlk ölçümünüz temel referans noktası olarak kaydedilmiştir. İlerleyen günlerde değerlendirmeleri tekrarladıkça puan stabilitesi ve değişim yörüngeleri burada listelenecektir.
+                </p>
+              </div>
+
+              {/* Tekrar ölçüme uygun alanlar */}
+              <div className="pt-4 border-t border-slate-100 text-left space-y-3">
+                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                  Tekrar ölçüme uygun alanlar
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <Link
+                    href="/assessments"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-indigo-300 transition-all flex items-center justify-between text-xs"
+                  >
+                    <div>
+                      <div className="font-bold text-slate-900">Kişilik Yapısı (HEXACO)</div>
+                      <div className="text-[11px] text-slate-500">Önerilen aralık: 30–90 gün</div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-indigo-600" />
+                  </Link>
+                  <Link
+                    href="/assessments"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-indigo-300 transition-all flex items-center justify-between text-xs"
+                  >
+                    <div>
+                      <div className="font-bold text-slate-900">Duygu Düzenleme (ERQ)</div>
+                      <div className="text-[11px] text-slate-500">Önerilen aralık: 14–30 gün</div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-indigo-600" />
+                  </Link>
+                  <Link
+                    href="/assessments"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-indigo-300 transition-all flex items-center justify-between text-xs"
+                  >
+                    <div>
+                      <div className="font-bold text-slate-900">Benlik Saygısı & Öz-Yeterlik</div>
+                      <div className="text-[11px] text-slate-500">Önerilen aralık: 14–30 gün</div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-indigo-600" />
+                  </Link>
+                  <Link
+                    href="/assessments"
+                    className="p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-indigo-300 transition-all flex items-center justify-between text-xs"
+                  >
+                    <div>
+                      <div className="font-bold text-slate-900">Stres & Başa Çıkma</div>
+                      <div className="text-[11px] text-slate-500">Önerilen aralık: 14–30 gün</div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-indigo-600" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <StableFacetsSection
+                stabilitySummary={stabilitySummary}
+                facetTrajectories={facetTrajectories}
+                onSelectFacet={(fId) => setSelectedFacetId(fId)}
+                selectedFacetId={selectedFacetId}
+              />
+              <ShiftedFacetsSection
+                changeSummary={changeSummary}
+                facetTrajectories={facetTrajectories}
+                onSelectFacet={(fId) => setSelectedFacetId(fId)}
+                selectedFacetId={selectedFacetId}
+              />
+            </div>
+          )}
 
           {/* Section 4: Coverage Growth */}
           <CoverageGrowthSection coverageTimeline={domainCoverageTimeline} />

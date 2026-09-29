@@ -5,7 +5,7 @@ import {
   MeasuredConstructViewModel,
   UnmeasuredDomainViewModel,
 } from '@/services/assessmentResultService';
-import { Layers, CheckCircle2, CircleDashed, ArrowRight } from 'lucide-react';
+import { Layers, CheckCircle2, CircleDashed, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 interface MeasurementCoveragePanelProps {
@@ -25,13 +25,13 @@ export const MeasurementCoveragePanel: React.FC<MeasurementCoveragePanelProps> =
     <div className="bg-surface-1 p-6 sm:p-8 rounded-panel border border-border-subtle shadow-sm space-y-6">
       <div className="space-y-1 border-b border-border-subtle pb-4">
         <div className="flex items-center space-x-2">
-          <Layers className="w-4 h-4 text-brand-600" />
+          <Sparkles className="w-4 h-4 text-brand-600" />
           <h2 className="text-lg font-bold text-text-primary tracking-tight">
-            Ontoloji Kapsamı: Bu Değerlendirme Neyi Ölçtü?
+            Profiline Ne Ekledi? (Ölçülen Boyutlar ve Yeni Katmanlar)
           </h2>
         </div>
         <p className="text-xs text-text-secondary">
-          Psikolojik profiliniz tek bir testle sınırlandırılamayacak kadar zengindir. Aşağıda bu değerlendirmenin kapsadığı alanlar ve ileride açılacak katmanlar listelenmiştir.
+          Bu değerlendirme birleşik profilinizi yeni kanıtlarla zenginleştirdi. Aşağıda profile eklenen ampirik boyutlar ve henüz keşfedilmeyi bekleyen alanlar yer almaktadır.
         </p>
       </div>
 
@@ -41,10 +41,10 @@ export const MeasurementCoveragePanel: React.FC<MeasurementCoveragePanelProps> =
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 text-xs font-bold text-text-primary">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Bu Testte Ölçülen Boyutlar</span>
+              <span>Bu Testte Profile Eklenen Boyutlar</span>
             </div>
-            <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-              {constructs.length} Boyut • {totalMeasuredFacets} Alt Faktör
+            <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
+              {constructs.length} Boyut • {totalMeasuredFacets} Alt Boyut
             </span>
           </div>
 
@@ -56,7 +56,7 @@ export const MeasurementCoveragePanel: React.FC<MeasurementCoveragePanelProps> =
               >
                 <span className="font-semibold text-text-primary">{c.nameTr}</span>
                 <span className="text-[11px] text-text-tertiary">
-                  {c.facets.length} alt faktör işlendi
+                  {c.facets.length} alt boyut işlendi
                 </span>
               </div>
             ))}

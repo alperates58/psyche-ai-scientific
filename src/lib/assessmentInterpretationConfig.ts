@@ -508,7 +508,7 @@ export function deriveKeyObservations(
     if (bandInfo.band === 'HIGH') {
       const text = interp
         ? `${item.nameTr} boyutunda yüksek eğilim (${item.compositeScore.toFixed(1)} / ${maxScale.toFixed(1)}) belirginleşmektedir. ${interp.interpretationByBand.HIGH}`
-        : `${item.nameTr} boyutunda ortalamanın üzerinde bir eğilim (${item.compositeScore.toFixed(1)} / ${maxScale.toFixed(1)}) gözlemlenmiştir.`;
+        : `${item.nameTr} boyutunda ölçeğin yüksek ucuna yakın bir eğilim (${item.compositeScore.toFixed(1)} / ${maxScale.toFixed(1)}) gözlemlenmiştir.`;
       observations.push(text);
     } else if (bandInfo.band === 'LOW') {
       const text = interp

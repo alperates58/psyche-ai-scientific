@@ -125,7 +125,7 @@ export interface JourneyStageMetadata {
 export const JOURNEY_STAGES: Record<JourneyStage, JourneyStageMetadata> = {
   ONBOARDING: {
     stageKey: 'ONBOARDING',
-    titleTr: 'Başlangıç Aşaması',
+    titleTr: 'Başlangıç',
     descriptionTr: 'Psikolojik yolculuğunuza ilk temel kişilik değerlendirmesiyle adım atın.',
     targetDepthLevel: 'STARTING',
     requiredModuleCodes: ['mod_core_hexaco_60'],
@@ -139,7 +139,7 @@ export const JOURNEY_STAGES: Record<JourneyStage, JourneyStageMetadata> = {
   },
   PROFILE_EXPANSION: {
     stageKey: 'PROFILE_EXPANSION',
-    titleTr: 'Profil Genişletme (Genişletilmiş Katman)',
+    titleTr: 'Profilini Genişlet',
     descriptionTr: 'İrade, temel ihtiyaçlar, evrensel değerler ve ilişkisel bağlanma boyutlarıyla profilinizi genişletin (298 kümülatif soru).',
     targetDepthLevel: 'EXPANDED',
     requiredModuleCodes: [
@@ -151,7 +151,7 @@ export const JOURNEY_STAGES: Record<JourneyStage, JourneyStageMetadata> = {
   },
   DEEP_PROFILE: {
     stageKey: 'DEEP_PROFILE',
-    titleTr: 'Derin Profil (Kapsamlı Katman)',
+    titleTr: 'Daha Derine İn',
     descriptionTr: 'Bilişsel esneklik, benlik bütünlüğü, çatışma, duygulanım dengesi, canlılık, başa çıkma ve yaratıcılık alanlarında derinleşin (448 kümülatif soru).',
     targetDepthLevel: 'COMPREHENSIVE',
     requiredModuleCodes: [
@@ -166,7 +166,7 @@ export const JOURNEY_STAGES: Record<JourneyStage, JourneyStageMetadata> = {
   },
   ADVANCED_EXPLORATION: {
     stageKey: 'ADVANCED_EXPLORATION',
-    titleTr: 'İleri Düzey İnceleme (Uç Dinamikler)',
+    titleTr: 'İleri Keşif',
     descriptionTr: 'Subklinik kişilik dinamikleri ve ileri düzey araştırmalar (469 kümülatif soru).',
     targetDepthLevel: 'ADVANCED',
     requiredModuleCodes: ['mod_dark_tetrad_advanced'],

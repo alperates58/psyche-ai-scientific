@@ -141,12 +141,12 @@ export interface UserAssessmentJourney {
 }
 
 const STAGE_NAMES_TR: Record<JourneyStage, string> = {
-  ONBOARDING: 'Başlangıç ve Temel Profil (Core Onboarding)',
-  FIRST_PROFILE: 'Temel Profil Hazır',
-  PROFILE_EXPANSION: 'Genişletilmiş Profil Katmanı',
-  DEEP_PROFILE: 'Kapsamlı Derin Haritalama Katmanı',
-  ADVANCED_EXPLORATION: 'İleri Araştırma & Özel Dinamikler',
-  COMPREHENSIVE_COMPLETE: 'Kapsamlı Psikolojik Profil Tamamlandı',
+  ONBOARDING: 'Başlangıç',
+  FIRST_PROFILE: 'Başlangıç Tamamlandı',
+  PROFILE_EXPANSION: 'Profilini Genişlet',
+  DEEP_PROFILE: 'Daha Derine İn',
+  ADVANCED_EXPLORATION: 'İleri Keşif',
+  COMPREHENSIVE_COMPLETE: 'Kapsamlı Profil Tamamlandı',
 };
 
 const DEPTH_LEVEL_METADATA: Record<ProfileDepthLevel, { nameTr: string; descTr: string }> = {
@@ -557,7 +557,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
   const stages: JourneyStageGroup[] = [
     {
       stageKey: 'CORE',
-      titleTr: 'Aşama 1: Temel Profil (Core Onboarding)',
+      titleTr: 'Başlangıç',
       descriptionTr: '6 temel kişilik faktörü, benlik yapısı, duygu düzenleme ve epistemik yönelim.',
       isCompleted: coreProfileReady,
       isActive: currentStage === 'ONBOARDING',
@@ -567,7 +567,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     },
     {
       stageKey: 'EXPANSION',
-      titleTr: 'Aşama 2: Genişletilmiş Profil (Expansion)',
+      titleTr: 'Profilini Genişlet',
       descriptionTr: 'İrade & dürtü kontrolü, temel psikolojik ihtiyaçlar, evrensel değerler ve yetişkin bağlanma dinamikleri.',
       isCompleted: expandedProfileReady,
       isActive: currentStage === 'FIRST_PROFILE' || currentStage === 'PROFILE_EXPANSION',
@@ -577,7 +577,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     },
     {
       stageKey: 'DEEP',
-      titleTr: 'Aşama 3: Kapsamlı Derin Haritalama (Deep Profile)',
+      titleTr: 'Daha Derine İn',
       descriptionTr: 'Bilişsel esneklik, anlam & azim, çatışma tarzları, duygulanım dengesi, canlılık, başa çıkma ve yaratıcılık.',
       isCompleted: comprehensiveProfileReady,
       isActive: currentStage === 'DEEP_PROFILE',
@@ -587,7 +587,7 @@ export async function getUserAssessmentJourney(userId: string): Promise<UserAsse
     },
     {
       stageKey: 'ADVANCED',
-      titleTr: 'Aşama 4: İleri Düzey Araştırma (Advanced Exploration)',
+      titleTr: 'İleri Keşif',
       descriptionTr: 'İsteğe bağlı subklinik dinamikler ve uç kişilik özellikleri (Karanlık Dörtlü / SD4).',
       isCompleted: advancedAssessments.length > 0 && advancedAssessments.every((a) => a.status === 'COMPLETED'),
       isActive: currentStage === 'ADVANCED_EXPLORATION' || currentStage === 'COMPREHENSIVE_COMPLETE',

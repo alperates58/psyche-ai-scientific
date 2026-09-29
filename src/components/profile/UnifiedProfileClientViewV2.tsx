@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   Sparkles,
@@ -13,47 +13,31 @@ import {
   Scale,
   Clock,
   Lightbulb,
-  BarChart3,
   ShieldCheck,
-  Download,
-  Zap,
-  CheckCircle2,
-  Search,
-  Filter,
+  ChevronRight,
   ArrowRight,
-  ExternalLink,
-  Info,
-  ChevronDown,
-  ChevronUp,
+  Sun,
+  Users,
+  Heart,
+  Zap,
+  Shield,
+  Activity,
 } from 'lucide-react';
 
-import { UnifiedPsychologicalProfileV2, FacetProfileV2 } from '@/types/unifiedProfileV2';
+import { UnifiedPsychologicalProfileV2 } from '@/types/unifiedProfileV2';
 import { UnifiedProfileAISectionData } from '@/types/aiInsightV2';
 import { ProfileEvidenceBundleV2 } from '@/lib/profile/profileEvidenceBundle';
 
-// V3 Profile Components
+// Profile Components
+import { ProfileTabNav } from './ProfileTabNav';
 import { ProfileHeroV3 } from './ProfileHeroV3';
 import { PersonalityDNA } from './PersonalityDNA';
 import { ProfileNarrative } from './ProfileNarrative';
-import { HexacoRadarV2 } from './HexacoRadarV2';
-import { HexacoFacetHeatmap } from './HexacoFacetHeatmap';
 import { FacetInsightCardV3 } from './FacetInsightCardV3';
 import { TraitInteractionMatrix } from './TraitInteractionMatrix';
 import { StrengthBalanceMatrix } from './StrengthBalanceMatrix';
-import { CompletedAssessmentsPanel } from './CompletedAssessmentsPanel';
 import { TheoryLensPreviewSection } from './TheoryLensPreviewSection';
-import { ScientificDetailPanelV2 } from './ScientificDetailPanelV2';
-import { UnexploredAreasPanel } from './UnexploredAreasPanel';
-
-// Specialized Domain Components
-import { SelfSystemProfile } from './SelfSystemProfile';
-import { EmotionRegulationProfile } from './EmotionRegulationProfile';
-import { DecisionStyleMap } from './DecisionStyleMap';
-import { NeedsProfile } from './NeedsProfile';
-import { ResilienceProfile } from './ResilienceProfile';
-import { SchwartzValuesCircle } from './SchwartzValuesCircle';
-import { InterpersonalStyleCompass } from './InterpersonalStyleCompass';
-import { UnifiedProfileAISectionV2 } from './ai/UnifiedProfileAISectionV2';
+import { CompletedAssessmentsPanel } from './CompletedAssessmentsPanel';
 
 interface UnifiedProfileClientViewV2Props {
   profile: UnifiedPsychologicalProfileV2;
@@ -61,624 +45,435 @@ interface UnifiedProfileClientViewV2Props {
   evidenceBundle?: ProfileEvidenceBundleV2;
 }
 
-interface NavSectionItem {
-  id: string;
-  labelTr: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const NAVIGATION_SECTIONS: NavSectionItem[] = [
-  { id: 'section-hero', labelTr: 'Genel Bakış', icon: Sparkles },
-  { id: 'section-fingerprint', labelTr: 'Kişilik DNA', icon: Dna },
-  { id: 'section-summary', labelTr: 'Psikolojik Rapor', icon: BookOpen },
-  { id: 'section-domains', labelTr: '11 Boyut', icon: Compass },
-  { id: 'section-hexaco', labelTr: 'HEXACO Radar', icon: Brain },
-  { id: 'section-facets', labelTr: '91 Alt Boyut', icon: Grid },
-  { id: 'section-patterns', labelTr: 'Etkileşimler', icon: Layers },
-  { id: 'section-synergies', labelTr: 'Sinerjiler', icon: Sparkles },
-  { id: 'section-tensions', labelTr: 'Denge Noktaları', icon: Scale },
-  { id: 'section-stability', labelTr: 'Ölçüm Geçmişi', icon: Clock },
-  { id: 'section-theory-council', labelTr: 'Kuramlar Konseyi', icon: Lightbulb },
-  { id: 'section-comparisons', labelTr: 'Popülasyon Normları', icon: BarChart3 },
-  { id: 'section-science', labelTr: 'Bilimsel Kalite', icon: ShieldCheck },
-  { id: 'section-exports', labelTr: 'Dışa Aktar', icon: Download },
-  { id: 'section-growth-prep', labelTr: 'Gelişim Yolculuğu', icon: Zap },
-];
-
 export const UnifiedProfileClientViewV2: React.FC<UnifiedProfileClientViewV2Props> = ({
   profile,
   aiSectionData,
   evidenceBundle,
 }) => {
-  const [activeSectionId, setActiveSectionId] = useState<string>('section-hero');
-  const [selectedDomainTab, setSelectedDomainTab] = useState<string>('self_system');
-  const [facetSearchQuery, setFacetSearchQuery] = useState('');
-  const [facetDomainFilter, setFacetDomainFilter] = useState('ALL');
-  const [facetStatusFilter, setFacetStatusFilter] = useState<'ALL' | 'MEASURED' | 'NOT_MEASURED'>('MEASURED');
-  const [showAllMeasuredFacets, setShowAllMeasuredFacets] = useState(false);
+  // Filter top distinctive measured facets for main profile (6-8 facets only)
+  const measuredFacets = profile.facets.filter(
+    (f) => f.measurementStatus !== 'NOT_MEASURED' && f.score !== null
+  );
 
-  // Smooth scroll handler
-  const handleNavClick = (sectionId: string) => {
-    setActiveSectionId(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const yOffset = -80; // Offset for sticky navbar
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
+  const topDistinctiveFacets = [...measuredFacets]
+    .sort((a, b) => Math.abs((b.score ?? 3.0) - 3.0) - Math.abs((a.score ?? 3.0) - 3.0))
+    .slice(0, 6);
 
-  // Scroll spy to highlight active section
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 120;
-      for (let i = NAVIGATION_SECTIONS.length - 1; i >= 0; i--) {
-        const section = document.getElementById(NAVIGATION_SECTIONS[i].id);
-        if (section) {
-          const top = section.offsetTop;
-          if (scrollPosition >= top) {
-            setActiveSectionId(NAVIGATION_SECTIONS[i].id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Filter facets for 91 facet catalog
-  const filteredFacets = useMemo(() => {
-    return profile.facets.filter((facet) => {
-      if (facetDomainFilter !== 'ALL' && facet.domainId !== facetDomainFilter) {
-        return false;
-      }
-      const isMeasured = facet.measurementStatus !== 'NOT_MEASURED' && facet.score !== null;
-      if (facetStatusFilter === 'MEASURED' && !isMeasured) return false;
-      if (facetStatusFilter === 'NOT_MEASURED' && isMeasured) return false;
-
-      if (facetSearchQuery.trim()) {
-        const query = facetSearchQuery.toLowerCase();
-        return (
-          facet.nameTr.toLowerCase().includes(query) ||
-          facet.nameEn.toLowerCase().includes(query) ||
-          (facet.scientificDefinitionTr && facet.scientificDefinitionTr.toLowerCase().includes(query))
-        );
-      }
-      return true;
-    });
-  }, [profile.facets, facetDomainFilter, facetStatusFilter, facetSearchQuery]);
-
-  const measuredFacetsList = useMemo(() => {
-    return filteredFacets.filter((f) => f.measurementStatus !== 'NOT_MEASURED' && f.score !== null);
-  }, [filteredFacets]);
-
-  const unmeasuredFacetsList = useMemo(() => {
-    return filteredFacets.filter((f) => f.measurementStatus === 'NOT_MEASURED' || f.score === null);
-  }, [filteredFacets]);
-
-  const displayedMeasuredFacets = showAllMeasuredFacets
-    ? measuredFacetsList
-    : measuredFacetsList.slice(0, 8);
+  // 7 Domain Cards Configurations with family colors
+  const domainCards = [
+    {
+      id: 'personality',
+      titleTr: 'Temel Kişilik Yapısı',
+      subtitleTr: 'HEXACO 6 faktör ve 24 alt boyut',
+      href: '/profile/personality',
+      color: 'bg-purple-600',
+      badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+      icon: Brain,
+      domainId: 'core_personality',
+      count: profile.facets.filter((f) => (f.domainId === 'core_personality' || f.domainId === 'domain_personality_hexaco') && f.score !== null).length,
+      total: 24,
+      descTr: 'Sosyal cesaret, samimiyet, duygusal hassasiyet ve çalışma standartlarınızın kanonik haritası.',
+    },
+    {
+      id: 'self',
+      titleTr: 'Benlik & Öz-Düzenleme',
+      subtitleTr: 'Benlik saygısı, öz-yeterlik ve otantiklik',
+      href: '/profile/self',
+      color: 'bg-indigo-600',
+      badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+      icon: Zap,
+      domainId: 'self_system',
+      count: profile.facets.filter((f) => ['core_self_esteem', 'generalized_self_efficacy', 'authenticity', 'self_concept_clarity', 'general_self_control', 'long_term_grit'].includes(f.facetId) && f.score !== null).length,
+      total: 6,
+      descTr: 'Kendinle ilişkin ve kendini yönetme biçimin. Hedeflere bağlılık ve içsel denetim odağın.',
+    },
+    {
+      id: 'emotions',
+      titleTr: 'Duygusal İşleyiş',
+      subtitleTr: 'Yeniden çerçeveleme, baskılama ve sıkıntı toleransı',
+      href: '/profile/emotions',
+      color: 'bg-rose-600',
+      badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+      icon: Heart,
+      domainId: 'emotion_regulation',
+      count: profile.facets.filter((f) => f.domainId === 'emotion_regulation' && f.score !== null).length,
+      total: 9,
+      descTr: 'Duygularınla nasıl çalışıyorsun? Stres anlarında anlamlandırma ve hisleri düzenleme kapasiten.',
+    },
+    {
+      id: 'cognition',
+      titleTr: 'Biliş & Karar Verme',
+      subtitleTr: 'Analitik düşünme, sezgi ve belirsizlik toleransı',
+      href: '/profile/cognition',
+      color: 'bg-blue-600',
+      badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+      icon: Lightbulb,
+      domainId: 'cognition_decision',
+      count: profile.facets.filter((f) => f.domainId === 'cognition_decision' && f.score !== null).length,
+      total: 9,
+      descTr: 'Bilgiyi nasıl işlediğin, karar alma tempon ve karmaşık durumlar karşısındaki esnekliğin.',
+    },
+    {
+      id: 'motivation',
+      titleTr: 'Motivasyon & Değerler',
+      subtitleTr: 'Temel ihtiyaçlar ve Schwartz değerler modeli',
+      href: '/profile/motivation',
+      color: 'bg-amber-600',
+      badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+      icon: Sun,
+      domainId: 'motivation_values',
+      count: profile.facets.filter((f) => f.domainId === 'motivation_values' && f.score !== null).length,
+      total: 9,
+      descTr: 'Seni ne harekete geçiriyor? Özerklik, yetkinlik, evrensel değerler ve anlam kaynakların.',
+    },
+    {
+      id: 'relationships',
+      titleTr: 'İlişkisel Tarz',
+      subtitleTr: 'Kişilerarası çember ve sosyal yaklaşım',
+      href: '/profile/relationships',
+      color: 'bg-teal-600',
+      badgeColor: 'bg-teal-50 text-teal-700 border-teal-200',
+      icon: Users,
+      domainId: 'social_relational',
+      count: profile.facets.filter((f) => f.domainId === 'social_relational' && f.score !== null).length,
+      total: 9,
+      descTr: 'İnsanlarla nasıl yakınlık kuruyorsun ve sosyal ortamlarda kendini nasıl konumlandırıyorsun?',
+    },
+    {
+      id: 'resilience',
+      titleTr: 'Stres & Dayanıklılık',
+      subtitleTr: 'Zorlanma, başa çıkma ve toparlanma dinamikleri',
+      href: '/profile/resilience',
+      color: 'bg-cyan-600',
+      badgeColor: 'bg-cyan-50 text-cyan-700 border-cyan-200',
+      icon: Shield,
+      domainId: 'coping_resilience',
+      count: profile.facets.filter((f) => f.domainId === 'coping_resilience' && f.score !== null).length,
+      total: 4,
+      descTr: 'Zorlukları göğüsleme, toparlanma hızı ve stres sonrası dengeni yeniden inşa etme tarzın.',
+    },
+  ];
 
   return (
-    <div className="w-full space-y-10 pb-20">
+    <div className="space-y-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Sticky top-14 navigation container with horizontal scroll (matches V3 & V4 audit invariant) */}
+      <div className="sticky top-14 z-20 bg-bg-app/95 backdrop-blur-md py-2 overflow-x-auto no-scrollbar">
+        <ProfileTabNav />
+      </div>
+
       {/* ========================================================================= */}
-      {/* 1. STICKY TOP JUMP NAVIGATION BAR (Replacing rejected permanent sidebar) */}
+      {/* 1. PROFILE SUMMARY SECTION (Hero + Narrative Report)                      */}
       {/* ========================================================================= */}
-      <div className="sticky top-14 z-30 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-2.5 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-xs">
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth">
-          {NAVIGATION_SECTIONS.map((sec) => {
-            const Icon = sec.icon;
-            const isActive = activeSectionId === sec.id;
+      <section id="section-summary" className="space-y-6">
+        <div id="section-hero">
+          <ProfileHeroV3 profile={profile} />
+        </div>
+        <ProfileNarrative
+          profile={profile}
+          evidenceBundle={evidenceBundle}
+        />
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 2. PSYCHOLOGICAL SIGNATURE (PersonalityDNA - 8 Higher-Level Themes)       */}
+      {/* ========================================================================= */}
+      <section id="section-fingerprint" className="space-y-4">
+        <PersonalityDNA profile={profile} />
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 3. FLAGSHIP VISUALS PREVIEW (Links directly to /profile/map)              */}
+      {/* ========================================================================= */}
+      <section id="section-visuals" className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-default pb-3">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold mb-1">
+              <Compass className="w-3.5 h-3.5" />
+              <span>Amiral Gemisi Görseller</span>
+            </div>
+            <h2 className="text-xl font-bold text-text-primary tracking-tight">
+              Görsel Profil Haritaları
+            </h2>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Çok boyutlu radar, 24 hücreli ısı haritası, değerler çemberi ve ilişkisel pusula.
+            </p>
+          </div>
+
+          <Link
+            href="/profile/map"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-primary text-white text-xs font-bold shadow-xs hover:bg-brand-primary/90 transition-all shrink-0 self-start sm:self-auto"
+          >
+            <span>Tüm Haritaları İncele</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        {/* 4 Flagship Preview Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link
+            id="section-hexaco"
+            href="/profile/map#section-radar"
+            className="p-5 rounded-2xl bg-surface-1 border border-border-default hover:border-purple-300 dark:hover:border-purple-700 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between space-y-4"
+          >
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center">
+                <Brain className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-bold text-text-primary group-hover:text-purple-600 transition-colors">
+                HEXACO Kişilik Radarı
+              </h3>
+              <p className="text-[11px] text-text-secondary leading-relaxed">
+                6 temel faktörün çok eksenli radar gösterimi ve öne çıkan eğilimleriniz.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-purple-600 flex items-center gap-1">
+              <span>Radara Git</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Link>
+
+          <Link
+            href="/profile/map#section-heatmap"
+            className="p-5 rounded-2xl bg-surface-1 border border-border-default hover:border-indigo-300 dark:hover:border-indigo-700 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between space-y-4"
+          >
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center">
+                <Grid className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-bold text-text-primary group-hover:text-indigo-600 transition-colors">
+                24 Alt Boyut Isı Haritası
+              </h3>
+              <p className="text-[11px] text-text-secondary leading-relaxed">
+                6 faktör × 4 boyut = 24 kanonik hücre. Tıklayarak günlük hayat yansımalarını incele.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-indigo-600 flex items-center gap-1">
+              <span>Isı Haritasına Git</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Link>
+
+          <Link
+            href="/profile/map#section-values"
+            className="p-5 rounded-2xl bg-surface-1 border border-border-default hover:border-amber-300 dark:hover:border-amber-700 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between space-y-4"
+          >
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center">
+                <Sun className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-bold text-text-primary group-hover:text-amber-600 transition-colors">
+                Değerler Haritası (Schwartz)
+              </h3>
+              <p className="text-[11px] text-text-secondary leading-relaxed">
+                4 kadranlı dairesel düzen: Açıklık, Aşkınlık, Muhafazacılık ve Gelişim değerleri.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-amber-600 flex items-center gap-1">
+              <span>Değerler Çemberine Git</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Link>
+
+          <Link
+            href="/profile/map#section-interpersonal"
+            className="p-5 rounded-2xl bg-surface-1 border border-border-default hover:border-teal-300 dark:hover:border-teal-700 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between space-y-4"
+          >
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 flex items-center justify-center">
+                <Users className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-bold text-text-primary group-hover:text-teal-600 transition-colors">
+                İlişkisel Tarz Haritası
+              </h3>
+              <p className="text-[11px] text-text-secondary leading-relaxed">
+                Sosyal yönlendiricilik (Ajans) ve sıcaklık/bağlanma (Komünyon) koordinatları.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-teal-600 flex items-center gap-1">
+              <span>İlişkisel Haritaya Git</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 4. PSYCHOLOGICAL AREAS (7 Domain Cards with Family Color Identities)      */}
+      {/* ========================================================================= */}
+      <section id="section-domains" className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-default pb-3">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold mb-1">
+              <Layers className="w-3.5 h-3.5" />
+              <span>Derinlemesine Keşif</span>
+            </div>
+            <h2 className="text-xl font-bold text-text-primary tracking-tight">
+              7 Temel Psikolojik Alan
+            </h2>
+            <p className="text-xs text-text-secondary mt-0.5">
+              Her alan kendi kuramsal modelleri, özel görselleştirmeleri ve alt boyutlarıyla ayrı bir derinlik sayfası sunar.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {domainCards.map((domain) => {
+            const Icon = domain.icon;
+            const isMeasured = domain.count > 0;
+
             return (
-              <button
-                key={sec.id}
-                type="button"
-                onClick={() => handleNavClick(sec.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
-                  isActive
-                    ? 'bg-indigo-600 text-white shadow-xs'
-                    : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-                }`}
+              <Link
+                key={domain.id}
+                href={domain.href}
+                className="p-6 rounded-3xl bg-surface-1 border border-border-default hover:border-brand-primary/40 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between space-y-4"
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{sec.labelTr}</span>
-              </button>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center text-white ${domain.color} shadow-xs`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${domain.badgeColor}`}>
+                      {isMeasured ? `${domain.count} Boyut Ölçüldü` : 'Ölçüm Bekliyor'}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base font-bold text-text-primary group-hover:text-brand-primary transition-colors">
+                      {domain.titleTr}
+                    </h3>
+                    <p className="text-[11px] text-text-tertiary font-medium">
+                      {domain.subtitleTr}
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-text-secondary leading-relaxed">
+                    {domain.descTr}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-border-subtle flex items-center justify-between text-xs font-bold text-brand-primary">
+                  <span>Alanı İncele</span>
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
             );
           })}
         </div>
-      </div>
+      </section>
 
       {/* ========================================================================= */}
-      {/* FULL-WIDTH PROFILE CANVAS (~1300-1440px) */}
+      {/* 5. TRAIT INTERACTIONS (Synergies & Tensions Dynamic Interactions)         */}
       {/* ========================================================================= */}
-      <div className="space-y-12">
-        {/* SECTION 1: PROFIL KAHRAMANI (HERO) */}
-        <section id="section-hero" className="scroll-mt-24">
-          <ProfileHeroV3
-            profile={profile}
-            onExploreClick={() => handleNavClick('section-facets')}
-          />
-        </section>
+      <section id="section-patterns" className="space-y-6">
+        <div className="flex items-center gap-2 border-b border-border-default pb-3">
+          <Layers className="w-5 h-5 text-indigo-600" />
+          <div>
+            <h2 className="text-xl font-bold text-text-primary tracking-tight">
+              Özellik Etkileşimleri ve Denge Noktaları
+            </h2>
+            <p className="text-xs text-text-secondary">
+              Tekil boyutların birbirini pekiştiren sinerjileri ve hassas denge gerektiren kombinasyonları.
+            </p>
+          </div>
+        </div>
 
-        {/* SECTION 2: PSİKOLOJİK İMZA / KİŞİLİK DNA'SI */}
-        <section id="section-fingerprint" className="scroll-mt-24">
-          <PersonalityDNA profile={profile} />
-        </section>
+        <div id="section-synergies">
+          <TraitInteractionMatrix profile={profile} />
+        </div>
+        <div id="section-tensions">
+          <StrengthBalanceMatrix profile={profile} />
+        </div>
+      </section>
 
-        {/* SECTION 3: PSİKOLOJİK ANLATI RAPORU VE AI SENTEZİ */}
-        <section id="section-summary" className="scroll-mt-24 space-y-8">
-          {aiSectionData && evidenceBundle && (
-            <UnifiedProfileAISectionV2
-              data={aiSectionData}
-              bundle={evidenceBundle}
-            />
-          )}
-          <ProfileNarrative
-            profile={profile}
-            evidenceBundle={evidenceBundle}
-          />
-        </section>
-
-        {/* SECTION 4: 11 ALAN İNCELEMESİ (DOMAIN EXPLORATION) */}
-        <section id="section-domains" className="scroll-mt-24 space-y-6">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+      {/* ========================================================================= */}
+      {/* 6. TIMELINE & THEORY PREVIEW + TOP FACETS                                 */}
+      {/* ========================================================================= */}
+      <section id="section-previews" className="space-y-8">
+        {/* Top Distinctive Facets (6 Facets only on main profile - never dumps all 91) */}
+        {topDistinctiveFacets.length > 0 && (
+          <div id="section-facets" className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-default pb-3">
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="p-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
-                    <Compass className="w-4 h-4" />
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                    11 Boyutlu Psikolojik Evren İncelemesi
-                  </h2>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-700 text-xs font-bold mb-1">
+                  <Grid className="w-3.5 h-3.5" />
+                  <span>Öne Çıkan Özellikler</span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Her psikolojik alanı kendine özgü bilimsel çerçevesi ve ölçülen göstergeleriyle derinlemesine keşfet.
+                <h2 className="text-xl font-bold text-text-primary tracking-tight">
+                  Öne Çıkan Alt Boyutların
+                </h2>
+                <p className="text-xs text-text-secondary mt-0.5">
+                  Ölçülen kanonik boyutlar arasında profilinde en belirgin ayrışmayı sunan ilk 6 özellik.
                 </p>
               </div>
+
+              <Link
+                href="/profile/facets"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-surface-2 border border-border-default hover:border-brand-primary text-text-primary text-xs font-bold shadow-xs transition-all shrink-0 self-start sm:self-auto"
+              >
+                <span>Tüm 91 Alt Boyutu Keşfet</span>
+                <ArrowRight className="w-4 h-4 text-brand-primary" />
+              </Link>
             </div>
 
-            {/* Domain Tab Selector */}
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
-              {[
-                { id: 'self_system', label: 'Benlik & Öz-Düzenleme' },
-                { id: 'emotion_regulation', label: 'Duygular & Dayanıklılık' },
-                { id: 'cognition_decision', label: 'Biliş & Karar Verme' },
-                { id: 'motivation_values', label: 'Motivasyon & Değerler' },
-                { id: 'social_relational', label: 'İlişkiler & Sosyal' },
-                { id: 'coping_resilience', label: 'Zorlanma & Toparlanma' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setSelectedDomainTab(tab.id)}
-                  className={`px-4 py-2 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all ${
-                    selectedDomainTab === tab.id
-                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  {tab.label}
-                </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {topDistinctiveFacets.map((facet) => (
+                <FacetInsightCardV3
+                  key={facet.facetId}
+                  facet={facet}
+                  allFacets={profile.facets}
+                />
               ))}
             </div>
 
-            {/* Specialized Domain Content Area */}
-            <div className="pt-2">
-              {selectedDomainTab === 'self_system' && (
-                <SelfSystemProfile profile={profile} />
-              )}
-              {selectedDomainTab === 'emotion_regulation' && (
-                <EmotionRegulationProfile profile={profile} />
-              )}
-              {selectedDomainTab === 'cognition_decision' && (
-                <DecisionStyleMap profile={profile} />
-              )}
-              {selectedDomainTab === 'motivation_values' && (
-                <div className="space-y-6">
-                  <NeedsProfile profile={profile} />
-                  <SchwartzValuesCircle profile={profile} />
-                </div>
-              )}
-              {selectedDomainTab === 'social_relational' && (
-                <InterpersonalStyleCompass profile={profile} />
-              )}
-              {selectedDomainTab === 'coping_resilience' && (
-                <ResilienceProfile profile={profile} />
-              )}
-            </div>
-          </div>
-
-          {/* Unexplored Areas Invitation */}
-          <UnexploredAreasPanel profile={profile} />
-        </section>
-
-        {/* SECTION 5: HEXACO RADAR & 24 FASET HEATMAP */}
-        <section id="section-hexaco" className="scroll-mt-24 space-y-6">
-          <HexacoRadarV2 profile={profile} />
-          <HexacoFacetHeatmap profile={profile} />
-        </section>
-
-        {/* SECTION 6: 91 ALT BOYUT KATALOĞU (FACET EXPLORER) */}
-        <section id="section-facets" className="scroll-mt-24 space-y-6">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-            {/* Header & Filter Controls */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="p-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
-                    <Grid className="w-4 h-4" />
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                    91 Alt Boyut Kataloğu ve Zengin Yorumlar
-                  </h2>
-                </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Her alt boyut için günlük yaşam anlamı, avantajlar, enerji maliyeti ve öz-düşünüm soruları.
-                </p>
-              </div>
-
-              {/* Status Tabs */}
-              <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl text-xs font-semibold self-start lg:self-auto shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setFacetStatusFilter('MEASURED')}
-                  className={`px-3 py-1.5 rounded-xl transition-all ${
-                    facetStatusFilter === 'MEASURED'
-                      ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
-                  }`}
-                >
-                  Ölçülenler ({profile.facets.filter((f) => f.measurementStatus !== 'NOT_MEASURED' && f.score !== null).length})
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFacetStatusFilter('ALL')}
-                  className={`px-3 py-1.5 rounded-xl transition-all ${
-                    facetStatusFilter === 'ALL'
-                      ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
-                  }`}
-                >
-                  Tüm Boyutlar (91)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFacetStatusFilter('NOT_MEASURED')}
-                  className={`px-3 py-1.5 rounded-xl transition-all ${
-                    facetStatusFilter === 'NOT_MEASURED'
-                      ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
-                  }`}
-                >
-                  Henüz Ölçülmeyenler ({profile.facets.filter((f) => f.measurementStatus === 'NOT_MEASURED' || f.score === null).length})
-                </button>
-              </div>
-            </div>
-
-            {/* Search and Domain Select Filter */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Boyut adı veya anahtar kelime ara..."
-                  value={facetSearchQuery}
-                  onChange={(e) => setFacetSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/30"
-                />
-              </div>
-
-              <select
-                value={facetDomainFilter}
-                onChange={(e) => setFacetDomainFilter(e.target.value)}
-                className="px-4 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/30 shrink-0"
+            <div className="text-center pt-2">
+              <Link
+                href="/profile/facets"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-brand-primary text-white text-xs font-bold shadow-md hover:bg-brand-primary/90 transition-all"
               >
-                <option value="ALL">Tüm Alanlar</option>
-                {profile.domains.map((d) => (
-                  <option key={d.domainId} value={d.domainId}>
-                    {d.nameTr}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Measured Facets Grid with FacetInsightCardV3 */}
-            {facetStatusFilter !== 'NOT_MEASURED' && (
-              <div className="space-y-4">
-                <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                  Ölçülen Boyutlar ({measuredFacetsList.length})
-                </div>
-
-                {displayedMeasuredFacets.length === 0 ? (
-                  <div className="text-center py-8 text-xs text-slate-400 bg-slate-50 dark:bg-slate-800/30 rounded-2xl">
-                    Arama kriterlerine uygun ölçülmüş boyut bulunamadı.
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {displayedMeasuredFacets.map((facet) => (
-                      <FacetInsightCardV3
-                        key={facet.facetId}
-                        facet={facet}
-                        allFacets={profile.facets}
-                      />
-                    ))}
-                  </div>
-                )}
-
-                {measuredFacetsList.length > 8 && (
-                  <div className="text-center pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowAllMeasuredFacets(!showAllMeasuredFacets)}
-                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 transition-all"
-                    >
-                      <span>
-                        {showAllMeasuredFacets
-                          ? 'Daha Az Göster'
-                          : `Kalan ${measuredFacetsList.length - 8} Ölçülen Boyutu Göster`}
-                      </span>
-                      {showAllMeasuredFacets ? (
-                        <ChevronUp className="w-3.5 h-3.5" />
-                      ) : (
-                        <ChevronDown className="w-3.5 h-3.5" />
-                      )}
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Unmeasured Facets Grid */}
-            {facetStatusFilter !== 'MEASURED' && unmeasuredFacetsList.length > 0 && (
-              <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                  Henüz Ölçülmeyen Boyutlar ({unmeasuredFacetsList.length})
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {unmeasuredFacetsList.slice(0, 15).map((facet) => (
-                    <div
-                      key={facet.facetId}
-                      className="p-3.5 rounded-2xl bg-slate-50/60 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2"
-                    >
-                      <div className="min-w-0">
-                        <div className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">
-                          {facet.nameTr}
-                        </div>
-                        <div className="text-[10px] text-slate-400 truncate">
-                          {facet.nameEn}
-                        </div>
-                      </div>
-                      <span className="text-[10px] font-semibold text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2 py-0.5 rounded-md shrink-0">
-                        Ölçülmedi
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* SECTION 7: ÖZELLİK ETKİLEŞİM MATRİSİ */}
-        <section id="section-patterns" className="scroll-mt-24">
-          <TraitInteractionMatrix profile={profile} />
-        </section>
-
-        {/* SECTION 8: GÜÇLÜ KOMBİNASYONLAR (SİNERJİLER) */}
-        <section id="section-synergies" className="scroll-mt-24">
-          <StrengthBalanceMatrix profile={profile} />
-        </section>
-
-        {/* SECTION 9: HASSAS DENGE NOKTALARI (GERİLİMLER) */}
-        <section id="section-tensions" className="scroll-mt-24">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="p-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
-                    <Scale className="w-4 h-4" />
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                    Hassas Denge Noktaları ve Durumsal Gerilimler
-                  </h2>
-                </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Farklı bağlamlarda birbiriyle yarışabilen iki güçlü eğiliminin dengesini koruma alanları.
-                </p>
-              </div>
-            </div>
-
-            {profile.tensions && profile.tensions.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {profile.tensions.map((ten) => (
-                  <div
-                    key={ten.id}
-                    className="p-5 rounded-2xl bg-amber-50/30 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 space-y-3"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                        {ten.titleTr}
-                      </h3>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300">
-                        Denge Alanı
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                      {ten.descriptionTr}
-                    </p>
-                    {ten.reflectionPromptTr && (
-                      <div className="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-amber-100 dark:border-amber-900/30 text-xs text-slate-700 dark:text-slate-300">
-                        <span className="font-bold text-amber-700 dark:text-amber-400 mr-1.5">Öz-Düşünüm Sorusu:</span>
-                        {ten.reflectionPromptTr}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/30 text-center text-xs text-slate-500">
-                Tamamlanan ampirik değerlendirmeler arttıkça hassas denge noktalarınız burada listelenir.
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* SECTION 10: ÖLÇÜM GEÇMİŞİ VE KARARLILIK (STABILITY) */}
-        <section id="section-stability" className="scroll-mt-24 space-y-6">
-          <CompletedAssessmentsPanel profile={profile} />
-
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
-                <Clock className="w-4 h-4" />
-              </span>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                Ölçüm Kararlılığı ve Boylamsal Takip
-              </h3>
-            </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Kişilik ve benlik özellikleri zaman içinde görece kararlı kalırken; stres toleransı, duygu düzenleme ve öznel iyi oluş çevresel faktörlere göre dalgalanabilir. PsycheAI, tekrarlanan ölçümler arasındaki değişimleri nedensel iddialar üretmeden betimsel olarak izler.
-            </p>
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 text-xs text-slate-500 flex items-center justify-between">
-              <span>Boylamsal Tekrar Ölçüm Durumu:</span>
-              <span className="font-semibold text-slate-700 dark:text-slate-300">
-                {profile.longitudinalReadiness.hasRepeatMeasurements
-                  ? 'Tekrarlı Ölçüm Kaydedildi'
-                  : 'İlk Ölçüm Dönemi (Referans Baseline)'}
-              </span>
+                <span>Tüm 91 Alt Boyut Kataloğunu Aç</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
-        </section>
+        )}
 
-        {/* SECTION 11: KURAMLAR KONSEYİ ENTEGRASYONU */}
-        <section id="section-theory-council" className="scroll-mt-24">
-          <TheoryLensPreviewSection profile={profile} />
-        </section>
-
-        {/* SECTION 12: POPÜLASYON NORMLARI VE KARŞILAŞTIRMALI PERSPEKTİF */}
-        <section id="section-comparisons" className="scroll-mt-24">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-            <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
-                <BarChart3 className="w-4 h-4" />
-              </span>
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                Popülasyon Normları ve Karşılaştırmalı Analiz
-              </h2>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-blue-50/40 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 space-y-3">
-              <div className="flex items-start gap-3">
-                <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-                <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                  <div className="font-bold text-slate-900 dark:text-white text-sm">
-                    Bilimsel Şeffaflık Taahhüdü: Toplum Normlarıyla Karşılaştırma Henüz Sunulmuyor
-                  </div>
-                  <p>
-                    PsycheAI, temsil edici ulusal örneklem kalibrasyon çalışmaları tamamlanmadan kullanıcılara varsayımsal veya uydurma persentil (yüzdelik dilim) değerleri sunmayı reddeder.
-                  </p>
-                  <p>
-                    Gördüğünüz tüm puanlar, ilgili bilimsel ölçeğin mutlak aralığındaki (1.00 - 5.00) konumunuzu temsil eder. Gelecek dönemde ulusal norm kohortları tamamlandığında, temsil gücü yüksek referans gruplarıyla karşılaştırmalar isteğe bağlı olarak açılacaktır.
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* Theory Council Preview */}
+        <div id="section-theory-council">
+          <div id="section-comparisons">
+            <TheoryLensPreviewSection profile={profile} />
           </div>
-        </section>
+        </div>
 
-        {/* SECTION 13: BİLİMSEL METODOLOJİ VE KALİTE */}
-        <section id="section-science" className="scroll-mt-24">
-          <ScientificDetailPanelV2 profile={profile} />
-        </section>
-
-        {/* SECTION 14: DIŞA AKTARMA VE VERİ TAŞINABİLİRLİĞİ */}
-        <section id="section-exports" className="scroll-mt-24">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="p-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
-                    <Download className="w-4 h-4" />
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                    Rapor Dışa Aktarma ve Veri Taşınabilirliği
-                  </h2>
-                </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Ölçülen psikolojik profilinizi yazdırılabilir formatta kaydedin veya araştırma verinizi indirin.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 space-y-3">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                  Yazdırılabilir Özet Rapor (PDF)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                  Kişilik DNA&apos;sı, HEXACO radar grafiği ve 10 bölümlük psikolojik anlatı sentezinizi içeren temiz PDF çıktısı.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-xs"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Raporu Yazdır / PDF İndir</span>
-                </button>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 space-y-3">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                  Ham Veri Taşınabilirliği (JSON)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                  91 alt boyut puanınızı, yanıt güvenilirlik telemetrinizi ve kanıt paketini içeren yapılandırılmış JSON verisi.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(profile, null, 2));
-                    const dlAnchor = document.createElement('a');
-                    dlAnchor.setAttribute('href', dataStr);
-                    dlAnchor.setAttribute('download', `psycheai_profile_${profile.userId}_v2.json`);
-                    dlAnchor.click();
-                  }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white text-xs font-bold transition-all"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>JSON Verisini İndir</span>
-                </button>
-              </div>
-            </div>
+        {/* Completed Assessments & Reassessment Action */}
+        <div id="section-stability">
+          <div id="section-exports">
+            <CompletedAssessmentsPanel profile={profile} />
           </div>
-        </section>
+        </div>
 
-        {/* SECTION 15: KİŞİSEL GELİŞİM YOLCULUĞU (FAZ 2.22 HAZIRLIĞI) */}
-        <section id="section-growth-prep" className="scroll-mt-24">
-          <div className="rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 p-6 sm:p-8 text-white border border-indigo-800/50 shadow-xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/30 border border-indigo-400/30 text-indigo-200 text-xs font-semibold">
-              <Zap className="w-3.5 h-3.5 text-indigo-300" />
-              <span>Gelişim Yolculuğu &amp; Eylem Motoru (Faz 2.22)</span>
+        {/* Scientific Methodology Gateway */}
+        <div id="section-science">
+          <div id="section-growth-prep" className="p-6 rounded-3xl bg-surface-1 border border-border-default shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-text-primary font-bold text-sm">
+                <ShieldCheck className="w-4 h-4 text-brand-primary" />
+                <span>Psikometrik Standartlar ve Metodolojik Sınırlar</span>
+              </div>
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Ölçüm modelleri, norm durumu (toplum normlarıyla karşılaştırma henüz sunulmuyor), yanıt kalitesi ve sıfır PII yapay zeka güvenceleri.
+              </p>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              Ölçümden Eyleme: Kişisel Gelişim Motoru Çok Yakında
-            </h2>
-            <p className="text-xs sm:text-sm text-indigo-200/90 leading-relaxed max-w-3xl">
-              Ölçülen güçlü kombinasyonlarınız, içsel sinerjileriniz ve hassas denge noktalarınız; Faz 2.22 kapsamında günlük mikro-eylemlere, bağlamsal farkındalık hatırlatıcılarına ve kanıta dayalı gelişim pratiklerine dönüştürülecektir.
-            </p>
-            <div className="pt-2 flex items-center gap-3 text-xs text-indigo-300/80">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>Ampirik profiliniz hazır; gelişim motoru entegrasyonu aşamasında doğrudan kullanılacaktır.</span>
-            </div>
+
+            <Link
+              href="/profile/science"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-2 hover:bg-bg-subtle border border-border-default text-text-primary text-xs font-bold transition-colors shrink-0"
+            >
+              <span>Metodolojiyi İncele</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 };

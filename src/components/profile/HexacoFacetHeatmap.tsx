@@ -269,8 +269,17 @@ export const HexacoFacetHeatmap: React.FC<HexacoFacetHeatmapProps> = ({ profile,
             </div>
           </div>
 
-          <div className="text-[11px] text-indigo-700 dark:text-indigo-300 font-medium italic pt-1">
-            Düşünme Sorusu: “{selectedInterpretation.reflectionQuestionTr}”
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-indigo-100 dark:border-indigo-900/60">
+            <div className="text-[11px] text-indigo-700 dark:text-indigo-300 font-medium italic">
+              Düşünme Sorusu: “{selectedInterpretation.reflectionQuestionTr}”
+            </div>
+            <a
+              href={`/profile/facets?search=${encodeURIComponent(selectedFacet.nameTr)}`}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-colors shrink-0 self-start sm:self-auto"
+            >
+              <span>Alt Boyut Kaşifinde Gör</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
       )}
