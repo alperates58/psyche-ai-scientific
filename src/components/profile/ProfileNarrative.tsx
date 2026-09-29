@@ -1,20 +1,37 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Sparkles, Brain, CheckCircle2, ChevronDown, ChevronUp, RefreshCw, Zap } from 'lucide-react';
+import {
+  BookOpen,
+  Sparkles,
+  ChevronDown,
+  ChevronUp,
+  RefreshCw,
+  Zap,
+  AlertCircle,
+  HelpCircle,
+  ShieldAlert,
+  Compass,
+  CheckCircle2
+} from 'lucide-react';
 import { UnifiedPsychologicalProfileV2 } from '@/types/unifiedProfileV2';
-import { ProfileEvidenceBundleV2 } from '@/lib/profile/profileEvidenceBundle';
+import { ProfileEvidenceBundleV2, buildProfileEvidenceBundleV2 } from '@/lib/profile/profileEvidenceBundle';
 import { generateStructuredPsychologicalReport } from '@/lib/profile/profileInterpretationGenerator';
+import { DeepProfileInsightResultV2 } from '@/types/aiInsightV2';
+import { generateEvidenceGroundedDeepFallback } from '@/lib/profile/deepProfileSynthesis';
 
 interface ProfileNarrativeProps {
   profile: UnifiedPsychologicalProfileV2;
   evidenceBundle?: ProfileEvidenceBundleV2;
 }
 
+type DeepAnalysisState = 'idle' | 'generating' | 'completed' | 'failed' | 'fallback';
+
 export const ProfileNarrative: React.FC<ProfileNarrativeProps> = ({ profile, evidenceBundle }) => {
   const [depthMode, setDepthMode] = useState<'quick' | 'detailed' | 'deep'>('detailed');
-  const [deepAnalysis, setDeepAnalysis] = useState<string | null>(null);
-  const [isGeneratingDeep, setIsGeneratingDeep] = useState(false);
+  const [deepState, setDeepState] = useState<DeepAnalysisState>('idle');
+  const [deepResult, setDeepResult] = useState<DeepProfileInsightResultV2 | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     portrait: true,
     thinking: true,
@@ -24,48 +41,74 @@ export const ProfileNarrative: React.FC<ProfileNarrativeProps> = ({ profile, evi
 
   const reportSections = generateStructuredPsychologicalReport(profile);
 
-  // Cache key based on user, evidence generation timestamp and profile version
-  const cacheKey = `psycheai_deep_profile_${profile.userId}_${evidenceBundle?.generatedAt || 'base'}_v3`;
+  // Compute opaque, non-identifying cache key without PII or user IDs
+  const bundle = evidenceBundle || buildProfileEvidenceBundleV2(profile);
+  const facetSignature = bundle.measuredFacets.map((f) => `${f.facetId}:${f.score.toFixed(1)}`).sort().join(',');
+  const cacheKey = `psycheai_deep_synth_v3_1_${facetSignature.length}_${bundle.generatedAt.slice(0, 10)}`;
 
   useEffect(() => {
     try {
-      const cached = localStorage.getItem(cacheKey);
+      const cached = sessionStorage.getItem(cacheKey);
       if (cached) {
-        setDeepAnalysis(cached);
+        const parsed = JSON.parse(cached) as DeepProfileInsightResultV2;
+        if (parsed && parsed.headlineTr && parsed.executiveSummaryTr) {
+          setDeepResult(parsed);
+          setDeepState(parsed.isFallback ? 'fallback' : 'completed');
+        }
       }
     } catch {
-      // LocalStorage unavailable
+      // Storage unavailable or parse error
     }
   }, [cacheKey]);
 
-  const handleGenerateDeepAnalysis = () => {
-    setIsGeneratingDeep(true);
-    // Simulate generation or pull deterministic deep synthesis and cache
-    setTimeout(() => {
-      const deepReportText = [
-        '--- ÇOK BOYUTLU DERİN PROFİL ANALİZİ ---',
-        '',
-        '1. TEMEL KARAKTER VE VAROLUŞ BİÇİMİ:',
-        'Profilinizdeki tüm ampirik göstergeler incelendiğinde; yüksek içtenlik, güçlü çalışma disiplini ve kavramsal merakın ortak bir kişisel pusula oluşturduğu görülmektedir. Bu yapı, dışsal baskılar karşısında kendi iç doğrularınıza sadık kalarak ilerleme kapasitenizi destekler.',
-        '',
-        '2. BİLİŞSEL VE İCRAİ DİNAMİKLERİN ENTEGRASYONU:',
-        'Yeni fikirler üretme merakınız (bilişsel alan) ile başladığınız işi yüksek standartlarla tamamlama sebatınız (öz-düzenleme alanı) arasında güçlü bir sinerji vardır. Bu ikili, kuramsal projeleri somut başarılara dönüştürmede en büyük gücünüzdür.',
-        '',
-        '3. İLİŞKİSEL VE DUYGUSAL DENGE STRATEJİLERİ:',
-        'Sosyal ilişkilerinizde dürüstlük ve doğrudanlık ön plandayken, zorlayıcı anlarda soğukkanlılığınızı koruyarak bilişsel olarak olayları yeniden çerçevelendirme yetkinliğiniz öne çıkmaktadır. Ayrıntılara fazla takıldığınız anlarda genel resmi hatırlamak enerjinizi korumanızı sağlar.',
-        '',
-        '4. METODOLOJİK GÜVENCE VE SINIRLAR:',
-        'Bu derin analiz klinik bir tanı niteliğinde olmayıp, tamamladığınız ampirik değerlendirmeler ve bağlamsal yansımalar üzerinden oluşturulmuş kişiselleştirilmiş bir öz-farkındalık sentezidir.',
-      ].join('\n');
+  const handleGenerateDeepAnalysis = async () => {
+    setDeepState('generating');
+    setErrorMessage(null);
 
-      setDeepAnalysis(deepReportText);
-      setIsGeneratingDeep(false);
-      try {
-        localStorage.setItem(cacheKey, deepReportText);
-      } catch {
-        // LocalStorage unavailable
+    try {
+      // 1. Attempt authoritative API endpoint
+      const response = await fetch('/api/profile/deep-analysis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        const data = (await response.json()) as DeepProfileInsightResultV2;
+        setDeepResult(data);
+        setDeepState(data.isFallback ? 'fallback' : 'completed');
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify(data));
+        } catch {
+          // sessionStorage full or disabled
+        }
+        return;
       }
-    }, 600);
+      
+      // If API returns non-200 (e.g. mock session or offline test env), run deterministic synthesis
+      const fallbackData = generateEvidenceGroundedDeepFallback(profile, bundle);
+      setDeepResult(fallbackData);
+      setDeepState('fallback');
+      try {
+        sessionStorage.setItem(cacheKey, JSON.stringify(fallbackData));
+      } catch {
+        // sessionStorage full or disabled
+      }
+    } catch {
+      // Network or runtime issue: use deterministic synthesis
+      try {
+        const fallbackData = generateEvidenceGroundedDeepFallback(profile, bundle);
+        setDeepResult(fallbackData);
+        setDeepState('fallback');
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify(fallbackData));
+        } catch {
+          // sessionStorage full or disabled
+        }
+      } catch (fallbackErr: any) {
+        setDeepState('failed');
+        setErrorMessage('Derin analiz oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
+      }
+    }
   };
 
   const toggleSection = (id: string) => {
@@ -211,10 +254,10 @@ export const ProfileNarrative: React.FC<ProfileNarrativeProps> = ({ profile, evi
         </div>
       )}
 
-      {/* DEEP PROFILE ANALYSIS VIEW: Explicit Action & Cached Synthesis */}
+      {/* DEEP PROFILE ANALYSIS VIEW: Real Grounded AI Insight */}
       {depthMode === 'deep' && (
         <div className="space-y-5 animate-in fade-in duration-150">
-          {!deepAnalysis ? (
+          {deepState === 'idle' && (
             <div className="p-8 rounded-3xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-900 text-center space-y-4">
               <Sparkles className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mx-auto" />
               <div className="space-y-1 max-w-md mx-auto">
@@ -222,50 +265,252 @@ export const ProfileNarrative: React.FC<ProfileNarrativeProps> = ({ profile, evi
                   Derin Profil Analizi
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
-                  Tüm psikolojik alanların, yapıların ve ölçülen alt boyutların çoklu sinerji ve etkileşim sentezini derler.
+                  Tüm psikolojik alanların, bilişsel stratejilerin ve ölçülen alt boyutların çoklu etkileşim sentezini kanıt temelli oluşturur.
                 </p>
               </div>
 
               <button
                 type="button"
                 onClick={handleGenerateDeepAnalysis}
-                disabled={isGeneratingDeep}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md hover:shadow-indigo-500/20 transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md hover:shadow-indigo-500/20 transition-all"
               >
-                {isGeneratingDeep ? (
-                  <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    <span>Derin Analiz Sentezleniyor...</span>
-                  </>
-                ) : (
-                  <>
-                    <Zap className="w-3.5 h-3.5" />
-                    <span>Derin Profil Analizi Oluştur</span>
-                  </>
-                )}
+                <Zap className="w-3.5 h-3.5" />
+                <span>Derin Profil Analizi Oluştur</span>
               </button>
             </div>
-          ) : (
-            <div className="p-6 sm:p-8 rounded-3xl bg-slate-950 text-slate-100 font-sans text-xs space-y-4 border border-indigo-950 shadow-xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-indigo-400" />
-                  <span className="font-bold text-sm text-white">Derin Profil Sentezi</span>
-                  <span className="px-2 py-0.5 rounded-full bg-indigo-900/60 text-indigo-300 text-[10px] font-mono">
-                    Önbellekten Yüklendi
+          )}
+
+          {deepState === 'generating' && (
+            <div className="p-10 rounded-3xl bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/50 text-center space-y-4 animate-pulse">
+              <RefreshCw className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mx-auto animate-spin" />
+              <div className="space-y-1 max-w-sm mx-auto">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                  Kanıt Temelli Analiz Sentezleniyor...
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Ölçülen {bundle.measuredFacets.length} boyut, bilişsel kalıplar ve etkileşim kuralları doğrulanıyor.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {deepState === 'failed' && (
+            <div className="p-6 rounded-3xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/50 text-center space-y-3">
+              <AlertCircle className="w-7 h-7 text-rose-600 dark:text-rose-400 mx-auto" />
+              <p className="text-xs font-semibold text-rose-900 dark:text-rose-200">
+                {errorMessage || 'Analiz yüklenirken bir problemle karşılaşıldı.'}
+              </p>
+              <button
+                type="button"
+                onClick={handleGenerateDeepAnalysis}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-all shadow-xs"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>Tekrar Dene</span>
+              </button>
+            </div>
+          )}
+
+          {(deepState === 'completed' || deepState === 'fallback') && deepResult && (
+            <div className="p-6 sm:p-8 rounded-3xl bg-slate-950 text-slate-100 font-sans text-xs space-y-6 border border-indigo-950 shadow-xl">
+              {/* Header Status */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                  <span className="font-bold text-sm text-white">
+                    {deepResult.headlineTr}
+                  </span>
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono border ${
+                      deepResult.isFallback
+                        ? 'bg-amber-950/60 text-amber-300 border-amber-800/60'
+                        : 'bg-indigo-950/80 text-indigo-300 border-indigo-800/60'
+                    }`}
+                  >
+                    {deepResult.isFallback ? 'Deterministik Kanıt Sentezi' : 'Yapay Zeka Destekli Derin Sentez'}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleGenerateDeepAnalysis}
-                  className="text-[11px] text-slate-400 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 text-[11px] text-slate-400 hover:text-white transition-colors self-start sm:self-auto"
                 >
-                  Yenile
+                  <RefreshCw className="w-3 h-3" />
+                  <span>Yenile</span>
                 </button>
               </div>
 
-              <div className="whitespace-pre-line leading-relaxed text-slate-300 space-y-2">
-                {deepAnalysis}
+              {/* Executive Summary */}
+              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-wider block">
+                  Yönetici Özeti
+                </span>
+                <p className="text-slate-300 leading-relaxed">
+                  {deepResult.executiveSummaryTr}
+                </p>
+              </div>
+
+              {/* 6 Psychological Patterns */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Thinking Style */}
+                <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2">
+                  <h4 className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    Düşünme ve Bilişsel Tarz
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.thinkingStyle.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-slate-500">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Decision Style */}
+                <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2">
+                  <h4 className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    Karar Alma ve Temkin
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.decisionStyle.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-slate-500">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Work Execution */}
+                <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2">
+                  <h4 className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                    Çalışma ve İcra Disiplini
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.workExecution.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-slate-500">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Emotional Patterns */}
+                <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2">
+                  <h4 className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+                    Duygusal Örüntüler ve Stres Yönetimi
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.emotionalPatterns.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-slate-500">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Relationship Patterns */}
+                <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2">
+                  <h4 className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-pink-400" />
+                    Kişilerarası Etkileşim ve İlişkiler
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.relationshipPatterns.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-slate-500">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Motivation Patterns */}
+                <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2">
+                  <h4 className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                    Motivasyon ve İçsel İhtiyaçlar
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.motivationPatterns.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-slate-500">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Trait Interactions & Balance Points */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-800/80 pt-4">
+                <div className="space-y-2">
+                  <h4 className="font-bold text-indigo-300 text-xs flex items-center gap-1.5">
+                    <Compass className="w-3.5 h-3.5" />
+                    Özellik Etkileşimleri ve Sinerjiler
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.traitInteractions.map((inter, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
+                        <span>{inter}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-bold text-amber-300 text-xs flex items-center gap-1.5">
+                    <AlertCircle className="w-3.5 h-3.5" />
+                    Denge Noktaları ve Durumsal Gerilimler
+                  </h4>
+                  <ul className="space-y-1.5 text-slate-300">
+                    {deepResult.balancePoints.map((bp, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-amber-400">•</span>
+                        <span>{bp}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Reflection Questions */}
+              {deepResult.reflectionQuestions && deepResult.reflectionQuestions.length > 0 && (
+                <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-900/60 space-y-2.5">
+                  <h4 className="font-bold text-indigo-300 text-xs flex items-center gap-1.5">
+                    <HelpCircle className="w-3.5 h-3.5" />
+                    Kişisel Yansıma Soruları
+                  </h4>
+                  <ul className="space-y-2 text-slate-300">
+                    {deepResult.reflectionQuestions.map((q, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-indigo-400 font-bold">{i + 1}.</span>
+                        <span>{q}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Methodological Guardrails & Limitations */}
+              <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2 text-[11px] text-slate-400">
+                <span className="font-bold text-slate-300 flex items-center gap-1.5">
+                  <ShieldAlert className="w-3.5 h-3.5 text-slate-400" />
+                  Metodolojik Sınırlar ve Güvenceler:
+                </span>
+                <ul className="space-y-1 list-disc list-inside">
+                  {deepResult.limitations.map((lim, i) => (
+                    <li key={i}>{lim}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           )}

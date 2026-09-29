@@ -37,16 +37,13 @@ export const HexacoRadarV2: React.FC<HexacoRadarV2Props> = ({ profile, onFactorS
       (c) => c.constructId === factor.id || c.code === factor.id
     );
 
-    // Compute average score from measured facets if construct score is null or directly
+    // Relevant facets measured for this broad factor
     const relevantFacets = profile.facets.filter(
       (f) => f.constructId === factor.id && f.score !== null
     );
 
-    let score = construct?.constructScore ?? null;
-    if (score === null && relevantFacets.length > 0) {
-      const sum = relevantFacets.reduce((acc, f) => acc + (f.score ?? 0), 0);
-      score = parseFloat((sum / relevantFacets.length).toFixed(2));
-    }
+    // Broad factor scores must strictly use canonical constructScore (zero fabrication via averaging)
+    const score = construct?.constructScore ?? null;
 
     const pos = resolveConsumerScalePosition(score);
 
@@ -55,7 +52,7 @@ export const HexacoRadarV2: React.FC<HexacoRadarV2Props> = ({ profile, onFactorS
       nameTr: factor.nameTr,
       nameEn: factor.nameEn,
       score,
-      visualCoordinate: score !== null ? Math.round(((score - 1) / 4) * 100) : 50,
+      visualCoordinate: score !== null ? Math.round(((score - 1) / 4) * 100) : 0,
       bandLabelTr: pos.labelTr,
       descriptionTr: pos.descriptionTr,
       measuredCount: relevantFacets.length,

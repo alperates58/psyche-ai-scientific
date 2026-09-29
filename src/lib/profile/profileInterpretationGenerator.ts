@@ -73,12 +73,12 @@ export function generateProfileHeroSynthesis(profile: UnifiedPsychologicalProfil
     };
   }
 
-  // Sort by score descending to find distinctive high anchors
-  const sortedDesc = [...measured].sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
-  // Sort by score ascending to find distinctive lower-end anchors
-  const sortedAsc = [...measured].sort((a, b) => (a.score ?? 0) - (b.score ?? 0));
+  // Sort by distinctiveness from scale midpoint 3.0 (both upper and lower poles are distinctive)
+  const sortedDistinctive = [...measured].sort(
+    (a, b) => Math.abs((b.score ?? 3.0) - 3.0) - Math.abs((a.score ?? 3.0) - 3.0)
+  );
 
-  const top3 = sortedDesc.slice(0, 4);
+  const top3 = sortedDistinctive.slice(0, 4);
   const topNames = top3.map((f) => f.nameTr);
 
   // Determine key themes

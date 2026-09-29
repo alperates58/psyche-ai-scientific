@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Dna, Info, Sparkles, Compass, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Dna, Info, Sparkles, Compass, CheckCircle2, ShieldCheck, AlertCircle } from 'lucide-react';
 import { UnifiedPsychologicalProfileV2, FacetProfileV2 } from '@/types/unifiedProfileV2';
 import { resolveConsumerScalePosition } from '@/lib/consumerLanguage';
 
@@ -9,79 +9,102 @@ interface PersonalityDNAProps {
   profile: UnifiedPsychologicalProfileV2;
 }
 
-// 12-16 canonical flagship candidate axes across the 11 domains
-const FLAGSHIP_AXES_CANDIDATES = [
-  { facetId: 'sincerity', labelTr: 'İçtenlik', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'fairness', labelTr: 'Hakkaniyet', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'social_boldness', labelTr: 'Sosyal Cesaret', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'sociability', labelTr: 'Sosyallik', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'patience', labelTr: 'Sabır & Hoşgörü', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'organization', labelTr: 'Düzen & Tertip', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'diligence', labelTr: 'Çalışkanlık & Özen', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'perfectionism', labelTr: 'Mükemmeliyetçilik', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'inquisitiveness', labelTr: 'Zihinsel Merak', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'aesthetic_appreciation', labelTr: 'Estetik Duyarlık', domainNameTr: 'Kişilik & Mizaç', color: '#8B5CF6' },
-  { facetId: 'core_self_esteem', labelTr: 'Benlik Değeri', domainNameTr: 'Benlik Sistemi', color: '#6366F1' },
-  { facetId: 'general_self_control', labelTr: 'Öz-Kontrol', domainNameTr: 'Öz-Düzenleme', color: '#6366F1' },
-  { facetId: 'long_term_grit', labelTr: 'Uzun Vadeli Azim', domainNameTr: 'Öz-Düzenleme', color: '#6366F1' },
-  { facetId: 'cognitive_reappraisal', labelTr: 'Bilişsel Yeniden Değerlendirme', domainNameTr: 'Duygu Düzenleme', color: '#F43F5E' },
-  { facetId: 'distress_tolerance', labelTr: 'Sıkıntı Toleransı', domainNameTr: 'Başa Çıkma & Dayanıklılık', color: '#06B6D4' },
-  { facetId: 'empathic_concern', labelTr: 'Empatik İlgi', domainNameTr: 'Kişilerarası Dinamikler', color: '#14B8A6' },
-];
+const DOMAIN_COLORS: Record<string, string> = {
+  domain_personality_hexaco: '#8B5CF6',
+  domain_cognitive_curiosity: '#06B6D4',
+  domain_emotional_regulation: '#F43F5E',
+  domain_self_system: '#6366F1',
+  domain_coping_resilience: '#10B981',
+  domain_interpersonal_dynamics: '#14B8A6',
+  domain_values_meaning: '#F59E0B',
+  domain_work_learning_execution: '#EC4899',
+  domain_chronotype_energy: '#EAB308',
+  domain_wellbeing_satisfaction: '#84CC16',
+  domain_dark_triad: '#64748B',
+};
 
 export const PersonalityDNA: React.FC<PersonalityDNAProps> = ({ profile }) => {
   const [selectedAxisId, setSelectedAxisId] = useState<string | null>(null);
 
-  // Resolve measured axes from candidate list first, then append other measured facets if needed up to 14
-  const measuredMap = new Map<string, FacetProfileV2>();
-  profile.facets.forEach((f) => {
-    if (f.measurementStatus !== 'NOT_MEASURED' && f.score !== null) {
-      measuredMap.set(f.facetId, f);
+  // Map domains for titles and colors
+  const domainMap = new Map(profile.domains.map((d) => [d.domainId, d]));
+
+  // 1. Filter all measured facets
+  const measuredFacets = profile.facets.filter(
+    (f) => f.measurementStatus !== 'NOT_MEASURED' && f.score !== null
+  );
+
+  // 2. Group by domainId
+  const facetsByDomain = new Map<string, FacetProfileV2[]>();
+  measuredFacets.forEach((f) => {
+    const list = facetsByDomain.get(f.domainId) || [];
+    list.push(f);
+    facetsByDomain.set(f.domainId, list);
+  });
+
+  // Sort each domain's facets by distinctiveness (midpoint distance: Math.abs(score - 3.0))
+  facetsByDomain.forEach((list) => {
+    list.sort((a, b) => Math.abs((b.score ?? 3.0) - 3.0) - Math.abs((a.score ?? 3.0) - 3.0));
+  });
+
+  // 3. Balanced axis selection: at most 1–2 per measured domain, 10–16 total
+  const selectedFacets: FacetProfileV2[] = [];
+
+  // Pass 1: Take the most distinctive facet from each measured domain
+  facetsByDomain.forEach((list) => {
+    if (list.length > 0 && selectedFacets.length < 16) {
+      selectedFacets.push(list[0]);
     }
   });
 
-  const resolvedAxes: Array<{
-    facetId: string;
-    labelTr: string;
-    domainNameTr: string;
-    color: string;
-    score: number;
-    normalizedCoordinate: number;
-  }> = [];
+  // Pass 2: Take the 2nd most distinctive facet from each domain (if available) up to 16
+  facetsByDomain.forEach((list) => {
+    if (list.length > 1 && selectedFacets.length < 16) {
+      selectedFacets.push(list[1]);
+    }
+  });
 
-  for (const candidate of FLAGSHIP_AXES_CANDIDATES) {
-    const f = measuredMap.get(candidate.facetId);
-    if (f && f.score !== null) {
-      resolvedAxes.push({
-        facetId: f.facetId,
-        labelTr: f.nameTr,
-        domainNameTr: candidate.domainNameTr,
-        color: candidate.color,
-        score: f.score,
-        normalizedCoordinate: f.normalizedVisualCoordinate ?? Math.round(((f.score - 1) / 4) * 100),
-      });
+  // If still fewer than 10 axes and more measured facets exist, fill with remaining most distinctive
+  if (selectedFacets.length < 10 && measuredFacets.length > selectedFacets.length) {
+    const remaining = measuredFacets
+      .filter((f) => !selectedFacets.some((s) => s.facetId === f.facetId))
+      .sort((a, b) => Math.abs((b.score ?? 3.0) - 3.0) - Math.abs((a.score ?? 3.0) - 3.0));
+
+    for (const f of remaining) {
+      if (selectedFacets.length >= 12) break;
+      selectedFacets.push(f);
     }
   }
 
-  // If fewer than 8, fill from other measured facets
-  if (resolvedAxes.length < 8) {
-    for (const [id, f] of measuredMap.entries()) {
-      if (!resolvedAxes.some((a) => a.facetId === id) && f.score !== null) {
-        resolvedAxes.push({
-          facetId: f.facetId,
-          labelTr: f.nameTr,
-          domainNameTr: 'Psikolojik Boyut',
-          color: '#8B5CF6',
-          score: f.score,
-          normalizedCoordinate: f.normalizedVisualCoordinate ?? Math.round(((f.score - 1) / 4) * 100),
-        });
-        if (resolvedAxes.length >= 12) break;
-      }
-    }
-  }
+  // Cap at 16 total
+  const finalFacets = selectedFacets.slice(0, 16);
 
-  // Top 3-5 distinctive axes for text summary
-  const topAxes = [...resolvedAxes].sort((a, b) => b.score - a.score).slice(0, 4);
+  const resolvedAxes = finalFacets.map((f) => {
+    const domain = domainMap.get(f.domainId);
+    const domainNameTr = domain ? domain.nameTr : 'Psikolojik Boyut';
+    const color = DOMAIN_COLORS[f.domainId] || domain?.color || '#8B5CF6';
+
+    return {
+      facetId: f.facetId,
+      labelTr: f.nameTr,
+      domainId: f.domainId,
+      domainNameTr,
+      color,
+      score: f.score!,
+      normalizedCoordinate:
+        f.normalizedVisualCoordinate ?? Math.round(((f.score! - 1) / 4) * 100),
+      distinctiveness: Math.abs(f.score! - 3.0),
+    };
+  });
+
+  // Count unique domains in resolved axes
+  const uniqueDomainsCount = new Set(resolvedAxes.map((a) => a.domainId)).size;
+
+  // Top 3-5 distinctive axes based on midpoint distance Math.abs(score - 3.0)
+  const topDistinctiveAxes = [...resolvedAxes]
+    .sort((a, b) => b.distinctiveness - a.distinctiveness)
+    .slice(0, 4);
+
   const activeAxis = resolvedAxes.find((a) => a.facetId === selectedAxisId) || resolvedAxes[0];
 
   return (
@@ -107,9 +130,19 @@ export const PersonalityDNA: React.FC<PersonalityDNAProps> = ({ profile }) => {
 
         <div className="text-xs text-slate-400 flex items-center gap-1.5 self-start sm:self-auto shrink-0">
           <Info className="w-3.5 h-3.5 text-indigo-500" />
-          <span>{resolvedAxes.length} Ana Eksen Haritalandı</span>
+          <span>{resolvedAxes.length} Eksen ({uniqueDomainsCount} Alan)</span>
         </div>
       </div>
+
+      {/* Partial Domain Warning if only 1-2 domains measured */}
+      {uniqueDomainsCount > 0 && uniqueDomainsCount <= 2 && (
+        <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 flex items-center gap-2.5 text-xs text-amber-800 dark:text-amber-300">
+          <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
+          <span>
+            Bu görsel şu anda yalnızca ölçülen {uniqueDomainsCount} psikolojik alana ait boyutları yansıtmaktadır; diğer modüller tamamlandıkça eksenler dengeli biçimde genişleyecektir.
+          </span>
+        </div>
+      )}
 
       {/* Main Visual & Interpretation Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -227,7 +260,7 @@ export const PersonalityDNA: React.FC<PersonalityDNAProps> = ({ profile }) => {
             <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider">
-                  Seçili Eksen Detayı
+                  Seçili Eksen Detayı ({activeAxis.domainNameTr})
                 </span>
                 <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">
                   {activeAxis.score.toFixed(2)} / 5.00
@@ -245,14 +278,18 @@ export const PersonalityDNA: React.FC<PersonalityDNAProps> = ({ profile }) => {
             </div>
           )}
 
-          {/* Bullets: Profilinin En Belirgin Eksenleri */}
+          {/* Bullets: Ölçekte En Uçta Yer Alan Eksenlerin */}
           <div className="space-y-3">
             <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              Profilinin En Belirgin Eksenleri
+              Ölçekte En Uçta Yer Alan Eksenlerin
             </h3>
             <ul className="space-y-2.5">
-              {topAxes.map((axis) => {
+              {topDistinctiveAxes.map((axis) => {
                 const pos = resolveConsumerScalePosition(axis.score);
+                const poleDesc =
+                  axis.score > 3.0
+                    ? 'ölçeğin üst bandına yaklaşan'
+                    : 'ölçeğin alt bandına yaklaşan';
                 return (
                   <li
                     key={axis.facetId}
@@ -261,9 +298,9 @@ export const PersonalityDNA: React.FC<PersonalityDNAProps> = ({ profile }) => {
                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-1.5 shrink-0" />
                     <div>
                       <strong className="text-slate-900 dark:text-white font-semibold">
-                        {axis.labelTr} ({pos.labelTr}):
+                        {axis.labelTr} ({axis.score.toFixed(2)} — {pos.labelTr}):
                       </strong>{' '}
-                      Ölçüm ölçeğinde belirgin bir yer tutarak karar ve çalışma süreçlerindeki karakteristik eğilimini pekiştiriyor.
+                      Nötr ortalamadan en çok farklılaşarak {poleDesc} karakteristik bir profil ayrışması sunmaktadır.
                     </div>
                   </li>
                 );
@@ -271,9 +308,14 @@ export const PersonalityDNA: React.FC<PersonalityDNAProps> = ({ profile }) => {
             </ul>
           </div>
 
-          {/* Scientific Disclaimer Note */}
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/30 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed border border-slate-100 dark:border-slate-800">
-            <strong>Bilimsel Hatırlatma:</strong> Bu harita tamamlanan ölçeklerdeki yanıt konumlarını özetleyen bir görsel koordinat haritasıdır; biyometrik veya kalıcı bir psikolojik tip iddiası taşımaz.
+          {/* Scientific Disclaimer Note & Product Metaphor */}
+          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/30 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed border border-slate-100 dark:border-slate-800 space-y-1">
+            <p>
+              <strong>Ürün Metaforu:</strong> Bu görsel genetik bir DNA modeli değildir; ölçülen psikolojik boyutlarının görsel imzasıdır.
+            </p>
+            <p>
+              <strong>Bilimsel Hatırlatma:</strong> Bu harita tamamlanan ölçeklerdeki yanıt konumlarını özetleyen bir görsel koordinat haritasıdır; biyometrik veya kalıcı bir psikolojik tip iddiası taşımaz.
+            </p>
           </div>
         </div>
       </div>

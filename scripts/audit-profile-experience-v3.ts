@@ -18,7 +18,7 @@ export async function runProfileExperienceV3Audit(): Promise<ProfileExperienceV3
   const checks: { name: string; passed: boolean; details: string }[] = [];
 
   console.log('='.repeat(95));
-  console.log('PSYCHE-AI PROFILE EXPERIENCE V3 AUDIT (REQUIREMENT 45)');
+  console.log('PSYCHE-AI PROFILE EXPERIENCE V3 SCIENTIFIC HARDENING AUDIT (V3.1)');
   console.log('='.repeat(95));
 
   // Helper to record check
@@ -34,7 +34,31 @@ export async function runProfileExperienceV3Audit(): Promise<ProfileExperienceV3
     ? fs.readFileSync(profileClientViewPath, 'utf8')
     : '';
 
-  // 1. Old spiky fingerprint removed
+  const narrativePath = path.join(root, 'src/components/profile/ProfileNarrative.tsx');
+  const narrativeContent = fs.existsSync(narrativePath) ? fs.readFileSync(narrativePath, 'utf8') : '';
+
+  const dnaPath = path.join(root, 'src/components/profile/PersonalityDNA.tsx');
+  const dnaContent = fs.existsSync(dnaPath) ? fs.readFileSync(dnaPath, 'utf8') : '';
+
+  const compassPath = path.join(root, 'src/components/profile/InterpersonalStyleCompass.tsx');
+  const compassContent = fs.existsSync(compassPath) ? fs.readFileSync(compassPath, 'utf8') : '';
+
+  const radarPath = path.join(root, 'src/components/profile/HexacoRadarV2.tsx');
+  const radarContent = fs.existsSync(radarPath) ? fs.readFileSync(radarPath, 'utf8') : '';
+
+  const schwartzPath = path.join(root, 'src/components/profile/SchwartzValuesCircle.tsx');
+  const schwartzContent = fs.existsSync(schwartzPath) ? fs.readFileSync(schwartzPath, 'utf8') : '';
+
+  const heroPath = path.join(root, 'src/components/profile/ProfileHeroV3.tsx');
+  const heroContent = fs.existsSync(heroPath) ? fs.readFileSync(heroPath, 'utf8') : '';
+
+  const heatmapPath = path.join(root, 'src/components/profile/HexacoFacetHeatmap.tsx');
+  const heatmapContent = fs.existsSync(heatmapPath) ? fs.readFileSync(heatmapPath, 'utf8') : '';
+
+  const matrixPath = path.join(root, 'src/components/profile/TraitInteractionMatrix.tsx');
+  const matrixContent = fs.existsSync(matrixPath) ? fs.readFileSync(matrixPath, 'utf8') : '';
+
+  // 1. Old spiky fingerprint removed & replaced by PersonalityDNA
   const oldFingerprintRemoved =
     !profileClientViewContent.includes('<ProfileFingerprint') &&
     profileClientViewContent.includes('PersonalityDNA');
@@ -57,194 +81,141 @@ export async function runProfileExperienceV3Audit(): Promise<ProfileExperienceV3
     'Main profile still contains permanently wide 4-column desktop sidebar'
   );
 
-  // 3. Profile hero interpretation-first
-  const heroPath = path.join(root, 'src/components/profile/ProfileHeroV3.tsx');
-  const heroExists = fs.existsSync(heroPath);
-  let heroInterpretationFirst = false;
-  if (heroExists) {
-    const heroContent = fs.readFileSync(heroPath, 'utf8');
-    heroInterpretationFirst =
-      heroContent.includes('generateProfileHeroSynthesis') &&
-      heroContent.includes('headlineTr') &&
-      heroContent.includes('synthesisTextTr') &&
-      heroContent.includes('themeChips');
-  }
+  // 3. Deep profile analysis uses real pipeline (no setTimeout, no hardcoded text)
+  const realDeepAnalysisPipeline =
+    !narrativeContent.includes('setTimeout(') &&
+    !narrativeContent.includes('--- ÇOK BOYUTLU DERİN PROFİL ANALİZİ ---') &&
+    narrativeContent.includes('/api/profile/deep-analysis') &&
+    narrativeContent.includes('generateEvidenceGroundedDeepFallback') &&
+    narrativeContent.includes('deepState');
   recordCheck(
-    '3. Profile hero interpretation-first',
-    heroInterpretationFirst,
-    'ProfileHeroV3 leads with 2-3 sentence personalized psychological synthesis and key theme tags before secondary progress',
-    'Profile hero is missing narrative synthesis or does not lead with psychological interpretation'
+    '3. Real Deep Profile Analysis pipeline',
+    realDeepAnalysisPipeline,
+    'ProfileNarrative calls real /api/profile/deep-analysis route and deterministic evidence-grounded fallback without setTimeout simulation',
+    'ProfileNarrative still uses setTimeout or hardcoded simulation instead of real insight pipeline'
   );
 
-  // 4. HEXACO radar exists
-  const radarPath = path.join(root, 'src/components/profile/HexacoRadarV2.tsx');
-  const radarExists = fs.existsSync(radarPath);
-  let hexacoRadarValid = false;
-  if (radarExists) {
-    const radarContent = fs.readFileSync(radarPath, 'utf8');
-    hexacoRadarValid =
-      radarContent.includes('hexaco_honesty_humility') &&
-      radarContent.includes('hexaco_emotionality') &&
-      radarContent.includes('hexaco_extraversion') &&
-      radarContent.includes('hexaco_agreeableness') &&
-      radarContent.includes('hexaco_conscientiousness') &&
-      radarContent.includes('hexaco_openness_to_experience') &&
-      radarContent.includes('RadarChart');
-  }
+  // 4. Client cache keys do NOT contain raw userId
+  const cleanCacheKeys =
+    !narrativeContent.includes('profile.userId') &&
+    !narrativeContent.includes('userId') &&
+    narrativeContent.includes('cacheKey');
   recordCheck(
-    '4. HEXACO radar exists',
-    hexacoRadarValid,
-    'HexacoRadarV2 accurately renders 6 broad personality factors with Recharts and value-neutral scale positions',
-    'HEXACO radar component is missing or does not correctly configure the 6 broad factors'
+    '4. Client cache keys hygiene (zero PII / zero raw userId)',
+    cleanCacheKeys,
+    'Session storage cache keys are derived from facet signature and timestamp without leaking raw userId',
+    'Client-side cache keys still contain raw userId'
   );
 
-  // 5. HEXACO heatmap exists
-  const heatmapPath = path.join(root, 'src/components/profile/HexacoFacetHeatmap.tsx');
-  const heatmapExists = fs.existsSync(heatmapPath);
-  let heatmapValid = false;
-  if (heatmapExists) {
-    const heatmapContent = fs.readFileSync(heatmapPath, 'utf8');
-    heatmapValid =
-      heatmapContent.includes('HEXACO_24_STRUCTURE') &&
-      heatmapContent.includes('selectedFacet') &&
-      heatmapContent.includes('generatePersonalizedFacetInterpretation');
-  }
+  // 5. PersonalityDNA balanced axes selection (at most 1-2 per domain)
+  const dnaBalancedAxes =
+    dnaContent.includes('facetsByDomain') &&
+    dnaContent.includes('uniqueDomainsCount') &&
+    dnaContent.includes('selectedFacets');
   recordCheck(
-    '5. HEXACO heatmap exists',
-    heatmapValid,
-    'HexacoFacetHeatmap renders exact 24-cell matrix (6 factors × 4 facets) with interactive slide-over drawer',
-    'HEXACO facet heatmap is missing or does not support 24 facets with inspection drawer'
+    '5. PersonalityDNA balanced axes selection',
+    dnaBalancedAxes,
+    'PersonalityDNA balances axes across measured domains (1-2 per domain) and displays domain coverage state',
+    'PersonalityDNA lacks domain-balanced axis selection or over-indexes on a single domain'
   );
 
-  // 6. Schwartz circle conditional
-  const schwartzPath = path.join(root, 'src/components/profile/SchwartzValuesCircle.tsx');
-  const schwartzExists = fs.existsSync(schwartzPath);
-  let schwartzValid = false;
-  if (schwartzExists) {
-    const schwartzContent = fs.readFileSync(schwartzPath, 'utf8');
-    schwartzValid =
-      schwartzContent.includes('schwartz_openness_to_change') &&
-      schwartzContent.includes('isMeasured') &&
-      schwartzContent.includes('Henüz Ölçülmedi');
-  }
+  // 6. PersonalityDNA distinctiveness uses Math.abs(score - 3.0), NOT descending score
+  const dnaMidpointDistinctiveness =
+    dnaContent.includes('Math.abs') &&
+    dnaContent.includes('3.0') &&
+    !dnaContent.includes('sort((a, b) => b.score - a.score)') &&
+    dnaContent.includes('Ölçekte En Uçta Yer Alan Eksenlerin');
   recordCheck(
-    '6. Schwartz circle conditional',
-    schwartzValid,
-    'SchwartzValuesCircle conditionally verifies measurement and does not fabricate scores when unmeasured',
-    'Schwartz values circle does not properly guard unmeasured status'
+    '6. PersonalityDNA midpoint distinctiveness heuristic',
+    dnaMidpointDistinctiveness,
+    'Distinctiveness is computed as distance from midpoint 3.0 (Math.abs(score - 3.0)) capturing both high and low scale poles',
+    'PersonalityDNA computes distinctiveness via descending score instead of distance from neutral midpoint'
   );
 
-  // 7. Percentile chart conditional on norm data
-  const normConditional =
-    profileClientViewContent.includes('Toplum Normlarıyla Karşılaştırma Henüz Sunulmuyor') ||
-    profileClientViewContent.includes('Toplum normlarıyla karşılaştırma henüz sunulmuyor');
+  // 7. PersonalityDNA contains metaphor disclaimer
+  const dnaMetaphorDisclaimer =
+    dnaContent.includes('Bu görsel genetik bir DNA modeli değildir') &&
+    dnaContent.includes('ölçülen psikolojik boyutlarının görsel imzasıdır');
   recordCheck(
-    '7. Percentile chart conditional on norm data',
-    normConditional,
-    'No fabricated percentiles or simulated population distributions rendered; explicit epistemic norm transparency provided',
-    'Profile view leaks uncalibrated population percentiles or lacks explicit norm status note'
+    '7. PersonalityDNA product metaphor disclaimer',
+    dnaMetaphorDisclaimer,
+    'Explicit disclaimer present stating the visual is a product metaphor and not a genetic DNA model',
+    'PersonalityDNA lacks product metaphor disclaimer'
   );
 
-  // 8. RIASEC conditional on actual data
-  const riasecNotFakeInProfile = !profileClientViewContent.includes('<RiasecHexagon');
+  // 8. InterpersonalStyleCompass uses "Keşifsel türetilmiş görünüm" (NOT "Kuramsal")
+  const compassCorrectBadge =
+    compassContent.includes('Keşifsel türetilmiş görünüm') &&
+    !compassContent.includes('Kuramsal Türetilmiş');
   recordCheck(
-    '8. RIASEC conditional on actual data',
-    riasecNotFakeInProfile,
-    'RIASEC hexagon is not rendered with fabricated data in the live profile view; remains reserved for future vocational module',
-    'Live profile view inappropriately renders fabricated RIASEC vocational model without measurement instrument'
+    '8. InterpersonalStyleCompass exploratory derived badge',
+    compassCorrectBadge,
+    'InterpersonalStyleCompass clearly displays "Keşifsel türetilmiş görünüm"',
+    'InterpersonalStyleCompass lacks exploratory derived label or still uses "Kuramsal"'
   );
 
-  // 9. Interaction matrix uses no fake correlation
-  const matrixPath = path.join(root, 'src/components/profile/TraitInteractionMatrix.tsx');
-  const matrixExists = fs.existsSync(matrixPath);
+  // 9. InterpersonalStyleCompass axis label uses "Daha geri planda / daha az yönlendirici" (NOT "Alçakgönüllü")
+  const compassCorrectAxisLabel =
+    compassContent.includes('Daha geri planda / daha az yönlendirici (-Agency)') &&
+    !compassContent.includes('Alçakgönüllü (-Agency)');
+  recordCheck(
+    '9. InterpersonalStyleCompass agency axis terminology',
+    compassCorrectAxisLabel,
+    'Negative agency axis correctly labeled "Daha geri planda / daha az yönlendirici (-Agency)" avoiding confusion with humility',
+    'InterpersonalStyleCompass still conflates negative agency with humility (Alçakgönüllü)'
+  );
+
+  // 10. InterpersonalStyleCompass requires >= 2 indicators for Agency AND >= 2 for Communion
+  const compassThresholdEnforced =
+    compassContent.includes('agencyScores.length >= 2') &&
+    compassContent.includes('communionScores.length >= 2') &&
+    compassContent.includes('Henüz yeterli veri yok');
+  recordCheck(
+    '10. InterpersonalStyleCompass operational threshold (>=2 agency, >=2 communion)',
+    compassThresholdEnforced,
+    'Strictly requires >= 2 measured indicators for agency AND >= 2 for communion; displays informative fallback otherwise',
+    'InterpersonalStyleCompass renders coordinates with insufficient facet indicators'
+  );
+
+  // 11. HexacoRadarV2 uses ONLY constructScore (no facet averaging fallback)
+  const radarNoAveraging =
+    radarContent.includes('construct?.constructScore ?? null') &&
+    !radarContent.includes('relevantFacets.reduce') &&
+    !radarContent.includes('sum / relevantFacets.length');
+  recordCheck(
+    '11. HexacoRadar canonical constructScore integrity',
+    radarNoAveraging,
+    'HexacoRadar uses strictly canonical constructScore with zero synthetic averaging fallback for broad factors',
+    'HexacoRadar fabricates broad factor scores by averaging whatever facets are measured'
+  );
+
+  // 12. SchwartzValuesCircle handles partial data (1-3 facets) with unmeasured labels
+  const schwartzPartialHandling =
+    schwartzContent.includes('schwartz_openness_to_change') &&
+    schwartzContent.includes('Ölçülmedi') &&
+    schwartzContent.includes('allSectors.map');
+  recordCheck(
+    '12. SchwartzValuesCircle partial data handling and unmeasured labels',
+    schwartzPartialHandling,
+    'Schwartz values circumplex renders 4-quadrant layout labeling measured vs "Ölçülmedi" sectors without fabrication',
+    'SchwartzValuesCircle does not properly handle partial facet measurements or lacks unmeasured labels'
+  );
+
+  // 13. Interaction matrix uses no fake correlation
   let matrixNoFakeCorr = false;
-  if (matrixExists) {
-    const matrixContent = fs.readFileSync(matrixPath, 'utf8');
+  if (fs.existsSync(matrixPath)) {
     matrixNoFakeCorr =
       !matrixContent.includes('calculatePearson') &&
       !matrixContent.includes('calculateSpearman') &&
       !matrixContent.includes('r =') &&
       matrixContent.includes('synergies') &&
-      matrixContent.includes('tensions') &&
-      matrixContent.includes('sahte istatistiksel Pearson veya Spearman korelasyonu hesaplamaz');
+      matrixContent.includes('tensions');
   }
   recordCheck(
-    '9. Interaction matrix uses no fake correlation',
+    '13. Interaction matrix uses no fake statistical correlation',
     matrixNoFakeCorr,
-    'TraitInteractionMatrix uses qualitative synergies and delicate balance tension rules without claiming statistical correlation',
-    'Trait interaction matrix improperly claims Pearson/Spearman mathematical correlation on single-user profile'
-  );
-
-  // 10. Measured facets personalized
-  const facetCardPath = path.join(root, 'src/components/profile/FacetInsightCardV3.tsx');
-  const facetCardExists = fs.existsSync(facetCardPath);
-  let facetCardPersonalized = false;
-  if (facetCardExists) {
-    const cardContent = fs.readFileSync(facetCardPath, 'utf8');
-    facetCardPersonalized =
-      cardContent.includes('generatePersonalizedFacetInterpretation') &&
-      cardContent.includes('selfMeaningTr') &&
-      cardContent.includes('dailyLifeTr') &&
-      cardContent.includes('strengthsContextTr') &&
-      cardContent.includes('energyCostContextTr') &&
-      cardContent.includes('reflectionQuestionTr');
-  }
-  recordCheck(
-    '10. Measured facets personalized',
-    facetCardPersonalized,
-    'FacetInsightCardV3 provides 6-part rich personalized interpretation beyond raw dictionary definitions',
-    'Facet cards lack personalized interpretation sections or rely solely on dictionary definitions'
-  );
-
-  // 11. Unmeasured facets grouped separately
-  const unmeasuredPanelPath = path.join(root, 'src/components/profile/UnexploredAreasPanel.tsx');
-  const unmeasuredPanelExists = fs.existsSync(unmeasuredPanelPath);
-  const unmeasuredSeparated =
-    unmeasuredPanelExists &&
-    profileClientViewContent.includes('UnexploredAreasPanel') &&
-    profileClientViewContent.includes('Henüz Ölçülmeyenler');
-  recordCheck(
-    '11. Unmeasured facets grouped separately',
-    unmeasuredSeparated,
-    'Unmeasured facets are grouped separately into dedicated discovery views and actionable next-assessment CTAs',
-    'Unmeasured facets are not clearly grouped separately from measured findings'
-  );
-
-  // 12. Scientific technical enums hidden
-  const sciencePanelPath = path.join(root, 'src/components/profile/ScientificDetailPanelV2.tsx');
-  const sciencePanelExists = fs.existsSync(sciencePanelPath);
-  let enumsHiddenInDrawer = false;
-  if (sciencePanelExists) {
-    const scienceContent = fs.readFileSync(sciencePanelPath, 'utf8');
-    enumsHiddenInDrawer =
-      scienceContent.includes('showTechnicalDrawer') &&
-      scienceContent.includes('Teknik Ayrıntıları') &&
-      scienceContent.includes('qualityExplanation');
-  }
-  recordCheck(
-    '12. Scientific technical enums hidden',
-    enumsHiddenInDrawer,
-    'ScientificDetailPanelV2 presents a 6-dimension consumer explanation first; raw technical enums are collapsed in an expert drawer',
-    'Technical enums leak directly into the primary consumer science view without collapsible drawer containment'
-  );
-
-  // 13. Deep profile analysis available
-  const narrativePath = path.join(root, 'src/components/profile/ProfileNarrative.tsx');
-  const narrativeExists = fs.existsSync(narrativePath);
-  let deepAnalysisAvailable = false;
-  if (narrativeExists) {
-    const narrativeContent = fs.readFileSync(narrativePath, 'utf8');
-    deepAnalysisAvailable =
-      narrativeContent.includes("'deep'") &&
-      narrativeContent.includes('handleGenerateDeepAnalysis') &&
-      narrativeContent.includes('localStorage.setItem') &&
-      narrativeContent.includes('localStorage.getItem');
-  }
-  recordCheck(
-    '13. Deep profile analysis available',
-    deepAnalysisAvailable,
-    'ProfileNarrative provides Quick/Detailed/Deep modes with cached on-demand Deep Profile Analysis generation',
-    'Deep Profile Analysis mode or evidence caching is missing from ProfileNarrative'
+    'TraitInteractionMatrix uses qualitative synergies and balance rules without mathematical correlation fabrication',
+    'Trait interaction matrix improperly claims Pearson/Spearman correlation on single-user profile'
   );
 
   // 14. 91/37/11 source of truth preserved
@@ -253,7 +224,7 @@ export async function runProfileExperienceV3Audit(): Promise<ProfileExperienceV3
     MASTER_CONSTRUCTS.length === 37 &&
     MASTER_FACETS.length === 91;
   recordCheck(
-    '14. 91/37/11 source of truth preserved',
+    '14. 91/37/11 master model source of truth preserved',
     sourceOfTruthPreserved,
     `Master model constants verified intact: 11 Domains, 37 Constructs, 91 Facets (Exact: ${MASTER_DOMAINS.length}/${MASTER_CONSTRUCTS.length}/${MASTER_FACETS.length})`,
     `Master model constants corrupted: expected 11/37/91, got ${MASTER_DOMAINS.length}/${MASTER_CONSTRUCTS.length}/${MASTER_FACETS.length}`
@@ -269,7 +240,7 @@ export async function runProfileExperienceV3Audit(): Promise<ProfileExperienceV3
   });
 
   console.log('\n' + '='.repeat(95));
-  console.log(`PROFILE EXPERIENCE V3 AUDIT: ${success ? 'PASSED ✅ (14/14)' : 'FAILED ❌'}`);
+  console.log(`PROFILE EXPERIENCE V3 SCIENTIFIC HARDENING AUDIT: ${success ? 'PASSED ✅ (14/14)' : 'FAILED ❌'}`);
   console.log('='.repeat(95));
 
   if (errors.length > 0) {

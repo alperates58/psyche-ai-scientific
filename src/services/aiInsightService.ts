@@ -25,6 +25,7 @@ import {
   InterpretationPlanV2,
   InsightType,
   UnifiedProfileAISectionData,
+  DeepProfileInsightResultV2,
   EvidenceTransparencyInfo,
 } from '@/types/aiInsightV2';
 import {
@@ -264,6 +265,97 @@ export async function getAssessmentResultAIInsight(
 }
 
 export { getEvidenceTransparencyInfo } from '@/lib/ai/evidence/evidenceTransparency';
+export { generateEvidenceGroundedDeepFallback } from '@/lib/profile/deepProfileSynthesis';
+import { generateEvidenceGroundedDeepFallback } from '@/lib/profile/deepProfileSynthesis';
+
+
+/**
+ * Authoritative pipeline generating an Evidence-Grounded Deep Profile Analysis.
+ * Resolves AI configuration, computes evidence hash, checks cache, runs provider
+ * with anti-hallucination verification, and returns validated structured analysis.
+ */
+export async function getDeepProfileInsight(
+  profile: UnifiedPsychologicalProfileV2,
+  snapshotId?: string
+): Promise<DeepProfileInsightResultV2> {
+  const bundle = buildProfileEvidenceBundleV2(profile);
+  const plan = buildInterpretationPlanV2(bundle, { requestType: 'PROFILE_OVERVIEW' });
+  const evidenceHash = computeEvidenceHash(plan);
+  const resolvedSnapshotId = snapshotId || `snap_${bundle.userId}_${bundle.generatedAt}`;
+
+  // 1. Server-side Cache Check
+  const cacheKey = `deep_${evidenceHash}_v3_1`;
+  const cached = getCachedInsight(
+    resolvedSnapshotId,
+    'PROFILE_OVERVIEW',
+    cacheKey,
+    PROMPT_VERSION_ID
+  );
+  if (cached && (cached as any).deepResult) {
+    return (cached as any).deepResult as DeepProfileInsightResultV2;
+  }
+
+  // 2. Try External Provider if Available
+  const config = await getAIConfig();
+  if (config.isAvailable && config.apiKey) {
+    try {
+      const externalOutput = await deepSeekProvider.generateStructuredInsight(
+        { ...plan, depthMode: 'DEEP_ANALYSIS' },
+        config
+      );
+      const verification = verifyAIInsightClaims(externalOutput, plan);
+      if (verification.isValid && verification.metrics.unsupportedClaims === 0) {
+        const deepResult: DeepProfileInsightResultV2 = {
+          headlineTr: externalOutput.headlineTr || 'Çok Boyutlu Derin Profil Analizi',
+          executiveSummaryTr: externalOutput.summaryTr,
+          thinkingStyle: externalOutput.whatStandsOut || [],
+          decisionStyle: externalOutput.decisionImplications || [],
+          workExecution: externalOutput.workGoalImplications || [],
+          emotionalPatterns: externalOutput.dailyLifePatterns || [],
+          relationshipPatterns: externalOutput.relationshipImplications || [],
+          motivationPatterns: externalOutput.situationalStrengths || [],
+          traitInteractions: externalOutput.traitInteractions || [],
+          balancePoints: externalOutput.possibleFrictionPoints || [],
+          reflectionQuestions: externalOutput.reflectionPrompts || [],
+          limitations: externalOutput.limitations || [],
+          evidenceRefs: externalOutput.evidenceRefs || [],
+          generatedAt: externalOutput.generatedAt,
+          isFallback: false,
+          modelProvider: externalOutput.modelProvider,
+          modelName: externalOutput.modelName,
+        };
+
+        setCachedInsight(
+          resolvedSnapshotId,
+          'PROFILE_OVERVIEW',
+          cacheKey,
+          PROMPT_VERSION_ID,
+          PROMPT_ENGINE_VERSION,
+          { ...externalOutput, deepResult } as any
+        );
+
+        return deepResult;
+      }
+    } catch (err: any) {
+      console.warn('DeepSeek provider deep analysis failed, falling back to deterministic:', err.message);
+    }
+  }
+
+  // 3. Evidence-Grounded Deterministic Synthesis Fallback
+  const fallbackResult = generateEvidenceGroundedDeepFallback(profile, bundle);
+
+  // Cache fallback
+  setCachedInsight(
+    resolvedSnapshotId,
+    'PROFILE_OVERVIEW',
+    cacheKey,
+    PROMPT_VERSION_ID,
+    PROMPT_ENGINE_VERSION,
+    { deepResult: fallbackResult } as any
+  );
+
+  return fallbackResult;
+}
 
 // =========================================================================
 // 2. BACKWARD COMPATIBILITY ADAPTERS (LEGACY CALLERS)

@@ -63,6 +63,7 @@ export const DEFAULT_AI_GOVERNANCE: AIInsightGovernanceV2 = {
 export interface InterpretationPlanV2 {
   planId: string;
   requestType: InsightType;
+  depthMode?: InterpretationDepthMode;
   targetDomainIds: string[];
   targetConstructIds: string[];
   targetFacetIds: string[];
@@ -219,6 +220,26 @@ export interface UnifiedProfileAISectionData {
   nextAssessmentPrompt: AIInsightV2 | null;
   generatedAt: string;
   isFallback: boolean;
+}
+
+export interface DeepProfileInsightResultV2 {
+  headlineTr: string;
+  executiveSummaryTr: string;
+  thinkingStyle: string[];
+  decisionStyle: string[];
+  workExecution: string[];
+  emotionalPatterns: string[];
+  relationshipPatterns: string[];
+  motivationPatterns: string[];
+  traitInteractions: string[];
+  balancePoints: string[];
+  reflectionQuestions: string[];
+  limitations: string[];
+  evidenceRefs: string[];
+  generatedAt: string;
+  isFallback: boolean;
+  modelProvider?: string;
+  modelName?: string;
 }
 
 export interface TheoryLensEvidenceBundle {
