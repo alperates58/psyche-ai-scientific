@@ -165,7 +165,7 @@ describe('FAZ 2.21 — Journal & Observational AI Unit Tests', () => {
     body: 'Bugün toplantıda sunum yaparken kendimi çok rahat hissettim.',
     entryType: 'WORK',
     contextTags: ['WORK'],
-    userTags: ['sunum', 'kariyer'],
+    userTags: [],
     moodSelfReport: 4,
     energySelfReport: 4,
     stressSelfReport: 2,
@@ -232,7 +232,7 @@ describe('FAZ 2.21 — Journal & Observational AI Unit Tests', () => {
         title: 'Yoğun iş baskısı',
         body: 'İş yerinde teslim tarihleri nedeniyle çok yoğun bir baskı ve tükenmişlik hissediyorum.',
         entryType: 'STRESS',
-        contextTags: ['WORK', 'STRESS'],
+        contextTags: ['WORK'],
         stressSelfReport: 5,
         createdAt: '2026-09-10T10:00:00.000Z',
       },
@@ -350,6 +350,7 @@ describe('FAZ 2.21 — Journal & Observational AI Unit Tests', () => {
       body: 'Toplantıda sunum yaparken kendimi çok rahat, özgüvenli ve cesur hissettim.',
       entryType: 'WORK',
       contextTags: ['WORK', 'SOCIAL'],
+      userTags: ['sunum'],
       stressSelfReport: 1,
     };
     const relationships = resolveJournalProfileRelationships(confidentSocialEntry, profile);

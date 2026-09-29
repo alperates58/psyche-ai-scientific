@@ -104,6 +104,32 @@ export interface InterpretationPlanV2 {
 
 export type InterpretationDepthMode = 'GLANCE' | 'NARRATIVE' | 'DEEP_ANALYSIS';
 
+export interface AIInterpretationPlanV2 {
+  planId: string;
+  requestType: string;
+  depthMode?: InterpretationDepthMode;
+  primaryEvidence: Array<{
+    evidenceType?: string;
+    sourceId?: string;
+    evidenceId?: string;
+    titleTr: string;
+    numericValue?: number | null;
+    score?: number | null;
+    bandLabelTr?: string;
+    scientificRationaleTr?: string;
+  }>;
+  supportingEvidence?: any[];
+  tensionsOrSynergies?: any[];
+  targetDomainIds?: string[];
+  targetConstructIds?: string[];
+  targetFacetIds?: string[];
+  requiredSections?: string[];
+  reflectionQuestions?: string[];
+  epistemicRequirements?: string[];
+  forbiddenTerms?: string[];
+}
+
+
 export const AIInsightV2Schema = z.object({
   insightId: z.string(),
   depthMode: z.enum(['GLANCE', 'NARRATIVE', 'DEEP_ANALYSIS']).default('NARRATIVE'),

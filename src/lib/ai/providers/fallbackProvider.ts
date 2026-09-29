@@ -266,3 +266,52 @@ export class DeterministicFallbackProvider implements AIInsightProvider {
 }
 
 export const deterministicFallbackProvider = new DeterministicFallbackProvider();
+
+export function generateFallbackInsight(plan: any): any {
+  const depthMode = plan.depthMode || 'NARRATIVE';
+  const primary = plan.primaryEvidence?.[0];
+  const facetId = primary?.sourceId || primary?.evidenceId || 'general';
+  const title = primary?.titleTr || 'Psikolojik Ölçüm ve Profil Analizi';
+  const value = primary?.numericValue ?? primary?.score ?? 3.5;
+  const pos = resolveConsumerScalePosition(value);
+
+  return {
+    insightId: `fallback_${Date.now()}`,
+    depthMode,
+    type: plan.requestType || 'PROFILE_OVERVIEW',
+    titleTr: title,
+    headlineTr: `${title} ölçümünde ${pos.labelTr.toLowerCase()} bir konum gözlenmektedir.`,
+    summaryTr: `${title} eğiliminiz profilinizde ${value.toFixed(2)}/5.00 değeriyle yer almaktadır.`,
+    bodyTr: `Profil ölçüm sonuçlarınıza göre ${title} boyutu ${pos.descriptionTr}`,
+    whatStandsOut: [`${title}: ${pos.labelTr}`],
+    epistemicSegments: [
+      { textTr: `${title} boyutu doğrudan ölçülen ampirik yanıtlara dayanır.`, evidenceRef: facetId }
+    ],
+    groundedFacetIds: [facetId],
+    dailyLifePatterns: [
+      `${title} günlük kararlarınızda ve odaklanma süreçlerinizde belirleyici bir eğilim oluşturur.`
+    ],
+    reflectionQuestions: plan.reflectionQuestions || [
+      `${title} eğiliminizin en çok desteklediği durumlar nelerdir?`
+    ],
+    scientificEvidenceNotesTr: 'Ölçüm yerel 1.0–5.0 ölçeğinde hesaplanmıştır; popülasyon normu içermez.',
+    potentialBiasesOrCaveatsTr: 'Öz-bildirim verilerine dayalıdır, durumsal faktörlere göre esneklik gösterebilir.',
+    claimStrength: 'DIRECT_MEASUREMENT',
+    evidenceRefs: [facetId],
+    primaryEvidenceRefs: [facetId],
+    supportingEvidenceRefs: [],
+    counterbalancingEvidenceRefs: [],
+    measurementStatus: 'MEASURED_PRECALIBRATION',
+    coverageStatus: 'Kapsam: %100',
+    responseQualityStatus: 'EXCELLENT',
+    reflectionPrompts: plan.reflectionQuestions || ['Kendinizi bu alanda nasıl değerlendirirsiniz?'],
+    limitations: ['Ön-kalibrasyon aşaması: Puanlar yerel ölçek ortalamalarını yansıtır.'],
+    generatedAt: new Date().toISOString(),
+    modelProvider: 'DeterministicFallback',
+    modelName: 'psycheai-rules-v2',
+    promptVersion: PROMPT_VERSION_ID,
+    engineVersion: PROMPT_ENGINE_VERSION,
+    isFallback: true,
+  };
+}
+

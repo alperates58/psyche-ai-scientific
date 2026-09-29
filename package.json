@@ -13,6 +13,7 @@
     "test:e2e": "playwright test",
     "audit:report": "tsx scripts/generate-scientific-audit-report.ts",
     "audit:consumer-experience": "tsx scripts/audit-consumer-experience.ts",
+    "audit:profile-experience-v3": "tsx scripts/audit-profile-experience-v3.ts",
     "audit:schema": "tsx scripts/audit-schema.ts",
     "audit:master-model": "tsx scripts/audit-master-model.ts",
     "audit:assessment-architecture": "tsx scripts/audit-assessment-architecture.ts",

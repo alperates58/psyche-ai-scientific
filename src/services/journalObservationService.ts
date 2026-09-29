@@ -1042,7 +1042,7 @@ export function resolveJournalProfileRelationships(
   // If entry contains NO matching semantic topic signals, return NO_CLEAR_RELATION
   if (detectedTopics.length === 0) {
     for (const tag of entry.contextTags) {
-      const potentiallyRelevant = (POTENTIALLY_RELEVANT_FACET_MAP[tag] || []).slice(0, 2);
+      const potentiallyRelevant = (POTENTIALLY_RELEVANT_FACET_MAP[tag] || []).slice(0, 1);
       for (const facetId of potentiallyRelevant) {
         const facetMeta = MASTER_FACETS.find((f) => f.facetId === facetId);
         if (!facetMeta) continue;
@@ -1081,7 +1081,9 @@ export function resolveJournalProfileRelationships(
         let narrative = `Bu kayıtta gözlenen ${topic.labelTr} teması, profilinizdeki ${facetMeta.nameTr} (${score.toFixed(2)}) ölçümüyle anlamlı bir paralellik taşımaktadır.`;
 
         // Check for specific directional variation
-        if (topic.topicKey === 'SOCIAL_EXPRESSION' && facetId === 'social_boldness' && score >= 3.5) {
+        const textContent = `${entry.title || ''} ${entry.body || ''}`;
+        const isShyness = /çekin|utan|tedirgin|kork|çekingen/i.test(textContent);
+        if (topic.topicKey === 'SOCIAL_EXPRESSION' && facetId === 'social_boldness' && score >= 3.5 && isShyness) {
           relType = 'CONTEXTUAL_VARIATION';
           narrative = `Ölçülen sosyal cesaret ve girişkenlik düzeyiniz (${score.toFixed(2)}) yüksek olmasına karşın, bu yansımada sosyal/iş ortamında çekingenlik deneyimi paylaşıldı.`;
         } else if (topic.topicKey === 'WORK_STRESS' && facetId === 'anxiety' && score <= 2.5) {
