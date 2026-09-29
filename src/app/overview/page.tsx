@@ -250,7 +250,7 @@ export default async function OverviewPage() {
                   {profile.recentAssessments[0].moduleTitleTr}
                 </h4>
                 <p className="text-xs text-text-secondary">
-                  Tamamlanma: {new Date(profile.recentAssessments[0].completedAt).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  Tamamlanma: <span suppressHydrationWarning>{new Date(profile.recentAssessments[0].completedAt).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Istanbul' })}</span>
                 </p>
               </div>
             ) : (

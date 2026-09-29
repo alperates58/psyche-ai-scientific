@@ -18,12 +18,14 @@ export function ModuleRepeatComparisonPanel({ comparison }: ModuleRepeatComparis
     day: 'numeric',
     month: 'short',
     year: 'numeric',
+    timeZone: 'Europe/Istanbul',
   });
 
   const currDate = new Date(comparison.currentCompletedAt).toLocaleDateString('tr-TR', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
+    timeZone: 'Europe/Istanbul',
   });
 
   return (
@@ -37,7 +39,7 @@ export function ModuleRepeatComparisonPanel({ comparison }: ModuleRepeatComparis
             </h3>
           </div>
           <p className="mt-1 text-xs text-slate-500">
-            {comparison.moduleTitleTr} modülü için önceki ölçüm ({prevDate}) ile mevcut ölçüm ({currDate}) arasındaki gözlenen puan farkları.
+            {comparison.moduleTitleTr} modülü için önceki ölçüm (<span suppressHydrationWarning>{prevDate}</span>) ile mevcut ölçüm (<span suppressHydrationWarning>{currDate}</span>) arasındaki gözlenen puan farkları.
           </p>
         </div>
 

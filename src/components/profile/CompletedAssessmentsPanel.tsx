@@ -45,6 +45,7 @@ export const CompletedAssessmentsPanel: React.FC<CompletedAssessmentsPanelProps>
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
+                timeZone: 'Europe/Istanbul',
               })
             : 'Tamamlandı';
 
@@ -65,7 +66,7 @@ export const CompletedAssessmentsPanel: React.FC<CompletedAssessmentsPanelProps>
                 <div className="flex items-center gap-3 text-xs text-slate-400">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
-                    <span>{dateStr}</span>
+                    <span suppressHydrationWarning>{dateStr}</span>
                   </span>
                   <span>•</span>
                   <span>Form: {a.formVersionCode}</span>

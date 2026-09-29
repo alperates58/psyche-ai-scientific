@@ -32,6 +32,7 @@ export const ResultSummaryHero: React.FC<ResultSummaryHeroProps> = ({ result }) 
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    timeZone: 'Europe/Istanbul',
   });
 
   // Calculate overall scale position if numeric composite exists
@@ -67,7 +68,10 @@ export const ResultSummaryHero: React.FC<ResultSummaryHeroProps> = ({ result }) 
                       : 'bg-surface-2 hover:bg-bg-subtle text-text-secondary border border-border-subtle'
                   }`}
                 >
-                  #{result.historicalSessions.length - idx} ({new Date(h.completedAt).toLocaleDateString('tr-TR', { month: 'short', day: 'numeric' })})
+                  #{result.historicalSessions.length - idx}{' '}
+                  <span suppressHydrationWarning>
+                    ({new Date(h.completedAt).toLocaleDateString('tr-TR', { month: 'short', day: 'numeric', timeZone: 'Europe/Istanbul' })})
+                  </span>
                 </Link>
               ))}
             </div>
@@ -104,7 +108,7 @@ export const ResultSummaryHero: React.FC<ResultSummaryHeroProps> = ({ result }) 
 
               <span className="inline-flex items-center text-[10px] text-text-tertiary px-2 py-0.5 rounded bg-bg-subtle border border-border-subtle">
                 <Calendar className="w-3 h-3 mr-1" />
-                {completedDateFormatted}
+                <span suppressHydrationWarning>{completedDateFormatted}</span>
               </span>
             </div>
 

@@ -19,6 +19,11 @@ const nextConfig = {
         destination: '/assessments/results/:sessionId',
         permanent: true,
       },
+      {
+        source: '/settings',
+        destination: '/privacy',
+        permanent: false,
+      },
     ];
   },
 };
